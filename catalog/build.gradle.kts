@@ -31,6 +31,9 @@ plugins {
 android {
     namespace = "com.adevinta.spark.catalog"
     defaultConfig.applicationId = "com.adevinta.spark.catalog"
+    defaultConfig.resourceConfigurations.addAll(
+        setOf("en-rGB", "fr", "de"),
+    )
     defaultConfig {
         versionName = version.toString()
         if (providers.environmentVariable("GITHUB_ACTION").isPresent) {
