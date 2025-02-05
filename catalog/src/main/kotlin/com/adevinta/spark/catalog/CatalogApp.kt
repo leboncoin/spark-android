@@ -49,6 +49,7 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerDefaults
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
@@ -65,6 +66,7 @@ import androidx.compose.ui.graphics.asComposeRenderEffect
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.test.DarkMode
 import androidx.compose.ui.test.DeviceConfigurationOverride
@@ -228,7 +230,7 @@ internal fun ComponentActivity.CatalogApp(
                     scaffoldState = rememberBackdropScaffoldState(BackdropValue.Concealed),
                     frontLayerScrimColor = Color.Unspecified,
                     headerHeight = BackdropScaffoldDefaults.HeaderHeight +
-                        WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding(),
+                            WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding(),
                     peekHeight = BackdropScaffoldDefaults.PeekHeight + WindowInsets.statusBars.asPaddingValues()
                         .calculateTopPadding() - 4.dp,
                     backLayerBackgroundColor = SparkTheme.colors.mainContainer,
