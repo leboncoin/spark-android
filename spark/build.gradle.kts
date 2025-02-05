@@ -78,6 +78,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.util)
     api(platform(libs.coil.bom))
     api(libs.coil.compose)
+    implementation(libs.materialKolor)
     api(libs.kotlinx.collections.immutable)
 
     testImplementation(libs.junit)

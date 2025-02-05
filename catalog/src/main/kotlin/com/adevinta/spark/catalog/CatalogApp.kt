@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.catalog
 
+import android.app.UiModeManager
 import android.graphics.RenderEffect
 import android.graphics.RuntimeShader
 import android.net.Uri
@@ -47,6 +48,7 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerDefaults
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
@@ -63,6 +65,7 @@ import androidx.compose.ui.graphics.asComposeRenderEffect
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.test.DarkMode
 import androidx.compose.ui.test.DeviceConfigurationOverride
@@ -71,6 +74,7 @@ import androidx.compose.ui.test.LayoutDirection
 import androidx.compose.ui.test.then
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.core.content.getSystemService
 import com.adevinta.spark.SparkFeatureFlag
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.configurator.ConfiguratorComponentsScreen
@@ -107,6 +111,12 @@ internal fun ComponentActivity.CatalogApp(
 
     val useDark = (theme.themeMode == ThemeMode.System && isSystemInDarkTheme()) || theme.themeMode == ThemeMode.Dark
 
+    // TODO(b/336693596): UIModeManager is not yet supported in preview
+    val contrastLevel = 1 + if (isContrastAvailable()) {
+        val uiModeManager = LocalContext.current.getSystemService<UiModeManager>()
+        uiModeManager?.contrast ?: 0f
+    } else 0f
+
     val colors = if (theme.colorMode == ColorMode.Dynamic && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
         if (useDark) {
             dynamicDarkColorScheme(LocalContext.current)
@@ -114,8 +124,13 @@ internal fun ComponentActivity.CatalogApp(
             dynamicLightColorScheme(LocalContext.current)
         }.asSparkColors(useDark = true)
     } else {
-        themeProvider.colors(useDarkColors = useDark, isPro = theme.userMode == UserMode.Pro)
+        themeProvider.colors(
+            useDarkColors = useDark,
+            isPro = theme.userMode == UserMode.Pro,
+            contrastLevel = contrastLevel,
+        )
     }
+
     val shapes = themeProvider.shapes()
     val typography = themeProvider.typography()
 
@@ -170,10 +185,10 @@ internal fun ComponentActivity.CatalogApp(
 
         DeviceConfigurationOverride(
             override = DeviceConfigurationOverride.DarkMode(useDark)
-                then DeviceConfigurationOverride.LayoutDirection(layoutDirection)
-                then DeviceConfigurationOverride.FontScale(
-                    theme.takeUnless { it.fontScaleMode == System }?.fontScale ?: LocalDensity.current.fontScale,
-                ),
+                    then DeviceConfigurationOverride.LayoutDirection(layoutDirection)
+                    then DeviceConfigurationOverride.FontScale(
+                theme.takeUnless { it.fontScaleMode == System }?.fontScale ?: LocalDensity.current.fontScale,
+            ),
         ) {
             Box(
                 modifier = Modifier
@@ -212,7 +227,7 @@ internal fun ComponentActivity.CatalogApp(
                     scaffoldState = rememberBackdropScaffoldState(BackdropValue.Concealed),
                     frontLayerScrimColor = Color.Unspecified,
                     headerHeight = BackdropScaffoldDefaults.HeaderHeight +
-                        WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding(),
+                            WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding(),
                     peekHeight = BackdropScaffoldDefaults.PeekHeight + WindowInsets.statusBars.asPaddingValues()
                         .calculateTopPadding(),
                     backLayerBackgroundColor = SparkTheme.colors.mainContainer,
@@ -288,6 +303,10 @@ internal fun ComponentActivity.CatalogApp(
             }
         }
     }
+}
+
+private fun isContrastAvailable(): Boolean {
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE
 }
 
 @Composable

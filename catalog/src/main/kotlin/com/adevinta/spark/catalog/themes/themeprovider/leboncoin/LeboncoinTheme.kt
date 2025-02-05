@@ -31,15 +31,36 @@ import com.adevinta.spark.tokens.lightSparkColors
 
 public object LeboncoinTheme : ThemeProvider {
     @Composable
-    override fun colors(useDarkColors: Boolean, isPro: Boolean): SparkColors = if (useDarkColors) {
-        if (isPro) LeboncoinColorProDark else darkSparkColors()
-    } else {
-        if (isPro) LeboncoinColorProLight else lightSparkColors()
-    }
+    override fun colors(useDarkColors: Boolean, isPro: Boolean, contrastLevel: Float): SparkColors =
+        when (contrastLevel) {
+            in 0.0f..0.33f -> basicTheme(useDarkColors, isPro)
+
+            in 0.34f..0.66f -> if (useDarkColors) {
+                if (isPro) LeboncoinColorProDark else darkSparkColors(contrastLevel = contrastLevel)
+            } else {
+                if (isPro) LeboncoinColorProLight else lightSparkColors(contrastLevel = contrastLevel)
+            }
+
+            in 0.67f..1.0f -> if (useDarkColors) {
+                if (isPro) LeboncoinColorProDark else darkSparkColors(contrastLevel = contrastLevel)
+            } else {
+                if (isPro) LeboncoinColorProLight else lightSparkColors(contrastLevel = contrastLevel)
+            }
+
+            else -> basicTheme(useDarkColors, isPro)
+        }
+
 
     @Composable
     override fun shapes(): SparkShapes = LeboncoinShapes
 
     @Composable
     override fun typography(): SparkTypography = LeboncoinTypo
+
+    @Composable
+    private fun basicTheme(useDarkColors: Boolean, isPro: Boolean): SparkColors = if (useDarkColors) {
+        if (isPro) LeboncoinColorProDark else darkSparkColors()
+    } else {
+        if (isPro) LeboncoinColorProLight else lightSparkColors()
+    }
 }

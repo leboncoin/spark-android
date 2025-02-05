@@ -22,6 +22,8 @@
 package com.adevinta.spark.tokens
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.content.res.Configuration.UI_MODE_TYPE_NORMAL
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,6 +50,7 @@ import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.ColorUtils
@@ -105,47 +108,59 @@ import com.adevinta.spark.tokens.PaletteTokens.Plum500
 import com.adevinta.spark.tokens.PaletteTokens.Plum700
 import com.adevinta.spark.tokens.PaletteTokens.Plum800
 import com.adevinta.spark.tokens.PaletteTokens.Plum900
+import com.materialkolor.contrast.Contrast.ratioOfYs
+import com.materialkolor.ktx.darken
+import com.materialkolor.ktx.from
+import com.materialkolor.ktx.lighten
+import com.materialkolor.ktx.toColor
+import com.materialkolor.ktx.toHct
+import com.materialkolor.ktx.toneColor
+import com.materialkolor.palettes.TonalPalette
+import com.materialkolor.utils.ColorUtils.lstarFromY
+import com.materialkolor.utils.ColorUtils.yFromLstar
 import kotlin.math.ln
+import kotlin.math.roundToInt
 import kotlin.reflect.KProperty0
 
 public fun lightSparkColors(
-    accent: Color = Plum500,
+    contrastLevel: Float = 1.36f,
+    accent: Color = Plum500.darken(contrastLevel),
     onAccent: Color = Color.White,
-    accentContainer: Color = Plum100,
+    accentContainer: Color = Plum100.darken(contrastLevel),
     onAccentContainer: Color = Plum800,
     accentVariant: Color = Plum700,
     onAccentVariant: Color = Color.White,
     basic: Color = Blueberry800,
     onBasic: Color = Color.White,
-    basicContainer: Color = Blueberry100,
+    basicContainer: Color = Blueberry100.darken(contrastLevel),
     onBasicContainer: Color = Blueberry900,
-    main: Color = Clementin500,
+    main: Color = Clementin500.darken(contrastLevel),
     onMain: Color = Color.White,
-    mainContainer: Color = Clementin100,
+    mainContainer: Color = Clementin100.darken(contrastLevel),
     onMainContainer: Color = Clementin700,
     mainVariant: Color = Clementin600,
     onMainVariant: Color = Color.White,
     support: Color = Blueberry800,
     onSupport: Color = Color.White,
-    supportContainer: Color = Blueberry100,
+    supportContainer: Color = Blueberry100.darken(contrastLevel),
     onSupportContainer: Color = Blueberry900,
     supportVariant: Color = Blueberry700,
     onSupportVariant: Color = Color.White,
     success: Color = Avocado700,
     onSuccess: Color = Color.White,
-    successContainer: Color = Avocado100,
+    successContainer: Color = Avocado100.darken(contrastLevel),
     onSuccessContainer: Color = Avocado700,
-    alert: Color = Banana500,
+    alert: Color = Banana500.darken(contrastLevel),
     onAlert: Color = NightShade900,
-    alertContainer: Color = Banana100,
+    alertContainer: Color = Banana100.darken(contrastLevel),
     onAlertContainer: Color = Banana800,
     error: Color = Cherry600,
     onError: Color = Color.White,
-    errorContainer: Color = Cherry100,
+    errorContainer: Color = Cherry100.darken(contrastLevel),
     onErrorContainer: Color = Cherry700,
     info: Color = Blueberry700,
     onInfo: Color = Color.White,
-    infoContainer: Color = Blueberry200,
+    infoContainer: Color = Blueberry200.darken(contrastLevel),
     onInfoContainer: Color = Blueberry700,
     neutral: Color = NightShade700,
     onNeutral: Color = Color.White,
@@ -230,47 +245,48 @@ public fun lightSparkColors(
 )
 
 public fun darkSparkColors(
+    contrastLevel: Float = 1.5f,
     accent: Color = Plum200,
     onAccent: Color = Plum900,
-    accentContainer: Color = Plum700,
+    accentContainer: Color = Plum700.lighten(contrastLevel),
     onAccentContainer: Color = Plum50,
     accentVariant: Color = Plum300,
     onAccentVariant: Color = Plum900,
     basic: Color = Blueberry200,
     onBasic: Color = Blueberry900,
-    basicContainer: Color = Blueberry800,
+    basicContainer: Color = Blueberry800.lighten(contrastLevel),
     onBasicContainer: Color = Blueberry50,
     main: Color = Clementin400,
     onMain: Color = Clementin900,
-    mainContainer: Color = Clementin700,
+    mainContainer: Color = Clementin700.lighten(contrastLevel),
     onMainContainer: Color = Clementin50,
     mainVariant: Color = Clementin300,
     onMainVariant: Color = Clementin900,
     support: Color = Blueberry200,
     onSupport: Color = Blueberry900,
-    supportContainer: Color = Blueberry800,
+    supportContainer: Color = Blueberry800.lighten(contrastLevel),
     onSupportContainer: Color = Blueberry50,
     supportVariant: Color = Blueberry100,
     onSupportVariant: Color = Blueberry900,
     success: Color = Avocado300,
     onSuccess: Color = Avocado900,
-    successContainer: Color = Avocado700,
+    successContainer: Color = Avocado700.lighten(contrastLevel),
     onSuccessContainer: Color = Avocado50,
     alert: Color = Banana300,
     onAlert: Color = Banana900,
-    alertContainer: Color = Banana800,
+    alertContainer: Color = Banana800.lighten(contrastLevel),
     onAlertContainer: Color = Banana50,
     error: Color = Cherry300,
     onError: Color = Cherry900,
-    errorContainer: Color = Cherry700,
+    errorContainer: Color = Cherry700.lighten(contrastLevel),
     onErrorContainer: Color = Cherry50,
     info: Color = Blueberry300,
     onInfo: Color = Blueberry900,
-    infoContainer: Color = Blueberry700,
+    infoContainer: Color = Blueberry700.lighten(contrastLevel),
     onInfoContainer: Color = Blueberry50,
     neutral: Color = NightShade300,
     onNeutral: Color = NightShade900,
-    neutralContainer: Color = NightShade700,
+    neutralContainer: Color = NightShade700.lighten(contrastLevel),
     onNeutralContainer: Color = NightShade50,
     background: Color = NightShade900,
     onBackground: Color = NightShade50,
@@ -975,10 +991,10 @@ public fun ColorScheme.asSparkColors(useDark: Boolean): SparkColors = if (useDar
 }
 
 private fun Color.adjustColorToMaterialTone(tone: Float): Color {
-    val m3HCT = FloatArray(3)
-    ColorUtils.colorToM3HCT(this.toArgb(), m3HCT)
-    return Color(ColorUtils.M3HCTToColor(m3HCT[0], m3HCT[1], tone))
+    val palette = TonalPalette.from(this)
+    return palette.toneColor(tone.roundToInt())
 }
+
 
 /**
  * The Material color system contains pairs of colors that are typically used for the background
@@ -1293,6 +1309,12 @@ public fun debugColors(
 @Preview(
     group = "Tokens",
     name = "Colors",
+    device = "spec:width=1280dp,height=800dp,dpi=240",
+)
+@Preview(
+    group = "Tokens",
+    name = "Colors Dark",
+    uiMode = UI_MODE_NIGHT_YES or UI_MODE_TYPE_NORMAL,
     device = "spec:width=1280dp,height=800dp,dpi=240",
 )
 @Composable

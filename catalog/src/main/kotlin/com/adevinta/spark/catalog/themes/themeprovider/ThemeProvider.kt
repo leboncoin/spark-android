@@ -28,7 +28,7 @@ import com.adevinta.spark.tokens.SparkTypography
 
 public interface ThemeProvider {
     @Composable
-    public fun colors(useDarkColors: Boolean, isPro: Boolean): SparkColors
+    public fun colors(useDarkColors: Boolean, isPro: Boolean, contrastLevel: Float): SparkColors
 
     @Composable
     public fun shapes(): SparkShapes
