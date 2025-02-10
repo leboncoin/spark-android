@@ -50,7 +50,6 @@ public object LeboncoinTheme : ThemeProvider {
             else -> basicTheme(useDarkColors, isPro)
         }
 
-
     @Composable
     override fun shapes(): SparkShapes = LeboncoinShapes
 

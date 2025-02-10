@@ -41,6 +41,7 @@ import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.requiredHeightIn
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -48,7 +49,6 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerDefaults
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
@@ -65,7 +65,6 @@ import androidx.compose.ui.graphics.asComposeRenderEffect
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.test.DarkMode
 import androidx.compose.ui.test.DeviceConfigurationOverride
@@ -115,7 +114,9 @@ internal fun ComponentActivity.CatalogApp(
     val contrastLevel = 1 + if (isContrastAvailable()) {
         val uiModeManager = LocalContext.current.getSystemService<UiModeManager>()
         uiModeManager?.contrast ?: 0f
-    } else 0f
+    } else {
+        0f
+    }
 
     val colors = if (theme.colorMode == ColorMode.Dynamic && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
         if (useDark) {
@@ -185,10 +186,10 @@ internal fun ComponentActivity.CatalogApp(
 
         DeviceConfigurationOverride(
             override = DeviceConfigurationOverride.DarkMode(useDark)
-                    then DeviceConfigurationOverride.LayoutDirection(layoutDirection)
-                    then DeviceConfigurationOverride.FontScale(
-                theme.takeUnless { it.fontScaleMode == System }?.fontScale ?: LocalDensity.current.fontScale,
-            ),
+                then DeviceConfigurationOverride.LayoutDirection(layoutDirection)
+                then DeviceConfigurationOverride.FontScale(
+                    theme.takeUnless { it.fontScaleMode == System }?.fontScale ?: LocalDensity.current.fontScale,
+                ),
         ) {
             Box(
                 modifier = Modifier
@@ -227,13 +228,19 @@ internal fun ComponentActivity.CatalogApp(
                     scaffoldState = rememberBackdropScaffoldState(BackdropValue.Concealed),
                     frontLayerScrimColor = Color.Unspecified,
                     headerHeight = BackdropScaffoldDefaults.HeaderHeight +
-                            WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding(),
+                        WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding(),
                     peekHeight = BackdropScaffoldDefaults.PeekHeight + WindowInsets.statusBars.asPaddingValues()
-                        .calculateTopPadding(),
+                        .calculateTopPadding() - 4.dp,
                     backLayerBackgroundColor = SparkTheme.colors.mainContainer,
                     appBar = {
                         HomeTabBar(
-                            modifier = Modifier.statusBarsPadding(),
+                            modifier = Modifier
+                                .requiredHeightIn(
+                                    min =
+                                    BackdropScaffoldDefaults.PeekHeight + WindowInsets.statusBars.asPaddingValues()
+                                        .calculateTopPadding(),
+                                )
+                                .statusBarsPadding(),
                             tabSelected = homeScreenValues[pagerState.currentPage],
                             onTabSelected = {
                                 coroutineScope.launch {
@@ -305,9 +312,7 @@ internal fun ComponentActivity.CatalogApp(
     }
 }
 
-private fun isContrastAvailable(): Boolean {
-    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE
-}
+private fun isContrastAvailable(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE
 
 @Composable
 private fun HomeTabBar(
