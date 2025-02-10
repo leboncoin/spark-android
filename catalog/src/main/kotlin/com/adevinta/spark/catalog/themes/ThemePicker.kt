@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.catalog.themes
 
+import android.app.UiModeManager
 import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
@@ -34,6 +35,7 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.systemGestureExclusion
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -41,9 +43,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.getSystemService
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.ui.ButtonGroup
@@ -55,6 +59,7 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.tokens.Layout
 import com.adevinta.spark.tokens.highlight
+import java.text.NumberFormat
 
 @Composable
 public fun ThemePicker(
@@ -62,6 +67,8 @@ public fun ThemePicker(
     theme: Theme,
     onThemeChange: (theme: Theme) -> Unit,
 ) {
+    val uiModeManager = LocalContext.current.getSystemService<UiModeManager>()
+
     LazyColumn(
         modifier = modifier,
         contentPadding = WindowInsets.safeDrawing
@@ -127,6 +134,29 @@ public fun ThemePicker(
                             modifier = Modifier.fillMaxWidth(),
                         )
                     }
+                }
+            }
+        }
+
+        val isContrastAvailable = Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE
+        if (isContrastAvailable) {
+            item {
+                Column {
+                    val contrastLevel = 1 + (uiModeManager?.contrast ?: 0f)
+                    val level = remember { NumberFormat.getInstance().format(contrastLevel - 1) }
+                    Text(
+                        text = "Contrast level: $level",
+                        modifier = Modifier.padding(bottom = 8.dp),
+                        style = SparkTheme.typography.body2.highlight,
+                    )
+
+                    androidx.compose.material3.Slider(
+                        modifier = Modifier.systemGestureExclusion(),
+                        value = contrastLevel - 1f,
+                        valueRange = -1f..1f,
+                        steps = 9,
+                        onValueChange = { },
+                    )
                 }
             }
         }
