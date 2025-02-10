@@ -48,13 +48,10 @@ import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.takeOrElse
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.core.graphics.ColorUtils
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
@@ -117,16 +114,11 @@ import com.adevinta.spark.tokens.PaletteTokens.Plum500
 import com.adevinta.spark.tokens.PaletteTokens.Plum700
 import com.adevinta.spark.tokens.PaletteTokens.Plum800
 import com.adevinta.spark.tokens.PaletteTokens.Plum900
-import com.materialkolor.contrast.Contrast.ratioOfYs
 import com.materialkolor.ktx.darken
 import com.materialkolor.ktx.from
 import com.materialkolor.ktx.lighten
-import com.materialkolor.ktx.toColor
-import com.materialkolor.ktx.toHct
 import com.materialkolor.ktx.toneColor
 import com.materialkolor.palettes.TonalPalette
-import com.materialkolor.utils.ColorUtils.lstarFromY
-import com.materialkolor.utils.ColorUtils.yFromLstar
 import kotlin.math.ln
 import kotlin.math.roundToInt
 import kotlin.reflect.KProperty0
@@ -1241,7 +1233,6 @@ private fun Color.adjustColorToMaterialTone(tone: Float): Color {
     val palette = TonalPalette.from(this)
     return palette.toneColor(tone.roundToInt())
 }
-
 
 /**
  * The Material color system contains pairs of colors that are typically used for the background
