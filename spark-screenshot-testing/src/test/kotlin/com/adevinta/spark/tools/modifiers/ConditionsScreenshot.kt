@@ -61,53 +61,21 @@ class ConditionsScreenshot {
             Row {
                 IfTrueTestComposable(value = true)
                 IfTrueTestComposable(value = false)
-                IfTrueTestComposable(
-                    value = true,
-                    modifier = Modifier.rotate(90f),
-                )
-                IfTrueTestComposable(
-                    value = false,
-                    modifier = Modifier.rotate(90f),
-                )
             }
 
             Row {
                 IfFalseTestComposable(value = false)
                 IfFalseTestComposable(value = true)
-                IfFalseTestComposable(
-                    value = false,
-                    modifier = Modifier.rotate(90f),
-                )
-                IfFalseTestComposable(
-                    value = true,
-                    modifier = Modifier.rotate(90f),
-                )
             }
 
             Row {
                 IfNullTestComposable(value = null)
                 IfNullTestComposable(value = Unit)
-                IfNullTestComposable(
-                    value = null,
-                    modifier = Modifier.rotate(90f),
-                )
-                IfNullTestComposable(
-                    value = Unit,
-                    modifier = Modifier.rotate(90f),
-                )
             }
 
             Row {
                 IfNotNullTestComposable(value = Unit)
                 IfNotNullTestComposable(value = null)
-                IfNotNullTestComposable(
-                    value = Unit,
-                    modifier = Modifier.rotate(90f),
-                )
-                IfNotNullTestComposable(
-                    value = null,
-                    modifier = Modifier.rotate(90f),
-                )
             }
         }
     }
@@ -124,6 +92,7 @@ fun IfTrueTestComposable(
         conditionModifier = modifier
             .size(100.dp)
             .background(Color.Red)
+            .rotate(90f)
             .ifTrue(value) { background(Color.Green) },
     )
 }
@@ -139,6 +108,7 @@ fun IfFalseTestComposable(
         conditionModifier = modifier
             .size(100.dp)
             .background(Color.Red)
+            .rotate(90f)
             .ifFalse(value) { background(Color.Green) },
     )
 }
@@ -154,6 +124,7 @@ fun IfNullTestComposable(
         conditionModifier = modifier
             .size(100.dp)
             .background(Color.Red)
+            .rotate(90f)
             .ifNull(value) { background(Color.Green) },
     )
 }
@@ -169,6 +140,7 @@ fun IfNotNullTestComposable(
         conditionModifier = modifier
             .size(100.dp)
             .background(Color.Red)
+            .rotate(90f)
             .ifNotNull(value) { background(Color.Green) },
     )
 }
