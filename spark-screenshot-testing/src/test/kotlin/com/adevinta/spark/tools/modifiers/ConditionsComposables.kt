@@ -108,7 +108,7 @@ private fun ConditionTestComposable(
 ) {
     Column(modifier = Modifier.padding(16.dp)) {
         Text(
-            text = "Predicate: $conditionName",
+            text = "Condition: $conditionName",
             style = MaterialTheme.typography.bodyMedium,
             fontWeight = FontWeight.Bold,
         )
