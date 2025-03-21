@@ -84,7 +84,7 @@ public fun RatingInput(
             val tooltipState = rememberTooltipState()
             val starRatingValue = starRatingIndex + 1
             TooltipBox(
-                positionProvider = TooltipDefaults.rememberPlainTooltipPositionProvider(),
+                positionProvider = TooltipDefaults.rememberTooltipPositionProvider(),
                 tooltip = {
                     PlainTooltip {
                         Text("$starRatingValue")

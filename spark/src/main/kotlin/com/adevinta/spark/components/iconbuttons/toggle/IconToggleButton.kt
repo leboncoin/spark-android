@@ -112,7 +112,7 @@ internal fun SparkIconToggleButton(
         TooltipBox(
             state = rememberTooltipState(),
             tooltip = { PlainTooltip { Text(contentDescription.orEmpty()) } },
-            positionProvider = TooltipDefaults.rememberPlainTooltipPositionProvider(),
+            positionProvider = TooltipDefaults.rememberTooltipPositionProvider(),
         ) {
             Surface(
                 checked = checked,

@@ -32,7 +32,6 @@ import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.LocalRippleConfiguration
-import androidx.compose.material3.LocalUseFallbackRippleImplementation
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.RippleConfiguration
@@ -149,7 +148,6 @@ public fun SparkTheme(
         LocalSparkFeatureFlag provides sparkFeatureFlag,
         LocalSparkExceptionHandler provides exceptionHandler,
         LocalWindowSizeClass provides calculateWindowSizeClass(),
-        LocalUseFallbackRippleImplementation provides false,
         LocalIndication provides rippleIndication,
     ) {
         MaterialTheme(
