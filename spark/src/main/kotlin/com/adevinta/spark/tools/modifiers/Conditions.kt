@@ -24,7 +24,7 @@ package com.adevinta.spark.tools.modifiers
 import androidx.compose.ui.Modifier
 
 /**
- * Modifier to make it easy to conditionally add a modifier based on [predicate]
+ * Modifier to make it easy to conditionally add a modifier based on [value]
  * ```kotlin
  * Box(
  *  modifier = Modifier.fillMaxWidth()
@@ -32,14 +32,14 @@ import androidx.compose.ui.Modifier
  *    .padding(16.dp)
  *  ) {...}
  * ```
- * @param predicate condition to decide if the [builder] is added or not to the modifier chain
- * @param builder the modifier(s) to apply when [predicate] is true
+ * @param value condition to decide if the [chain] is added or not to the modifier chain
+ * @param chain the modifier(s) to apply when [value] is true
  */
-public inline fun Modifier.ifTrue(predicate: Boolean, builder: Modifier.() -> Modifier): Modifier =
-    if (predicate) then(this.builder()) else this
+public inline fun Modifier.ifTrue(value: Boolean, chain: Modifier.() -> Modifier): Modifier =
+    if (value) this.chain() else this
 
 /**
- * Modifier to make it easy to conditionally add a modifier based on [predicate]
+ * Modifier to make it easy to conditionally add a modifier based on [value]
  * ```kotlin
  * Box(
  *  modifier = Modifier.fillMaxWidth()
@@ -47,11 +47,11 @@ public inline fun Modifier.ifTrue(predicate: Boolean, builder: Modifier.() -> Mo
  *    .padding(16.dp)
  *  ) {...}
  * ```
- * @param predicate condition to decide if the [builder] is added or not to the modifier chain
- * @param builder the modifier(s) to apply when [predicate] is false
+ * @param value condition to decide if the [chain] is added or not to the modifier chain
+ * @param chain the modifier(s) to apply when [value] is false
  */
-public inline fun Modifier.ifFalse(predicate: Boolean, builder: Modifier.() -> Modifier): Modifier =
-    if (!predicate) then(this.builder()) else this
+public inline fun Modifier.ifFalse(value: Boolean, chain: Modifier.() -> Modifier): Modifier =
+    if (!value) this.chain() else this
 
 /**
  * Modifier to make it easy to conditionally add a modifier based on [value] nullability
@@ -62,11 +62,11 @@ public inline fun Modifier.ifFalse(predicate: Boolean, builder: Modifier.() -> M
  *    .padding(16.dp)
  *  ) {...}
  * ```
- * @param value decide if the [builder] is added or not to the modifier chain
- * @param builder the modifier(s) to apply when [value] is not null
+ * @param value decide if the [chain] is added or not to the modifier chain
+ * @param chain the modifier(s) to apply when [value] is not null
  */
-public inline fun <T : Any> Modifier.ifNotNull(value: T?, builder: Modifier.(T) -> Modifier): Modifier =
-    if (value != null) then(this.builder(value)) else this
+public inline fun <T : Any> Modifier.ifNotNull(value: T?, chain: Modifier.(T) -> Modifier): Modifier =
+    if (value != null) this.chain(value) else this
 
 /**
  * Modifier to make it easy to conditionally add a modifier based on [value] nullability
@@ -77,8 +77,8 @@ public inline fun <T : Any> Modifier.ifNotNull(value: T?, builder: Modifier.(T) 
  *    .padding(16.dp)
  *  ) {...}
  * ```
- * @param value decide if the [builder] is added or not to the modifier chain
- * @param builder the modifier(s) to apply when [value] is null
+ * @param value decide if the [chain] is added or not to the modifier chain
+ * @param chain the modifier(s) to apply when [value] is null
  */
-public inline fun <T : Any> Modifier.ifNull(value: T?, builder: Modifier.() -> Modifier): Modifier =
-    if (value == null) then(this.builder()) else this
+public inline fun <T : Any> Modifier.ifNull(value: T?, chain: Modifier.() -> Modifier): Modifier =
+    if (value == null) this.chain() else this
