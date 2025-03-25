@@ -54,7 +54,7 @@ class ConditionsScreenshot {
     )
 
     @Test
-    fun `test conditions`() = paparazzi.sparkSnapshot(drawBackground = true) {
+    fun conditions() = paparazzi.sparkSnapshot(drawBackground = true) {
         Column {
             Row {
                 ConditionTestComposable(name = "ifTrue", value = true) {
