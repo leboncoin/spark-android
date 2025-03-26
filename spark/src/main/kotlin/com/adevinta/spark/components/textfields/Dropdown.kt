@@ -526,7 +526,7 @@ public fun SparkSelectTrailingIcon(
         size = IconSize.Medium,
         contentDescription = null,
         modifier = modifier.rotate(
-            if (expanded) 90f else 0f,
+            if (expanded) 180f else 0f,
         ),
     )
 }
