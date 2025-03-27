@@ -48,6 +48,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.model.Configurator
+import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.bottomsheet.BottomSheet
 import com.adevinta.spark.components.bottomsheet.DragHandle
@@ -57,11 +58,9 @@ import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.image.Illustration
 import com.adevinta.spark.components.image.Image
 import com.adevinta.spark.components.list.ListItem
-import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.components.spacer.VerticalSpacer
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.text.TextLinkButton
-import com.adevinta.spark.components.textfields.Dropdown
 import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.icons.LikeFill
 import com.adevinta.spark.icons.SparkIcons
@@ -115,25 +114,12 @@ private fun ColumnScope.BottomSheetSample() {
         )
     }
 
-    val contentExamples = BottomSheetContentExamples.entries.toTypedArray()
-    var expanded by remember { mutableStateOf(false) }
-    Dropdown(
+    DropdownEnum(
         modifier = Modifier.fillMaxWidth(),
-        value = bottomSheetContentExample.name,
-        label = "BottomSheet Content Example",
-        expanded = expanded,
-        onExpandedChange = { expanded = !expanded },
-        onDismissRequest = { expanded = false },
-        dropdownContent = {
-            contentExamples.forEach {
-                DropdownMenuItem(
-                    text = { Text(it.name) },
-                    onClick = {
-                        bottomSheetContentExample = it
-                        expanded = false
-                    },
-                )
-            }
+        title = "BottomSheet Content Example",
+        selectedOption = bottomSheetContentExample,
+        onOptionSelect = {
+            bottomSheetContentExample = it
         },
     )
 

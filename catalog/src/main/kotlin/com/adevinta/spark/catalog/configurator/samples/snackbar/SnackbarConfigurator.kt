@@ -36,18 +36,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.model.Configurator
 import com.adevinta.spark.catalog.ui.ButtonGroup
+import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.buttons.ButtonSize
 import com.adevinta.spark.components.buttons.ButtonTinted
-import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.components.snackbars.Snackbar
 import com.adevinta.spark.components.snackbars.SnackbarHostState
 import com.adevinta.spark.components.snackbars.SnackbarIntent
 import com.adevinta.spark.components.snackbars.SnackbarSparkVisuals
 import com.adevinta.spark.components.snackbars.SnackbarStyle
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.components.textfields.Dropdown
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.icons.FlashlightFill
@@ -69,31 +68,17 @@ private fun ColumnScope.SnackbarSample(snackbarHostState: SnackbarHostState) {
     var isIconEnabled by remember { mutableStateOf(false) }
     var style by remember { mutableStateOf(SnackbarStyle.Filled) }
     var actionOnNewLine by remember { mutableStateOf(false) }
-    var expanded by remember { mutableStateOf(false) }
     var intent by remember { mutableStateOf(SnackbarIntent.Basic) }
     var actionText by remember { mutableStateOf("Action") }
     var contentText by remember { mutableStateOf("Just a snackbar") }
     val scope = rememberCoroutineScope()
 
-    val intents = SnackbarIntent.entries
-
-    Dropdown(
+    DropdownEnum(
         modifier = Modifier.fillMaxWidth(),
-        value = intent.name,
-        label = stringResource(id = R.string.configurator_component_screen_intent_label),
-        expanded = expanded,
-        onExpandedChange = { expanded = !expanded },
-        onDismissRequest = { expanded = false },
-        dropdownContent = {
-            intents.forEach {
-                DropdownMenuItem(
-                    text = { Text(it.name) },
-                    onClick = {
-                        intent = it
-                        expanded = false
-                    },
-                )
-            }
+        title = stringResource(id = R.string.configurator_component_screen_intent_label),
+        selectedOption = intent,
+        onOptionSelect = {
+            intent = it
         },
     )
 

@@ -43,16 +43,15 @@ import androidx.compose.ui.unit.sp
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.model.Configurator
+import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.iconbuttons.IconButtonFilled
-import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.components.slider.RangeSlider
 import com.adevinta.spark.components.slider.Slider
 import com.adevinta.spark.components.slider.SliderIntent
 import com.adevinta.spark.components.spacer.VerticalSpacer
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.components.textfields.Dropdown
 import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.icons.Minus
 import com.adevinta.spark.icons.Plus
@@ -162,23 +161,12 @@ private fun SliderSample() {
             }
         }
 
-        Dropdown(
+        DropdownEnum(
             modifier = Modifier.fillMaxWidth(),
-            value = intent.name,
-            label = stringResource(id = R.string.configurator_component_screen_intent_label),
-            expanded = expanded,
-            onExpandedChange = { expanded = !expanded },
-            onDismissRequest = { expanded = false },
-            dropdownContent = {
-                intents.forEach {
-                    DropdownMenuItem(
-                        text = { Text(it.name) },
-                        onClick = {
-                            intent = it
-                            expanded = false
-                        },
-                    )
-                }
+            title = stringResource(id = R.string.configurator_component_screen_intent_label),
+            selectedOption = intent,
+            onOptionSelect = {
+                intent = it
             },
         )
     }

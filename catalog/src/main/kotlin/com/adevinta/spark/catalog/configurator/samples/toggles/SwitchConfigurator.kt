@@ -34,11 +34,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.model.Configurator
 import com.adevinta.spark.catalog.ui.ButtonGroup
+import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
-import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.components.textfields.Dropdown
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.ContentSide
 import com.adevinta.spark.components.toggles.Switch
@@ -81,24 +80,12 @@ private fun ColumnScope.SwitchSample() {
             modifier = Modifier.fillMaxWidth(),
         )
     }
-    var expanded by remember { mutableStateOf(false) }
-    Dropdown(
+    DropdownEnum(
         modifier = Modifier.fillMaxWidth(),
-        value = intent.name,
-        label = stringResource(id = R.string.configurator_component_screen_intent_label),
-        expanded = expanded,
-        onExpandedChange = { expanded = !expanded },
-        onDismissRequest = { expanded = false },
-        dropdownContent = {
-            ToggleIntent.entries.forEach {
-                DropdownMenuItem(
-                    text = { Text(it.name) },
-                    onClick = {
-                        intent = it
-                        expanded = false
-                    },
-                )
-            }
+        title = stringResource(id = R.string.configurator_component_screen_intent_label),
+        selectedOption = intent,
+        onOptionSelect = {
+            intent = it
         },
     )
     ButtonGroup(
