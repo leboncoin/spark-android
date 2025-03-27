@@ -42,7 +42,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.ImeAction
@@ -63,8 +62,8 @@ import com.adevinta.spark.components.popover.PlainTooltip
 import com.adevinta.spark.components.popover.TooltipBox
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.ArrowHorizontalDown
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.CollapseExpand
+import com.adevinta.spark.icons.SparkAnimatedIcons
 import com.adevinta.spark.tokens.SparkTypography
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 import kotlinx.coroutines.launch
