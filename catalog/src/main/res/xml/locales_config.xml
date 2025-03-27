@@ -22,7 +22,6 @@
   SOFTWARE.
   -->
 <locale-config xmlns:android="http://schemas.android.com/apk/res/android">
-    <locale android:name="en-rGB"/>
+    <locale android:name="en-GB"/>
     <locale android:name="fr"/>
-    <locale android:name="de"/>
 </locale-config>

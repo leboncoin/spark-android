@@ -32,7 +32,7 @@ android {
     namespace = "com.adevinta.spark.catalog"
     defaultConfig.applicationId = "com.adevinta.spark.catalog"
     defaultConfig.resourceConfigurations.addAll(
-        setOf("en-rGB", "fr", "de"),
+        setOf("en-rGB", "fr"),
     )
     defaultConfig {
         versionName = version.toString()
