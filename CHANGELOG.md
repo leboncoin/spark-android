@@ -7,6 +7,13 @@
 ### Catalog
 * 💬🇫🇷 The catalog app can now be used with a french locale.
 
+## [1.2.1]
+
+_2025-03-27_
+
+### Spark
+* 🐛 Ensure Modifiers are applied only once when using conditional Modifiers
+
 ## [1.2.0]
 
 _2025-03-19_
@@ -23,7 +30,7 @@ _2025-03-19_
 * ✨ A component can now have more than 1 Configurator. This is to avoid configurators that are too complex and won't fit easily into one screen.
 * 🚀 Material transitions can now be tested in the catalog app to showcase & test their behaviour.
 * 🕶️ The screen reader navigation has been improved and we'll continue to improve it globally to meet the same standard as lbc
-* 
+
 ## [1.1.4]
 
 _2025-02-19_
@@ -466,7 +473,9 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.2.0...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.2.1...HEAD
+
+[1.2.1]: https://github.com/leboncoin/spark-android/releases/tag/1.2.1
 
 [1.2.0]: https://github.com/leboncoin/spark-android/releases/tag/1.2.0
 
