@@ -522,12 +522,11 @@ public fun SparkSelectTrailingIcon(
     // expand the menu on icon click in a11y mode only esp. if using their own custom
     // trailing icon.
     Icon(
-        sparkIcon = SparkIcons.ArrowHorizontalDown,
+        sparkIcon = SparkAnimatedIcons.CollapseExpand,
         size = IconSize.Medium,
         contentDescription = null,
-        modifier = modifier.rotate(
-            if (expanded) 180f else 0f,
-        ),
+        atEnd = expanded,
+        modifier = modifier,
     )
 }
 
