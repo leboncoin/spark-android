@@ -72,8 +72,6 @@ private fun SliderSample() {
     var enabled by remember { mutableStateOf(true) }
     var rounded by remember { mutableStateOf(true) }
     var intent by remember { mutableStateOf(SliderIntent.Basic) }
-    val intents = SliderIntent.entries
-    var expanded by remember { mutableStateOf(false) }
     var progress by remember { mutableFloatStateOf(0.75f) }
     var rangeProgress by remember { mutableStateOf(0.1f..0.5f) }
     var sliderSteps by remember { mutableIntStateOf(0) }

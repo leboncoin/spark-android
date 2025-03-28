@@ -28,14 +28,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.semantics.selected
-import androidx.compose.ui.semantics.semantics
-import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.menu.DropdownMenuItem
+import com.adevinta.spark.components.menu.SingleChoiceDropdownItemColumnScope
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.components.textfields.Dropdown
-import com.adevinta.spark.icons.Check
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.components.textfields.SingleChoiceDropdown
 import kotlin.enums.enumEntries
 
 @Composable
@@ -46,7 +42,7 @@ internal inline fun <reified T : Enum<T>> DropdownEnum(
     modifier: Modifier = Modifier,
 ) {
     var expanded by remember { mutableStateOf(false) }
-    Dropdown(
+    SingleChoiceDropdown(
         modifier = modifier.fillMaxWidth(),
         value = selectedOption.name,
         label = title,
@@ -73,29 +69,17 @@ internal inline fun <reified T : Enum<T>> DropdownEnum(
 }
 
 @Composable
-private inline fun <reified T : Enum<T>> DropdownEnumItem(
+private inline fun <reified T : Enum<T>> SingleChoiceDropdownItemColumnScope.DropdownEnumItem(
     enum: T,
     selectedOption: T,
     crossinline onOptionSelect: (T) -> Unit,
 ) {
     val selected = enum == selectedOption
     DropdownMenuItem(
-        modifier = Modifier.semantics {
-            this.selected = selected
-        },
         text = { Text(enum.name) },
         onClick = {
             onOptionSelect(enum)
         },
-        leadingIcon = if (selected) {
-            {
-                Icon(
-                    SparkIcons.Check,
-                    contentDescription = null,
-                )
-            }
-        } else {
-            null
-        },
+        selected = selected,
     )
 }

@@ -37,7 +37,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.PopupProperties
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
@@ -104,7 +103,6 @@ private fun TextFieldWithDropdown() {
                 onDismissRequest = {
                     expanded = false
                 },
-                properties = PopupProperties(),
                 dropdownLabel = {
                     Canvas(
                         modifier = Modifier.size(width = 24.dp, height = 14.dp),

@@ -26,7 +26,6 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.requiredWidth
@@ -34,7 +33,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.IconButtonColors
@@ -55,7 +53,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.PopupProperties
 import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
@@ -64,7 +61,9 @@ import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconButton
 import com.adevinta.spark.components.icons.IconIntent
 import com.adevinta.spark.components.icons.IconToggleButton
+import com.adevinta.spark.components.menu.DropdownMenu
 import com.adevinta.spark.components.menu.DropdownMenuItem
+import com.adevinta.spark.components.menu.DropdownMenuItemColumnScope
 import com.adevinta.spark.components.spacer.Spacer
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
@@ -250,8 +249,7 @@ public abstract class AddonScope {
         onDismissRequest: () -> Unit,
         dropdownLabel: @Composable RowScope.() -> Unit,
         modifier: Modifier = Modifier,
-        properties: PopupProperties = PopupProperties(),
-        popupDropdownContent: @Composable ColumnScope.() -> Unit,
+        popupDropdownContent: @Composable DropdownMenuItemColumnScope.() -> Unit,
     ) {
         ExposedDropdownMenuBox(expanded = expanded, onExpandedChange = onExpandedChange) {
             Surface(
@@ -270,7 +268,6 @@ public abstract class AddonScope {
                 expanded = expanded,
                 onDismissRequest = onDismissRequest,
                 modifier = Modifier.exposedDropdownSize(true),
-                properties = properties,
                 content = popupDropdownContent,
             )
         }
@@ -298,7 +295,6 @@ private fun TextFieldWithDropdownPreview() {
                     onDismissRequest = {
                         expanded = false
                     },
-                    properties = PopupProperties(),
                     dropdownLabel = {
                         Canvas(
                             modifier = Modifier.size(width = 24.dp, height = 14.dp),

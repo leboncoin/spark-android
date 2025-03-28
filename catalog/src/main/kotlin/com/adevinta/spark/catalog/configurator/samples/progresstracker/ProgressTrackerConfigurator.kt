@@ -76,7 +76,6 @@ private fun ColumnScope.ProgressTrackerSample() {
     var intent by remember { mutableStateOf(ProgressTrackerIntent.Basic) }
     var size by remember { mutableStateOf(ProgressSizes.Large) }
     var style by remember { mutableStateOf(ProgressStyles.Outlined) }
-    var expanded by remember { mutableStateOf(false) }
     var hasIndicatorContent by remember { mutableStateOf(true) }
     var selectedStep by remember { mutableIntStateOf(1) }
     var items by remember {

@@ -42,6 +42,7 @@
     <string name="examples_component_screen_title">Components examples</string>
     <string name="examples_component_screen_description">These are the examples that can be found in the samples in the javadoc or the README.md files. They show usages of the components with the default params in different scenarios that should represent real use cases.</string>
     <string name="component_button_description">Buttons help people initiate actions, like sending an email, sharing a document,or liking a post.</string>
+    <string name="component_combobox_description">Is a dropdown with an input filter or an input that can display suggestions.</string>
     <!--region Toggle-->
     <string name="component_toggle_vertical_group_title">Toggle grouping with vertical alignment</string>
     <string name="component_toggle_horizontal_group_title">Toggle grouping with horizontal alignment</string>
