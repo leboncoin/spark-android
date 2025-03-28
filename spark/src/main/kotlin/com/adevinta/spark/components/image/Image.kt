@@ -286,7 +286,7 @@ private fun Modifier.imageIconDynamicSize(
         placeable.height
     }
 
-    layout(constraints.maxWidth, constraints.maxHeight) {
+    layout(width, height) {
         val x = (width / 2) - (placeable.width / 2)
         val y = (height / 2) - (placeable.height / 2)
         placeable.place(x = x, y = y)
