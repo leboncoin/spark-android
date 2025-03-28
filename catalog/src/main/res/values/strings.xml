@@ -21,7 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
   -->
-<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en-GB">
     <string name="app_name">Spark</string>
 
     <string name="brand">Select a brand</string>
@@ -57,7 +57,7 @@
     <string name="component_checkbox_group_example_option2_label">Email</string>
     <!--endregion-->
     <!--Chips example-->
-    <string name="component_chips_description">Chips help users quickly recognize an important information that has been entered by them, trigger actions, make selections, or filter content.</string>
+    <string name="component_chips_description">Chips help users quickly recognise an important information that has been entered by them, trigger actions, make selections, or filter content.</string>
     <!--endregion-->
 
     <string name="component_dialog_description">A dialog is a modal window that appears in front of content to provide critical information or ask for a decision.</string>
@@ -67,7 +67,7 @@
 
     <string name="component_tab_description">Tabs are used to group different but related content, allowing users to navigate views without leaving the page. They always contain at least two items and one tab is active at a time.</string>
     <string name="component_textfield_description">The input / text-field component allows users to write in the space provided for the content.</string>
-    <string name="component_tokens_description">The tokens are the basis of this Design System and allow each brand to choose its colors, shapes, typos and icons.</string>
+    <string name="component_tokens_description">The tokens are the basis of this Design System and allow each brand to choose its colours, shapes, typos and icons.</string>
     <string name="component_popovers_description">Provides a descriptive message or Info for an Anchor.</string>
     <string name="component_bottomsheets_description">A bottom sheet is a UI component commonly used in mobile applications to present additional content or options from the bottom of the screen.</string>
     <!--region Icon button-->
@@ -78,7 +78,7 @@
     <!--endregion-->
     <!--region image -->
     <string name="component_image_description">The Image component is used to display images with support for fallback in case of issues when loading them.</string>
-    <string name="component_image_narrow_description">Street photography of a person walking in a paved alley after a rain with bright white/golden lights on the side and the center deep blue color with an umbrella</string>
+    <string name="component_image_narrow_description">Street photography of a person walking in a paved alley after a rain with bright white/golden lights on the side and the centre deep blue color with an umbrella</string>
     <string name="component_image_wide_description">A huge portrait of the Unicorn Gundam fullscale statue at the Odaiba’s DiverCity Tokyo Plaza.</string>
     <string name="component_image_content_scale_crop_description">Scale the image to fill 100% the bounds of the Image component but without changing its ratio</string>
     <string name="component_image_content_scale_fit_description">Scale to make sure the image is not cropped and the image component bounds is filled on one at least direction</string>
@@ -103,7 +103,7 @@
 
     <!--endregion-->
     <string name="component_progressbar_description">The progress bar component is used to display the length and your progression inside the process or to express a waiting time. This waiting time can be either determinate or indeterminate..</string>
-    <string name="component_tag_description">Tags are used to label content and help users quickly recognize info about them: Categories, Status… Can be applied with different colors and designs that are associated with a content due to its characteristics: new content, unvisited content, featured content… Users can’t interact with Tags.</string>
+    <string name="component_tag_description">Tags are used to label content and help users quickly recognise info about them: Categories, Status… Can be applied with different colours and designs that are associated with a content due to its characteristics: new content, unvisited content, featured content… Users can’t interact with Tags.</string>
 
     <!--region Progress Tracker-->
     <string name="component_progresstracker_description">A progress tracker component is a visual navigation element typically used to display progress or guide user through a multi-step process.</string>
@@ -114,7 +114,7 @@
     <string name="component_slider_description">A slider is an interactive component that allows users to set values by moving a handle within a defined range.</string>
 
     <string name="configurator_component_screen_title">Components configurations</string>
-    <string name="configurator_component_screen_description">The Configurator allows to visualize a component in every possible state available by customizing every property for each component.</string>
+    <string name="configurator_component_screen_description">The Configurator allows to visualise a component in every possible state available by customising every property for each component.</string>
     <string name="configurator_component_screen_enabled_label">Enabled</string>
     <string name="configurator_component_screen_rounded_label">Rounded Corners</string>
     <string name="configurator_component_screen_textfield_label">Label</string>
@@ -127,7 +127,7 @@
 
     <string name="icons_screen_search_helper">Search Spark Icon</string>
 
-    <string name="spark_text_link_paragraph_example_"><annotation color="neutral" typography="body1">This is Adevinta </annotation><annotation color="main" typography="body1"><u><b>Privacy &amp; Policy</b></u></annotation><annotation color="neutral" typography="body1"> also lots of extra information you maybe interested in or should I inform you about that extra information. you might be not knowing it</annotation></string>
+    <string name="spark_text_link_paragraph_example_"><annotation color="neutral" typography="body1">This is Adevinta </annotation><annotation color="main" typography="body1"><u><b>Privacy &amp; Policy</b></u></annotation><annotation color="neutral" typography="body1"> also lots of extra information you may be interested in or should I inform you about that extra information. you might not be aware of it</annotation></string>
 
     <string name="spark_text_link_short_example_"><annotation color="neutral" typography="display2">Learn Kotlin Programming </annotation><annotation color="success" typography="display3"><u><b>https://kotlinlang.org</b></u></annotation></string>
 
