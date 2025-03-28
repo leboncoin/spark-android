@@ -44,7 +44,7 @@ jobs:
 
       - name: '👷 Build'
         id: build
-        run: ./gradlew assembleRelease
+        run: ./gradlew assembleRelease --warning-mode all
       - name: '📦 Archive APKs'
         uses: actions/upload-artifact@v4
         with:
@@ -61,7 +61,7 @@ jobs:
 
       - name: '🧑‍🔬 Test'
         id: test
-        run: ./gradlew globalCiUnitTest verifyPaparazziRelease
+        run: ./gradlew globalCiUnitTest verifyPaparazziRelease --warning-mode all
       - name: '📦 Archive JUnit reports'
         if: ${{ always() && contains(fromJSON('["success", "failure"]'), steps.test.outcome) }}
         uses: ./.github/actions/archive-junit-reports
@@ -81,7 +81,7 @@ jobs:
 
       - name: '🕵️ Lint'
         id: lint
-        run: ./gradlew lintRelease
+        run: ./gradlew lintRelease --warning-mode all
       - name: '📦 Archive Lint reports'
         if: ${{ always() && contains(fromJSON('["success", "failure"]'), steps.lint.outcome) }}
         uses: ./.github/actions/archive-lint-reports
