@@ -42,6 +42,7 @@ import com.adevinta.spark.catalog.configurator.samples.stepper.StepperConfigurat
 import com.adevinta.spark.catalog.configurator.samples.tabs.TabsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.tags.TagsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.text.TextLinksConfigurator
+import com.adevinta.spark.catalog.configurator.samples.textfields.ComboBoxConfigurator
 import com.adevinta.spark.catalog.configurator.samples.textfields.DropdownsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.textfields.TextFieldsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.toggles.CheckboxConfigurator
@@ -51,6 +52,7 @@ import com.adevinta.spark.catalog.examples.samples.bottomsheet.BottomSheetExampl
 import com.adevinta.spark.catalog.examples.samples.buttons.ButtonsExamples
 import com.adevinta.spark.catalog.examples.samples.buttons.IconButtonsExamples
 import com.adevinta.spark.catalog.examples.samples.chips.ChipsExamples
+import com.adevinta.spark.catalog.examples.samples.combobox.ComboBoxExample
 import com.adevinta.spark.catalog.examples.samples.dialog.DialogsExamples
 import com.adevinta.spark.catalog.examples.samples.divider.DividerExamples
 import com.adevinta.spark.catalog.examples.samples.icons.IconsExamples
@@ -63,8 +65,8 @@ import com.adevinta.spark.catalog.examples.samples.snackbar.SnackbarExamples
 import com.adevinta.spark.catalog.examples.samples.stepper.StepperExamples
 import com.adevinta.spark.catalog.examples.samples.tabs.TabsExamples
 import com.adevinta.spark.catalog.examples.samples.tags.TagsExamples
-import com.adevinta.spark.catalog.examples.samples.text.DropdownsExamples
 import com.adevinta.spark.catalog.examples.samples.text.TextLinksExamples
+import com.adevinta.spark.catalog.examples.samples.textfields.DropdownsExamples
 import com.adevinta.spark.catalog.examples.samples.textfields.TextFieldsExamples
 import com.adevinta.spark.catalog.examples.samples.toggles.CheckboxExamples
 import com.adevinta.spark.catalog.examples.samples.toggles.IconToggleButtonsExamples
@@ -125,6 +127,19 @@ private val Buttons = Component(
     sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/components/buttons/Button.kt",
     examples = ButtonsExamples,
     configurators = ButtonsConfigurator,
+)
+
+private val ComboBox = Component(
+    id = "comboBox",
+    name = "ComboBox",
+    illustration = R.drawable.illu_component_button,
+    tintIcon = false,
+    description = R.string.component_combobox_description,
+    guidelinesUrl = "$ComponentGuidelinesUrl/p/3564d6-combobox-new/b/859fdd",
+    docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.textfields/index.html",
+    sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/components/textfields/ComboBox.kt",
+    examples = ComboBoxExample,
+    configurators = listOf(ComboBoxConfigurator),
 )
 
 private val Checkboxes = Component(
@@ -398,6 +413,7 @@ public val Components: List<Component> = listOf(
     Tokens,
     BottomSheets,
     Buttons,
+    ComboBox,
     Checkboxes,
     Chips,
     Dialogs,

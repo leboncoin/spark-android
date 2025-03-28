@@ -37,7 +37,7 @@ import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.AddonScope
-import com.adevinta.spark.components.textfields.Dropdown
+import com.adevinta.spark.components.textfields.SingleChoiceComboBox
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.textfields.TextFieldState
 import com.adevinta.spark.components.toggles.SwitchLabelled
@@ -80,9 +80,10 @@ private fun ColumnScope.ComboBoxSample() {
         )
     }
 
-    Dropdown(
+    SingleChoiceComboBox(
         modifier = Modifier.fillMaxWidth(),
         value = valueText,
+        onValueChange = { valueText = it },
         expanded = expanded,
         onExpandedChange = { expanded = !expanded },
         onDismissRequest = { expanded = false },
@@ -99,6 +100,7 @@ private fun ColumnScope.ComboBoxSample() {
             DropdownMenuItem(
                 text = { Text("Item $it") },
                 onClick = { expanded = false },
+                selected = false,
             )
         }
     }
