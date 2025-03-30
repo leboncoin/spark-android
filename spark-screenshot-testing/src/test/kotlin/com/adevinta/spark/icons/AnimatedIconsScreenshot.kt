@@ -57,7 +57,7 @@ internal class AnimatedIconsScreenshot {
             )
         }
 
-        paparazzi.gif(view, "bellShake", start = 500, end = 1500, fps = 60)
+        paparazzi.gif(view, start = 500, end = 1500, fps = 60)
     }
 
     @Test
@@ -77,6 +77,6 @@ internal class AnimatedIconsScreenshot {
             )
         }
 
-        paparazzi.gif(view, "collapseExpand", start = 200, end = 800, fps = 60)
+        paparazzi.gif(view, start = 200, end = 800, fps = 60)
     }
 }
