@@ -41,7 +41,7 @@ import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.components.textfields.Dropdown
+import com.adevinta.spark.components.textfields.SingleChoiceDropdown
 import com.adevinta.spark.tokens.Order
 import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.full.findAnnotation
@@ -53,7 +53,7 @@ internal fun ColumnScope.ShapeCustomSample() {
     var selectedShape by remember { mutableStateOf(defaultValue) }
     var expanded by remember { mutableStateOf(false) }
 
-    Dropdown(
+    SingleChoiceDropdown(
         modifier = Modifier.fillMaxWidth(),
         value = shapes.first { it == selectedShape }.propertyName(),
         label = "Shape",
@@ -68,6 +68,7 @@ internal fun ColumnScope.ShapeCustomSample() {
                         selectedShape = shape
                         expanded = false
                     },
+                    selected = selectedShape == shape,
                 )
             }
         },

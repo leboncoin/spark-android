@@ -23,11 +23,11 @@ package com.adevinta.spark.components.textfields
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -108,7 +108,11 @@ public fun SingleChoiceComboBox(
             trailingContent = {
                 SparkSelectTrailingIcon(
                     expanded = expanded,
-                    modifier = Modifier.menuAnchor(MenuAnchorType.SecondaryEditable, enabled = enabled),
+                    modifier = Modifier.menuAnchor(
+                        MenuAnchorType.SecondaryEditable,
+                        enabled = enabled,
+                    ),
+                    onClick = { onExpandedChange(!expanded) },
                 )
             },
             state = state,
@@ -154,7 +158,6 @@ public fun MultiChoiceComboBox(
     dropdownContent: @Composable MultiChoiceDropdownItemColumnScope.() -> Unit,
 ) {
     Column(
-        modifier = modifier.height(IntrinsicSize.Min),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         ExposedDropdownMenuBox(
@@ -166,7 +169,7 @@ public fun MultiChoiceComboBox(
             TextField(
                 value = value,
                 onValueChange = onValueChange,
-                modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryEditable, enabled = enabled),
+                modifier = modifier.menuAnchor(MenuAnchorType.PrimaryEditable, enabled = enabled),
                 enabled = enabled,
                 readOnly = false,
                 required = required,
@@ -177,7 +180,11 @@ public fun MultiChoiceComboBox(
                 trailingContent = {
                     SparkSelectTrailingIcon(
                         expanded = expanded,
-                        modifier = Modifier.menuAnchor(MenuAnchorType.SecondaryEditable, enabled = enabled),
+                        modifier = Modifier.menuAnchor(
+                            MenuAnchorType.SecondaryEditable,
+                            enabled = enabled,
+                        ),
+                        onClick = { onExpandedChange(!expanded) },
                     )
                 },
                 state = state,
@@ -195,10 +202,14 @@ public fun MultiChoiceComboBox(
             )
         }
         AnimatedVisibility(selectedChoices.isNotEmpty()) {
-            FlowRow {
+            FlowRow(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = spacedBy(4.dp),
+            ) {
                 selectedChoices.fastForEach { (id, label) ->
                     key(id) {
-                        val clickLabel = stringResource(R.string.spark_combobox_multiple_chip_click_a11y, label)
+                        val clickLabel =
+                            stringResource(R.string.spark_combobox_multiple_chip_click_a11y, label)
                         Chip(
                             modifier = Modifier.semantics {
                                 onClick(label = clickLabel, action = null)

@@ -72,6 +72,7 @@ import com.adevinta.spark.components.chips.ChipDefaults
 import com.adevinta.spark.components.chips.ChipIntent
 import com.adevinta.spark.components.chips.ChipStyles
 import com.adevinta.spark.components.icons.Icon
+import com.adevinta.spark.components.icons.IconButton
 import com.adevinta.spark.components.icons.IconSize
 import com.adevinta.spark.components.menu.DropdownMenu
 import com.adevinta.spark.components.menu.MultiChoiceDropdownItemColumnScope
@@ -838,18 +839,33 @@ public fun Dropdown(
 public fun SparkSelectTrailingIcon(
     expanded: Boolean,
     modifier: Modifier = Modifier,
+    onClick: (() -> Unit)? = null,
 ) {
     // Clear semantics here as otherwise icon will be a11y focusable but without an
     // action. When there's an API to check if Talkback is on, developer will be able to
     // expand the menu on icon click in a11y mode only esp. if using their own custom
     // trailing icon.
-    Icon(
-        sparkIcon = SparkAnimatedIcons.CollapseExpand,
-        size = IconSize.Medium,
-        contentDescription = null,
-        atEnd = expanded,
-        modifier = modifier,
-    )
+    if (onClick != null) {
+        IconButton(
+            onClick = onClick,
+            modifier = modifier,
+        ) {
+            Icon(
+                sparkIcon = SparkAnimatedIcons.CollapseExpand,
+                size = IconSize.Medium,
+                contentDescription = null,
+                atEnd = expanded,
+            )
+        }
+    } else {
+        Icon(
+            sparkIcon = SparkAnimatedIcons.CollapseExpand,
+            size = IconSize.Medium,
+            contentDescription = null,
+            atEnd = expanded,
+            modifier = modifier,
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

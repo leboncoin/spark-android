@@ -42,7 +42,7 @@ import com.adevinta.spark.catalog.configurator.samples.stepper.StepperConfigurat
 import com.adevinta.spark.catalog.configurator.samples.tabs.TabsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.tags.TagsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.text.TextLinksConfigurator
-import com.adevinta.spark.catalog.configurator.samples.textfields.ComboBoxConfigurator
+import com.adevinta.spark.catalog.configurator.samples.textfields.ComboBoxConfigurators
 import com.adevinta.spark.catalog.configurator.samples.textfields.DropdownsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.textfields.TextFieldsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.toggles.CheckboxConfigurator
@@ -139,7 +139,7 @@ private val ComboBox = Component(
     docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.textfields/index.html",
     sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/components/textfields/ComboBox.kt",
     examples = ComboBoxExample,
-    configurators = listOf(ComboBoxConfigurator),
+    configurators = ComboBoxConfigurators,
 )
 
 private val Checkboxes = Component(

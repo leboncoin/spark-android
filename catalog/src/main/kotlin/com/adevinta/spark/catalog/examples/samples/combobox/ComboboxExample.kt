@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.catalog.examples.samples.combobox
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
@@ -28,6 +29,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.util.fastForEach
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
@@ -35,6 +37,7 @@ import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.MultiChoiceComboBox
 import com.adevinta.spark.components.textfields.SelectedChoice
+import com.adevinta.spark.components.textfields.SingleChoiceComboBox
 import kotlinx.collections.immutable.toImmutableList
 
 private const val ComboBoxExampleSourceUrl = "$SampleSourceUrl/ComboBoxExample.kt"
@@ -74,6 +77,7 @@ private val MultipleComboBox = Example(
         }
     }
     MultiChoiceComboBox(
+        modifier = Modifier.fillMaxWidth(),
         value = value,
         onValueChange = { newValue -> value = newValue },
         expanded = expanded,
@@ -107,6 +111,131 @@ private val MultipleComboBox = Example(
     }
 }
 
+private val FilteringComboBox = Example(
+    id = "combobox-filtering",
+    name = "Combobox with filtering",
+    description = "Example of a SingleChoiceComboBox with filtering functionality",
+    sourceUrl = ComboBoxExampleSourceUrl,
+) {
+    var value by rememberSaveable { mutableStateOf("") }
+    var expanded by remember { mutableStateOf(false) }
+    var searchText by remember { mutableStateOf("") }
+
+    val filteredBooks by remember(searchText) {
+        derivedStateOf {
+            if (searchText.isBlank()) {
+                comboBoxSampleValues
+            } else {
+                comboBoxSampleValues.filter { book ->
+                    book.title.contains(searchText, ignoreCase = true)
+                }
+            }
+        }
+    }
+
+    SingleChoiceComboBox(
+        modifier = Modifier.fillMaxWidth(),
+        value = value,
+        onValueChange = { newValue ->
+            value = newValue
+            searchText = newValue // Update search text when value changes
+        },
+        expanded = expanded,
+        onExpandedChange = { expanded = it },
+        onDismissRequest = { expanded = false },
+        enabled = true,
+        required = true,
+        label = "Search books",
+        placeholder = "Type to search...",
+        helper = "Filter books by typing in the search box",
+        dropdownContent = {
+            if (filteredBooks.isEmpty()) {
+                DropdownMenuItem(
+                    text = { Text("No books found") },
+                    onClick = { },
+                    selected = false,
+                )
+            } else {
+                filteredBooks.forEach { book ->
+                    DropdownMenuItem(
+                        text = { Text(book.title) },
+                        onClick = {
+                            value = book.title
+                            expanded = false
+                        },
+                        selected = book.title == value,
+                    )
+                }
+            }
+        },
+    )
+}
+
+private val SuggestionComboBox = Example(
+    id = "combobox-suggestion",
+    name = "Combobox with suggestions",
+    description = "Example of a SingleChoiceComboBox with suggestion/autocomplete functionality",
+    sourceUrl = ComboBoxExampleSourceUrl,
+) {
+    var value by rememberSaveable { mutableStateOf("") }
+    var expanded by remember { mutableStateOf(false) }
+    var searchText by remember { mutableStateOf("") }
+
+    val suggestedBooks by remember(searchText) {
+        derivedStateOf {
+            if (searchText.isBlank()) {
+                emptyList()
+            } else {
+                comboBoxSampleValues.filter { book ->
+                    book.title.contains(searchText, ignoreCase = true)
+                }.take(3) // Limit to top 3 suggestions
+            }
+        }
+    }
+
+    SingleChoiceComboBox(
+        modifier = Modifier.fillMaxWidth(),
+        value = value,
+        onValueChange = { newValue ->
+            value = newValue
+            searchText = newValue
+            expanded = true // Keep dropdown open while typing
+        },
+        expanded = expanded,
+        onExpandedChange = { expanded = it },
+        onDismissRequest = { expanded = false },
+        enabled = true,
+        required = true,
+        label = "Search with suggestions",
+        placeholder = "Type to see suggestions...",
+        helper = "Get book suggestions as you type",
+        dropdownContent = {
+            if (suggestedBooks.isEmpty()) {
+                if (searchText.isNotBlank()) {
+                    DropdownMenuItem(
+                        text = { Text("No suggestions found") },
+                        onClick = { },
+                        selected = false,
+                    )
+                }
+            } else {
+                suggestedBooks.forEach { book ->
+                    DropdownMenuItem(
+                        text = { Text(book.title) },
+                        onClick = {
+                            value = book.title
+                            expanded = false
+                        },
+                        selected = book.title == value,
+                    )
+                }
+            }
+        },
+    )
+}
+
 public val ComboBoxExample: List<Example> = listOf(
     MultipleComboBox,
+    FilteringComboBox,
+    SuggestionComboBox,
 )
