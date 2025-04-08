@@ -482,7 +482,7 @@ public fun DropdownMenuItemColumnScope.DropdownMenuItem(
  * @param selected - whether this item is selected or not
  * @param onClick called when this menu item is clicked
  * @param modifier the [Modifier] to be applied to this menu item
- * @param leadingIcon optional leading icon to be displayed at the beginning of the item's text
+ * @param trailingIcon optional trailing icon to be displayed at the end of the item's text
  * @param enabled controls the enabled state of this menu item. When `false`, this component will
  * not respond to user input, and it will appear visually disabled and disabled to accessibility
  * services.
@@ -498,7 +498,7 @@ public fun SingleChoiceDropdownItemColumnScope.DropdownMenuItem(
     selected: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    leadingIcon: @Composable (() -> Unit)? = null,
+    trailingIcon: @Composable (() -> Unit)? = null,
     enabled: Boolean = true,
     contentPadding: PaddingValues = PaddingValues(
         horizontal = 16.dp,
@@ -518,8 +518,8 @@ public fun SingleChoiceDropdownItemColumnScope.DropdownMenuItem(
             )
             .semantics { role = Role.RadioButton },
         contentPadding = contentPadding,
-        leadingIcon = leadingIcon,
-        trailingIcon = if (selected) {
+        trailingIcon = trailingIcon,
+        leadingIcon = if (selected) {
             @Composable {
                 Icon(
                     sparkIcon = SparkIcons.Check,
@@ -547,7 +547,7 @@ public fun SingleChoiceDropdownItemColumnScope.DropdownMenuItem(
  * @param onCheckedChange callback to be invoked when the item is clicked. therefore the change of
  *   checked state in requested.
  * @param modifier the [Modifier] to be applied to this menu item
- * @param leadingIcon optional leading icon to be displayed at the beginning of the item's text
+ * @param trailingIcon optional trailing icon to be displayed at the end of the item's text
  * @param enabled controls the enabled state of this menu item. When `false`, this component will
  * not respond to user input, and it will appear visually disabled and disabled to accessibility
  * services.
@@ -563,7 +563,7 @@ public fun MultiChoiceDropdownItemColumnScope.DropdownMenuItem(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
-    leadingIcon: @Composable (() -> Unit)? = null,
+    trailingIcon: @Composable (() -> Unit)? = null,
     enabled: Boolean = true,
     contentPadding: PaddingValues = PaddingValues(
         horizontal = 16.dp,
@@ -582,8 +582,8 @@ public fun MultiChoiceDropdownItemColumnScope.DropdownMenuItem(
                 indication = ripple(true),
             ),
         contentPadding = contentPadding,
-        leadingIcon = leadingIcon,
-        trailingIcon = if (checked) {
+        trailingIcon = trailingIcon,
+        leadingIcon = if (checked) {
             @Composable {
                 Icon(
                     sparkIcon = SparkIcons.Check,
