@@ -25,6 +25,9 @@ import com.adevinta.spark.icons.SparkIcon.AnimatedDrawableRes
 
 public object SparkAnimatedIcons
 
+public val SparkAnimatedIcons.CollapseExpand: AnimatedDrawableRes
+    get() = AnimatedDrawableRes(R.drawable.spark_icons_animated_collapse_expand)
+
 public val SparkAnimatedIcons.BellShake: AnimatedDrawableRes
     get() = AnimatedDrawableRes(R.drawable.spark_icons_animated_bell_shake)
 

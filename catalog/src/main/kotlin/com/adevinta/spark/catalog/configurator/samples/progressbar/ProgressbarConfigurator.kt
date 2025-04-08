@@ -37,16 +37,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.model.Configurator
+import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
-import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.components.progressbar.Progressbar
 import com.adevinta.spark.components.progressbar.ProgressbarIndeterminate
 import com.adevinta.spark.components.progressbar.ProgressbarIntent
 import com.adevinta.spark.components.slider.Slider
 import com.adevinta.spark.components.spacer.VerticalSpacer
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.components.textfields.Dropdown
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.textfields.TextFieldState
 import com.adevinta.spark.components.toggles.SwitchLabelled
@@ -67,7 +66,6 @@ private fun ColumnScope.ProgressbarSample() {
     var progress by remember { mutableFloatStateOf(0.5f) }
     val state: TextFieldState? by remember { mutableStateOf(null) }
     val stateMessageText by remember { mutableStateOf("State Message") }
-    var expanded by remember { mutableStateOf(false) }
 
     Text(text = "Progressbar")
 
@@ -86,26 +84,14 @@ private fun ColumnScope.ProgressbarSample() {
         isRounded = isRounded,
     )
 
-    val intents = ProgressbarIntent.entries
     VerticalSpacer(8.dp)
 
-    Dropdown(
+    DropdownEnum(
         modifier = Modifier.fillMaxWidth(),
-        value = intent.name,
-        label = stringResource(id = R.string.configurator_component_screen_intent_label),
-        expanded = expanded,
-        onExpandedChange = { expanded = !expanded },
-        onDismissRequest = { expanded = false },
-        dropdownContent = {
-            intents.forEach {
-                DropdownMenuItem(
-                    text = { Text(it.name) },
-                    onClick = {
-                        intent = it
-                        expanded = false
-                    },
-                )
-            }
+        title = stringResource(id = R.string.configurator_component_screen_intent_label),
+        selectedOption = intent,
+        onOptionSelect = {
+            intent = it
         },
     )
     VerticalSpacer(8.dp)

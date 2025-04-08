@@ -9,7 +9,7 @@ dokka = "1.9.20"
 kotlin = "2.1.20"
 lint = "31.9.1"
 minCompileSdk = "24"
-spotless = "7.0.2"
+spotless = "7.0.3"
 targetSdk = "35"
 
 [libraries]
@@ -92,7 +92,7 @@ kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test" }
 
 kotlinx-collections-immutable = "org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.8"
-kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0"
+kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1"
 
 ktlint-bom = "com.pinterest.ktlint:ktlint-bom:1.5.0"
 

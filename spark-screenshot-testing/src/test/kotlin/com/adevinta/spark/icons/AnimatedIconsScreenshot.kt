@@ -57,6 +57,27 @@ internal class AnimatedIconsScreenshot {
             )
         }
 
-        paparazzi.gif(view, "bellShake", start = 500, end = 1500, fps = 60)
+        paparazzi.gif(view, start = 500, end = 1500, fps = 60)
+    }
+
+    @Test
+    fun collapseExpand() {
+        val view = paparazzi.gifView {
+            var atEnd by remember { mutableStateOf(false) }
+            LaunchedEffect(Unit) {
+                atEnd = true
+                delay(200)
+                atEnd = false
+            }
+            Icon(
+                sparkIcon = SparkAnimatedIcons.CollapseExpand,
+                contentDescription = SparkAnimatedIcons.CollapseExpand.toString(),
+                size = IconSize.ExtraLarge,
+                tint = Color.Black,
+                atEnd = atEnd,
+            )
+        }
+
+        paparazzi.gif(view, start = 0, end = 400, fps = 60)
     }
 }
