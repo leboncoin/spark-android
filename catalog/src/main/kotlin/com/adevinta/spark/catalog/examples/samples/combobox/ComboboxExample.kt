@@ -82,7 +82,6 @@ private val MultipleComboBox = Example(
         onValueChange = { newValue ->
             value = newValue
             expanded = true // Keep dropdown open while typing
-
         },
         expanded = expanded,
         onExpandedChange = { expanded = it },
