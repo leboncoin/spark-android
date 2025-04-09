@@ -30,11 +30,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.buttons.ButtonContrast
@@ -47,13 +49,12 @@ import com.adevinta.spark.icons.LikeFill
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 
-private const val ButtonsExampleDescription = "Button examples"
-private const val ButtonsExampleSourceUrl = "$SampleSourceUrl/ButtonSamples.kt"
+private const val ButtonsExampleSourceUrl = "$SampleSourceUrl/ButtonsSamples.kt"
 public val ButtonsExamples: List<Example> = listOf(
     Example(
         id = "filled",
-        name = "Filled Button",
-        description = ButtonsExampleDescription,
+        name = R.string.buttons_example_filled_title,
+        description = R.string.buttons_example_description,
         sourceUrl = ButtonsExampleSourceUrl,
     ) {
         ButtonSample(
@@ -71,8 +72,8 @@ public val ButtonsExamples: List<Example> = listOf(
     },
     Example(
         id = "tinted",
-        name = "Tinted Button",
-        description = ButtonsExampleDescription,
+        name = R.string.buttons_example_tinted_title,
+        description = R.string.buttons_example_description,
         sourceUrl = ButtonsExampleSourceUrl,
     ) {
         ButtonSample(
@@ -90,8 +91,8 @@ public val ButtonsExamples: List<Example> = listOf(
     },
     Example(
         id = "outlined",
-        name = "Outlined Button",
-        description = ButtonsExampleDescription,
+        name = R.string.buttons_example_outlined_title,
+        description = R.string.buttons_example_description,
         sourceUrl = ButtonsExampleSourceUrl,
     ) {
         ButtonSample(
@@ -109,8 +110,8 @@ public val ButtonsExamples: List<Example> = listOf(
     },
     Example(
         id = "ghost",
-        name = "Ghost Button",
-        description = ButtonsExampleDescription,
+        name = R.string.buttons_example_ghost_title,
+        description = R.string.buttons_example_description,
         sourceUrl = ButtonsExampleSourceUrl,
     ) {
         ButtonSample(
@@ -129,7 +130,7 @@ public val ButtonsExamples: List<Example> = listOf(
     Example(
         id = "contrast",
         name = "Contrast Button",
-        description = ButtonsExampleDescription,
+        description = R.string.buttons_example_description,
         sourceUrl = ButtonsExampleSourceUrl,
     ) {
         ButtonSample(

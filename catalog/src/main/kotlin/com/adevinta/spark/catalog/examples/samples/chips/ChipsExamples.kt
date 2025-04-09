@@ -54,12 +54,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.examples.samples.chips.filter.ChipFilter
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
@@ -95,83 +97,72 @@ private const val ChipsExampleSourceUrl = "$SampleSourceUrl/ChipsSamples.kt"
 public val ChipsExamples: List<Example> = listOf(
     Example(
         id = "default",
-        name = "Default",
-        description = "Step indicator content defaults to step index, or checkmark icon when completed.",
+        name = R.string.chips_example_default_title,
+        description = R.string.chips_example_default_description,
         sourceUrl = ChipsExampleSourceUrl,
     ) {
         ChipsDefault()
     },
     Example(
         id = "kind",
-        name = "Kind",
-        description = "",
+        name = R.string.chips_example_kind_title,
+        description = R.string.chips_example_kind_description,
         sourceUrl = ChipsExampleSourceUrl,
     ) {
         ChipsKind()
     },
     Example(
         id = "intent",
-        name = "Intent",
-        description = "All intents are available",
+        name = R.string.chips_example_intent_title,
+        description = R.string.chips_example_intent_description,
         sourceUrl = ChipsExampleSourceUrl,
     ) {
         ChipsIntent()
     },
     Example(
         id = "selectable",
-        name = "Intent Selectable",
-        description = "All intents are available and selectable",
+        name = R.string.chips_example_selectable_title,
+        description = R.string.chips_example_selectable_description,
         sourceUrl = ChipsExampleSourceUrl,
     ) {
         ChipSelectablesIntent()
     },
     Example(
         id = "assist",
-        name = "Assist",
-        description = "Assist chips represent smart or automated actions that can span multiple apps, such as " +
-            "opening a calendar event from the home screen.\n\n" +
-            "Assist chips function as though the user asked an assistant to complete the action. They " +
-            "should appear dynamically and contextually in a UI.\n\n" +
-            "An alternative to assist chips is buttons, which should appear persistently and consistently.\n",
+        name = R.string.chips_example_assist_title,
+        description = R.string.chips_example_assist_description,
         sourceUrl = ChipsExampleSourceUrl,
     ) {
         ChipAssist()
     },
     Example(
         id = "filter",
-        name = "Filter",
-        description = "Filter chips represent filters for a collection. They use tags or descriptive words to filter " +
-            "content. They can be a good alternative to toggle buttons or checkboxes.\n" +
-            "\n" +
-            "Tapping on a filter chip activates it and appends a leading checkmark icon to the starting " +
-            "edge of the chip label.",
+        name = R.string.chips_example_filter_title,
+        description = R.string.chips_example_filter_description,
         sourceUrl = ChipsExampleSourceUrl,
     ) {
         ChipFilter()
     },
     Example(
         id = "input",
-        name = "Input",
-        description = "Input chips represent discrete pieces of information entered by a user, such as Gmail " +
-            "contacts or filter options within a search field.\n" +
-            "They enable user input and verify that input by converting text into chips.",
+        name = R.string.chips_example_input_title,
+        description = R.string.chips_example_input_description,
         sourceUrl = ChipsExampleSourceUrl,
     ) {
         ChipInput()
     },
     Example(
         id = "suggestion",
-        name = "Suggestion",
-        description = "Suggestion chips help narrow a user’s intent by presenting dynamically generated suggestions," +
-            " such as possible responses or search filters.",
+        name = R.string.chips_example_suggestion_title,
+        description = R.string.chips_example_suggestion_description,
         sourceUrl = ChipsExampleSourceUrl,
     ) {
         ChipSuggestion()
     },
     Example(
         id = "selection",
-        name = "Selection",
-        description = "Chips can also add other extra rare usages like acting as a Select combined with the popover.",
+        name = R.string.chips_example_selection_title,
+        description = R.string.chips_example_selection_description,
         sourceUrl = ChipsExampleSourceUrl,
     ) {
         ChipSelection()
@@ -181,7 +172,7 @@ public val ChipsExamples: List<Example> = listOf(
 @Preview
 @Composable
 private fun ColumnScope.ChipsDefault() {
-    ChipOutlined(text = "default chip")
+    ChipOutlined(text = stringResource(R.string.chips_example_default_chip_text))
 }
 
 @Composable
@@ -191,20 +182,20 @@ private fun ColumnScope.ChipsKind() {
     FlowRow(
         horizontalArrangement = spacedBy(8.dp),
     ) {
-        Chip(text = "Assist", leadingIcon = SparkIcons.CalendarOutline, onClick = {})
+        Chip(text = stringResource(R.string.chips_example_assist_text), leadingIcon = SparkIcons.CalendarOutline, onClick = {})
         ChipSelectable(
-            text = "Filter",
+            text = stringResource(R.string.chips_example_filter_text),
             leadingIcon = if (selected) SparkIcons.Check else null,
             onClick = { selected = !selected },
             selected = selected,
         )
         Chip(
-            text = "Input",
+            text = stringResource(R.string.chips_example_input_text),
             onClick = { },
             onClose = { },
-            onCloseLabel = "Supprimer le filtre",
+            onCloseLabel = stringResource(R.string.chips_example_remove_filter),
         )
-        Chip(text = "Suggestion", onClick = { })
+        Chip(text = stringResource(R.string.chips_example_suggestion_text), onClick = { })
     }
 }
 
@@ -222,7 +213,7 @@ private fun ColumnScope.ChipsIntent() {
                     style = style,
                     intent = it,
                     onClose = { },
-                    onCloseLabel = "Close",
+                    onCloseLabel = stringResource(R.string.chips_example_close),
                 )
             }
         }

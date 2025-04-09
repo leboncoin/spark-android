@@ -21,10 +21,12 @@
  */
 package com.adevinta.spark.catalog.examples.samples.textfields
 
+import android.content.res.Resources
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -41,38 +43,53 @@ import com.adevinta.spark.components.textfields.Dropdown
 import com.adevinta.spark.tokens.highlight
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
+import androidx.compose.ui.res.stringResource
+import com.adevinta.spark.catalog.R
 
 private const val DropdownsExampleSourceUrl = "$SampleSourceUrl/DropdownExamples.kt"
 
-private data class DropdownExampleGroup(val name: String, val books: ImmutableList<String>)
+private data class DropdownExampleGroup(val name: Int, val books: ImmutableList<Int>)
 
 private val DropdownStubData = persistentListOf(
-    DropdownExampleGroup("Best Sellers", persistentListOf("To Kill a Mockingbird", "War and Peace", "The Idiot")),
-    DropdownExampleGroup("Novelties", persistentListOf("A Picture of Dorian Gray", "1984", "Pride and Prejudice")),
+    DropdownExampleGroup(
+        R.string.dropdown_example_group_best_sellers,
+        persistentListOf(
+            R.string.book_title_mockingbird,
+            R.string.book_title_war_peace,
+            R.string.book_title_idiot
+        )
+    ),
+    DropdownExampleGroup(
+        R.string.dropdown_example_group_novelties,
+        persistentListOf(
+            R.string.book_title_dorian_gray,
+            R.string.book_title_1984,
+            R.string.book_title_pride_prejudice
+        )
+    ),
 )
 
 public val DropdownsExamples: List<Example> = listOf(
     Example(
         id = "single-select",
-        name = "Single selection",
-        description = "Clicking the selected item does not unselect it",
+        name = R.string.dropdown_example_single_select_title,
+        description = R.string.dropdown_example_single_select_description,
         sourceUrl = DropdownsExampleSourceUrl,
     ) {
         SingleSelectDropdown()
     },
     Example(
         id = "multi-select",
-        name = "Multi selection",
-        description = "You have full control on how the menu behave when clicking an item to close it or not.",
+        name = R.string.dropdown_example_multi_select_title,
+        description = R.string.dropdown_example_multi_select_description,
         sourceUrl = DropdownsExampleSourceUrl,
     ) {
         MultiSelectDropdown()
     },
     Example(
         id = "custom-item",
-        name = "Custom Item",
-        description = "The Dropdown takes a slot for the menu content, you can use a different item than " +
-            "DropdownItem if you need a different layout than the classic one.",
+        name = R.string.dropdown_example_custom_item_title,
+        description = R.string.dropdown_example_custom_item_description,
         sourceUrl = DropdownsExampleSourceUrl,
     ) {
         CustomItemsDropdown()
@@ -85,7 +102,7 @@ private fun SingleSelectDropdown() {
         mutableStateOf(DropdownStubData)
     }
 
-    var singleSelected by remember { mutableStateOf("") }
+    var singleSelected: Int by remember { mutableStateOf(null) }
     var expanded by remember { mutableStateOf(false) }
     Dropdown(
         modifier = Modifier.fillMaxWidth(),
@@ -103,12 +120,12 @@ private fun SingleSelectDropdown() {
             singleSelectionFilter.forEach { (groupName, books) ->
                 DropdownMenuGroupItem(
                     title = {
-                        Text(groupName)
+                        Text(stringResource(groupName))
                     },
                 ) {
                     books.forEach { book ->
                         DropdownMenuItem(
-                            text = { Text(book) },
+                            text = { Text(stringResource(book)) },
                             onClick = {
                                 singleSelected = book
                                 expanded = false
@@ -158,7 +175,7 @@ private fun MultiSelectDropdown() {
             multiSelectionFilter.forEach { (groupName, books) ->
                 DropdownMenuGroupItem(
                     title = {
-                        Text(groupName)
+                        Text(stringResource(groupName))
                     },
                 ) {
                     books.forEach { book ->
@@ -168,7 +185,7 @@ private fun MultiSelectDropdown() {
                         DropdownMenuItem(
                             text = {
                                 Text(
-                                    text = book,
+                                    text = stringResource(book),
                                     style = if (isSelected) {
                                         SparkTheme.typography.body1.highlight
                                     } else {
@@ -220,14 +237,14 @@ private fun CustomItemsDropdown() {
                 DropdownMenuGroupItem(
                     title = {
                         Text(
-                            text = groupName,
+                            text = stringResource(groupName),
                             style = SparkTheme.typography.body1.highlight,
                         )
                     },
                 ) {
                     books.forEach { book ->
                         DropdownMenuItem(
-                            text = { Text(book) },
+                            text = { Text(stringResource(book)) },
                             onClick = {
                                 singleSelected = book
                                 expanded = false

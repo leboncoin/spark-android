@@ -30,6 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.slider.RangeSlider
@@ -41,8 +42,8 @@ private const val SlidersExampleSourceUrl = "$SampleSourceUrl/SliderExamples.kt"
 public val SlidersExamples: List<Example> = listOf(
     Example(
         id = "steps",
-        name = "Slider with Steps",
-        description = "Slider intent error, with steps",
+        name = R.string.slider_example_steps_title,
+        description = R.string.slider_example_steps_description,
         sourceUrl = SlidersExampleSourceUrl,
     ) {
 
@@ -64,8 +65,8 @@ public val SlidersExamples: List<Example> = listOf(
     },
     Example(
         id = "no-steps",
-        name = "Slider with No Steps",
-        description = "Slider intent Basic, with no steps",
+        name = R.string.slider_example_no_steps_title,
+        description = R.string.slider_example_no_steps_description,
         sourceUrl = SlidersExampleSourceUrl,
     ) {
 
@@ -86,8 +87,8 @@ public val SlidersExamples: List<Example> = listOf(
     },
     Example(
         id = "range-steps",
-        name = "Range Slider with Steps",
-        description = "Range Slider intent accent, with steps",
+        name = R.string.slider_example_range_steps_title,
+        description = R.string.slider_example_range_steps_description,
         sourceUrl = SlidersExampleSourceUrl,
     ) {
 
@@ -109,8 +110,8 @@ public val SlidersExamples: List<Example> = listOf(
     },
     Example(
         id = "range-no-steps",
-        name = "Range Slider with no Steps",
-        description = "Range Slider intent Success, with no steps",
+        name = R.string.slider_example_range_no_steps_title,
+        description = R.string.slider_example_range_no_steps_description,
         sourceUrl = SlidersExampleSourceUrl,
     ) {
 

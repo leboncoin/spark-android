@@ -25,12 +25,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.Text
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.buttons.ButtonIntent
@@ -49,8 +48,8 @@ private const val SnackbarExampleSourceUrl = "$SampleSourceUrl/SnackbarSamples.k
 public val SnackbarExamples: List<Example> = listOf(
     Example(
         id = "filled",
-        name = "Snackbar",
-        description = "Snackbar example filled ",
+        name = R.string.snackbar_example_filled_title,
+        description = R.string.snackbar_example_filled_description ,
         sourceUrl = SnackbarExampleSourceUrl,
     ) {
         Snackbar(
@@ -66,8 +65,8 @@ public val SnackbarExamples: List<Example> = listOf(
     },
     Example(
         id = "tinted",
-        name = "Snackbar",
-        description = "Snackbar example tinted ",
+        name = R.string.snackbar_example_tinted_title,
+        description = R.string.snackbar_example_tinted_description,
         sourceUrl = SnackbarExampleSourceUrl,
     ) {
         Snackbar(
@@ -84,8 +83,8 @@ public val SnackbarExamples: List<Example> = listOf(
     },
     Example(
         id = "host",
-        name = "Snackbar host",
-        description = "Snackbar host with intent success",
+        name = R.string.snackbar_example_host_title,
+        description = R.string.snackbar_example_host_description,
         sourceUrl = SnackbarExampleSourceUrl,
     ) { snackbarHostState ->
         val scope = rememberCoroutineScope()
@@ -101,8 +100,6 @@ public val SnackbarExamples: List<Example> = listOf(
                         snackbarHostState.showSnackbar(
                             message = "Hello Snackbar!",
                             actionLabel = "Action",
-                            duration = SnackbarDuration.Short,
-                            intent = SnackbarIntent.Success,
                         )
                     }
                 },
@@ -112,8 +109,8 @@ public val SnackbarExamples: List<Example> = listOf(
 
     Example(
         id = "host-action-long",
-        name = "Snackbar host",
-        description = "Snackbar host with intent success with SnackbarVisuals, long duration, intent accent",
+        name = R.string.snackbar_example_host_customised_title,
+        description = R.string.snackbar_example_host_customised_description,
         sourceUrl = SnackbarExampleSourceUrl,
     ) { snackbarHostState ->
         val scope = rememberCoroutineScope()

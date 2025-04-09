@@ -43,13 +43,12 @@ import com.adevinta.spark.components.toggles.ContentSide
 import com.adevinta.spark.components.toggles.RadioButton
 import com.adevinta.spark.components.toggles.RadioButtonLabelled
 
-private const val RadioButtonExampleDescription = "RadioButton examples"
 private const val RadioButtonExampleSourceUrl = "$SampleSourceUrl/RadioButtonSamples.kt"
 public val RadioButtonExamples: List<Example> = listOf(
     Example(
         id = "standalone",
         name = "Standalone radio button",
-        description = RadioButtonExampleDescription,
+        description = R.string.radio_button_example_description,
         sourceUrl = RadioButtonExampleSourceUrl,
     ) {
         Column {
@@ -70,7 +69,7 @@ public val RadioButtonExamples: List<Example> = listOf(
     Example(
         id = "labeled",
         name = "Labeled radio button content side",
-        description = RadioButtonExampleDescription,
+        description = R.string.radio_button_example_description,
         sourceUrl = RadioButtonExampleSourceUrl,
     ) {
         RadioButtonContentSideExample()
@@ -78,7 +77,7 @@ public val RadioButtonExamples: List<Example> = listOf(
     Example(
         id = "group",
         name = "Labeled radio button group",
-        description = RadioButtonExampleDescription,
+        description = R.string.radio_button_example_description,
         sourceUrl = RadioButtonExampleSourceUrl,
     ) {
         LabeledRadioButtonGroupExample()

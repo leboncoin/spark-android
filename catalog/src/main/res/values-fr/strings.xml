@@ -27,7 +27,7 @@
     <string name="brand">Sélectionner une marque</string>
     <string name="pro">Utiliser le thème Pro</string>
 
-    <string name="example_tokens_elevation_label">Valeur d’élévation : %d</string>
+    <string name="example_tokens_elevation_label">Valeur d’élévation\u00A0: %d</string>
     <string name="themepicker_navigation_label">Animation de la navigation</string>
 
     <string name="description">Description</string>
@@ -37,7 +37,7 @@
     <string name="theme_picker_mode_title">Mode</string>
     <string name="theme_picker_theme_title" description="Thème de marque Spark. [CHAR_LIMIT=NONE]">Thème</string>
     <string name="theme_picker_text_direction_title" description="Simuler la direction du texte du système en LTR ou RTL. [CHAR_LIMIT=NONE]">Sens du texte</string>
-    <string name="theme_picker_font_scale_title" description="Simuler la mise à l'échelle de la police a11y. [CHAR_LIMIT=NONE]">Échelle de la police</string>
+    <string name="theme_picker_font_scale_title" description="Simuler la mise à l’échelle de la police a11y. [CHAR_LIMIT=NONE]">Échelle de la police</string>
     <string name="examples_component_screen_title">Exemples de composants</string>
     <string name="examples_component_screen_description">Voici les exemples que l’on peut trouver dans les échantillons de la javadoc ou dans les fichiers README.md. Ils montrent l’utilisation des composants avec les paramètres par défaut dans différents scénarios qui devraient représenter des cas d’utilisation réels.</string>
     <string name="component_button_description">Les boutons aident les utilisateurs à exécuter des actions, comme envoyer un e-mail, partager un document ou aimer une publication.</string>
@@ -60,7 +60,7 @@
     <string name="component_chips_description">Les chips aident les utilisateurs à reconnaître rapidement une information importante qu’ils ont saisie, à déclencher des actions, à faire des sélections ou à filtrer du contenu.</string>
     <!--endregion-->
 
-    <string name="component_dialog_description">Une boîte de dialogue est une fenêtre modale (qui survol l\'affichage principal) qui apparaît devant le contenu pour fournir des informations essentielles ou demander une décision.</string>
+    <string name="component_dialog_description">Une boîte de dialogue est une fenêtre modale (qui survol l’affichage principal) qui apparaît devant le contenu pour fournir des informations essentielles ou demander une décision.</string>
     <!--Dropdowns example-->
     <string name="component_dropdowns_description">Une liste déroulante est un élément interactif qui permet aux utilisateurs de sélectionner une option dans une liste de choix présentée dans un menu pliable. Elle permet de gagner de la place sur l’interface en masquant les options jusqu’à ce que l’utilisateur interagisse avec le composant.</string>
     <!--endregion-->
@@ -77,7 +77,7 @@
     <string name="component_icontogglebutton_description">Les icône boutons à selectionner aident les utilisateurs à effectuer des actions de selection supplémentaires d’un simple toucher. Ils sont utilisés lorsqu’un bouton compact est nécessaire, par exemple dans une barre d’outils ou une liste d’images.</string>
     <!--endregion-->
     <!--region image -->
-    <string name="component_image_description">Le composant Image est utilisé pour afficher des images avec une prise en charge de d\'image ou icône de secours en cas de problème de chargment.</string>
+    <string name="component_image_description">Le composant Image est utilisé pour afficher des images avec une prise en charge de d’image ou icône de secours en cas de problème de chargment.</string>
     <string name="component_image_narrow_description">Photographie de rue d’une personne marchant dans une ruelle pavée après la pluie avec des lumières blanches/dorées brillantes sur le côté et la couleur bleue foncée au centre avec un parapluie</string>
     <string name="component_image_wide_description">Un immense portrait de la statue grandeur nature de l’Unicorn Gundam à l’Odaiba’s DiverCity Tokyo Plaza.</string>
     <string name="component_image_content_scale_crop_description">Mettre l’image à l’échelle pour remplir à 100 % les limites du composant Image, mais sans modifier son rapport</string>

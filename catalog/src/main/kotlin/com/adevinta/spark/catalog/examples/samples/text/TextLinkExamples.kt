@@ -27,11 +27,13 @@ import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
+import com.adevinta.spark.components.icons.IconDefaults.intent
 import com.adevinta.spark.components.snackbars.SnackbarIntent
 import com.adevinta.spark.components.text.TextLink
 import com.adevinta.spark.components.text.TextLinkButton
@@ -45,8 +47,8 @@ private const val TextLinksExampleSourceUrl = "$SampleSourceUrl/TextLinkExamples
 public val TextLinksExamples: List<Example> = listOf(
     Example(
         id = "filled",
-        name = "Link inside title",
-        description = "Link inside title no icon",
+        name = R.string.text_link_example_filled_title,
+        description = R.string.text_link_example_filled_description,
         sourceUrl = TextLinksExampleSourceUrl,
     ) { snackbarHostState ->
         val scope = rememberCoroutineScope()
@@ -55,16 +57,18 @@ public val TextLinksExamples: List<Example> = listOf(
             modifier = Modifier.fillMaxSize(),
         ) {
 
+            val message = stringResource(R.string.text_link_example_snackbar_message)
+            val actionLabel = stringResource(R.string.text_link_example_snackbar_action)
             TextLink(
                 style = SparkTheme.typography.subhead,
                 text = annotatedStringResource(id = R.string.spark_text_link_short_example_),
                 lineHeight = 40.sp,
-                onClickLabel = "Aller au site web",
+                onClickLabel = stringResource(R.string.text_link_example_on_click_label),
                 onClick = {
                     scope.launch {
                         snackbarHostState.showSnackbar(
-                            message = "https://kotlinlang.org",
-                            actionLabel = "Action",
+                            message = message,
+                            actionLabel = actionLabel,
                             duration = SnackbarDuration.Short,
                             intent = SnackbarIntent.Success,
                         )
@@ -75,8 +79,8 @@ public val TextLinksExamples: List<Example> = listOf(
     },
     Example(
         id = "paragraph",
-        name = "Link inside paragraph",
-        description = "Link inside paragraph no icon",
+        name = R.string.text_link_example_paragraph_title,
+        description = R.string.text_link_example_paragraph_description,
         sourceUrl = TextLinksExampleSourceUrl,
     ) { snackbarHostState ->
         val scope = rememberCoroutineScope()

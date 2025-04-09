@@ -42,21 +42,21 @@ import kotlinx.collections.immutable.toImmutableList
 
 private const val ComboBoxExampleSourceUrl = "$SampleSourceUrl/ComboBoxExample.kt"
 
-internal data class Book(val id: Int, val title: String)
+internal data class Book(val id: Int, val title: Int)
 
 internal val comboBoxSampleValues = listOf(
-    Book(1, "To Kill a Mockingbird"),
-    Book(2, "War and Peace"),
-    Book(3, "The Idiot"),
-    Book(4, "A Picture of Dorian Gray"),
-    Book(5, "1984"),
-    Book(6, "Pride and Prejudice but it is an extremely long title"),
+    Book(1, R.string.book_title_mockingbird),
+    Book(2, R.string.book_title_war_peace),
+    Book(3, R.string.book_title_idiot),
+    Book(4, R.string.book_title_dorian_gray),
+    Book(5, R.string.book_title_1984),
+    Book(6, R.string.book_title_pride_prejudice),
 )
 
 private val MultipleComboBox = Example(
     id = "combobox-multiple",
-    name = "Combobox with multiple selection",
-    description = "Sample of addons provided by Spark through the AddonScope api",
+    name = R.string.combobox_example_multiple_title,
+    description = R.string.combobox_example_multiple_description,
     sourceUrl = ComboBoxExampleSourceUrl,
 ) {
     var value by rememberSaveable { mutableStateOf("") }
@@ -88,9 +88,9 @@ private val MultipleComboBox = Example(
         onDismissRequest = { expanded = false },
         enabled = true,
         required = true,
-        label = "Books to sell",
+        label = stringResource(R.string.combobox_example_multiple_label),
         placeholder = comboBoxSampleValues[0].title,
-        helper = "You can select multiple books at a time",
+        helper = stringResource(R.string.combobox_example_multiple_helper),
         selectedChoices = selectedChoices,
         onSelectedClick = { id ->
             selectedBooksId = selectedBooksId - id.toInt()
@@ -116,8 +116,8 @@ private val MultipleComboBox = Example(
 
 private val FilteringComboBox = Example(
     id = "combobox-filtering",
-    name = "Combobox with filtering",
-    description = "Example of a SingleChoiceComboBox with filtering functionality",
+    name = stringResource(R.string.combobox_example_filtering_title),
+    description = stringResource(R.string.combobox_example_filtering_description),
     sourceUrl = ComboBoxExampleSourceUrl,
 ) {
     var value by rememberSaveable { mutableStateOf("") }
@@ -177,8 +177,8 @@ private val FilteringComboBox = Example(
 
 private val SuggestionComboBox = Example(
     id = "combobox-suggestion",
-    name = "Combobox with suggestions",
-    description = "Example of a SingleChoiceComboBox with suggestion/autocomplete functionality",
+    name = stringResource(R.string.combobox_example_suggestion_title),
+    description = stringResource(R.string.combobox_example_suggestion_description),
     sourceUrl = ComboBoxExampleSourceUrl,
 ) {
     var value by rememberSaveable { mutableStateOf("") }
@@ -210,9 +210,9 @@ private val SuggestionComboBox = Example(
         onDismissRequest = { expanded = false },
         enabled = true,
         required = true,
-        label = "Search with suggestions",
-        placeholder = "Type to see suggestions...",
-        helper = "Get book suggestions as you type",
+        label = stringResource(R.string.combobox_example_suggestions_label),
+        placeholder = stringResource(R.string.combobox_example_suggestions_placeholder),
+        helper = stringResource(R.string.combobox_example_suggestions_helper),
         dropdownContent = {
             if (suggestedBooks.isEmpty()) {
                 if (searchText.isNotBlank()) {

@@ -25,6 +25,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.adevinta.spark.R
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.progressbar.Progressbar
@@ -32,14 +33,13 @@ import com.adevinta.spark.components.progressbar.ProgressbarIndeterminate
 import com.adevinta.spark.components.progressbar.ProgressbarIntent
 import com.adevinta.spark.components.spacer.VerticalSpacer
 
-private const val ProgressbarExampleDescription = "Progressbar examples"
 private const val ProgressbarExampleSourceUrl = "$SampleSourceUrl/ProgressbarSamples.kt"
 
 public val ProgressbarExamples: List<Example> = listOf(
     Example(
         id = "determinate",
-        name = "Progressbar",
-        description = ProgressbarExampleDescription,
+        name = R.string.progressbar_example_default_title,
+        description = R.string.progressbar_example_description,
         sourceUrl = ProgressbarExampleSourceUrl,
     ) {
         Column {
@@ -57,8 +57,8 @@ public val ProgressbarExamples: List<Example> = listOf(
     },
     Example(
         id = "indeterminate",
-        name = "ProgressbarIndeterminate",
-        description = ProgressbarExampleDescription,
+        name = R.string.progressbar_example_indeterminate_title,
+        description = R.string.progressbar_example_description,
         sourceUrl = ProgressbarExampleSourceUrl,
     ) {
         Column {

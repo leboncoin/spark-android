@@ -46,13 +46,12 @@ import com.adevinta.spark.components.toggles.Checkbox
 import com.adevinta.spark.components.toggles.CheckboxLabelled
 import com.adevinta.spark.components.toggles.ContentSide
 
-private const val CheckboxExampleDescription = "Checkbox examples"
 private const val CheckboxExampleSourceUrl = "$SampleSourceUrl/CheckboxSamples.kt"
 public val CheckboxExamples: List<Example> = listOf(
     Example(
         id = "standalone",
         name = "Standalone checkbox",
-        description = CheckboxExampleDescription,
+        description = R.string.checkbox_example_description,
         sourceUrl = CheckboxExampleSourceUrl,
     ) {
         var checkboxState by remember { mutableStateOf(ToggleableState.Off) }
@@ -74,7 +73,7 @@ public val CheckboxExamples: List<Example> = listOf(
     Example(
         id = "labeled",
         name = "Labeled checkbox group",
-        description = CheckboxExampleDescription,
+        description = R.string.checkbox_example_description,
         sourceUrl = CheckboxExampleSourceUrl,
     ) {
         LabeledCheckboxGroupExample()
@@ -82,7 +81,7 @@ public val CheckboxExamples: List<Example> = listOf(
     Example(
         id = "labeled-sides",
         name = "Labeled checkbox content side",
-        description = CheckboxExampleDescription,
+        description = R.string.checkbox_example_description,
         sourceUrl = CheckboxExampleSourceUrl,
     ) {
         LabeledCheckboxContentSideExample()

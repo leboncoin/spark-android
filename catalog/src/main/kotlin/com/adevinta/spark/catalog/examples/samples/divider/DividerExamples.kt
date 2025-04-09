@@ -25,9 +25,11 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.divider.DividerIntent
@@ -40,24 +42,13 @@ import com.adevinta.spark.components.spacer.VerticalSpacer
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.highlight
 
-private const val DividerExampleDescription = "Divider examples"
 private const val DividerExampleSourceUrl = "$SampleSourceUrl/DividerSamples.kt"
-private const val TextExample =
-    "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi." +
-        " Aliquam in hendrerit urna. Pellentesque sit amet sapien fringill."
-private const val LongTextExample =
-    "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi." +
-        " Aliquam in hendrerit urna. Pellentesque sit amet sapien fringill." +
-        " Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi." +
-        " Aliquam in hendrerit urna. Pellentesque sit amet sapien fringill" +
-        " Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi." +
-        " Aliquam in hendrerit urna. Pellentesque sit amet sapien fringill"
 
 public val DividerExamples: List<Example> = listOf(
     Example(
         id = "horizontal-no-label",
-        name = "HorizontalDivider With Label",
-        description = DividerExampleDescription,
+        name = R.string.divider_example_horizontal_no_label_title,
+        description = R.string.divider_example_description,
         sourceUrl = DividerExampleSourceUrl,
     ) {
         DividerIntent.entries.forEach { intent ->
@@ -65,13 +56,13 @@ public val DividerExamples: List<Example> = listOf(
             LabelHorizontalAlignment.entries.forEach { alignment ->
                 Text(
                     style = SparkTheme.typography.headline2,
-                    text = "Title",
+                    text = stringResource(R.string.divider_example_title),
                     modifier = Modifier.padding(horizontal = 16.dp),
                 )
                 VerticalSpacer(8.dp)
                 Text(
                     style = SparkTheme.typography.body1,
-                    text = TextExample,
+                    text = stringResource(R.string.divider_example_text),
                     modifier = Modifier.padding(horizontal = 16.dp),
                 )
                 VerticalSpacer(16.dp)
@@ -93,8 +84,8 @@ public val DividerExamples: List<Example> = listOf(
     },
     Example(
         id = "horizontal",
-        name = "HorizontalDivider No Label",
-        description = DividerExampleDescription,
+        name = R.string.divider_example_horizontal_with_label_title,
+        description = R.string.divider_example_description,
         sourceUrl = DividerExampleSourceUrl,
     ) {
         DividerIntent.entries.forEach { intent ->
@@ -107,7 +98,7 @@ public val DividerExamples: List<Example> = listOf(
 
             Text(
                 style = SparkTheme.typography.body1,
-                text = TextExample,
+                text = stringResource(R.string.divider_example_text),
                 modifier = Modifier.padding(horizontal = 16.dp),
             )
             VerticalSpacer(16.dp)
@@ -119,8 +110,8 @@ public val DividerExamples: List<Example> = listOf(
     },
     Example(
         id = "vertical",
-        name = "VerticalDivider with Label",
-        description = DividerExampleDescription,
+        name = R.string.divider_example_vertical_title,
+        description = R.string.divider_example_description,
         sourceUrl = DividerExampleSourceUrl,
         rowContent = {
             DividerIntent.entries.forEach { intent ->
@@ -129,7 +120,7 @@ public val DividerExamples: List<Example> = listOf(
                     Text(
                         style = SparkTheme.typography.body2.highlight,
                         textAlign = TextAlign.Justify,
-                        text = LongTextExample,
+                        text = stringResource(R.string.divider_example_long_text),
                         modifier = Modifier
                             .padding(vertical = 16.dp)
                             .width(100.dp),
@@ -155,8 +146,8 @@ public val DividerExamples: List<Example> = listOf(
     ),
     Example(
         id = "vertical-no-label",
-        name = "VerticalDivider No Label",
-        description = DividerExampleDescription,
+        name = R.string.divider_example_vertical_no_label_title,
+        description = R.string.divider_example_description,
         sourceUrl = DividerExampleSourceUrl,
         rowContent = {
             DividerIntent.entries.forEach { intent ->
@@ -164,7 +155,7 @@ public val DividerExamples: List<Example> = listOf(
                 Text(
                     style = SparkTheme.typography.body2.highlight,
                     textAlign = TextAlign.Justify,
-                    text = LongTextExample,
+                    text = stringResource(R.string.divider_example_long_text),
                     modifier = Modifier
                         .padding(vertical = 16.dp)
                         .width(100.dp),
@@ -180,7 +171,7 @@ public val DividerExamples: List<Example> = listOf(
             Text(
                 style = SparkTheme.typography.body2.highlight,
                 textAlign = TextAlign.Justify,
-                text = LongTextExample,
+                text = stringResource(R.string.divider_example_long_text),
                 modifier = Modifier
                     .padding(vertical = 16.dp)
                     .width(100.dp),

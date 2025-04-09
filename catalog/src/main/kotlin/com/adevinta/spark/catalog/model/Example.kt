@@ -23,6 +23,7 @@
 
 package com.adevinta.spark.catalog.model
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.runtime.Composable
@@ -30,8 +31,10 @@ import com.adevinta.spark.components.snackbars.SnackbarHostState
 
 public data class Example(
     val id: String,
-    val name: String,
-    val description: String,
+    @StringRes
+    val name: Int,
+    @StringRes
+    val description: Int,
     val sourceUrl: String,
     val rowContent:
     @Composable()

@@ -43,13 +43,12 @@ import com.adevinta.spark.icons.AlarmOffFill
 import com.adevinta.spark.icons.AlarmOnFill
 import com.adevinta.spark.icons.SparkIcons
 
-private const val SwitchExampleDescription = "Switch examples"
 private const val SwitchExampleSourceUrl = "$SampleSourceUrl/SwitchSamples.kt"
 public val SwitchExamples: List<Example> = listOf(
     Example(
         id = "standalone",
-        name = "Standalone switch",
-        description = SwitchExampleDescription,
+        name = R.string.switch_example_default_title,
+        description = R.string.switch_example_default_description,
         sourceUrl = SwitchExampleSourceUrl,
     ) {
         Column {
@@ -76,16 +75,16 @@ public val SwitchExamples: List<Example> = listOf(
     },
     Example(
         id = "labeled",
-        name = "Labeled switch content side End",
-        description = SwitchExampleDescription,
+        name = R.string.switch_example_with_label_title,
+        description = R.string.switch_example_with_label_description,
         sourceUrl = SwitchExampleSourceUrl,
     ) {
         LabeledSwitchGroupExample(ContentSide.End)
     },
     Example(
         id = "labeled-start",
-        name = "Labeled switch content side Start",
-        description = SwitchExampleDescription,
+        name = R.string.switch_example_with_label_start_title,
+        description = R.string.switch_example_with_label_start_description,
         sourceUrl = SwitchExampleSourceUrl,
     ) {
         LabeledSwitchGroupExample(ContentSide.Start)
