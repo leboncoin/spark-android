@@ -46,7 +46,7 @@ androidx-compose-ui-util = { module = "androidx.compose.ui:ui-util" }
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.1"
 androidx-constraintlayout-compose = "androidx.constraintlayout:constraintlayout-compose:1.1.1"
 
-androidx-core = "androidx.core:core-ktx:1.15.0"
+androidx-core = "androidx.core:core-ktx:1.16.0"
 
 androidx-graphics-shapes = "androidx.graphics:graphics-shapes:1.0.1"
 
