@@ -124,3 +124,17 @@ dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+
+# Plugins defined by this project
+spark-root = { id = "com.adevinta.spark.root" }
+spark-android = { id = "com.adevinta.spark.android" }
+spark-application = { id = "com.adevinta.spark.android-application" }
+spark-library = { id = "com.adevinta.spark.android-library" }
+spark-compose = { id = "com.adevinta.spark.android-compose" }
+spark-lint = { id = "com.adevinta.spark.android-lint" }
+spark-publishing = { id = "com.adevinta.spark.publishing" }
+spark-kotlinJvm = { id = "com.adevinta.spark.kotlin-jvm" }
+spark-dokka = { id = "com.adevinta.spark.dokka" }
+spark-dependencyGuard = { id = "com.adevinta.spark.dependencyGuard" }
+spark-spotless = { id = "com.adevinta.spark.spotless" }

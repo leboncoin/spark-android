@@ -22,10 +22,10 @@
 import java.util.Properties
 
 plugins {
-    id("com.adevinta.spark.android-application")
-    id("com.adevinta.spark.android-compose")
     id("kotlin-parcelize")
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.spark.application)
+    alias(libs.plugins.spark.compose)
 }
 
 android {
