@@ -79,7 +79,10 @@ private val MultipleComboBox = Example(
     MultiChoiceComboBox(
         modifier = Modifier.fillMaxWidth(),
         value = value,
-        onValueChange = { newValue -> value = newValue },
+        onValueChange = { newValue ->
+            value = newValue
+            expanded = true // Keep dropdown open while typing
+        },
         expanded = expanded,
         onExpandedChange = { expanded = it },
         onDismissRequest = { expanded = false },
@@ -139,6 +142,7 @@ private val FilteringComboBox = Example(
         onValueChange = { newValue ->
             value = newValue
             searchText = newValue // Update search text when value changes
+            expanded = true // Keep dropdown open while typing
         },
         expanded = expanded,
         onExpandedChange = { expanded = it },
