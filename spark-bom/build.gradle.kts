@@ -21,7 +21,7 @@
  */
 plugins {
     `java-platform`
-    id("com.adevinta.spark.publishing")
+    alias(libs.plugins.spark.publishing)
 }
 
 dependencies {

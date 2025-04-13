@@ -31,8 +31,8 @@ plugins {
     alias(libs.plugins.spotless) apply false
     alias(libs.plugins.compose) apply false
 
-    id("com.adevinta.spark.root")
-    id("com.adevinta.spark.dokka")
+    alias(libs.plugins.spark.root)
+    alias(libs.plugins.spark.dokka)
 }
 
 allprojects {

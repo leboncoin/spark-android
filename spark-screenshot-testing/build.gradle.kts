@@ -20,9 +20,9 @@
  * SOFTWARE.
  */
 plugins {
-    id("com.adevinta.spark.android-library")
-    id("com.adevinta.spark.android-compose")
     alias(libs.plugins.paparazzi)
+    alias(libs.plugins.spark.library)
+    alias(libs.plugins.spark.compose)
 }
 
 android {
