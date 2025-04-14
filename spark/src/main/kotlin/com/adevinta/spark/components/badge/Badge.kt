@@ -67,7 +67,6 @@ internal fun SparkBadge(
     val size = if (content != null) badgeStyle.size else BadgeWithNoContentSize
     val shape = SparkTheme.shapes.full
     val colors = intent.colors()
-
     Row(
         modifier = modifier
             .ifTrue(hasStroke) { border(2.dp, SparkTheme.colors.surface, shape).padding(2.dp) }

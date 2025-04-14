@@ -117,6 +117,45 @@ private val MultipleComboBox = Example(
     }
 }
 
+private val SingleSelectionWithUnselect = Example(
+    id = "combobox-single-unselect",
+    name = "Single selection with unselect",
+    description = "Example of a SingleChoiceComboBox that allows unselecting the current selection",
+    sourceUrl = ComboBoxExampleSourceUrl,
+) {
+    var value by rememberSaveable { mutableStateOf("") }
+    var expanded by remember { mutableStateOf(false) }
+
+    SingleChoiceComboBox(
+        modifier = Modifier.fillMaxWidth(),
+        value = value,
+        onValueChange = { newValue ->
+            value = newValue
+            expanded = true
+        },
+        expanded = expanded,
+        onExpandedChange = { expanded = it },
+        onDismissRequest = { expanded = false },
+        enabled = true,
+        required = false,
+        label = "Select a book",
+        placeholder = "Choose a book...",
+        helper = "You can unselect by clicking the current selection",
+        dropdownContent = {
+            comboBoxSampleValues.forEach { book ->
+                DropdownMenuItem(
+                    text = { Text(book.title) },
+                    onClick = {
+                        value = if (book.title == value) "" else book.title
+                        expanded = false
+                    },
+                    selected = book.title == value,
+                )
+            }
+        },
+    )
+}
+
 private val FilteringComboBox = Example(
     id = "combobox-filtering",
     name = "Combobox with filtering",
@@ -235,6 +274,7 @@ private val SuggestionComboBox = Example(
 
 public val ComboBoxExample: List<Example> = listOf(
     MultipleComboBox,
+    SingleSelectionWithUnselect,
     FilteringComboBox,
     SuggestionComboBox,
 )
