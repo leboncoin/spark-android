@@ -58,6 +58,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.ColorProducer
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
@@ -72,7 +73,16 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text2.input.InputTransformation
+import androidx.compose.foundation.text2.input.OutputTransformation
+import androidx.compose.foundation.text2.input.TextFieldLineLimits
+import androidx.compose.foundation.text2.input.TextFieldState
+import androidx.compose.foundation.text2.input.TextLayoutResult
+import androidx.compose.foundation.text2.input.TextFieldDecorator
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.R
@@ -561,6 +571,56 @@ internal fun TextFieldSlotsPreview() {
             state = TextFieldState.Success,
             leadingContent = icon,
             trailingContent = icon,
+        )
+    }
+}
+
+@InternalSparkApi
+@Composable
+internal fun SparkTextField(
+    state: TextFieldState,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    readOnly: Boolean = false,
+    inputTransformation: InputTransformation? = null,
+    textStyle: TextStyle = SparkTheme.typography.body1,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    lineLimits: TextFieldLineLimits = TextFieldLineLimits.Default,
+    onTextLayout: (Density.(getResult: () -> TextLayoutResult?) -> Unit)? = null,
+    interactionSource: MutableInteractionSource? = null,
+    cursorBrush: Brush = SolidColor(SparkTheme.colors.main),
+    outputTransformation: OutputTransformation? = null,
+    decorator: TextFieldDecorator? = null,
+    scrollState: ScrollState = rememberScrollState(),
+) {
+    val colors = sparkOutlinedTextFieldColors()
+    val density = LocalDensity.current
+    val interactionSourceState = interactionSource ?: remember { MutableInteractionSource() }
+
+    CompositionLocalProvider(LocalTextSelectionColors provides colors.selectionColors) {
+        @OptIn(ExperimentalMaterial3Api::class)
+        BasicTextField(
+            state = state,
+            modifier = modifier
+                .defaultMinSize(
+                    minWidth = TextFieldDefaults.MinWidth,
+                    minHeight = TextFieldMinHeight,
+                )
+                .sparkUsageOverlay(),
+            enabled = enabled,
+            readOnly = readOnly,
+            textStyle = textStyle.merge(TextStyle(colors.textColor(enabled).value)),
+            cursorBrush = cursorBrush,
+            keyboardOptions = keyboardOptions,
+            keyboardActions = keyboardActions,
+            interactionSource = interactionSourceState,
+            lineLimits = lineLimits,
+            onTextLayout = onTextLayout,
+            inputTransformation = inputTransformation,
+            outputTransformation = outputTransformation,
+            decorator = decorator,
+            scrollState = scrollState,
         )
     }
 }
