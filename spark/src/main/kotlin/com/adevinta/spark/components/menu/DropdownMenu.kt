@@ -57,6 +57,7 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
@@ -69,6 +70,7 @@ import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
 import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
+import com.adevinta.spark.R
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.divider.HorizontalDivider
 import com.adevinta.spark.components.icons.Icon
@@ -282,10 +284,10 @@ public fun ExposedDropdownMenuBoxScope.MultipleChoiceExposedDropdownMenu(
 public interface DropdownMenuItemColumnScope : ColumnScope
 
 /** Scope for the children of a [SingleChoiceComboBox] */
-public interface SingleChoiceDropdownItemColumnScope : ColumnScope
+public interface SingleChoiceDropdownItemColumnScope : DropdownMenuItemColumnScope
 
 /** Scope for the children of a [MultiChoiceComboBox] */
-public interface MultiChoiceDropdownItemColumnScope : ColumnScope
+public interface MultiChoiceDropdownItemColumnScope : DropdownMenuItemColumnScope
 
 private class DropdownMenuItemWrapper(scope: ColumnScope) :
     DropdownMenuItemColumnScope,
@@ -627,6 +629,59 @@ private fun MenuItemColors.trailingIconColor(enabled: Boolean): Color =
     if (enabled) trailingIconColor else disabledTrailingIconColor
 
 /**
+ * Displays a "no content" text item.
+ *
+ * This item is typically used to indicate that no results were found or that
+ * there are no available options in the dropdown.
+ * It can be used in any [DropdownMenu] variants which means it's available for all Dropdowns and ComboBoxs
+ *
+ * @param modifier The modifier to be applied to the item.
+ * @param text  The no result text. Defaults to a localized "No results".
+ *
+ * Example usage:
+ * ```
+ *  SingleChoiceExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+ *      if (filteredItems.isEmpty()) {
+ *          NoContentItem()
+ *      } else {
+ *           filteredItems.forEach { item ->
+ *               DropdownMenuItem(
+ *                   text = { Text(item.label) },
+ *                   onClick = {
+ *                       selectedItem = item
+ *                       expanded = false
+ *                   },
+ *               )
+ *           }
+ *      }
+ *  }
+ * ```
+ */
+@Suppress("UnusedReceiverParameter") // Used as namespace
+@ExperimentalSparkApi
+@Composable
+public fun DropdownMenuItemColumnScope.NoContentItem(
+    modifier: Modifier = Modifier,
+    text: String = stringResource(R.string.spark_dropdown_menu_item_no_result_label),
+) {
+    SparkDropdownMenuItem(
+        text = {
+            Text(
+                text = text,
+                style = SparkTheme.typography.body1,
+                fontStyle = FontStyle.Italic,
+            )
+        },
+        modifier = modifier,
+        contentPadding = PaddingValues(
+            horizontal = 16.dp,
+            vertical = 8.dp,
+        ),
+        enabled = false,
+    )
+}
+
+/**
  * A group of [DropdownMenuItem] with a [title] label to describe all items from this group.
  *
  *
@@ -694,16 +749,16 @@ private fun DropdownMenuItemPreview() {
                     SparkIcons.WheelOutline,
                     contentDescription = null,
                 )
-                HorizontalDivider()
-                SparkDropdownMenuItem(
-                    text = { Text("Send Feedback") },
-                    leadingIcon = {
-                        Icon(
-                            SparkIcons.MailOutline,
-                            contentDescription = null,
-                        )
-                    },
-                    trailingIcon = { Text("F11", textAlign = TextAlign.Center) },
+            },
+            trailingIcon = { Text("F11", textAlign = TextAlign.Center) },
+        )
+        HorizontalDivider()
+        SparkDropdownMenuItem(
+            text = { Text("Send Feedback") },
+            leadingIcon = {
+                Icon(
+                    SparkIcons.MailOutline,
+                    contentDescription = null,
                 )
             },
             trailingIcon = { Text("F11", textAlign = TextAlign.Center) },
@@ -718,6 +773,8 @@ private fun DropdownMenuItemPreview() {
             },
             trailingIcon = { Text("F11", textAlign = TextAlign.Center) },
         )
+        val scope = remember { DropdownMenuItemWrapper(this) }
+        scope.NoContentItem()
     }
 }
 

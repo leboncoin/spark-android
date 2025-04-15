@@ -140,5 +140,6 @@
     <string name="icons_item_click_a11y">Accéder aux détails</string>
     <string name="icons_filter_icon_animated">Icône animée</string>
     <string name="icons_filter_icon">Icône</string>
+    <string name="combobox_example_no_books_found_label">Aucun livre trouvé</string>
 
 </resources>
