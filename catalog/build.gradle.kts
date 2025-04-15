@@ -22,8 +22,8 @@
 import java.util.Properties
 
 plugins {
-    id("com.adevinta.spark.android-application")
-    id("com.adevinta.spark.android-compose")
+    alias(libs.plugins.spark.application)
+    alias(libs.plugins.spark.compose)
     id("kotlin-parcelize")
     alias(libs.plugins.kotlin.serialization)
 }
@@ -31,6 +31,9 @@ plugins {
 android {
     namespace = "com.adevinta.spark.catalog"
     defaultConfig.applicationId = "com.adevinta.spark.catalog"
+    defaultConfig.resourceConfigurations.addAll(
+        setOf("en-rGB", "fr"),
+    )
     defaultConfig {
         versionName = version.toString()
         if (providers.environmentVariable("GITHUB_ACTION").isPresent) {
