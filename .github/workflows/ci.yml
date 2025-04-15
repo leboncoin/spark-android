@@ -100,6 +100,12 @@ jobs:
       - uses: ./.github/actions/setup-java
       - uses: ./.github/actions/setup-gradle
       - uses: ./.github/actions/setup-gradle-properties
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+          cache: 'pip'
+          cache-dependency-path: '.github/requirements.txt'
+      - run: pip install -r .github/requirements.txt
 
       - name: '📋 Build Dokka'
         # https://github.com/Kotlin/dokka/issues/1217
@@ -109,6 +115,14 @@ jobs:
         with:
           name: dokka
           path: 'build/dokka'
+      - run: linkchecker build/dokka --file-output=html --no-status
+        id: linkchecker
+      - name: '📦 Archive linkchecker'
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: linkchecker.html
+          path: 'linkchecker-out.html'
 
   lava-scan:
     needs: validation
