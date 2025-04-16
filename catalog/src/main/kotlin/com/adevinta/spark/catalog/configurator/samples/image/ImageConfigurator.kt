@@ -100,7 +100,7 @@ private fun ColumnScope.ImageSample() {
     var contentScale by remember { mutableStateOf(ImageContentScale.Crop) }
     var aspectRatio by remember { mutableStateOf(ImageAspectRatio.Custom) }
     var imageShape by remember { mutableStateOf(ImageShape.Medium) }
-    var selectedImage by remember { mutableStateOf(SelectedImage.Wide) }
+    var selectedImage by remember { mutableStateOf(SelectedImage.Narrow) }
     val drawable = getDrawable(LocalContext.current, selectedImage.res)!!
     val painter = rememberDrawablePainter(drawable)
     val imageRequest = ImageRequest.Builder(LocalContext.current)
@@ -108,12 +108,17 @@ private fun ColumnScope.ImageSample() {
         .data(state.ordinal)
         .build()
 
-    val transform = { _: AsyncImagePainter.State ->
-        state.transformation(
-            painter,
-            drawable,
-            imageRequest,
-        )
+    val transform = { currentState: AsyncImagePainter.State ->
+        if (currentState is AsyncImagePainter.State.Success) {
+            currentState
+        } else {
+            state.transformation(
+                painter,
+                drawable,
+                imageRequest,
+            )
+        }
+
     }
     val imageMaxWidth = when (LocalWindowSizeClass.current.widthSizeClass) {
         WindowWidthSizeClass.Expanded -> 350.dp
