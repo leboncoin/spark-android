@@ -144,5 +144,6 @@
     <string name="icons_item_click_a11y">Navigate to details</string>
     <string name="icons_filter_icon_animated">Animated Icon</string>
     <string name="icons_filter_icon">Icon</string>
+    <string name="combobox_example_no_books_found_label">No books found</string>
 
 </resources>
