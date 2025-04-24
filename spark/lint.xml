@@ -24,7 +24,7 @@
 <lint>
     <issue id="ComposeCompositionLocalUsage" severity="warning">
         <option name="allowed-composition-locals"
-            value="LocalSparkColors,LocalSparkShapes,LocalSparkTypography,LocalSparkFeatureFlag,LocalElevationOverlay,LocalWindowSizeClass" />
+            value="LocalSparkColors,LocalSparkShapes,LocalSparkTypography,LocalSparkFeatureFlag,LocalElevationOverlay,LocalWindowSizeClass,LocalSparkLogger" />
     </issue>
     <issue id="AutoboxingStateCreation" severity="warning"/>
     <!--
