@@ -105,11 +105,11 @@ public fun SparkImage(
     val emptyStateIcon = remember(emptyIcon) {
         movableContentOf(emptyIcon)
     }
-    val logger = LocalSparkExceptionHandler.current
+    val exceptionHandler = LocalSparkExceptionHandler.current
     SubcomposeAsyncImage(
         modifier = modifier
             .layout { measurable, constraints ->
-                constraints.checkThatImageHasDefinedSize(logger)
+                constraints.checkThatImageHasDefinedSize(exceptionHandler)
 
                 val placeable = measurable.measure(constraints)
                 layout(placeable.width, placeable.height) {
@@ -264,26 +264,26 @@ internal fun ImageIconState(
     }
 }
 
-private fun Constraints.checkThatImageHasDefinedSize(logger: SparkExceptionHandler) {
+private fun Constraints.checkThatImageHasDefinedSize(exceptionHandler: SparkExceptionHandler) {
     val isWidthBounded = hasBoundedWidth
     val isHeightBounded = hasBoundedHeight
     val hasMinWidth = minWidth != 0
     val hasMinHeight = minHeight != 0
     if (!isWidthBounded) {
-        logger.handleException(
+        exceptionHandler.handleException(
             IllegalStateException("Image must have a bounded width but was hasBoundedWidth: $isWidthBounded"),
         )
     }
     if (!isHeightBounded) {
-        logger.handleException(
+        exceptionHandler.handleException(
             IllegalStateException("Image must have a bounded height but was hasBoundedHeight: $isHeightBounded"),
         )
     }
     if (!hasMinWidth) {
-        logger.handleException(IllegalStateException("Image must have a minimum width but has minWidth: $minWidth"))
+        exceptionHandler.handleException(IllegalStateException("Image must have a minimum width but has minWidth: $minWidth"))
     }
     if (!hasMinHeight) {
-        logger.handleException(IllegalStateException("Image must have a minimum height but has minHeight: $minHeight"))
+        exceptionHandler.handleException(IllegalStateException("Image must have a minimum height but has minHeight: $minHeight"))
     }
 }
 
