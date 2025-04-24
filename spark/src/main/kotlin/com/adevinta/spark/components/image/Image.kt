@@ -58,7 +58,7 @@ import coil.request.ImageRequest
 import coil.request.NullRequestData
 import coil.request.SuccessResult
 import com.adevinta.spark.InternalSparkApi
-import com.adevinta.spark.LocalSparkLogger
+import com.adevinta.spark.LocalSparkExceptionHandler
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.icons.Icon
@@ -72,7 +72,7 @@ import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.Tattoo
 import com.adevinta.spark.tokens.EmphasizeDim2
-import com.adevinta.spark.tools.logger.SparkLogger
+import com.adevinta.spark.tools.SparkExceptionHandler
 import com.adevinta.spark.tools.modifiers.ifNotNull
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
@@ -105,7 +105,7 @@ public fun SparkImage(
     val emptyStateIcon = remember(emptyIcon) {
         movableContentOf(emptyIcon)
     }
-    val logger = LocalSparkLogger.current
+    val logger = LocalSparkExceptionHandler.current
     SubcomposeAsyncImage(
         modifier = modifier
             .layout { measurable, constraints ->
@@ -264,24 +264,26 @@ internal fun ImageIconState(
     }
 }
 
-private fun Constraints.checkThatImageHasDefinedSize(logger: SparkLogger) {
+private fun Constraints.checkThatImageHasDefinedSize(logger: SparkExceptionHandler) {
     val isWidthBounded = hasBoundedWidth
     val isHeightBounded = hasBoundedHeight
     val hasMinWidth = minWidth != 0
     val hasMinHeight = minHeight != 0
     if (!isWidthBounded) {
-        logger.report(IllegalStateException("Image must have a bounded width but was hasBoundedWidth: $isWidthBounded"))
+        logger.handleException(
+            IllegalStateException("Image must have a bounded width but was hasBoundedWidth: $isWidthBounded"),
+        )
     }
     if (!isHeightBounded) {
-        logger.report(
+        logger.handleException(
             IllegalStateException("Image must have a bounded height but was hasBoundedHeight: $isHeightBounded"),
         )
     }
     if (!hasMinWidth) {
-        logger.report(IllegalStateException("Image must have a minimum width but has minWidth: $minWidth"))
+        logger.handleException(IllegalStateException("Image must have a minimum width but has minWidth: $minWidth"))
     }
     if (!hasMinHeight) {
-        logger.report(IllegalStateException("Image must have a minimum height but has minHeight: $minHeight"))
+        logger.handleException(IllegalStateException("Image must have a minimum height but has minHeight: $minHeight"))
     }
 }
 
