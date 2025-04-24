@@ -35,22 +35,23 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.model.Configurator
 import com.adevinta.spark.catalog.ui.ButtonGroup
+import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.badge.Badge
 import com.adevinta.spark.components.iconbuttons.IconButtonFilled
-import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.components.tab.Tab
 import com.adevinta.spark.components.tab.TabGroup
 import com.adevinta.spark.components.tab.TabIntent
 import com.adevinta.spark.components.tab.TabSize
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.components.textfields.Dropdown
 import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.icons.MessageOutline
 import com.adevinta.spark.icons.Minus
@@ -125,29 +126,12 @@ private fun ColumnScope.TabSample() {
         )
     }
 
-    val intents = TabIntent.entries.toTypedArray()
-    var expanded by remember { mutableStateOf(false) }
-    Dropdown(
+    DropdownEnum(
         modifier = Modifier.fillMaxWidth(),
-        value = intent.name,
-        label = "Intent",
-        expanded = expanded,
-        onExpandedChange = {
-            expanded = !expanded
-        },
-        onDismissRequest = {
-            expanded = false
-        },
-        dropdownContent = {
-            intents.forEach {
-                DropdownMenuItem(
-                    text = { Text(it.name) },
-                    onClick = {
-                        intent = it
-                        expanded = false
-                    },
-                )
-            }
+        title = stringResource(id = R.string.configurator_component_screen_intent_label),
+        selectedOption = intent,
+        onOptionSelect = {
+            intent = it
         },
     )
 

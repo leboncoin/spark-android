@@ -42,6 +42,7 @@
     <string name="examples_component_screen_description">Voici les exemples que l’on peut trouver dans les échantillons de la javadoc ou dans les fichiers README.md. Ils montrent l’utilisation des composants avec les paramètres par défaut dans différents scénarios qui devraient représenter des cas d’utilisation réels.</string>
     <string name="component_button_description">Les boutons aident les utilisateurs à exécuter des actions, comme envoyer un e-mail, partager un document ou aimer une publication.</string>
     <!--region Toggle-->
+    <string name="component_combobox_description">Est une liste déroulante avec un filtre de saisie ou une saisie pouvant afficher des suggestions.</string>
     <string name="component_toggle_vertical_group_title">Groupe de checkbox vertical</string>
     <string name="component_toggle_horizontal_group_title">Regroupement de bascules avec alignement horizontal</string>
     <string name="configurator_component_checkbox_toggleable_state_label">État de coche</string>
@@ -139,5 +140,6 @@
     <string name="icons_item_click_a11y">Accéder aux détails</string>
     <string name="icons_filter_icon_animated">Icône animée</string>
     <string name="icons_filter_icon">Icône</string>
+    <string name="combobox_example_no_books_found_label">Aucun livre trouvé</string>
 
 </resources>

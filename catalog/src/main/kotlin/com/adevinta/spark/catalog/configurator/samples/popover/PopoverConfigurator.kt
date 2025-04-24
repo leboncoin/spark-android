@@ -45,19 +45,18 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.model.Configurator
 import com.adevinta.spark.catalog.ui.ButtonGroup
+import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.buttons.ButtonOutlined
 import com.adevinta.spark.components.iconbuttons.IconButtonFilled
 import com.adevinta.spark.components.image.Illustration
 import com.adevinta.spark.components.image.Image
-import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.components.popover.Popover
 import com.adevinta.spark.components.popover.PopoverIntent
 import com.adevinta.spark.components.spacer.VerticalSpacer
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.text.TextLinkButton
-import com.adevinta.spark.components.textfields.Dropdown
 import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.icons.BurgerMenu
 import com.adevinta.spark.icons.SparkIcons
@@ -101,25 +100,12 @@ private fun ColumnScope.PopoverSample() {
         )
     }
 
-    val contentExamples = PopoverContentExamples.entries.toTypedArray()
-    var expanded by remember { mutableStateOf(false) }
-    Dropdown(
+    DropdownEnum(
         modifier = Modifier.fillMaxWidth(),
-        value = popoverContentExample.name,
-        label = "Popover Content Example",
-        expanded = expanded,
-        onExpandedChange = { expanded = !expanded },
-        onDismissRequest = { expanded = false },
-        dropdownContent = {
-            contentExamples.forEach {
-                DropdownMenuItem(
-                    text = { Text(it.name) },
-                    onClick = {
-                        popoverContentExample = it
-                        expanded = false
-                    },
-                )
-            }
+        title = "Popover Content Example",
+        selectedOption = popoverContentExample,
+        onOptionSelect = {
+            popoverContentExample = it
         },
     )
     ButtonGroup(
@@ -128,25 +114,12 @@ private fun ColumnScope.PopoverSample() {
         onOptionSelect = { popoverTriggerExample = it },
     )
 
-    val intents = PopoverIntent.entries
-    var intentExpanded by remember { mutableStateOf(false) }
-    Dropdown(
+    DropdownEnum(
         modifier = Modifier.fillMaxWidth(),
-        value = intent.name,
-        label = "Popover Intent",
-        expanded = intentExpanded,
-        onExpandedChange = { intentExpanded = !intentExpanded },
-        onDismissRequest = { intentExpanded = false },
-        dropdownContent = {
-            intents.forEach {
-                DropdownMenuItem(
-                    text = { Text(it.name) },
-                    onClick = {
-                        intent = it
-                        intentExpanded = false
-                    },
-                )
-            }
+        title = "Popover Intent",
+        selectedOption = intent,
+        onOptionSelect = {
+            intent = it
         },
     )
 }

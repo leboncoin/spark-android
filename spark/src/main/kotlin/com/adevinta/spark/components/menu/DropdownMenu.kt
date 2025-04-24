@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.menu
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.Interaction
@@ -33,9 +34,16 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuBoxScope
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.MenuItemColors
@@ -49,6 +57,10 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -58,9 +70,13 @@ import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
 import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
+import com.adevinta.spark.R
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.divider.HorizontalDivider
 import com.adevinta.spark.components.icons.Icon
+import com.adevinta.spark.components.textfields.MultiChoiceComboBox
+import com.adevinta.spark.components.textfields.SingleChoiceComboBox
+import com.adevinta.spark.icons.Check
 import com.adevinta.spark.icons.MailOutline
 import com.adevinta.spark.icons.PenFill
 import com.adevinta.spark.icons.SparkIcons
@@ -115,7 +131,7 @@ public fun DropdownMenu(
     offset: DpOffset = DpOffset(0.dp, 0.dp),
     properties: PopupProperties = PopupProperties(focusable = true),
     scrollState: ScrollState = rememberScrollState(),
-    content: @Composable ColumnScope.() -> Unit,
+    content: @Composable DropdownMenuItemColumnScope.() -> Unit,
 ) {
     MaterialDropdownMenu(
         expanded = expanded,
@@ -126,39 +142,168 @@ public fun DropdownMenu(
         properties = properties,
         shape = SparkTheme.shapes.small,
         containerColor = SparkTheme.colors.surface,
-        tonalElevation = ElevationTokens.Level2,
+        tonalElevation = ElevationTokens.Level0,
         shadowElevation = ElevationTokens.Level2,
         border = null,
-        content = content,
+        content = {
+            val scope = remember { DropdownMenuItemWrapper(this) }
+            scope.content()
+        },
     )
 }
 
 /**
- * <a href="https://m3.material.io/components/menus/overview" class="external" target="_blank">Material Design dropdown menu</a> item.
+ * Popup which contains content for Exposed Dropdown Menu. Should be used inside the content of
+ * [ExposedDropdownMenuBox].
  *
- * Menus display a list of choices on a temporary surface. They appear when users interact with a
- * button, action, or other control.
- *
- * ![Dropdown menu image](https://developer.android.com/images/reference/androidx/compose/material3/menu.png)
- *
- * @param text text of the menu item
- * @param onClick called when this menu item is clicked
- * @param modifier the [Modifier] to be applied to this menu item
- * @param leadingIcon optional leading icon to be displayed at the beginning of the item's text
- * @param trailingIcon optional trailing icon to be displayed at the end of the item's text. This
- * trailing icon slot can also accept [Text] to indicate a keyboard shortcut.
- * @param enabled controls the enabled state of this menu item. When `false`, this component will
- * not respond to user input, and it will appear visually disabled and disabled to accessibility
- * services.
- * @param contentPadding the padding applied to the content of this menu item
- * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
- * for this menu item. You can create and pass in your own `remember`ed instance to observe
- * [Interaction]s and customize the appearance / behavior of this menu item in different states.
+ * @param expanded whether the menu is expanded
+ * @param onDismissRequest called when the user requests to dismiss the menu, such as by tapping
+ *   outside the menu's bounds
+ * @param modifier the [Modifier] to be applied to this menu
+ * @param scrollState a [ScrollState] used by the menu's content for items vertical scrolling
+ * @param matchTextFieldWidth whether the menu's width should be forcefully constrained to match
+ *   the width of the text field to which it's attached.
+ * @param content the content of the menu
  */
+@SuppressLint("ComposeUnstableReceiver")
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-public fun DropdownMenuItem(
+public fun ExposedDropdownMenuBoxScope.ExposedDropdownMenu(
+    expanded: Boolean,
+    onDismissRequest: () -> Unit,
+    modifier: Modifier = Modifier,
+    scrollState: ScrollState = rememberScrollState(),
+    matchTextFieldWidth: Boolean = true,
+    content: @Composable DropdownMenuItemColumnScope.() -> Unit,
+) {
+    ExposedDropdownMenu(
+        expanded = expanded,
+        onDismissRequest = onDismissRequest,
+        modifier = modifier.sparkUsageOverlay(),
+        scrollState = scrollState,
+        shape = SparkTheme.shapes.small,
+        containerColor = SparkTheme.colors.surface,
+        tonalElevation = ElevationTokens.Level0,
+        shadowElevation = ElevationTokens.Level2,
+        matchTextFieldWidth = matchTextFieldWidth,
+        border = null,
+        content = {
+            val scope = remember { DropdownMenuItemWrapper(this) }
+            scope.content()
+        },
+    )
+}
+
+/**
+ * Popup which contains content for Exposed Dropdown Menu. Should be used inside the content of
+ * [ExposedDropdownMenuBox].
+ *
+ * @param expanded whether the menu is expanded
+ * @param onDismissRequest called when the user requests to dismiss the menu, such as by tapping
+ *   outside the menu's bounds
+ * @param modifier the [Modifier] to be applied to this menu
+ * @param scrollState a [ScrollState] used by the menu's content for items vertical scrolling
+ * @param matchTextFieldWidth whether the menu's width should be forcefully constrained to match
+ *   the width of the text field to which it's attached.
+ * @param content the content of the menu
+ */
+@SuppressLint("ComposeUnstableReceiver")
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+public fun ExposedDropdownMenuBoxScope.SingleChoiceExposedDropdownMenu(
+    expanded: Boolean,
+    onDismissRequest: () -> Unit,
+    modifier: Modifier = Modifier,
+    scrollState: ScrollState = rememberScrollState(),
+    matchTextFieldWidth: Boolean = true,
+    content: @Composable SingleChoiceDropdownItemColumnScope.() -> Unit,
+) {
+    ExposedDropdownMenu(
+        expanded = expanded,
+        onDismissRequest = onDismissRequest,
+        modifier = modifier
+            .selectableGroup()
+            .sparkUsageOverlay(),
+        scrollState = scrollState,
+        shape = SparkTheme.shapes.small,
+        containerColor = SparkTheme.colors.surface,
+        tonalElevation = ElevationTokens.Level0,
+        shadowElevation = ElevationTokens.Level2,
+        matchTextFieldWidth = matchTextFieldWidth,
+        border = null,
+        content = {
+            val scope = remember { SingleChoiceDropdownItemWrapper(this) }
+            scope.content()
+        },
+    )
+}
+
+/**
+ * Popup which contains content for Exposed Dropdown Menu. Should be used inside the content of
+ * [ExposedDropdownMenuBox].
+ *
+ * @param expanded whether the menu is expanded
+ * @param onDismissRequest called when the user requests to dismiss the menu, such as by tapping
+ *   outside the menu's bounds
+ * @param modifier the [Modifier] to be applied to this menu
+ * @param scrollState a [ScrollState] used by the menu's content for items vertical scrolling
+ * @param matchTextFieldWidth whether the menu's width should be forcefully constrained to match
+ *   the width of the text field to which it's attached.
+ * @param content the content of the menu
+ */
+@SuppressLint("ComposeUnstableReceiver")
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+public fun ExposedDropdownMenuBoxScope.MultipleChoiceExposedDropdownMenu(
+    expanded: Boolean,
+    onDismissRequest: () -> Unit,
+    modifier: Modifier = Modifier,
+    scrollState: ScrollState = rememberScrollState(),
+    matchTextFieldWidth: Boolean = true,
+    content: @Composable MultiChoiceDropdownItemColumnScope.() -> Unit,
+) {
+    ExposedDropdownMenu(
+        expanded = expanded,
+        onDismissRequest = onDismissRequest,
+        modifier = modifier.sparkUsageOverlay(),
+        scrollState = scrollState,
+        shape = SparkTheme.shapes.small,
+        containerColor = SparkTheme.colors.surface,
+        tonalElevation = ElevationTokens.Level0,
+        shadowElevation = ElevationTokens.Level2,
+        matchTextFieldWidth = matchTextFieldWidth,
+        border = null,
+        content = {
+            val scope = remember { MultiChoiceDropdownItemWrapper(this) }
+            scope.content()
+        },
+    )
+}
+
+/** Scope for the children of a [DropdownMenu] */
+public interface DropdownMenuItemColumnScope : ColumnScope
+
+/** Scope for the children of a [SingleChoiceComboBox] */
+public interface SingleChoiceDropdownItemColumnScope : DropdownMenuItemColumnScope
+
+/** Scope for the children of a [MultiChoiceComboBox] */
+public interface MultiChoiceDropdownItemColumnScope : DropdownMenuItemColumnScope
+
+private class DropdownMenuItemWrapper(scope: ColumnScope) :
+    DropdownMenuItemColumnScope,
+    ColumnScope by scope
+
+private class SingleChoiceDropdownItemWrapper(scope: ColumnScope) :
+    SingleChoiceDropdownItemColumnScope,
+    ColumnScope by scope
+
+private class MultiChoiceDropdownItemWrapper(scope: ColumnScope) :
+    MultiChoiceDropdownItemColumnScope,
+    ColumnScope by scope
+
+@Composable
+private fun SparkDropdownMenuItem(
     text: @Composable () -> Unit,
-    onClick: () -> Unit,
     modifier: Modifier = Modifier,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
@@ -167,17 +312,10 @@ public fun DropdownMenuItem(
         horizontal = 16.dp,
         vertical = 8.dp,
     ),
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     val colors = MenuDefaults.itemColors()
     Row(
         modifier = modifier
-            .clickable(
-                enabled = enabled,
-                onClick = onClick,
-                interactionSource = interactionSource,
-                indication = ripple(true),
-            )
             .fillMaxWidth()
             // Preferred min and max width used during the intrinsic measurement.
             .sizeIn(
@@ -225,6 +363,244 @@ public fun DropdownMenuItem(
 }
 
 /**
+ * <a href="https://m3.material.io/components/menus/overview" class="external" target="_blank">Material Design dropdown menu</a> item.
+ *
+ * Menus display a list of choices on a temporary surface. They appear when users interact with a
+ * button, action, or other control.
+ *
+ * ![Dropdown menu image](https://developer.android.com/images/reference/androidx/compose/material3/menu.png)
+ *
+ * @param text text of the menu item
+ * @param onClick called when this menu item is clicked
+ * @param modifier the [Modifier] to be applied to this menu item
+ * @param leadingIcon optional leading icon to be displayed at the beginning of the item's text
+ * @param trailingIcon optional trailing icon to be displayed at the end of the item's text. This
+ * trailing icon slot can also accept [Text] to indicate a keyboard shortcut.
+ * @param enabled controls the enabled state of this menu item. When `false`, this component will
+ * not respond to user input, and it will appear visually disabled and disabled to accessibility
+ * services.
+ * @param contentPadding the padding applied to the content of this menu item
+ * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
+ * for this menu item. You can create and pass in your own `remember`ed instance to observe
+ * [Interaction]s and customize the appearance / behavior of this menu item in different states.
+ */
+@Deprecated(
+    message = "DropdownMenuItem is now scoped and can't be used as a Standalone component, migrate to " +
+        "the variant that has DropdownMenuItemColumnScope as a receiver",
+    replaceWith = ReplaceWith(
+        "DropdownMenuItemColumnScope.DropdownMenuItem(text, onClick, modifier, leadingIcon, trailingIcon, enabled, contentPadding, interactionSource)",
+    ),
+)
+@Composable
+public fun DropdownMenuItem(
+    text: @Composable () -> Unit,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    leadingIcon: @Composable (() -> Unit)? = null,
+    trailingIcon: @Composable (() -> Unit)? = null,
+    enabled: Boolean = true,
+    contentPadding: PaddingValues = PaddingValues(
+        horizontal = 16.dp,
+        vertical = 8.dp,
+    ),
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+) {
+    SparkDropdownMenuItem(
+        text = text,
+        modifier = modifier.clickable(
+            enabled = enabled,
+            onClick = onClick,
+            interactionSource = interactionSource,
+            indication = ripple(true),
+        ),
+        contentPadding = contentPadding,
+        leadingIcon = leadingIcon,
+        trailingIcon = trailingIcon,
+        enabled = enabled,
+    )
+}
+
+/**
+ * <a href="https://m3.material.io/components/menus/overview" class="external" target="_blank">Material Design dropdown menu</a> item.
+ *
+ * Menus display a list of choices on a temporary surface. They appear when users interact with a
+ * button, action, or other control.
+ *
+ * ![Dropdown menu image](https://developer.android.com/images/reference/androidx/compose/material3/menu.png)
+ *
+ * @param text text of the menu item
+ * @param onClick called when this menu item is clicked
+ * @param modifier the [Modifier] to be applied to this menu item
+ * @param leadingIcon optional leading icon to be displayed at the beginning of the item's text
+ * @param trailingIcon optional trailing icon to be displayed at the end of the item's text. This
+ * trailing icon slot can also accept [Text] to indicate a keyboard shortcut.
+ * @param enabled controls the enabled state of this menu item. When `false`, this component will
+ * not respond to user input, and it will appear visually disabled and disabled to accessibility
+ * services.
+ * @param contentPadding the padding applied to the content of this menu item
+ * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
+ * for this menu item. You can create and pass in your own `remember`ed instance to observe
+ * [Interaction]s and customize the appearance / behavior of this menu item in different states.
+ */
+@Suppress("UnusedReceiverParameter") // Used as namespace
+@Composable
+public fun DropdownMenuItemColumnScope.DropdownMenuItem(
+    text: @Composable () -> Unit,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    leadingIcon: @Composable (() -> Unit)? = null,
+    trailingIcon: @Composable (() -> Unit)? = null,
+    enabled: Boolean = true,
+    contentPadding: PaddingValues = PaddingValues(
+        horizontal = 16.dp,
+        vertical = 8.dp,
+    ),
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+) {
+    SparkDropdownMenuItem(
+        text = text,
+        modifier = modifier.clickable(
+            enabled = enabled,
+            onClick = onClick,
+            interactionSource = interactionSource,
+            indication = ripple(true),
+        ),
+        contentPadding = contentPadding,
+        leadingIcon = leadingIcon,
+        trailingIcon = trailingIcon,
+        enabled = enabled,
+    )
+}
+
+/**
+ * <a href="https://m3.material.io/components/menus/overview" class="external" target="_blank">Material Design dropdown menu</a> item.
+ *
+ * Menus display a list of choices on a temporary surface. They appear when users interact with a
+ * button, action, or other control.
+ *
+ * ![Dropdown menu image](https://developer.android.com/images/reference/androidx/compose/material3/menu.png)
+ *
+ * @param text text of the menu item
+ * @param selected - whether this item is selected or not
+ * @param onClick called when this menu item is clicked
+ * @param modifier the [Modifier] to be applied to this menu item
+ * @param trailingIcon optional trailing icon to be displayed at the end of the item's text
+ * @param enabled controls the enabled state of this menu item. When `false`, this component will
+ * not respond to user input, and it will appear visually disabled and disabled to accessibility
+ * services.
+ * @param contentPadding the padding applied to the content of this menu item
+ * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
+ * for this menu item. You can create and pass in your own `remember`ed instance to observe
+ * [Interaction]s and customize the appearance / behavior of this menu item in different states.
+ */
+@Suppress("UnusedReceiverParameter") // Used as namespace
+@Composable
+public fun SingleChoiceDropdownItemColumnScope.DropdownMenuItem(
+    text: @Composable () -> Unit,
+    selected: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    trailingIcon: @Composable (() -> Unit)? = null,
+    enabled: Boolean = true,
+    contentPadding: PaddingValues = PaddingValues(
+        horizontal = 16.dp,
+        vertical = 8.dp,
+    ),
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+) {
+    SparkDropdownMenuItem(
+        text = text,
+        modifier = modifier
+            .selectable(
+                enabled = enabled,
+                selected = selected,
+                onClick = onClick,
+                interactionSource = interactionSource,
+                indication = ripple(true),
+            )
+            .semantics { role = Role.RadioButton },
+        contentPadding = contentPadding,
+        trailingIcon = trailingIcon,
+        leadingIcon = if (selected) {
+            @Composable {
+                Icon(
+                    sparkIcon = SparkIcons.Check,
+                    contentDescription = null, // Semantics handled in the Row
+                    modifier = Modifier.size(24.dp),
+                )
+            }
+        } else {
+            null
+        },
+        enabled = enabled,
+    )
+}
+
+/**
+ * <a href="https://m3.material.io/components/menus/overview" class="external" target="_blank">Material Design dropdown menu</a> item.
+ *
+ * Menus display a list of choices on a temporary surface. They appear when users interact with a
+ * button, action, or other control.
+ *
+ * ![Dropdown menu image](https://developer.android.com/images/reference/androidx/compose/material3/menu.png)
+ *
+ * @param text text of the menu item
+ * @param checked whether this item is checked or not
+ * @param onCheckedChange callback to be invoked when the item is clicked. therefore the change of
+ *   checked state in requested.
+ * @param modifier the [Modifier] to be applied to this menu item
+ * @param trailingIcon optional trailing icon to be displayed at the end of the item's text
+ * @param enabled controls the enabled state of this menu item. When `false`, this component will
+ * not respond to user input, and it will appear visually disabled and disabled to accessibility
+ * services.
+ * @param contentPadding the padding applied to the content of this menu item
+ * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
+ * for this menu item. You can create and pass in your own `remember`ed instance to observe
+ * [Interaction]s and customize the appearance / behavior of this menu item in different states.
+ */
+@Suppress("UnusedReceiverParameter") // Used as namespace
+@Composable
+public fun MultiChoiceDropdownItemColumnScope.DropdownMenuItem(
+    text: @Composable () -> Unit,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+    trailingIcon: @Composable (() -> Unit)? = null,
+    enabled: Boolean = true,
+    contentPadding: PaddingValues = PaddingValues(
+        horizontal = 16.dp,
+        vertical = 8.dp,
+    ),
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+) {
+    SparkDropdownMenuItem(
+        text = text,
+        modifier = modifier
+            .toggleable(
+                enabled = enabled,
+                value = checked,
+                onValueChange = onCheckedChange,
+                interactionSource = interactionSource,
+                indication = ripple(true),
+            ),
+        contentPadding = contentPadding,
+        trailingIcon = trailingIcon,
+        leadingIcon = if (checked) {
+            @Composable {
+                Icon(
+                    sparkIcon = SparkIcons.Check,
+                    contentDescription = null, // Semantics handled in the Row
+                    modifier = Modifier.size(24.dp),
+                )
+            }
+        } else {
+            null
+        },
+        enabled = enabled,
+    )
+}
+
+/**
  * Represents the text color for a menu item, depending on its [enabled] state.
  *
  * @param enabled whether the menu item is enabled
@@ -253,6 +629,59 @@ private fun MenuItemColors.trailingIconColor(enabled: Boolean): Color =
     if (enabled) trailingIconColor else disabledTrailingIconColor
 
 /**
+ * Displays a "no content" text item.
+ *
+ * This item is typically used to indicate that no results were found or that
+ * there are no available options in the dropdown.
+ * It can be used in any [DropdownMenu] variants which means it's available for all Dropdowns and ComboBoxs
+ *
+ * @param modifier The modifier to be applied to the item.
+ * @param text  The no result text. Defaults to a localized "No results".
+ *
+ * Example usage:
+ * ```
+ *  SingleChoiceExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+ *      if (filteredItems.isEmpty()) {
+ *          NoContentItem()
+ *      } else {
+ *           filteredItems.forEach { item ->
+ *               DropdownMenuItem(
+ *                   text = { Text(item.label) },
+ *                   onClick = {
+ *                       selectedItem = item
+ *                       expanded = false
+ *                   },
+ *               )
+ *           }
+ *      }
+ *  }
+ * ```
+ */
+@Suppress("UnusedReceiverParameter") // Used as namespace
+@ExperimentalSparkApi
+@Composable
+public fun DropdownMenuItemColumnScope.NoContentItem(
+    modifier: Modifier = Modifier,
+    text: String = stringResource(R.string.spark_dropdown_menu_item_no_result_label),
+) {
+    SparkDropdownMenuItem(
+        text = {
+            Text(
+                text = text,
+                style = SparkTheme.typography.body1,
+                fontStyle = FontStyle.Italic,
+            )
+        },
+        modifier = modifier,
+        contentPadding = PaddingValues(
+            horizontal = 16.dp,
+            vertical = 8.dp,
+        ),
+        enabled = false,
+    )
+}
+
+/**
  * A group of [DropdownMenuItem] with a [title] label to describe all items from this group.
  *
  *
@@ -266,13 +695,14 @@ private fun MenuItemColors.trailingIconColor(enabled: Boolean): Color =
 public fun DropdownMenuGroupItem(
     title: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    content: @Composable ColumnScope.() -> Unit,
+    content: @Composable DropdownMenuItemColumnScope.() -> Unit,
 ) {
     Column(modifier = modifier.sparkUsageOverlay()) {
         SectionHeadline {
             title()
         }
-        content(this)
+        val scope = remember { DropdownMenuItemWrapper(this) }
+        scope.content()
     }
 }
 
@@ -299,9 +729,8 @@ private fun DropdownMenuItemPreview() {
         padding = PaddingValues(0.dp),
         contentPadding = 0.dp,
     ) {
-        DropdownMenuItem(
+        SparkDropdownMenuItem(
             text = { Text("Edit") },
-            onClick = { /* Handle edit! */ },
             leadingIcon = {
                 Icon(
                     SparkIcons.PenFill,
@@ -309,37 +738,23 @@ private fun DropdownMenuItemPreview() {
                 )
             },
         )
-        DropdownMenuItem(
+        SparkDropdownMenuItem(
             text = { Text("Save") },
-            onClick = { /* Handle edit! */ },
         )
-        DropdownMenuItem(
+        SparkDropdownMenuItem(
             text = { Text("Settings") },
-            onClick = { /* Handle settings! */ },
             enabled = false,
             leadingIcon = {
                 Icon(
                     SparkIcons.WheelOutline,
                     contentDescription = null,
                 )
-                HorizontalDivider()
-                DropdownMenuItem(
-                    text = { Text("Send Feedback") },
-                    onClick = { /* Handle send feedback! */ },
-                    leadingIcon = {
-                        Icon(
-                            SparkIcons.MailOutline,
-                            contentDescription = null,
-                        )
-                    },
-                    trailingIcon = { Text("F11", textAlign = TextAlign.Center) },
-                )
             },
             trailingIcon = { Text("F11", textAlign = TextAlign.Center) },
         )
-        DropdownMenuItem(
-            text = { Text("Send Feedback Send Feedback Send Feedback Send Feedback Send Feedback Send Feed") },
-            onClick = { /* Handle send feedback! */ },
+        HorizontalDivider()
+        SparkDropdownMenuItem(
+            text = { Text("Send Feedback") },
             leadingIcon = {
                 Icon(
                     SparkIcons.MailOutline,
@@ -348,6 +763,18 @@ private fun DropdownMenuItemPreview() {
             },
             trailingIcon = { Text("F11", textAlign = TextAlign.Center) },
         )
+        SparkDropdownMenuItem(
+            text = { Text("Send Feedback Send Feedback Send Feedback Send Feedback Send Feedback Send Feed") },
+            leadingIcon = {
+                Icon(
+                    SparkIcons.MailOutline,
+                    contentDescription = null,
+                )
+            },
+            trailingIcon = { Text("F11", textAlign = TextAlign.Center) },
+        )
+        val scope = remember { DropdownMenuItemWrapper(this) }
+        scope.NoContentItem()
     }
 }
 
@@ -364,9 +791,8 @@ private fun DropdownMenuGroupItemPreview() {
         DropdownMenuGroupItem(
             title = { Text("Logiciel") },
         ) {
-            DropdownMenuItem(
+            SparkDropdownMenuItem(
                 text = { Text("Edit") },
-                onClick = { /* Handle edit! */ },
                 leadingIcon = {
                     Icon(
                         SparkIcons.PenFill,
@@ -374,13 +800,11 @@ private fun DropdownMenuGroupItemPreview() {
                     )
                 },
             )
-            DropdownMenuItem(
+            SparkDropdownMenuItem(
                 text = { Text("Save") },
-                onClick = { /* Handle edit! */ },
             )
-            DropdownMenuItem(
+            SparkDropdownMenuItem(
                 text = { Text("Settings") },
-                onClick = { /* Handle settings! */ },
                 enabled = false,
                 leadingIcon = {
                     Icon(
@@ -390,9 +814,8 @@ private fun DropdownMenuGroupItemPreview() {
                 },
             )
         }
-        DropdownMenuItem(
+        SparkDropdownMenuItem(
             text = { Text("Edit") },
-            onClick = { /* Handle edit! */ },
             leadingIcon = {
                 Icon(
                     SparkIcons.PenFill,
@@ -400,9 +823,8 @@ private fun DropdownMenuGroupItemPreview() {
                 )
             },
         )
-        DropdownMenuItem(
+        SparkDropdownMenuItem(
             text = { Text("Save") },
-            onClick = { /* Handle edit! */ },
         )
     }
 }

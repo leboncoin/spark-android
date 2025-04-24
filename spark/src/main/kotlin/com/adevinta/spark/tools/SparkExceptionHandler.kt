@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Adevinta
+ * Copyright (c) 2025 Adevinta
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,20 +19,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-plugins {
-    alias(libs.plugins.spark.library)
-    alias(libs.plugins.spark.compose)
-    alias(libs.plugins.spark.dokka)
-    alias(libs.plugins.spark.publishing)
-    alias(libs.plugins.spark.dependencyGuard)
+package com.adevinta.spark.tools
+
+/**
+ * Log messages within the Spark library.
+ * Allows swapping the underlying logging mechanism.
+ */
+public fun interface SparkExceptionHandler {
+    public fun handleException(throwable: Throwable)
 }
 
-android {
-    namespace = "com.adevinta.spark.icons"
-    resourcePrefix = "spark_icons_"
+/**
+ * Default implementation of [SparkExceptionHandler] that will crash on unexpected states.
+ */
+public object DefaultSparkExceptionHandler : SparkExceptionHandler {
+    override fun handleException(throwable: Throwable): Unit = throw throwable
 }
 
-dependencies {
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.appCompat.resources) // Needed for compat vector drawables
+/**
+ * A no-operation implementation of [SparkExceptionHandler].
+ */
+public object NoOpSparkExceptionHandler : SparkExceptionHandler {
+    override fun handleException(throwable: Throwable) {}
 }

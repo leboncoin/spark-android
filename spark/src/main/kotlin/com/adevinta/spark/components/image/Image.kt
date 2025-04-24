@@ -105,6 +105,15 @@ public fun SparkImage(
     }
     SubcomposeAsyncImage(
         modifier = modifier
+            .layout { measurable, constraints ->
+
+                constraints.checkThatImageHasDefinedSize()
+
+                val placeable = measurable.measure(constraints)
+                layout(placeable.width, placeable.height) {
+                    placeable.placeRelative(0, 0)
+                }
+            }
             .sparkUsageOverlay()
             .ifNotNull(contentDescription) { description ->
                 clearAndSetSemantics {
@@ -250,6 +259,25 @@ internal fun ImageIconState(
                 },
             )
         }
+    }
+}
+
+private fun Constraints.checkThatImageHasDefinedSize() {
+    val isWidthBounded = hasBoundedWidth
+    val isHeightBounded = hasBoundedHeight
+    val hasMinWidth = minWidth != 0
+    val hasMinHeight = minHeight != 0
+    check(isWidthBounded) {
+        "Image must have a bounded width but was hasBoundedWidth: $isWidthBounded"
+    }
+    check(isHeightBounded) {
+        "Image must have a bounded height but was hasBoundedHeight: $isHeightBounded"
+    }
+    check(hasMinWidth) {
+        "Image must have a minimum width but has minWidth: $minWidth"
+    }
+    check(hasMinHeight) {
+        "Image must have a minimum height but has minHeight: $minHeight"
     }
 }
 

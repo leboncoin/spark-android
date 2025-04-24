@@ -65,18 +65,16 @@ import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.model.Configurator
 import com.adevinta.spark.catalog.ui.ButtonGroup
+import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.ui.RoundedPolygonShape
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
-import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.image.SparkImage
 import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.components.textfields.Dropdown
+import com.adevinta.spark.components.textfields.SingleChoiceDropdown
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.SwitchLabelled
-import com.adevinta.spark.icons.Check
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.res.annotatedStringResource
 import com.adevinta.spark.tokens.LocalWindowSizeClass
 import com.adevinta.spark.tools.modifiers.ifTrue
@@ -171,38 +169,15 @@ private fun ColumnScope.ImageSample() {
         Text(text = "Blur Edges", modifier = Modifier.fillMaxWidth())
     }
 
-    var expanded by remember { mutableStateOf(false) }
-    Dropdown(
+    DropdownEnum(
         modifier = Modifier.fillMaxWidth(),
-        value = imageShape.name,
-        label = "Shapes",
-        expanded = expanded,
-        onExpandedChange = {
-            expanded = !expanded
-        },
-        onDismissRequest = {
-            expanded = false
-        },
-        dropdownContent = {
-            ImageShape.entries.forEach {
-                DropdownMenuItem(
-                    text = { Text(it.name) },
-                    onClick = {
-                        imageShape = it
-                        expanded = false
-                    },
-                    trailingIcon = if (imageShape == it) {
-                        { Icon(SparkIcons.Check, contentDescription = null) }
-                    } else {
-                        null
-                    },
-                )
-            }
-        },
+        title = "Shapes",
+        selectedOption = imageShape,
+        onOptionSelect = { imageShape = it },
     )
 
     var expandedScale by remember { mutableStateOf(false) }
-    Dropdown(
+    SingleChoiceDropdown(
         modifier = Modifier.fillMaxWidth(),
         value = contentScale.name,
         label = "Scale",
@@ -231,11 +206,7 @@ private fun ColumnScope.ImageSample() {
                         contentScale = it
                         expandedScale = false
                     },
-                    trailingIcon = if (contentScale == it) {
-                        { Icon(SparkIcons.Check, contentDescription = null) }
-                    } else {
-                        null
-                    },
+                    selected = contentScale == it,
                 )
             }
         },
