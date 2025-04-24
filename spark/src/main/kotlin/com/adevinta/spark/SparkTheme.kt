@@ -73,9 +73,9 @@ import com.adevinta.spark.tokens.sparkShapes
 import com.adevinta.spark.tokens.sparkTypography
 import com.adevinta.spark.tokens.updateColorsFrom
 import com.adevinta.spark.tokens.updateFontFamily
-import com.adevinta.spark.tools.logger.DefaultSparkLogger
-import com.adevinta.spark.tools.logger.NoOpSparkLogger
-import com.adevinta.spark.tools.logger.SparkLogger
+import com.adevinta.spark.tools.DefaultSparkExceptionHandler
+import com.adevinta.spark.tools.NoOpSparkExceptionHandler
+import com.adevinta.spark.tools.SparkExceptionHandler
 
 /**
  * **Spark Theming** refers to the customization of your Spark Design app to better reflect your
@@ -96,8 +96,8 @@ import com.adevinta.spark.tools.logger.SparkLogger
  * @param shapes A set of corner shapes to be used as this hierarchy's shape system.
  * @param fontFamily the font family to be applied on [typography].
  * @param sparkFeatureFlag flags that activate debugging features from Spark or features hidden to consumers.
- * @param logger An instance of [SparkLogger] for handling logs within Spark components.
- * Defaults to [DefaultSparkLogger].
+ * @param logger An instance of [SparkExceptionHandler] for handling logs within Spark components.
+ * Defaults to [DefaultSparkExceptionHandler].
  */
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -110,7 +110,11 @@ public fun SparkTheme(
     fontFamily: SparkFontFamily = sparkFontFamily(
         useSparkTokensHighlighter = sparkFeatureFlag.useSparkTokensHighlighter,
     ),
-    logger: SparkLogger = if (LocalInspectionMode.current) NoOpSparkLogger else DefaultSparkLogger,
+    logger: SparkExceptionHandler = if (LocalInspectionMode.current) {
+        NoOpSparkExceptionHandler
+    } else {
+        DefaultSparkExceptionHandler
+    },
     content: @Composable () -> Unit,
 ) {
     val internalColors = if (sparkFeatureFlag.useSparkTokensHighlighter) debugColors() else colors
@@ -143,7 +147,7 @@ public fun SparkTheme(
         LocalSparkTypography provides typo,
         LocalSparkShapes provides internalShapes,
         LocalSparkFeatureFlag provides sparkFeatureFlag,
-        LocalSparkLogger provides logger,
+        LocalSparkExceptionHandler provides logger,
         LocalWindowSizeClass provides calculateWindowSizeClass(),
         LocalUseFallbackRippleImplementation provides false,
         LocalIndication provides rippleIndication,
@@ -275,10 +279,10 @@ public object SparkTheme {
         get() = LocalSparkFeatureFlag.current
 }
 
-/** CompositionLocal used to pass [SparkLogger] down the tree to enable control on some crashable
+/** CompositionLocal used to pass [SparkExceptionHandler] down the tree to enable control on some crashable
  * behaviors at consumers
  */
-public val LocalSparkLogger: ProvidableCompositionLocal<SparkLogger> =
+public val LocalSparkExceptionHandler: ProvidableCompositionLocal<SparkExceptionHandler> =
     staticCompositionLocalOf { error("SparkLogger not provided") }
 
 internal val LocalSparkFeatureFlag: ProvidableCompositionLocal<SparkFeatureFlag> = staticCompositionLocalOf {

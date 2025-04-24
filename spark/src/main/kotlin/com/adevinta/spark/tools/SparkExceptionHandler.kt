@@ -19,26 +19,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.adevinta.spark.tools.logger
+package com.adevinta.spark.tools
 
 /**
  * Log messages within the Spark library.
  * Allows swapping the underlying logging mechanism.
  */
-public fun interface SparkLogger {
-    public fun report(throwable: Throwable)
+public fun interface SparkExceptionHandler {
+    public fun handleException(throwable: Throwable)
 }
 
 /**
- * Default implementation of [SparkLogger] that will crash on unexpected states.
+ * Default implementation of [SparkExceptionHandler] that will crash on unexpected states.
  */
-public object DefaultSparkLogger : SparkLogger {
-    override fun report(throwable: Throwable): Unit = throw throwable
+public object DefaultSparkExceptionHandler : SparkExceptionHandler {
+    override fun handleException(throwable: Throwable): Unit = throw throwable
 }
 
 /**
- * A no-operation implementation of [SparkLogger].
+ * A no-operation implementation of [SparkExceptionHandler].
  */
-public object NoOpSparkLogger : SparkLogger {
-    override fun report(throwable: Throwable) {}
+public object NoOpSparkExceptionHandler : SparkExceptionHandler {
+    override fun handleException(throwable: Throwable) {}
 }
