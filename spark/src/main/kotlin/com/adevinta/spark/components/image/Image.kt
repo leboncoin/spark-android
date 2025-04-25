@@ -280,10 +280,14 @@ private fun Constraints.checkThatImageHasDefinedSize(exceptionHandler: SparkExce
         )
     }
     if (!hasMinWidth) {
-        exceptionHandler.handleException(IllegalStateException("Image must have a minimum width but has minWidth: $minWidth"))
+        exceptionHandler.handleException(
+            IllegalStateException("Image must have a minimum width but has minWidth: $minWidth"),
+        )
     }
     if (!hasMinHeight) {
-        exceptionHandler.handleException(IllegalStateException("Image must have a minimum height but has minHeight: $minHeight"))
+        exceptionHandler.handleException(
+            IllegalStateException("Image must have a minimum height but has minHeight: $minHeight"),
+        )
     }
 }
 
