@@ -22,15 +22,16 @@
 package com.adevinta.spark.tools
 
 /**
- * Log messages within the Spark library.
- * Allows swapping the underlying logging mechanism.
+ * Implementations of this interface provide a centralized mechanism for
+ * dealing with errors and exceptions that may arise when using a Spark component in an unexpected way.
+ * This allows for custom error handling logic, such as log reporting for production or crash in development.
  */
 public fun interface SparkExceptionHandler {
     public fun handleException(throwable: Throwable)
 }
 
 /**
- * Default implementation of [SparkExceptionHandler] that will crash on unexpected states.
+ * Default implementation of [SparkExceptionHandler] that will rethrow the throwable from spark.
  */
 public object DefaultSparkExceptionHandler : SparkExceptionHandler {
     override fun handleException(throwable: Throwable): Unit = throw throwable

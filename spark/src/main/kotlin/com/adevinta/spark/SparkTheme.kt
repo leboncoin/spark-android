@@ -96,7 +96,7 @@ import com.adevinta.spark.tools.SparkExceptionHandler
  * @param shapes A set of corner shapes to be used as this hierarchy's shape system.
  * @param fontFamily the font family to be applied on [typography].
  * @param sparkFeatureFlag flags that activate debugging features from Spark or features hidden to consumers.
- * @param logger An instance of [SparkExceptionHandler] for handling logs within Spark components.
+ * @param exceptionHandler An instance of [SparkExceptionHandler] for handling logs within Spark components.
  * Defaults to [DefaultSparkExceptionHandler].
  */
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class, ExperimentalMaterial3Api::class)
@@ -110,7 +110,7 @@ public fun SparkTheme(
     fontFamily: SparkFontFamily = sparkFontFamily(
         useSparkTokensHighlighter = sparkFeatureFlag.useSparkTokensHighlighter,
     ),
-    logger: SparkExceptionHandler = if (LocalInspectionMode.current) {
+    exceptionHandler: SparkExceptionHandler = if (LocalInspectionMode.current) {
         NoOpSparkExceptionHandler
     } else {
         DefaultSparkExceptionHandler
@@ -147,7 +147,7 @@ public fun SparkTheme(
         LocalSparkTypography provides typo,
         LocalSparkShapes provides internalShapes,
         LocalSparkFeatureFlag provides sparkFeatureFlag,
-        LocalSparkExceptionHandler provides logger,
+        LocalSparkExceptionHandler provides exceptionHandler,
         LocalWindowSizeClass provides calculateWindowSizeClass(),
         LocalUseFallbackRippleImplementation provides false,
         LocalIndication provides rippleIndication,
@@ -283,7 +283,7 @@ public object SparkTheme {
  * behaviors at consumers
  */
 public val LocalSparkExceptionHandler: ProvidableCompositionLocal<SparkExceptionHandler> =
-    staticCompositionLocalOf { error("SparkLogger not provided") }
+    staticCompositionLocalOf { error("SparkExceptionHandler not provided") }
 
 internal val LocalSparkFeatureFlag: ProvidableCompositionLocal<SparkFeatureFlag> = staticCompositionLocalOf {
     error("SparkFeatureFlag not provided")
