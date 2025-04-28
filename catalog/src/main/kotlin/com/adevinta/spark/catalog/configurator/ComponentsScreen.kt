@@ -21,6 +21,8 @@
  */
 package com.adevinta.spark.catalog.configurator
 
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -33,6 +35,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -47,11 +50,13 @@ import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.examples.component.ComponentConfiguratorItem
 import com.adevinta.spark.catalog.model.Component
 import com.adevinta.spark.catalog.themes.NavigationMode
+import com.adevinta.spark.catalog.ui.animations.LocalSharedTransitionScope
 import com.adevinta.spark.catalog.ui.navigation.ChangeSelectedNavControllerOnPageChange
 import com.adevinta.spark.catalog.ui.navigation.NavHostSpark
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.Layout
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 public fun ConfiguratorComponentsScreen(
     modifier: Modifier = Modifier,
@@ -60,27 +65,30 @@ public fun ConfiguratorComponentsScreen(
     contentPadding: PaddingValues,
     navigationMode: NavigationMode,
 ) {
-    val navController = rememberNavController()
+    SharedTransitionLayout {
+        val navController = rememberNavController()
 
-    ChangeSelectedNavControllerOnPageChange(
-        pagerState = pagerState,
-        catalogScreen = CatalogHomeScreen.Configurator,
-        navController = navController,
-    )
-
-    NavHostSpark(
-        modifier = modifier,
-        navController = navController,
-        startDestination = ConfiguratorsList,
-        navigationMode = navigationMode,
-        builder = {
-            configuratorsDestination(
+        ChangeSelectedNavControllerOnPageChange(
+            pagerState = pagerState,
+            catalogScreen = CatalogHomeScreen.Configurator,
+            navController = navController,
+        )
+        CompositionLocalProvider(LocalSharedTransitionScope provides this) {
+            NavHostSpark(
+                modifier = modifier,
                 navController = navController,
-                contentPadding = contentPadding,
-                components = components,
+                startDestination = ConfiguratorsList,
+                navigationMode = navigationMode,
+                builder = {
+                    configuratorsDestination(
+                        navController = navController,
+                        contentPadding = contentPadding,
+                        components = components,
+                    )
+                },
             )
-        },
-    )
+        }
+    }
 }
 
 @Composable

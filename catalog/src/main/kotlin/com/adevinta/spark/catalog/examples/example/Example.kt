@@ -21,10 +21,11 @@
  */
 package com.adevinta.spark.catalog.examples.example
 
-import androidx.compose.foundation.horizontalScroll
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
@@ -37,7 +38,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.adevinta.spark.catalog.examples.ExamplesSharedElementKey
+import com.adevinta.spark.catalog.examples.ExamplesSharedElementType
 import com.adevinta.spark.catalog.model.Example
+import com.adevinta.spark.catalog.ui.animations.LocalAnimatedVisibilityScope
+import com.adevinta.spark.catalog.ui.animations.LocalSharedTransitionScope
 import com.adevinta.spark.components.scaffold.Scaffold
 import com.adevinta.spark.components.snackbars.SnackbarHost
 import com.adevinta.spark.components.snackbars.SnackbarHostState
@@ -48,6 +53,7 @@ import com.adevinta.spark.tokens.Layout
  *
  * @param example The [Example] data model containing the content to be displayed.
  */
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 public fun Example(example: Example) {
     val scrollState = rememberScrollState()
@@ -60,24 +66,31 @@ public fun Example(example: Example) {
         .padding(horizontal = Layout.bodyMargin)
         .imePadding()
 
-    Scaffold(
-        snackbarHost = { SnackbarHost(snackbarHostState) },
-    ) {
-        if (example.rowContent != null) {
-            Row(
-                modifier = commonModifier.horizontalScroll(scrollState),
-            ) {
-                with(example) {
-                    rowContent?.let { content -> this@Row.content(snackbarHostState) }
-                }
-            }
-        } else {
+    with(LocalSharedTransitionScope.current) {
+        Scaffold(
+            modifier = Modifier.sharedBounds(
+                rememberSharedContentState(
+                    ExamplesSharedElementKey(
+                        exampleId = example.id,
+                        origin = "component",
+                        type = ExamplesSharedElementType.Background,
+                    ),
+                ),
+                boundsTransform =  { initialBounds, targetBounds ->
+                    spring(dampingRatio = .8f, stiffness = 380f)
+                },
+                resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
+                placeHolderSize = SharedTransitionScope.PlaceHolderSize.animatedSize,
+                animatedVisibilityScope = LocalAnimatedVisibilityScope.current,
+            ),
+            snackbarHost = { SnackbarHost(snackbarHostState) },
+        ) {
             Column(
                 modifier = commonModifier.verticalScroll(scrollState),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 with(example) {
-                    columnContent?.let { content -> this@Column.content(snackbarHostState) }
+                    this@Column.content(snackbarHostState)
                 }
             }
         }

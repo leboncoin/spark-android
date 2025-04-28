@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Adevinta
+ * Copyright (c) 2025 Adevinta
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,20 +19,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-@file:Suppress("COMPOSABLE_FUNCTION_REFERENCE")
+@file:OptIn(ExperimentalSharedTransitionApi::class)
 
-package com.adevinta.spark.catalog.model
+package com.adevinta.spark.catalog.ui.animations
 
-import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.runtime.Composable
-import com.adevinta.spark.components.snackbars.SnackbarHostState
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.runtime.ProvidableCompositionLocal
+import androidx.compose.runtime.staticCompositionLocalOf
 
-public data class Example(
-    val id: String,
-    val name: String,
-    val description: String,
-    val sourceUrl: String,
-    val content:
-    @Composable()
-    ColumnScope.(SnackbarHostState) -> Unit,
-)
+public val LocalSharedTransitionScope: ProvidableCompositionLocal<SharedTransitionScope> =
+    staticCompositionLocalOf { error("No SharedTransitionScope provided") }
+public val LocalAnimatedVisibilityScope: ProvidableCompositionLocal<AnimatedVisibilityScope> =
+    staticCompositionLocalOf { error("No AnimatedVisibilityScope provided") }
