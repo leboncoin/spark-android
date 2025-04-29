@@ -32,7 +32,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
@@ -205,10 +204,7 @@ internal enum class RatingSize {
 }
 
 @Composable
-internal fun firstLocale(): Locale {
-    LocalConfiguration.current
-    return LocalContext.current.resources.configuration.locales[0]
-}
+internal fun firstLocale(): Locale = LocalConfiguration.current.locales[0]
 
 @Composable
 @Preview(
