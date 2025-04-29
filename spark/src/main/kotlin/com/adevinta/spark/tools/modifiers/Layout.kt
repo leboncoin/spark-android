@@ -19,6 +19,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+@file:Suppress("DEPRECATION")
+
 package com.adevinta.spark.tools.modifiers
 
 import androidx.compose.foundation.layout.Box
@@ -87,8 +89,10 @@ private class IgnoreParentHorizontalPaddingModifierNode(var horizontalPadding: D
  *
  * Taken from:
  * https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:compose/ui/ui/integration-tests/ui-demos/src/main/java/androidx/compose/ui/demos/autofill/ExplicitAutofillTypesDemo.kt
- * TODO-@Soulcramer (03-51-2023): Replace by official implementation on b/176949051
 */
+@Deprecated(
+    "The official impl is now available! Use the new semantics-based API and androidx.compose.ui.autofill.ContentType instead.",
+)
 @Composable
 @ExperimentalComposeUiApi
 public fun Autofill(

@@ -31,6 +31,7 @@ import androidx.compose.ui.graphics.toComposeRect
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalInspectionMode
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.window.layout.WindowMetricsCalculator
@@ -48,8 +49,8 @@ internal fun calculateWindowSizeClass(): WindowSizeClass {
     // ComposeView's configuration changes.
     if (LocalInspectionMode.current) {
         // We don't have access to the activity in a Preview so we just use the configuration
-        val config = LocalConfiguration.current
-        return WindowSizeClass.calculateFromSize(DpSize(config.screenWidthDp.dp, config.screenHeightDp.dp))
+        val containerSize = LocalWindowInfo.current.containerSize
+        return WindowSizeClass.calculateFromSize(DpSize(containerSize.width.dp, containerSize.height.dp))
     }
     val activity = requireNotNull(LocalActivity.current) { "Could not find activity in Context chain." }
     LocalConfiguration.current
