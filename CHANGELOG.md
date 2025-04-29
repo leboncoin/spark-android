@@ -7,6 +7,15 @@
 ### Catalog
 * 💬🇫🇷 The catalog app can now be used with a french locale.
 
+## [1.2.2]
+
+_2025-04-28_
+
+### Spark
+* ✨ Introduce `SparkExceptionHandler` that allow users to control the behavior of some crashable unvalid events/states
+* 🐛 Fix `Image` Icon Size leading to crash
+* 🐛 `Image` will now signal that it's missing a defined size
+
 ## [1.2.1]
 
 _2025-03-27_
@@ -473,7 +482,9 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.2.1...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.2.2...HEAD
+
+[1.2.2]: https://github.com/leboncoin/spark-android/releases/tag/1.2.2
 
 [1.2.1]: https://github.com/leboncoin/spark-android/releases/tag/1.2.1
 
