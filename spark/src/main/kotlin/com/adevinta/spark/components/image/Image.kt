@@ -27,6 +27,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.movableContentOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -49,14 +50,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImagePainter
-import coil.compose.SubcomposeAsyncImage
-import coil.compose.SubcomposeAsyncImageContent
-import coil.decode.DataSource
-import coil.request.ErrorResult
-import coil.request.ImageRequest
-import coil.request.NullRequestData
-import coil.request.SuccessResult
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import coil3.asImage
+import coil3.compose.AsyncImagePainter
+import coil3.compose.SubcomposeAsyncImage
+import coil3.compose.SubcomposeAsyncImageContent
+import coil3.compose.rememberAsyncImagePainter
+import coil3.decode.DataSource
+import coil3.request.ErrorResult
+import coil3.request.ImageRequest
+import coil3.request.NullRequestData
+import coil3.request.SuccessResult
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.LocalSparkExceptionHandler
 import com.adevinta.spark.PreviewTheme
@@ -105,6 +109,11 @@ public fun SparkImage(
     val emptyStateIcon = remember(emptyIcon) {
         movableContentOf(emptyIcon)
     }
+    val painter = rememberAsyncImagePainter(
+        model = model,
+        transform = transform,
+        onState = { onState?.invoke(it.asImageState()) },
+    )
     val exceptionHandler = LocalSparkExceptionHandler.current
     SubcomposeAsyncImage(
         modifier = modifier
@@ -133,14 +142,16 @@ public fun SparkImage(
         colorFilter = colorFilter,
         filterQuality = filterQuality,
     ) {
-        when (painter.state) {
+        val state by painter.state.collectAsStateWithLifecycle()
+        val input by painter.input.collectAsStateWithLifecycle()
+        when (state) {
             AsyncImagePainter.State.Empty -> emptyStateIcon()
             is AsyncImagePainter.State.Loading -> loadingPlaceholder()
 
             is AsyncImagePainter.State.Error -> {
                 // since model can be anything transformed in to a ImageRequest OR a ImageRequest we need to
                 // handel both cases
-                val requestData = painter.request.data
+                val requestData = input.request.data
                 val showEmptyIcon = when {
                     (requestData is String) -> requestData.isBlank()
                     requestData == NullRequestData -> true
@@ -424,7 +435,7 @@ private fun ImagePreview() {
             transform = {
                 AsyncImagePainter.State.Success(
                     painter,
-                    SuccessResult(drawable, imageRequest, DataSource.DISK),
+                    SuccessResult(drawable.asImage(), imageRequest, DataSource.DISK),
                 )
             },
         )
