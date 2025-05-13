@@ -49,8 +49,8 @@
       <name>androidx.compose.material3.ElevatedButton</name>
       <name>androidx.compose.material3.ElevatedCard</name>
       <name>androidx.compose.material3.ElevatedFilterChip</name>
-      <name>androidx.compose.material3.ExtendedFloatingActionButton</name>
       <name>androidx.compose.material3.ExposedDropdownMenu</name>
+      <name>androidx.compose.material3.ExtendedFloatingActionButton</name>
       <name>androidx.compose.material3.FilledIconButton</name>
       <name>androidx.compose.material3.FilledIconToggleButton</name>
       <name>androidx.compose.material3.FilledTonalButton</name>
