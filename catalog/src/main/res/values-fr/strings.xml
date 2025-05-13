@@ -127,9 +127,9 @@
 
     <string name="icons_screen_search_helper">Rechercher une icône Spark</string>
 
-    <string name="spark_text_link_paragraph_example_"><annotation color="neutral" typography="body1">Ceci est la </annotation><annotation color="main" typography="body1"><u><b>Politique de confidentialité</b></u></annotation><annotation color="neutral" typography="body1">d’Adevinta ainsi que de nombreuses informations supplémentaires qui pourraient vous intéresser ou dont je devrais vous informer et que vous ignorez peut-être</annotation></string>
+    <string name="spark_text_link_paragraph_example_">&lt;annotation color="neutral" typography="body1">Ceci est la &lt;/annotation>&lt;annotation color="main" typography="body1">&lt;u>&lt;b>Politique de confidentialité&lt;/b>&lt;/u>&lt;/annotation>&lt;annotation color="neutral" typography="body1">d’Adevinta ainsi que de nombreuses informations supplémentaires qui pourraient vous intéresser ou dont je devrais vous informer et que vous ignorez peut-être&lt;/annotation></string>
 
-    <string name="spark_text_link_short_example_"><annotation color="neutral" typography="display2">Apprendre la programmation Kotlin </annotation><annotation color="success" typography="display3"><u><b>https://kotlinlang.org</b></u></annotation></string>
+    <string name="spark_text_link_short_example_">&lt;annotation color="neutral" typography="display2">Apprendre la programmation Kotlin &lt;/annotation>&lt;annotation color="success" typography="display3">&lt;u>&lt;b>https://kotlinlang.org&lt;/b>&lt;/u>&lt;/annotation></string>
 
     <!--region Divider-->
     <string name="component_divider_description">Le composant Divider/Séparateur fournit une ligne fine et discrète qui sépare et distingue les sections de contenu afin de renforcer la hiérarchie visuelle.\\u2028Voici quelques utilisations courantes:\nSéparer les sections sur une page.\nSéparer les éléments d’une liste.\nCréer un contraste visuel entre les deux côtés d’une page.</string>

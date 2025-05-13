@@ -21,9 +21,13 @@
  */
 package com.adevinta.spark.res
 
-import android.text.Annotation
 import android.util.Log
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.AnnotatedString.Annotation
+import androidx.compose.ui.text.AnnotatedString.Range
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.StringAnnotation
+import androidx.compose.ui.unit.TextUnit
 import com.adevinta.spark.tokens.SparkColors
 import com.adevinta.spark.tokens.SparkTypography
 
@@ -35,53 +39,89 @@ public object SparkStringAnnotations {
     /**
      * Given a string representing an annotation key and a string representing an annotation value, returns the corresponding [SpanStyle].
      */
-    public fun toSpanStyle(
-        annotation: Annotation,
+    public fun toStyleAnnotation(
+        annotation: Range<StringAnnotation>,
         colors: SparkColors,
         typography: SparkTypography,
-    ): SpanStyle? = when (annotation.key) {
-        "color" -> annotation.value.toColorSpanStyle(colors)
-        "typography" -> annotation.value.toTypographySpanStyle(typography)
-        else -> null.also { _ ->
-            Log.d("StringResources", "Annotation $this is not supported by spark")
+    ): Range<out Annotation> = when (annotation.tag) {
+        "color" -> annotation.toColorSpanStyle(colors)
+        "typography" -> annotation.toTypographySpanStyle(typography)
+        "variable" -> annotation.toTypographySpanStyle(typography)
+        else -> annotation.also { _ ->
+            Log.d("StringResources", "Annotation ${annotation.tag} is not supported by spark")
         }
     }
 
     /**
      * Given a string representing annotation value of a spark color, returns the corresponding [SpanStyle] with the color token.
      */
-    private fun String.toColorSpanStyle(token: SparkColors): SpanStyle? = when (this) {
-        "main" -> token.main
-        "support" -> token.support
-        "success" -> token.success
-        "alert" -> token.alert
-        "error" -> token.error
-        "info" -> token.info
-        "neutral" -> token.neutral
-        "accent" -> token.accent
-        else -> null.also { _ ->
-            Log.d("StringResources", "Spark color annotation : $this is not supported")
+    private fun Range<StringAnnotation>.toColorSpanStyle(token: SparkColors): Range<SpanStyle> {
+        val color = when (this.item.value) {
+            "main" -> token.main
+            "support" -> token.support
+            "success" -> token.success
+            "alert" -> token.alert
+            "error" -> token.error
+            "info" -> token.info
+            "neutral" -> token.neutral
+            "accent" -> token.accent
+            else -> null.also { _ ->
+                Log.d("StringResources", "Spark color annotation : $this is not supported")
+            }
         }
-    }?.let(::SpanStyle)
+        return Range(
+            item = SpanStyle(
+                color = color ?: Color.Unspecified,
+            ),
+            start = start,
+            end = end,
+            tag = tag,
+        )
+    }
 
     /**
      * Given a string representing annotation value of a spark typography, returns the corresponding [SpanStyle] with the typography token.
      */
-    private fun String.toTypographySpanStyle(token: SparkTypography): SpanStyle? = when (this) {
-        "display1" -> token.display1
-        "display2" -> token.display2
-        "display3" -> token.display3
-        "headline1" -> token.headline1
-        "headline2" -> token.headline2
-        "subhead" -> token.subhead
-        "large" -> token.body1
-        "body1" -> token.body1
-        "body2" -> token.body2
-        "caption" -> token.caption
-        "small" -> token.small
-        "callout" -> token.callout
-        else -> null.also { _ ->
-            Log.d("StringResources", "Spark typography annotation : $this is not supported")
+    private fun Range<StringAnnotation>.toTypographySpanStyle(token: SparkTypography): Range<SpanStyle> {
+        val typography = when (this.item.value) {
+            "display1" -> token.display1
+            "display2" -> token.display2
+            "display3" -> token.display3
+            "headline1" -> token.headline1
+            "headline2" -> token.headline2
+            "subhead" -> token.subhead
+            "large" -> token.body1
+            "body1" -> token.body1
+            "body2" -> token.body2
+            "caption" -> token.caption
+            "small" -> token.small
+            "callout" -> token.callout
+            else -> null.also { _ ->
+                Log.d("StringResources", "Spark typography annotation : $this is not supported")
+            }
         }
-    }?.toSpanStyle()
+        return Range(
+            item = SpanStyle(
+                color = Color.Unspecified,
+                fontSize = typography?.fontSize ?: TextUnit.Unspecified,
+                fontWeight = typography?.fontWeight,
+                fontStyle = typography?.fontStyle,
+                fontSynthesis = typography?.fontSynthesis,
+                fontFamily = typography?.fontFamily,
+                fontFeatureSettings = typography?.fontFeatureSettings,
+                letterSpacing = typography?.letterSpacing ?: TextUnit.Unspecified,
+                baselineShift = typography?.baselineShift,
+                textGeometricTransform = typography?.textGeometricTransform,
+                localeList = typography?.localeList,
+                background = typography?.background ?: Color.Unspecified,
+                textDecoration = typography?.textDecoration,
+                shadow = typography?.shadow,
+                platformStyle = typography?.platformStyle?.spanStyle,
+                drawStyle = typography?.drawStyle,
+            ),
+            start = start,
+            end = end,
+            tag = tag,
+        )
+    }
 }
