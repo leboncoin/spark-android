@@ -127,13 +127,13 @@ private fun ColumnScope.ImageSample() {
         when (state) {
             ImageState.Error -> AsyncImagePainter.State.Error(
                 painter = painter,
-                result = ErrorResult(drawable.asImage(), request, Throwable(""))
+                result = ErrorResult(drawable.asImage(), request, Throwable("")),
             )
             ImageState.Empty -> AsyncImagePainter.State.Empty
             ImageState.Loading -> AsyncImagePainter.State.Loading(painter)
             ImageState.Success -> AsyncImagePainter.State.Success(
                 painter = painter,
-                result = SuccessResult(drawable.asImage(), request, DataSource.DISK)
+                result = SuccessResult(drawable.asImage(), request, DataSource.DISK),
             )
         }
     }
