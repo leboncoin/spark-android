@@ -21,9 +21,6 @@
  */
 package com.adevinta.spark.components.dialog
 
-import android.os.Build
-import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Arrangement
@@ -35,7 +32,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -56,6 +52,8 @@ import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalView
@@ -71,6 +69,7 @@ import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.R
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.appbar.BottomAppBar
 import com.adevinta.spark.components.appbar.TopAppBar
 import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.buttons.ButtonOutlined
@@ -87,7 +86,6 @@ import com.adevinta.spark.icons.MoreMenuVertical
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.Layout
 import com.adevinta.spark.tokens.LocalWindowSizeClass
-import com.adevinta.spark.tokens.bodyWidth
 import com.adevinta.spark.tools.preview.DevicePreviews
 
 /**
@@ -130,13 +128,13 @@ public fun ModalScaffold(
     val isPhoneLandscape = size.heightSizeClass == WindowHeightSizeClass.Compact
     val isPhonePortraitOrFoldable =
         (size.widthSizeClass == WindowWidthSizeClass.Compact || size.widthSizeClass == WindowWidthSizeClass.Medium) &&
-            (
-                size.heightSizeClass == WindowHeightSizeClass.Medium ||
-                    size.heightSizeClass == WindowHeightSizeClass.Expanded
-                )
+                (
+                        size.heightSizeClass == WindowHeightSizeClass.Medium ||
+                                size.heightSizeClass == WindowHeightSizeClass.Expanded
+                        )
 
     val properties = DialogProperties(
-        usePlatformDefaultWidth = inEdgeToEdge,
+        usePlatformDefaultWidth = !inEdgeToEdge,
         decorFitsSystemWindows = !inEdgeToEdge,
     )
     val bottomInsets = BottomAppBarDefaults.windowInsets
@@ -281,7 +279,7 @@ private fun PhonePortraitModalScaffold(
                 .fillMaxSize()
                 .nestedScroll(scrollBehavior.nestedScrollConnection),
             snackbarHost = snackbarHost,
-            contentWindowInsets = WindowInsets(0.dp),
+//            contentWindowInsets = WindowInsets(0.dp),
             topBar = {
                 TopAppBar(
                     navigationIcon = {
@@ -296,19 +294,7 @@ private fun PhonePortraitModalScaffold(
                 BottomBarPortrait(bottomInsets, mainButton, supportButton)
             },
         ) { innerPadding ->
-            Column(
-                modifier = Modifier
-                    .bodyWidth()
-                    .padding(contentPadding),
-            ) {
-                val padding = innerPadding + if (supportButton == null && mainButton == null) {
-                    bottomInsets.asPaddingValues()
-                } else {
-                    PaddingValues(0.dp)
-                }
-
-                content(padding)
-            }
+            content(innerPadding)
         }
     }
 }
@@ -320,7 +306,7 @@ private fun BottomBarPortrait(
     supportButton: @Composable ((Modifier) -> Unit)?,
 ) {
     if (supportButton == null && mainButton == null) return
-    Surface {
+    BottomAppBar {
         val buttonsLayoutModifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 24.dp)
@@ -431,12 +417,7 @@ private fun PhoneLandscapeModalScaffold(
                         .weight(1f)
                         .fillMaxHeight(),
                 ) {
-                    val padding = innerPadding + if (supportButton == null && mainButton == null) {
-                        bottomInsets.asPaddingValues() + PaddingValues(bottom = 16.dp)
-                    } else {
-                        PaddingValues(0.dp)
-                    }
-                    content(padding)
+                    content(innerPadding)
                 }
             }
         }
@@ -454,18 +435,23 @@ private fun CloseIconButton(onClose: () -> Unit) {
     }
 }
 
+@Suppress("DEPRECATION")
 @Composable
 private fun SetUpEdgeToEdgeDialog() {
-    val parentView = LocalView.current.parent as View
-    val window = (parentView as DialogWindowProvider).window
+    val parentView = LocalView.current.parent as DialogWindowProvider
+    val window = parentView.window
 
-    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+//    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
 
-    window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-        window.attributes.fitInsetsTypes = 0
-        window.attributes.fitInsetsSides = 0
-    }
+//    window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+//    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//        window.attributes.fitInsetsTypes = 0
+//        window.attributes.fitInsetsSides = 0
+//    }
+    window.statusBarColor = Color.Transparent.toArgb()
+    window.navigationBarColor = Color.Transparent.toArgb()
+    window.navigationBarColor = Color.Transparent.toArgb()
+    window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 }
 
 /**
@@ -474,10 +460,10 @@ private fun SetUpEdgeToEdgeDialog() {
  */
 private operator fun PaddingValues.plus(other: PaddingValues): PaddingValues = PaddingValues(
     start = this.calculateStartPadding(LayoutDirection.Ltr) +
-        other.calculateStartPadding(LayoutDirection.Ltr),
+            other.calculateStartPadding(LayoutDirection.Ltr),
     top = this.calculateTopPadding() + other.calculateTopPadding(),
     end = this.calculateEndPadding(LayoutDirection.Ltr) +
-        other.calculateEndPadding(LayoutDirection.Ltr),
+            other.calculateEndPadding(LayoutDirection.Ltr),
     bottom = this.calculateBottomPadding() + other.calculateBottomPadding(),
 )
 
@@ -516,23 +502,23 @@ private fun ModalPreview() {
                         .padding(innerPadding)
                         .verticalScroll(rememberScrollState()),
                     text =
-                    "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. " +
-                        "Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur " +
-                        "ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. " +
-                        "\n\nNulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, " +
-                        "vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. " +
-                        "Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. " +
-                        "Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. " +
-                        "\n\nAenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante," +
-                        " dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius " +
-                        "laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. " +
-                        "Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. " +
-                        "\n\nMaecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet " +
-                        "adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, " +
-                        "lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis " +
-                        "faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. " +
-                        "Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. " +
-                        "Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,",
+                        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. " +
+                                "Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur " +
+                                "ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. " +
+                                "\n\nNulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, " +
+                                "vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. " +
+                                "Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. " +
+                                "Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. " +
+                                "\n\nAenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante," +
+                                " dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius " +
+                                "laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. " +
+                                "Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. " +
+                                "\n\nMaecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet " +
+                                "adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, " +
+                                "lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis " +
+                                "faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. " +
+                                "Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. " +
+                                "Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,",
                 )
             }
         }

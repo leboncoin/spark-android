@@ -24,7 +24,6 @@ package com.adevinta.spark
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
 import app.cash.paparazzi.RenderExtension
-import app.cash.paparazzi.detectEnvironment
 import com.android.ide.common.rendering.api.SessionParams
 import com.android.resources.Density
 import com.android.resources.Keyboard
@@ -40,7 +39,6 @@ fun paparazziRule(
     deviceConfig: DeviceConfig = DefaultTestDevices.Phone,
     renderExtensions: Set<RenderExtension> = setOf(),
 ) = Paparazzi(
-    environment = detectEnvironment(),
     deviceConfig = deviceConfig,
     renderingMode = renderingMode,
     renderExtensions = renderExtensions,

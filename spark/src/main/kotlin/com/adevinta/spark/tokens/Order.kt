@@ -24,7 +24,7 @@ package com.adevinta.spark.tokens
 import com.adevinta.spark.InternalSparkApi
 
 /**
- * Used to order tokens in the catalog, preview and tests.
+ * Used to order tokens in the catalog, preview, and tests.
  */
 @InternalSparkApi
 @Target(AnnotationTarget.PROPERTY)

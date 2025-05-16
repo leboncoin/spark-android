@@ -22,7 +22,7 @@
 package com.adevinta.spark
 
 /**
- * Marks declarations that are **internal** in Spark API, which means that should not be used outside of
+ * Marks declarations that are **internal** in Spark API, which means they should not be used outside of
  * `com.adevinta.spark`, because their signatures and semantics will change between future releases without
  * any warnings and without providing any migration guide.
  */

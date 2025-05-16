@@ -352,11 +352,11 @@ public fun darkSparkColors(
 )
 
 /**
- * A color scheme holds all the named color parameters for a [SparkTheme] highly inspired by Material 3 ColorScheme.
+ * A color scheme holds all the named color parameters for a [SparkTheme], highly inspired by Material 3 ColorScheme.
  *
  * SparkColors are designed to be harmonious, ensure accessible text, and distinguish UI
- * elements and surfaces from one another. There are two built-in baseline schemes,
- * [lightSparkColors] and a [darkSparkColors], that can be used as-is or customized.
+ * elements and surfaces from one another. There are two built-in baseline schemes:
+ * [lightSparkColors] and [darkSparkColors], that can be used as-is or customized.
  *
  * To learn more about colors, see [Material Design colors](https://m3.material.io/styles/color/overview) and
  * [Spark colors](https://spark.adevinta.com/1186e1705/p/0879a9-colors/b/27d7a3).
@@ -375,9 +375,8 @@ public fun darkSparkColors(
  * screens and components.
  * @property onMain Color used for text and icons displayed on top of the main color.
  * @property mainContainer The preferred tonal color of containers.
- * @property onMainContainer The color (and state variants) that should be used for content on
- * top of [mainContainer].
- * @property mainVariant Darker variation of [main] color.
+ * @property onMainContainer The color that should be used for content on top of [mainContainer].
+ * @property mainVariant A darker variation of the [main] color.
  * @property onMainVariant Color used for text and icons displayed on top of the [mainVariant] color.
  * @property support The support color provides more ways to accent and distinguish your
  * product. Support colors are best for:
@@ -387,15 +386,14 @@ public fun darkSparkColors(
  * - Links and headlines
  * @property onSupport Color used for text and icons displayed on top of the support color.
  * @property supportContainer A tonal color to be used in containers.
- * @property onSupportContainer The color (and state variants) that should be used for content on
- * top of [supportContainer].
- * @property supportVariant Darker variation of [support] color.
+ * @property onSupportContainer The color that should be used for content on top of [supportContainer].
+ * @property supportVariant A darker variation of the [support] color.
  * @property onSupportVariant Color used for text and icons displayed on top of the [supportVariant] color.
- * @property success An emphasis color used to provide a positive feedback.
+ * @property success An emphasis color used to provide positive feedback.
  * @property onSuccess Color used for text and icons displayed on top of the [success] color.
  * @property successContainer The preferred tonal color of success containers.
  * @property onSuccessContainer Color used for text and icons displayed on top of the [successContainer] color.
- * @property alert An emphasis color used to provide a warning feedback.
+ * @property alert An emphasis color used to provide warning feedback.
  * @property onAlert Color used for text and icons displayed on top of the [alert] color.
  * @property alertContainer The preferred tonal color of warning containers.
  * @property onAlertContainer Color used for text and icons displayed on top of the [alertContainer] color.
@@ -403,9 +401,8 @@ public fun darkSparkColors(
  * a text field.
  * @property onError Color used for text and icons displayed on top of the error color.
  * @property errorContainer The preferred tonal color of error containers.
- * @property onErrorContainer The color (and state variants) that should be used for content on
- * top of [errorContainer].
- * @property info An emphasis color used to provide an informative feedback.
+ * @property onErrorContainer The color that should be used for content on top of [errorContainer].
+ * @property info An emphasis color used to provide informative feedback.
  * @property onInfo Color used for text and icons displayed on top of the [info] color.
  * @property infoContainer The preferred tonal color of info containers.
  * @property onInfoContainer Color used for text and icons displayed on top of the [infoContainer] color.

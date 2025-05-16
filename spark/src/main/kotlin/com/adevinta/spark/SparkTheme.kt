@@ -85,7 +85,7 @@ import com.adevinta.spark.tools.SparkExceptionHandler
  * default values.
  *
  * All values may be set by providing this component with the [colors][SparkColors],
- * [typography][SparkTypography] and [shapes][SparkShapes] attributes. Use this to configure the overall
+ * [typography][SparkTypography], and [shapes][SparkShapes] attributes. Use this to configure the overall
  * theme of elements within this SparkTheme.
  *
  * Any values that are not set will inherit the current value from the theme, falling back to the
@@ -94,8 +94,8 @@ import com.adevinta.spark.tools.SparkExceptionHandler
  * @param colors A complete definition of the Spark Color theme for this hierarchy.
  * @param typography A set of text styles to be used as this hierarchy's typography system.
  * @param shapes A set of corner shapes to be used as this hierarchy's shape system.
- * @param fontFamily the font family to be applied on [typography].
- * @param sparkFeatureFlag flags that activate debugging features from Spark or features hidden to consumers.
+ * @param fontFamily The font family to be applied on [typography].
+ * @param sparkFeatureFlag Flags that activate debugging features from Spark or features hidden to consumers.
  * @param exceptionHandler An instance of [SparkExceptionHandler] for handling logs within Spark components.
  * Defaults to [DefaultSparkExceptionHandler].
  */
@@ -172,7 +172,7 @@ public fun SparkTheme(
 /**
  * A wrapper composable that provides a consistent preview environment for other composables using Spark.
  *
- * This composable creates a Surface with a padding, and place the content inside a Column.
+ * This composable creates a Surface with padding and places the content inside a Column.
  *
  * @param padding The padding to be applied to the Surface.
  * @param contentPadding The vertical spacing between the items in the Column.
@@ -292,10 +292,10 @@ internal val LocalSparkFeatureFlag: ProvidableCompositionLocal<SparkFeatureFlag>
 /**
  * Flags that will activate debugging features from Spark or features hidden to consumers.
  *
- * @property useSparkTokensHighlighter Highlight visually where the spark tokens are used or not. Setting it to true
- * makes the text in cursive, colors in red/green/blue and shapes in full cut corners.
- * @property useSparkComponentsHighlighter Highlight visually with an overlay where the spark components are used
- * or not. Setting it to true show an overlay on spark components.
+ * @property useSparkTokensHighlighter Highlights visually where the spark tokens are used or not. Setting it to true
+ * makes the text in cursive, colors in red/green/blue, and shapes in full cut corners.
+ * @property useSparkComponentsHighlighter Highlights visually with an overlay where the spark components are used
+ * or not. Setting it to true shows an overlay on spark components.
  * @property useLegacyStyle Makes the components use the legacy style from the previous DS to make it easier for the
  * Leboncoin teams to migrate their screens to spark.
  */

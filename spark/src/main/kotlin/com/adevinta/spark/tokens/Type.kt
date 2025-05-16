@@ -190,7 +190,7 @@ public data class SparkTypography(
      */
     val body1: TextStyle,
     /**
-     * Content base text low hierarchy.
+     * Content base text with low hierarchy.
      */
     val body2: TextStyle,
     /**
@@ -198,11 +198,11 @@ public data class SparkTypography(
      */
     val caption: TextStyle,
     /**
-     * Legal text, App bar labels
+     * Legal text and app bar labels.
      */
     val small: TextStyle,
     /**
-     * Call to actions
+     * Call to actions.
      */
     val callout: TextStyle,
 )
@@ -229,7 +229,7 @@ public fun SparkTypography.asMaterial3Typography(): Typography = Typography(
 )
 
 /**
- * Extension property to get a [TextStyle] with [FontWeight.Bold] applied
+ * Extension property to get a [TextStyle] with [FontWeight.Bold] applied.
  */
 public val TextStyle.highlight: TextStyle
     get() = this.copy(fontWeight = FontWeight.Bold)

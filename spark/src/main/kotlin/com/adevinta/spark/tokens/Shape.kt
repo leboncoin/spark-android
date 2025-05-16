@@ -55,20 +55,20 @@ import androidx.compose.material3.Shapes as Material3Shapes
  * @param none A shape style with 4 same-sized corners whose size are equal to [RectangleShape].
  * By default app bars, navigation bars, banners, full-screen dialogs, and navigation rails use this shape.
  * @param extraSmall A shape style with 4 same-sized corners whose size are bigger than
- * [RectangleShape] and smaller than [SparkShapes.small]. By default autocomplete menu, select menu,
+ * [RectangleShape] and smaller than [SparkShapes.small]. By default, autocomplete menu, select menu,
  * snackbars, standard menu, and text fields use this shape.
  * @param small A shape style with 4 same-sized corners whose size are bigger than
- * [SparkShapes.extraSmall] and smaller than [SparkShapes.medium]. By default chips use this shape.
+ * [SparkShapes.extraSmall] and smaller than [SparkShapes.medium]. By default, chips use this shape.
  * @param medium A shape style with 4 same-sized corners whose size are bigger than [SparkShapes.small]
- * and smaller than [SparkShapes.large]. By default cards and small FABs use this shape.
+ * and smaller than [SparkShapes.large]. By default, cards and small FABs use this shape.
  * @param large A shape style with 4 same-sized corners whose size are bigger than [SparkShapes.medium]
- * and smaller than [SparkShapes.extraLarge]. By default extended FABs, FABs, and navigation drawers use
+ * and smaller than [SparkShapes.extraLarge]. By default, extended FABs, FABs, and navigation drawers use
  * this shape.
  * @param extraLarge A shape style with 4 same-sized corners whose size are bigger than
- * [SparkShapes.large] and smaller than [CircleShape]. By default large FABs, Bottom sheets, Dialogs and Time picker
+ * [SparkShapes.large] and smaller than [CircleShape]. By default, large FABs, bottom sheets, dialogs, and time picker
  * use this shape.
- * @param full A shape style with 4 same-sized corners whose size are equal to [CircleShape]. By default large Badge,
- * Buttons, Icon buttons, Sliders, Switches and Search bar use this shape.
+ * @param full A shape style with 4 same-sized corners whose size is equal to [CircleShape]. By default, large badges,
+ * buttons, icon buttons, sliders, switches, and search bar use this shape.
  */
 @Immutable
 public data class SparkShapes(

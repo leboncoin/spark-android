@@ -52,7 +52,7 @@ import com.adevinta.spark.SparkTheme
  * A Ripple is a Material implementation of [Indication] that expresses different [Interaction]s
  * by drawing ripple animations and state layers.
  *
- * A Ripple responds to [PressInteraction.Press] by starting a new ripple animation, and
+ * A Ripple responds to [PressInteraction.Press] by starting a new ripple animation and
  * responds to other [Interaction]s by showing a fixed state layer with varying alpha values
  * depending on the [Interaction].
  *
@@ -61,22 +61,22 @@ import com.adevinta.spark.SparkTheme
  * [androidx.compose.foundation.clickable] and [androidx.compose.foundation.indication], in
  * addition to Material provided components that use a Ripple as well.
  *
- * You can also explicitly create a Ripple and provide it to custom components in order to change
+ * You can also explicitly create a Ripple and provide it to custom components to change
  * the parameters from the default, such as to create an unbounded ripple with a fixed size.
  *
  * To create a Ripple with a manually defined color that can change over time, see the other
  * [ripple] overload with a [ColorProducer] parameter. This will avoid unnecessary recompositions
- * when changing the color, and preserve existing ripple state when the color changes.
+ * when changing the color and preserve existing ripple state when the color changes.
  *
  * @param bounded If true, ripples are clipped by the bounds of the target layout. Unbounded
  * ripples always animate from the target layout center, bounded ripples animate from the touch
  * position.
- * @param radius the radius for the ripple. If [Dp.Unspecified] is provided then the size will be
+ * @param radius The radius for the ripple. If [Dp.Unspecified] is provided, then the size will be
  * calculated based on the target layout size.
- * @param color the color of the ripple. This color is usually the same color used by the text or
+ * @param color The color of the ripple. This color is usually the same color used by the text or
  * iconography in the component. This color will then have [RippleDefaults.RippleAlpha]
  * applied to calculate the final color used to draw the ripple. If [Color.Unspecified] is
- * provided the color used will be [LocalContentColor] instead.
+ * provided, the color used will be [LocalContentColor] instead.
  */
 @Stable
 public fun ripple(
@@ -97,7 +97,7 @@ public fun ripple(
  * A Ripple is a Material implementation of [Indication] that expresses different [Interaction]s
  * by drawing ripple animations and state layers.
  *
- * A Ripple responds to [PressInteraction.Press] by starting a new ripple animation, and
+ * A Ripple responds to [PressInteraction.Press] by starting a new ripple animation and
  * responds to other [Interaction]s by showing a fixed state layer with varying alpha values
  * depending on the [Interaction].
  *
@@ -106,14 +106,14 @@ public fun ripple(
  * [androidx.compose.foundation.clickable] and [androidx.compose.foundation.indication], in
  * addition to Material provided components that use a Ripple as well.
  *
- * You can also explicitly create a Ripple and provide it to custom components in order to change
+ * You can also explicitly create a Ripple and provide it to custom components to change
  * the parameters from the default, such as to create an unbounded ripple with a fixed size.
  *
  * To create a Ripple with a static color, see the [ripple] overload with a [Color] parameter. This
  * overload is optimized for Ripples that have dynamic colors that change over time, to reduce
  * unnecessary recompositions.
  *
- * @param color the color of the ripple. This color is usually the same color used by the text or
+ * @param color The color of the ripple. This color is usually the same color used by the text or
  * iconography in the component. This color will then have [RippleDefaults.RippleAlpha]
  * applied to calculate the final color used to draw the ripple. If you are creating this
  * [ColorProducer] outside of composition (where it will be automatically remembered), make sure
@@ -122,7 +122,7 @@ public fun ripple(
  * @param bounded If true, ripples are clipped by the bounds of the target layout. Unbounded
  * ripples always animate from the target layout center, bounded ripples animate from the touch
  * position.
- * @param radius the radius for the ripple. If [Dp.Unspecified] is provided then the size will be
+ * @param radius The radius for the ripple. If [Dp.Unspecified] is provided, then the size will be
  * calculated based on the target layout size.
  */
 @Stable

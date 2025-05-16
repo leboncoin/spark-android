@@ -80,7 +80,7 @@ public object Layout {
 }
 
 /**
- * Support wide screen by making the content width max 840dp, centered horizontally.
+ * Supports wide screens by making the content width max 840dp, centered horizontally.
  */
 @Suppress("ComposeModifierComposed") // WindowInsets.systemBars is internally a LocalComposition but we
 // can't access it to use it in the Node API.

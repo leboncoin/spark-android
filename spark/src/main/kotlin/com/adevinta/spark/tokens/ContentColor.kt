@@ -40,12 +40,11 @@ import com.adevinta.spark.icons.IdentityOutline
 import com.adevinta.spark.icons.SparkIcons
 
 /**
- * This function is used to set the current value of [LocalContentColor] to onSurface. Any [Text], Icons, other
- * components included.
+ * This function is used to set the current value of [LocalContentColor] to onSurface. Any [Text], Icons, or other
+ * components included will be styled with this content color alpha that applies a medium emphasis which
+ * is close to Black.
  *
  * This is the default emphasis applied in the whole theme.
- * This component's [content] will be styled with this a content color alpha that apply a medium emphasis which
- * is close to Black.
  */
 @Composable
 public fun EmphasizeHigh(content: @Composable () -> Unit) {
@@ -53,8 +52,8 @@ public fun EmphasizeHigh(content: @Composable () -> Unit) {
 }
 
 /**
- * This function is used to set the current value of [LocalContentColor] to onSurfaceVariant. Any [Text], Icons, other
- * components included in this component's [content] will be styled with this a content color alpha that apply a
+ * This function is used to set the current value of [LocalContentColor] to onSurfaceVariant. Any [Text], Icons, or other
+ * components included in this component's [content] will be styled with this content color alpha that applies a
  * medium emphasis which is close to Dark Gray.
  */
 @Composable
@@ -67,8 +66,8 @@ public fun EmphasizeMedium(content: @Composable () -> Unit) {
 
 /**
  * This function is used to set the current value of [LocalContentColor] to onSurface with a disabled alpha.
- * Any [Text], Icons, other  components included in this component's [content] will be styled with this a content
- * color alpha that apply a disabled emphasis which is close to Gray or Light Gray.
+ * Any [Text], Icons, or other components included in this component's [content] will be styled with this content
+ * color alpha that applies a disabled emphasis which is close to Gray or Light Gray.
  */
 @Composable
 public fun EmphasizeDisable(content: @Composable () -> Unit) {
@@ -125,9 +124,9 @@ public fun EmphasizeDim4(content: @Composable () -> Unit) {
 }
 
 /**
- * Used for press and ripples
+ * Used for press and ripples.
  *
- * This is should not be used on Android as the Material Ripple handles this already.
+ * This should not be used on Android as the Material Ripple handles this already.
  */
 @InternalSparkApi
 @Composable

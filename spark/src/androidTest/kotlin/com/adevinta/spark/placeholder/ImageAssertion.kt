@@ -42,7 +42,7 @@ fun PixelMap.assertPixelColor(expected: Color, x: Int, y: Int, tolerance: Float 
 }
 
 /**
- * Asserts that the colors at specific pixels in the vertices of bitmap is [expected].
+ * Asserts that the colors at specific pixels in the vertices of the bitmap are [expected].
  */
 fun ImageBitmap.assertPixelsOfVertices(expected: Color) {
     toPixelMap().run {
@@ -54,7 +54,7 @@ fun ImageBitmap.assertPixelsOfVertices(expected: Color) {
 }
 
 /**
- * Assert that all of the pixels in this image as of the [expected] color.
+ * Asserts that all of the pixels in this image are of the [expected] color.
  */
 fun ImageBitmap.assertPixels(expected: Color, tolerance: Float = 0.001f) {
     toPixelMap().run {
