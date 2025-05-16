@@ -206,8 +206,8 @@ internal class ImageScreenshot {
             )
 
             val imageTypes = listOf(
-                R.drawable.img_narrow_image_configurator to "Narrow Image",
-                R.drawable.img_wide_image_configurator to "Wide Image",
+                R.drawable.spark_img_narrow_image_configurator to "Narrow Image",
+                R.drawable.spark_img_wide_image_configurator to "Wide Image",
             )
 
             val context = LocalContext.current
