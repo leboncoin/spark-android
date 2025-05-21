@@ -39,16 +39,19 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -56,11 +59,18 @@ import androidx.compose.ui.unit.dp
 import androidx.graphics.shapes.CornerRounding
 import androidx.graphics.shapes.RoundedPolygon
 import androidx.graphics.shapes.star
-import coil.compose.AsyncImagePainter
-import coil.decode.DataSource
-import coil.request.ErrorResult
-import coil.request.ImageRequest
-import coil.request.SuccessResult
+import coil3.annotation.ExperimentalCoilApi
+import coil3.asImage
+import coil3.compose.AsyncImageModelEqualityDelegate
+import coil3.compose.AsyncImagePainter
+import coil3.compose.AsyncImagePreviewHandler
+import coil3.compose.LocalAsyncImageModelEqualityDelegate
+import coil3.compose.LocalAsyncImagePreviewHandler
+import coil3.decode.DataSource
+import coil3.request.ErrorResult
+import coil3.request.ImageRequest
+import coil3.request.SuccessResult
+import coil3.request.crossfade
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.model.Configurator
@@ -89,7 +99,7 @@ public val ImageConfigurator: Configurator = Configurator(
     ImageSample()
 }
 
-@OptIn(ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class, ExperimentalCoilApi::class)
 @Composable
 private fun ColumnScope.ImageSample() {
     var state by remember { mutableStateOf(ImageState.Success) }
@@ -100,7 +110,7 @@ private fun ColumnScope.ImageSample() {
     var contentScale by remember { mutableStateOf(ImageContentScale.Crop) }
     var aspectRatio by remember { mutableStateOf(ImageAspectRatio.Custom) }
     var imageShape by remember { mutableStateOf(ImageShape.Medium) }
-    var selectedImage by remember { mutableStateOf(SelectedImage.Wide) }
+    var selectedImage by remember { mutableStateOf(SelectedImage.Narrow) }
     val drawable = getDrawable(LocalContext.current, selectedImage.res)!!
     val painter = rememberDrawablePainter(drawable)
     val imageRequest = ImageRequest.Builder(LocalContext.current)
@@ -108,40 +118,53 @@ private fun ColumnScope.ImageSample() {
         .data(state.ordinal)
         .build()
 
-    val transform = { _: AsyncImagePainter.State ->
-        state.transformation(
-            painter,
-            drawable,
-            imageRequest,
-        )
-    }
     val imageMaxWidth = when (LocalWindowSizeClass.current.widthSizeClass) {
         WindowWidthSizeClass.Expanded -> 350.dp
         WindowWidthSizeClass.Medium -> 250.dp
         else -> 200.dp
     }
-    SparkImage(
-        model = state.ordinal,
-        contentDescription = stringResource(selectedImage.contentDescription),
-        modifier = Modifier
-            .width(imageMaxWidth)
-            .ifTrue(showBorder) {
-                border(1.dp, SparkTheme.colors.outlineHigh)
-            }
-            .aspectRatio(
-                ratio = if (aspectRatio == ImageAspectRatio.Custom) {
-                    (width?.toFloat() ?: 1f) / (height?.toFloat() ?: 1f)
-                } else {
-                    aspectRatio.ratio
-                },
-                matchHeightConstraintsFirst = true,
+    val previewHandler = AsyncImagePreviewHandler { _, request ->
+        when (state) {
+            ImageState.Error -> AsyncImagePainter.State.Error(
+                painter = painter,
+                result = ErrorResult(drawable.asImage(), request, Throwable("")),
             )
-            .clip(imageShape.shape)
-            .animateContentSize(),
-        transform = transform,
-        contentScale = contentScale.scale,
-        blurEdges = blurEdges,
-    )
+            ImageState.Empty -> AsyncImagePainter.State.Empty
+            ImageState.Loading -> AsyncImagePainter.State.Loading(painter)
+            ImageState.Success -> AsyncImagePainter.State.Success(
+                painter = painter,
+                result = SuccessResult(drawable.asImage(), request, DataSource.DISK),
+            )
+        }
+    }
+    CompositionLocalProvider(
+        LocalAsyncImagePreviewHandler provides previewHandler,
+        LocalAsyncImageModelEqualityDelegate provides AsyncImageModelEqualityDelegate.AllProperties,
+        LocalInspectionMode provides true,
+    ) {
+        SparkImage(
+            model = imageRequest,
+            contentDescription = stringResource(selectedImage.contentDescription),
+            modifier = Modifier
+                .width(imageMaxWidth)
+                .ifTrue(showBorder) {
+                    border(1.dp, SparkTheme.colors.outlineHigh)
+                }
+                .aspectRatio(
+                    ratio = if (aspectRatio == ImageAspectRatio.Custom) {
+                        (width?.toFloat() ?: 1f) / (height?.toFloat() ?: 1f)
+                    } else {
+                        aspectRatio.ratio
+                    },
+                    matchHeightConstraintsFirst = true,
+                )
+                .align(Alignment.CenterHorizontally)
+                .clip(imageShape.shape)
+                .animateContentSize(),
+            contentScale = contentScale.scale,
+            blurEdges = blurEdges,
+        )
+    }
 
     ButtonGroup(
         title = "Image type",
@@ -284,7 +307,7 @@ private enum class ImageState {
             imageRequest: ImageRequest,
         ): AsyncImagePainter.State = AsyncImagePainter.State.Success(
             painter,
-            SuccessResult(drawable, imageRequest, DataSource.DISK),
+            SuccessResult(drawable.asImage(), imageRequest, DataSource.DISK),
         )
     },
     ;
