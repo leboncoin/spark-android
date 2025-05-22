@@ -139,9 +139,11 @@ public fun ThemePicker(
                     )
 
                     androidx.compose.material3.Slider(
-                        modifier = Modifier.systemGestureExclusion(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .systemGestureExclusion(),
                         value = contrastLevel - 1f,
-                        valueRange = -1f..1f,
+                        valueRange = 0f..1f,
                         steps = 9,
                         onValueChange = { },
                     )
