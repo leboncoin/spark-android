@@ -114,9 +114,7 @@ import com.adevinta.spark.tokens.PaletteTokens.Plum500
 import com.adevinta.spark.tokens.PaletteTokens.Plum700
 import com.adevinta.spark.tokens.PaletteTokens.Plum800
 import com.adevinta.spark.tokens.PaletteTokens.Plum900
-import com.materialkolor.ktx.darken
 import com.materialkolor.ktx.from
-import com.materialkolor.ktx.lighten
 import com.materialkolor.ktx.toneColor
 import com.materialkolor.palettes.TonalPalette
 import kotlin.math.ln
