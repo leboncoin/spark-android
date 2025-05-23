@@ -31,7 +31,7 @@ import com.adevinta.spark.tokens.sparkTypography
 
 public object SubitoTheme : ThemeProvider {
     @Composable
-    override fun colors(useDarkColors: Boolean, isPro: Boolean): SparkColors = when {
+    override fun colors(useDarkColors: Boolean, isPro: Boolean, contrastLevel: Float): SparkColors = when {
         useDarkColors || isSystemInDarkTheme() -> SubitoDark
         else -> SubitoLight
     }

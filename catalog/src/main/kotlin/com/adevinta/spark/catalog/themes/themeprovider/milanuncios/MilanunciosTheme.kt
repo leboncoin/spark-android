@@ -31,7 +31,7 @@ import com.adevinta.spark.tokens.sparkTypography
 
 public object MilanunciosTheme : ThemeProvider {
     @Composable
-    override fun colors(useDarkColors: Boolean, isPro: Boolean): SparkColors = when {
+    override fun colors(useDarkColors: Boolean, isPro: Boolean, contrastLevel: Float): SparkColors = when {
         useDarkColors || isSystemInDarkTheme() -> MilanunciosDark
         else -> MilanunciosLight
     }
