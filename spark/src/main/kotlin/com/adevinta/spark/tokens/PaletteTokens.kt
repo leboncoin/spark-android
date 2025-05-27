@@ -121,9 +121,6 @@ internal object PaletteTokens {
     val DarkMid = Color(0xff4f4f4f)
     val DarkMedium = Color(0xffE6E6E6)
     val DarkLight = Color(0xffF9F9F9)
-    val LightBold = Color(0xff1a1a1a)
-    val LightRegular = Color(0xff484848)
     val LightMid = Color(0xff4f4f4f)
-    val LightGray = Color(0xffbcbcbc)
     val LightLight = Color(0xffF9F9F9)
 }

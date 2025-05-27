@@ -103,8 +103,6 @@ androidx.viewpager:viewpager:1.0.0
 androidx.window:window-core-android:1.4.0
 androidx.window:window-core:1.4.0
 androidx.window:window:1.4.0
-com.github.ajalt.colormath:colormath-jvm:3.6.1
-com.github.ajalt.colormath:colormath:3.6.1
 com.google.accompanist:accompanist-drawablepainter:0.37.3
 com.google.guava:listenablefuture:1.0
 com.squareup.okio:okio-jvm:3.11.0
@@ -181,8 +179,6 @@ org.jetbrains.kotlin:kotlin-stdlib-common:2.1.20
 org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.1.20
 org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.20
 org.jetbrains.kotlin:kotlin-stdlib:2.1.20
-org.jetbrains.kotlinx:atomicfu-jvm:0.23.2
-org.jetbrains.kotlinx:atomicfu:0.23.2
 org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.4.0
 org.jetbrains.kotlinx:kotlinx-collections-immutable:0.4.0
 org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.2
