@@ -59,7 +59,7 @@ androidx-savedstate = "androidx.savedstate:savedstate-ktx:1.3.0"
 androidx-test-runner = "androidx.test:runner:1.6.2"
 androidx-test-truth = "androidx.test.ext:truth:1.6.0"
 
-androidx-window = "androidx.window:window:1.3.0"
+androidx-window = "androidx.window:window:1.4.0"
 
 # https://coil-kt.github.io/coil/
 coil-bom = "io.coil-kt:coil-bom:2.7.0"
