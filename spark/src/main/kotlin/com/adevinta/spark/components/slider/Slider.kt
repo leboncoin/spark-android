@@ -83,6 +83,7 @@ internal fun SparkSlider(
     rounded: Boolean = false,
     valueRange: ClosedFloatingPointRange<Float> = 0f..1f,
     onValueChangeFinished: (() -> Unit)? = null,
+    allowSemantics: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     handle: @Composable (SliderState) -> Unit = remember(interactionSource, enabled, rounded, intent, steps) {
         {
@@ -108,7 +109,18 @@ internal fun SparkSlider(
     MaterialSlider(
         value = value,
         onValueChange = onValueChange,
-        modifier = modifier.sparkUsageOverlay(),
+        modifier = modifier
+//            .ifTrue(allowSemantics) {
+//                stepperSemantics(
+//                    value = coerced,
+//                    onValueChange = ::setValue,
+//                    range = range,
+//                    step = steps,
+//                    suffix = suffix,
+//                    enabled = enabled,
+//                )
+//            }
+            .sparkUsageOverlay(),
         enabled = enabled,
         valueRange = valueRange,
         steps = steps,
