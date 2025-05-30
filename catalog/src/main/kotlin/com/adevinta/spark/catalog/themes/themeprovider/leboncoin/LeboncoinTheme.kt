@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.catalog.themes.themeprovider.leboncoin
 
+import androidx.annotation.FloatRange
 import androidx.compose.runtime.Composable
 import com.adevinta.spark.catalog.themes.themeprovider.ThemeProvider
 import com.adevinta.spark.tokens.SparkColors
@@ -33,7 +34,11 @@ import com.adevinta.spark.tokens.lightSparkColors
 
 public object LeboncoinTheme : ThemeProvider {
     @Composable
-    override fun colors(useDarkColors: Boolean, isPro: Boolean, contrastLevel: Float): SparkColors =
+    override fun colors(
+        useDarkColors: Boolean,
+        isPro: Boolean,
+        @FloatRange(from = -1.0, to = 1.0) contrastLevel: Float,
+    ): SparkColors =
         if (contrastLevel in -1.0f..0.33f) {
             basicTheme(useDarkColors, isPro)
         } else {
