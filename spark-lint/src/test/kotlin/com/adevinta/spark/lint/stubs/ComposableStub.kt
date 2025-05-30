@@ -24,8 +24,9 @@ package com.adevinta.spark.lint.stubs
 import com.android.tools.lint.checks.infrastructure.TestFile
 import com.android.tools.lint.checks.infrastructure.TestFiles.kotlin
 
-internal val Composable: TestFile = kotlin(
-    """
+internal val Composable: Array<TestFile> = arrayOf(
+    kotlin(
+        """
     package androidx.compose.runtime
     @MustBeDocumented
     @Retention(AnnotationRetention.BINARY)
@@ -36,5 +37,13 @@ internal val Composable: TestFile = kotlin(
         AnnotationTarget.PROPERTY_GETTER
     )
     annotation class Composable
-    """.trimIndent(),
+        """.trimIndent(),
+    ),
+    kotlin(
+        """
+    package androidx.compose.ui
+
+    interface Modifier
+        """.trimIndent(),
+    ),
 )

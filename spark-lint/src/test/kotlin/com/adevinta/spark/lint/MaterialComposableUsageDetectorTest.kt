@@ -75,7 +75,7 @@ public class MaterialComposableUsageDetectorTest : LintDetectorTest() {
             """,
             ),
             MaterialComponentsStub,
-            Composable,
+            *Composable,
         )
             .allowMissingSdk()
             .run()
@@ -222,7 +222,7 @@ public class MaterialComposableUsageDetectorTest : LintDetectorTest() {
                 }
             """,
             ),
-            Composable,
+            *Composable,
             FoundationStub,
         )
             .allowMissingSdk()
@@ -264,7 +264,7 @@ public class MaterialComposableUsageDetectorTest : LintDetectorTest() {
                 }
             """,
             ),
-            Composable,
+            *Composable,
             CoilComponentsStub,
         )
             .allowMissingSdk()
@@ -326,8 +326,8 @@ public class MaterialComposableUsageDetectorTest : LintDetectorTest() {
                 }
             """,
             ),
-            SparkComponentsStub,
-            Composable,
+            *SparkComponentsStub,
+            *Composable,
         )
             .allowMissingSdk()
             .run()
