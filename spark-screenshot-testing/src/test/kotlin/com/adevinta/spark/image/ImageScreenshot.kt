@@ -96,12 +96,6 @@ internal class ImageScreenshot {
         paparazzi.sparkSnapshot {
             ContentScaleShowcase()
         }
-        // We don't use `sparkSnapshot` here since want the Image to be rendered instead of the loading state
-//        paparazzi.snapshot {
-//            SparkTheme {
-//                ContentScaleShowcase()
-//            }
-//        }
     }
 
     @OptIn(InternalSparkApi::class)
@@ -117,7 +111,7 @@ internal class ImageScreenshot {
                 style = SparkTheme.typography.headline1,
             )
 
-            val states = listOf("Empty", "Loading", "Error", "Success")
+            val states = ImageState.entries
             val context = LocalContext.current
             val imageRequest = ImageRequest.Builder(context).data(Unit).build()
             val painter = painterResource(SparkIcons.Tattoo.drawableId)
@@ -155,20 +149,21 @@ internal class ImageScreenshot {
     @Composable
     private fun TestImage(
         size: Dp,
-        state: String,
+        state: ImageState,
         painter: Painter,
         imageRequest: ImageRequest,
         drawable: Drawable,
     ) {
         val previewHandler = AsyncImagePreviewHandler { _, request ->
             when (state) {
-                "Error" -> AsyncImagePainter.State.Error(
+                ImageState.Error -> AsyncImagePainter.State.Error(
                     painter = painter,
                     result = ErrorResult(drawable.asImage(), request, Throwable("")),
                 )
-                "Empty" -> AsyncImagePainter.State.Empty
-                "Loading" -> AsyncImagePainter.State.Loading(painter)
-                else -> AsyncImagePainter.State.Success(
+
+                ImageState.Empty -> AsyncImagePainter.State.Empty
+                ImageState.Loading -> AsyncImagePainter.State.Loading(painter)
+                ImageState.Success -> AsyncImagePainter.State.Success(
                     painter = painter,
                     result = SuccessResult(drawable.asImage(), request, DataSource.DISK),
                 )
@@ -262,5 +257,12 @@ internal class ImageScreenshot {
                 }
             }
         }
+    }
+
+    private enum class ImageState {
+        Loading,
+        Empty,
+        Error,
+        Success,
     }
 }
