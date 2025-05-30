@@ -71,6 +71,7 @@ internal fun BaseSparkTag(
     modifier: Modifier = Modifier,
     border: BorderStroke? = null,
     leadingIcon: SparkIcon? = null,
+    contentDescription: String? = null,
     tint: Color? = null,
     atEnd: Boolean = false,
     content: @Composable RowScope.() -> Unit,
@@ -103,7 +104,7 @@ internal fun BaseSparkTag(
                             Icon(
                                 sparkIcon = leadingIcon,
                                 modifier = Modifier.size(LeadingIconSize),
-                                contentDescription = null, // The tag is associated with a mandatory label so it's okay
+                                contentDescription = contentDescription,
                                 tint = tint ?: LocalContentColor.current,
                                 atEnd = atEnd,
                             )
@@ -169,6 +170,7 @@ internal fun SparkTag(
     modifier: Modifier = Modifier,
     border: BorderStroke? = null,
     leadingIcon: SparkIcon? = null,
+    contentDescription: String? = null,
     tint: Color? = null,
     atEnd: Boolean = false,
     content: @Composable RowScope.() -> Unit,
@@ -178,6 +180,7 @@ internal fun SparkTag(
         modifier = modifier,
         border = border,
         leadingIcon = leadingIcon,
+        contentDescription = contentDescription,
         tint = tint,
         atEnd = atEnd,
         content = content,
@@ -192,6 +195,7 @@ internal fun SparkTag(
     modifier: Modifier = Modifier,
     border: BorderStroke? = null,
     leadingIcon: SparkIcon? = null,
+    contentDescription: String? = null,
     tint: Color? = null,
     atEnd: Boolean = false,
 ) {

@@ -30,6 +30,7 @@ public class LintIssueRegistry : IssueRegistry() {
 
     override val vendor: Vendor = Vendor(
         vendorName = "spark",
+        feedbackUrl = "https://github.com/adevinta/spark-android/issues",
         identifier = "com.adevinta.spark:spark-lints",
     )
 
@@ -39,5 +40,6 @@ public class LintIssueRegistry : IssueRegistry() {
         StringResourceAnnotationDetector.EMPTY_ANNOTATION_VARIABLE_ISSUE,
         StringResourceAnnotationDetector.UNKNOWN_ANNOTATION_ATTRIBUTE_NAME_ISSUE,
         StringResourceAnnotationDetector.UNSUPPORTED_ANNOTATION_ATTRIBUTE_VALUE_ISSUE,
+        TagContentDescriptionDetector.ISSUE,
     )
 }
