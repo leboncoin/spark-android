@@ -48,10 +48,12 @@ import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.takeOrElse
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.core.graphics.ColorUtils
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
@@ -114,11 +116,7 @@ import com.adevinta.spark.tokens.PaletteTokens.Plum500
 import com.adevinta.spark.tokens.PaletteTokens.Plum700
 import com.adevinta.spark.tokens.PaletteTokens.Plum800
 import com.adevinta.spark.tokens.PaletteTokens.Plum900
-import com.materialkolor.ktx.from
-import com.materialkolor.ktx.toneColor
-import com.materialkolor.palettes.TonalPalette
 import kotlin.math.ln
-import kotlin.math.roundToInt
 import kotlin.reflect.KProperty0
 
 public fun lightSparkColors(
@@ -1226,8 +1224,9 @@ public fun ColorScheme.asSparkColors(useDark: Boolean): SparkColors = if (useDar
 }
 
 private fun Color.adjustColorToMaterialTone(tone: Float): Color {
-    val palette = TonalPalette.from(this)
-    return palette.toneColor(tone.roundToInt())
+    val m3HCT = FloatArray(3)
+    ColorUtils.colorToM3HCT(this.toArgb(), m3HCT)
+    return Color(ColorUtils.M3HCTToColor(m3HCT[0], m3HCT[1], tone))
 }
 
 /**
