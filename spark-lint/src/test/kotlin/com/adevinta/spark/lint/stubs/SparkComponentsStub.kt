@@ -81,7 +81,7 @@ internal val SparkComponentsStub = arrayOf(
     @Composable
     fun CheckboxLabelled() {}
 
-@Composable
+    @Composable
     fun RadioButtonLabelled() {}
 
     @Composable
@@ -97,19 +97,7 @@ internal val SparkComponentsStub = arrayOf(
     fun Snackbar() {}
 
     @Composable
-    fun Snackbarhost() {}
-        """.trimIndent(),
-    ),
-    kotlin(
-        """
-    package com.adevinta.spark.components.snackbars
-    import androidx.compose.runtime.Composable
-
-    @Composable
-    fun Snackbar() {}
-
-    @Composable
-    fun Snackbarhost() {}
+    fun SnackbarHost() {}
         """.trimIndent(),
     ),
     kotlin(

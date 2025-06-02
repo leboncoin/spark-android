@@ -54,6 +54,7 @@ public class StringResourceAnnotationDetectorTest : LintDetectorTest() {
                  """,
             ),
         )
+        .allowMissingSdk()
         .run()
         .expect(
             """
@@ -77,6 +78,7 @@ public class StringResourceAnnotationDetectorTest : LintDetectorTest() {
             ),
         )
         .skipTestModes(SUPPRESSIBLE)
+        .allowMissingSdk()
         .run()
         .expect(
             """
@@ -104,6 +106,7 @@ public class StringResourceAnnotationDetectorTest : LintDetectorTest() {
                 """,
             ),
         )
+        .allowMissingSdk()
         .run()
         .expectClean()
         .cleanup()
@@ -120,6 +123,7 @@ public class StringResourceAnnotationDetectorTest : LintDetectorTest() {
                 """,
             ),
         )
+        .allowMissingSdk()
         .run()
         .expectClean()
         .cleanup()
@@ -139,6 +143,7 @@ public class StringResourceAnnotationDetectorTest : LintDetectorTest() {
                 """,
             ),
         )
+        .allowMissingSdk()
         .skipTestModes(SUPPRESSIBLE)
         .run()
         .expect(
