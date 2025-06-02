@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  Copyright (c) 2023 Adevinta
+  Copyright (c) 2025 Adevinta
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -21,21 +21,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
   -->
-<lint>
-    <issue id="ComposeCompositionLocalUsage" severity="warning">
-        <option name="allowed-composition-locals"
-            value="LocalSparkColors,LocalSparkShapes,LocalSparkTypography,LocalSparkFeatureFlag,LocalElevationOverlay,LocalWindowSizeClass,LocalSparkExceptionHandler" />
-    </issue>
-    <issue id="AutoboxingStateCreation" severity="warning"/>
-    <!--
-     This seems to be an issue with Lint itself, where it's impossible to suppress with annotations.
-     https://github.com/slackhq/compose-lints/issues/57
-    -->
-    <issue id="ComposeModifierMissing">
-        <ignore path="src/main/kotlin/com/adevinta/spark/components/spacer/Spacers.kt" />
-        <ignore path="src/main/kotlin/com/adevinta/spark/SparkTheme.kt" />
-    </issue>
-    <issue id="ComposeUnstableCollections">
-        <ignore path="src/main/kotlin/com/adevinta/spark/components/text/Text.kt" />
-    </issue>
-</lint>
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <locale android:name="en-GB"/>
+    <locale android:name="fr"/>
+</locale-config>

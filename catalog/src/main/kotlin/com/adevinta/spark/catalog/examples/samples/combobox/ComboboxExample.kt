@@ -30,10 +30,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.util.fastForEach
+import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.menu.DropdownMenuItem
+import com.adevinta.spark.components.menu.NoContentItem
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.MultiChoiceComboBox
 import com.adevinta.spark.components.textfields.SelectedChoice
@@ -154,11 +157,7 @@ private val FilteringComboBox = Example(
         helper = "Filter books by typing in the search box",
         dropdownContent = {
             if (filteredBooks.isEmpty()) {
-                DropdownMenuItem(
-                    text = { Text("No books found") },
-                    onClick = { },
-                    selected = false,
-                )
+                NoContentItem(text = stringResource(R.string.combobox_example_no_books_found_label))
             } else {
                 filteredBooks.forEach { book ->
                     DropdownMenuItem(
@@ -216,11 +215,7 @@ private val SuggestionComboBox = Example(
         dropdownContent = {
             if (suggestedBooks.isEmpty()) {
                 if (searchText.isNotBlank()) {
-                    DropdownMenuItem(
-                        text = { Text("No suggestions found") },
-                        onClick = { },
-                        selected = false,
-                    )
+                    NoContentItem(text = stringResource(R.string.combobox_example_no_books_found_label))
                 }
             } else {
                 suggestedBooks.forEach { book ->

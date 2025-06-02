@@ -85,5 +85,6 @@
     <!--region Snackbar-->
     <string name="spark_snackbar_dismiss_a11y">Dismiss</string>
     <string name="spark_combobox_multiple_chip_click_a11y">Remove %1$s</string>
+    <string name="spark_dropdown_menu_item_no_result_label">No result</string>
     <!--endregion-->
 </resources>

@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.catalog.icons
 
-import android.R.attr.key
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
@@ -99,7 +98,7 @@ internal fun IconExampleScreen(
                 modifier = Modifier
                     .size(128.dp)
                     .sharedElement(
-                        state = sharedTransitionScope.rememberSharedContentState(key = "icon-$name"),
+                        sharedTransitionScope.rememberSharedContentState(key = "icon-$name"),
                         animatedVisibilityScope = animatedContentScope,
                     ),
                 atEnd = atEnd,
