@@ -22,7 +22,6 @@
 package com.adevinta.spark.catalog.icons
 
 import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
 import androidx.annotation.DrawableRes
 import androidx.compose.animation.AnimatedContentScope
@@ -60,18 +59,19 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.toClipEntry
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.core.content.getSystemService
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.util.splitCamelWithSpaces
@@ -86,6 +86,7 @@ import com.adevinta.spark.icons.Search
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 import kotlinx.coroutines.Dispatchers.Default
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import soup.compose.material.motion.animation.materialFadeIn
 import java.util.Locale
@@ -104,7 +105,8 @@ public fun IconsScreen(
     onIconClick: (id: Int, name: String, isAnimated: Boolean) -> Unit,
 ) {
     val context = LocalContext.current
-    val focusManager = LocalFocusManager.current
+    val clipboard = LocalClipboard.current
+    val coroutineScope = rememberCoroutineScope()
     var icons: List<NamedAsset> by remember {
         mutableStateOf(emptyList())
     }
@@ -196,7 +198,12 @@ public fun IconsScreen(
                         modifier = Modifier
                             .clip(SparkTheme.shapes.small)
                             .combinedClickable(
-                                onLongClick = { copyToClipboard(context, iconName) },
+                                onLongClick = {
+                                    coroutineScope.launch {
+                                        val entry = ClipData.newPlainText("spark_icon_name", iconName).toClipEntry()
+                                        clipboard.setClipEntry(entry)
+                                    }
+                                },
                                 onLongClickLabel = stringResource(R.string.icons_item_long_click_a11y),
                                 onClick = {
                                     onIconClick(drawableRes, iconName, isAnimated)
@@ -221,7 +228,7 @@ public fun IconsScreen(
                             contentDescription = null,
                             modifier = Modifier
                                 .sharedElement(
-                                    state = sharedTransitionScope.rememberSharedContentState(key = "icon-$iconName"),
+                                    sharedTransitionScope.rememberSharedContentState(key = "icon-$iconName"),
                                     animatedVisibilityScope = animatedContentScope,
                                     boundsTransform = boundsTransform,
                                     placeHolderSize = SharedTransitionScope.PlaceHolderSize.animatedSize,
@@ -274,10 +281,4 @@ private fun String.toPascalCase(): String = split("_").joinToString(separator = 
             it.toString()
         }
     }
-}
-
-private fun copyToClipboard(context: Context, text: String) {
-    val clipboardManager = context.getSystemService<ClipboardManager>() ?: return
-    val clip = ClipData.newPlainText("spark_icon_name", text)
-    clipboardManager.setPrimaryClip(clip)
 }
