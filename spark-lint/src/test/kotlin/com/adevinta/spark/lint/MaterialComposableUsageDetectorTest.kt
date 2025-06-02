@@ -306,6 +306,16 @@ public class MaterialComposableUsageDetectorTest : LintDetectorTest() {
                 package foo
                 import androidx.compose.runtime.*
                 import com.adevinta.spark.*
+                import com.adevinta.spark.components.buttons.*
+                import com.adevinta.spark.components.textfields.*
+                import com.adevinta.spark.components.toggles.*
+                import com.adevinta.spark.components.snackbars.*
+                import com.adevinta.spark.components.progress.*
+                import com.adevinta.spark.components.image.*
+                import com.adevinta.spark.components.icons.*
+                import com.adevinta.spark.components.divider.*
+                import com.adevinta.spark.components.text.*
+                import com.adevinta.spark.components.tags.*
 
                 @Composable
                 fun Test() {
@@ -315,19 +325,42 @@ public class MaterialComposableUsageDetectorTest : LintDetectorTest() {
                     ButtonGhost()
                     ButtonContrast()
                     TextField()
+                    DropDown()
                     MultilineTextField()
-                    SelectTextField()
+                    Combobox()
                     CheckBox()
                     RadioButton()
                     Switch()
+                    CheckboxLabelled()
+                    RadioButtonLabelled()
+                    SwitchLabelled()
+                    Snackbar()
+                    SnackbarHost()
                     SparkTheme()
                     LinearProgressIndicator()
-                    Snackbar()
+                    Image()
+                    Illustration()
+                    UserAvatar()
+                    Icon()
+                    IconButton()
+                    FilledIconButton()
+                    FilledTonalIconButton()
+                    OutlinedIconButton()
+                    IconToggleButton()
+                    FilledIconToggleButton()
+                    FilledTonalIconToggleButton()
+                    OutlinedIconToggleButton()
+                    HorizontalDivider()
+                    VerticalDivider()
+                    Text()
+                    TagFilled()
+                    TagOutlined()
+                    TagTinted()
                 }
-            """,
+                """.trimIndent(),
             ),
-            *SparkComponentsStub,
             *Composable,
+            *SparkComponentsStub,
         )
             .allowMissingSdk()
             .run()
