@@ -31,10 +31,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalInspectionMode
 import app.cash.paparazzi.Paparazzi
-import com.adevinta.spark.tokens.darkSparkColors
-import com.adevinta.spark.tokens.lightSparkColors
 import com.adevinta.spark.tokens.darkHighContrastSparkColors
+import com.adevinta.spark.tokens.darkSparkColors
 import com.adevinta.spark.tokens.lightHighContrastSparkColors
+import com.adevinta.spark.tokens.lightSparkColors
 
 internal fun Paparazzi.sparkSnapshot(
     name: String? = null,
