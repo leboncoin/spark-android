@@ -40,8 +40,6 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshotHighContrast
 import com.adevinta.spark.sparkSnapshotNightMode
-import com.adevinta.spark.tokens.darkHighContrastSparkColors
-import com.adevinta.spark.tokens.lightHighContrastSparkColors
 import org.junit.Rule
 import org.junit.Test
 import kotlin.reflect.KProperty0
