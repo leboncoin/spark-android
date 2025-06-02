@@ -156,7 +156,7 @@ internal fun SparkTab(
                                     }
                                 },
                             sparkIcon = it,
-                            contentDescription = if (text == null) contentDescription else null,
+                            contentDescription = null,
                         )
                     }
                 },
