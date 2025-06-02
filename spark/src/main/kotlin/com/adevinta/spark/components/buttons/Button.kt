@@ -47,6 +47,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.onClick
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -60,6 +62,7 @@ import com.adevinta.spark.components.icons.IconSize
 import com.adevinta.spark.icons.IdentityOutline
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.tools.modifiers.ifNotNull
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
 @InternalSparkApi
@@ -79,13 +82,19 @@ internal fun BaseSparkButton(
     contentPadding: PaddingValues = SparkButtonDefaults.buttonContentPadding(size),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
+    clickLabel: String? = null,
     content: @Composable RowScope.() -> Unit,
 ) {
     Button(
         onClick = onClick,
         modifier = modifier
             .defaultMinSize(minHeight = size.height)
-            .sparkUsageOverlay(),
+            .sparkUsageOverlay()
+            .ifNotNull(clickLabel) { label ->
+                semantics {
+                    onClick(label = label, action = null)
+                }
+            },
         enabled = enabled,
         elevation = elevation,
         shape = shape,
@@ -154,6 +163,7 @@ internal fun SparkButton(
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
+    clickLabel: String? = null,
 ) {
     BaseSparkButton(
         onClick = onClick,
@@ -169,6 +179,7 @@ internal fun SparkButton(
         isLoading = isLoading,
         interactionSource = interactionSource,
         atEnd = atEnd,
+        clickLabel = clickLabel,
     ) {
         Text(text = text)
     }
@@ -191,6 +202,7 @@ internal fun SparkButton(
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
+    clickLabel: String? = null,
 ) {
     BaseSparkButton(
         onClick = onClick,
@@ -206,6 +218,7 @@ internal fun SparkButton(
         isLoading = isLoading,
         interactionSource = interactionSource,
         atEnd = atEnd,
+        clickLabel = clickLabel,
     ) {
         Text(text = text)
     }

@@ -63,6 +63,7 @@ import com.adevinta.spark.tokens.disabled
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this button. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this button in different states.
+ * @param clickLabel semantic / accessibility label that describes what will happen when the button is pressed
  */
 @Composable
 public fun ButtonContrast(
@@ -77,6 +78,7 @@ public fun ButtonContrast(
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
+    clickLabel: String? = null,
     content: @Composable RowScope.() -> Unit,
 ) {
     val containerColor = SparkTheme.colors.surface
@@ -106,6 +108,7 @@ public fun ButtonContrast(
         isLoading = isLoading,
         interactionSource = interactionSource,
         atEnd = atEnd,
+        clickLabel = clickLabel,
     )
 }
 
@@ -130,6 +133,7 @@ public fun ButtonContrast(
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this button. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this button in different states.
+ * @param clickLabel semantic / accessibility label that describes what will happen when the button is pressed
  */
 @Composable
 public fun ButtonContrast(
@@ -145,6 +149,7 @@ public fun ButtonContrast(
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
+    clickLabel: String? = null,
 ) {
     val containerColor = SparkTheme.colors.surface
     val colors = intent.colors()
@@ -173,6 +178,7 @@ public fun ButtonContrast(
         isLoading = isLoading,
         interactionSource = interactionSource,
         atEnd = atEnd,
+        clickLabel = clickLabel,
     )
 }
 
@@ -197,6 +203,7 @@ public fun ButtonContrast(
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this button. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this button in different states.
+ * @param clickLabel semantic / accessibility label that describes what will happen when the button is pressed
  */
 @Composable
 public fun ButtonContrast(
@@ -211,6 +218,7 @@ public fun ButtonContrast(
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
+    clickLabel: String? = null,
 ) {
     val containerColor = SparkTheme.colors.surface
     val colors = intent.colors()
@@ -238,6 +246,7 @@ public fun ButtonContrast(
         isLoading = isLoading,
         interactionSource = interactionSource,
         atEnd = atEnd,
+        clickLabel = clickLabel,
     )
 }
 

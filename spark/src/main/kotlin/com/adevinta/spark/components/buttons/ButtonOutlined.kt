@@ -60,6 +60,7 @@ import com.adevinta.spark.tokens.disabled
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this button. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this button in different states.
+ * @param clickLabel semantic / accessibility label that describes what will happen when the button is pressed
  */
 @Composable
 public fun ButtonOutlined(
@@ -74,6 +75,7 @@ public fun ButtonOutlined(
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
+    clickLabel: String? = null,
     content: @Composable RowScope.() -> Unit,
 ) {
     val contentColor by animateColorAsState(
@@ -100,6 +102,7 @@ public fun ButtonOutlined(
         isLoading = isLoading,
         interactionSource = interactionSource,
         atEnd = atEnd,
+        clickLabel = clickLabel,
         content = content,
     )
 }
@@ -123,6 +126,7 @@ public fun ButtonOutlined(
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this button. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this button in different states.
+ * @param clickLabel semantic / accessibility label that describes what will happen when the button is pressed
  */
 @Composable
 public fun ButtonOutlined(
@@ -138,6 +142,7 @@ public fun ButtonOutlined(
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
+    clickLabel: String? = null,
 ) {
     val contentColor by animateColorAsState(
         targetValue = intent.colors().color,
@@ -164,6 +169,7 @@ public fun ButtonOutlined(
         isLoading = isLoading,
         interactionSource = interactionSource,
         atEnd = atEnd,
+        clickLabel = clickLabel,
     )
 }
 
@@ -187,6 +193,7 @@ public fun ButtonOutlined(
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this button. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this button in different states.
+ * @param clickLabel semantic / accessibility label that describes what will happen when the button is pressed
  */
 @Composable
 public fun ButtonOutlined(
@@ -201,6 +208,7 @@ public fun ButtonOutlined(
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
+    clickLabel: String? = null,
 ) {
     val contentColor by animateColorAsState(
         targetValue = intent.colors().onColor,
@@ -223,6 +231,7 @@ public fun ButtonOutlined(
         isLoading = isLoading,
         interactionSource = interactionSource,
         atEnd = atEnd,
+        clickLabel = clickLabel,
     )
 }
 

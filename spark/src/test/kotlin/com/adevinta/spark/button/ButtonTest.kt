@@ -21,9 +21,17 @@
  */
 package com.adevinta.spark.button
 
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.getOrNull
+import androidx.compose.ui.semantics.onClick
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.buttons.SparkButtonTags
@@ -68,5 +76,79 @@ class ButtonTest {
 
         composeTestRule.onNodeWithTag(SparkButtonTags.TAG_PROGRESS_INDICATOR, useUnmergedTree = true)
             .assertDoesNotExist()
+    }
+
+    @Test
+    fun givenClickLabel_ThenSemanticsContainCorrectClickLabel() {
+        val buttonText = "Submit"
+        val clickLabel = "Submit form"
+
+        composeTestRule.setContent {
+            SparkTheme {
+                ButtonFilled(
+                    text = buttonText,
+                    onClick = { },
+                    clickLabel = clickLabel,
+                )
+            }
+        }
+
+        composeTestRule.onNodeWithText(buttonText)
+            .assert(
+                SemanticsMatcher("OnClick label is set correctly") { semanticsNode ->
+                    semanticsNode.config.getOrNull(SemanticsActions.OnClick)?.label == clickLabel
+                },
+            )
+    }
+
+    @Test
+    fun givenNoClickLabel_ThenSemanticsContainNoClickLabel() {
+        val buttonText = "Submit"
+
+        composeTestRule.setContent {
+            SparkTheme {
+                ButtonFilled(
+                    text = buttonText,
+                    onClick = { },
+                    clickLabel = null,
+                )
+            }
+        }
+
+        composeTestRule.onNodeWithText(buttonText)
+            .assert(
+                SemanticsMatcher("OnClick label is null when not provided") { semanticsNode ->
+                    semanticsNode.config.getOrNull(SemanticsActions.OnClick)?.label == null
+                },
+            )
+    }
+
+    @Test
+    fun givenClickLabelAndSemanticsModifier_ThenSemanticsModifierTakesPrecedence() {
+        val buttonText = "Submit"
+        val clickLabelFromArgument = "Submit form from argument"
+        val clickLabelFromModifier = "Submit form from modifier"
+
+        composeTestRule.setContent {
+            SparkTheme {
+                ButtonFilled(
+                    text = buttonText,
+                    onClick = { },
+                    clickLabel = clickLabelFromArgument,
+                    modifier = Modifier.semantics {
+                        onClick(label = clickLabelFromModifier, action = null)
+                    },
+                )
+            }
+        }
+
+        composeTestRule.onNodeWithText(buttonText)
+            .assert(
+                SemanticsMatcher(
+                    description = "Semantics modifier should override clickLabel argument",
+                ) { semanticsNode ->
+                    semanticsNode.config.getOrNull(SemanticsActions.OnClick)?.label == clickLabelFromModifier
+                },
+            )
     }
 }

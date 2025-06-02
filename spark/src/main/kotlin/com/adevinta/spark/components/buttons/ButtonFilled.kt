@@ -64,6 +64,7 @@ import com.adevinta.spark.tokens.disabled
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this button. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this button in different states.
+ * @param clickLabel semantic / accessibility label that describes what will happen when the button is pressed
  */
 @Composable
 public fun ButtonFilled(
@@ -77,6 +78,7 @@ public fun ButtonFilled(
     iconSide: IconSide = IconSide.START,
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    clickLabel: String? = null,
     content: @Composable RowScope.() -> Unit,
 ) {
     val backgroundColor by animateColorAsState(
@@ -105,6 +107,7 @@ public fun ButtonFilled(
         iconSide = iconSide,
         isLoading = isLoading,
         interactionSource = interactionSource,
+        clickLabel = clickLabel,
         content = content,
     )
 }
@@ -132,6 +135,7 @@ public fun ButtonFilled(
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this button. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this button in different states.
+ * @param clickLabel semantic / accessibility label that describes what will happen when the button is pressed
  */
 @Composable
 public fun ButtonFilled(
@@ -147,6 +151,7 @@ public fun ButtonFilled(
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
+    clickLabel: String? = null,
 ) {
     val backgroundColor by animateColorAsState(
         targetValue = intent.colors().color,
@@ -176,6 +181,7 @@ public fun ButtonFilled(
         isLoading = isLoading,
         interactionSource = interactionSource,
         atEnd = atEnd,
+        clickLabel = clickLabel,
     )
 }
 
@@ -200,6 +206,7 @@ public fun ButtonFilled(
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this button. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this button in different states.
+ * @param clickLabel semantic / accessibility label that describes what will happen when the button is pressed
  */
 @Composable
 public fun ButtonFilled(
@@ -214,6 +221,7 @@ public fun ButtonFilled(
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
+    clickLabel: String? = null,
 ) {
     val backgroundColor by animateColorAsState(
         targetValue = intent.colors().color,
@@ -240,6 +248,7 @@ public fun ButtonFilled(
         isLoading = isLoading,
         interactionSource = interactionSource,
         atEnd = atEnd,
+        clickLabel = clickLabel,
     )
 }
 
