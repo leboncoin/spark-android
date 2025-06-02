@@ -350,3 +350,185 @@ private fun PreviewAnimatedNullableVisibility() {
         }
     }
 }
+
+/**
+ * This demonstrates how content disappears immediately when the value becomes null,
+ * unlike AnimatedNullableVisibility which preserves content during exit animations.
+ */
+@Preview(showBackground = true)
+@Composable
+private fun PreviewRegularAnimatedVisibility() {
+    var message by remember { mutableStateOf<String?>(null) }
+    var counter by remember { mutableStateOf<Int?>(null) }
+    var status by remember { mutableStateOf<String?>(null) }
+
+    PreviewTheme {
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Column(
+                modifier = Modifier.padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                Text(
+                    text = "Basic Animation",
+                    style = SparkTheme.typography.display2,
+                )
+
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    ButtonFilled(
+                        text = "Show Message",
+                        onClick = {
+                            message = "Hello, World! 👋"
+                        },
+                    )
+
+                    ButtonFilled(
+                        text = "Hide Message",
+                        onClick = {
+                            message = null
+                        },
+                    )
+                }
+
+                AnimatedVisibility(
+                    visible = message != null,
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    // Problem: When message becomes null, this content disappears immediately
+                    // before the exit animation can complete
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(
+                                Color.Red.copy(alpha = 0.1f),
+                                RoundedCornerShape(8.dp),
+                            )
+                            .padding(16.dp),
+                    ) {
+                        Text(
+                            text = message.orEmpty(),
+                            style = SparkTheme.typography.body1,
+                        )
+                    }
+                }
+            }
+        }
+
+        // Column AnimatedVisibility example
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Column(
+                modifier = Modifier.padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                Text(
+                    text = "Column Animation",
+                    style = SparkTheme.typography.display2,
+                )
+
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    ButtonFilled(
+                        text = "Increment",
+                        onClick = {
+                            counter = (counter ?: 0) + 1
+                        },
+                    )
+
+                    ButtonFilled(
+                        text = "Reset",
+                        onClick = {
+                            counter = null
+                        },
+                    )
+                }
+
+                AnimatedVisibility(
+                    visible = counter != null,
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(
+                                Color.Magenta.copy(alpha = 0.1f),
+                                RoundedCornerShape(8.dp),
+                            )
+                            .padding(16.dp),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Text(
+                            text = "Count: $counter",
+                            style = SparkTheme.typography.body1,
+                        )
+                    }
+                }
+            }
+        }
+
+        // Row AnimatedVisibility example
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Column(
+                modifier = Modifier.padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                Text(
+                    text = "Row Animation",
+                    style = SparkTheme.typography.display2,
+                )
+
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    ButtonFilled(
+                        text = "Show Status",
+                        onClick = {
+                            status = "Status: Active 🟢"
+                        },
+                    )
+
+                    ButtonFilled(
+                        text = "Hide Status",
+                        onClick = {
+                            status = null
+                        },
+                    )
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text("Status:")
+
+                    AnimatedVisibility(
+                        visible = status != null,
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .background(
+                                    Color.Cyan.copy(alpha = 0.1f),
+                                    RoundedCornerShape(16.dp),
+                                )
+                                .padding(horizontal = 12.dp, vertical = 6.dp),
+                        ) {
+                            status?.let {
+                                Text(
+                                    text = it,
+                                    style = SparkTheme.typography.body1,
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
