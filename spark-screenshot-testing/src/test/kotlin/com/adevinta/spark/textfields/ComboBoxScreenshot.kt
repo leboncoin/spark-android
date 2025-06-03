@@ -56,7 +56,7 @@ internal class ComboBoxScreenshot {
         deviceConfig = DefaultTestDevices.Phone,
         renderingMode = RenderingMode.NORMAL,
 
-        )
+    )
 
     @OptIn(ExperimentalLayoutApi::class)
     @Test
@@ -134,8 +134,8 @@ internal class ComboBoxScreenshot {
                     modifier = Modifier.fillMaxWidth(),
                     state = rememberTextFieldState(),
                     expanded = false,
-                    onExpandedChange = {  },
-                    onDismissRequest = {  },
+                    onExpandedChange = { },
+                    onDismissRequest = { },
                     selectedChoices = selectedChoices,
                     onSelectedClick = { id ->
                         selectedChoices = selectedChoices.filter { it.id != id }.toPersistentList()
@@ -166,8 +166,8 @@ internal class ComboBoxScreenshot {
                     modifier = Modifier.fillMaxWidth(),
                     state = rememberTextFieldState(),
                     expanded = true,
-                    onExpandedChange = {  },
-                    onDismissRequest = {  },
+                    onExpandedChange = { },
+                    onDismissRequest = { },
                     selectedChoices = selectedChoices,
                     onSelectedClick = { id ->
                         selectedChoices = selectedChoices.filter { it.id != id }.toPersistentList()
@@ -209,4 +209,4 @@ internal class ComboBoxScreenshot {
     }
 }
 
-private data class Book(val id: Int, val title: String) 
+private data class Book(val id: Int, val title: String)
