@@ -79,7 +79,6 @@ import com.adevinta.spark.catalog.icons.IconDemoScreen
 import com.adevinta.spark.catalog.model.Component
 import com.adevinta.spark.catalog.tabbar.CatalogTabBar
 import com.adevinta.spark.catalog.tabbar.CatalogTabs
-import com.adevinta.spark.catalog.themes.BrandMode
 import com.adevinta.spark.catalog.themes.ColorMode
 import com.adevinta.spark.catalog.themes.FontScaleMode.System
 import com.adevinta.spark.catalog.themes.TextDirection
@@ -88,10 +87,7 @@ import com.adevinta.spark.catalog.themes.ThemeMode
 import com.adevinta.spark.catalog.themes.ThemePicker
 import com.adevinta.spark.catalog.themes.UserMode
 import com.adevinta.spark.catalog.themes.themeprovider.ThemeProvider
-import com.adevinta.spark.catalog.themes.themeprovider.kleinanzeigen.KleinanzeigenTheme
 import com.adevinta.spark.catalog.themes.themeprovider.leboncoin.LeboncoinTheme
-import com.adevinta.spark.catalog.themes.themeprovider.milanuncios.MilanunciosTheme
-import com.adevinta.spark.catalog.themes.themeprovider.subito.SubitoTheme
 import com.adevinta.spark.catalog.ui.BackdropScaffold
 import com.adevinta.spark.catalog.ui.BackdropScaffoldDefaults
 import com.adevinta.spark.catalog.ui.BackdropValue
@@ -107,12 +103,7 @@ internal fun ComponentActivity.CatalogApp(
     onThemeChange: (theme: Theme) -> Unit,
     components: List<Component>,
 ) {
-    val themeProvider: ThemeProvider = when (theme.brandMode) {
-        BrandMode.Leboncoin -> LeboncoinTheme
-        BrandMode.Subito -> SubitoTheme
-        BrandMode.Kleinanzeigen -> KleinanzeigenTheme
-        BrandMode.Milanuncios -> MilanunciosTheme
-    }
+    val themeProvider: ThemeProvider = LeboncoinTheme
 
     val useDark = (theme.themeMode == ThemeMode.System && isSystemInDarkTheme()) || theme.themeMode == ThemeMode.Dark
 

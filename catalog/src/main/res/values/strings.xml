@@ -24,7 +24,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en-GB">
     <string name="app_name">Spark</string>
 
-    <string name="brand">Select a brand</string>
     <string name="pro">Use the pro theme</string>
 
     <string name="scale" translatable="false">%.1f</string>

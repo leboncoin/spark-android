@@ -43,7 +43,6 @@ import soup.compose.material.motion.animation.materialSharedAxisZOut
 public data class Theme(
     val themeMode: ThemeMode = ThemeMode.System,
     val colorMode: ColorMode = ColorMode.Baseline,
-    val brandMode: BrandMode = BrandMode.Leboncoin,
     val userMode: UserMode = UserMode.Part,
     val fontScale: Float = 1.0f,
     val fontScaleMode: FontScaleMode = FontScaleMode.System,
@@ -85,13 +84,6 @@ public enum class ColorMode(public val label: String) {
     Baseline("Baseline"),
 
     /**
-     * Build a color scheme from a pre-selected color palette from the selected brand.
-     *
-     * Useful to test that the brand palette works with Spark.
-     */
-    Brand("Brand"),
-
-    /**
      * Build a color scheme from the dynamic colors taken from the Android System.
      *
      * If the dynamic colors are not available, the baseline color scheme will be used as a fallback.
@@ -110,12 +102,7 @@ public enum class ThemeMode {
     Dark,
 }
 
-public enum class BrandMode(public val label: String) {
-    Leboncoin("Leboncoin (New Ui)"),
-    Kleinanzeigen("Kleinanzeigen"),
-    Milanuncios("Milanuncios"),
-    Subito("Subito"),
-}
+public enum class BrandMode(public val label: String)
 
 public enum class UserMode {
     Part,
@@ -161,7 +148,6 @@ public val ThemeSaver: Saver<Theme, Map<String, Int>> = Saver(
         mapOf(
             ThemeModeKey to theme.themeMode.ordinal,
             ColorModeKey to theme.colorMode.ordinal,
-            BrandModeKey to theme.brandMode.ordinal,
             UserModeKey to theme.userMode.ordinal,
             FontScaleKey to theme.fontScale.toInt(),
             ColorBlindTypeKey to theme.colorBlindNessType.ordinal,
@@ -177,7 +163,6 @@ public val ThemeSaver: Saver<Theme, Map<String, Int>> = Saver(
         Theme(
             themeMode = ThemeMode.entries[map.getValue(ThemeModeKey)],
             colorMode = ColorMode.entries[map.getValue(ColorModeKey)],
-            brandMode = BrandMode.entries[map.getValue(BrandModeKey)],
             userMode = UserMode.entries[map.getValue(UserModeKey)],
             fontScale = map.getValue(FontScaleKey).toFloat(),
             colorBlindNessType = ColorBlindNessType.entries[map.getValue(ColorBlindTypeKey)],
@@ -196,7 +181,6 @@ public const val MaxFontScale: Float = 2f
 
 private const val ThemeModeKey = "themeMode"
 private const val ColorModeKey = "colorMode"
-private const val BrandModeKey = "brandMode"
 private const val UserModeKey = "userMode"
 private const val FontScaleKey = "fontScale"
 private const val ColorBlindTypeKey = "colorBlindType"
