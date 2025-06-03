@@ -31,6 +31,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalInspectionMode
 import app.cash.paparazzi.Paparazzi
+import com.adevinta.spark.tokens.SparkColors
 import com.adevinta.spark.tokens.darkHighContrastSparkColors
 import com.adevinta.spark.tokens.darkSparkColors
 import com.adevinta.spark.tokens.lightHighContrastSparkColors
@@ -69,7 +70,7 @@ internal fun Paparazzi.gifView(
 internal fun Paparazzi.sparkSnapshotWithColors(
     name: String? = null,
     drawBackground: Boolean = true,
-    colors: com.adevinta.spark.tokens.SparkColors,
+    colors: SparkColors,
     composable: @Composable () -> Unit,
 ): Unit = snapshot(name) {
     SparkThemeContent(
@@ -81,7 +82,7 @@ internal fun Paparazzi.sparkSnapshotWithColors(
 
 @Composable
 private fun SparkThemeContent(
-    colors: com.adevinta.spark.tokens.SparkColors,
+    colors: SparkColors,
     drawBackground: Boolean,
     composable: @Composable () -> Unit,
 ) {
@@ -139,8 +140,7 @@ internal fun Paparazzi.sparkSnapshotNightMode(
                 composable = composable,
             )
         } catch (e: Throwable) {
-            // We want to have the delta for both light and dark so stock the latest exception and throw it
-            // when the test is finished
+            // Keep track of the last exception to rethrow after running all tests
             exception = e
         }
     }
@@ -168,8 +168,7 @@ internal fun Paparazzi.sparkSnapshotHighContrast(
                 composable = composable,
             )
         } catch (e: Throwable) {
-            // We want to have the delta for both light and dark so stock the latest exception and throw it
-            // when the test is finished
+            // Keep track of the last exception to rethrow after running all tests
             exception = e
         }
     }

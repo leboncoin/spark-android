@@ -123,10 +123,6 @@ Temporary Items
 # IDEA Code completion exclusion
 !.idea/codeInsightSettings.xml
 
-# Cursor editor
-.cursor
-.history
-
 # CI secrets
 keystore.jks
 keystore.properties
