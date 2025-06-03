@@ -62,7 +62,7 @@ public fun ExampleItem(
                 Text(
                     text = example.description,
                     style = SparkTheme.typography.body2,
-                    modifier = Modifier.skipToLookaheadSize()
+                    modifier = Modifier.skipToLookaheadSize(),
                 )
             }
         }

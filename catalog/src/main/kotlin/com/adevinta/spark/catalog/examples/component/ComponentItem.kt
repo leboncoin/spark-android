@@ -255,7 +255,7 @@ public fun ComponentItem(
 
 public enum class ComponentOrigin {
     Example,
-    Configurator;
+    Configurator,
 }
 
 private val ComponentItemHeight = 180.dp

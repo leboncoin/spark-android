@@ -50,8 +50,6 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material3.DockedSearchBar
-import androidx.compose.material3.SearchBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
@@ -88,12 +86,13 @@ import com.adevinta.spark.icons.SparkIcons
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import soup.compose.material.motion.animation.materialFadeIn
 import java.util.Locale
 import com.adevinta.spark.icons.R as IconR
 
 @OptIn(
-    ExperimentalSharedTransitionApi::class, ExperimentalLayoutApi::class, ExperimentalFoundationApi::class,
+    ExperimentalSharedTransitionApi::class,
+    ExperimentalLayoutApi::class,
+    ExperimentalFoundationApi::class,
     ExperimentalAnimationSpecApi::class,
 )
 @Composable

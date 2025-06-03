@@ -76,7 +76,7 @@ public fun Example(example: Example) {
                         type = ExamplesSharedElementType.Background,
                     ),
                 ),
-                boundsTransform =  { initialBounds, targetBounds ->
+                boundsTransform = { initialBounds, targetBounds ->
                     spring(dampingRatio = .8f, stiffness = 380f)
                 },
                 resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
