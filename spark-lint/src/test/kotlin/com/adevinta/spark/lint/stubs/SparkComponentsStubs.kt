@@ -24,7 +24,7 @@ package com.adevinta.spark.lint.stubs
 import com.android.tools.lint.checks.infrastructure.TestFiles.kotlin
 
 // Simplified Spark.kt stubs
-internal val SparkComponentsStub = arrayOf(
+internal val SparkComponentsStubs = arrayOf(
     kotlin(
         """
     package com.adevinta.spark.components.buttons

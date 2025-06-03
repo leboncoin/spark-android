@@ -24,7 +24,7 @@ package com.adevinta.spark.lint.stubs
 import com.android.tools.lint.checks.infrastructure.TestFile
 import com.android.tools.lint.checks.infrastructure.TestFiles.kotlin
 
-internal val Composable: Array<TestFile> = arrayOf(
+internal val Composables: Array<TestFile> = arrayOf(
     kotlin(
         """
     package androidx.compose.runtime

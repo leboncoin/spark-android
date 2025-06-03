@@ -25,6 +25,7 @@ import com.adevinta.spark.lint.StringResourceAnnotationDetector.Companion.EMPTY_
 import com.adevinta.spark.lint.StringResourceAnnotationDetector.Companion.UNKNOWN_ANNOTATION_ATTRIBUTE_NAME_ISSUE
 import com.adevinta.spark.lint.StringResourceAnnotationDetector.Companion.UNSUPPORTED_ANNOTATION_ATTRIBUTE_VALUE_ISSUE
 import com.android.tools.lint.checks.infrastructure.LintDetectorTest
+import com.android.tools.lint.checks.infrastructure.TestLintTask
 import com.android.tools.lint.checks.infrastructure.TestMode.Companion.SUPPRESSIBLE
 import com.android.tools.lint.detector.api.Detector
 import com.android.tools.lint.detector.api.Issue
@@ -34,6 +35,9 @@ import org.junit.runners.JUnit4
 
 @RunWith(JUnit4::class)
 public class StringResourceAnnotationDetectorTest : LintDetectorTest() {
+
+    override fun lint(): TestLintTask = super.lint()
+        .allowMissingSdk()
 
     override fun getDetector(): Detector = StringResourceAnnotationDetector()
     override fun getIssues(): List<Issue> = listOf(
@@ -54,7 +58,6 @@ public class StringResourceAnnotationDetectorTest : LintDetectorTest() {
                  """,
             ),
         )
-        .allowMissingSdk()
         .run()
         .expect(
             """
@@ -78,7 +81,6 @@ public class StringResourceAnnotationDetectorTest : LintDetectorTest() {
             ),
         )
         .skipTestModes(SUPPRESSIBLE)
-        .allowMissingSdk()
         .run()
         .expect(
             """
@@ -108,7 +110,6 @@ public class StringResourceAnnotationDetectorTest : LintDetectorTest() {
         )
         .allowMissingSdk()
         .run()
-        .expectClean()
         .cleanup()
 
     @Test
@@ -123,7 +124,6 @@ public class StringResourceAnnotationDetectorTest : LintDetectorTest() {
                 """,
             ),
         )
-        .allowMissingSdk()
         .run()
         .expectClean()
         .cleanup()
@@ -143,7 +143,6 @@ public class StringResourceAnnotationDetectorTest : LintDetectorTest() {
                 """,
             ),
         )
-        .allowMissingSdk()
         .skipTestModes(SUPPRESSIBLE)
         .run()
         .expect(
