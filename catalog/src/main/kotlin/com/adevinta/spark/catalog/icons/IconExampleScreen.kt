@@ -22,8 +22,13 @@
 package com.adevinta.spark.catalog.icons
 
 import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.BoundsTransform
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.animation.core.ArcMode
+import androidx.compose.animation.core.ExperimentalAnimationSpecApi
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.keyframes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -55,7 +60,7 @@ import com.adevinta.spark.icons.SparkIcons
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
 
-@OptIn(ExperimentalSharedTransitionApi::class)
+@OptIn(ExperimentalSharedTransitionApi::class, ExperimentalAnimationSpecApi::class)
 @Composable
 internal fun IconExampleScreen(
     icon: SparkIcon,
@@ -91,7 +96,13 @@ internal fun IconExampleScreen(
                     Text(text = "Animate indefinitely")
                 }
             }
-
+            val boundsTransform = BoundsTransform { initialBounds, targetBounds ->
+                keyframes {
+                    durationMillis = 300
+                    initialBounds at 0 using ArcMode.ArcBelow using FastOutSlowInEasing
+                    targetBounds at 300
+                }
+            }
             Icon(
                 sparkIcon = icon,
                 contentDescription = name,
@@ -100,6 +111,8 @@ internal fun IconExampleScreen(
                     .sharedElement(
                         sharedTransitionScope.rememberSharedContentState(key = "icon-$name"),
                         animatedVisibilityScope = animatedContentScope,
+                        boundsTransform = boundsTransform,
+                        placeHolderSize = SharedTransitionScope.PlaceHolderSize.animatedSize,
                     ),
                 atEnd = atEnd,
             )
