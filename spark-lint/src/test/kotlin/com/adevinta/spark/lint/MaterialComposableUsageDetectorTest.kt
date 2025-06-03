@@ -362,7 +362,6 @@ public class MaterialComposableUsageDetectorTest : LintDetectorTest() {
 *Composables
 *SparkComponentsStubs
         )
-            .allowMissingSdk()
             .run()
             .expectClean()
     }
