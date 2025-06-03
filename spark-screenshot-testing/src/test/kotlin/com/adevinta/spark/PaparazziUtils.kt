@@ -129,7 +129,7 @@ internal fun Paparazzi.sparkSnapshotNightMode(
     drawBackground: Boolean = true,
     composable: @Composable () -> Unit,
 ) {
-    var lightTextThrowable: Throwable? = null
+    var exception: Throwable? = null
     ThemeVariant.entries.forEach {
         try {
             sparkSnapshot(
@@ -139,14 +139,12 @@ internal fun Paparazzi.sparkSnapshotNightMode(
                 composable = composable,
             )
         } catch (e: Throwable) {
-            // Prioritize the light exception over the dark one since we will still get the paparazzi delta image
-            // for the dark one
-            if (it == ThemeVariant.Dark) throw lightTextThrowable ?: e
-
-            // Skip light exception otherwise we loose the information that also the dark one has failed.
-            lightTextThrowable = e
+            // We want to have the delta for both light and dark so stock the latest exception and throw it
+            // when the test is finished
+            exception = e
         }
     }
+    exception?.let { throw it }
 }
 
 /**
@@ -157,11 +155,11 @@ internal fun Paparazzi.sparkSnapshotHighContrast(
     drawBackground: Boolean = true,
     composable: @Composable () -> Unit,
 ) {
-    var lightTextThrowable: Throwable? = null
+    var exception: Throwable? = null
     HighContrastThemeVariant.entries.forEach {
         try {
             sparkSnapshotWithColors(
-                name = name.orEmpty() + "_${it.name}",
+                name = name.orEmpty() + it.name,
                 drawBackground = drawBackground,
                 colors = when (it) {
                     HighContrastThemeVariant.LightHighContrast -> lightHighContrastSparkColors()
@@ -170,14 +168,12 @@ internal fun Paparazzi.sparkSnapshotHighContrast(
                 composable = composable,
             )
         } catch (e: Throwable) {
-            // Prioritize the light exception over the dark one since we will still get the paparazzi delta image
-            // for the dark one
-            if (it == HighContrastThemeVariant.DarkHighContrast) throw lightTextThrowable ?: e
-
-            // Skip light exception otherwise we loose the information that also the dark one has failed.
-            lightTextThrowable = e
+            // We want to have the delta for both light and dark so stock the latest exception and throw it
+            // when the test is finished
+            exception = e
         }
     }
+    exception?.let { throw it }
 }
 
 enum class ThemeVariant { Light, Dark }
