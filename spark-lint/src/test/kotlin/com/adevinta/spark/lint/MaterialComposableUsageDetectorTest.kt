@@ -359,8 +359,8 @@ public class MaterialComposableUsageDetectorTest : LintDetectorTest() {
                 }
                 """.trimIndent(),
             ),
-            *Composable,
-            *SparkComponentsStub,
+*Composables
+*SparkComponentsStubs
         )
             .allowMissingSdk()
             .run()
