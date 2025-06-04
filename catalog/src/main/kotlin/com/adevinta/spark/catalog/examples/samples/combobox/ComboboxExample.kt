@@ -19,16 +19,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+@file:OptIn(FlowPreview::class)
+
 package com.adevinta.spark.catalog.examples.samples.combobox
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.text.input.clearText
+import androidx.compose.foundation.text.input.rememberTextFieldState
+import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.util.fastForEach
@@ -42,6 +48,12 @@ import com.adevinta.spark.components.textfields.MultiChoiceComboBox
 import com.adevinta.spark.components.textfields.SelectedChoice
 import com.adevinta.spark.components.textfields.SingleChoiceComboBox
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.onEach
+import kotlin.time.Duration.Companion.milliseconds
 
 private const val ComboBoxExampleSourceUrl = "$SampleSourceUrl/ComboBoxExample.kt"
 
@@ -62,7 +74,7 @@ private val MultipleComboBox = Example(
     description = "Sample of addons provided by Spark through the AddonScope api",
     sourceUrl = ComboBoxExampleSourceUrl,
 ) {
-    var value by rememberSaveable { mutableStateOf("") }
+    var state = rememberTextFieldState()
     var expanded by remember { mutableStateOf(false) }
     var selectedBooksId by remember {
         mutableStateOf(
@@ -79,13 +91,10 @@ private val MultipleComboBox = Example(
                 .toImmutableList()
         }
     }
+
     MultiChoiceComboBox(
         modifier = Modifier.fillMaxWidth(),
-        value = value,
-        onValueChange = { newValue ->
-            value = newValue
-            expanded = true // Keep dropdown open while typing
-        },
+        state = state,
         expanded = expanded,
         onExpandedChange = { expanded = it },
         onDismissRequest = { expanded = false },
@@ -117,13 +126,53 @@ private val MultipleComboBox = Example(
     }
 }
 
+private val SingleSelectionWithUnselect = Example(
+    id = "combobox-single-unselect",
+    name = "Single selection with unselect",
+    description = "Example of a SingleChoiceComboBox that allows unselecting the current selection",
+    sourceUrl = ComboBoxExampleSourceUrl,
+) {
+    var state = rememberTextFieldState()
+    var expanded by remember { mutableStateOf(false) }
+
+    SingleChoiceComboBox(
+        modifier = Modifier.fillMaxWidth(),
+        state = state,
+        expanded = expanded,
+        onExpandedChange = { expanded = it },
+        onDismissRequest = { expanded = false },
+        enabled = true,
+        required = false,
+        label = "Select a book",
+        placeholder = "Choose a book...",
+        helper = "You can unselect by clicking the current selection",
+        dropdownContent = {
+            comboBoxSampleValues.forEach { book ->
+                val isBookSelected = book.title == state.text
+                DropdownMenuItem(
+                    text = { Text(book.title) },
+                    onClick = {
+                        if (isBookSelected) {
+                            state.clearText()
+                        } else {
+                            state.setTextAndPlaceCursorAtEnd(book.title)
+                        }
+                        expanded = false
+                    },
+                    selected = isBookSelected,
+                )
+            }
+        },
+    )
+}
+
 private val FilteringComboBox = Example(
     id = "combobox-filtering",
     name = "Combobox with filtering",
     description = "Example of a SingleChoiceComboBox with filtering functionality",
     sourceUrl = ComboBoxExampleSourceUrl,
 ) {
-    var value by rememberSaveable { mutableStateOf("") }
+    var state = rememberTextFieldState()
     var expanded by remember { mutableStateOf(false) }
     var searchText by remember { mutableStateOf("") }
 
@@ -139,14 +188,17 @@ private val FilteringComboBox = Example(
         }
     }
 
+    LaunchedEffect(Unit) {
+        snapshotFlow { state.text }
+            .debounce(300.milliseconds)
+            .onEach { queryText ->
+                searchText = queryText.toString()
+            }.collect()
+    }
+
     SingleChoiceComboBox(
         modifier = Modifier.fillMaxWidth(),
-        value = value,
-        onValueChange = { newValue ->
-            value = newValue
-            searchText = newValue // Update search text when value changes
-            expanded = true // Keep dropdown open while typing
-        },
+        state = state,
         expanded = expanded,
         onExpandedChange = { expanded = it },
         onDismissRequest = { expanded = false },
@@ -163,10 +215,10 @@ private val FilteringComboBox = Example(
                     DropdownMenuItem(
                         text = { Text(book.title) },
                         onClick = {
-                            value = book.title
+                            state.setTextAndPlaceCursorAtEnd(book.title)
                             expanded = false
                         },
-                        selected = book.title == value,
+                        selected = book.title == state.text,
                     )
                 }
             }
@@ -180,8 +232,7 @@ private val SuggestionComboBox = Example(
     description = "Example of a SingleChoiceComboBox with suggestion/autocomplete functionality",
     sourceUrl = ComboBoxExampleSourceUrl,
 ) {
-    var value by rememberSaveable { mutableStateOf("") }
-    var expanded by remember { mutableStateOf(false) }
+    var state = rememberTextFieldState()
     var searchText by remember { mutableStateOf("") }
 
     val suggestedBooks by remember(searchText) {
@@ -196,38 +247,47 @@ private val SuggestionComboBox = Example(
         }
     }
 
+    var showDropdown by remember { mutableStateOf(false) }
+    val expanded by remember {
+        derivedStateOf {
+            showDropdown && suggestedBooks.isNotEmpty()
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        snapshotFlow { state.text }
+            .collectLatest { queryText ->
+                searchText = queryText.toString()
+            }
+    }
+
     SingleChoiceComboBox(
         modifier = Modifier.fillMaxWidth(),
-        value = value,
-        onValueChange = { newValue ->
-            value = newValue
-            searchText = newValue
-            expanded = true // Keep dropdown open while typing
-        },
+        state = state,
         expanded = expanded,
-        onExpandedChange = { expanded = it },
-        onDismissRequest = { expanded = false },
+        onExpandedChange = {
+            showDropdown = it
+        },
+        onDismissRequest = {
+            searchText = ""
+            showDropdown = false
+        },
         enabled = true,
         required = true,
         label = "Search with suggestions",
         placeholder = "Type to see suggestions...",
         helper = "Get book suggestions as you type",
         dropdownContent = {
-            if (suggestedBooks.isEmpty()) {
-                if (searchText.isNotBlank()) {
-                    NoContentItem(text = stringResource(R.string.combobox_example_no_books_found_label))
-                }
-            } else {
-                suggestedBooks.forEach { book ->
-                    DropdownMenuItem(
-                        text = { Text(book.title) },
-                        onClick = {
-                            value = book.title
-                            expanded = false
-                        },
-                        selected = book.title == value,
-                    )
-                }
+            suggestedBooks.forEach { book ->
+                DropdownMenuItem(
+                    text = { Text(book.title) },
+                    onClick = {
+                        state.setTextAndPlaceCursorAtEnd(book.title)
+                        searchText = ""
+                        showDropdown = false
+                    },
+                    selected = book.title == state.text,
+                )
             }
         },
     )
@@ -235,6 +295,7 @@ private val SuggestionComboBox = Example(
 
 public val ComboBoxExample: List<Example> = listOf(
     MultipleComboBox,
+    SingleSelectionWithUnselect,
     FilteringComboBox,
     SuggestionComboBox,
 )

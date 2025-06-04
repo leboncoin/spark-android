@@ -22,6 +22,7 @@
 package com.adevinta.spark.components.textfields
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Column
@@ -30,6 +31,14 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.InputTransformation
+import androidx.compose.foundation.text.input.KeyboardActionHandler
+import androidx.compose.foundation.text.input.OutputTransformation
+import androidx.compose.foundation.text.input.TextFieldLineLimits
+import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.MenuAnchorType
@@ -45,8 +54,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
 import com.adevinta.spark.PreviewTheme
@@ -67,11 +77,39 @@ import com.adevinta.spark.icons.SparkIcons
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
+/**
+ * A ComboBox component that allows users to select a single option from a dropdown list.
+ * It combines a text field with a dropdown menu, providing a searchable interface for selecting options.
+ *
+ * @param state The state of the text field that controls the input value
+ * @param expanded Whether the dropdown menu is currently expanded
+ * @param onExpandedChange Callback invoked when the expanded state changes
+ * @param onDismissRequest Callback invoked when the dropdown menu should be dismissed
+ * @param modifier Modifier to be applied to the ComboBox
+ * @param enabled Whether the ComboBox is enabled
+ * @param required Whether the field is required
+ * @param label Optional label text displayed above the ComboBox
+ * @param placeholder Optional placeholder text shown when the field is empty
+ * @param helper Optional helper text displayed below the ComboBox
+ * @param leadingContent Optional composable content displayed at the start of the ComboBox
+ * @param status Optional status of the form field (e.g., error, success)
+ * @param statusMessage Optional message associated with the status
+ * @param inputTransformation Optional transformation applied to input text
+ * @param keyboardOptions Options for the keyboard
+ * @param onKeyboardAction Optional handler for keyboard actions
+ * @param lineLimits Limits for the number of lines in the text field
+ * @param onTextLayout Optional callback for text layout changes
+ * @param interactionSource Optional interaction source for the ComboBox
+ * @param outputTransformation Optional transformation applied to output text
+ * @param scrollState Scroll state for the text field
+ * @param dropdownContent Content of the dropdown menu, using [SingleChoiceDropdownItemColumnScope]
+ * @see MultiChoiceComboBox for a version that supports multiple selections
+ * @sample com.adevinta.spark.components.textfields.ComboBoxPreview
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 public fun SingleChoiceComboBox(
-    value: String,
-    onValueChange: (String) -> Unit,
+    state: TextFieldState,
     expanded: Boolean,
     onExpandedChange: (Boolean) -> Unit,
     onDismissRequest: () -> Unit,
@@ -82,10 +120,16 @@ public fun SingleChoiceComboBox(
     placeholder: String? = null,
     helper: String? = null,
     leadingContent: @Composable (AddonScope.() -> Unit)? = null,
-    state: TextFieldState? = null,
-    stateMessage: String? = null,
-    visualTransformation: VisualTransformation = VisualTransformation.None,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    status: FormFieldStatus? = null,
+    statusMessage: String? = null,
+    inputTransformation: InputTransformation? = null,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    onKeyboardAction: KeyboardActionHandler? = null,
+    lineLimits: TextFieldLineLimits = TextFieldLineLimits.Default,
+    onTextLayout: (Density.(getResult: () -> TextLayoutResult?) -> Unit)? = null,
+    interactionSource: MutableInteractionSource? = null,
+    outputTransformation: OutputTransformation? = null,
+    scrollState: ScrollState = rememberScrollState(),
     dropdownContent: @Composable SingleChoiceDropdownItemColumnScope.() -> Unit,
 ) {
     ExposedDropdownMenuBox(
@@ -95,8 +139,7 @@ public fun SingleChoiceComboBox(
         },
     ) {
         TextField(
-            value = value,
-            onValueChange = onValueChange,
+            state = state,
             modifier = modifier.menuAnchor(MenuAnchorType.PrimaryEditable, enabled = enabled),
             enabled = enabled,
             readOnly = false,
@@ -115,10 +158,15 @@ public fun SingleChoiceComboBox(
                     onClick = { onExpandedChange(!expanded) },
                 )
             },
-            state = state,
-            stateMessage = stateMessage,
-            visualTransformation = visualTransformation,
+            status = status,
+            statusMessage = statusMessage,
+            inputTransformation = inputTransformation,
+            keyboardOptions = keyboardOptions,
+            onKeyboardAction = onKeyboardAction,
+            onTextLayout = onTextLayout,
             interactionSource = interactionSource,
+            outputTransformation = outputTransformation,
+            scrollState = scrollState,
         )
         SingleChoiceExposedDropdownMenu(
             expanded = expanded,
@@ -131,14 +179,51 @@ public fun SingleChoiceComboBox(
     }
 }
 
+/**
+ * Represents a selected choice in a [MultiChoiceComboBox].
+ * These are represented as chips below the text field.
+ * @property id The unique identifier for the choice
+ * @property label The human-readable label for the choice
+ * @see MultiChoiceComboBox for usage examples
+ */
 @Immutable
 public data class SelectedChoice(val id: String, val label: String)
 
+/**
+ * A ComboBox component that allows users to select multiple options from a dropdown list.
+ * It combines a text field with a dropdown menu, providing a searchable interface for selecting options.
+ * The selected choices are displayed as chips below the text field.
+ *
+ * @param state The state of the text field that controls the input value
+ * @param expanded Whether the dropdown menu is currently expanded
+ * @param onExpandedChange Callback invoked when the expanded state changes
+ * @param onDismissRequest Callback invoked when the dropdown menu should be dismissed
+ * @param selectedChoices The list of currently selected choices
+ * @param onSelectedClick Callback invoked when a selected choice chip is clicked, typically to remove it
+ * @param modifier Modifier to be applied to the ComboBox
+ * @param enabled Whether the ComboBox is enabled
+ * @param required Whether the field is required
+ * @param label Optional label text displayed above the ComboBox
+ * @param placeholder Optional placeholder text shown when the field is empty
+ * @param helper Optional helper text displayed below the ComboBox
+ * @param leadingContent Optional composable content displayed at the start of the ComboBox
+ * @param status Optional status of the form field (e.g., error, success)
+ * @param statusMessage Optional message associated with the status
+ * @param inputTransformation Optional transformation applied to input text
+ * @param keyboardOptions Options for the keyboard
+ * @param onKeyboardAction Optional handler for keyboard actions
+ * @param lineLimits Limits for the number of lines in the text field
+ * @param onTextLayout Optional callback for text layout changes
+ * @param interactionSource Optional interaction source for the ComboBox
+ * @param outputTransformation Optional transformation applied to output text
+ * @param scrollState Scroll state for the text field
+ * @param dropdownContent Content of the dropdown menu, using [MultiChoiceDropdownItemColumnScope]
+ * @see SingleChoiceComboBox for a version that supports single selection
+ */
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 public fun MultiChoiceComboBox(
-    value: String,
-    onValueChange: (String) -> Unit,
+    state: TextFieldState,
     expanded: Boolean,
     onExpandedChange: (Boolean) -> Unit,
     onDismissRequest: () -> Unit,
@@ -151,10 +236,16 @@ public fun MultiChoiceComboBox(
     placeholder: String? = null,
     helper: String? = null,
     leadingContent: @Composable (AddonScope.() -> Unit)? = null,
-    state: TextFieldState? = null,
-    stateMessage: String? = null,
-    visualTransformation: VisualTransformation = VisualTransformation.None,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    status: FormFieldStatus? = null,
+    statusMessage: String? = null,
+    inputTransformation: InputTransformation? = null,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    onKeyboardAction: KeyboardActionHandler? = null,
+    lineLimits: TextFieldLineLimits = TextFieldLineLimits.Default,
+    onTextLayout: (Density.(getResult: () -> TextLayoutResult?) -> Unit)? = null,
+    interactionSource: MutableInteractionSource? = null,
+    outputTransformation: OutputTransformation? = null,
+    scrollState: ScrollState = rememberScrollState(),
     dropdownContent: @Composable MultiChoiceDropdownItemColumnScope.() -> Unit,
 ) {
     Column(
@@ -167,8 +258,7 @@ public fun MultiChoiceComboBox(
             },
         ) {
             TextField(
-                value = value,
-                onValueChange = onValueChange,
+                state = state,
                 modifier = modifier.menuAnchor(MenuAnchorType.PrimaryEditable, enabled = enabled),
                 enabled = enabled,
                 readOnly = false,
@@ -187,17 +277,21 @@ public fun MultiChoiceComboBox(
                         onClick = { onExpandedChange(!expanded) },
                     )
                 },
-                state = state,
-                stateMessage = stateMessage,
-                visualTransformation = visualTransformation,
+                status = status,
+                statusMessage = statusMessage,
+                inputTransformation = inputTransformation,
+                keyboardOptions = keyboardOptions,
+                onKeyboardAction = onKeyboardAction,
+                onTextLayout = onTextLayout,
                 interactionSource = interactionSource,
+                outputTransformation = outputTransformation,
+                scrollState = scrollState,
             )
             MultipleChoiceExposedDropdownMenu(
                 expanded = expanded,
                 onDismissRequest = onDismissRequest,
                 modifier = Modifier
-                    .exposedDropdownSize()
-                    .padding(16.dp),
+                    .exposedDropdownSize(),
                 content = dropdownContent,
             )
         }
@@ -235,10 +329,40 @@ public fun MultiChoiceComboBox(
     }
 }
 
+/**
+ * A ComboBox component that allows users to select multiple options from a dropdown list.
+ * It combines a text field with a dropdown menu, providing a searchable interface for selecting options.
+ * This overload does not manage selected choices directly, and is intended for use cases where
+ * selection state is handled externally or not needed.
+ *
+ * @param state The state of the text field that controls the input value
+ * @param expanded Whether the dropdown menu is currently expanded
+ * @param onExpandedChange Callback invoked when the expanded state changes
+ * @param onDismissRequest Callback invoked when the dropdown menu should be dismissed
+ * @param modifier Modifier to be applied to the ComboBox
+ * @param enabled Whether the ComboBox is enabled
+ * @param required Whether the field is required
+ * @param label Optional label text displayed above the ComboBox
+ * @param placeholder Optional placeholder text shown when the field is empty
+ * @param helper Optional helper text displayed below the ComboBox
+ * @param leadingContent Optional composable content displayed at the start of the ComboBox
+ * @param status Optional status of the form field (e.g., error, success)
+ * @param statusMessage Optional message associated with the status
+ * @param inputTransformation Optional transformation applied to input text
+ * @param keyboardOptions Options for the keyboard
+ * @param onKeyboardAction Optional handler for keyboard actions
+ * @param lineLimits Limits for the number of lines in the text field
+ * @param onTextLayout Optional callback for text layout changes
+ * @param interactionSource Optional interaction source for the ComboBox
+ * @param outputTransformation Optional transformation applied to output text
+ * @param scrollState Scroll state for the text field
+ * @param dropdownContent Content of the dropdown menu, using [MultiChoiceDropdownItemColumnScope]
+ * @see SingleChoiceComboBox for a version that supports single selection
+ * @see MultiChoiceComboBox for the version that manages selected choices
+ */
 @Composable
 public fun MultiChoiceComboBox(
-    value: String,
-    onValueChange: (String) -> Unit,
+    state: TextFieldState,
     expanded: Boolean,
     onExpandedChange: (Boolean) -> Unit,
     onDismissRequest: () -> Unit,
@@ -249,15 +373,20 @@ public fun MultiChoiceComboBox(
     placeholder: String? = null,
     helper: String? = null,
     leadingContent: @Composable (AddonScope.() -> Unit)? = null,
-    state: TextFieldState? = null,
-    stateMessage: String? = null,
-    visualTransformation: VisualTransformation = VisualTransformation.None,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    status: FormFieldStatus? = null,
+    statusMessage: String? = null,
+    inputTransformation: InputTransformation? = null,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    onKeyboardAction: KeyboardActionHandler? = null,
+    lineLimits: TextFieldLineLimits = TextFieldLineLimits.Default,
+    onTextLayout: (Density.(getResult: () -> TextLayoutResult?) -> Unit)? = null,
+    interactionSource: MutableInteractionSource? = null,
+    outputTransformation: OutputTransformation? = null,
+    scrollState: ScrollState = rememberScrollState(),
     dropdownContent: @Composable MultiChoiceDropdownItemColumnScope.() -> Unit,
 ) {
     MultiChoiceComboBox(
-        value = value,
-        onValueChange = onValueChange,
+        state = state,
         expanded = expanded,
         onExpandedChange = onExpandedChange,
         onDismissRequest = onDismissRequest,
@@ -270,10 +399,16 @@ public fun MultiChoiceComboBox(
         placeholder = placeholder,
         helper = helper,
         leadingContent = leadingContent,
-        state = state,
-        stateMessage = stateMessage,
-        visualTransformation = visualTransformation,
+        status = status,
+        statusMessage = statusMessage,
+        inputTransformation = inputTransformation,
+        keyboardOptions = keyboardOptions,
+        onKeyboardAction = onKeyboardAction,
+        lineLimits = lineLimits,
+        onTextLayout = onTextLayout,
         interactionSource = interactionSource,
+        outputTransformation = outputTransformation,
+        scrollState = scrollState,
         dropdownContent = dropdownContent,
     )
 }
@@ -282,11 +417,10 @@ public fun MultiChoiceComboBox(
 @Composable
 private fun ComboBoxPreview() {
     PreviewTheme {
-        var value by remember { mutableStateOf("") }
+        val state = rememberTextFieldState()
         var expanded by remember { mutableStateOf(false) }
         SingleChoiceComboBox(
-            value = value,
-            onValueChange = { value = it },
+            state = state,
             expanded = expanded,
             onExpandedChange = { expanded = it },
             onDismissRequest = { expanded = false },
