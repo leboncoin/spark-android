@@ -21,9 +21,6 @@
  */
 package com.adevinta.spark.components.dialog
 
-import android.os.Build
-import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Arrangement
@@ -35,7 +32,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -56,6 +52,8 @@ import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalView
@@ -71,6 +69,7 @@ import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.R
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.appbar.BottomAppBar
 import com.adevinta.spark.components.appbar.TopAppBar
 import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.buttons.ButtonOutlined
@@ -87,7 +86,6 @@ import com.adevinta.spark.icons.MoreMenuVertical
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.Layout
 import com.adevinta.spark.tokens.LocalWindowSizeClass
-import com.adevinta.spark.tokens.bodyWidth
 import com.adevinta.spark.tools.preview.DevicePreviews
 
 /**
@@ -136,7 +134,7 @@ public fun ModalScaffold(
                 )
 
     val properties = DialogProperties(
-        usePlatformDefaultWidth = inEdgeToEdge,
+        usePlatformDefaultWidth = !inEdgeToEdge,
         decorFitsSystemWindows = !inEdgeToEdge,
     )
     val bottomInsets = BottomAppBarDefaults.windowInsets
@@ -281,7 +279,7 @@ private fun PhonePortraitModalScaffold(
                 .fillMaxSize()
                 .nestedScroll(scrollBehavior.nestedScrollConnection),
             snackbarHost = snackbarHost,
-            contentWindowInsets = WindowInsets(0.dp),
+//            contentWindowInsets = WindowInsets(0.dp),
             topBar = {
                 TopAppBar(
                     navigationIcon = {
@@ -296,19 +294,7 @@ private fun PhonePortraitModalScaffold(
                 BottomBarPortrait(bottomInsets, mainButton, supportButton)
             },
         ) { innerPadding ->
-            Column(
-                modifier = Modifier
-                    .bodyWidth()
-                    .padding(contentPadding),
-            ) {
-                val padding = innerPadding + if (supportButton == null && mainButton == null) {
-                    bottomInsets.asPaddingValues()
-                } else {
-                    PaddingValues(0.dp)
-                }
-
-                content(padding)
-            }
+            content(innerPadding)
         }
     }
 }
@@ -320,7 +306,7 @@ private fun BottomBarPortrait(
     supportButton: @Composable ((Modifier) -> Unit)?,
 ) {
     if (supportButton == null && mainButton == null) return
-    Surface {
+    BottomAppBar {
         val buttonsLayoutModifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 24.dp)
@@ -431,12 +417,7 @@ private fun PhoneLandscapeModalScaffold(
                         .weight(1f)
                         .fillMaxHeight(),
                 ) {
-                    val padding = innerPadding + if (supportButton == null && mainButton == null) {
-                        bottomInsets.asPaddingValues() + PaddingValues(bottom = 16.dp)
-                    } else {
-                        PaddingValues(0.dp)
-                    }
-                    content(padding)
+                    content(innerPadding)
                 }
             }
         }
@@ -454,18 +435,23 @@ private fun CloseIconButton(onClose: () -> Unit) {
     }
 }
 
+@Suppress("DEPRECATION")
 @Composable
 private fun SetUpEdgeToEdgeDialog() {
-    val parentView = LocalView.current.parent as View
-    val window = (parentView as DialogWindowProvider).window
+    val parentView = LocalView.current.parent as DialogWindowProvider
+    val window = parentView.window
 
-    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+//    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
 
-    window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-        window.attributes.fitInsetsTypes = 0
-        window.attributes.fitInsetsSides = 0
-    }
+//    window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+//    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//        window.attributes.fitInsetsTypes = 0
+//        window.attributes.fitInsetsSides = 0
+//    }
+    window.statusBarColor = Color.Transparent.toArgb()
+    window.navigationBarColor = Color.Transparent.toArgb()
+    window.navigationBarColor = Color.Transparent.toArgb()
+    window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 }
 
 /**
