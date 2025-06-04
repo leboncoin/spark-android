@@ -63,7 +63,7 @@ import com.adevinta.spark.catalog.examples.example.ExampleItem
 import com.adevinta.spark.catalog.model.Component
 import com.adevinta.spark.catalog.ui.animations.LocalAnimatedVisibilityScope
 import com.adevinta.spark.catalog.ui.animations.LocalSharedTransitionScope
-import com.adevinta.spark.components.image.Illustration
+import com.adevinta.spark.components.image.Image
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.Layout
 import soup.compose.material.motion.animation.materialElevationScaleIn
@@ -161,7 +161,7 @@ public fun Component(
                                         ),
                                 )
                             }
-                            Illustration(
+                            Image(
                                 modifier = Modifier
                                     .width(64.dp)
                                     .aspectRatio(1f)
@@ -178,7 +178,7 @@ public fun Component(
                                         },
                                         animatedVisibilityScope = animatedVisibilityScope,
                                     ),
-                                drawableRes = component.illustration,
+                                model = component.illustration,
                                 contentScale = ContentScale.Fit,
                                 contentDescription = null,
                             )
