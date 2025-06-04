@@ -24,7 +24,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="fr">
     <string name="app_name">Spark</string>
 
-    <string name="brand">Sélectionner une marque</string>
     <string name="pro">Utiliser le thème Pro</string>
 
     <string name="example_tokens_elevation_label">Valeur d’élévation : %d</string>
