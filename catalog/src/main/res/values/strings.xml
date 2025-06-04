@@ -35,7 +35,7 @@
     <string name="no_examples">No examples</string>
 
     <string name="theme_picker_mode_title">Mode</string>
-    <string name="theme_picker_theme_title" description="Spark brand theme. [CHAR_LIMIT=NONE]">Theme</string>
+    <string name="theme_picker_theme_title" description="Spark theme. [CHAR_LIMIT=NONE]">Theme</string>
     <string name="theme_picker_text_direction_title" description="Simulate system text direction to be either LTR or RTL. [CHAR_LIMIT=NONE]">Text direction</string>
     <string name="theme_picker_font_scale_title" description="Simulate a11y font scaling. [CHAR_LIMIT=NONE]">Font scale</string>
     <string name="examples_component_screen_title">Components examples</string>
@@ -67,7 +67,7 @@
 
     <string name="component_tab_description">Tabs are used to group different but related content, allowing users to navigate views without leaving the page. They always contain at least two items and one tab is active at a time.</string>
     <string name="component_textfield_description">The input / text-field component allows users to write in the space provided for the content.</string>
-    <string name="component_tokens_description">The tokens are the basis of this Design System and allow each brand to choose its colours, shapes, typos and icons.</string>
+    <string name="component_tokens_description">The tokens are the basis of this Design System and allow to choose its colours, shapes, typos and icons.</string>
     <string name="component_popovers_description">Provides a descriptive message or Info for an Anchor.</string>
     <string name="component_bottomsheets_description">A bottom sheet is a UI component commonly used in mobile applications to present additional content or options from the bottom of the screen.</string>
     <!--region Icon button-->

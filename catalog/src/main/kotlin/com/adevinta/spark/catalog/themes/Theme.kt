@@ -102,8 +102,6 @@ public enum class ThemeMode {
     Dark,
 }
 
-public enum class BrandMode(public val label: String)
-
 public enum class UserMode {
     Part,
     Pro,
