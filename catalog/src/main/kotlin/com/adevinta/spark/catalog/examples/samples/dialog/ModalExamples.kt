@@ -22,19 +22,24 @@
 package com.adevinta.spark.catalog.examples.samples.dialog
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
-import androidx.compose.foundation.layout.consumeWindowInsets
+import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsEndWidth
+import androidx.compose.foundation.layout.windowInsetsStartWidth
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
@@ -67,10 +72,11 @@ import com.adevinta.spark.catalog.examples.samples.dialog.modal.ModalSample
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.buttons.ButtonFilled
-import com.adevinta.spark.components.buttons.ButtonTinted
 import com.adevinta.spark.components.dialog.ModalScaffold
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconButton
+import com.adevinta.spark.components.spacer.VerticalSpacer
+import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.ImageFill
 import com.adevinta.spark.icons.MoreMenuVertical
@@ -123,7 +129,7 @@ public val DialogsExamples: List<Example> = listOf(
             )
 
             if (showDialog) {
-                val displayCutout = WindowInsets.safeDrawing.only(
+                val displayCutout = WindowInsets.displayCutout.only(
                     WindowInsetsSides.Horizontal,
                 )
                 ModalScaffold(
@@ -151,28 +157,26 @@ public val DialogsExamples: List<Example> = listOf(
                             Icon(sparkIcon = SparkIcons.MoreMenuVertical, contentDescription = "")
                         }
                     },
-                    supportButton = { ButtonTinted(modifier = it, text = "button", onClick = {}) },
                 ) { innerPadding ->
                     Box(
                         Modifier
                             .fillMaxSize()
-                            .padding()
                             .meshGradient(
                                 points = listOf(
                                     listOf(
-                                        Offset(0f, 0f) to SparkTheme.colors.mainContainer,
-                                        Offset(.5f, 0f) to SparkTheme.colors.mainContainer,
-                                        Offset(1f, 0f) to SparkTheme.colors.mainContainer,
+                                        Offset(0f, 0f) to SparkTheme.colors.alert,
+                                        Offset(.5f, 0f) to SparkTheme.colors.info,
+                                        Offset(1f, 0f) to SparkTheme.colors.main,
                                     ),
                                     listOf(
-                                        Offset(0f, .5f) to SparkTheme.colors.alertContainer,
-                                        Offset(.5f, .5f) to SparkTheme.colors.alertContainer,
-                                        Offset(1f, .5f) to SparkTheme.colors.alertContainer,
+                                        Offset(0f, .5f) to SparkTheme.colors.alert,
+                                        Offset(.5f, .5f) to SparkTheme.colors.main,
+                                        Offset(1f, .5f) to SparkTheme.colors.info,
                                     ),
                                     listOf(
-                                        Offset(0f, 1f) to SparkTheme.colors.infoContainer,
-                                        Offset(.5f, 1f) to SparkTheme.colors.infoContainer,
-                                        Offset(1f, 1f) to SparkTheme.colors.infoContainer,
+                                        Offset(0f, 1f) to SparkTheme.colors.info,
+                                        Offset(.5f, 1f) to SparkTheme.colors.main,
+                                        Offset(1f, 1f) to SparkTheme.colors.alert,
                                     ),
                                 ),
                             ),
@@ -181,9 +185,8 @@ public val DialogsExamples: List<Example> = listOf(
                             modifier = Modifier
                                 .verticalScroll(rememberScrollState())
                                 .padding(innerPadding)
-                                .windowInsetsPadding(displayCutout)
-                                .consumeWindowInsets(displayCutout)
-                                .background(SparkTheme.colors.accent.copy(alpha = 0.5f)),
+//                                .windowInsetsPadding(displayCutout)
+                                .background(SparkTheme.colors.accent.copy(alpha = 0.8f)),
                         ) {
                             Text(
                                 text = "content",
@@ -193,6 +196,47 @@ public val DialogsExamples: List<Example> = listOf(
                                     .fillMaxWidth()
                                     .height(2000.dp),
                             )
+                            LazyRow(
+                                contentPadding = PaddingValues(horizontal = 16.dp),
+                                horizontalArrangement = spacedBy(8.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                item {
+                                    Spacer(modifier = Modifier.windowInsetsStartWidth(displayCutout))
+                                }
+                                repeat(25) {
+                                    item {
+                                        Surface(
+                                            modifier = Modifier
+                                                .size(150.dp)
+                                                .meshGradient(
+                                                    points = listOf(
+                                                        listOf(
+                                                            Offset(0f, 0f) to SparkTheme.colors.success,
+                                                            Offset(.5f, 0f) to SparkTheme.colors.info,
+                                                            Offset(1f, 0f) to SparkTheme.colors.error,
+                                                        ),
+                                                        listOf(
+                                                            Offset(0f, .5f) to SparkTheme.colors.error,
+                                                            Offset(.5f, .5f) to SparkTheme.colors.success,
+                                                            Offset(1f, .5f) to SparkTheme.colors.info,
+                                                        ),
+                                                        listOf(
+                                                            Offset(0f, 1f) to SparkTheme.colors.info,
+                                                            Offset(.5f, 1f) to SparkTheme.colors.error,
+                                                            Offset(1f, 1f) to SparkTheme.colors.success,
+                                                        ),
+                                                    ),
+                                                ),
+                                        ) {
+                                        }
+                                    }
+                                }
+                                item {
+                                    Spacer(modifier = Modifier.windowInsetsEndWidth(WindowInsets.systemBars))
+                                }
+                            }
+                            VerticalSpacer(100.dp)
                         }
                     }
                 }

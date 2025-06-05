@@ -31,7 +31,6 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -117,8 +116,8 @@ public fun ModalScaffold(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = DialogPadding,
     snackbarHost: @Composable () -> Unit = {},
-    mainButton: (@Composable (Modifier) -> Unit)? = {},
-    supportButton: (@Composable (Modifier) -> Unit)? = {},
+    mainButton: (@Composable (Modifier) -> Unit)? = null,
+    supportButton: (@Composable (Modifier) -> Unit)? = null,
     title: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
     inEdgeToEdge: Boolean = false,
@@ -137,7 +136,6 @@ public fun ModalScaffold(
         usePlatformDefaultWidth = !inEdgeToEdge,
         decorFitsSystemWindows = !inEdgeToEdge,
     )
-    val bottomInsets = BottomAppBarDefaults.windowInsets
 
     val dialogPaneDescription = stringResource(R.string.spark_dialog_pane_a11y)
     val dialogModifier = modifier.then(Modifier.semantics { paneTitle = dialogPaneDescription })
@@ -146,7 +144,6 @@ public fun ModalScaffold(
         isPhonePortraitOrFoldable -> PhonePortraitModalScaffold(
             modifier = dialogModifier,
             properties = properties,
-            bottomInsets = bottomInsets,
             contentPadding = contentPadding,
             onClose = onClose,
             snackbarHost = snackbarHost,
@@ -161,7 +158,6 @@ public fun ModalScaffold(
         isPhoneLandscape -> PhoneLandscapeModalScaffold(
             modifier = dialogModifier,
             properties = properties,
-            bottomInsets = bottomInsets,
             contentPadding = contentPadding,
             onClose = onClose,
             snackbarHost = snackbarHost,
@@ -194,8 +190,8 @@ private fun DialogScaffold(
     contentPadding: PaddingValues,
     snackbarHost: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    mainButton: (@Composable (Modifier) -> Unit)? = {},
-    supportButton: (@Composable (Modifier) -> Unit)? = {},
+    mainButton: (@Composable (Modifier) -> Unit)? = null,
+    supportButton: (@Composable (Modifier) -> Unit)? = null,
     title: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
     content: @Composable (PaddingValues) -> Unit,
@@ -254,14 +250,13 @@ private fun DialogScaffold(
 private fun PhonePortraitModalScaffold(
     onClose: () -> Unit,
     properties: DialogProperties,
-    bottomInsets: WindowInsets,
     contentPadding: PaddingValues,
     snackbarHost: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     title: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
-    mainButton: (@Composable (Modifier) -> Unit)? = {},
-    supportButton: (@Composable (Modifier) -> Unit)? = {},
+    mainButton: (@Composable (Modifier) -> Unit)? = null,
+    supportButton: (@Composable (Modifier) -> Unit)? = null,
     inEdgeToEdge: Boolean = false,
     content: @Composable (PaddingValues) -> Unit,
 ) {
@@ -279,7 +274,6 @@ private fun PhonePortraitModalScaffold(
                 .fillMaxSize()
                 .nestedScroll(scrollBehavior.nestedScrollConnection),
             snackbarHost = snackbarHost,
-//            contentWindowInsets = WindowInsets(0.dp),
             topBar = {
                 TopAppBar(
                     navigationIcon = {
@@ -290,9 +284,7 @@ private fun PhonePortraitModalScaffold(
                     scrollBehavior = scrollBehavior,
                 )
             },
-            bottomBar = {
-                BottomBarPortrait(bottomInsets, mainButton, supportButton)
-            },
+            bottomBar = { BottomBarPortrait(mainButton, supportButton) },
         ) { innerPadding ->
             content(innerPadding)
         }
@@ -301,7 +293,6 @@ private fun PhonePortraitModalScaffold(
 
 @Composable
 private fun BottomBarPortrait(
-    bottomInsets: WindowInsets,
     mainButton: @Composable ((Modifier) -> Unit)?,
     supportButton: @Composable ((Modifier) -> Unit)?,
 ) {
@@ -310,7 +301,6 @@ private fun BottomBarPortrait(
         val buttonsLayoutModifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 24.dp)
-            .windowInsetsPadding(bottomInsets)
             .padding(vertical = 16.dp)
         if (Layout.windowSize.widthSizeClass == WindowWidthSizeClass.Compact) {
             Column(
@@ -338,13 +328,12 @@ private fun BottomBarPortrait(
 private fun PhoneLandscapeModalScaffold(
     onClose: () -> Unit,
     properties: DialogProperties,
-    bottomInsets: WindowInsets,
     contentPadding: PaddingValues,
     snackbarHost: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     @DrawableRes illustration: Int? = null,
-    mainButton: (@Composable (Modifier) -> Unit)? = {},
-    supportButton: (@Composable (Modifier) -> Unit)? = {},
+    mainButton: (@Composable (Modifier) -> Unit)? = null,
+    supportButton: (@Composable (Modifier) -> Unit)? = null,
     title: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
     illustrationContentScale: ContentScale = ContentScale.Fit,
@@ -371,7 +360,7 @@ private fun PhoneLandscapeModalScaffold(
                         modifier = Modifier
                             .padding(bottom = 16.dp, top = 8.dp)
                             .padding(horizontal = 24.dp)
-                            .windowInsetsPadding(bottomInsets)
+                            .windowInsetsPadding(BottomAppBarDefaults.windowInsets)
                             .fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.End),
                     ) {
@@ -438,20 +427,12 @@ private fun CloseIconButton(onClose: () -> Unit) {
 @Suppress("DEPRECATION")
 @Composable
 private fun SetUpEdgeToEdgeDialog() {
-    val parentView = LocalView.current.parent as DialogWindowProvider
-    val window = parentView.window
-
-//    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-
-//    window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-//    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-//        window.attributes.fitInsetsTypes = 0
-//        window.attributes.fitInsetsSides = 0
-//    }
+    val window = (LocalView.current.parent as DialogWindowProvider).window
     window.statusBarColor = Color.Transparent.toArgb()
     window.navigationBarColor = Color.Transparent.toArgb()
     window.navigationBarColor = Color.Transparent.toArgb()
     window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+    window.setDimAmount(0f)
 }
 
 /**
