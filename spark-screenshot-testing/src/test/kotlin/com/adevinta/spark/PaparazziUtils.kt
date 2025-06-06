@@ -31,7 +31,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalInspectionMode
 import app.cash.paparazzi.Paparazzi
+import com.adevinta.spark.tokens.SparkColors
+import com.adevinta.spark.tokens.darkHighContrastSparkColors
 import com.adevinta.spark.tokens.darkSparkColors
+import com.adevinta.spark.tokens.lightHighContrastSparkColors
 import com.adevinta.spark.tokens.lightSparkColors
 
 internal fun Paparazzi.sparkSnapshot(
@@ -39,11 +42,52 @@ internal fun Paparazzi.sparkSnapshot(
     drawBackground: Boolean = true,
     isDark: Boolean = false,
     composable: @Composable () -> Unit,
+): Unit = sparkSnapshotWithColors(
+    name = name,
+    drawBackground = drawBackground,
+    colors = if (isDark) darkSparkColors() else lightSparkColors(),
+    composable = composable,
+)
+
+internal fun Paparazzi.gifView(
+    drawBackground: Boolean = true,
+    isDark: Boolean = false,
+    composable: @Composable () -> Unit,
+): View {
+    val view = ComposeView(context)
+    view.setContent {
+        SparkThemeContent(
+            colors = if (isDark) darkSparkColors() else lightSparkColors(),
+            drawBackground = drawBackground,
+            composable = composable,
+        )
+    }
+    return view
+}
+
+internal fun Paparazzi.sparkSnapshotWithColors(
+    name: String? = null,
+    drawBackground: Boolean = true,
+    colors: SparkColors,
+    composable: @Composable () -> Unit,
 ): Unit = snapshot(name) {
+    SparkThemeContent(
+        colors = colors,
+        drawBackground = drawBackground,
+        composable = composable,
+    )
+}
+
+@Composable
+private fun SparkThemeContent(
+    colors: SparkColors,
+    drawBackground: Boolean,
+    composable: @Composable () -> Unit,
+) {
     // Behave like in Android Studio Preview renderer
     CompositionLocalProvider(LocalInspectionMode provides true) {
         SparkTheme(
-            colors = if (isDark) darkSparkColors() else lightSparkColors(),
+            colors = colors,
         ) {
             // The first box acts as a shield from ComposeView which forces the first layout node
             // to match it's size. This allows the content below to wrap as needed.
@@ -57,34 +101,6 @@ internal fun Paparazzi.sparkSnapshot(
             }
         }
     }
-}
-
-internal fun Paparazzi.gifView(
-    drawBackground: Boolean = true,
-    isDark: Boolean = false,
-    composable: @Composable () -> Unit,
-): View {
-    val view = ComposeView(context)
-    view.setContent {
-        // Behave like in Android Studio Preview renderer
-        CompositionLocalProvider(LocalInspectionMode provides true) {
-            SparkTheme(
-                colors = if (isDark) darkSparkColors() else lightSparkColors(),
-            ) {
-                // The first box acts as a shield from ComposeView which forces the first layout node
-                // to match it's size. This allows the content below to wrap as needed.
-                Box {
-                    // The second box adds a border and background so we can easily see layout bounds in screenshots
-                    Box(
-                        Modifier.background(if (drawBackground) SparkTheme.colors.surface else Color.Transparent),
-                    ) {
-                        composable()
-                    }
-                }
-            }
-        }
-    }
-    return view
 }
 
 /**
@@ -112,7 +128,7 @@ internal fun Paparazzi.sparkSnapshotNightMode(
     drawBackground: Boolean = true,
     composable: @Composable () -> Unit,
 ) {
-    var lightTextThrowable: Throwable? = null
+    var exception: Throwable? = null
     ThemeVariant.entries.forEach {
         try {
             sparkSnapshot(
@@ -122,14 +138,41 @@ internal fun Paparazzi.sparkSnapshotNightMode(
                 composable = composable,
             )
         } catch (e: Throwable) {
-            // Prioritize the light exception over the dark one since we will still get the paparazzi delta image
-            // for the dark one
-            if (it == ThemeVariant.Dark) throw lightTextThrowable ?: e
-
-            // Skip light exception otherwise we loose the information that also the dark one has failed.
-            lightTextThrowable = e
+            // Keep track of the last exception to rethrow after running all tests
+            exception = e
         }
     }
+    exception?.let { throw it }
+}
+
+/**
+ * Generate 2 screenshots for high contrast themes: light and dark high contrast
+ */
+internal fun Paparazzi.sparkSnapshotHighContrast(
+    name: String? = null,
+    drawBackground: Boolean = true,
+    composable: @Composable () -> Unit,
+) {
+    var exception: Throwable? = null
+    HighContrastThemeVariant.entries.forEach {
+        try {
+            sparkSnapshotWithColors(
+                name = name.orEmpty() + it.name,
+                drawBackground = drawBackground,
+                colors = when (it) {
+                    HighContrastThemeVariant.LightHighContrast -> lightHighContrastSparkColors()
+                    HighContrastThemeVariant.DarkHighContrast -> darkHighContrastSparkColors()
+                },
+                composable = composable,
+            )
+        } catch (e: Throwable) {
+            // Keep track of the last exception to rethrow after running all tests
+            exception = e
+        }
+    }
+    exception?.let { throw it }
 }
 
 enum class ThemeVariant { Light, Dark }
+
+enum class HighContrastThemeVariant { LightHighContrast, DarkHighContrast }
