@@ -118,7 +118,8 @@ public fun Popover(
                 Row {
                     Box(
                         modifier = Modifier
-                            .padding(all = PopoverContentPadding),
+                            .padding(all = PopoverContentPadding)
+                            .weight(1f, fill = true),
                     ) {
                         CompositionLocalProvider(
                             content = popover,

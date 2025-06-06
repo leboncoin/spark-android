@@ -24,7 +24,6 @@
 package com.adevinta.spark.catalog.model
 
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.runtime.Composable
 import com.adevinta.spark.components.snackbars.SnackbarHostState
 
@@ -33,10 +32,7 @@ public data class Example(
     val name: String,
     val description: String,
     val sourceUrl: String,
-    val rowContent:
+    val content:
     @Composable()
-    (RowScope.(SnackbarHostState) -> Unit)? = null,
-    val columnContent:
-    @Composable()
-    (ColumnScope.(SnackbarHostState) -> Unit)? = null,
+    ColumnScope.(SnackbarHostState) -> Unit,
 )

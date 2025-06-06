@@ -269,7 +269,7 @@ public fun ExposedDropdownMenuBoxScope.MultipleChoiceExposedDropdownMenu(
         scrollState = scrollState,
         shape = SparkTheme.shapes.small,
         containerColor = SparkTheme.colors.surface,
-        tonalElevation = ElevationTokens.Level0,
+        tonalElevation = ElevationTokens.Level2,
         shadowElevation = ElevationTokens.Level2,
         matchTextFieldWidth = matchTextFieldWidth,
         border = null,

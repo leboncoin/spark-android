@@ -21,9 +21,12 @@
  */
 package com.adevinta.spark.catalog.examples.samples.divider
 
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -122,7 +125,11 @@ public val DividerExamples: List<Example> = listOf(
         name = "VerticalDivider with Label",
         description = DividerExampleDescription,
         sourceUrl = DividerExampleSourceUrl,
-        rowContent = {
+    ) {
+        val scrollState = rememberScrollState()
+        Row(
+            modifier = Modifier.horizontalScroll(scrollState),
+        ) {
             DividerIntent.entries.forEach { intent ->
                 LabelVerticalAlignment.entries.forEach { alignment ->
 
@@ -151,14 +158,18 @@ public val DividerExamples: List<Example> = listOf(
                     HorizontalSpacer(8.dp)
                 }
             }
-        },
-    ),
+        }
+    },
     Example(
         id = "vertical-no-label",
         name = "VerticalDivider No Label",
         description = DividerExampleDescription,
         sourceUrl = DividerExampleSourceUrl,
-        rowContent = {
+    ) {
+        val scrollState = rememberScrollState()
+        Row(
+            modifier = Modifier.horizontalScroll(scrollState),
+        ) {
             DividerIntent.entries.forEach { intent ->
 
                 Text(
@@ -186,6 +197,6 @@ public val DividerExamples: List<Example> = listOf(
                     .width(100.dp),
             )
             HorizontalSpacer(8.dp)
-        },
-    ),
+        }
+    },
 )

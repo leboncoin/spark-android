@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.catalog.datastore.theme
 
-import com.adevinta.spark.catalog.themes.BrandMode
 import com.adevinta.spark.catalog.themes.ColorMode
 import com.adevinta.spark.catalog.themes.FontScaleMode
 import com.adevinta.spark.catalog.themes.NavigationMode
@@ -37,7 +36,6 @@ internal data class ThemeProperties(
     val userMode: UserMode,
     val themeMode: ThemeMode,
     val colorMode: ColorMode,
-    val brandMode: BrandMode,
     val fontScaleMode: FontScaleMode,
     val colorBlindNessType: ColorBlindNessType,
     val colorBlindNessSeverity: Float,
@@ -51,7 +49,6 @@ internal data class ThemeProperties(
             fontScale = 1.0f,
             userMode = UserMode.Part,
             themeMode = ThemeMode.System,
-            brandMode = BrandMode.Leboncoin,
             colorMode = ColorMode.Baseline,
             textDirection = TextDirection.System,
             fontScaleMode = FontScaleMode.System,

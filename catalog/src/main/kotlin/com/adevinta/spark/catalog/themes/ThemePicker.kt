@@ -23,7 +23,7 @@ package com.adevinta.spark.catalog.themes
 
 import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
@@ -75,7 +75,8 @@ public fun ThemePicker(
                 ),
             )
             .asPaddingValues(),
-        verticalArrangement = Arrangement.spacedBy(ThemePickerPadding),
+        verticalArrangement = spacedBy(ThemePickerPadding),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         item {
             val themeModes = ThemeMode.entries
@@ -88,7 +89,9 @@ public fun ThemePicker(
             )
         }
         item {
-            Column {
+            Column(
+                verticalArrangement = spacedBy(8.dp),
+            ) {
                 val colorModes = ColorMode.entries
                 val colorModesLabel = colorModes.map { it.name }
                 ButtonGroup(
@@ -98,22 +101,7 @@ public fun ThemePicker(
                     options = colorModesLabel,
                 )
                 AnimatedVisibility(
-                    visible = theme.colorMode == ColorMode.Brand,
-                    modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .fillMaxWidth(),
-                ) {
-                    DropdownEnum(
-                        title = stringResource(id = R.string.brand),
-                        selectedOption = theme.brandMode,
-                        onOptionSelect = { onThemeChange(theme.copy(brandMode = it)) },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = ThemePickerPadding),
-                    )
-                }
-                AnimatedVisibility(
-                    visible = theme.colorMode == ColorMode.Brand,
+                    visible = theme.colorMode == ColorMode.Baseline,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                 ) {
                     SwitchLabelled(

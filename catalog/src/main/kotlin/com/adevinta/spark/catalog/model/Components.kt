@@ -82,7 +82,7 @@ public data class Component(
     val name: String,
     @StringRes val description: Int,
     val tintIcon: Boolean = true,
-    @DrawableRes val illustration: Int = R.drawable.illu_component_placeholder,
+    @DrawableRes val illustration: Int? = null,
     val guidelinesUrl: String,
     val docsUrl: String,
     val sourceUrl: String,

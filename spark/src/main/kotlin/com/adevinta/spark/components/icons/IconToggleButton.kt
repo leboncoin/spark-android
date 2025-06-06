@@ -68,14 +68,6 @@ import androidx.compose.material3.OutlinedIconToggleButton as MaterialOutlinedIc
  * @param content the content of this icon button, typically an [Icon]
  */
 
-@Deprecated(
-    message = "This component is no longer used",
-    replaceWith = ReplaceWith(
-        expression = "IconToggleButtonGhost(icons, onCheckedChange, modifier, checked, enabled, interactionSource)",
-        imports = ["com.adevinta.spark.components.iconbuttons.toggle.IconToggleButtonGhost"],
-    ),
-    level = DeprecationLevel.WARNING,
-)
 @Composable
 public fun IconToggleButton(
     checked: Boolean,
