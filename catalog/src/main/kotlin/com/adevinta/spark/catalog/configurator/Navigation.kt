@@ -22,6 +22,7 @@
 package com.adevinta.spark.catalog.configurator
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -31,6 +32,7 @@ import androidx.navigation.toRoute
 import com.adevinta.spark.catalog.AppBasePath
 import com.adevinta.spark.catalog.configurator.component.ConfiguratorComponentScreen
 import com.adevinta.spark.catalog.model.Component
+import com.adevinta.spark.catalog.ui.animations.LocalAnimatedVisibilityScope
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -58,15 +60,17 @@ internal fun NavGraphBuilder.configuratorsDestination(
     composable<ConfiguratorsList>(
         deepLinks = ConfiguratorsList.deepLinks,
     ) {
-        ComponentsListScreen(
-            components = components,
-            contentPadding = contentPadding,
-            onConfiguratorSelected = { id, index ->
-                navController.navigate(
-                    route = ConfiguratorShowcase(componentId = id, configuratorId = index),
-                )
-            },
-        )
+        CompositionLocalProvider(LocalAnimatedVisibilityScope provides this) {
+            ComponentsListScreen(
+                components = components,
+                contentPadding = contentPadding,
+                onConfiguratorSelected = { id, index ->
+                    navController.navigate(
+                        route = ConfiguratorShowcase(componentId = id, configuratorId = index),
+                    )
+                },
+            )
+        }
     }
 
     composable<ConfiguratorShowcase>(
@@ -81,9 +85,11 @@ internal fun NavGraphBuilder.configuratorsDestination(
                     component.id == componentId
             }
         val configurator = component.configurators.first { it.id == configuratorId }
-        ConfiguratorComponentScreen(
-            component = component,
-            configurator = configurator,
-        )
+        CompositionLocalProvider(LocalAnimatedVisibilityScope provides this) {
+            ConfiguratorComponentScreen(
+                component = component,
+                configurator = configurator,
+            )
+        }
     }
 }

@@ -25,8 +25,13 @@ import android.content.ClipData
 import android.content.Context
 import androidx.annotation.DrawableRes
 import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.BoundsTransform
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.animation.core.ArcMode
+import androidx.compose.animation.core.ExperimentalAnimationSpecApi
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.keyframes
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
@@ -84,7 +89,12 @@ import kotlinx.coroutines.withContext
 import java.util.Locale
 import com.adevinta.spark.icons.R as IconR
 
-@OptIn(ExperimentalSharedTransitionApi::class, ExperimentalLayoutApi::class, ExperimentalFoundationApi::class)
+@OptIn(
+    ExperimentalSharedTransitionApi::class,
+    ExperimentalLayoutApi::class,
+    ExperimentalFoundationApi::class,
+    ExperimentalAnimationSpecApi::class,
+)
 @Composable
 public fun IconsScreen(
     contentPadding: PaddingValues,
@@ -205,6 +215,13 @@ public fun IconsScreen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(4.dp),
                     ) {
+                        val boundsTransform = BoundsTransform { initialBounds, targetBounds ->
+                            keyframes {
+                                durationMillis = 300
+                                initialBounds at 0 using ArcMode.ArcBelow using FastOutSlowInEasing
+                                targetBounds at 300
+                            }
+                        }
                         Icon(
                             sparkIcon = SparkIcon.DrawableRes(drawableRes),
                             contentDescription = null,
@@ -212,6 +229,8 @@ public fun IconsScreen(
                                 .sharedElement(
                                     sharedTransitionScope.rememberSharedContentState(key = "icon-$iconName"),
                                     animatedVisibilityScope = animatedContentScope,
+                                    boundsTransform = boundsTransform,
+                                    placeHolderSize = SharedTransitionScope.PlaceHolderSize.animatedSize,
                                 )
                                 .size(40.dp),
                         )

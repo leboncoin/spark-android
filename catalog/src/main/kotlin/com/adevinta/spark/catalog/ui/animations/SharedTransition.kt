@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Adevinta
+ * Copyright (c) 2025 Adevinta
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,26 +19,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.adevinta.spark.catalog.themes.themeprovider.subito
+@file:OptIn(ExperimentalSharedTransitionApi::class)
 
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.runtime.Composable
-import com.adevinta.spark.catalog.themes.themeprovider.ThemeProvider
-import com.adevinta.spark.tokens.SparkColors
-import com.adevinta.spark.tokens.SparkShapes
-import com.adevinta.spark.tokens.SparkTypography
-import com.adevinta.spark.tokens.sparkTypography
+package com.adevinta.spark.catalog.ui.animations
 
-public object SubitoTheme : ThemeProvider {
-    @Composable
-    override fun colors(useDarkColors: Boolean, isPro: Boolean): SparkColors = when {
-        useDarkColors || isSystemInDarkTheme() -> SubitoDark
-        else -> SubitoLight
-    }
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.runtime.ProvidableCompositionLocal
+import androidx.compose.runtime.staticCompositionLocalOf
 
-    @Composable
-    override fun shapes(): SparkShapes = SubitoShapes
-
-    @Composable
-    override fun typography(): SparkTypography = sparkTypography()
-}
+public val LocalSharedTransitionScope: ProvidableCompositionLocal<SharedTransitionScope> =
+    staticCompositionLocalOf { error("No SharedTransitionScope provided") }
+public val LocalAnimatedVisibilityScope: ProvidableCompositionLocal<AnimatedVisibilityScope> =
+    staticCompositionLocalOf { error("No AnimatedVisibilityScope provided") }
