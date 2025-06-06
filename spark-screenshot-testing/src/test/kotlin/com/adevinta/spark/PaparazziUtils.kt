@@ -36,8 +36,6 @@ import com.adevinta.spark.tokens.darkHighContrastSparkColors
 import com.adevinta.spark.tokens.darkSparkColors
 import com.adevinta.spark.tokens.lightHighContrastSparkColors
 import com.adevinta.spark.tokens.lightSparkColors
-import com.adevinta.spark.tokens.darkHighContrastSparkColors
-import com.adevinta.spark.tokens.lightHighContrastSparkColors
 
 internal fun Paparazzi.sparkSnapshot(
     name: String? = null,
