@@ -43,6 +43,7 @@ import com.adevinta.spark.catalog.examples.ExamplesSharedElementType
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.ui.animations.LocalAnimatedVisibilityScope
 import com.adevinta.spark.catalog.ui.animations.LocalSharedTransitionScope
+import com.adevinta.spark.catalog.util.TrackScrollJank
 import com.adevinta.spark.components.scaffold.Scaffold
 import com.adevinta.spark.components.snackbars.SnackbarHost
 import com.adevinta.spark.components.snackbars.SnackbarHostState
@@ -57,6 +58,7 @@ import com.adevinta.spark.tokens.Layout
 @Composable
 public fun Example(example: Example) {
     val scrollState = rememberScrollState()
+    TrackScrollJank(scrollableState = scrollState, stateName = "example:screen")
     val snackbarHostState = remember { SnackbarHostState() }
 
     val commonModifier = Modifier
