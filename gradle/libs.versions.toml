@@ -9,6 +9,7 @@ dokka = "1.9.20"
 kotlin = "2.1.20"
 lint = "31.10.1"
 minCompileSdk = "24"
+nmcp = "0.1.5"
 spotless = "7.0.4"
 targetSdk = "35"
 
@@ -83,6 +84,7 @@ gradlePlugins-dependencyGuard = { module = "com.dropbox.dependency-guard:com.dro
 gradlePlugins-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
 gradlePlugins-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 gradlePlugins-spotless = { module = "com.diffplug.spotless:spotless-plugin-gradle", version.ref = "spotless" }
+gradlePlugins-nmcp = { module = "com.gradleup.nmcp:com.gradleup.nmcp.gradle.plugin", version.ref = "nmcp" }
 
 junit = "junit:junit:4.13.2"
 
@@ -124,6 +126,7 @@ dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+nmcp = { id = "com.gradleup.nmcp", version.ref = "nmcp" }
 
 
 # Plugins defined by this project

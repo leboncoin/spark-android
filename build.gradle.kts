@@ -30,6 +30,7 @@ plugins {
     alias(libs.plugins.dependencyGuard) apply false
     alias(libs.plugins.spotless) apply false
     alias(libs.plugins.compose) apply false
+    alias(libs.plugins.nmcp) apply false
 
     alias(libs.plugins.spark.root)
     alias(libs.plugins.spark.dokka)

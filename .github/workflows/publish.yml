@@ -1,4 +1,4 @@
-name: '📦 Publish to OSSRH'
+name: '📦 Publish to Central Portal'
 
 on:
   push:
@@ -15,12 +15,12 @@ jobs:
       - uses: ./.github/actions/setup-gradle
       - uses: ./.github/actions/setup-gradle-properties
 
-      - name: '📦 Publish'
-        run: ./gradlew publish --no-configuration-cache
+      - name: '📦 Publish to Central Portal'
+        run: ./gradlew publishAllPublicationsToCentralPortal --no-configuration-cache
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
+          CENTRAL_PORTAL_USERNAME: ${{ secrets.CENTRAL_PORTAL_USERNAME }}
+          CENTRAL_PORTAL_PASSWORD: ${{ secrets.CENTRAL_PORTAL_PASSWORD }}
           ORG_GRADLE_PROJECT_signingKey: ${{ secrets.GPG_KEY }}
           ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.GPG_PASSWORD }}
 

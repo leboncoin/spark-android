@@ -22,6 +22,7 @@
 package com.adevinta.spark
 
 import com.android.build.gradle.LibraryExtension
+import com.gradleup.nmcp.NmcpExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
@@ -41,8 +42,10 @@ internal class SparkPublishingPlugin : Plugin<Project> {
         with(target) {
             apply(plugin = "org.gradle.maven-publish")
             apply(plugin = "org.gradle.signing")
+            apply(plugin = "com.gradleup.nmcp")
 
             configureRepository()
+            configureNMCP()
             registerPublication()
             configureSigning()
         }
@@ -54,17 +57,14 @@ internal class SparkPublishingPlugin : Plugin<Project> {
                 name = "Local"
                 url = uri(rootProject.layout.buildDirectory.dir(".m2/repository"))
             }
-            maven {
-                name = "OSSRH"
-                url = when (version.toString().endsWith("-SNAPSHOT")) {
-                    true -> "https://s01.oss.sonatype.org/content/repositories/snapshots/"
-                    false -> "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
-                }.let(::uri)
-                credentials {
-                    username = System.getenv("OSSRH_USERNAME")
-                    password = System.getenv("OSSRH_TOKEN")
-                }
-            }
+        }
+    }
+
+    private fun Project.configureNMCP() = configure<NmcpExtension> {
+        centralPortal {
+            username = System.getenv("CENTRAL_PORTAL_USERNAME")
+            password = System.getenv("CENTRAL_PORTAL_PASSWORD")
+            publishingType = "USER_MANAGED"
         }
     }
 
