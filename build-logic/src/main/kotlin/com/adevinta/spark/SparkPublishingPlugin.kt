@@ -64,7 +64,7 @@ internal class SparkPublishingPlugin : Plugin<Project> {
         centralPortal {
             username = System.getenv("CENTRAL_PORTAL_USERNAME")
             password = System.getenv("CENTRAL_PORTAL_PASSWORD")
-            publishingType = "USER_MANAGED"
+            publishingType = "AUTOMATIC"
         }
     }
 
