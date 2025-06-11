@@ -22,7 +22,7 @@
 package com.adevinta.spark
 
 import com.android.build.gradle.LibraryExtension
-import com.gradleup.nmcp.NmcpExtension
+import nmcp.NmcpExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
