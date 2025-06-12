@@ -114,4 +114,13 @@ internal object PaletteTokens {
     internal val NightShade100 = Color(0xFFF0F2F5)
     internal val NightShade50 = Color(0xFFF6F8F9)
 // endregion
+
+    val DarkBold = Color(0xff1a1a1a)
+    val DarkSemiBold = Color(0xff2c2c2c)
+    val DarkRegular = Color(0xff484848)
+    val DarkMid = Color(0xff4f4f4f)
+    val DarkMedium = Color(0xffE6E6E6)
+    val DarkLight = Color(0xffF9F9F9)
+    val LightMid = Color(0xff4f4f4f)
+    val LightLight = Color(0xffF9F9F9)
 }
