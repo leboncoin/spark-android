@@ -23,7 +23,10 @@ package com.adevinta.spark.catalog.configurator.samples.textfields
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.text.input.rememberTextFieldState
+import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -80,12 +83,12 @@ private fun ColumnScope.ComboBoxSample() {
     var isEnabled by remember { mutableStateOf(true) }
     var expanded by remember { mutableStateOf(false) }
     var isRequired by remember { mutableStateOf(true) }
-    var state: TextFieldState? by remember { mutableStateOf(null) }
+    var status: TextFieldState? by remember { mutableStateOf(null) }
     var labelText by remember { mutableStateOf("Label") }
-    var valueText by remember { mutableStateOf("") }
+    val state = rememberTextFieldState()
     var placeHolderText by remember { mutableStateOf("Placeholder") }
     var helperText by remember { mutableStateOf("Helper message") }
-    var stateMessageText by remember { mutableStateOf("State Message") }
+    var statusMessageText by remember { mutableStateOf("State Message") }
     var addonText: String? by remember { mutableStateOf(null) }
 
     val leadingContent: (@Composable AddonScope.() -> Unit)? = addonText?.let {
@@ -106,8 +109,7 @@ private fun ColumnScope.ComboBoxSample() {
 
     SingleChoiceComboBox(
         modifier = Modifier.fillMaxWidth(),
-        value = valueText,
-        onValueChange = { valueText = it },
+        state = state,
         expanded = expanded,
         onExpandedChange = { expanded = !expanded },
         onDismissRequest = { expanded = false },
@@ -117,17 +119,16 @@ private fun ColumnScope.ComboBoxSample() {
         placeholder = placeHolderText,
         helper = helperText,
         leadingContent = leadingContent,
-        state = state,
-        stateMessage = stateMessageText,
+        status = status,
+        statusMessage = statusMessageText,
     ) {
         comboBoxSampleValues.forEach { book ->
             DropdownMenuItem(
                 text = { Text(book.title) },
                 onClick = {
-                    valueText = book.title
-                    expanded = false
+                    state.setTextAndPlaceCursorAtEnd(book.title)
                 },
-                selected = book.title == valueText,
+                selected = book.title == state.text,
             )
         }
     }
@@ -156,8 +157,8 @@ private fun ColumnScope.ComboBoxSample() {
     val buttonStylesLabel = textFieldStates.map { it?.run { name } ?: "Default" }
     ButtonGroup(
         title = "State",
-        selectedOption = state?.name ?: "Default",
-        onOptionSelect = { state = if (it == "Default") null else TextFieldState.valueOf(it) },
+        selectedOption = status?.name ?: "Default",
+        onOptionSelect = { status = if (it == "Default") null else TextFieldState.valueOf(it) },
         options = buttonStylesLabel,
     )
 
@@ -190,9 +191,9 @@ private fun ColumnScope.ComboBoxSample() {
     )
     TextField(
         modifier = Modifier.fillMaxWidth(),
-        value = stateMessageText,
+        value = statusMessageText,
         onValueChange = {
-            stateMessageText = it
+            statusMessageText = it
         },
         label = "State message",
         placeholder = "State message of the ComboBox",
@@ -210,15 +211,16 @@ private fun ColumnScope.ComboBoxSample() {
 
 @Composable
 private fun ColumnScope.MultiChoiceComboBoxSample() {
-    var value by remember { mutableStateOf("") }
+    val state = rememberTextFieldState()
     var expanded by remember { mutableStateOf(false) }
     var isEnabled by remember { mutableStateOf(true) }
     var isRequired by remember { mutableStateOf(true) }
-    var state: TextFieldState? by remember { mutableStateOf(null) }
+    var stayExpandedUntilSelection by remember { mutableStateOf(false) }
+    var status: TextFieldState? by remember { mutableStateOf(null) }
     var labelText by remember { mutableStateOf("Label") }
     var placeHolderText by remember { mutableStateOf("Placeholder") }
     var helperText by remember { mutableStateOf("Helper message") }
-    var stateMessageText by remember { mutableStateOf("State Message") }
+    var statusMessageText by remember { mutableStateOf("State Message") }
     var addonText: String? by remember { mutableStateOf(null) }
     var selectedBooks by remember { mutableStateOf(setOf<Int>()) }
 
@@ -228,26 +230,32 @@ private fun ColumnScope.MultiChoiceComboBoxSample() {
         }
     }
 
+    val selectedChoices by remember {
+        derivedStateOf {
+            selectedBooks.mapNotNull { id ->
+                comboBoxSampleValues.find { it.id == id }?.let {
+                    SelectedChoice(id.toString(), it.title)
+                }
+            }.toPersistentList()
+        }
+    }
     MultiChoiceComboBox(
         modifier = Modifier.fillMaxWidth(),
-        value = value,
-        onValueChange = { value = it },
+        state = state,
         expanded = expanded,
         onExpandedChange = { expanded = it },
-        onDismissRequest = { expanded = false },
+        onDismissRequest = {
+            expanded = stayExpandedUntilSelection
+        },
         enabled = isEnabled,
         required = isRequired,
         label = labelText,
         placeholder = placeHolderText,
         helper = helperText,
         leadingContent = leadingContent,
-        state = state,
-        stateMessage = stateMessageText,
-        selectedChoices = selectedBooks.mapNotNull { id ->
-            comboBoxSampleValues.find { it.id == id }?.let {
-                SelectedChoice(id.toString(), it.title)
-            }
-        }.toPersistentList(),
+        status = status,
+        statusMessage = statusMessageText,
+        selectedChoices = selectedChoices,
         onSelectedClick = { id ->
             selectedBooks = selectedBooks - id.toInt()
         },
@@ -298,6 +306,16 @@ private fun ColumnScope.MultiChoiceComboBoxSample() {
         )
     }
 
+    SwitchLabelled(
+        checked = stayExpandedUntilSelection,
+        onCheckedChange = { stayExpandedUntilSelection = it },
+    ) {
+        Text(
+            text = "Expanded until selection",
+            modifier = Modifier.fillMaxWidth(),
+        )
+    }
+
     val buttonStylesLabel by remember {
         val textFieldStates: MutableSet<TextFieldState?> =
             TextFieldState.entries.toMutableSet<TextFieldState?>().apply { add(null) }
@@ -305,8 +323,8 @@ private fun ColumnScope.MultiChoiceComboBoxSample() {
     }
     ButtonGroup(
         title = "State",
-        selectedOption = state?.name ?: "Default",
-        onOptionSelect = { state = if (it == "Default") null else TextFieldState.valueOf(it) },
+        selectedOption = status?.name ?: "Default",
+        onOptionSelect = { status = if (it == "Default") null else TextFieldState.valueOf(it) },
         options = buttonStylesLabel,
     )
 
@@ -336,8 +354,8 @@ private fun ColumnScope.MultiChoiceComboBoxSample() {
 
     TextField(
         modifier = Modifier.fillMaxWidth(),
-        value = stateMessageText,
-        onValueChange = { stateMessageText = it },
+        value = statusMessageText,
+        onValueChange = { statusMessageText = it },
         label = "State message",
         placeholder = "State message of the ComboBox",
     )
@@ -353,15 +371,15 @@ private fun ColumnScope.MultiChoiceComboBoxSample() {
 
 @Composable
 private fun ColumnScope.MultiChoiceComboBoxWithSelectedSample() {
-    var value by remember { mutableStateOf("") }
+    val state = rememberTextFieldState()
     var expanded by remember { mutableStateOf(false) }
     var isEnabled by remember { mutableStateOf(true) }
     var isRequired by remember { mutableStateOf(true) }
-    var state: TextFieldState? by remember { mutableStateOf(null) }
+    var status: TextFieldState? by remember { mutableStateOf(null) }
     var labelText by remember { mutableStateOf("Label") }
     var placeHolderText by remember { mutableStateOf("Placeholder") }
     var helperText by remember { mutableStateOf("Helper message") }
-    var stateMessageText by remember { mutableStateOf("State Message") }
+    var statusMessageText by remember { mutableStateOf("State Message") }
     var addonText: String? by remember { mutableStateOf(null) }
     var selectedBooks by remember { mutableStateOf(setOf(1, 2)) } // Pre-select first two books
 
@@ -373,8 +391,7 @@ private fun ColumnScope.MultiChoiceComboBoxWithSelectedSample() {
 
     MultiChoiceComboBox(
         modifier = Modifier.fillMaxWidth(),
-        value = value,
-        onValueChange = { value = it },
+        state = state,
         expanded = expanded,
         onExpandedChange = { expanded = it },
         onDismissRequest = { expanded = false },
@@ -384,8 +401,8 @@ private fun ColumnScope.MultiChoiceComboBoxWithSelectedSample() {
         placeholder = placeHolderText,
         helper = helperText,
         leadingContent = leadingContent,
-        state = state,
-        stateMessage = stateMessageText,
+        status = status,
+        statusMessage = statusMessageText,
         selectedChoices = selectedBooks.mapNotNull { id ->
             comboBoxSampleValues.find { it.id == id }?.let {
                 SelectedChoice(id.toString(), it.title)
@@ -446,8 +463,8 @@ private fun ColumnScope.MultiChoiceComboBoxWithSelectedSample() {
     val buttonStylesLabel = textFieldStates.map { it?.run { name } ?: "Default" }
     ButtonGroup(
         title = "State",
-        selectedOption = state?.name ?: "Default",
-        onOptionSelect = { state = if (it == "Default") null else TextFieldState.valueOf(it) },
+        selectedOption = status?.name ?: "Default",
+        onOptionSelect = { status = if (it == "Default") null else TextFieldState.valueOf(it) },
         options = buttonStylesLabel,
     )
 
@@ -477,8 +494,8 @@ private fun ColumnScope.MultiChoiceComboBoxWithSelectedSample() {
 
     TextField(
         modifier = Modifier.fillMaxWidth(),
-        value = stateMessageText,
-        onValueChange = { stateMessageText = it },
+        value = statusMessageText,
+        onValueChange = { statusMessageText = it },
         label = "State message",
         placeholder = "State message of the ComboBox",
     )

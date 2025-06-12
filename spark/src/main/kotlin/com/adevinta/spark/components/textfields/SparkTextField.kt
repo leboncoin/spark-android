@@ -25,6 +25,7 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -36,9 +37,15 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.InputTransformation
+import androidx.compose.foundation.text.input.KeyboardActionHandler
+import androidx.compose.foundation.text.input.OutputTransformation
+import androidx.compose.foundation.text.input.TextFieldLineLimits
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.selection.LocalTextSelectionColors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -68,10 +75,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
@@ -98,7 +107,7 @@ internal fun SparkTextField(
     counter: TextFieldCharacterCounter?,
     leadingContent: @Composable (AddonScope.() -> Unit)?,
     trailingContent: @Composable (AddonScope.() -> Unit)?,
-    state: TextFieldState?,
+    state: FormFieldStatus?,
     stateMessage: String?,
     visualTransformation: VisualTransformation,
     keyboardOptions: KeyboardOptions,
@@ -203,7 +212,7 @@ internal fun SparkTextField(
     counter: TextFieldCharacterCounter?,
     leadingIcon: @Composable (AddonScope.() -> Unit)?, // Should we rename it to leadingContent?
     trailingIcon: @Composable (AddonScope.() -> Unit)?, // Should we rename it to trailingContent?
-    state: TextFieldState?,
+    state: FormFieldStatus?,
     stateMessage: String?,
     visualTransformation: VisualTransformation,
     keyboardOptions: KeyboardOptions,
@@ -293,6 +302,110 @@ internal fun SparkTextField(
     }
 }
 
+@InternalSparkApi
+@Composable
+internal fun SparkTextField(
+    state: TextFieldState,
+    enabled: Boolean,
+    readOnly: Boolean,
+    required: Boolean,
+    label: String?,
+    placeholder: String?,
+    helper: String?,
+    counter: TextFieldCharacterCounter?,
+    leadingContent: @Composable (AddonScope.() -> Unit)?,
+    trailingContent: @Composable (AddonScope.() -> Unit)?,
+    status: FormFieldStatus?,
+    statusMessage: String?,
+    modifier: Modifier = Modifier,
+    inputTransformation: InputTransformation? = null,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    onKeyboardAction: KeyboardActionHandler? = null,
+    lineLimits: TextFieldLineLimits = TextFieldLineLimits.Default,
+    onTextLayout: (Density.(getResult: () -> TextLayoutResult?) -> Unit)? = null,
+    interactionSource: MutableInteractionSource? = null,
+    outputTransformation: OutputTransformation? = null,
+    scrollState: ScrollState = rememberScrollState(),
+) {
+    val colors = sparkOutlinedTextFieldColors()
+    val labelContentDescriptionModifier = if (label != null) {
+        val labelContentDescription = computeLabelContentDescription(
+            label = label,
+            required = required,
+        )
+        Modifier
+            // Merge semantics at the beginning of the modifier chain to ensure padding is
+            // considered part of the text field.
+            .semantics(mergeDescendants = true) { contentDescription = labelContentDescription }
+            .padding(top = OutlinedTextFieldTopPadding)
+    } else {
+        Modifier
+    }
+    val interactionSourceState = interactionSource ?: remember { MutableInteractionSource() }
+
+    CompositionLocalProvider(LocalTextSelectionColors provides colors.selectionColors) {
+        @OptIn(ExperimentalMaterial3Api::class)
+        BasicTextField(
+            state = state,
+            modifier = modifier
+                .then(other = labelContentDescriptionModifier)
+                .defaultMinSize(
+                    minWidth = 48.dp,
+                    minHeight = TextFieldMinHeight,
+                )
+                .sparkUsageOverlay(),
+            enabled = enabled,
+            readOnly = readOnly,
+            textStyle = SparkTheme.typography.body1.merge(TextStyle(colors.textColor(enabled).value)),
+            cursorBrush = SolidColor(colors.cursorColor(status).value),
+            inputTransformation = inputTransformation,
+            keyboardOptions = keyboardOptions,
+            onKeyboardAction = onKeyboardAction,
+            lineLimits = lineLimits,
+            onTextLayout = onTextLayout,
+            interactionSource = interactionSourceState,
+            outputTransformation = outputTransformation,
+            decorator = @Composable { innerTextField ->
+                val counterComposable = counterText(counter)
+                val stateIcon = TextFieldDefault.getStatusIcon(state = status)
+                val supportingTextComposable = supportText(
+                    helper = helper,
+                    state = status,
+                    stateMessage = statusMessage,
+                    counterComposable = counterComposable,
+                    stateIcon = stateIcon,
+                )
+
+                SparkDecorationBox(
+                    state = state,
+                    innerTextField = innerTextField,
+                    inputTransformation = inputTransformation,
+                    label = { Label(text = label, required = required) },
+                    interactionSource = interactionSourceState,
+                    colors = colors,
+                    readOnly = readOnly,
+                    placeholder = { PlaceHolder(text = placeholder) },
+                    supportingText = supportingTextComposable,
+                    leadingIcon = leadingContent,
+                    trailingIcon = trailingContent,
+                    lineLimits = lineLimits,
+                    enabled = enabled,
+                    status = status,
+                ) {
+                    OutlinedBorderContainerBox(
+                        enabled,
+                        readOnly,
+                        status,
+                        interactionSourceState,
+                        colors,
+                        SparkTheme.shapes.large,
+                    )
+                }
+            },
+        )
+    }
+}
+
 /**
  * Composable that draws a default container for [SparkTextField] with a border stroke. You
  * can use it to draw a border stroke in your custom text field based on
@@ -310,7 +423,7 @@ internal fun SparkTextField(
 internal fun OutlinedBorderContainerBox(
     enabled: Boolean,
     readOnly: Boolean,
-    status: TextFieldState?,
+    status: FormFieldStatus?,
     interactionSource: InteractionSource,
     colors: DefaultSparkTextFieldColors,
     shape: Shape,
@@ -351,7 +464,7 @@ internal fun Modifier.textFieldBackground(
 internal fun animateBorderStrokeAsState(
     enabled: Boolean,
     readOnly: Boolean,
-    state: TextFieldState?,
+    state: FormFieldStatus?,
     interactionSource: InteractionSource,
     colors: DefaultSparkTextFieldColors,
 ): State<BorderStroke> {
@@ -425,7 +538,7 @@ private fun counterText(
 @Composable
 private fun supportText(
     helper: String?,
-    state: TextFieldState?,
+    state: FormFieldStatus?,
     stateMessage: String?,
     counterComposable: @Composable ((Modifier) -> Unit)?,
     stateIcon: @Composable ((Modifier) -> Unit)?,
@@ -476,13 +589,13 @@ private fun computeLabelContentDescription(
 
 @Composable
 private fun computeStateMessageContentDescription(
-    state: TextFieldState,
+    state: FormFieldStatus,
     stateMessage: String?,
 ): String = buildString {
     val stateStatusContentDescription = when (state) {
-        TextFieldState.Success -> stringResource(id = R.string.spark_textfield_state_success_content_description)
-        TextFieldState.Alert -> stringResource(id = R.string.spark_textfield_state_alert_content_description)
-        TextFieldState.Error -> stringResource(id = R.string.spark_textfield_state_error_content_description)
+        FormFieldStatus.Success -> stringResource(id = R.string.spark_textfield_state_success_content_description)
+        FormFieldStatus.Alert -> stringResource(id = R.string.spark_textfield_state_alert_content_description)
+        FormFieldStatus.Error -> stringResource(id = R.string.spark_textfield_state_error_content_description)
     }
     append(stateStatusContentDescription)
     if (stateMessage != null) {
@@ -494,7 +607,7 @@ private fun computeStateMessageContentDescription(
 internal object TextFieldDefault {
 
     @Composable
-    internal fun getStatusIcon(state: TextFieldState?): (@Composable (Modifier) -> Unit)? {
+    internal fun getStatusIcon(state: FormFieldStatus?): (@Composable (Modifier) -> Unit)? {
         state ?: return null
 
         return { modifier ->
@@ -543,7 +656,7 @@ internal fun TextFieldSlotsPreview() {
             placeholder = "Placeholder",
             helper = "Helper helper helper helper helper helper Helper helper helper helper helper helper " +
                 "helper helper helper helper helper",
-            state = TextFieldState.Success,
+            state = FormFieldStatus.Success,
             counter = TextFieldCharacterCounter(10, 20),
             leadingContent = icon,
         )
@@ -558,7 +671,7 @@ internal fun TextFieldSlotsPreview() {
             helper = "Helper helper helper helper helper helper Helper helper helper helper helper helper " +
                 "helper helper helper helper helper",
             counter = TextFieldCharacterCounter(10, 20),
-            state = TextFieldState.Success,
+            state = FormFieldStatus.Success,
             leadingContent = icon,
             trailingContent = icon,
         )
