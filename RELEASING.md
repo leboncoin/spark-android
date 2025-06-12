@@ -2,9 +2,10 @@
 
 ## Pre-release
 
-> This porcess will apply for the versions starting 1.4.0.
+> [!NOTE]
+> This process will apply for the versions starting 1.4.0.
 
-Before each release, we will publish one or more alpha version and publish pre-releases on [Github Release page](https://github.com/leboncoin/spark-android/releases) with the changes
+Before each release, we will publish one or more alpha versions and publish pre-releases on [Github Release page](https://github.com/leboncoin/spark-android/releases).
 
 Consumers will be able to test new features and report breaking changes & bugs that can be fixed before it’s considered for a stable release.
 
@@ -16,8 +17,8 @@ For example, they could set up hooks to post the changelog in their monitoring S
 3. Remove logs from `@dependabot` except if they mention big version upgrades for libraries used by our consumers (like Compose or Kotlin). 
 4. Reformat the changelog to be as close as possible to the format we describe in the [CHANGELOG STYLE GUIDE](./docs/CHANGELOG%20STYLE%20GUIDE.md).
 5. If we’re satisfied with the draft, release it but make sure **`⚠️ Set as a pre-release`** is checked.
-7. If we need to create a fix from feedbacks, then this cycle repeats.
-8. Otherwise, follow the [stable release process](./RELEASING.md#Release)
+6. If we need to create a fix from feedbacks, then this cycle repeats.
+7. Otherwise, follow the [stable release process](./RELEASING.md#Release)
 
 ## Release
 
