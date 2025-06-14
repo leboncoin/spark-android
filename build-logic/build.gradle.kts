@@ -27,14 +27,14 @@ plugins {
     alias(libs.plugins.spotless)
 }
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 kotlin {
     compilerOptions {
         allWarningsAsErrors = true
-        jvmTarget = JvmTarget.JVM_11
+        jvmTarget = JvmTarget.JVM_17
     }
     explicitApi()
 }
@@ -52,6 +52,7 @@ dependencies {
     compileOnly(libs.gradlePlugins.dependencyGuard)
     compileOnly(libs.gradlePlugins.dokka)
     compileOnly(libs.gradlePlugins.spotless)
+    compileOnly(libs.gradlePlugins.nmcp)
     implementation(libs.dokka.base)
 }
 

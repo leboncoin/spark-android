@@ -21,6 +21,13 @@
  */
 package com.adevinta.spark.catalog.configurator.component
 
+import androidx.compose.animation.BoundsTransform
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.animation.core.ArcMode
+import androidx.compose.animation.core.ExperimentalAnimationSpecApi
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.keyframes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -49,9 +56,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.catalog.R
+import com.adevinta.spark.catalog.examples.ExamplesSharedElementKey
+import com.adevinta.spark.catalog.examples.ExamplesSharedElementType
+import com.adevinta.spark.catalog.examples.component.ComponentOrigin
 import com.adevinta.spark.catalog.model.Component
 import com.adevinta.spark.catalog.model.Components
 import com.adevinta.spark.catalog.model.Configurator
+import com.adevinta.spark.catalog.ui.animations.LocalAnimatedVisibilityScope
+import com.adevinta.spark.catalog.ui.animations.LocalSharedTransitionScope
 import com.adevinta.spark.catalog.util.IssueUrl
 import com.adevinta.spark.catalog.util.openUrl
 import com.adevinta.spark.components.divider.HorizontalDivider
@@ -68,6 +80,7 @@ import com.adevinta.spark.icons.Link
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.Layout
 
+@OptIn(ExperimentalSharedTransitionApi::class, ExperimentalAnimationSpecApi::class)
 @Composable
 public fun ConfiguratorComponentScreen(
     component: Component,
@@ -75,37 +88,60 @@ public fun ConfiguratorComponentScreen(
 ) {
     val scrollState = rememberScrollState()
     val snackbarHostState = remember { SnackbarHostState() }
-    Scaffold(
-        snackbarHost = { SnackbarHost(snackbarHostState) },
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(scrollState)
-                .windowInsetsPadding(WindowInsets.navigationBars)
-                .padding(horizontal = Layout.bodyMargin)
-                .imePadding(),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+    val boundsTransform = BoundsTransform { initialBounds, targetBounds ->
+        keyframes {
+            durationMillis = 300
+            initialBounds at 0 using ArcMode.ArcBelow using FastOutSlowInEasing
+            targetBounds at 300
+        }
+    }
+    with(LocalSharedTransitionScope.current) {
+        Scaffold(
+            modifier = Modifier.sharedBounds(
+                sharedContentState = rememberSharedContentState(
+                    ExamplesSharedElementKey(
+                        exampleId = component.id,
+                        origin = ComponentOrigin.Configurator.name,
+                        type = ExamplesSharedElementType.Background,
+                    ),
+                ),
+                animatedVisibilityScope = LocalAnimatedVisibilityScope.current,
+                resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
+//                boundsTransform = boundsTransform,
+                placeHolderSize = SharedTransitionScope.PlaceHolderSize.animatedSize,
+            ),
+            snackbarHost = { SnackbarHost(snackbarHostState) },
         ) {
-            Box(
-                modifier = Modifier.align(Alignment.End),
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(scrollState)
+                    .windowInsetsPadding(WindowInsets.navigationBars)
+                    .padding(horizontal = Layout.bodyMargin)
+                    .skipToLookaheadSize()
+                    .imePadding(),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                var expanded by remember { mutableStateOf(false) }
-                IconButtonGhost(
-                    icon = SparkIcons.Link,
-                    onClick = { expanded = true },
-                    contentDescription = "Localized description",
-                )
+                Box(
+                    modifier = Modifier.align(Alignment.End),
+                ) {
+                    var expanded by remember { mutableStateOf(false) }
+                    IconButtonGhost(
+                        icon = SparkIcons.Link,
+                        onClick = { expanded = true },
+                        contentDescription = "Localized description",
+                    )
 
-                ConfiguratorComponentMenu(
-                    component = component,
-                    expanded = expanded,
-                    onDismissRequest = { expanded = false },
-                )
-            }
+                    ConfiguratorComponentMenu(
+                        component = component,
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false },
+                    )
+                }
 
-            with(configurator) {
-                this@Column.content(snackbarHostState)
+                with(configurator) {
+                    this@Column.content(snackbarHostState)
+                }
             }
         }
     }

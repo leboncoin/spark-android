@@ -19,8 +19,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+@file:OptIn(ExperimentalSharedTransitionApi::class)
+
 package com.adevinta.spark.catalog.examples
 
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -33,13 +37,13 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDeepLink
 import androidx.navigation.compose.rememberNavController
@@ -51,6 +55,7 @@ import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.examples.component.ComponentItem
 import com.adevinta.spark.catalog.model.Component
 import com.adevinta.spark.catalog.themes.NavigationMode
+import com.adevinta.spark.catalog.ui.animations.LocalSharedTransitionScope
 import com.adevinta.spark.catalog.ui.navigation.ChangeSelectedNavControllerOnPageChange
 import com.adevinta.spark.catalog.ui.navigation.NavHostSpark
 import com.adevinta.spark.components.text.Text
@@ -65,6 +70,7 @@ internal val ExamplesList.deepLinks: List<NavDeepLink>
         navDeepLink<ExamplesList>(basePath = "${AppBasePath}examples"),
     )
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 public fun ComponentsScreen(
     modifier: Modifier = Modifier,
@@ -73,26 +79,29 @@ public fun ComponentsScreen(
     contentPadding: PaddingValues,
     navigationMode: NavigationMode,
 ) {
-    val navController = rememberNavController()
-    ChangeSelectedNavControllerOnPageChange(
-        pagerState = pagerState,
-        catalogScreen = CatalogHomeScreen.Examples,
-        navController = navController,
-    )
-
-    NavHostSpark(
-        modifier = modifier,
-        navController = navController,
-        startDestination = ExamplesList,
-        navigationMode = navigationMode,
-        builder = {
-            examplesDestination(
+    SharedTransitionLayout {
+        val navController = rememberNavController()
+        ChangeSelectedNavControllerOnPageChange(
+            pagerState = pagerState,
+            catalogScreen = CatalogHomeScreen.Examples,
+            navController = navController,
+        )
+        CompositionLocalProvider(LocalSharedTransitionScope provides this) {
+            NavHostSpark(
+                modifier = modifier,
                 navController = navController,
-                contentPadding = contentPadding,
-                components = components,
+                startDestination = ExamplesList,
+                navigationMode = navigationMode,
+                builder = {
+                    examplesDestination(
+                        navController = navController,
+                        contentPadding = contentPadding,
+                        components = components,
+                    )
+                },
             )
-        },
-    )
+        }
+    }
 }
 
 @Composable

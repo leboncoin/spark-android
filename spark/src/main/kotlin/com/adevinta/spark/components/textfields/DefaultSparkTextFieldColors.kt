@@ -250,7 +250,7 @@ internal data class DefaultSparkTextFieldColors(
     @Composable
     internal fun supportingTextColor(
         enabled: Boolean,
-        state: TextFieldState?,
+        state: FormFieldStatus?,
         interactionSource: InteractionSource,
     ): State<Color> {
         val focused by interactionSource.collectIsFocusedAsState()
@@ -258,7 +258,7 @@ internal data class DefaultSparkTextFieldColors(
         return rememberUpdatedState(
             when {
                 !enabled -> disabledSupportingTextColor
-                state == TextFieldState.Error -> state.color()
+                state == FormFieldStatus.Error -> state.color()
                 focused -> focusedSupportingTextColor
                 else -> unfocusedSupportingTextColor
             },

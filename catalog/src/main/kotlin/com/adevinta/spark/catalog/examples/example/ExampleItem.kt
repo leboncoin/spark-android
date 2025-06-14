@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.catalog.examples.example
 
+import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,18 +34,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.model.Example
+import com.adevinta.spark.catalog.ui.animations.LocalSharedTransitionScope
 import com.adevinta.spark.components.card.CardDefaults
 import com.adevinta.spark.components.card.ElevatedCard
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
 @Composable
 public fun ExampleItem(
     example: Example,
+    modifier: Modifier = Modifier,
     onClick: (exampleId: String) -> Unit,
 ) {
     ElevatedCard(
         onClick = { onClick(example.id) },
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.elevatedCardColors(
             containerColor = SparkTheme.colors.surface,
         ),
@@ -55,10 +58,13 @@ public fun ExampleItem(
                 style = SparkTheme.typography.display3,
             )
             Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = example.description,
-                style = SparkTheme.typography.body2,
-            )
+            with(LocalSharedTransitionScope.current) {
+                Text(
+                    text = example.description,
+                    style = SparkTheme.typography.body2,
+                    modifier = Modifier.skipToLookaheadSize(),
+                )
+            }
         }
     }
 }
