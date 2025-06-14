@@ -1,13 +1,13 @@
-name: '👷 Build → 🧑‍🔬 Test → 🕵️ Lint'
+name: 🏭 CI
 
 on:
   push:
-    branches: ["main", "hotfix/*", "chore-updated-icons"]
+    branches: [ "main", "hotfix/*", "chore-updated-icons" ]
   pull_request:
-    branches: ["main", "hotfix/*", "chore-updated-icons"]
+    branches: [ "main", "hotfix/*", "chore-updated-icons" ]
   merge_group:
     types: [ checks_requested ]
-    branches: ["main", "hotfix/*", "chore-updated-icons"]
+    branches: [ "main", "hotfix/*", "chore-updated-icons" ]
 
 concurrency:
   group: '${{ github.workflow }}-${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
@@ -20,69 +20,99 @@ permissions:
 jobs:
 
   validation:
+    name: 🛃 Validation
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/check-git-lfs
       - uses: ./.github/actions/setup-java
       - uses: ./.github/actions/setup-gradle
       - uses: ./.github/actions/setup-gradle-properties
-      - run: ./gradlew dependencyGuard --quiet
-      - run: ./gradlew spotlessCheck :build-logic:spotlessCheck
 
-  build-test-lint:
+  checks:
+    name: 👮 Checks
     needs: validation
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-        with:
-          lfs: true
       - uses: ./.github/actions/setup-java
       - uses: ./.github/actions/setup-gradle
       - uses: ./.github/actions/setup-gradle-properties
+      - run: ./gradlew dependencyGuard --quiet
+      - run: ./gradlew spotlessCheck :build-logic:spotlessCheck
 
-      - name: '👷 Build'
+  build:
+    name: 👷 Build
+    needs: validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-java
+      - uses: ./.github/actions/setup-gradle
+      - uses: ./.github/actions/setup-gradle-properties
+      - name: 👷 Build
         id: build
         run: ./gradlew assembleRelease
-      - name: '📦 Archive APKs'
+      - name: 📦 Archive APKs
         uses: actions/upload-artifact@v4
         with:
           name: apk
           path: '**/build/outputs/apk/**/*.apk'
-      - name: '📦 Archive AARs'
+      - name: 📦 Archive AARs
         uses: actions/upload-artifact@v4
         with:
           name: aar
           path: '**/build/outputs/aar'
-      - name: '📢 Diffuse reports'
+      - name: 📢 Diffuse reports
         if: ${{ always() && github.event_name == 'pull_request' && steps.build.outcome == 'success' }}
         uses: ./.github/actions/diffuse-aar
 
-      - name: '🧑‍🔬 Test'
+  test:
+    name: 🧑‍🔬 Test
+    needs: validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-java
+      - uses: ./.github/actions/setup-gradle
+      - uses: ./.github/actions/setup-gradle-properties
+      - name: 🧑‍🔬 Test
         id: test
         run: ./gradlew globalCiUnitTest verifyPaparazziRelease
-      - name: '📦 Archive JUnit reports'
+      - name: 📦 Archive JUnit reports
         if: ${{ always() && contains(fromJSON('["success", "failure"]'), steps.test.outcome) }}
         uses: ./.github/actions/archive-junit-reports
         with:
           html: '**/build/reports/tests/test*'
           xml: '**/build/test-results/test*/**.xml'
-      - name: '📦 Archive Paparazzi reports'
+      - name: 📦 Archive Paparazzi reports
         if: ${{ always() && contains(fromJSON('["success", "failure"]'), steps.test.outcome) }}
         uses: ./.github/actions/archive-paparazzi-reports
-
-      - name: '📢 Paparazzi report'
+      - name: 📢 Paparazzi report
         if: ${{ failure() && steps.test.outcome == 'failure' && github.event_name == 'pull_request'}}
         uses: ./.github/actions/paparazzi-report
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           pr-number: ${{ github.event.pull_request.number }}
 
-      - name: '🕵️ Lint'
+  lint:
+    name: 🕵️ Lint
+    needs: validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-java
+      - uses: ./.github/actions/setup-gradle
+      - uses: ./.github/actions/setup-gradle-properties
+      - name: 🕵️ Lint
         id: lint
         run: ./gradlew lintRelease
-      - name: '📦 Archive Lint reports'
+      - name: 📦 Archive Lint reports
         if: ${{ always() && contains(fromJSON('["success", "failure"]'), steps.lint.outcome) }}
         uses: ./.github/actions/archive-lint-reports
         with:
@@ -101,14 +131,14 @@ jobs:
       - uses: ./.github/actions/setup-gradle
       - uses: ./.github/actions/setup-gradle-properties
 
-      - name: '📋 Build Dokka'
+      - name: 📋 Build Dokka
         # https://github.com/Kotlin/dokka/issues/1217
         run: ./gradlew dokkaHtmlMultiModule --no-configuration-cache --no-parallel --max-workers=1
-      - name: '📦 Archive Dokka'
+      - name: 📦 Archive Dokka
         uses: actions/upload-artifact@v4
         with:
           name: dokka
-          path: 'build/dokka'
+          path: build/dokka
 
   lava-scan:
     needs: validation
@@ -116,7 +146,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - name: '🌋 Run Lava Vulnerability Scanner'
+      - name: 🌋 Run Lava Vulnerability Scanner
         uses: adevinta/lava-action@ddeeddd8ccf45b403741359471a5627644a0c5f6 # v0.3.4
         with:
           version: latest
