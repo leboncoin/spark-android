@@ -28,7 +28,6 @@ import com.adevinta.spark.lint.stubs.FoundationStub
 import com.adevinta.spark.lint.stubs.MaterialComponentsStub
 import com.adevinta.spark.lint.stubs.SparkComponentsStubs
 import com.android.tools.lint.checks.infrastructure.LintDetectorTest
-import com.android.tools.lint.checks.infrastructure.TestLintTask
 import com.android.tools.lint.detector.api.Detector
 import com.android.tools.lint.detector.api.Issue
 import org.junit.Test
@@ -40,8 +39,6 @@ public class MaterialComposableUsageDetectorTest : LintDetectorTest() {
 
     override fun getDetector(): Detector = MaterialComposableUsageDetector()
     override fun getIssues(): List<Issue> = listOf(ISSUE)
-    override fun lint(): TestLintTask = super.lint()
-        .allowMissingSdk()
 
     private fun Issue.explanation(replacement: Pair<String, String>) =
         "${defaultSeverity.description}: Composable ${replacement.first} has a Spark replacement " +
