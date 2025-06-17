@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.catalog
 
+import android.app.UiModeManager
 import android.graphics.RenderEffect
 import android.graphics.RuntimeShader
 import android.net.Uri
@@ -40,6 +41,7 @@ import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.requiredHeightIn
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -71,6 +73,7 @@ import androidx.compose.ui.test.LayoutDirection
 import androidx.compose.ui.test.then
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.core.content.getSystemService
 import com.adevinta.spark.SparkFeatureFlag
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.configurator.ConfiguratorComponentsScreen
@@ -107,6 +110,14 @@ internal fun ComponentActivity.CatalogApp(
 
     val useDark = (theme.themeMode == ThemeMode.System && isSystemInDarkTheme()) || theme.themeMode == ThemeMode.Dark
 
+    // TODO(b/336693596): UIModeManager is not yet supported in preview
+    val contrastLevel = if (isContrastAvailable()) {
+        val uiModeManager = LocalContext.current.getSystemService<UiModeManager>()
+        uiModeManager?.contrast ?: 0f
+    } else {
+        0f
+    }
+
     val colors = if (theme.colorMode == ColorMode.Dynamic && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
         if (useDark) {
             dynamicDarkColorScheme(LocalContext.current)
@@ -114,8 +125,13 @@ internal fun ComponentActivity.CatalogApp(
             dynamicLightColorScheme(LocalContext.current)
         }.asSparkColors(useDark = true)
     } else {
-        themeProvider.colors(useDarkColors = useDark, isPro = theme.userMode == UserMode.Pro)
+        themeProvider.colors(
+            useDarkColors = useDark,
+            isPro = theme.userMode == UserMode.Pro,
+            contrastLevel = contrastLevel,
+        )
     }
+
     val shapes = themeProvider.shapes()
     val typography = themeProvider.typography()
 
@@ -214,11 +230,17 @@ internal fun ComponentActivity.CatalogApp(
                     headerHeight = BackdropScaffoldDefaults.HeaderHeight +
                         WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding(),
                     peekHeight = BackdropScaffoldDefaults.PeekHeight + WindowInsets.statusBars.asPaddingValues()
-                        .calculateTopPadding(),
+                        .calculateTopPadding() - 4.dp,
                     backLayerBackgroundColor = SparkTheme.colors.mainContainer,
                     appBar = {
                         HomeTabBar(
-                            modifier = Modifier.statusBarsPadding(),
+                            modifier = Modifier
+                                .requiredHeightIn(
+                                    min =
+                                    BackdropScaffoldDefaults.PeekHeight + WindowInsets.statusBars.asPaddingValues()
+                                        .calculateTopPadding(),
+                                )
+                                .statusBarsPadding(),
                             tabSelected = homeScreenValues[pagerState.currentPage],
                             onTabSelected = {
                                 coroutineScope.launch {
@@ -289,6 +311,8 @@ internal fun ComponentActivity.CatalogApp(
         }
     }
 }
+
+private fun isContrastAvailable(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE
 
 @Composable
 private fun HomeTabBar(

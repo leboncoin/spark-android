@@ -28,8 +28,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,6 +38,7 @@ import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.paparazziRule
+import com.adevinta.spark.sparkSnapshotHighContrast
 import com.adevinta.spark.sparkSnapshotNightMode
 import org.junit.Rule
 import org.junit.Test
@@ -80,6 +79,13 @@ internal class ColorsScreenshot {
     @Test
     fun themesColors() {
         paparazzi.sparkSnapshotNightMode {
+            Colors()
+        }
+    }
+
+    @Test
+    fun themesColorsHighContrast() {
+        paparazzi.sparkSnapshotHighContrast {
             Colors()
         }
     }
