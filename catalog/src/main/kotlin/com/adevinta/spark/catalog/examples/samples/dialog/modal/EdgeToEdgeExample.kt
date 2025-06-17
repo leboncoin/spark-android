@@ -26,7 +26,6 @@ import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.displayCutout
@@ -36,9 +35,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBars
-import androidx.compose.foundation.layout.windowInsetsEndWidth
-import androidx.compose.foundation.layout.windowInsetsStartWidth
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -64,13 +60,12 @@ import com.adevinta.spark.icons.MoreMenuVertical
 import com.adevinta.spark.icons.SparkIcons
 
 @Composable
-private fun EdgeToEdgeExample() {
+internal fun EdgeToEdgeExample() {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
         var showDialog by rememberSaveable { mutableStateOf(false) }
-
         ButtonFilled(
             onClick = { showDialog = true },
             text = "Show Modal",
@@ -88,7 +83,7 @@ private fun EdgeToEdgeExample() {
                     Text(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .background(SparkTheme.colors.error.copy(alpha = 0.5f)),
+                            .background(SparkTheme.colors.error),
                         textAlign = TextAlign.Center,
                         text = "ModalScaffold",
                         style = SparkTheme.typography.display3,
@@ -115,7 +110,7 @@ private fun EdgeToEdgeExample() {
                         modifier = Modifier
                             .verticalScroll(rememberScrollState())
                             .padding(innerPadding)
-                            .background(SparkTheme.colors.accent.copy(alpha = 0.8f)),
+                            .background(SparkTheme.colors.accent),
                     ) {
                         Text(
                             text = "content",
@@ -130,9 +125,9 @@ private fun EdgeToEdgeExample() {
                             horizontalArrangement = spacedBy(8.dp),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
-                            item {
-                                Spacer(modifier = Modifier.windowInsetsStartWidth(displayCutout))
-                            }
+//                            item {
+//                                Spacer(modifier = Modifier.windowInsetsStartWidth(displayCutout))
+//                            }
                             repeat(25) {
                                 item {
                                     Surface(
@@ -143,9 +138,9 @@ private fun EdgeToEdgeExample() {
                                     }
                                 }
                             }
-                            item {
-                                Spacer(modifier = Modifier.windowInsetsEndWidth(WindowInsets.systemBars))
-                            }
+//                            item {
+//                                Spacer(modifier = Modifier.windowInsetsEndWidth(WindowInsets.systemBars))
+//                            }
                         }
                         VerticalSpacer(100.dp)
                     }

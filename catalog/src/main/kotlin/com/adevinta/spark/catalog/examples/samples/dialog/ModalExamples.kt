@@ -22,9 +22,8 @@
 package com.adevinta.spark.catalog.examples.samples.dialog
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.unit.dp
+import com.adevinta.spark.catalog.examples.samples.dialog.modal.EdgeToEdgeExample
 import com.adevinta.spark.catalog.examples.samples.dialog.modal.ModalSample
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
