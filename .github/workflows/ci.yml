@@ -165,10 +165,9 @@ jobs:
           name: lava-metrics.json
           path: metrics.json
 
-  # skipped jobs are considered successful (used for required status check job )
   finish:
     name: 🏁 Finish
-    if: ${{ !cancelled() }}
+    if: ${{ !cancelled() }} # Skipped jobs are considered successful
     needs:
       - dokka
       - validation
