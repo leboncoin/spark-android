@@ -23,10 +23,10 @@ package com.adevinta.spark.lint
 
 import com.adevinta.spark.lint.MaterialComposableUsageDetector.Companion.ISSUE
 import com.adevinta.spark.lint.stubs.CoilComponentsStub
-import com.adevinta.spark.lint.stubs.Composable
+import com.adevinta.spark.lint.stubs.Composables
 import com.adevinta.spark.lint.stubs.FoundationStub
 import com.adevinta.spark.lint.stubs.MaterialComponentsStub
-import com.adevinta.spark.lint.stubs.SparkComponentsStub
+import com.adevinta.spark.lint.stubs.SparkComponentsStubs
 import com.android.tools.lint.checks.infrastructure.LintDetectorTest
 import com.android.tools.lint.detector.api.Detector
 import com.android.tools.lint.detector.api.Issue
@@ -75,9 +75,8 @@ public class MaterialComposableUsageDetectorTest : LintDetectorTest() {
             """,
             ),
             MaterialComponentsStub,
-            Composable,
+            *Composables,
         )
-            .allowMissingSdk()
             .run()
             .expect(
                 """
@@ -222,10 +221,9 @@ public class MaterialComposableUsageDetectorTest : LintDetectorTest() {
                 }
             """,
             ),
-            Composable,
+            *Composables,
             FoundationStub,
         )
-            .allowMissingSdk()
             .run()
             .expect(
                 """
@@ -264,10 +262,9 @@ public class MaterialComposableUsageDetectorTest : LintDetectorTest() {
                 }
             """,
             ),
-            Composable,
+            *Composables,
             CoilComponentsStub,
         )
-            .allowMissingSdk()
             .run()
             .expect(
                 """
@@ -306,6 +303,16 @@ public class MaterialComposableUsageDetectorTest : LintDetectorTest() {
                 package foo
                 import androidx.compose.runtime.*
                 import com.adevinta.spark.*
+                import com.adevinta.spark.components.buttons.*
+                import com.adevinta.spark.components.textfields.*
+                import com.adevinta.spark.components.toggles.*
+                import com.adevinta.spark.components.snackbars.*
+                import com.adevinta.spark.components.progress.*
+                import com.adevinta.spark.components.image.*
+                import com.adevinta.spark.components.icons.*
+                import com.adevinta.spark.components.divider.*
+                import com.adevinta.spark.components.text.*
+                import com.adevinta.spark.components.tags.*
 
                 @Composable
                 fun Test() {
@@ -315,21 +322,43 @@ public class MaterialComposableUsageDetectorTest : LintDetectorTest() {
                     ButtonGhost()
                     ButtonContrast()
                     TextField()
+                    DropDown()
                     MultilineTextField()
-                    SelectTextField()
+                    Combobox()
                     CheckBox()
                     RadioButton()
                     Switch()
+                    CheckboxLabelled()
+                    RadioButtonLabelled()
+                    SwitchLabelled()
+                    Snackbar()
+                    SnackbarHost()
                     SparkTheme()
                     LinearProgressIndicator()
-                    Snackbar()
+                    Image()
+                    Illustration()
+                    UserAvatar()
+                    Icon()
+                    IconButton()
+                    FilledIconButton()
+                    FilledTonalIconButton()
+                    OutlinedIconButton()
+                    IconToggleButton()
+                    FilledIconToggleButton()
+                    FilledTonalIconToggleButton()
+                    OutlinedIconToggleButton()
+                    HorizontalDivider()
+                    VerticalDivider()
+                    Text()
+                    TagFilled()
+                    TagOutlined()
+                    TagTinted()
                 }
-            """,
+                """.trimIndent(),
             ),
-            SparkComponentsStub,
-            Composable,
+            *Composables,
+            * SparkComponentsStubs,
         )
-            .allowMissingSdk()
             .run()
             .expectClean()
     }
