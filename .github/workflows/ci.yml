@@ -51,6 +51,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-java
       - uses: ./.github/actions/setup-gradle
+        with:
+          cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
       - uses: ./.github/actions/setup-gradle-properties
       - name: 👷 Build
         id: build
@@ -80,6 +82,8 @@ jobs:
           lfs: true
       - uses: ./.github/actions/setup-java
       - uses: ./.github/actions/setup-gradle
+        with:
+          cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
       - uses: ./.github/actions/setup-gradle-properties
       - name: 🧑‍🔬 Test
         id: test
@@ -109,6 +113,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-java
       - uses: ./.github/actions/setup-gradle
+        with:
+          cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
       - uses: ./.github/actions/setup-gradle-properties
       - name: 🕵️ Lint
         id: lint
