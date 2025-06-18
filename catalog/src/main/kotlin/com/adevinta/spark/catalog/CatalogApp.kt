@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.catalog
 
-import android.app.UiModeManager
 import android.graphics.RenderEffect
 import android.graphics.RuntimeShader
 import android.net.Uri
@@ -70,7 +69,6 @@ import androidx.compose.ui.test.LayoutDirection
 import androidx.compose.ui.test.then
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import androidx.core.content.getSystemService
 import com.adevinta.spark.SparkFeatureFlag
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.configurator.ConfiguratorComponentsScreen
@@ -95,6 +93,7 @@ import com.adevinta.spark.catalog.ui.rememberBackdropScaffoldState
 import com.adevinta.spark.catalog.ui.shaders.colorblindness.ColorBlindNessType
 import com.adevinta.spark.catalog.ui.shaders.colorblindness.shader
 import com.adevinta.spark.tokens.asSparkColors
+import com.adevinta.spark.tokens.contrastLevel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -107,13 +106,7 @@ internal fun ComponentActivity.CatalogApp(
 
     val useDark = (theme.themeMode == ThemeMode.System && isSystemInDarkTheme()) || theme.themeMode == ThemeMode.Dark
 
-    // TODO(b/336693596): UIModeManager is not yet supported in preview
-    val contrastLevel = if (isContrastAvailable()) {
-        val uiModeManager = LocalContext.current.getSystemService<UiModeManager>()
-        uiModeManager?.contrast ?: 0f
-    } else {
-        0f
-    }
+    val contrastLevel = contrastLevel(LocalContext.current)
 
     val colors = if (theme.colorMode == ColorMode.Dynamic && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
         if (useDark) {
