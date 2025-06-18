@@ -37,7 +37,6 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
@@ -59,6 +58,8 @@ import androidx.compose.ui.unit.dp
 import androidx.graphics.shapes.CornerRounding
 import androidx.graphics.shapes.RoundedPolygon
 import androidx.graphics.shapes.star
+import androidx.window.core.layout.WindowSizeClass.Companion.WIDTH_DP_EXPANDED_LOWER_BOUND
+import androidx.window.core.layout.WindowSizeClass.Companion.WIDTH_DP_MEDIUM_LOWER_BOUND
 import coil3.annotation.ExperimentalCoilApi
 import coil3.asImage
 import coil3.compose.AsyncImageModelEqualityDelegate
@@ -118,9 +119,9 @@ private fun ColumnScope.ImageSample() {
         .data(state.ordinal)
         .build()
 
-    val imageMaxWidth = when (LocalWindowSizeClass.current.widthSizeClass) {
-        WindowWidthSizeClass.Expanded -> 350.dp
-        WindowWidthSizeClass.Medium -> 250.dp
+    val imageMaxWidth = when {
+        LocalWindowSizeClass.current.isWidthAtLeastBreakpoint(WIDTH_DP_EXPANDED_LOWER_BOUND) -> 350.dp
+        LocalWindowSizeClass.current.isWidthAtLeastBreakpoint(WIDTH_DP_MEDIUM_LOWER_BOUND) -> 250.dp
         else -> 200.dp
     }
     val previewHandler = AsyncImagePreviewHandler { _, request ->

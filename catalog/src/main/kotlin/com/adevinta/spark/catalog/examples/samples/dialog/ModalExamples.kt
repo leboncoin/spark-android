@@ -23,6 +23,7 @@ package com.adevinta.spark.catalog.examples.samples.dialog
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.unit.dp
+import com.adevinta.spark.catalog.examples.samples.dialog.modal.EdgeToEdgeExample
 import com.adevinta.spark.catalog.examples.samples.dialog.modal.ModalSample
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
@@ -53,5 +54,15 @@ public val DialogsExamples: List<Example> = listOf(
         sourceUrl = ModalsExampleSourceUrl,
     ) {
         ModalSample(withButtons = false)
+    },
+
+    Example(
+        id = "edge to edge test",
+        name = "Edge to edge",
+        description = "Showcase the modal component with no main and support button. \n This will hide the Bottom " +
+            "App Bar and add a close button in the dialog layout",
+        sourceUrl = ModalsExampleSourceUrl,
+    ) {
+        EdgeToEdgeExample()
     },
 )

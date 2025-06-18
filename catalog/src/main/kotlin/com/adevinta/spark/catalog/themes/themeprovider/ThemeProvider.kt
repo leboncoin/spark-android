@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.catalog.themes.themeprovider
 
+import androidx.annotation.FloatRange
 import androidx.compose.runtime.Composable
 import com.adevinta.spark.tokens.SparkColors
 import com.adevinta.spark.tokens.SparkShapes
@@ -28,7 +29,11 @@ import com.adevinta.spark.tokens.SparkTypography
 
 public interface ThemeProvider {
     @Composable
-    public fun colors(useDarkColors: Boolean, isPro: Boolean): SparkColors
+    public fun colors(
+        useDarkColors: Boolean,
+        isPro: Boolean,
+        @FloatRange(from = -1.0, to = 1.0) contrastLevel: Float,
+    ): SparkColors
 
     @Composable
     public fun shapes(): SparkShapes

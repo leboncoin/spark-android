@@ -35,6 +35,8 @@ import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.register
 import org.gradle.kotlin.dsl.the
 import org.gradle.plugins.signing.SigningExtension
+import kotlin.time.Duration.Companion.minutes
+import kotlin.time.toJavaDuration
 
 internal class SparkPublishingPlugin : Plugin<Project> {
 
@@ -65,6 +67,7 @@ internal class SparkPublishingPlugin : Plugin<Project> {
             username = System.getenv("CENTRAL_PORTAL_USERNAME")
             password = System.getenv("CENTRAL_PORTAL_PASSWORD")
             publishingType = "AUTOMATIC"
+            verificationTimeout = 20.minutes.toJavaDuration()
         }
     }
 

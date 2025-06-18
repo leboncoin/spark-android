@@ -36,7 +36,7 @@ import androidx.compose.material3.LocalUseFallbackRippleImplementation
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.RippleConfiguration
-import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ProvidableCompositionLocal
@@ -63,7 +63,6 @@ import com.adevinta.spark.tokens.SparkTypography
 import com.adevinta.spark.tokens.asMaterial3Colors
 import com.adevinta.spark.tokens.asMaterial3Shapes
 import com.adevinta.spark.tokens.asMaterial3Typography
-import com.adevinta.spark.tokens.calculateWindowSizeClass
 import com.adevinta.spark.tokens.darkSparkColors
 import com.adevinta.spark.tokens.debugColors
 import com.adevinta.spark.tokens.lightSparkColors
@@ -99,7 +98,7 @@ import com.adevinta.spark.tools.SparkExceptionHandler
  * @param exceptionHandler An instance of [SparkExceptionHandler] for handling logs within Spark components.
  * Defaults to [DefaultSparkExceptionHandler].
  */
-@OptIn(ExperimentalMaterial3WindowSizeClassApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 public fun SparkTheme(
     // We don't want to automatically support dark theme in the app but still want it in the previews
@@ -148,7 +147,7 @@ public fun SparkTheme(
         LocalSparkShapes provides internalShapes,
         LocalSparkFeatureFlag provides sparkFeatureFlag,
         LocalSparkExceptionHandler provides exceptionHandler,
-        LocalWindowSizeClass provides calculateWindowSizeClass(),
+        LocalWindowSizeClass provides currentWindowAdaptiveInfo().windowSizeClass,
         LocalUseFallbackRippleImplementation provides false,
         LocalIndication provides rippleIndication,
     ) {
