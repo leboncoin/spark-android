@@ -46,8 +46,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
-import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -59,11 +57,14 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.paneTitle
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.DialogWindowProvider
+import androidx.window.core.layout.WindowSizeClass.Companion.HEIGHT_DP_MEDIUM_LOWER_BOUND
+import androidx.window.core.layout.WindowSizeClass.Companion.WIDTH_DP_MEDIUM_LOWER_BOUND
 import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.R
@@ -85,7 +86,6 @@ import com.adevinta.spark.icons.MoreMenuVertical
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.Layout
 import com.adevinta.spark.tokens.LocalWindowSizeClass
-import com.adevinta.spark.tools.preview.DevicePreviews
 
 /**
  * A composable function that creates a full-screen modal scaffold, adapting its layout based on the device's screen
@@ -124,13 +124,9 @@ public fun ModalScaffold(
     content: @Composable (PaddingValues) -> Unit,
 ) {
     val size = LocalWindowSizeClass.current
-    val isPhoneLandscape = size.heightSizeClass == WindowHeightSizeClass.Compact
-    val isPhonePortraitOrFoldable =
-        (size.widthSizeClass == WindowWidthSizeClass.Compact || size.widthSizeClass == WindowWidthSizeClass.Medium) &&
-            (
-                size.heightSizeClass == WindowHeightSizeClass.Medium ||
-                    size.heightSizeClass == WindowHeightSizeClass.Expanded
-                )
+    val isPhoneLandscape =
+        !size.isHeightAtLeastBreakpoint(HEIGHT_DP_MEDIUM_LOWER_BOUND)
+    val isFoldableOrTablet = size.isAtLeastBreakpoint(WIDTH_DP_MEDIUM_LOWER_BOUND, HEIGHT_DP_MEDIUM_LOWER_BOUND)
 
     val properties = DialogProperties(
         usePlatformDefaultWidth = !inEdgeToEdge,
@@ -141,17 +137,15 @@ public fun ModalScaffold(
     val dialogModifier = modifier.then(Modifier.semantics { paneTitle = dialogPaneDescription })
 
     when {
-        isPhonePortraitOrFoldable -> PhonePortraitModalScaffold(
+        isFoldableOrTablet -> DialogScaffold(
             modifier = dialogModifier,
-            properties = properties,
-            contentPadding = contentPadding,
             onClose = onClose,
+            contentPadding = contentPadding,
             snackbarHost = snackbarHost,
             mainButton = mainButton,
             supportButton = supportButton,
             title = title,
             actions = actions,
-            inEdgeToEdge = inEdgeToEdge,
             content = content,
         )
 
@@ -169,15 +163,18 @@ public fun ModalScaffold(
             content = content,
         )
 
-        else -> DialogScaffold(
+        else ->
+        PhonePortraitModalScaffold(
             modifier = dialogModifier,
-            onClose = onClose,
+            properties = properties,
             contentPadding = contentPadding,
+            onClose = onClose,
             snackbarHost = snackbarHost,
             mainButton = mainButton,
             supportButton = supportButton,
             title = title,
             actions = actions,
+            inEdgeToEdge = inEdgeToEdge,
             content = content,
         )
     }
@@ -302,7 +299,7 @@ private fun BottomBarPortrait(
             .fillMaxWidth()
             .padding(horizontal = 24.dp)
             .padding(vertical = 16.dp)
-        if (Layout.windowSize.widthSizeClass == WindowWidthSizeClass.Compact) {
+        if (!Layout.windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_MEDIUM_LOWER_BOUND)) {
             Column(
                 modifier = buttonsLayoutModifier,
                 verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Bottom),
@@ -452,7 +449,8 @@ public object ModalDefault {
     public val DialogPadding: PaddingValues = PaddingValues(horizontal = 24.dp)
 }
 
-@DevicePreviews
+// @DevicePreviews
+@PreviewScreenSizes
 @Composable
 private fun ModalPreview() {
     PreviewTheme(
