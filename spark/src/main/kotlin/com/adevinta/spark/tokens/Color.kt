@@ -22,8 +22,12 @@
 package com.adevinta.spark.tokens
 
 import android.annotation.SuppressLint
+import android.app.UiModeManager
+import android.content.Context
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.content.res.Configuration.UI_MODE_TYPE_NORMAL
+import android.os.Build
+import androidx.annotation.FloatRange
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -53,7 +57,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.core.content.getSystemService
 import androidx.core.graphics.ColorUtils
+import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
@@ -1457,6 +1463,39 @@ public fun SparkColors.surfaceColorAtElevation(
     if (elevation > 0.dp && surface.luminance() >= 0.5) return surface
     val alpha = ((4.5f * ln(elevation.value + 1)) + 2f) / 100f
     return surfaceTint.copy(alpha = alpha).compositeOver(surface)
+}
+
+/**
+ * Contrast level is an api available in the [UiModeManager] starting Android 34
+ */
+public val isContrastLevelAvailable: Boolean = Build.VERSION.SDK_INT >= 34
+
+/**
+ * Retrieve the contrast level of the device. This value can be used to adjust the colors of the theme.
+ *
+ * It is available on Android 34 and above. On lower versions, the fallback value will be returned.
+ *
+ * The contrast level is a float value between -1.0 and 1.0. The default value is 0.0.
+ * A value of -1.0 means that the contrast is set to the minimum value, and a value of 1.0 means that the contrast is
+ * set to the maximum value.
+ *
+ * @param context The context to use to retrieve the UiModeManager.
+ * @param fallback The fallback value to return if the contrast level is not available.
+ * @return The contrast level of the device or the fallback if not available.
+ *
+ * @see isContrastLevelAvailable
+ * @see UiModeManager.getContrast
+ */
+@ExperimentalSparkApi
+@FloatRange(from = -1.0, to = 1.0)
+public fun contrastLevel(
+    context: Context,
+    fallback: () -> Float = { 0f },
+): Float = if (isContrastLevelAvailable) {
+    val uiModeManager = context.getSystemService<UiModeManager>()
+    uiModeManager?.contrast?.takeIf { isContrastLevelAvailable } ?: fallback()
+} else {
+    fallback()
 }
 
 /**
