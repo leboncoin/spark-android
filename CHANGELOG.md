@@ -4,8 +4,153 @@
 
 ## [Unreleased]
 
-### Catalog
-* 💬🇫🇷 The catalog app can now be used with a french locale.
+### Spark
+
+#### 🆕 High Color Contrast Support
+> [!NOTE]
+> This feature requires Android 14 (API level 34) or higher to access system contrast settings.
+
+- ✨ High contrast color themes are now available for both light and dark modes
+
+Call these new methods to get the basic colors in high contrast for light and dark mode:
+```kotlin
+if (useDarkColors) {
+    darkHighContrastSparkColors()
+} else {
+    lightHighContrastSparkColors()
+}
+```
+
+#### 🆕 ComboBox Component
+> [!TIP]
+> ComboBox uses the new TextFieldState API for improved state management.
+
+- ✨ **Major API Upgrade**: ComboBox components now use `TextFieldState` instead of value/onValueChange pattern (#1572)
+- ✨ **Enhanced Single Selection**: `SingleChoiceComboBox` with improved filtering and suggestion capabilities 
+- ✨ **Multi-Selection Support**: `MultiChoiceComboBox` with chip-based selection display and management
+
+**Example: Real-time Filtering ComboBox**
+```kotlin
+val state = rememberTextFieldState()
+var expanded by remember { mutableStateOf(false) }
+var searchText by remember { mutableStateOf("") }
+
+val filteredBooks by remember(searchText) {
+    derivedStateOf {
+        if (searchText.isBlank()) comboBoxSampleValues
+        else comboBoxSampleValues.filter { 
+            it.title.contains(searchText, ignoreCase = true) 
+        }
+    }
+}
+
+LaunchedEffect(Unit) {
+    snapshotFlow { state.text }
+        .debounce(300.milliseconds)
+        .onEach { queryText -> searchText = queryText.toString() }
+        .collect()
+}
+
+SingleChoiceComboBox(
+    state = state,
+    expanded = expanded,
+    onExpandedChange = { expanded = it },
+    onDismissRequest = { expanded = false },
+    label = "Search books",
+    placeholder = "Type to search...",
+    helper = "Filter books by typing in the search box"
+) {
+    filteredBooks.forEach { book ->
+        DropdownMenuItem(
+            text = { Text(book.title) },
+            onClick = {
+                state.setTextAndPlaceCursorAtEnd(book.title)
+                expanded = false
+            },
+            selected = book.title == state.text
+        )
+    }
+}
+```
+
+**Example: Smart Suggestions ComboBox**
+```kotlin
+val state = rememberTextFieldState()
+var searchText by remember { mutableStateOf("") }
+
+val suggestedBooks by remember(searchText) {
+    derivedStateOf {
+        if (searchText.isBlank()) emptyList()
+        else comboBoxSampleValues.filter { 
+            it.title.contains(searchText, ignoreCase = true) 
+        }.take(3) // Limit to top 3 suggestions
+    }
+}
+
+var showDropdown by remember { mutableStateOf(false) }
+val expanded by remember {
+    derivedStateOf { showDropdown && suggestedBooks.isNotEmpty() }
+}
+
+SingleChoiceComboBox(
+    state = state,
+    expanded = expanded,
+    onExpandedChange = { showDropdown = it },
+    onDismissRequest = { 
+        searchText = ""
+        showDropdown = false 
+    },
+    label = "Search with suggestions",
+    placeholder = "Type to see suggestions...",
+    helper = "Get book suggestions as you type"
+) {
+    suggestedBooks.forEach { book ->
+        DropdownMenuItem(
+            text = { Text(book.title) },
+            onClick = {
+                state.setTextAndPlaceCursorAtEnd(book.title)
+                searchText = ""
+                showDropdown = false
+            },
+            selected = book.title == state.text
+        )
+    }
+}
+```
+
+#### 🐛 Modal & Dialog Improvements
+- 🐛 Modal components now pass correct insets as padding and don't take space when no footer is available (#1579)
+- 🔧 Improved edge-to-edge support for modals with proper window flag handling
+- 🔧 BottomAppBar now uses `heightIn` instead of fixed height for better responsive behavior
+
+#### 🔧 Component Updates
+- 🗑️ Remove deprecation on `IconToggleButton` (#1573)
+- 🔧 Dropdown API enhanced to support both single and multi-selection patterns with improved `DropdownMenuItem` overloads thanks to the work done in the combobox
+- 🐛 Fixed lint rule stubs used for testing (#1564)
+- 🐛 Fixed popover hidden close button issue (#1570) by @amokhefi
+- ♿ Removed duplicate content description for tab icons to improve accessibility (#1563)
+
+### Catalog App
+
+- 🗑️ Removed brand theming options to simplify the configuration (#1571)
+- 🔧 Improved edge-to-edge modal examples with proper padding and inset handling
+- 💬🇫🇷 The catalog app more text translated to french locale
+- ✨ New stepper example for custom form usage (#1560)
+- ✨ New support for high color contrast themes based on system accessibility settings (#1464)
+- 🎨 The catalog app now includes a contrast level slider to test different contrast configurations
+
+#### 🆕 Animation Enhancements
+- ✨ New `AnimatedNullableVisibility` overloads that properly handle nullable content during exit animations (#1565)
+- ✨ Added `pulse` animation modifier for creating pulsating visual effects
+- 🎨 Enhanced animation support in preview environments with new composition locals
+- ✨ Added shared transitions throughout the app to showcase how to use them (#1567)
+
+### CI
+
+- 🚀 Added custom job to simplify required status checks (#1586)
+- 🚀 Enabled Gradle Configuration Cache on CI workflow for improved build performance (#1585)
+- 🚀 Optimized CI workflow by splitting jobs for better parallelization (#1584)
+- 🚀 Migrated publishing from OSSRH to Central Portal (#1581)
 
 ## [1.2.2]
 
