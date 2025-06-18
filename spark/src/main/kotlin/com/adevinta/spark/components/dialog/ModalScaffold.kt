@@ -164,19 +164,19 @@ public fun ModalScaffold(
         )
 
         else ->
-        PhonePortraitModalScaffold(
-            modifier = dialogModifier,
-            properties = properties,
-            contentPadding = contentPadding,
-            onClose = onClose,
-            snackbarHost = snackbarHost,
-            mainButton = mainButton,
-            supportButton = supportButton,
-            title = title,
-            actions = actions,
-            inEdgeToEdge = inEdgeToEdge,
-            content = content,
-        )
+            PhonePortraitModalScaffold(
+                modifier = dialogModifier,
+                properties = properties,
+                contentPadding = contentPadding,
+                onClose = onClose,
+                snackbarHost = snackbarHost,
+                mainButton = mainButton,
+                supportButton = supportButton,
+                title = title,
+                actions = actions,
+                inEdgeToEdge = inEdgeToEdge,
+                content = content,
+            )
     }
 }
 
