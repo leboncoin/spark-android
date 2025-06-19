@@ -24,6 +24,7 @@ package com.adevinta.spark.catalog
 import android.app.UiModeManager
 import android.app.assist.AssistContent
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.KeyboardShortcutGroup
 import android.view.KeyboardShortcutInfo
@@ -39,6 +40,7 @@ import androidx.core.content.getSystemService
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.metrics.performance.JankStats
 import androidx.navigation.NavController
 import com.adevinta.spark.catalog.datastore.theme.ThemePropertiesHandler
 import com.adevinta.spark.catalog.datastore.theme.collectAsStateWithDefault
@@ -52,6 +54,17 @@ public class MainActivity : AppCompatActivity() {
 
     internal var activeNavController: NavController? = null
 
+    // JankStats usage taken from NIA but it'll help detect issues in the catalog app like the backdrop front layer.
+    internal val jankStats: JankStats by lazy(LazyThreadSafetyMode.NONE) {
+        JankStats.createAndTrack(window) { frameData ->
+            // Make sure to only log janky frames.
+            if (frameData.isJank) {
+                // We're currently logging this but would better report it to a backend.
+                Log.v("Catalog Jank", frameData.toString())
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Turn off the decor fitting system windows, which allows us to handle insets,
@@ -60,6 +73,7 @@ public class MainActivity : AppCompatActivity() {
 //        enableEdgeToEdge()
         val uiModeManager = getSystemService<UiModeManager>()
         val propertiesHandler = ThemePropertiesHandler(context = this@MainActivity)
+
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
                 propertiesHandler
@@ -107,6 +121,16 @@ public class MainActivity : AppCompatActivity() {
                 },
             )
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        jankStats.isTrackingEnabled = true
+    }
+
+    override fun onPause() {
+        super.onPause()
+        jankStats.isTrackingEnabled = false
     }
 
     override fun onProvideKeyboardShortcuts(
