@@ -121,7 +121,7 @@ android-library = { id = "com.android.library", version.ref = "android-gradlePlu
 android-lint = { id = "com.android.lint", version.ref = "android-gradlePlugin" }
 android-test = { id = "com.android.test", version.ref = "android-gradlePlugin" }
 compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-paparazzi = "app.cash.paparazzi:2.0.0-alpha01"
+paparazzi = "app.cash.paparazzi:2.0.0-alpha02"
 dependencyGuard = { id = "com.dropbox.dependency-guard", version.ref = "dependencyGuard" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
