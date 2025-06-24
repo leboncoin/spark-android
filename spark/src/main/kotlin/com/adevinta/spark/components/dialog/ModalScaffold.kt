@@ -31,6 +31,7 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -45,6 +46,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -115,6 +117,7 @@ public fun ModalScaffold(
     onClose: () -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = DialogPadding,
+    contentWindowInsets: WindowInsets = ScaffoldDefaults.contentWindowInsets,
     snackbarHost: @Composable () -> Unit = {},
     mainButton: (@Composable (Modifier) -> Unit)? = null,
     supportButton: (@Composable (Modifier) -> Unit)? = null,
@@ -159,6 +162,7 @@ public fun ModalScaffold(
             supportButton = supportButton,
             title = title,
             actions = actions,
+            contentWindowInsets = contentWindowInsets,
             inEdgeToEdge = inEdgeToEdge,
             content = content,
         )
@@ -174,6 +178,7 @@ public fun ModalScaffold(
                 supportButton = supportButton,
                 title = title,
                 actions = actions,
+                contentWindowInsets = contentWindowInsets,
                 inEdgeToEdge = inEdgeToEdge,
                 content = content,
             )
@@ -254,6 +259,7 @@ private fun PhonePortraitModalScaffold(
     actions: @Composable RowScope.() -> Unit = {},
     mainButton: (@Composable (Modifier) -> Unit)? = null,
     supportButton: (@Composable (Modifier) -> Unit)? = null,
+    contentWindowInsets: WindowInsets = ScaffoldDefaults.contentWindowInsets,
     inEdgeToEdge: Boolean = false,
     content: @Composable (PaddingValues) -> Unit,
 ) {
@@ -271,6 +277,7 @@ private fun PhonePortraitModalScaffold(
                 .fillMaxSize()
                 .nestedScroll(scrollBehavior.nestedScrollConnection),
             snackbarHost = snackbarHost,
+            contentWindowInsets = contentWindowInsets,
             topBar = {
                 TopAppBar(
                     navigationIcon = {
@@ -283,7 +290,9 @@ private fun PhonePortraitModalScaffold(
             },
             bottomBar = { BottomBarPortrait(mainButton, supportButton) },
         ) { innerPadding ->
-            content(innerPadding)
+            Box(Modifier.padding(contentPadding)) {
+                content(innerPadding)
+            }
         }
     }
 }
@@ -333,6 +342,7 @@ private fun PhoneLandscapeModalScaffold(
     supportButton: (@Composable (Modifier) -> Unit)? = null,
     title: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
+    contentWindowInsets: WindowInsets = ScaffoldDefaults.contentWindowInsets,
     illustrationContentScale: ContentScale = ContentScale.Fit,
     inEdgeToEdge: Boolean = false,
     content: @Composable (PaddingValues) -> Unit,
@@ -350,6 +360,7 @@ private fun PhoneLandscapeModalScaffold(
                 .fillMaxSize()
                 .nestedScroll(scrollBehavior.nestedScrollConnection),
             snackbarHost = snackbarHost,
+            contentWindowInsets = contentWindowInsets,
             bottomBar = {
                 if (supportButton == null && mainButton == null) return@Scaffold
                 Surface {
@@ -438,10 +449,10 @@ private fun SetUpEdgeToEdgeDialog() {
  */
 private operator fun PaddingValues.plus(other: PaddingValues): PaddingValues = PaddingValues(
     start = this.calculateStartPadding(LayoutDirection.Ltr) +
-        other.calculateStartPadding(LayoutDirection.Ltr),
+            other.calculateStartPadding(LayoutDirection.Ltr),
     top = this.calculateTopPadding() + other.calculateTopPadding(),
     end = this.calculateEndPadding(LayoutDirection.Ltr) +
-        other.calculateEndPadding(LayoutDirection.Ltr),
+            other.calculateEndPadding(LayoutDirection.Ltr),
     bottom = this.calculateBottomPadding() + other.calculateBottomPadding(),
 )
 
@@ -481,23 +492,23 @@ private fun ModalPreview() {
                         .padding(innerPadding)
                         .verticalScroll(rememberScrollState()),
                     text =
-                    "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. " +
-                        "Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur " +
-                        "ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. " +
-                        "\n\nNulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, " +
-                        "vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. " +
-                        "Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. " +
-                        "Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. " +
-                        "\n\nAenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante," +
-                        " dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius " +
-                        "laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. " +
-                        "Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. " +
-                        "\n\nMaecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet " +
-                        "adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, " +
-                        "lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis " +
-                        "faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. " +
-                        "Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. " +
-                        "Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,",
+                        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. " +
+                                "Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur " +
+                                "ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. " +
+                                "\n\nNulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, " +
+                                "vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. " +
+                                "Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. " +
+                                "Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. " +
+                                "\n\nAenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante," +
+                                " dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius " +
+                                "laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. " +
+                                "Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. " +
+                                "\n\nMaecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet " +
+                                "adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, " +
+                                "lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis " +
+                                "faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. " +
+                                "Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. " +
+                                "Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,",
                 )
             }
         }
