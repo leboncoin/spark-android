@@ -70,7 +70,7 @@ public object Layout {
             when {
                 windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_EXPANDED_LOWER_BOUND) -> 24.dp
                 windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_MEDIUM_LOWER_BOUND) -> 16.dp
-                else -> 18.dp
+                else -> 8.dp
             }
 
     public val columns: Int
