@@ -40,11 +40,13 @@ android {
         unitTests.isReturnDefaultValues = true
     }
 
-    kotlinOptions {
-        freeCompilerArgs += listOf(
-            "-opt-in=com.adevinta.spark.InternalSparkApi",
-            "-opt-in=com.adevinta.spark.ExperimentalSparkApi",
-        )
+    kotlin {
+        compilerOptions {
+            optIn.addAll(
+                "com.adevinta.spark.InternalSparkApi",
+                "com.adevinta.spark.ExperimentalSparkApi",
+            )
+        }
     }
 }
 
