@@ -44,6 +44,7 @@ android {
         freeCompilerArgs += listOf(
             "-opt-in=com.adevinta.spark.InternalSparkApi",
             "-opt-in=com.adevinta.spark.ExperimentalSparkApi",
+            "-Xannotation-default-target=param-property",
         )
     }
 }
