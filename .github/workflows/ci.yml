@@ -41,6 +41,7 @@ jobs:
       - uses: ./.github/actions/setup-gradle-properties
       - run: ./gradlew dependencyGuard --quiet
       - run: ./gradlew spotlessCheck :build-logic:spotlessCheck
+      - run: ./gradlew checkLegacyAbi
 
   build:
     name: 👷 Build
