@@ -59,6 +59,10 @@ Here is a list of Gradle tasks commonly used in this project:
   ```bash
   ./gradlew cleanRecordPaparazziRelease
   ```
+- Binary Compatibility Validation: update the reference ABI
+  ```bash
+  ./gradlew updateLegacyAbi
+  ```
 - Linting: run Lint analysis
   ```bash
   ./gradlew lintRelease
