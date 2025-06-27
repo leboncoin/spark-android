@@ -63,7 +63,7 @@ internal class SparkPublishingPlugin : Plugin<Project> {
     }
 
     private fun Project.configureNMCP() = configure<NmcpExtension> {
-        centralPortal {
+        publishAllPublicationsToCentralPortal {
             username = System.getenv("CENTRAL_PORTAL_USERNAME")
             password = System.getenv("CENTRAL_PORTAL_PASSWORD")
             publishingType = "AUTOMATIC"
