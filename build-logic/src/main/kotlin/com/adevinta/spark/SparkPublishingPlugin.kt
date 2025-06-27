@@ -67,7 +67,7 @@ internal class SparkPublishingPlugin : Plugin<Project> {
             username = System.getenv("CENTRAL_PORTAL_USERNAME")
             password = System.getenv("CENTRAL_PORTAL_PASSWORD")
             publishingType = "AUTOMATIC"
-            verificationTimeout = 20.minutes.toJavaDuration()
+            publishingTimeout = 20.minutes.toJavaDuration()
         }
     }
 
