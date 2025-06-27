@@ -9,7 +9,7 @@ dokka = "1.9.20"
 kotlin = "2.2.0"
 lint = "31.11.0"
 minCompileSdk = "24"
-nmcp = "0.1.5"
+nmcp = "0.2.1"
 spotless = "7.0.4"
 targetSdk = "35"
 
