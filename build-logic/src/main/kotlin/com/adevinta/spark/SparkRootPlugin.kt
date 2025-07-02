@@ -21,40 +21,14 @@
  */
 package com.adevinta.spark
 
-import nmcp.NmcpAggregationExtension
-import nmcp.NmcpAggregationPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.apply
-import org.gradle.kotlin.dsl.assign
-import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.dependencies
-import kotlin.time.Duration.Companion.minutes
-import kotlin.time.toJavaDuration
 
 internal class SparkRootPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             SparkUnitTests.configureRootProject(project)
-
-            configureNmcpPublication()
-        }
-    }
-
-    private fun Project.configureNmcpPublication() {
-        apply<NmcpAggregationPlugin>()
-        configure<NmcpAggregationExtension> {
-            centralPortal {
-                username = System.getenv("CENTRAL_PORTAL_USERNAME")
-                password = System.getenv("CENTRAL_PORTAL_PASSWORD")
-                publishingType = "AUTOMATIC"
-                publishingTimeout = 20.minutes.toJavaDuration()
-            }
-        }
-        dependencies {
-            add("nmcpAggregation", project(":spark-bom"))
-            add("nmcpAggregation", project(":spark-icons"))
-            add("nmcpAggregation", project(":spark"))
+            SparkPublication.configureRootProject(project)
         }
     }
 }
