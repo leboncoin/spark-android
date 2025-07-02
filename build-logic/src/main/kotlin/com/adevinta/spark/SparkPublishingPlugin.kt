@@ -29,5 +29,4 @@ internal class SparkPublishingPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         SparkPublication.configureSubproject(target)
     }
-
 }

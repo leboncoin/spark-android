@@ -19,7 +19,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 package com.adevinta.spark
 
 import com.android.build.gradle.LibraryExtension
@@ -69,7 +68,6 @@ internal object SparkPublication {
         registerPublication()
         configureSigning()
     }
-
 
     private fun Project.configureRepository() = configure<PublishingExtension> {
         repositories {
