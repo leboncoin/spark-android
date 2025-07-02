@@ -22,7 +22,7 @@
 package com.adevinta.spark
 
 import com.android.build.gradle.LibraryExtension
-import nmcp.NmcpExtension
+import nmcp.NmcpPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
@@ -35,8 +35,6 @@ import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.register
 import org.gradle.kotlin.dsl.the
 import org.gradle.plugins.signing.SigningExtension
-import kotlin.time.Duration.Companion.minutes
-import kotlin.time.toJavaDuration
 
 internal class SparkPublishingPlugin : Plugin<Project> {
 
@@ -44,10 +42,9 @@ internal class SparkPublishingPlugin : Plugin<Project> {
         with(target) {
             apply(plugin = "org.gradle.maven-publish")
             apply(plugin = "org.gradle.signing")
-            apply(plugin = "com.gradleup.nmcp")
+            apply<NmcpPlugin>()
 
             configureRepository()
-            configureNMCP()
             registerPublication()
             configureSigning()
         }
@@ -59,15 +56,6 @@ internal class SparkPublishingPlugin : Plugin<Project> {
                 name = "Local"
                 url = uri(rootProject.layout.buildDirectory.dir(".m2/repository"))
             }
-        }
-    }
-
-    private fun Project.configureNMCP() = configure<NmcpExtension> {
-        publishAllPublicationsToCentralPortal {
-            username = System.getenv("CENTRAL_PORTAL_USERNAME")
-            password = System.getenv("CENTRAL_PORTAL_PASSWORD")
-            publishingType = "AUTOMATIC"
-            publishingTimeout = 20.minutes.toJavaDuration()
         }
     }
 
