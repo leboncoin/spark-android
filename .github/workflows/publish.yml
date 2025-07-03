@@ -16,7 +16,7 @@ jobs:
       - uses: ./.github/actions/setup-gradle-properties
 
       - name: '📦 Publish to Central Portal'
-        run: ./gradlew publishAllPublicationsToCentralPortal --no-configuration-cache
+        run: ./gradlew publishAggregationToCentralPortal --no-configuration-cache
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CENTRAL_PORTAL_USERNAME: ${{ secrets.CENTRAL_PORTAL_USERNAME }}

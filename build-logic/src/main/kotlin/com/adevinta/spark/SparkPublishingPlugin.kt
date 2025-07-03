@@ -21,110 +21,12 @@
  */
 package com.adevinta.spark
 
-import com.android.build.gradle.LibraryExtension
-import nmcp.NmcpExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.publish.PublishingExtension
-import org.gradle.api.publish.maven.MavenPublication
-import org.gradle.kotlin.dsl.apply
-import org.gradle.kotlin.dsl.assign
-import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.get
-import org.gradle.kotlin.dsl.provideDelegate
-import org.gradle.kotlin.dsl.register
-import org.gradle.kotlin.dsl.the
-import org.gradle.plugins.signing.SigningExtension
-import kotlin.time.Duration.Companion.minutes
-import kotlin.time.toJavaDuration
 
 internal class SparkPublishingPlugin : Plugin<Project> {
 
     override fun apply(target: Project) {
-        with(target) {
-            apply(plugin = "org.gradle.maven-publish")
-            apply(plugin = "org.gradle.signing")
-            apply(plugin = "com.gradleup.nmcp")
-
-            configureRepository()
-            configureNMCP()
-            registerPublication()
-            configureSigning()
-        }
-    }
-
-    private fun Project.configureRepository() = configure<PublishingExtension> {
-        repositories {
-            mavenLocal {
-                name = "Local"
-                url = uri(rootProject.layout.buildDirectory.dir(".m2/repository"))
-            }
-        }
-    }
-
-    private fun Project.configureNMCP() = configure<NmcpExtension> {
-        publishAllPublicationsToCentralPortal {
-            username = System.getenv("CENTRAL_PORTAL_USERNAME")
-            password = System.getenv("CENTRAL_PORTAL_PASSWORD")
-            publishingType = "AUTOMATIC"
-            publishingTimeout = 20.minutes.toJavaDuration()
-        }
-    }
-
-    private fun Project.registerPublication() = configure<PublishingExtension> {
-        publications {
-            register<MavenPublication>("maven") {
-                when {
-                    isAndroidLibrary -> configureAndroidPublication(this)
-                    isJavaPlatform -> from(components["javaPlatform"])
-                    else -> TODO("Unsupported project type $this")
-                }
-                configurePom()
-            }
-        }
-    }
-
-    private fun Project.configureAndroidPublication(publication: MavenPublication) {
-        configure<LibraryExtension> {
-            publishing {
-                singleVariant("release") {
-                    withSourcesJar()
-                    withJavadocJar()
-                }
-            }
-        }
-        // AGP creates software components during the afterEvaluate callback step...
-        afterEvaluate {
-            publication.from(components.getByName("release"))
-        }
-    }
-
-    private fun MavenPublication.configurePom() = pom {
-        name = "Spark"
-        description = "Spark Design System"
-        url = "https://github.com/leboncoin/spark-android"
-        licenses {
-            license {
-                name = "MIT License"
-                url = "https://opensource.org/licenses/MIT"
-            }
-        }
-        scm {
-            url = "https://github.com/leboncoin/spark-android"
-        }
-        developers {
-            developer {
-                name = "Adevinta Engineers"
-                email = "engineers@adevinta.com"
-            }
-        }
-    }
-
-    private fun Project.configureSigning() = configure<SigningExtension> signing@{
-        val signingKey: String? by project
-        val signingPassword: String? by project
-        if (signingKey == null || signingPassword == null) return@signing
-        useInMemoryPgpKeys(signingKey, signingPassword)
-        sign(the<PublishingExtension>().publications)
+        SparkPublication.configureSubproject(target)
     }
 }
