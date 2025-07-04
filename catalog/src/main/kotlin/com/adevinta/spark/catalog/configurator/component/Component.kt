@@ -65,6 +65,7 @@ import com.adevinta.spark.catalog.model.Configurator
 import com.adevinta.spark.catalog.ui.animations.LocalAnimatedVisibilityScope
 import com.adevinta.spark.catalog.ui.animations.LocalSharedTransitionScope
 import com.adevinta.spark.catalog.util.IssueUrl
+import com.adevinta.spark.catalog.util.TrackScrollJank
 import com.adevinta.spark.catalog.util.openUrl
 import com.adevinta.spark.components.divider.HorizontalDivider
 import com.adevinta.spark.components.iconbuttons.IconButtonGhost
@@ -87,6 +88,7 @@ public fun ConfiguratorComponentScreen(
     configurator: Configurator,
 ) {
     val scrollState = rememberScrollState()
+    TrackScrollJank(scrollableState = scrollState, stateName = "configurator-component:screen")
     val snackbarHostState = remember { SnackbarHostState() }
     val boundsTransform = BoundsTransform { initialBounds, targetBounds ->
         keyframes {
