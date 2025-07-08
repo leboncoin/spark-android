@@ -33,6 +33,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -53,6 +54,7 @@ import com.adevinta.spark.catalog.themes.NavigationMode
 import com.adevinta.spark.catalog.ui.animations.LocalSharedTransitionScope
 import com.adevinta.spark.catalog.ui.navigation.ChangeSelectedNavControllerOnPageChange
 import com.adevinta.spark.catalog.ui.navigation.NavHostSpark
+import com.adevinta.spark.catalog.util.TrackScrollJank
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.Layout
 
@@ -101,11 +103,15 @@ internal fun ComponentsListScreen(
         mutableStateOf(components.filter { it.configurators.firstOrNull() != null })
     }
     val columns = Layout.columns / 2
+    val state = rememberLazyGridState()
+    TrackScrollJank(scrollableState = state, stateName = "configurator:component:grid")
+
     LazyVerticalGrid(
         modifier = Modifier
             .fillMaxSize()
             .consumeWindowInsets(contentPadding),
         columns = GridCells.Fixed(columns),
+        state = state,
         contentPadding = PaddingValues(
             start = Layout.bodyMargin / 2 + contentPadding.calculateLeftPadding(
                 LocalLayoutDirection.current,

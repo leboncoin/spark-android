@@ -49,6 +49,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -72,6 +73,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.R
+import com.adevinta.spark.catalog.util.TrackScrollJank
 import com.adevinta.spark.catalog.util.splitCamelWithSpaces
 import com.adevinta.spark.components.chips.ChipSelectable
 import com.adevinta.spark.components.chips.ChipStyles
@@ -174,12 +176,15 @@ public fun IconsScreen(
                 leadingIcon = if (showAnimatedIcons) SparkIcons.Check else null,
             )
         }
+        val state = rememberLazyGridState()
+        TrackScrollJank(scrollableState = state, stateName = "icons:grid")
         LazyVerticalGrid(
             modifier = modifier
                 .consumeWindowInsets(contentPadding)
                 .fillMaxSize()
                 .padding(horizontal = 16.dp),
             contentPadding = contentPadding,
+            state = state,
             columns = GridCells.Adaptive(minSize = 60.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
