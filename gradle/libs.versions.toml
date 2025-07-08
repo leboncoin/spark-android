@@ -114,9 +114,9 @@ dependencyGuard = "com.dropbox.dependency-guard:0.5.0"
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-nmcp = "com.gradleup.nmcp:0.2.1"
+nmcp = "com.gradleup.nmcp:1.0.1"
 paparazzi = "app.cash.paparazzi:1.3.5"
-spotless = "com.diffplug.spotless:7.0.4"
+spotless = "com.diffplug.spotless:7.1.0"
 
 
 # Plugins defined by this project
