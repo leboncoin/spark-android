@@ -224,11 +224,12 @@ private fun DialogScaffold(
                 )
                 snackbarHost()
                 Box(modifier = Modifier.weight(1f, fill = false)) {
-                    val padding = contentPadding + if (supportButton == null && mainButton == null) {
-                        PaddingValues(bottom = 16.dp)
-                    } else {
-                        PaddingValues(0.dp)
-                    }
+                    val padding = contentPadding +
+                        if (supportButton == null && mainButton == null) {
+                            PaddingValues(bottom = 16.dp)
+                        } else {
+                            PaddingValues(0.dp)
+                        }
                     content(padding)
                 }
                 if (supportButton == null && mainButton == null) return@Column

@@ -763,10 +763,12 @@ private fun TwoRowsTopAppBar(
                     // padding will always be applied by the layout above
                     .windowInsetsPadding(windowInsets.only(WindowInsetsSides.Horizontal))
                     .clipToBounds(),
-                heightPx = maxHeightPx - pinnedHeightPx + (
-                    scrollBehavior?.state?.heightOffset
-                        ?: 0f
-                    ),
+                heightPx = maxHeightPx -
+                    pinnedHeightPx +
+                    (
+                        scrollBehavior?.state?.heightOffset
+                            ?: 0f
+                        ),
                 navigationIconContentColor = colors.navigationIconContentColor,
                 titleContentColor = colors.titleContentColor,
                 actionIconContentColor = colors.actionIconContentColor,
@@ -919,10 +921,12 @@ private fun TopAppBarLayout(
                         if (titleBottomPadding == 0) {
                             layoutHeight - titlePlaceable.height
                         } else {
-                            layoutHeight - titlePlaceable.height - max(
-                                0,
-                                titleBottomPadding - titlePlaceable.height + titleBaseline,
-                            )
+                            layoutHeight -
+                                titlePlaceable.height -
+                                max(
+                                    0,
+                                    titleBottomPadding - titlePlaceable.height + titleBaseline,
+                                )
                         }
                     // Arrangement.Top
                     else -> 0
