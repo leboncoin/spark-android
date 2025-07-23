@@ -92,6 +92,8 @@ import kotlinx.collections.immutable.persistentListOf
  * @param placeholder Optional placeholder text shown when the field is empty
  * @param helper Optional helper text displayed below the ComboBox
  * @param leadingContent Optional composable content displayed at the start of the ComboBox
+ * @param trailingContent Optional composable content displayed at the end of the ComboBox, if not provided, a default
+ * trailing icon will be used.
  * @param status Optional status of the form field (e.g., error, success)
  * @param statusMessage Optional message associated with the status
  * @param inputTransformation Optional transformation applied to input text
@@ -120,6 +122,7 @@ public fun SingleChoiceComboBox(
     placeholder: String? = null,
     helper: String? = null,
     leadingContent: @Composable (AddonScope.() -> Unit)? = null,
+    trailingContent: @Composable (AddonScope.() -> Unit)? = null,
     status: FormFieldStatus? = null,
     statusMessage: String? = null,
     inputTransformation: InputTransformation? = null,
@@ -138,6 +141,16 @@ public fun SingleChoiceComboBox(
             onExpandedChange(it)
         },
     ) {
+        val trailingContentDefault = trailingContent ?: {
+            SparkSelectTrailingIcon(
+                expanded = expanded,
+                modifier = Modifier.menuAnchor(
+                    MenuAnchorType.SecondaryEditable,
+                    enabled = enabled,
+                ),
+                onClick = { onExpandedChange(!expanded) },
+            )
+        }
         TextField(
             state = state,
             modifier = modifier.menuAnchor(MenuAnchorType.PrimaryEditable, enabled = enabled),
@@ -148,16 +161,7 @@ public fun SingleChoiceComboBox(
             placeholder = placeholder,
             helper = helper,
             leadingContent = leadingContent,
-            trailingContent = {
-                SparkSelectTrailingIcon(
-                    expanded = expanded,
-                    modifier = Modifier.menuAnchor(
-                        MenuAnchorType.SecondaryEditable,
-                        enabled = enabled,
-                    ),
-                    onClick = { onExpandedChange(!expanded) },
-                )
-            },
+            trailingContent = trailingContentDefault,
             status = status,
             statusMessage = statusMessage,
             inputTransformation = inputTransformation,
@@ -207,6 +211,8 @@ public data class SelectedChoice(val id: String, val label: String)
  * @param placeholder Optional placeholder text shown when the field is empty
  * @param helper Optional helper text displayed below the ComboBox
  * @param leadingContent Optional composable content displayed at the start of the ComboBox
+ * @param trailingContent Optional composable content displayed at the end of the ComboBox, if not provided, a default
+ * trailing icon will be used.
  * @param status Optional status of the form field (e.g., error, success)
  * @param statusMessage Optional message associated with the status
  * @param inputTransformation Optional transformation applied to input text
@@ -236,6 +242,7 @@ public fun MultiChoiceComboBox(
     placeholder: String? = null,
     helper: String? = null,
     leadingContent: @Composable (AddonScope.() -> Unit)? = null,
+    trailingContent: @Composable (AddonScope.() -> Unit)? = null,
     status: FormFieldStatus? = null,
     statusMessage: String? = null,
     inputTransformation: InputTransformation? = null,
@@ -257,6 +264,16 @@ public fun MultiChoiceComboBox(
                 onExpandedChange(it)
             },
         ) {
+            val trailingContentDefault = trailingContent ?: {
+                SparkSelectTrailingIcon(
+                    expanded = expanded,
+                    modifier = Modifier.menuAnchor(
+                        MenuAnchorType.SecondaryEditable,
+                        enabled = enabled,
+                    ),
+                    onClick = { onExpandedChange(!expanded) },
+                )
+            }
             TextField(
                 state = state,
                 modifier = modifier.menuAnchor(MenuAnchorType.PrimaryEditable, enabled = enabled),
@@ -267,16 +284,7 @@ public fun MultiChoiceComboBox(
                 placeholder = placeholder,
                 helper = helper,
                 leadingContent = leadingContent,
-                trailingContent = {
-                    SparkSelectTrailingIcon(
-                        expanded = expanded,
-                        modifier = Modifier.menuAnchor(
-                            MenuAnchorType.SecondaryEditable,
-                            enabled = enabled,
-                        ),
-                        onClick = { onExpandedChange(!expanded) },
-                    )
-                },
+                trailingContent = trailingContentDefault,
                 status = status,
                 statusMessage = statusMessage,
                 inputTransformation = inputTransformation,
@@ -346,6 +354,8 @@ public fun MultiChoiceComboBox(
  * @param placeholder Optional placeholder text shown when the field is empty
  * @param helper Optional helper text displayed below the ComboBox
  * @param leadingContent Optional composable content displayed at the start of the ComboBox
+ * @param trailingContent Optional composable content displayed at the end of the ComboBox, if not provided, a default
+ * trailing icon will be used.
  * @param status Optional status of the form field (e.g., error, success)
  * @param statusMessage Optional message associated with the status
  * @param inputTransformation Optional transformation applied to input text
@@ -373,6 +383,7 @@ public fun MultiChoiceComboBox(
     placeholder: String? = null,
     helper: String? = null,
     leadingContent: @Composable (AddonScope.() -> Unit)? = null,
+    trailingContent: @Composable (AddonScope.() -> Unit)? = null,
     status: FormFieldStatus? = null,
     statusMessage: String? = null,
     inputTransformation: InputTransformation? = null,
