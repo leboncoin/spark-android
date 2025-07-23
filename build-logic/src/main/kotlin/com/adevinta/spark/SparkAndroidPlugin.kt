@@ -43,6 +43,7 @@ public class SparkAndroidPlugin : Plugin<Project> {
                     }
                 }
                 lint {
+                    checkDependencies = true
                     warningsAsErrors = true
                     sarifReport = true
                     informational += "AndroidGradlePluginVersion"
