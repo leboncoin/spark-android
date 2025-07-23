@@ -633,7 +633,7 @@ _2023-03-29_
 
 [Unreleased]: https://github.com/leboncoin/spark-android/compare/1.3.0...HEAD
 
-[1.2.2]: https://github.com/leboncoin/spark-android/releases/tag/1.3.0
+[1.3.0]: https://github.com/leboncoin/spark-android/releases/tag/1.3.0
 
 [1.2.2]: https://github.com/leboncoin/spark-android/releases/tag/1.2.2
 
