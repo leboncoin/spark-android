@@ -1,8 +1,6 @@
 name: '📦 Archive Lint reports'
 description: 'Archive Lint reports'
 inputs:
-  analysis:
-    description: 'A file or directory to be uploaded to GitHub code scanning'
   html:
     description: 'A file, directory or wildcard pattern that describes what to upload'
   sarif:
@@ -30,8 +28,3 @@ runs:
       with:
         name: lint-xml
         path: ${{ inputs.xml }}
-    - name: 'Analyse Lint SARIF report'
-      if: inputs.analysis != ''
-      uses: github/codeql-action/upload-sarif@v3
-      with:
-        sarif_file: ${{ inputs.analysis }}
