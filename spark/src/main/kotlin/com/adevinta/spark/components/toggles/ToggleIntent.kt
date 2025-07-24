@@ -115,7 +115,7 @@ internal fun ToggleIntent.toCheckboxDefaultsColors(checked: Boolean): CheckboxCo
     CheckboxDefaults.colors(
         checkedColor = this.color,
         checkmarkColor = this.onColor,
-        uncheckedColor = if(this@toCheckboxDefaultsColors == ToggleIntent.Danger) this.color else UncheckedColor,
+        uncheckedColor = if (this@toCheckboxDefaultsColors == ToggleIntent.Danger) this.color else UncheckedColor,
         // FIXME: drop when fix released https://issuetracker.google.com/issues/291943198
         disabledCheckedColor = if (checked) this.color.disabled else UncheckedColor.disabled,
         disabledUncheckedColor = UncheckedColor.disabled,
