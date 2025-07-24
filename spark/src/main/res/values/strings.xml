@@ -56,8 +56,9 @@
     <string name="spark_dialog_pane_a11y">Dialog</string>
     <!--endregion-->
 
-    <string name="spark_annotatedStringResource_test"><b>Best</b> <annotation typography="large">practices</annotation> <p dir="rtl">for text on</p> <i><annotation color="main">Android</annotation></i></string>
+    <string name="spark_annotatedStringResource_test">&lt;b>Best&lt;/b> &lt;annotation typography="large">practices&lt;/annotation> &lt;p dir="rtl">for text on&lt;/p> &lt;i>&lt;annotation color="main">Android&lt;/annotation>&lt;/i></string>
     <string name="spark_annotatedStringResource_test_args">Hello, <b><annotation color="main" typography="large" variable="who">who</annotation></b>!</string>
+    <string name="spark_annotatedStringResource_test_new_args">Hello, &lt;b>&lt;annotation color="main" typography="large">%1$s&lt;/annotation>&lt;/b>!</string>
 
     <!--region TextField-->
     <string name="spark_textfield_mandatory_content_description">Mandatory</string>
