@@ -105,7 +105,9 @@ internal fun SparkSwitch(
  */
 @Deprecated(
     message = "Intent usages for Switch as been deprecated in favour of just using Basic",
-    replaceWith = ReplaceWith("Switch(checked = checked, onCheckedChange = onCheckedChange, modifier = modifier, enabled = enabled, error = false, interactionSource = interactionSource)"),
+    replaceWith = ReplaceWith(
+        "Switch(checked = checked, onCheckedChange = onCheckedChange, modifier = modifier, enabled = enabled, error = false, interactionSource = interactionSource)",
+    ),
 )
 @Composable
 public fun Switch(
@@ -186,8 +188,13 @@ public fun Switch(
  * @param content The content displayed before the switch, usually a Text composable shown at the start.
  */
 @Deprecated(
-    message = "Intent usages for SwitchLabelled as been deprecated in favour of just using Basic with a end content side",
-    replaceWith = ReplaceWith("SwitchLabelled(checked = checked, onCheckedChange = onCheckedChange, modifier = modifier, enabled = enabled, error = false, interactionSource = interactionSource, contentSide = contentSide, content = content)"),
+    message = "Intent usages for SwitchLabelled as been deprecated in favour of just using Basic with a end " +
+        "content side",
+    replaceWith = ReplaceWith(
+        "SwitchLabelled(checked = checked, onCheckedChange = onCheckedChange, " +
+            "modifier = modifier, enabled = enabled, error = false, interactionSource = interactionSource, " +
+            "contentSide = contentSide, content = content)",
+    ),
 )
 @Composable
 public fun SwitchLabelled(
