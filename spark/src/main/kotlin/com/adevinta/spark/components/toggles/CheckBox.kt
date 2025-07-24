@@ -180,7 +180,9 @@ public fun Checkbox(
  */
 @Deprecated(
     message = "Intent usages for CheckboxLabelled as been deprecated in favour of just an error parameter",
-    replaceWith = ReplaceWith("CheckboxLabelled(state, onClick, modifier, enabled, error, interactionSource, content = content)"),
+    replaceWith = ReplaceWith(
+        "CheckboxLabelled(state, onClick, modifier, enabled, error, interactionSource, content = content)",
+    ),
 )
 @Composable
 public fun CheckboxLabelled(
