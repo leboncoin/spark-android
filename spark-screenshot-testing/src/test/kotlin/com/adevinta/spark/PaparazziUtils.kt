@@ -132,7 +132,7 @@ internal fun Paparazzi.sparkSnapshotNightMode(
     ThemeVariant.entries.forEach {
         try {
             sparkSnapshot(
-                name = name.orEmpty() + "_${it.name}",
+                name = name.orEmpty() + it.name,
                 drawBackground = drawBackground,
                 isDark = it == ThemeVariant.Dark,
                 composable = composable,
