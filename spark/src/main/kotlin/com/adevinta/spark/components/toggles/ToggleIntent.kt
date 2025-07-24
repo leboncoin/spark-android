@@ -133,7 +133,7 @@ internal fun ToggleIntent.toSwitchDefaultsColors(): SwitchColors = with(this.col
 internal fun ToggleIntent.toRadioButtonDefaultsColors(): RadioButtonColors = with(this.colors()) {
     RadioButtonDefaults.colors(
         selectedColor = this.color,
-        unselectedColor = if(this@toRadioButtonDefaultsColors == ToggleIntent.Danger) this.color else UncheckedColor,
+        unselectedColor = if (this@toRadioButtonDefaultsColors == ToggleIntent.Danger) this.color else UncheckedColor,
         disabledSelectedColor = this.color.disabled,
         disabledUnselectedColor = SparkTheme.colors.outline.disabled,
     )

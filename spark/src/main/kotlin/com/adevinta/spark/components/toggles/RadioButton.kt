@@ -86,7 +86,9 @@ internal fun SparkRadioButton(
  */
 @Deprecated(
     message = "Intent usages for RadioButton as been deprecated in favour of just an error parameter",
-    replaceWith = ReplaceWith("RadioButton(selected = selected, onClick = onClick, modifier = modifier, enabled = enabled, error = false, interactionSource = interactionSource)"),
+    replaceWith = ReplaceWith(
+        "RadioButton(selected = selected, onClick = onClick, modifier = modifier, enabled = enabled, error = false, interactionSource = interactionSource)",
+    ),
 )
 @Composable
 public fun RadioButton(
@@ -178,7 +180,9 @@ public fun RadioButton(
  */
 @Deprecated(
     message = "Intent usages for RadioButtonLabelled as been deprecated in favour of just an error parameter",
-    replaceWith = ReplaceWith("RadioButtonLabelled(selected = selected, onClick = onClick, modifier = modifier, enabled = enabled, error = false, interactionSource = interactionSource)"),
+    replaceWith = ReplaceWith(
+        "RadioButtonLabelled(selected = selected, onClick = onClick, modifier = modifier, enabled = enabled, error = false, interactionSource = interactionSource, contentSide = contentSide, content = content)",
+    ),
 )
 @Composable
 public fun RadioButtonLabelled(
@@ -274,8 +278,7 @@ public fun RadioButtonLabelled(
     group = "Toggles",
     name = "RadioButtonLabelled",
     device = Devices.FOLDABLE,
-
-    )
+)
 @Composable
 private fun PreviewAllStatesRadioButtonLabelled() {
     PreviewTheme {
