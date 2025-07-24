@@ -24,6 +24,11 @@ package com.adevinta.spark
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.assign
+import org.gradle.kotlin.dsl.configure
+import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
+import org.jetbrains.kotlin.gradle.dsl.abi.AbiValidationExtension
+import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
 
 internal class SparkAndroidLibraryPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -37,6 +42,12 @@ internal class SparkAndroidLibraryPlugin : Plugin<Project> {
                 defaultConfig {
                     consumerProguardFile("consumer-rules.pro")
                     aarMetadata.minCompileSdk = spark().versions.minCompileSdk.toString().toInt()
+                }
+            }
+            configure<KotlinAndroidProjectExtension> {
+                configure<AbiValidationExtension> {
+                    @OptIn(ExperimentalAbiValidation::class)
+                    enabled = true
                 }
             }
         }
