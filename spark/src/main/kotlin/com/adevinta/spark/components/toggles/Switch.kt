@@ -19,11 +19,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+@file:Suppress("DEPRECATION")
+
 package com.adevinta.spark.components.toggles
 
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -106,9 +107,9 @@ internal fun SparkSwitch(
 public fun Switch(
     checked: Boolean,
     onCheckedChange: ((Boolean) -> Unit)?,
+    intent: ToggleIntent,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    intent: ToggleIntent = ToggleIntent.Basic,
     icons: SwitchIcons? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
@@ -118,6 +119,41 @@ public fun Switch(
         modifier = modifier,
         enabled = enabled,
         intent = intent,
+        icons = icons,
+        interactionSource = interactionSource,
+    )
+}
+
+/**
+ *
+ * Switch component allows the user to activate or deactivate the state of an element or concept.
+ * It is usually used as an element to add services, activate functionalities or adjust settings.
+ * It is also used to control binary options (On/Off or True/False).
+ *
+ * @param checked whether or not this component is checked
+ * @param onCheckedChange callback to be invoked when Switch is being clicked, therefore the change of checked state is requested. If null, then this is passive and relies entirely on a higher-level component to control the "checked" state.
+ * @param modifier Modifier to be applied to  switch layout
+ * @param enabled whether the component is enabled or grayed out
+ * @param icons represents the pair of icons to use for check/unchecked states, you can use [SwitchDefaults.icons] if you want to use the default ones.
+ * @param interactionSource the [MutableInteractionSource] representing the stream of
+ * [Interaction]s for this Switch. You can create and pass in your own remembered
+ * [MutableInteractionSource] if you want to observe [Interaction]s and customize the
+ * appearance / behavior of this Switch in different [Interaction]s.
+ */
+@Composable
+public fun Switch(
+    checked: Boolean,
+    onCheckedChange: ((Boolean) -> Unit)?,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    icons: SwitchIcons? = null,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+) {
+    SparkSwitch(
+        checked = checked,
+        onCheckedChange = onCheckedChange,
+        modifier = modifier,
+        enabled = enabled,
         icons = icons,
         interactionSource = interactionSource,
     )
@@ -149,9 +185,9 @@ public fun Switch(
 public fun SwitchLabelled(
     checked: Boolean,
     onCheckedChange: ((Boolean) -> Unit)?,
+    intent: ToggleIntent,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    intent: ToggleIntent = ToggleIntent.Basic,
     icons: SwitchIcons? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     contentSide: ContentSide = ContentSide.Start,
@@ -184,6 +220,60 @@ public fun SwitchLabelled(
 }
 
 /**
+ *
+ * Switches are the preferred way to adjust settings. They're used to control binary options – think On/Off or True/False.
+ *
+ *  - Toggle a single item on or off.
+ *  - Immediately activate or deactivate something.
+ *
+ * @see [SparkSwitch] if you require color customization between states. Be aware that this is still an internal composable so if you need such state contact the Spark team
+ *
+ * @param checked whether or not this component is checked
+ * @param onCheckedChange callback to be invoked when Switch is being clicked, therefore the change of checked state is requested. If null, then this is passive and relies entirely on a higher-level component to control the "checked" state.
+ * @param modifier Modifier to be applied to the layout of the switch layout
+ * @param enabled whether the component is enabled or grayed out
+ * @param icons represents the pair of icons to use for check/unchecked states
+ * @param interactionSource the [MutableInteractionSource] representing the stream of
+ * [Interaction]s for this Switch. You can create and pass in your own remembered
+ * [MutableInteractionSource] if you want to observe [Interaction]s and customize the
+ * appearance / behavior of this Switch in different [Interaction]s.
+ * @param content The content displayed before the switch, usually a Text composable shown at the start.
+ */
+@Composable
+public fun SwitchLabelled(
+    checked: Boolean,
+    onCheckedChange: ((Boolean) -> Unit)?,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    icons: SwitchIcons? = null,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    content: @Composable RowScope.() -> Unit,
+) {
+    SparkToggleLabelledContainer(
+        state = ToggleableState(checked),
+        toggle = {
+            SparkSwitch(
+                checked = checked,
+                onCheckedChange = null,
+                interactionSource = interactionSource,
+                enabled = enabled,
+                icons = icons,
+                modifier = Modifier.minimumTouchTargetSize(),
+            )
+        },
+        role = Role.Switch,
+        onClick = if (onCheckedChange != null) {
+            { onCheckedChange(!checked) }
+        } else {
+            null
+        },
+        modifier = modifier.selectableGroup(),
+        enabled = enabled,
+        content = content,
+    )
+}
+
+/**
  * @property checked icon to be used for the thumb in checked state
  * @property unchecked icon to be used for the thumb in unchecked state
  */
@@ -191,91 +281,40 @@ public data class SwitchIcons(val checked: SparkIcon = SparkIcons.Check, val unc
 
 @Preview(
     group = "Toggles",
-    name = "Switch",
-)
-@Composable
-internal fun AllStatesSwitchPreview() {
-    PreviewTheme {
-        ToggleIntent.values().forEach { intent ->
-            Row {
-                Switch(checked = true, onCheckedChange = {}, enabled = true, intent = intent)
-                Switch(checked = false, onCheckedChange = {}, enabled = true, intent = intent)
-                Switch(checked = true, onCheckedChange = {}, enabled = false, intent = intent)
-                Switch(checked = false, onCheckedChange = {}, enabled = false, intent = intent)
-            }
-        }
-
-        Row {
-            Switch(checked = true, onCheckedChange = {}, enabled = true, icons = SwitchDefaults.icons)
-            Switch(checked = false, onCheckedChange = {}, enabled = true, icons = SwitchDefaults.icons)
-            Switch(checked = true, onCheckedChange = {}, enabled = false, icons = SwitchDefaults.icons)
-            Switch(checked = false, onCheckedChange = {}, enabled = false, icons = SwitchDefaults.icons)
-        }
-
-        Row {
-            val icons = SwitchIcons(
-                checked = SparkIcons.AlarmOnFill,
-                unchecked = SparkIcons.AlarmOffFill,
-            )
-            Switch(
-                checked = true,
-                onCheckedChange = {},
-                enabled = true,
-                icons = icons,
-            )
-            Switch(
-                checked = false,
-                onCheckedChange = {},
-                enabled = true,
-                icons = icons,
-            )
-            Switch(
-                checked = true,
-                onCheckedChange = {},
-                enabled = false,
-                icons = icons,
-            )
-            Switch(
-                checked = false,
-                onCheckedChange = {},
-                enabled = false,
-                icons = icons,
-            )
-        }
-    }
-}
-
-@Preview(
-    group = "Toggles",
     name = "SwitchLabelled",
 )
 @Composable
-internal fun AllStatesSwitchLabelledPreview() {
-    @Suppress("ktlint:standard:max-line-length")
-    val text =
-        "This is an example of a multi-line text which is very long and in which the user should read all the information."
+private fun AllStatesSwitchLabelledPreview() {
+    val text = "This is an example of a multi-line text which is very long and in which the user should read " +
+        "all the information."
+    val icons = SwitchIcons(
+        checked = SparkIcons.AlarmOnFill,
+        unchecked = SparkIcons.AlarmOffFill,
+    )
     PreviewTheme {
         SwitchLabelled(
             enabled = true,
             checked = true,
             onCheckedChange = {},
+            icons = icons,
         ) { Text(text = "Label") }
         SwitchLabelled(
             enabled = true,
             checked = false,
-            contentSide = ContentSide.End,
             onCheckedChange = {},
+            icons = icons,
         ) { Text("Label") }
         SwitchLabelled(
             enabled = false,
             checked = true,
             onCheckedChange = {},
+            icons = icons,
         ) { Text(text) }
         SwitchLabelled(
             enabled = false,
             checked = false,
-            contentSide = ContentSide.End,
             onCheckedChange = {},
+            icons = icons,
         ) { Text(text) }
     }
 }
