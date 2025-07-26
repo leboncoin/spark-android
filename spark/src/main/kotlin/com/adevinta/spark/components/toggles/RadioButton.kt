@@ -85,7 +85,7 @@ internal fun SparkRadioButton(
  * appearance / behavior of this RadioButton in different [Interaction]s.
  */
 @Deprecated(
-    message = "Intent usages for RadioButton as been deprecated in favour of just an error parameter",
+    message = "Intent RadioButton have been deprecated in favour of just an error parameter",
     replaceWith = ReplaceWith(
         "RadioButton(selected = selected, onClick = onClick, modifier = modifier, enabled = enabled, error = false, interactionSource = interactionSource)",
     ),
@@ -94,7 +94,7 @@ internal fun SparkRadioButton(
 public fun RadioButton(
     selected: Boolean,
     onClick: (() -> Unit)?,
-    intent: ToggleIntent, // no default values to not break the api
+    intent: ToggleIntent,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -179,7 +179,7 @@ public fun RadioButton(
  * @param content The content displayed after the radio button, usually a Text composable shown at the end.
  */
 @Deprecated(
-    message = "Intent usages for RadioButtonLabelled as been deprecated in favour of just an error parameter",
+    message = "Intent RadioButtonLabelled have been deprecated in favour of just an error parameter",
     replaceWith = ReplaceWith(
         "RadioButtonLabelled(selected = selected, onClick = onClick, modifier = modifier, enabled = enabled, error = false, interactionSource = interactionSource, contentSide = contentSide, content = content)",
     ),
@@ -187,7 +187,7 @@ public fun RadioButton(
 @Composable
 public fun RadioButtonLabelled(
     selected: Boolean,
-    intent: ToggleIntent, // no default values to not break the api
+    intent: ToggleIntent,
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,

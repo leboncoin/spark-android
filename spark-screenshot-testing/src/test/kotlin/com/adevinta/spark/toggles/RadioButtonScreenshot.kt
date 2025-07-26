@@ -61,24 +61,24 @@ private fun RadioButtonStates(isError: Boolean) {
             selected = true,
             onClick = {},
             error = isError,
-        ) { Text("RadioButton On") }
+        ) { Text("Nui") }
         RadioButtonLabelled(
             enabled = false,
             selected = true,
             onClick = {},
             error = isError,
-        ) { Text("RadioButton On") }
+        ) { Text("Mako") }
         RadioButtonLabelled(
             enabled = true,
             selected = false,
             onClick = {},
             error = isError,
-        ) { Text("RadioButton Off") }
+        ) { Text("Ragyö") }
         RadioButtonLabelled(
             enabled = false,
             selected = false,
             onClick = {},
             error = isError,
-        ) { Text("RadioButton Off") }
+        ) { Text("Nonon") }
     }
 }
