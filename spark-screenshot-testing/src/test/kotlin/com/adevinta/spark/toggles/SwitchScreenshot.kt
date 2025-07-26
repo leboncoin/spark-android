@@ -67,13 +67,13 @@ private fun SwitchStates() {
             checked = true,
             onCheckedChange = {},
             icons = icons,
-        ) { Text(text = "Label") }
+        ) { Text(text = "Barbatos") }
         SwitchLabelled(
             enabled = true,
             checked = false,
             onCheckedChange = {},
             icons = icons,
-        ) { Text("Label") }
+        ) { Text("Unicorn") }
         SwitchLabelled(
             enabled = false,
             checked = true,
