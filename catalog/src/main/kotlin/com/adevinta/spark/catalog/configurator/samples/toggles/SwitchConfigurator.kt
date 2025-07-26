@@ -33,16 +33,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.model.Configurator
-import com.adevinta.spark.catalog.ui.ButtonGroup
-import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.TextField
-import com.adevinta.spark.components.toggles.ContentSide
 import com.adevinta.spark.components.toggles.Switch
 import com.adevinta.spark.components.toggles.SwitchLabelled
-import com.adevinta.spark.components.toggles.ToggleIntent
 
 public val SwitchConfigurator: Configurator = Configurator(
     id = "switch",
@@ -56,18 +52,14 @@ public val SwitchConfigurator: Configurator = Configurator(
 @Composable
 private fun ColumnScope.SwitchSample() {
     var isEnabled by remember { mutableStateOf(true) }
-    var contentSide by remember { mutableStateOf(ContentSide.End) }
     var label: String? by remember { mutableStateOf(null) }
     var state by remember { mutableStateOf(false) }
-    var intent by remember { mutableStateOf(ToggleIntent.Main) }
     val onClick = { checked: Boolean -> state = checked }
-    ConfigedSwitch(
+    ConfiguredSwitch(
         label = label,
         onClick = onClick,
         checked = state,
         isEnabled = isEnabled,
-        intent = intent,
-        contentSide = contentSide,
     )
     SwitchLabelled(
         checked = isEnabled,
@@ -80,19 +72,6 @@ private fun ColumnScope.SwitchSample() {
             modifier = Modifier.fillMaxWidth(),
         )
     }
-    DropdownEnum(
-        modifier = Modifier.fillMaxWidth(),
-        title = stringResource(id = R.string.configurator_component_screen_intent_label),
-        selectedOption = intent,
-        onOptionSelect = {
-            intent = it
-        },
-    )
-    ButtonGroup(
-        title = stringResource(id = R.string.configurator_component_toggle_content_side_label),
-        selectedOption = contentSide,
-        onOptionSelect = { contentSide = it },
-    )
     TextField(
         modifier = Modifier.fillMaxWidth(),
         value = label.orEmpty(),
@@ -111,14 +90,12 @@ private fun SwitchSamplePreview() {
 }
 
 @Composable
-private fun ConfigedSwitch(
+private fun ConfiguredSwitch(
     modifier: Modifier = Modifier,
     label: String?,
     onClick: (Boolean) -> Unit,
     checked: Boolean,
     isEnabled: Boolean,
-    contentSide: ContentSide,
-    intent: ToggleIntent,
 ) {
     if (label.isNullOrBlank().not()) {
         SwitchLabelled(
@@ -126,16 +103,13 @@ private fun ConfigedSwitch(
             enabled = isEnabled,
             checked = checked,
             onCheckedChange = onClick,
-            contentSide = contentSide,
-            intent = intent,
-        ) { Text(text = label!!) }
+        ) { Text(text = label) }
     } else {
         Switch(
             modifier = modifier,
             enabled = isEnabled,
             checked = checked,
             onCheckedChange = onClick,
-            intent = intent,
         )
     }
 }
