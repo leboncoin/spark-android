@@ -87,7 +87,7 @@ internal fun SparkCheckbox(
  * appearance / behavior of this Checkbox in different [Interaction]s.
  */
 @Deprecated(
-    message = "Intent usages for Checkbox as been deprecated in favour of just an error parameter",
+    message = "Intent Checkbox have been deprecated in favour of just an error parameter",
     replaceWith = ReplaceWith(
         "Checkbox(state = state, onClick = onClick, modifier = modifier, enabled = enabled, error = false, interactionSource = interactionSource)",
     ),
@@ -95,7 +95,7 @@ internal fun SparkCheckbox(
 @Composable
 public fun Checkbox(
     state: ToggleableState,
-    intent: ToggleIntent, // no default values to not break the api
+    intent: ToggleIntent,
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -179,7 +179,7 @@ public fun Checkbox(
  * @param content The content displayed after the checkbox, usually a Text composable shown at the end.
  */
 @Deprecated(
-    message = "Intent usages for CheckboxLabelled as been deprecated in favour of just an error parameter",
+    message = "Intent CheckboxLabelled have been deprecated in favour of just an error parameter",
     replaceWith = ReplaceWith(
         "CheckboxLabelled(state, onClick, modifier, enabled, error, interactionSource, content = content)",
     ),

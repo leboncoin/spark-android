@@ -62,36 +62,36 @@ private fun CheckboxStates(isError: Boolean) {
             state = ToggleableState.On,
             onClick = {},
             error = isError,
-        ) { Text("CheckBox On") }
+        ) { Text("Paris") }
         CheckboxLabelled(
             enabled = false,
             state = ToggleableState.On,
             onClick = {},
             error = isError,
-        ) { Text("CheckBox On") }
+        ) { Text("Lyon") }
         CheckboxLabelled(
             enabled = true,
             state = ToggleableState.Indeterminate,
             onClick = {},
             error = isError,
-        ) { Text("CheckBox Indeterminate") }
+        ) { Text("Briançon") }
         CheckboxLabelled(
             enabled = false,
             state = ToggleableState.Indeterminate,
             onClick = {},
             error = isError,
-        ) { Text("CheckBox Indeterminate") }
+        ) { Text("Montgenèvre") }
         CheckboxLabelled(
             enabled = true,
             state = ToggleableState.Off,
             onClick = {},
             error = isError,
-        ) { Text("CheckBox Off") }
+        ) { Text("La Clusaz") }
         CheckboxLabelled(
             enabled = false,
             state = ToggleableState.Off,
             onClick = {},
             error = isError,
-        ) { Text("CheckBox Off") }
+        ) { Text("Grenoble") }
     }
 }
