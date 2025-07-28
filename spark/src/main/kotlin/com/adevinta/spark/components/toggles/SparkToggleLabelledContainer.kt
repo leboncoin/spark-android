@@ -81,6 +81,7 @@ internal fun SparkToggleLabelledContainer(
             }
         }
 
+        @Suppress("DEPRECATION")
         if (contentSide == ContentSide.Start) {
             label()
             HorizontalSpacer(32.dp)
@@ -94,7 +95,14 @@ internal fun SparkToggleLabelledContainer(
     }
 }
 
-public enum class ContentSide { Start, End }
+public enum class ContentSide {
+    @Deprecated(
+        message = "ContentSide will be removed if a few releases, only the End content side will be used",
+        replaceWith = ReplaceWith("ContentSide.End"),
+    )
+    Start,
+    End,
+}
 
 @Preview(
     group = "Toggles",
@@ -103,6 +111,7 @@ public enum class ContentSide { Start, End }
 @Composable
 internal fun TogglesLabelledSlotPreview() {
     PreviewTheme {
+        @Suppress("DEPRECATION")
         SparkToggleLabelledContainer(
             state = ToggleableState(true),
             toggle = {

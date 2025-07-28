@@ -19,6 +19,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+@file:Suppress("DEPRECATION")
+
 package com.adevinta.spark.components.toggles
 
 import androidx.compose.material3.CheckboxColors
@@ -32,6 +34,9 @@ import com.adevinta.spark.components.IntentColor
 import com.adevinta.spark.components.IntentColors
 import com.adevinta.spark.tokens.disabled
 
+@Deprecated(
+    message = "Intents for toggles have been deprecated in favor of using only the basic color and the error color",
+)
 public enum class ToggleIntent {
     /**
      * The default color of such UI controls as toggles, Slider, etc.
