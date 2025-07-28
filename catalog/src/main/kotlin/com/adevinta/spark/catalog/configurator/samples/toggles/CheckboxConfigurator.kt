@@ -34,16 +34,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.model.Configurator
 import com.adevinta.spark.catalog.ui.ButtonGroup
-import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.Checkbox
 import com.adevinta.spark.components.toggles.CheckboxLabelled
-import com.adevinta.spark.components.toggles.ContentSide
 import com.adevinta.spark.components.toggles.SwitchLabelled
-import com.adevinta.spark.components.toggles.ToggleIntent
 
 public val CheckboxConfigurator: Configurator = Configurator(
     id = "icon-button",
@@ -57,10 +54,8 @@ public val CheckboxConfigurator: Configurator = Configurator(
 @Composable
 private fun CheckboxSample() {
     var isEnabled by remember { mutableStateOf(true) }
-    var contentSide by remember { mutableStateOf(ContentSide.End) }
     var label: String? by remember { mutableStateOf(null) }
     var state by remember { mutableStateOf(ToggleableState.On) }
-    var intent by remember { mutableStateOf(ToggleIntent.Main) }
     val onClick = {
         state = when (state) {
             ToggleableState.On -> ToggleableState.Off
@@ -73,8 +68,6 @@ private fun CheckboxSample() {
         onClick = onClick,
         state = state,
         isEnabled = isEnabled,
-        intent = intent,
-        contentSide = contentSide,
     )
     SwitchLabelled(
         checked = isEnabled,
@@ -91,19 +84,6 @@ private fun CheckboxSample() {
         title = stringResource(id = R.string.configurator_component_checkbox_toggleable_state_label),
         selectedOption = state,
         onOptionSelect = { state = it },
-    )
-    DropdownEnum(
-        modifier = Modifier.fillMaxWidth(),
-        title = stringResource(id = R.string.configurator_component_screen_intent_label),
-        selectedOption = intent,
-        onOptionSelect = {
-            intent = it
-        },
-    )
-    ButtonGroup(
-        title = stringResource(id = R.string.configurator_component_toggle_content_side_label),
-        selectedOption = contentSide,
-        onOptionSelect = { contentSide = it },
     )
     TextField(
         modifier = Modifier.fillMaxWidth(),
@@ -129,8 +109,6 @@ private fun ConfigedCheckbox(
     onClick: () -> Unit,
     state: ToggleableState,
     isEnabled: Boolean,
-    contentSide: ContentSide,
-    intent: ToggleIntent,
 ) {
     if (label.isNullOrBlank().not()) {
         CheckboxLabelled(
@@ -138,16 +116,13 @@ private fun ConfigedCheckbox(
             enabled = isEnabled,
             state = state,
             onClick = onClick,
-            contentSide = contentSide,
-            intent = intent,
-        ) { Text(text = label!!) }
+        ) { Text(text = label) }
     } else {
         Checkbox(
             modifier = modifier,
             enabled = isEnabled,
             state = state,
             onClick = onClick,
-            intent = intent,
         )
     }
 }
