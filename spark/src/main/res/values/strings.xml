@@ -71,19 +71,11 @@
     <string name="spark_textfield_delete_a11y">Cancel</string>
     <!--endregion-->
 
-    <!--region Stepper-->
-    <string name="spark_stepper_add_button_description">Add</string>
-    <string name="spark_stepper_subtract_button_description">Subtract</string>
-
-    <string name="spark_stepper_accessibility_message">Quantity selected: %s</string>
-    <!--endregion-->
-
     <!--region DragHandle-->
     <string name="spark_drag_handle_a11y">Drag handle</string>
     <!--endregion-->
 
     <!--region Snackbar-->
-    <string name="spark_snackbar_dismiss_a11y">Dismiss</string>
     <string name="spark_combobox_multiple_chip_click_a11y">Remove %1$s</string>
     <string name="spark_dropdown_menu_item_no_result_label">No result</string>
     <!--endregion-->

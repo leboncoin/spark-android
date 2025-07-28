@@ -8,9 +8,9 @@ one or more items from a set. Checkboxes can turn an option on or off.
 - In cases of a global activation in a indeterminate state where on and off states coexist in the
   children.
 
-| Light                                                                                                | Dark                                                                                                |
-|------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_toggles_checkbox_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_toggles_checkbox_dark.png) |
+| Light                                                                                | Dark                                                                                               |
+|--------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|
+| ![](../../images/com.adevinta.spark.toggles_CheckboxScreenshot_all_states_light.png) | ![](../../images/com.adevinta.spark.toggles_CheckboxScreenshot_all_states_dark.png) |
 
 The minimal usage of the component is the checkbox in standalone but you can add a content at the
 end of the box or customize it.
@@ -19,7 +19,7 @@ end of the box or customize it.
 var checkedState by remember { mutableStateOf(ToggleableState.On) }
 Checkbox(
     state = checkedState,
-    onCheckedChange = {
+    onClick = {
         isChecked = !isChecked
     }
 )
@@ -28,10 +28,6 @@ Checkbox(
 ---
 
 ### CheckBoxLabelled
-
-| Light                                                                                                        | Dark                                                                                                        |
-|--------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_toggles_checkboxlabelled_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_toggles_checkboxlabelled_dark.png) |
 
 The Checkbox allows users to select one or more items from a set. Checkboxes can turn an option on
 or off.
@@ -49,17 +45,7 @@ CheckboxLabelled(
 
 ### Styles
 
-The `CheckBox` and `CheckboxLabelled` accept the following [ToggleIntent](ToggleIntent.kt)s:
-
-- Basic (default)
-- Accent
-- Main
-- Support
-- Success
-- Alert
-- Danger
-- Info
-- Neutral
+The `CheckBox` and `CheckboxLabelled` can have an error style by passing `error = true` to its parameters.
 
 ## Layout
 

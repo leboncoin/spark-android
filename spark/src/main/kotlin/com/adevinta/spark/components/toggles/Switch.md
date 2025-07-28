@@ -13,22 +13,17 @@ Switch component allows the user to activate or deactivate the state of an eleme
 It is usually used as an element to add services, activate functionalities or adjust settings.
 It is also used to control binary options (On/Off or True/False).
 
-| Light                                                                                              | Dark                                                                                              |
-|----------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_toggles_switch_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_toggles_switch_dark.png) |
+| Light                                                                              | Dark                                                                              |
+|------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
+| ![](../../images/com.adevinta.spark.toggles_SwitchScreenshot_all_states_light.png) | ![](../../images/com.adevinta.spark.toggles_SwitchScreenshot_all_states_dark.png) |
 
 ### SwitchLabelled
-
-|      | Light                                                                                                      | Dark                                                                                                      |
-|------|------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
-| Part | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_toggles_switchlabelled_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_toggles_switchlabelled_dark.png) |
-| Pro  | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_toggles_switchlabelled_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_toggles_switchlabelled_dark.png) |
 
 The minimal usage of the component is a standalone checkbox but you can add a label
 using [SwitchLabelled](Switch.kt).
 Please refer to design specs to find what content is accepted.
 
-- An icon can be added on the left or right of label.
+- An icon can be added on the right of label.
 - A caption can be added in different positions of the label in order to to expand the information.
 
 ```kotlin
@@ -43,23 +38,12 @@ SwitchLabelled(
 
 ### Styles
 
-The `Switch` and `SwitchLabelled` accept the following [ToggleIntent](ToggleIntent.kt)s:
-
-- Basic (default)
-- Accent
-- Main
-- Support
-- Success
-- Alert
-- Danger
-- Info
-- Neutral
+The `Switch` and `SwitchLabelled` now only have one style: **"Basic"**.
 
 ## Layout
 
 - The Switch respects the minimum touch size.
-- Switch labels can be positioned at the Left or the Right, but usually the left position is more
-  often used on small screens and mobile devices.
+- Switch labels are now always positioned at the right/end for improved accessibility.
 
 ### SwitchGroup
 

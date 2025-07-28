@@ -109,7 +109,6 @@ private fun LabeledSwitchGroupExample(
                 modifier = Modifier.fillMaxWidth(),
                 enabled = true,
                 checked = checked,
-                contentSide = contentSide,
                 onCheckedChange = { checked = !checked },
             ) {
                 Text(

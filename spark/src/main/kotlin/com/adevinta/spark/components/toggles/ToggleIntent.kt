@@ -115,7 +115,7 @@ internal fun ToggleIntent.toCheckboxDefaultsColors(checked: Boolean): CheckboxCo
     CheckboxDefaults.colors(
         checkedColor = this.color,
         checkmarkColor = this.onColor,
-        uncheckedColor = UncheckedColor,
+        uncheckedColor = if (this@toCheckboxDefaultsColors == ToggleIntent.Danger) this.color else UncheckedColor,
         // FIXME: drop when fix released https://issuetracker.google.com/issues/291943198
         disabledCheckedColor = if (checked) this.color.disabled else UncheckedColor.disabled,
         disabledUncheckedColor = UncheckedColor.disabled,
@@ -133,7 +133,7 @@ internal fun ToggleIntent.toSwitchDefaultsColors(): SwitchColors = with(this.col
 internal fun ToggleIntent.toRadioButtonDefaultsColors(): RadioButtonColors = with(this.colors()) {
     RadioButtonDefaults.colors(
         selectedColor = this.color,
-        unselectedColor = UncheckedColor,
+        unselectedColor = if (this@toRadioButtonDefaultsColors == ToggleIntent.Danger) this.color else UncheckedColor,
         disabledSelectedColor = this.color.disabled,
         disabledUnselectedColor = SparkTheme.colors.outline.disabled,
     )

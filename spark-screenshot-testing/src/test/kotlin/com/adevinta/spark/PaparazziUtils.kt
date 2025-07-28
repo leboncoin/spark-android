@@ -107,7 +107,6 @@ private fun SparkThemeContent(
  * Generate 3 screenshots for each device: phone, tablet and foldable
  */
 internal fun Paparazzi.sparkSnapshotDevices(
-    name: String? = null,
     drawBackground: Boolean = true,
     isDark: Boolean = false,
     composable: @Composable () -> Unit,
@@ -116,7 +115,7 @@ internal fun Paparazzi.sparkSnapshotDevices(
         unsafeUpdateConfig(
             deviceConfig = deviceConfig,
         )
-        sparkSnapshot(name.orEmpty() + "_${deviceConfig.screenWidth}", drawBackground, isDark, composable)
+        sparkSnapshot("${deviceConfig.screenWidth}", drawBackground, isDark, composable)
     }
 }
 
@@ -124,7 +123,6 @@ internal fun Paparazzi.sparkSnapshotDevices(
  * Generate 2 screenshots for each theme: light and dark
  */
 internal fun Paparazzi.sparkSnapshotNightMode(
-    name: String? = null,
     drawBackground: Boolean = true,
     composable: @Composable () -> Unit,
 ) {
@@ -132,7 +130,7 @@ internal fun Paparazzi.sparkSnapshotNightMode(
     ThemeVariant.entries.forEach {
         try {
             sparkSnapshot(
-                name = name.orEmpty() + "_${it.name}",
+                name = it.name,
                 drawBackground = drawBackground,
                 isDark = it == ThemeVariant.Dark,
                 composable = composable,
@@ -149,7 +147,6 @@ internal fun Paparazzi.sparkSnapshotNightMode(
  * Generate 2 screenshots for high contrast themes: light and dark high contrast
  */
 internal fun Paparazzi.sparkSnapshotHighContrast(
-    name: String? = null,
     drawBackground: Boolean = true,
     composable: @Composable () -> Unit,
 ) {
@@ -157,7 +154,7 @@ internal fun Paparazzi.sparkSnapshotHighContrast(
     HighContrastThemeVariant.entries.forEach {
         try {
             sparkSnapshotWithColors(
-                name = name.orEmpty() + it.name,
+                name = it.name,
                 drawBackground = drawBackground,
                 colors = when (it) {
                     HighContrastThemeVariant.LightHighContrast -> lightHighContrastSparkColors()
