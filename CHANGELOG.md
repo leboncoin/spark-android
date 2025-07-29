@@ -4,6 +4,14 @@
 
 ## [Unreleased]
 
+### Spark
+
+#### Switch
+- 🔧 Reverted the removal of `contentSide` parameter from `SwitchLabelled` components to maintain backward compatibility
+
+#### Modal
+- 🐛 Fixed ModalScaffold by removing `FLAG_LAYOUT_NO_LIMITS` window flag to allow proper scrollable popup behavior when it's used inside it
+
 ## [1.4.0-alpha01]
 
 _2025-07-28_
