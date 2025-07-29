@@ -80,14 +80,14 @@ private fun SwitchStates() {
             checked = true,
             onCheckedChange = {},
             icons = icons,
-            contentSide = ContentSide.End
+            contentSide = ContentSide.End,
         ) { Text(text = "Exia") }
         SwitchLabelled(
             enabled = true,
             checked = false,
             onCheckedChange = {},
             icons = icons,
-            contentSide = ContentSide.End
+            contentSide = ContentSide.End,
         ) { Text("Aerial") }
         SwitchLabelled(
             enabled = false,
@@ -106,14 +106,14 @@ private fun SwitchStates() {
             checked = true,
             onCheckedChange = {},
             icons = icons,
-            contentSide = ContentSide.End
+            contentSide = ContentSide.End,
         ) { Text(text) }
         SwitchLabelled(
             enabled = false,
             checked = false,
             onCheckedChange = {},
             icons = icons,
-            contentSide = ContentSide.End
+            contentSide = ContentSide.End,
         ) { Text(text) }
     }
 }
