@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.dialog
 
-import android.view.WindowManager
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -440,7 +439,8 @@ private fun SetUpEdgeToEdgeDialog() {
     window.statusBarColor = Color.Transparent.toArgb()
     window.navigationBarColor = Color.Transparent.toArgb()
     window.navigationBarColor = Color.Transparent.toArgb()
-    window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+    // Displaying a popup with this flag will make it un scrollable if it's bigger that the screen
+    // window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
     window.setDimAmount(0f)
 }
 
