@@ -262,28 +262,18 @@ public fun SwitchLabelled(
     enabled: Boolean = true,
     icons: SwitchIcons? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    contentSide: ContentSide = ContentSide.Start,
     content: @Composable RowScope.() -> Unit,
 ) {
-    SparkToggleLabelledContainer(
-        state = ToggleableState(checked),
-        toggle = {
-            SparkSwitch(
-                checked = checked,
-                onCheckedChange = null,
-                interactionSource = interactionSource,
-                enabled = enabled,
-                icons = icons,
-                modifier = Modifier.minimumTouchTargetSize(),
-            )
-        },
-        role = Role.Switch,
-        onClick = if (onCheckedChange != null) {
-            { onCheckedChange(!checked) }
-        } else {
-            null
-        },
-        modifier = modifier.selectableGroup(),
+    SwitchLabelled(
+        contentSide = contentSide,
+        intent = ToggleIntent.Basic,
+        checked = checked,
+        onCheckedChange = onCheckedChange,
+        modifier = modifier,
         enabled = enabled,
+        icons = icons,
+        interactionSource = interactionSource,
         content = content,
     )
 }
@@ -307,11 +297,30 @@ private fun AllStatesSwitchLabelledPreview() {
         unchecked = SparkIcons.AlarmOffFill,
     )
     PreviewTheme {
+        // Test case when only content side is provided
         SwitchLabelled(
             enabled = true,
             checked = true,
             onCheckedChange = {},
             icons = icons,
+            contentSide = ContentSide.Start,
+        ) { Text(text = "Label") }
+        // Test case when only intent is provided
+        SwitchLabelled(
+            enabled = true,
+            checked = true,
+            onCheckedChange = {},
+            icons = icons,
+            intent = ToggleIntent.Main,
+        ) { Text(text = "Label") }
+        // Test case when both content side and intent are provided
+        SwitchLabelled(
+            enabled = true,
+            checked = true,
+            onCheckedChange = {},
+            icons = icons,
+            intent = ToggleIntent.Main,
+            contentSide = ContentSide.Start,
         ) { Text(text = "Label") }
         SwitchLabelled(
             enabled = true,

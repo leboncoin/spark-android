@@ -27,6 +27,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.DefaultTestDevices
+import com.adevinta.spark.components.toggles.ContentSide
 import com.adevinta.spark.components.toggles.SwitchIcons
 import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.icons.AlarmOffFill
@@ -75,6 +76,20 @@ private fun SwitchStates() {
             icons = icons,
         ) { Text("Unicorn") }
         SwitchLabelled(
+            enabled = true,
+            checked = true,
+            onCheckedChange = {},
+            icons = icons,
+            contentSide = ContentSide.End,
+        ) { Text(text = "Exia") }
+        SwitchLabelled(
+            enabled = true,
+            checked = false,
+            onCheckedChange = {},
+            icons = icons,
+            contentSide = ContentSide.End,
+        ) { Text("Aerial") }
+        SwitchLabelled(
             enabled = false,
             checked = true,
             onCheckedChange = {},
@@ -85,6 +100,20 @@ private fun SwitchStates() {
             checked = false,
             onCheckedChange = {},
             icons = icons,
+        ) { Text(text) }
+        SwitchLabelled(
+            enabled = false,
+            checked = true,
+            onCheckedChange = {},
+            icons = icons,
+            contentSide = ContentSide.End,
+        ) { Text(text) }
+        SwitchLabelled(
+            enabled = false,
+            checked = false,
+            onCheckedChange = {},
+            icons = icons,
+            contentSide = ContentSide.End,
         ) { Text(text) }
     }
 }
