@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [1.4.0-alpha02]
+
+_2025-07-29_
+
 ### Spark
 
 #### 💄 Rebranded shapes extended to more components

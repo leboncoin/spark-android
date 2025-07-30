@@ -421,14 +421,14 @@ public fun Dropdown(
             interactionSource = interactionSource,
         )
         // Use Exposed when b/205589613 is fixed
-//        ExposedDropdownMenu(
-        DropdownMenu(
+        ExposedDropdownMenu(
+//        DropdownMenu(
             expanded = expanded,
             onDismissRequest = onDismissRequest,
             modifier = Modifier
                 .exposedDropdownSize()
                 .padding(16.dp),
-            properties = properties,
+//            properties = properties,
             content = dropdownContent,
         )
     }

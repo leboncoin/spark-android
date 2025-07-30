@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.catalog.configurator.samples.modal
 
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
@@ -41,8 +42,10 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.PopupProperties
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.examples.samples.dialog.modal.ModalSample
 import com.adevinta.spark.catalog.model.Configurator
@@ -53,15 +56,20 @@ import com.adevinta.spark.components.dialog.ModalDefault
 import com.adevinta.spark.components.dialog.ModalScaffold
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconButton
+import com.adevinta.spark.components.menu.DropdownMenuGroupItem
+import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.components.snackbars.SnackbarHost
 import com.adevinta.spark.components.snackbars.SnackbarHostState
 import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.components.textfields.Dropdown
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.icons.ImageFill
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.ThreeDotsVertical
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -162,10 +170,52 @@ internal fun ColumnScope.ModalSample() {
                     onValueChange = {},
                     modifier = Modifier.focusRequester(focusRequester),
                 )
+                var expanded by remember { mutableStateOf(false) }
+
+                Dropdown(
+                    value = "valeur",
+                    expanded = expanded,
+                    onExpandedChange = { expanded = !expanded },
+                    onDismissRequest = { expanded = false },
+                    modifier = Modifier.fillMaxWidth(),
+                    properties = PopupProperties(),
+                    visualTransformation = VisualTransformation.None,
+                    interactionSource = remember { MutableInteractionSource() },
+                ) {
+                    DropdownStubData.forEach { (groupName, books) ->
+                        DropdownMenuGroupItem(
+                            title = {
+                                Text(groupName)
+                            },
+                        ) {
+                            books.forEach { book ->
+                                DropdownMenuItem(
+                                    text = { Text(book) },
+                                    onClick = {
+                                    },
+                                )
+                            }
+                        }
+                    }
+                }
             }
         }
     }
 }
+private data class DropdownExampleGroup(val name: String, val books: ImmutableList<String>)
+
+private val DropdownStubData = persistentListOf(
+    DropdownExampleGroup("Best Sellers", persistentListOf("To Kill a Mockingbird", "War and Peace", "The Idiot")),
+    DropdownExampleGroup("Novelties", persistentListOf("A Picture of Dorian Gray", "1984", "Pride and Prejudice")),
+    DropdownExampleGroup("Best Sellers", persistentListOf("To Kill a Mockingbird", "War and Peace", "The Idiot")),
+    DropdownExampleGroup("Novelties", persistentListOf("A Picture of Dorian Gray", "1984", "Pride and Prejudice")),
+    DropdownExampleGroup("Best Sellers", persistentListOf("To Kill a Mockingbird", "War and Peace", "The Idiot")),
+    DropdownExampleGroup("Novelties", persistentListOf("A Picture of Dorian Gray", "1984", "Pride and Prejudice")),
+    DropdownExampleGroup("Best Sellers", persistentListOf("To Kill a Mockingbird", "War and Peace", "The Idiot")),
+    DropdownExampleGroup("Novelties", persistentListOf("A Picture of Dorian Gray", "1984", "Pride and Prejudice")),
+    DropdownExampleGroup("Best Sellers", persistentListOf("To Kill a Mockingbird", "War and Peace", "The Idiot")),
+    DropdownExampleGroup("Novelties", persistentListOf("A Picture of Dorian Gray", "1984", "Pride and Prejudice")),
+)
 
 @Composable
 private fun SupportButton(

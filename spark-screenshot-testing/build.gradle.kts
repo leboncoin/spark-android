@@ -45,8 +45,11 @@ dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material3)
     implementation(libs.kotlinx.collections.immutable)
+    implementation(libs.androidx.core)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlin.test)
     testImplementation(libs.testParameterInjector)
+    testImplementation(libs.androidx.compose.ui.test)
+    testImplementation(libs.androidx.core)
 }
