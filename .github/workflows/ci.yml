@@ -118,15 +118,35 @@ jobs:
       - uses: ./.github/actions/setup-gradle-properties
       - name: 🕵️ Lint
         id: lint
-        run: ./gradlew lintRelease
+        run: ./gradlew :spark:lintRelease :spark-screenshot-testing:lintRelease :catalog:lintRelease --continue
       - name: 📦 Archive Lint reports
         if: ${{ always() && contains(fromJSON('["success", "failure"]'), steps.lint.outcome) }}
         uses: ./.github/actions/archive-lint-reports
         with:
-          analysis: './'
           html: '**/build/reports/lint-results-*.html'
           sarif: '**/build/reports/lint-results-*.sarif'
           xml: '**/build/reports/lint-results-*.xml'
+
+      - name: Analyze SARIF report for spark module
+        if: ${{ always() && hashFiles('spark/**/*.sarif') != '' }}
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: ./spark/
+          category: spark
+
+      - name: Analyze SARIF report for spark-screenshot-testing module
+        if: ${{ always() && hashFiles('spark-screenshot-testing/**/*.sarif') != '' }}
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: ./spark-screenshot-testing/
+          category: spark-screenshot-testing
+
+      - name: Analyze SARIF report for catalog module
+        if: ${{ always() && hashFiles('catalog/**/*.sarif') != '' }}
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: ./catalog/
+          category: catalog
 
   dokka:
     name: 📋 Dokka
@@ -178,4 +198,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - if: ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}
+        name: Fail
         run: exit 1

@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.dialog
 
-import android.view.WindowManager
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -31,6 +30,7 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -45,6 +45,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -66,6 +67,7 @@ import androidx.compose.ui.window.DialogWindowProvider
 import androidx.window.core.layout.WindowSizeClass.Companion.HEIGHT_DP_MEDIUM_LOWER_BOUND
 import androidx.window.core.layout.WindowSizeClass.Companion.WIDTH_DP_MEDIUM_LOWER_BOUND
 import com.adevinta.spark.ExperimentalSparkApi
+import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.R
 import com.adevinta.spark.SparkTheme
@@ -115,12 +117,13 @@ public fun ModalScaffold(
     onClose: () -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = DialogPadding,
+    contentWindowInsets: WindowInsets = ScaffoldDefaults.contentWindowInsets,
     snackbarHost: @Composable () -> Unit = {},
     mainButton: (@Composable (Modifier) -> Unit)? = null,
     supportButton: (@Composable (Modifier) -> Unit)? = null,
     title: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
-    inEdgeToEdge: Boolean = false,
+    inEdgeToEdge: Boolean = LocalSparkFeatureFlag.current.isContainingActivityEdgeToEdge,
     content: @Composable (PaddingValues) -> Unit,
 ) {
     val size = LocalWindowSizeClass.current
@@ -129,7 +132,7 @@ public fun ModalScaffold(
     val isFoldableOrTablet = size.isAtLeastBreakpoint(WIDTH_DP_MEDIUM_LOWER_BOUND, HEIGHT_DP_MEDIUM_LOWER_BOUND)
 
     val properties = DialogProperties(
-        usePlatformDefaultWidth = !inEdgeToEdge,
+        usePlatformDefaultWidth = false,
         decorFitsSystemWindows = !inEdgeToEdge,
     )
 
@@ -159,6 +162,7 @@ public fun ModalScaffold(
             supportButton = supportButton,
             title = title,
             actions = actions,
+            contentWindowInsets = contentWindowInsets,
             inEdgeToEdge = inEdgeToEdge,
             content = content,
         )
@@ -174,6 +178,7 @@ public fun ModalScaffold(
                 supportButton = supportButton,
                 title = title,
                 actions = actions,
+                contentWindowInsets = contentWindowInsets,
                 inEdgeToEdge = inEdgeToEdge,
                 content = content,
             )
@@ -254,6 +259,7 @@ private fun PhonePortraitModalScaffold(
     actions: @Composable RowScope.() -> Unit = {},
     mainButton: (@Composable (Modifier) -> Unit)? = null,
     supportButton: (@Composable (Modifier) -> Unit)? = null,
+    contentWindowInsets: WindowInsets = ScaffoldDefaults.contentWindowInsets,
     inEdgeToEdge: Boolean = false,
     content: @Composable (PaddingValues) -> Unit,
 ) {
@@ -271,6 +277,7 @@ private fun PhonePortraitModalScaffold(
                 .fillMaxSize()
                 .nestedScroll(scrollBehavior.nestedScrollConnection),
             snackbarHost = snackbarHost,
+            contentWindowInsets = contentWindowInsets,
             topBar = {
                 TopAppBar(
                     navigationIcon = {
@@ -283,7 +290,9 @@ private fun PhonePortraitModalScaffold(
             },
             bottomBar = { BottomBarPortrait(mainButton, supportButton) },
         ) { innerPadding ->
-            content(innerPadding)
+            Box(Modifier.padding(contentPadding)) {
+                content(innerPadding)
+            }
         }
     }
 }
@@ -333,6 +342,7 @@ private fun PhoneLandscapeModalScaffold(
     supportButton: (@Composable (Modifier) -> Unit)? = null,
     title: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
+    contentWindowInsets: WindowInsets = ScaffoldDefaults.contentWindowInsets,
     illustrationContentScale: ContentScale = ContentScale.Fit,
     inEdgeToEdge: Boolean = false,
     content: @Composable (PaddingValues) -> Unit,
@@ -350,6 +360,7 @@ private fun PhoneLandscapeModalScaffold(
                 .fillMaxSize()
                 .nestedScroll(scrollBehavior.nestedScrollConnection),
             snackbarHost = snackbarHost,
+            contentWindowInsets = contentWindowInsets,
             bottomBar = {
                 if (supportButton == null && mainButton == null) return@Scaffold
                 Surface {
@@ -428,7 +439,8 @@ private fun SetUpEdgeToEdgeDialog() {
     window.statusBarColor = Color.Transparent.toArgb()
     window.navigationBarColor = Color.Transparent.toArgb()
     window.navigationBarColor = Color.Transparent.toArgb()
-    window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+    // Displaying a popup with this flag will make it un scrollable if it's bigger that the screen
+    // window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
     window.setDimAmount(0f)
 }
 

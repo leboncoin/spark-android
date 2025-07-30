@@ -43,13 +43,8 @@ For example, they could set up hooks to post the changelog in their monitoring S
   ```bash
   git commit -am "chore: prepare next development version"
   ```
-8. Go to [Sonatype Nexus](https://s01.oss.sonatype.org/) to promote ([docs & detailed steps](https://central.sonatype.org/publish/release/))
-   ##### If there is a problem! and you wanna dismiss it just hit `Drop`
-   #### If all looks good:
-    1. `close` then wait till it completes
-    2. `release` the artifact
-9. Trigger the manual workflow [![📋 Publish Dokka to GitHub Pages](https://github.com/leboncoin/spark-android/actions/workflows/dokka.yml/badge.svg)](https://github.com/leboncoin/spark-android/actions/workflows/dokka.yml) with the version tag.
-10. Draft a [new release](https://github.com/leboncoin/spark-android/releases/new) with the version tag, add the corresponding [CHANGELOG.md](CHANGELOG.md) entries, and publish it when ready.
+8. Trigger the manual workflow [![📋 Publish Dokka to GitHub Pages](https://github.com/leboncoin/spark-android/actions/workflows/dokka.yml/badge.svg)](https://github.com/leboncoin/spark-android/actions/workflows/dokka.yml) with the version tag.
+9. Draft a [new release](https://github.com/leboncoin/spark-android/releases/new) with the version tag, add the corresponding [CHANGELOG.md](CHANGELOG.md) entries, and publish it when ready.
 
 ---
 

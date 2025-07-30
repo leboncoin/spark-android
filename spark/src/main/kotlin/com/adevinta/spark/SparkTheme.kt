@@ -295,11 +295,10 @@ internal val LocalSparkFeatureFlag: ProvidableCompositionLocal<SparkFeatureFlag>
  * makes the text in cursive, colors in red/green/blue and shapes in full cut corners.
  * @property useSparkComponentsHighlighter Highlight visually with an overlay where the spark components are used
  * or not. Setting it to true show an overlay on spark components.
- * @property useLegacyStyle Makes the components use the legacy style from the previous DS to make it easier for the
- * Leboncoin teams to migrate their screens to spark.
+ * @property isContainingActivityEdgeToEdge
  */
 public data class SparkFeatureFlag(
     val useSparkTokensHighlighter: Boolean = false,
     val useSparkComponentsHighlighter: Boolean = false,
-    val useLegacyStyle: Boolean = false,
+    val isContainingActivityEdgeToEdge: Boolean = false,
 )

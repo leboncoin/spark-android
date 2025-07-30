@@ -45,7 +45,6 @@
     <string name="component_toggle_vertical_group_title">Groupe de checkbox vertical</string>
     <string name="component_toggle_horizontal_group_title">Regroupement de bascules avec alignement horizontal</string>
     <string name="configurator_component_checkbox_toggleable_state_label">État de coche</string>
-    <string name="configurator_component_toggle_content_side_label">Côté du contenu</string>
     <string name="configurator_component_toggle_placeholder_label">Titre de la case</string>
     <!--endregion-->
     <!--region Checkbox-->

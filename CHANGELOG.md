@@ -6,6 +6,34 @@
 
 ### Spark
 
+#### Switch
+- 🔧 Reverted the removal of `contentSide` parameter from `SwitchLabelled` components to maintain backward compatibility
+
+#### Modal
+- 🐛 Fixed ModalScaffold by removing `FLAG_LAYOUT_NO_LIMITS` window flag to allow proper scrollable popup behavior when it's used inside it
+
+## [1.4.0-alpha01]
+
+_2025-07-28_
+
+### Spark
+
+#### Checkbox, RadioButton & Switch: API changes
+
+- The `intent` parameter for `Checkbox`, `RadioButton`, and `Switch` is now deprecated and will be removed in a future release. We are keeping only the "Basic" and "Error" colors to ensure better visual consistency.
+- Use the new `error: Boolean` parameter to indicate error/validation state for `Checkbox` & `RadioButton` components.
+- The `ContentSide` parameter will be deprecated in a future release to improve readability and accessibility (a11y). All content will be aligned to the right/end by default for better screen reader support.
+
+> [!CAUTION]
+> - If you use a color other than **"Basic"** or **"Error"**, consider replacing it and use the new `error` parameter.
+> - If you use Start/left content side, update your usage to End/right alignment for improved accessibility.
+
+## [1.3.0]
+
+_2025-07-23_
+
+### Spark
+
 #### 🆕 High Color Contrast Support
 > [!NOTE]
 > This feature requires Android 14 (API level 34) or higher to access system contrast settings.
@@ -627,7 +655,13 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.2.2...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.4.0-alpha02...HEAD
+
+[1.4.0-alpha02]: https://github.com/leboncoin/spark-android/releases/tag/1.4.0-alpha02
+
+[1.4.0-alpha01]: https://github.com/leboncoin/spark-android/releases/tag/1.4.0-alpha01
+
+[1.3.0]: https://github.com/leboncoin/spark-android/releases/tag/1.3.0
 
 [1.2.2]: https://github.com/leboncoin/spark-android/releases/tag/1.2.2
 

@@ -18,6 +18,11 @@ updates:
         patterns:
           - "com.android.tools.build:*"
           - "com.android.tools.lint:*"
+          - "com.android.application"
+          - "com.android.library"
+          - "com.android.lint"
+          - "com.android.settings"
+          - "com.android.test"
     open-pull-requests-limit: 20
 registries:
   maven-google:

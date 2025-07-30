@@ -129,9 +129,9 @@ internal fun ComponentActivity.CatalogApp(
         shapes = shapes,
         typography = typography,
         sparkFeatureFlag = SparkFeatureFlag(
-            useLegacyStyle = theme.useLegacyTheme,
             useSparkTokensHighlighter = theme.highlightSparkTokens,
             useSparkComponentsHighlighter = theme.highlightSparkComponents,
+            isContainingActivityEdgeToEdge = true,
         ),
     ) {
         val layoutDirection = when (theme.textDirection) {

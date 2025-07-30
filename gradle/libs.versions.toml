@@ -1,16 +1,13 @@
 [versions]
 accompanist = "0.36.0"
-android-gradlePlugin = "8.10.1"
+agp = "8.11.1"
 androidx-activity = "1.10.1"
 androidx-appCompat = "1.7.1"
 compileSdk = "35"
-dependencyGuard = "0.5.0"
 dokka = "1.9.20"
-kotlin = "2.1.21"
-lint = "31.10.1"
+kotlin = "2.2.0"
+lint = "31.11.1"
 minCompileSdk = "24"
-nmcp = "0.1.5"
-spotless = "7.0.4"
 targetSdk = "35"
 
 [libraries]
@@ -52,12 +49,12 @@ androidx-core = "androidx.core:core-ktx:1.16.0"
 
 androidx-graphics-shapes = "androidx.graphics:graphics-shapes:1.0.1"
 
-androidx-lifecycle-viewmodel = "androidx.lifecycle:lifecycle-viewmodel:2.9.1"
+androidx-lifecycle-viewmodel = "androidx.lifecycle:lifecycle-viewmodel:2.9.2"
 androidx-metrics =  "androidx.metrics:metrics-performance:1.0.0-beta02"
 
-androidx-navigation-compose = "androidx.navigation:navigation-compose:2.9.0"
+androidx-navigation-compose = "androidx.navigation:navigation-compose:2.9.2"
 
-androidx-savedstate = "androidx.savedstate:savedstate-ktx:1.3.0"
+androidx-savedstate = "androidx.savedstate:savedstate-ktx:1.3.1"
 
 androidx-test-runner = "androidx.test:runner:1.6.2"
 androidx-test-truth = "androidx.test.ext:truth:1.6.0"
@@ -80,14 +77,6 @@ desugarJdkLibs = "com.android.tools:desugar_jdk_libs:2.1.5"
 dokka-android-documentation-plugin = { module = "org.jetbrains.dokka:android-documentation-plugin", version.ref = "dokka" }
 dokka-base = { module = "org.jetbrains.dokka:dokka-base", version.ref = "dokka" }
 
-gradlePlugins-android = { module = "com.android.tools.build:gradle", version.ref = "android-gradlePlugin" }
-gradlePlugins-compose = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
-gradlePlugins-dependencyGuard = { module = "com.dropbox.dependency-guard:com.dropbox.dependency-guard.gradle.plugin", version.ref = "dependencyGuard" }
-gradlePlugins-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
-gradlePlugins-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-gradlePlugins-spotless = { module = "com.diffplug.spotless:spotless-plugin-gradle", version.ref = "spotless" }
-gradlePlugins-nmcp = { module = "com.gradleup.nmcp:com.gradleup.nmcp.gradle.plugin", version.ref = "nmcp" }
-
 junit = "junit:junit:4.13.2"
 
 kotlin-bom = { module = "org.jetbrains.kotlin:kotlin-bom", version.ref = "kotlin" }
@@ -96,7 +85,7 @@ kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test" }
 
 kotlinx-collections-immutable = "org.jetbrains.kotlinx:kotlinx-collections-immutable:0.4.0"
-kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1"
+kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0"
 
 ktlint-bom = "com.pinterest.ktlint:ktlint-bom:1.6.0"
 
@@ -116,19 +105,19 @@ slack-lint-compose = "com.slack.lint.compose:compose-lint-checks:1.4.2"
 testParameterInjector = "com.google.testparameterinjector:test-parameter-injector:1.18"
 
 [plugins]
-android-application = { id = "com.android.application", version.ref = "android-gradlePlugin" }
+android-application = { id = "com.android.application", version.ref = "agp" }
 android-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-android-library = { id = "com.android.library", version.ref = "android-gradlePlugin" }
-android-lint = { id = "com.android.lint", version.ref = "android-gradlePlugin" }
-android-test = { id = "com.android.test", version.ref = "android-gradlePlugin" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+android-lint = { id = "com.android.lint", version.ref = "agp" }
+android-test = { id = "com.android.test", version.ref = "agp" }
 compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-paparazzi = "app.cash.paparazzi:1.3.5"
-dependencyGuard = { id = "com.dropbox.dependency-guard", version.ref = "dependencyGuard" }
+dependencyGuard = "com.dropbox.dependency-guard:0.5.0"
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-nmcp = { id = "com.gradleup.nmcp", version.ref = "nmcp" }
+nmcp = "com.gradleup.nmcp:1.0.2"
+paparazzi = "app.cash.paparazzi:1.3.5"
+spotless = "com.diffplug.spotless:7.2.1"
 
 
 # Plugins defined by this project
