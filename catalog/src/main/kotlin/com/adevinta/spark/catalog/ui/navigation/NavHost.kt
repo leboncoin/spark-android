@@ -24,11 +24,13 @@ package com.adevinta.spark.catalog.ui.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import com.adevinta.spark.catalog.themes.NavigationMode
+import com.adevinta.spark.catalog.util.TrackDisposableJank
 import kotlin.reflect.KClass
 import kotlin.reflect.KType
 
@@ -43,6 +45,7 @@ public fun NavHostSpark(
     typeMap: Map<KType, @JvmSuppressWildcards NavType<*>> = emptyMap(),
     builder: NavGraphBuilder.() -> Unit,
 ) {
+    NavigationTrackingSideEffect(navController)
     NavHost(
         modifier = modifier,
         navController = navController,
@@ -57,4 +60,22 @@ public fun NavHostSpark(
         sizeTransform = navigationMode.sizeTransform,
         builder = builder,
     )
+}
+
+/**
+ * Stores information about navigation events to be used with JankStats
+ */
+@Composable
+private fun NavigationTrackingSideEffect(navController: NavHostController) {
+    TrackDisposableJank(navController) { metricsHolder ->
+        val listener = NavController.OnDestinationChangedListener { _, destination, _ ->
+            metricsHolder.state?.putState("Navigation", destination.route.toString())
+        }
+
+        navController.addOnDestinationChangedListener(listener)
+
+        onDispose {
+            navController.removeOnDestinationChangedListener(listener)
+        }
+    }
 }
