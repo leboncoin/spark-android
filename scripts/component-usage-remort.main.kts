@@ -2443,7 +2443,7 @@ class ComponentUsageReport : SuspendingCliktCommand(
                 echo("✅ CSV report generated: ${csvFile.absolutePath}")
             }
 
-            ExportFormat.BOTH -> {
+            ExportFormat.ALL -> {
                 echo("\n📊 Generating HTML, JSON, and CSV reports...")
                 val htmlFile = File(outputDir, "component-usage-report.html")
                 val jsonFile = File(outputDir, "component-usage-report.json")
@@ -2467,7 +2467,7 @@ class ComponentUsageReport : SuspendingCliktCommand(
 }
 
 enum class ExportFormat {
-    HTML, JSON, CSV, BOTH
+    HTML, JSON, CSV, ALL
 }
 
 // Add JSON report generation function
