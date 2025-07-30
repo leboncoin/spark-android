@@ -21,15 +21,11 @@
  */
 package com.adevinta.spark.catalog.examples.component
 
-import androidx.compose.animation.BoundsTransform
 import androidx.compose.animation.EnterExitState
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
-import androidx.compose.animation.core.ArcMode
 import androidx.compose.animation.core.ExperimentalAnimationSpecApi
-import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDp
-import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -66,15 +62,13 @@ import com.adevinta.spark.components.badge.BadgeStyle
 import com.adevinta.spark.components.card.CardDefaults
 import com.adevinta.spark.components.card.ElevatedCard
 import com.adevinta.spark.components.icons.Icon
-import com.adevinta.spark.components.image.Image
+import com.adevinta.spark.components.image.Illustration
 import com.adevinta.spark.components.menu.DropdownMenu
 import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.WheelOutline
 import com.adevinta.spark.tokens.applyTonalElevation
 import com.adevinta.spark.tools.modifiers.invisibleSemantic
-import soup.compose.material.motion.animation.materialFadeIn
-import soup.compose.material.motion.animation.materialFadeOut
 
 @Composable
 public fun ComponentConfiguratorItem(
@@ -139,13 +133,6 @@ public fun ComponentItem(
     countIndicator: Int = 0,
 ) {
     val animatedVisibilityScope = LocalAnimatedVisibilityScope.current
-    val boundsTransform = BoundsTransform { initialBounds, targetBounds ->
-        keyframes {
-            durationMillis = 500
-            initialBounds at 0 using ArcMode.ArcBelow using FastOutSlowInEasing
-            targetBounds at 500
-        }
-    }
     with(LocalSharedTransitionScope.current) {
         val cardRadius by animatedVisibilityScope.transition
             .animateDp(label = "card radius") { enterExit ->
@@ -170,7 +157,6 @@ public fun ComponentItem(
                         ),
                     ),
                     animatedVisibilityScope = animatedVisibilityScope,
-                    boundsTransform = boundsTransform,
                     resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
                     clipInOverlayDuringTransition = OverlayClip(RoundedCornerShape(cardRadius)),
                     placeHolderSize = SharedTransitionScope.PlaceHolderSize.animatedSize,
@@ -188,7 +174,7 @@ public fun ComponentItem(
                             color = SparkTheme.colors.applyTonalElevation(SparkTheme.colors.surface, 1.dp),
                         ),
                 ) {
-                    Image(
+                    Illustration(
                         modifier = Modifier
                             .fillMaxSize()
                             .sharedElement(
@@ -204,7 +190,7 @@ public fun ComponentItem(
                                 },
                                 animatedVisibilityScope = animatedVisibilityScope,
                             ),
-                        model = component.illustration,
+                        drawableRes = component.illustration ?: R.drawable.ic_launcher_foreground,
                         contentDescription = null,
                     )
                 }
@@ -233,11 +219,7 @@ public fun ComponentItem(
                             modifier = Modifier
                                 .invisibleSemantic()
                                 .align(Alignment.BottomEnd)
-                                .padding(ComponentItemInnerPadding)
-                                .animateEnterExit(
-                                    enter = materialFadeIn(),
-                                    exit = materialFadeOut(),
-                                ),
+                                .padding(ComponentItemInnerPadding),
                             count = countIndicator,
                             intent = BadgeIntent.Basic,
                             badgeStyle = BadgeStyle.Small,

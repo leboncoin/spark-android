@@ -28,9 +28,13 @@ import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -43,7 +47,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDeepLink
@@ -125,14 +128,8 @@ internal fun ComponentsListScreen(
         columns = GridCells.Fixed(columns),
         state = state,
         contentPadding = PaddingValues(
-            start = Layout.bodyMargin / 2 + contentPadding.calculateLeftPadding(
-                LocalLayoutDirection.current,
-            ),
-            end = Layout.bodyMargin / 2 + contentPadding.calculateRightPadding(
-                LocalLayoutDirection.current,
-            ),
-            top = contentPadding.calculateTopPadding(),
-            bottom = contentPadding.calculateBottomPadding(),
+            horizontal = Layout.bodyMargin,
+            vertical = 16.dp,
         ),
     ) {
         item(
@@ -173,6 +170,9 @@ internal fun ComponentsListScreen(
                 )
             },
         )
+        item(key = -1) {
+            Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.safeDrawing))
+        }
     }
 }
 
