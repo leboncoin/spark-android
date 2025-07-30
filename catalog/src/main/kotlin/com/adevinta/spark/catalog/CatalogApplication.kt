@@ -19,7 +19,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 package com.adevinta.spark.catalog
 
 import android.app.Application
@@ -39,9 +38,7 @@ public class CatalogApplication : Application() {
     /**
      * Return true if the application is debuggable.
      */
-    private fun isDebuggable(): Boolean {
-        return 0 != applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE
-    }
+    private fun isDebuggable(): Boolean = 0 != applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE
 
     /**
      * Set a thread & vm policy that detects all potential problems on the main thread, such as network
