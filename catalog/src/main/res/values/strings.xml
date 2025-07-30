@@ -46,7 +46,6 @@
     <string name="component_toggle_vertical_group_title">Toggle grouping with vertical alignment</string>
     <string name="component_toggle_horizontal_group_title">Toggle grouping with horizontal alignment</string>
     <string name="configurator_component_checkbox_toggleable_state_label">Toggleable State</string>
-    <string name="configurator_component_toggle_content_side_label">Content Side</string>
     <string name="configurator_component_toggle_placeholder_label">Toggle label</string>
     <!--endregion-->
     <!--region Checkbox-->

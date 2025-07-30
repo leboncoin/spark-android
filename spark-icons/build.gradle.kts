@@ -32,6 +32,12 @@ android {
     resourcePrefix = "spark_icons_"
 }
 
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xannotation-default-target=param-property")
+    }
+}
+
 dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.appCompat.resources) // Needed for compat vector drawables

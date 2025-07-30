@@ -2,25 +2,27 @@
 
 ## Pre-release
 
-Before each release, we will publish a Snapshot version of it and use it to create a pre-release on [Github Release page](https://github.com/leboncoin/spark-android/releases)
+> [!NOTE]
+> This process will apply for the versions starting 1.4.0.
 
-During a period of ~2 weeks, consumers will be able to test it and report bugs that can be fixed before it’s considered stable.
+Before each release, we will publish one or more alpha versions and publish pre-releases on [Github Release page](https://github.com/leboncoin/spark-android/releases).
+
+Consumers will be able to test new features and report breaking changes & bugs that can be fixed before it’s considered for a stable release.
 
 Using the Github pre-release feature will allow Spark users to be notified that a new release is being prepared and test against it.
 For example, they could set up hooks to post the changelog in their monitoring Slack channel or trigger a CI build to validate that this new release doesn’t break their build.
 
-1. [Create a draft release](https://github.com/leboncoin/spark-android/releases/new?tag=X.Y.Z-SNAPSHOT&title=X.Y.Z-SNAPSHOT&prerelease=1) with a `*.*.*-SNAPSHOT` version tag.
+1. [Create a draft release](https://github.com/leboncoin/spark-android/releases/new?tag=X.Y.Z-alpha01&title=X.Y.Z-alpha01&prerelease=1) with a `*.*.*-alpha01` version tag.
 2. Click on `Generate release notes` to automatically add all the merged pull requests from this diff and contributors of this release.
 3. Remove logs from `@dependabot` except if they mention big version upgrades for libraries used by our consumers (like Compose or Kotlin). 
 4. Reformat the changelog to be as close as possible to the format we describe in the [CHANGELOG STYLE GUIDE](./docs/CHANGELOG%20STYLE%20GUIDE.md).
 5. If we’re satisfied with the draft, release it but make sure **`⚠️ Set as a pre-release`** is checked.
-6. Wait **at least 2 weeks** for feedback from consumers on the stability of this release.
-7. If we need to create a fix from feedbacks, then this cycle repeats.
-8. Otherwise, follow the [stable release process](./RELEASING.md#Release)
+6. If we need to create a fix from feedbacks, then this cycle repeats.
+7. Otherwise, follow the [stable release process](./RELEASING.md#Release)
 
 ## Release
 
-1. Update the `version` in [gradle.properties](gradle.properties) to a non-`SNAPSHOT`.
+1. Update the `version` in [gradle.properties](gradle.properties) to a non-`alpha`.
 2. Update [CHANGELOG.md](CHANGELOG.md)
    - Add the new version section and move the *unreleased changes* into it.
    - Update the links at the end of the page.
@@ -36,18 +38,13 @@ For example, they could set up hooks to post the changelog in their monitoring S
    git push origin X.Y.Z
    ```
 5. Wait for the [publishing workflow](https://github.com/leboncoin/spark-android/actions/workflows/publish.yml) to build and publish the release.
-6. Update the `version` in [gradle.properties](gradle.properties) to the next `SNAPSHOT` version.
+6. Update the `version` in [gradle.properties](gradle.properties) to the next `alpha` version.
 7. Commit and push the changes to a new PR
   ```bash
   git commit -am "chore: prepare next development version"
   ```
-8. Go to [Sonatype Nexus](https://s01.oss.sonatype.org/) to promote ([docs & detailed steps](https://central.sonatype.org/publish/release/))
-   ##### If there is a problem! and you wanna dismiss it just hit `Drop`
-   #### If all looks good:
-    1. `close` then wait till it completes
-    2. `release` the artifact
-9. Trigger the manual workflow [![📋 Publish Dokka to GitHub Pages](https://github.com/leboncoin/spark-android/actions/workflows/dokka.yml/badge.svg)](https://github.com/leboncoin/spark-android/actions/workflows/dokka.yml) with the version tag.
-10. Draft a [new release](https://github.com/leboncoin/spark-android/releases/new) with the version tag, add the corresponding [CHANGELOG.md](CHANGELOG.md) entries, and publish it when ready.
+8. Trigger the manual workflow [![📋 Publish Dokka to GitHub Pages](https://github.com/leboncoin/spark-android/actions/workflows/dokka.yml/badge.svg)](https://github.com/leboncoin/spark-android/actions/workflows/dokka.yml) with the version tag.
+9. Draft a [new release](https://github.com/leboncoin/spark-android/releases/new) with the version tag, add the corresponding [CHANGELOG.md](CHANGELOG.md) entries, and publish it when ready.
 
 ---
 
