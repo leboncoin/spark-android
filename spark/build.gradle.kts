@@ -70,7 +70,7 @@ dependencies {
 
     api(libs.androidx.compose.animation.graphics)
     api(libs.androidx.compose.foundation)
-    implementation(libs.androidx.compose.material.iconsExtended)
+    implementation(libs.androidx.compose.material.iconsCore)
     api(libs.androidx.compose.material3)
     api(libs.androidx.compose.material3.adaptive)
     api(libs.androidx.compose.ui)

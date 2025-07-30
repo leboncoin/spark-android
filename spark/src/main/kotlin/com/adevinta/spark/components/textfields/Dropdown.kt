@@ -38,8 +38,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.TooltipState
 import androidx.compose.runtime.Composable
@@ -181,7 +181,7 @@ public fun SelectTextField(
         TextField(
             value = value,
             onValueChange = onValueChange,
-            modifier = modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable),
+            modifier = modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable),
             enabled = enabled,
             readOnly = readOnly,
             required = required,
@@ -297,7 +297,7 @@ public fun SelectTextField(
         TextField(
             value = value,
             onValueChange = onValueChange,
-            modifier = modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable),
+            modifier = modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable),
             enabled = enabled,
             readOnly = readOnly,
             required = required,
@@ -398,7 +398,7 @@ public fun Dropdown(
         TextField(
             value = value,
             onValueChange = { },
-            modifier = modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable),
+            modifier = modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable),
             enabled = enabled,
             readOnly = true,
             required = required,
@@ -495,7 +495,7 @@ public fun SingleChoiceDropdown(
         TextField(
             value = value,
             onValueChange = { },
-            modifier = modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable),
+            modifier = modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable),
             enabled = enabled,
             readOnly = true,
             required = required,
@@ -595,7 +595,7 @@ public fun MultiChoiceDropdown(
             TextField(
                 value = value,
                 onValueChange = { },
-                modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable, enabled),
+                modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable, enabled),
                 enabled = enabled,
                 readOnly = true,
                 required = required,
@@ -876,7 +876,7 @@ private fun SelectTextFieldTapPreview() {
         val tooltipState = remember { TooltipState() }
         val coroutineScope = rememberCoroutineScope()
         TooltipBox(
-            positionProvider = TooltipDefaults.rememberPlainTooltipPositionProvider(),
+            positionProvider = TooltipDefaults.rememberTooltipPositionProvider(),
             tooltip = {
                 PlainTooltip {
                     Text("Tapped")

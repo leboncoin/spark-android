@@ -33,10 +33,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.LocalContentColor
-import androidx.compose.material3.ScrollableTabRow
+import androidx.compose.material3.SecondaryScrollableTabRow
 import androidx.compose.material3.Tab
-import androidx.compose.material3.TabPosition
-import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -96,15 +94,15 @@ internal fun CatalogTabs(
     tabSelected: CatalogHomeScreen,
     onTabSelected: (CatalogHomeScreen) -> Unit,
 ) {
-    ScrollableTabRow(
+    SecondaryScrollableTabRow(
         selectedTabIndex = tabSelected.ordinal,
         modifier = modifier,
         containerColor = Color.Transparent,
         contentColor = LocalContentColor.current,
-        indicator = { tabPositions: List<TabPosition> ->
+        indicator = {
             Box(
                 Modifier
-                    .tabIndicatorOffset(tabPositions[tabSelected.ordinal])
+                    .tabIndicatorOffset(tabSelected.ordinal)
                     .fillMaxSize()
                     .padding(horizontal = 4.dp)
                     .border(BorderStroke(2.dp, LocalContentColor.current), SparkTheme.shapes.full),

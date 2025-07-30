@@ -163,13 +163,14 @@ internal fun SparkModalBottomSheet(
         onDismissRequest = onDismissRequest,
         modifier = modifier,
         sheetState = sheetState,
-        shape = shape,
+//        shape = shape,
         containerColor = containerColor,
         contentColor = contentColor,
-        contentWindowInsets = contentWindowInsets,
+//        contentWindowInsets = contentWindowInsets,
         properties = properties,
-        dragHandle = null,
-    ) {
+//        dragHandle = null,
+        content = content,
+    ) /*{
         Box {
             val systemBarTopInsets = WindowInsets.systemBars.asPaddingValues().calculateTopPadding()
             val additionalTopPadding = if (applyTempStatusBarPadding) systemBarTopInsets else 0.dp
@@ -190,7 +191,7 @@ internal fun SparkModalBottomSheet(
                 }
             }
         }
-    }
+    }*/
 }
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)

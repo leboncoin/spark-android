@@ -101,7 +101,7 @@ internal fun SparkIconButton(
     }
     Box(modifier = modifier) {
         TooltipBox(
-            positionProvider = TooltipDefaults.rememberPlainTooltipPositionProvider(),
+            positionProvider = TooltipDefaults.rememberTooltipPositionProvider(),
             tooltip = {
                 PlainTooltip {
                     Text(contentDescription.orEmpty())
