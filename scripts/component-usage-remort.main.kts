@@ -2409,7 +2409,9 @@ class ComponentUsageReport : SuspendingCliktCommand(
 
         // Run analysis with coroutines
         val analyzer = ComponentAnalyzer(components, teamDetector, contextLines)
+        val analysisStartTime = System.currentTimeMillis()
         val result = analyzer.analyze(kotlinFiles, excludePreviews)
+        val analysisDurationMs = System.currentTimeMillis() - analysisStartTime
 
         // Print console summary
         if (verbose) {
@@ -2432,14 +2434,14 @@ class ComponentUsageReport : SuspendingCliktCommand(
             ExportFormat.JSON -> {
                 echo("\n📊 Generating JSON report...")
                 val jsonFile = File(outputDir, "component-usage-report.json")
-                generateJsonReport(result, jsonFile)
+                generateJsonReport(result, jsonFile, components, teamDetector, kotlinFiles.size, analysisDurationMs)
                 echo("✅ JSON report generated: ${jsonFile.absolutePath}")
             }
 
             ExportFormat.CSV -> {
                 echo("\n📊 Generating CSV report...")
                 val csvFile = File(outputDir, "component-usage-report.csv")
-                generateCsvReport(result, csvFile, teamDetector)
+                generateCsvReport(result, csvFile, teamDetector, components, kotlinFiles.size, analysisDurationMs)
                 echo("✅ CSV report generated: ${csvFile.absolutePath}")
             }
 
@@ -2451,8 +2453,8 @@ class ComponentUsageReport : SuspendingCliktCommand(
 
                 val reportGenerator = HtmlReportGenerator(components)
                 reportGenerator.generateReport(result, htmlFile, teamDetector)
-                generateJsonReport(result, jsonFile)
-                generateCsvReport(result, csvFile, teamDetector)
+                generateJsonReport(result, jsonFile, components, teamDetector, kotlinFiles.size, analysisDurationMs)
+                generateCsvReport(result, csvFile, teamDetector, components, kotlinFiles.size, analysisDurationMs)
 
                 echo("✅ HTML report generated: ${htmlFile.absolutePath}")
                 echo("✅ JSON report generated: ${jsonFile.absolutePath}")
@@ -2466,81 +2468,242 @@ class ComponentUsageReport : SuspendingCliktCommand(
     }
 }
 
+// Clean export data classes for different use cases
+data class ComponentUsageSummary(
+    val component: String,
+    val totalUsage: Int,
+    val directUsage: Int,
+    val wrapperUsage: Int,
+    val componentGroup: String? = null,
+    val documentation: String? = null
+)
+
+data class ComponentUsageDetail(
+    val component: String,
+    val file: String,
+    val lineNumber: Int,
+    val containingFunction: String?,
+    val team: String?,
+    val context: String,
+    val usageType: String = "direct" // "direct" or "wrapper"
+)
+
+data class WrapperComponentInfo(
+    val wrapperName: String,
+    val packageName: String,
+    val wrappedComponents: List<String>,
+    val usageCount: Int,
+    val ownerTeam: String?,
+    val definitionFile: String,
+    val definitionLine: Int
+)
+
+data class TeamUsageSummary(
+    val team: String,
+    val component: String,
+    val usageCount: Int
+)
+
+data class ExportData(
+    val summary: List<ComponentUsageSummary>,
+    val details: List<ComponentUsageDetail>,
+    val wrappers: List<WrapperComponentInfo>,
+    val teamUsage: List<TeamUsageSummary>,
+    val metadata: ExportMetadata
+)
+
+data class ExportMetadata(
+    val generatedAt: String,
+    val totalFilesAnalyzed: Int,
+    val totalComponents: Int,
+    val totalUsages: Int,
+    val uniqueTeams: Int,
+    val analysisDurationMs: Long
+)
+
 enum class ExportFormat {
     HTML, JSON, CSV, ALL
 }
 
+// Build clean export data from analysis results
+private fun buildExportData(
+    result: AnalysisResult,
+    components: List<Component>,
+    teamDetector: TeamOwnershipDetector,
+    totalFilesAnalyzed: Int,
+    analysisDurationMs: Long
+): ExportData {
+    // Create component info lookup
+    val componentInfoMap = components.associateBy { it.name }
+    
+    // Build summary data
+    val effectiveUsage = result.getEffectiveUsage()
+    val summary = effectiveUsage.map { (component, totalUsage) ->
+        val directUsage = result.directUsages[component]?.size ?: 0
+        val wrapperUsage = getWrapperUsageCount(result, component)
+        val componentInfo = componentInfoMap[component]
+        
+        ComponentUsageSummary(
+            component = component,
+            totalUsage = totalUsage,
+            directUsage = directUsage,
+            wrapperUsage = wrapperUsage,
+            componentGroup = componentInfo?.componentGroup,
+            documentation = componentInfo?.documentation
+        )
+    }.sortedByDescending { it.totalUsage }
+    
+    // Build detailed usage data
+    val details = mutableListOf<ComponentUsageDetail>()
+    
+    // Add direct usages
+    result.directUsages.forEach { (component, usages) ->
+        usages.forEach { usage ->
+            details.add(
+                ComponentUsageDetail(
+                    component = component,
+                    file = usage.file.absolutePath,
+                    lineNumber = usage.lineNumber,
+                    containingFunction = usage.containingFunction,
+                    team = usage.team,
+                    context = usage.context.replace("\n", " ").replace(",", ";"),
+                    usageType = "direct"
+                )
+            )
+        }
+    }
+    
+    // Add wrapper usages
+    result.wrapperUsages.forEach { (wrapper, usages) ->
+        val displayName = wrapper.substringAfterLast('.')
+        usages.forEach { usage ->
+            details.add(
+                ComponentUsageDetail(
+                    component = displayName,
+                    file = usage.file.absolutePath,
+                    lineNumber = usage.lineNumber,
+                    containingFunction = usage.containingFunction,
+                    team = usage.team,
+                    context = usage.context.replace("\n", " ").replace(",", ";"),
+                    usageType = "wrapper"
+                )
+            )
+        }
+    }
+    
+    // Build wrapper component info
+    val wrappers = mutableListOf<WrapperComponentInfo>()
+    
+    // Single-component wrappers
+    result.wrapperComponents.forEach { (wrapper, wrappedComponent) ->
+        val wrapperUsages = result.wrapperUsages[wrapper]?.size ?: 0
+        val displayName = wrapper.substringAfterLast('.')
+        val definition = result.wrapperDefinitions[wrapper]
+        val packageName = definition?.packageName ?: ""
+        val ownerTeam = if (definition != null) teamDetector.getTeamForFile(definition.file) else null
+        val definitionFile = definition?.file?.absolutePath ?: ""
+        val definitionLine = definition?.lineNumber ?: 0
+        
+        wrappers.add(
+            WrapperComponentInfo(
+                wrapperName = displayName,
+                packageName = packageName,
+                wrappedComponents = listOf(wrappedComponent),
+                usageCount = wrapperUsages,
+                ownerTeam = ownerTeam,
+                definitionFile = definitionFile,
+                definitionLine = definitionLine
+            )
+        )
+    }
+    
+    // Multi-component wrappers
+    result.multiComponentWrappers.forEach { (wrapper, wrappedComponents) ->
+        val wrapperUsages = result.wrapperUsages[wrapper]?.size ?: 0
+        val displayName = wrapper.substringAfterLast('.')
+        val definition = result.wrapperDefinitions[wrapper]
+        val packageName = definition?.packageName ?: ""
+        val ownerTeam = if (definition != null) teamDetector.getTeamForFile(definition.file) else null
+        val definitionFile = definition?.file?.absolutePath ?: ""
+        val definitionLine = definition?.lineNumber ?: 0
+        
+        wrappers.add(
+            WrapperComponentInfo(
+                wrapperName = displayName,
+                packageName = packageName,
+                wrappedComponents = wrappedComponents,
+                usageCount = wrapperUsages,
+                ownerTeam = ownerTeam,
+                definitionFile = definitionFile,
+                definitionLine = definitionLine
+            )
+        )
+    }
+    
+    // Build team usage summary
+    val teamUsage = mutableListOf<TeamUsageSummary>()
+    result.teamUsages.forEach { (team, components) ->
+        components.forEach { (component, count) ->
+            teamUsage.add(
+                TeamUsageSummary(
+                    team = team,
+                    component = component,
+                    usageCount = count
+                )
+            )
+        }
+    }
+    
+    // Build metadata
+    val metadata = ExportMetadata(
+        generatedAt = java.time.LocalDateTime.now().toString(),
+        totalFilesAnalyzed = totalFilesAnalyzed,
+        totalComponents = components.size,
+        totalUsages = details.size,
+        uniqueTeams = result.teamUsages.size,
+        analysisDurationMs = analysisDurationMs
+    )
+    
+    return ExportData(
+        summary = summary,
+        details = details,
+        wrappers = wrappers,
+        teamUsage = teamUsage,
+        metadata = metadata
+    )
+}
+
 // Add JSON report generation function
 @OptIn(ExperimentalStdlibApi::class)
-private fun generateJsonReport(result: AnalysisResult, outputFile: File) {
-    val reportData = mapOf(
-        "directUsages" to result.directUsages.mapValues { (_, usages) ->
-            usages.map { usage ->
-                mapOf(
-                    "file" to usage.file.absolutePath,
-                    "lineNumber" to usage.lineNumber,
-                    "context" to usage.context,
-                    "containingFunction" to usage.containingFunction,
-                    "team" to usage.team,
-                )
-            }
-        },
-        "wrapperComponents" to result.wrapperComponents,
-        "wrapperUsages" to result.wrapperUsages.mapValues { (_, usages) ->
-            usages.map { usage ->
-                mapOf(
-                    "file" to usage.file.absolutePath,
-                    "lineNumber" to usage.lineNumber,
-                    "context" to usage.context,
-                    "containingFunction" to usage.containingFunction,
-                    "team" to usage.team,
-                )
-            }
-        },
-        "wrapperDefinitions" to result.wrapperDefinitions.mapValues { (_, definition) ->
-            mapOf(
-                "file" to definition.file.absolutePath,
-                "lineNumber" to definition.lineNumber,
-                "dependencies" to definition.dependencies,
-                "packageName" to definition.packageName,
-            )
-        },
-        "multiComponentWrappers" to result.multiComponentWrappers,
-        "teamUsages" to result.teamUsages.mapValues { (_, components) ->
-            components.mapValues { it.value }
-        },
-        "effectiveUsage" to result.getEffectiveUsage(),
-    )
-
-    val json = sharedMoshi.adapter<Map<String, Any>>().toJson(reportData)
+private fun generateJsonReport(result: AnalysisResult, outputFile: File, components: List<Component>, teamDetector: TeamOwnershipDetector, totalFilesAnalyzed: Int, analysisDurationMs: Long) {
+    val exportData = buildExportData(result, components, teamDetector, totalFilesAnalyzed, analysisDurationMs)
+    val adapter = sharedMoshi.adapter<ExportData>()
+    val json = adapter.toJson(exportData)
     outputFile.writeText(json)
 }
 
 // Add CSV report generation functions
-private fun generateCsvReport(result: AnalysisResult, outputFile: File, teamDetector: TeamOwnershipDetector) {
+private fun generateCsvReport(result: AnalysisResult, outputFile: File, teamDetector: TeamOwnershipDetector, components: List<Component>, totalFilesAnalyzed: Int, analysisDurationMs: Long) {
     try {
+        val exportData = buildExportData(result, components, teamDetector, totalFilesAnalyzed, analysisDurationMs)
+        
         val csvContent = buildString {
             // Component usage summary
             appendLine("Component Usage Summary")
-            appendLine("component,total_usage,direct_usage,wrapper_usage,component_group")
+            appendLine("component,total_usage,direct_usage,wrapper_usage,component_group,documentation")
             
-            val effectiveUsage = result.getEffectiveUsage()
-            effectiveUsage.toList().sortedByDescending { it.second }.forEach { (component, totalUsage) ->
-                val directUsage = result.directUsages[component]?.size ?: 0
-                val wrapperUsage = getWrapperUsageCount(result, component)
-                appendLine("$component,$totalUsage,$directUsage,$wrapperUsage,")
+            exportData.summary.forEach { summary ->
+                appendLine("${summary.component},${summary.totalUsage},${summary.directUsage},${summary.wrapperUsage},${summary.componentGroup ?: ""},${summary.documentation ?: ""}")
             }
             
             appendLine() // Empty line for separation
             
-            // Direct usages
-            appendLine("Direct Usages")
-            appendLine("component,file,line_number,containing_function,team,context")
-            result.directUsages.forEach { (component, usages) ->
-                usages.forEach { usage ->
-                    val context = usage.context.replace("\n", " ").replace(",", ";")
-                    appendLine("$component,${usage.file.absolutePath},${usage.lineNumber},${usage.containingFunction ?: ""},${usage.team ?: ""},$context")
-                }
+            // Detailed usages (both direct and wrapper)
+            appendLine("Component Usage Details")
+            appendLine("component,file,line_number,containing_function,team,context,usage_type")
+            
+            exportData.details.forEach { detail ->
+                appendLine("${detail.component},${detail.file},${detail.lineNumber},${detail.containingFunction ?: ""},${detail.team ?: ""},${detail.context},${detail.usageType}")
             }
             
             appendLine() // Empty line for separation
@@ -2548,39 +2711,9 @@ private fun generateCsvReport(result: AnalysisResult, outputFile: File, teamDete
             // Wrapper components
             appendLine("Wrapper Components")
             appendLine("wrapper_name,package_name,wrapped_components,usage_count,owner_team,definition_file,definition_line")
-            result.wrapperComponents.forEach { (wrapper, wrappedComponent) ->
-                val wrapperUsages = result.wrapperUsages[wrapper]?.size ?: 0
-                val displayName = wrapper.substringAfterLast('.')
-                val definition = result.wrapperDefinitions[wrapper]
-                val packageName = definition?.packageName ?: ""
-                val ownerTeam = if (definition != null) teamDetector.getTeamForFile(definition.file) else null
-                val definitionFile = definition?.file?.absolutePath ?: ""
-                val definitionLine = definition?.lineNumber ?: 0
-                appendLine("$displayName,$packageName,$wrappedComponent,$wrapperUsages,${ownerTeam ?: ""},$definitionFile,$definitionLine")
-            }
             
-            result.multiComponentWrappers.forEach { (wrapper, wrappedComponents) ->
-                val wrapperUsages = result.wrapperUsages[wrapper]?.size ?: 0
-                val displayName = wrapper.substringAfterLast('.')
-                val definition = result.wrapperDefinitions[wrapper]
-                val packageName = definition?.packageName ?: ""
-                val ownerTeam = if (definition != null) teamDetector.getTeamForFile(definition.file) else null
-                val definitionFile = definition?.file?.absolutePath ?: ""
-                val definitionLine = definition?.lineNumber ?: 0
-                appendLine("$displayName,$packageName,${wrappedComponents.joinToString(";")},$wrapperUsages,${ownerTeam ?: ""},$definitionFile,$definitionLine")
-            }
-            
-            appendLine() // Empty line for separation
-            
-            // Wrapper usages
-            appendLine("Wrapper Usages")
-            appendLine("wrapper_name,file,line_number,containing_function,team,context")
-            result.wrapperUsages.forEach { (wrapper, usages) ->
-                val displayName = wrapper.substringAfterLast('.')
-                usages.forEach { usage ->
-                    val context = usage.context.replace("\n", " ").replace(",", ";")
-                    appendLine("$displayName,${usage.file.absolutePath},${usage.lineNumber},${usage.containingFunction ?: ""},${usage.team ?: ""},$context")
-                }
+            exportData.wrappers.forEach { wrapper ->
+                appendLine("${wrapper.wrapperName},${wrapper.packageName},${wrapper.wrappedComponents.joinToString(";")},${wrapper.usageCount},${wrapper.ownerTeam ?: ""},${wrapper.definitionFile},${wrapper.definitionLine}")
             }
             
             appendLine() // Empty line for separation
@@ -2588,11 +2721,22 @@ private fun generateCsvReport(result: AnalysisResult, outputFile: File, teamDete
             // Team usage summary
             appendLine("Team Usage Summary")
             appendLine("team,component,usage_count")
-            result.teamUsages.forEach { (team, components) ->
-                components.forEach { (component, count) ->
-                    appendLine("$team,$component,$count")
-                }
+            
+            exportData.teamUsage.forEach { teamUsage ->
+                appendLine("${teamUsage.team},${teamUsage.component},${teamUsage.usageCount}")
             }
+            
+            appendLine() // Empty line for separation
+            
+            // Metadata
+            appendLine("Analysis Metadata")
+            appendLine("metric,value")
+            appendLine("generated_at,${exportData.metadata.generatedAt}")
+            appendLine("total_files_analyzed,${exportData.metadata.totalFilesAnalyzed}")
+            appendLine("total_components,${exportData.metadata.totalComponents}")
+            appendLine("total_usages,${exportData.metadata.totalUsages}")
+            appendLine("unique_teams,${exportData.metadata.uniqueTeams}")
+            appendLine("analysis_duration_ms,${exportData.metadata.analysisDurationMs}")
         }
         
         outputFile.writeText(csvContent)
