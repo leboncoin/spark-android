@@ -19,8 +19,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.adevinta.spark.catalog.ui.animations
+package com.adevinta.spark.animation
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.offset
@@ -35,14 +36,33 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
-import com.adevinta.spark.catalog.util.PreviewTheme
+import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.buttons.ButtonIntent
 import com.adevinta.spark.components.buttons.ButtonTinted
 import kotlin.math.roundToInt
 
+/**
+ * Creates and remembers a [ShakeController] instance.
+ *
+ * This function is used to create a controller that can be used to trigger shake animations
+ * on a composable. The controller is remembered across recompositions.
+ *
+ * @return A [ShakeController] instance.
+ * @see ShakeController
+ * @see Modifier.shake
+ */
 @Composable
 public fun rememberShakeController(): ShakeController = remember { ShakeController() }
 
+/**
+ * Controller for managing shake animations.
+ *
+ * This class allows you to trigger shake animations with a specific [ShakeConfig].
+ * You can create an instance of this controller using [rememberShakeController].
+ *
+ * @see ShakeConfig
+ * @see Modifier.shake
+ */
 public class ShakeController {
     public var shakeConfig: ShakeConfig? by mutableStateOf(null)
         private set
@@ -52,6 +72,21 @@ public class ShakeController {
     }
 }
 
+/**
+ * Represent the configuration for a shake animation.
+ *
+ * @property iterations The number of times the animation should repeat.
+ * @property intensity The intensity of the shake animation. Higher values result in a more pronounced shake.
+ * @property rotate The amount of rotation to apply around the Z-axis during the shake.
+ * @property rotateX The amount of rotation to apply around the X-axis during the shake.
+ * @property rotateY The amount of rotation to apply around the Y-axis during the shake.
+ * @property scaleX The amount to scale the composable along the X-axis during the shake.
+ * @property scaleY The amount to scale the composable along the Y-axis during the shake.
+ * @property translateX The amount to translate the composable along the X-axis during the shake.
+ * @property translateY The amount to translate the composable along the Y-axis during the shake.
+ * @property trigger A timestamp used to trigger the animation. Defaults to the current system time.
+ * This is useful for re-triggering the animation with the same configuration.
+ */
 public data class ShakeConfig(
     val iterations: Int,
     val intensity: Float = 100_000f,
@@ -65,6 +100,20 @@ public data class ShakeConfig(
     val trigger: Long = System.currentTimeMillis(),
 )
 
+/**
+ * Applies a shake animation to the composable when triggered by the [shakeController].
+ *
+ * This modifier uses the [ShakeConfig] provided by the [shakeController] to determine
+ * the behavior of the shake animation. The animation includes rotation, scaling, and translation
+ * effects based on the configuration.
+ *
+ * @param shakeController The controller that manages the shake animation.
+ * @return A [Modifier] that applies the shake animation.
+ * @see ShakeController
+ * @see ShakeConfig
+ * @see rememberShakeController
+ */
+@SuppressLint("ComposeModifierComposed")
 public fun Modifier.shake(shakeController: ShakeController): Modifier = composed {
     shakeController.shakeConfig?.let { shakeConfig ->
         val shake = remember { Animatable(0f) }
