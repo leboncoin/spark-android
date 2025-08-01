@@ -4,6 +4,54 @@
 
 ## [Unreleased]
 
+## [1.4.0-alpha03]
+
+_2025-08-01_
+
+### Spark
+
+#### Animations
+
+##### Add new `pulse` modifier animation
+
+This animation display a pulsating wave from the component to catch the attention of the user eyes.
+THe color, scales, duration and shape are customizable.
+```kotlin
+ButtonTinted(
+    modifier = Modifier
+        .pulse(
+            shape = SparkTheme.shapes.large,
+        ),
+    text = "Vibing",
+)
+```
+
+##### Add new `shake` modifier animation
+
+This animation display a transformative animations using a spring animation spec.
+It's ideal to indicate validation on user interaction.
+```kotlin
+ val vibrateController = rememberShakeController()
+
+ButtonTinted(
+    modifier = Modifier.shake(vibrateController),
+    onClick = {
+        vibrateController.shake(
+            ShakeConfig(
+                iterations = 8,
+                intensity = 100_000f,
+                translateX = -15f,
+            ),
+        )
+    },
+    text = "Vibrate me",
+)
+```
+
+## [1.4.0-alpha02]
+
+_2025-07-29_
+
 ### Spark
 
 #### Switch

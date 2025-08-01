@@ -19,19 +19,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.adevinta.spark.catalog.ui.animations
+package com.adevinta.spark.animation
 
 import androidx.compose.animation.core.DurationBasedAnimationSpec
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Brush
@@ -41,8 +44,9 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.drawOutline
 import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.tooling.preview.Preview
+import com.adevinta.spark.ExperimentalSparkApi
+import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
-import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.components.buttons.ButtonIntent
 import com.adevinta.spark.components.buttons.ButtonTinted
 import com.adevinta.spark.tokens.dim3
@@ -53,7 +57,9 @@ import com.adevinta.spark.tokens.dim3
  * a pulsating effect.
  *
  * @param targetScale The scale to which the pulse effect will grow during the animation.
- * @param initialScale The starting scale of the pulse effect.
+ * @param initialScale The starting scale of the pulse effect. Default to the component size. If you want to draw the
+ * pulse on a component with a transparent background then you should set this to be inferior than 1f otherwise you
+ * will get a flashing effect at the start of each pulse
  * @param color The color used to fill the pulse effect.
  * @param shape The shape of the pulse effect.
  * @param animationSpec The animation specification.
@@ -61,13 +67,20 @@ import com.adevinta.spark.tokens.dim3
  * @return A [Modifier] that applies the pulsating effect behind the composable element.
  */
 @Composable
+@ExperimentalSparkApi
 public fun Modifier.pulse(
     targetScale: Float = 1.5f,
     initialScale: Float = 1f,
     color: Color = SparkTheme.colors.onSurface.dim3,
     shape: Shape = CircleShape,
-    animationSpec: DurationBasedAnimationSpec<Float> = tween(1200),
-): Modifier = pulse(targetScale, initialScale, SolidColor(color), shape, animationSpec)
+    animationSpec: DurationBasedAnimationSpec<Float> = tween(1000),
+): Modifier = pulse(
+    brush = SolidColor(color),
+    targetScale = targetScale,
+    initialScale = initialScale,
+    shape = shape,
+    animationSpec = animationSpec,
+)
 
 /**
  * Applies a pulsating effect that is drawn behind the composable element. This effect creates
@@ -83,12 +96,13 @@ public fun Modifier.pulse(
  * @return A [Modifier] that applies the pulsating effect behind the composable element.
  */
 @Composable
+@ExperimentalSparkApi
 public fun Modifier.pulse(
+    brush: Brush,
     targetScale: Float = 1.5f,
     initialScale: Float = 1f,
-    brush: Brush = SolidColor(SparkTheme.colors.onSurface.dim3),
     shape: Shape = CircleShape,
-    animationSpec: DurationBasedAnimationSpec<Float> = tween(1200),
+    animationSpec: DurationBasedAnimationSpec<Float> = tween(1000),
 ): Modifier {
     val pulseTransition = rememberInfiniteTransition("PulseTransition")
     val pulseScale by pulseTransition.animateFloat(
@@ -115,21 +129,27 @@ public fun Modifier.pulse(
 @Preview
 private fun Pulser() {
     PreviewTheme {
-        var isValid by remember { mutableStateOf(true) }
+        Box(
+            modifier = Modifier.fillMaxSize(),
+        ) {
+            var isValid by remember { mutableStateOf(true) }
 
-        val intent = if (isValid) ButtonIntent.Success else ButtonIntent.Danger
-        val pulseColor = if (isValid) SparkTheme.colors.successContainer else SparkTheme.colors.errorContainer
-        ButtonTinted(
-            modifier = Modifier.pulse(
-                color = Color.Blue,
-                shape = SparkTheme.shapes.large,
-                targetScale = 1.5f,
-            ),
-            onClick = {
-                isValid = !isValid
-            },
-            intent = intent,
-            text = "Vibing",
-        )
+            val intent = if (isValid) ButtonIntent.Success else ButtonIntent.Danger
+            val pulseColor = if (isValid) SparkTheme.colors.successContainer else SparkTheme.colors.errorContainer
+            ButtonTinted(
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .pulse(
+                        color = pulseColor,
+                        shape = SparkTheme.shapes.large,
+                        targetScale = 1.5f,
+                    ),
+                onClick = {
+                    isValid = !isValid
+                },
+                intent = intent,
+                text = "Vibing",
+            )
+        }
     }
 }
