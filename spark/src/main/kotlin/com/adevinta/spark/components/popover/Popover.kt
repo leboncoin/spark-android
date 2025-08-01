@@ -42,6 +42,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.PopupPositionProvider
 import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
@@ -88,6 +89,7 @@ import kotlinx.coroutines.launch
 public fun Popover(
     popover: @Composable () -> Unit,
     modifier: Modifier = Modifier,
+    positionProvider: PopupPositionProvider = TooltipDefaults.rememberRichTooltipPositionProvider(),
     intent: PopoverIntent = PopoverIntent.Surface,
     isDismissButtonEnabled: Boolean = false,
     popoverState: TooltipState = rememberTooltipState(isPersistent = true),
@@ -99,7 +101,7 @@ public fun Popover(
 
     TooltipBox(
         modifier = modifier,
-        positionProvider = TooltipDefaults.rememberRichTooltipPositionProvider(),
+        positionProvider = positionProvider,
         focusable = focusable,
         enableUserInput = enableUserInput,
         tooltip = {
