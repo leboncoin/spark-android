@@ -40,8 +40,8 @@ import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.MenuAnchorType
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.getValue
@@ -145,7 +145,7 @@ public fun SingleChoiceComboBox(
             SparkSelectTrailingIcon(
                 expanded = expanded,
                 modifier = Modifier.menuAnchor(
-                    MenuAnchorType.SecondaryEditable,
+                    ExposedDropdownMenuAnchorType.SecondaryEditable,
                     enabled = enabled,
                 ),
                 onClick = { onExpandedChange(!expanded) },
@@ -153,7 +153,7 @@ public fun SingleChoiceComboBox(
         }
         TextField(
             state = state,
-            modifier = modifier.menuAnchor(MenuAnchorType.PrimaryEditable, enabled = enabled),
+            modifier = modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryEditable, enabled = enabled),
             enabled = enabled,
             readOnly = false,
             required = required,
@@ -268,7 +268,7 @@ public fun MultiChoiceComboBox(
                 SparkSelectTrailingIcon(
                     expanded = expanded,
                     modifier = Modifier.menuAnchor(
-                        MenuAnchorType.SecondaryEditable,
+                        ExposedDropdownMenuAnchorType.SecondaryEditable,
                         enabled = enabled,
                     ),
                     onClick = { onExpandedChange(!expanded) },
@@ -276,7 +276,7 @@ public fun MultiChoiceComboBox(
             }
             TextField(
                 state = state,
-                modifier = modifier.menuAnchor(MenuAnchorType.PrimaryEditable, enabled = enabled),
+                modifier = modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryEditable, enabled = enabled),
                 enabled = enabled,
                 readOnly = false,
                 required = required,
