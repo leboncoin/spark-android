@@ -12,7 +12,7 @@ _2025-08-01_
 
 #### Animations
 
-##### Add new `pulse` modifier animation
+##### 🆕 Add new `pulse` modifier animation
 
 This animation display a pulsating wave from the component to catch the attention of the user eyes.
 THe color, scales, duration and shape are customizable.
@@ -26,7 +26,7 @@ ButtonTinted(
 )
 ```
 
-##### Add new `shake` modifier animation
+##### 🆕 Add new `shake` modifier animation
 
 This animation display a transformative animations using a spring animation spec.
 It's ideal to indicate validation on user interaction.
@@ -47,6 +47,8 @@ ButtonTinted(
     text = "Vibrate me",
 )
 ```
+
+- 🔧 Add a `positionProvider` argument to change the spacing between a `Popover` and its anchor
 
 ## [1.4.0-alpha02]
 
