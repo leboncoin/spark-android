@@ -93,17 +93,21 @@ internal fun MiddleText(
                             // while the initial (smaller) number slides up and fades out.
                             slideInVertically(
                                 StepperDefaults.textAnimationSpec,
-                            ) { height -> height } + fadeIn() togetherWith slideOutVertically(
-                                StepperDefaults.textAnimationSpec,
-                            ) { height -> -height } + fadeOut()
+                            ) { height -> height } +
+                                fadeIn() togetherWith slideOutVertically(
+                                    StepperDefaults.textAnimationSpec,
+                                ) { height -> -height } +
+                                fadeOut()
                         } else {
                             // If the target number is smaller, it slides down and fades in
                             // while the initial number slides down and fades out.
                             slideInVertically(
                                 StepperDefaults.textAnimationSpec,
-                            ) { height -> -height } + fadeIn() togetherWith slideOutVertically(
-                                StepperDefaults.textAnimationSpec,
-                            ) { height -> height } + fadeOut()
+                            ) { height -> -height } +
+                                fadeIn() togetherWith slideOutVertically(
+                                    StepperDefaults.textAnimationSpec,
+                                ) { height -> height } +
+                                fadeOut()
                         }.using(
                             // Disable clipping since the faded slide-in/out should
                             // be displayed out of bounds.
