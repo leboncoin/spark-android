@@ -24,6 +24,9 @@ package com.adevinta.spark.animation
 import android.annotation.SuppressLint
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -31,6 +34,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.graphicsLayer
@@ -148,32 +152,94 @@ public fun Modifier.shake(shakeController: ShakeController): Modifier = composed
 @Preview
 private fun Shaker() {
     PreviewTheme {
-        var isValid by remember { mutableStateOf(true) }
-        val shakeController = rememberShakeController()
-        val validShakeConfig = if (isValid) {
-            ShakeConfig(
-                iterations = 4,
-                intensity = 2_000f,
-                rotateY = 15f,
-                translateX = 40f,
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.SpaceEvenly,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            var isValid by remember { mutableStateOf(true) }
+            val shakeController = rememberShakeController()
+            val validShakeConfig = if (isValid) {
+                ShakeConfig(
+                    iterations = 4,
+                    intensity = 2_000f,
+                    rotateY = 15f,
+                    translateX = 40f,
+                )
+            } else {
+                ShakeConfig(
+                    iterations = 4,
+                    intensity = 1_000f,
+                    rotateX = -20f,
+                    translateY = 20f,
+                )
+            }
+
+            ButtonTinted(
+                modifier = Modifier
+                    .shake(shakeController),
+                onClick = {
+                    shakeController.shake(validShakeConfig)
+                    isValid = !isValid
+                },
+                intent = if (isValid) ButtonIntent.Success else ButtonIntent.Danger,
+                text = "Shake me",
             )
-        } else {
-            ShakeConfig(
-                iterations = 4,
-                intensity = 1_000f,
-                rotateX = -20f,
-                translateY = 20f,
+
+            val vibrateController = rememberShakeController()
+
+            ButtonTinted(
+                modifier = Modifier
+                    .shake(vibrateController),
+                onClick = {
+                    vibrateController.shake(
+                        ShakeConfig(
+                            iterations = 8,
+                            intensity = 100_000f,
+                            translateX = -15f,
+//                            translateY = 5f,
+                        ),
+                    )
+                },
+                intent = ButtonIntent.Danger,
+                text = "Vibrate me",
+            )
+
+            val scaleController = rememberShakeController()
+
+            ButtonTinted(
+                modifier = Modifier
+                    .shake(scaleController),
+                onClick = {
+                    scaleController.shake(
+                        ShakeConfig(
+                            iterations = 1,
+                            intensity = 1_00f,
+                            scaleX = 1.5f,
+                        ),
+                    )
+                },
+                intent = ButtonIntent.Accent,
+                text = "Scale me",
+            )
+
+            val rotateController = rememberShakeController()
+
+            ButtonTinted(
+                modifier = Modifier
+                    .shake(rotateController),
+                onClick = {
+                    rotateController.shake(
+                        ShakeConfig(
+                            iterations = 2,
+                            intensity = 1_000f,
+                            rotate = 90f,
+                        ),
+                    )
+                },
+                intent = ButtonIntent.Alert,
+                text = "Rotate me",
             )
         }
-
-        ButtonTinted(
-            modifier = Modifier.shake(shakeController),
-            onClick = {
-                shakeController.shake(validShakeConfig)
-                isValid = !isValid
-            },
-            intent = if (isValid) ButtonIntent.Success else ButtonIntent.Danger,
-            text = "Shake me",
-        )
     }
 }

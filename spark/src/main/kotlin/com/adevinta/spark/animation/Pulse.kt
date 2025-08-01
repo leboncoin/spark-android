@@ -57,7 +57,9 @@ import com.adevinta.spark.tokens.dim3
  * a pulsating effect.
  *
  * @param targetScale The scale to which the pulse effect will grow during the animation.
- * @param initialScale The starting scale of the pulse effect.
+ * @param initialScale The starting scale of the pulse effect. Default to the component size. If you want to draw the
+ * pulse on a component with a transparent background then you should set this to be inferior than 1f otherwise you
+ * will get a flashing effect at the start of each pulse
  * @param color The color used to fill the pulse effect.
  * @param shape The shape of the pulse effect.
  * @param animationSpec The animation specification.
@@ -71,7 +73,7 @@ public fun Modifier.pulse(
     initialScale: Float = 1f,
     color: Color = SparkTheme.colors.onSurface.dim3,
     shape: Shape = CircleShape,
-    animationSpec: DurationBasedAnimationSpec<Float> = tween(1200),
+    animationSpec: DurationBasedAnimationSpec<Float> = tween(1000),
 ): Modifier = pulse(
     brush = SolidColor(color),
     targetScale = targetScale,
@@ -100,7 +102,7 @@ public fun Modifier.pulse(
     targetScale: Float = 1.5f,
     initialScale: Float = 1f,
     shape: Shape = CircleShape,
-    animationSpec: DurationBasedAnimationSpec<Float> = tween(1200),
+    animationSpec: DurationBasedAnimationSpec<Float> = tween(1000),
 ): Modifier {
     val pulseTransition = rememberInfiniteTransition("PulseTransition")
     val pulseScale by pulseTransition.animateFloat(
