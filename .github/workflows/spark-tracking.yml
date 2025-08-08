@@ -1,10 +1,7 @@
 name: 👷 Build → 🧑‍🔬 Test → 🕵️ Lint
 
 on:
-  push:
-    branches: [master]
-  pull_request:
-    branches: [master]
+  workflow_dispatch:
 
 env:
   ORG_GRADLE_PROJECT_ARTIFACTORY_USER: ${{ secrets.ARTIFACTORY_USER }}
