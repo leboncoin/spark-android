@@ -1,0 +1,40 @@
+{
+  "components": [
+    {
+      "name": "Checkbox",
+      "fqn": "com.adevinta.spark.components.toggles.Checkbox",
+      "documentation": "https://spark.adevinta.com/1186e1705/p/76f5a8-checkbox",
+      "componentGroup": "Checkbox"
+    },
+    {
+      "name": "CheckboxLabelled",
+      "fqn": "com.adevinta.spark.components.toggles.CheckboxLabelled",
+      "documentation": "https://spark.adevinta.com/1186e1705/p/76f5a8-checkbox",
+      "componentGroup": "Checkbox"
+    },
+    {
+      "name": "RadioButton",
+      "fqn": "com.adevinta.spark.components.toggles.RadioButton",
+      "documentation": "https://spark.adevinta.com/1186e1705/p/98058f-radio-button",
+      "componentGroup": "RadioButton"
+    },
+    {
+      "name": "RadioButtonLabelled",
+      "fqn": "com.adevinta.spark.components.toggles.RadioButtonLabelled",
+      "documentation": "https://spark.adevinta.com/1186e1705/p/98058f-radio-button",
+      "componentGroup": "RadioButton"
+    },
+    {
+      "name": "Switch",
+      "fqn": "com.adevinta.spark.components.toggles.Switch",
+      "documentation": "https://spark.adevinta.com/1186e1705/p/58a2c6-switch",
+      "componentGroup": "Switch"
+    },
+    {
+      "name": "SwitchLabelled",
+      "fqn": "com.adevinta.spark.components.toggles.SwitchLabelled",
+      "documentation": "https://spark.adevinta.com/1186e1705/p/58a2c6-switch",
+      "componentGroup": "Switch"
+    }
+  ]
+}

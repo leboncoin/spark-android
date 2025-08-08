@@ -1,0 +1,44 @@
+name: 👷 Build → 🧑‍🔬 Test → 🕵️ Lint
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+env:
+  ORG_GRADLE_PROJECT_ARTIFACTORY_USER: ${{ secrets.ARTIFACTORY_USER }}
+  ORG_GRADLE_PROJECT_ARTIFACTORY_PASSWORD: ${{ secrets.ARTIFACTORY_PWD }}
+
+concurrency:
+  group: '${{ github.workflow }}-${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+  cancel-in-progress: true
+
+jobs:
+
+  build:
+    name: ✨ Spark
+    strategy:
+      matrix:
+        runner: [small, medium, big]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-java
+      - uses: ./.github/actions/setup-kotlin
+      - run: ./scripts/component-usage-remort.main.kts catalog ./scripts/1.4.0-alpha02.json -l 5 -o ./build/reports/
+      - run: |
+          ./scripts/spark-android/scripts/svg2avd/svg2avd.main.kts --input="spark-tokens/assets/spark/icons" --output="$DRAWABLES" --precision=2 --prefix="spark_icons_" --copyright="spark-tokens/spark-android/scripts/svg2avd/COPYRIGHT.xml"
+          git add -- "$DRAWABLES"
+          ./spark-tokens/spark-android/scripts/spark-icons-kt/spark-icons-kt.main.kts --input="$DRAWABLES" --output="$FILE" --copyright=spark-tokens/spark-android/scripts/spark-icons-kt/COPYRIGHT.kt
+          git add -- "$FILE"
+          rm -rf spark-tokens
+        env:
+          DRAWABLES: ${{ env.DRAWABLES_DIR }}
+          FILE: ${{ env.SPARK_ICONS_FILE }}
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: report
+          path: "./build/reports/"
