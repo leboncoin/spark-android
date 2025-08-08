@@ -3,10 +3,6 @@ name: 👷 Build → 🧑‍🔬 Test → 🕵️ Lint
 on:
   workflow_dispatch:
 
-env:
-  ORG_GRADLE_PROJECT_ARTIFACTORY_USER: ${{ secrets.ARTIFACTORY_USER }}
-  ORG_GRADLE_PROJECT_ARTIFACTORY_PASSWORD: ${{ secrets.ARTIFACTORY_PWD }}
-
 concurrency:
   group: '${{ github.workflow }}-${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
   cancel-in-progress: true
