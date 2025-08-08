@@ -3,6 +3,7 @@
 @file:Repository("https://repo1.maven.org/maven2/")
 @file:Repository("https://maven.google.com")
 @file:DependsOn("com.github.ajalt.clikt:clikt-jvm:5.0.3")
+@file:DependsOn("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
 @file:DependsOn("com.squareup.moshi:moshi-kotlin:1.15.2")
 
 import com.github.ajalt.clikt.command.SuspendingCliktCommand
@@ -10,7 +11,6 @@ import com.github.ajalt.clikt.command.main
 import com.github.ajalt.clikt.core.Abort
 import com.github.ajalt.clikt.core.Context
 import com.github.ajalt.clikt.parameters.arguments.argument
-import com.github.ajalt.clikt.parameters.options.convert
 import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
@@ -27,7 +27,6 @@ import kotlinx.coroutines.supervisorScope
 import java.io.File
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicInteger
-import kotlin.system.measureTimeMillis
 
 // Print startup progress
 println("🔧 Initializing file owner finder...")
@@ -40,12 +39,16 @@ private val sharedMoshi = Moshi.Builder()
 
 // Data classes for input/output
 data class FilePathInput(val filepath: String)
+
+// This class is mainly used to have a better looking json output
 data class FilePathInputList(val files: List<FilePathInput> = emptyList())
 
-data class OwnerMapping(val filepath: String, val owner: String?)
+// Owner default to null but maybe we should use a default string instead (squad-null)?
+data class OwnerMapping(val filepath: String, val owner: String? = null)
+
+// Same as FilePathInputList, this makes the mapping nicer to look at
 data class OwnerMappingList(val mappings: List<OwnerMapping> = emptyList())
 
-// Team ownership detection
 class TeamOwnershipDetector {
     private val fileToTeamCache = ConcurrentHashMap<String, String?>() // file path -> team (cached lookups)
     private val backstageFileCache = ConcurrentHashMap<String, String?>() // directory path -> team from backstage file
@@ -242,13 +245,15 @@ class FindOwnerCommand : SuspendingCliktCommand(
         mustBeReadable = true,
     )
 
-    private val outputFile by argument(
-        name = "OUTPUT_FILE",
-        help = "Output file for owner mappings",
+    private val outputDir by option(
+        "--output-dir", "-o",
+        help = "Output directory path (default: to current dir)",
+        metavar = "DIR",
     ).file(
-        canBeDir = false,
+        canBeFile = false,
+        mustExist = true,
         mustBeWritable = true,
-    )
+    ).default(File("."))
 
     private val inputFormat by option(
         "--input-format", "-i",
@@ -257,7 +262,7 @@ class FindOwnerCommand : SuspendingCliktCommand(
     ).enum<InputFormat>().default(InputFormat.CSV)
 
     private val outputFormat by option(
-        "--output-format", "-o",
+        "--output-format", "-f",
         help = "Output file format (csv or json)",
         metavar = "FORMAT",
     ).enum<OutputFormat>().default(OutputFormat.CSV)
@@ -274,15 +279,15 @@ class FindOwnerCommand : SuspendingCliktCommand(
         This tool takes a list of filepaths and finds the team owner for each file
         by walking up the directory tree looking for backstage.yml or backstage.yaml files.
 
-        Usage: find-owner [OPTIONS] INPUT_FILE OUTPUT_FILE
+        Usage: find-owner [OPTIONS] INPUT_FILE
 
         Arguments:
             INPUT_FILE    Input file containing filepaths (CSV or JSON format)
-            OUTPUT_FILE   Output file for owner mappings
 
         Options:
-            -i, --input-format FORMAT   Input file format: csv or json (default: csv)
-            -o, --output-format FORMAT  Output file format: csv or json (default: csv)
+            -o, --output-dir DIR       Output directory path (default: current directory)
+            -i, --input-format FORMAT  Input file format: csv or json (default: csv)
+            -f, --output-format FORMAT Output file format: csv or json (default: csv)
             -v, --verbose              Enable verbose output
 
         Input CSV format:
@@ -325,7 +330,7 @@ class FindOwnerCommand : SuspendingCliktCommand(
 
         if (verbose) {
             echo("📁 Input file: ${inputFile.absolutePath}")
-            echo("📁 Output file: ${outputFile.absolutePath}")
+            echo("📁 Output directory: ${outputDir.absolutePath}")
             echo("📄 Input format: $inputFormat")
             echo("📄 Output format: $outputFormat")
         }
@@ -333,7 +338,7 @@ class FindOwnerCommand : SuspendingCliktCommand(
         // Parse input file
         echo("📖 Parsing input file...")
         val filepaths = parseInputFile(inputFile, inputFormat)
-        
+
         if (filepaths.isEmpty()) {
             echo("❌ No filepaths found in input file")
             throw Abort()
@@ -374,8 +379,15 @@ class FindOwnerCommand : SuspendingCliktCommand(
 
         println() // Add newline after progress updates
 
+        // Create output directory if it doesn't exist
+        outputDir.mkdirs()
+
         // Write output file
         echo("💾 Writing output file...")
+        val outputFile = when (outputFormat) {
+            OutputFormat.CSV -> File(outputDir, "file-owner-mappings.csv")
+            OutputFormat.JSON -> File(outputDir, "file-owner-mappings.json")
+        }
         writeOutputFile(mappings, outputFile, outputFormat)
 
         // Print summary
@@ -383,13 +395,12 @@ class FindOwnerCommand : SuspendingCliktCommand(
         val uniqueTeams = mappings.mapNotNull { it.owner }.toSet().size
 
         echo("✅ Processing completed!")
-        echo("📊 Summary:")
-        echo("  • Total files processed: ${mappings.size}")
-        echo("  • Files with owners found: $foundOwners")
-        echo("  • Unique teams found: $uniqueTeams")
-        echo("  • Output file: ${outputFile.absolutePath}")
-
         if (verbose) {
+            echo("📊 Summary:")
+            echo("  • Total files processed: ${mappings.size}")
+            echo("  • Files with owners found: $foundOwners")
+            echo("  • Unique teams found: $uniqueTeams")
+            echo("  • Output file: ${outputFile.absolutePath}")
             val cacheStats = teamDetector.getCacheStats()
             echo("  • Cache stats: ${cacheStats.cachedFiles} files cached, ${cacheStats.uniqueTeams} unique teams")
         }
@@ -407,4 +418,4 @@ enum class OutputFormat {
 // Main execution
 runBlocking {
     FindOwnerCommand().main(args)
-} 
+}

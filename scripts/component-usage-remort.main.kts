@@ -55,6 +55,7 @@ import kotlinx.html.style
 import kotlinx.html.title
 import kotlinx.html.unsafe
 import java.io.File
+import java.time.LocalDateTime
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.regex.Pattern
@@ -65,17 +66,23 @@ println("🔧 Initializing component usage analyzer...")
 
 // Create a shared Moshi instance for JSON serialization/deserialization throughout the script
 @OptIn(ExperimentalStdlibApi::class)
-private val sharedMoshi = Moshi.Builder()
-    .addLast(KotlinJsonAdapterFactory())
-    .build()
+private val sharedMoshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
 
 /**
  * Data class representing a component to search for.
  *
  * @property name The name of the component (e.g., "ButtonFilled")
  * @property fqn The fully qualified name of the component (e.g., "com.example.components.buttons.ButtonFilled")
+ * @property documentation The link to the component documentation (zeroheight or figma)
+ * @property componentGroup The group of the component since some components that don't exist in some specs have been simplified like `FilledButton`, `OutlinedButton` etc will be in the `Button` group.
  */
 data class Component(val name: String, val fqn: String, val documentation: String, val componentGroup: String)
+
+/**
+ * Data class representing a list of components.
+ *
+ * @property components The list of components
+ */
 data class Components(val components: List<Component> = emptyList())
 
 // Default exclusion patterns (can be overridden via command line)
@@ -90,248 +97,56 @@ val DEFAULT_EXCLUSION_PATTERNS = listOf(
     "**/androidTest/**",
 )
 
-// Data classes
-data class ComponentUsage(
+// New data classes for the refactored structure
+/**
+ * @property components the components that are being wrapped by this wrapper composable
+ * @property name the name of the wrapper composable
+ * @property fqn the full qualified name of the component, this is used to be sure that we always get the right
+ * component and not and similar named one
+ * @property file The file where the wrapper is declared
+ * @property lineNumber The line where the wrapper is declared
+ * @property file the position in the [lineNumber] where the wrapper is being declared
+ */
+data class WrapperComponent(
+    val components: List<Component>,
+    val name: String,
+    val fqn: String,
     val file: File,
     val lineNumber: Int,
+    val column: Int,
+)
+
+/**
+ * @property file the file where a component is being used
+ * @property lineNumber the first line where the component is being used
+ * @property column the position in the [lineNumber] where the component is being used
+ * @property context lines wrapping the usage to have some context of the usage of a component
+ */
+data class Usage(
+    val file: File,
+    val lineNumber: Int,
+    val column: Int,
     val context: String,
-    val containingFunction: String? = null,
-    val team: String? = null,
 )
 
-data class ComponentDefinition(
-    val file: File,
-    val lineNumber: Int,
-    val dependencies: List<String> = emptyList(),
-    val packageName: String = "",
+/**
+ * @property component The component reported as used
+ * @property wrapper the wrapper is it's one that is being used, note that the wrapper.component represent the base
+ * component wrapped whereas the AnalysisResult component represent the wrapper usage
+ * @property usage Information about the location of the usage
+ */
+data class AnalysisResultItem(
+    val component: Component,
+    val wrapper: WrapperComponent? = null,
+    val usage: Usage,
 )
 
-data class CacheStats(
-    val cachedFiles: Int,
-    val uniqueTeams: Int,
-)
-
-// Data class to hold file analysis data for phase 1
-data class AnalysisData(
-    val file: File,
-    val content: String,
-    val lines: List<String>,
-    val imports: Set<String>,
-    val packageName: String,
-    val team: String?,
-)
-
+// Legacy AnalysisResult - now a container for the new structure
 data class AnalysisResult(
-    val directUsages: ConcurrentHashMap<String, MutableList<ComponentUsage>> = ConcurrentHashMap(),
-    val wrapperComponents: ConcurrentHashMap<String, String> = ConcurrentHashMap(), // wrapper -> component
-    val wrapperUsages: ConcurrentHashMap<String, MutableList<ComponentUsage>> = ConcurrentHashMap(),
-    val wrapperDefinitions: ConcurrentHashMap<String, ComponentDefinition> = ConcurrentHashMap(),
-    val multiComponentWrappers: ConcurrentHashMap<String, List<String>> = ConcurrentHashMap(), // wrapper -> multiple components
-    val teamUsages: ConcurrentHashMap<String, ConcurrentHashMap<String, Int>> = ConcurrentHashMap(), // team -> component -> count
+    val componentDirectUsages: List<AnalysisResultItem>,
+    val componentWrapperUsages: List<AnalysisResultItem>,
 ) {
-    fun addDirectUsage(
-        component: String,
-        file: File,
-        lineNumber: Int,
-        context: String,
-        containingFunction: String? = null,
-        team: String? = null,
-    ) {
-        directUsages.getOrPut(component) { mutableListOf() }
-            .add(ComponentUsage(file, lineNumber, context, containingFunction, team))
-
-        // Track team usage
-        if (team != null) {
-            teamUsages.getOrPut(team) { ConcurrentHashMap() }
-                .merge(component, 1, Int::plus)
-        }
-    }
-
-    fun addWrapperComponent(
-        wrapperName: String,
-        wrappedComponent: String,
-        file: File,
-        lineNumber: Int,
-        packageName: String = "",
-    ) {
-        wrapperComponents[wrapperName] = wrappedComponent
-        wrapperDefinitions[wrapperName] = ComponentDefinition(file, lineNumber, emptyList(), packageName)
-    }
-
-    fun addMultiComponentWrapper(
-        wrapperName: String,
-        wrappedComponents: List<String>,
-        file: File,
-        lineNumber: Int,
-        packageName: String = "",
-    ) {
-        multiComponentWrappers[wrapperName] = wrappedComponents
-        wrapperDefinitions[wrapperName] = ComponentDefinition(file, lineNumber, wrappedComponents, packageName)
-    }
-
-    fun addWrapperUsage(
-        wrapperName: String,
-        file: File,
-        lineNumber: Int,
-        context: String,
-        containingFunction: String? = null,
-        team: String? = null,
-    ) {
-        wrapperUsages.getOrPut(wrapperName) { mutableListOf() }
-            .add(ComponentUsage(file, lineNumber, context, containingFunction, team))
-
-        // Track team usage for wrapped components
-        if (team != null) {
-            val wrappedComponent = wrapperComponents[wrapperName]
-            if (wrappedComponent != null) {
-                teamUsages.getOrPut(team) { ConcurrentHashMap() }
-                    .merge(wrappedComponent, 1, Int::plus)
-            }
-
-            val multiWrappedComponents = multiComponentWrappers[wrapperName]
-            multiWrappedComponents?.forEach { component ->
-                teamUsages.getOrPut(team) { ConcurrentHashMap() }
-                    .merge(component, 1, Int::plus)
-            }
-        }
-    }
-
-    fun getEffectiveUsage(): Map<String, Int> {
-        val effectiveUsage = mutableMapOf<String, Int>()
-
-        // First, collect all wrapper definitions to identify which direct usages to subtract
-        val wrapperDefinitions = mutableSetOf<String>()
-        wrapperComponents.keys.forEach { wrapper ->
-            wrapperDefinitions.add(wrapper.substringAfterLast('.'))
-        }
-        multiComponentWrappers.keys.forEach { wrapper ->
-            wrapperDefinitions.add(wrapper.substringAfterLast('.'))
-        }
-
-        // Add direct usages, subtracting those that are wrapper definitions
-        directUsages.forEach { (component, usages) ->
-            val adjustedUsages = usages.count { usage ->
-                // Check if this usage is a wrapper definition
-                val containingFunction = usage.containingFunction
-                !wrapperDefinitions.contains(containingFunction)
-            }
-            effectiveUsage.merge(component, adjustedUsages) { existing, new -> existing + new }
-        }
-
-        // Add single-component wrapper usages
-        wrapperUsages.forEach { (wrapperName, usages) ->
-            wrapperComponents[wrapperName]?.let { wrappedComponent ->
-                effectiveUsage.merge(wrappedComponent, usages.size) { existing, new -> existing + new }
-            }
-        }
-
-        // Add multi-component wrapper usages (distributed equally)
-        wrapperUsages.forEach { (wrapperName, usages) ->
-            multiComponentWrappers[wrapperName]?.takeIf { it.isNotEmpty() }?.let { wrappedComponents ->
-                val usagePerComponent = usages.size / wrappedComponents.size
-                wrappedComponents.forEach { component ->
-                    effectiveUsage.merge(component, usagePerComponent) { existing, new -> existing + new }
-                }
-            }
-        }
-
-        return effectiveUsage
-    }
-}
-
-// Team ownership detection
-class TeamOwnershipDetector {
-    private val fileToTeamCache = ConcurrentHashMap<String, String?>() // file path -> team (cached lookups)
-    private val backstageFileCache = ConcurrentHashMap<String, String?>() // directory path -> team from backstage file
-
-    /**
-     * Efficiently finds the team for a given file by walking up the directory hierarchy on-demand.
-     * Uses caching to avoid repeated directory traversals and backstage file parsing.
-     *
-     * @param file The file to find team ownership for
-     * @return The team name if found, null otherwise
-     */
-    fun getTeamForFile(file: File): String? {
-        val filePath = file.absolutePath
-
-        // Check if we've already cached the result for this exact file
-        val cachedResult = fileToTeamCache[filePath]
-        if (cachedResult != null) { // null means not cached, empty string means "no team found"
-            return cachedResult.ifEmpty { null }
-        }
-
-        // Walk up the directory hierarchy until we find a backstage file or reach the root
-        var currentDir = file.parentFile
-        while (currentDir != null) {
-            val dirPath = currentDir.absolutePath
-
-            // Check if we've already parsed a backstage file for this directory
-            val cachedTeam = backstageFileCache[dirPath]
-            if (cachedTeam != null) {
-                // Cache the result for the original file
-                fileToTeamCache[filePath] = cachedTeam
-                return cachedTeam.ifEmpty { null }
-            }
-
-            // Look for backstage.yml or backstage.yaml in this directory
-            val backstageFile = listOf("backstage.yml", "backstage.yaml")
-                .map { File(currentDir, it) }
-                .find { it.exists() }
-
-            if (backstageFile != null) {
-                val team = parseBackstageFile(backstageFile)
-                // Cache the result for this directory (even if null/empty)
-                backstageFileCache[dirPath] = team ?: ""
-                // Cache the result for the original file
-                fileToTeamCache[filePath] = team ?: ""
-                return team
-            }
-
-            currentDir = currentDir.parentFile
-        }
-
-        // No team found, cache empty result to avoid future lookups
-        fileToTeamCache[filePath] = ""
-        return null
-    }
-
-    private fun parseBackstageFile(file: File): String? {
-        return runCatching {
-            val content = file.readText()
-
-            /**
-             * Matches team ownership declarations in backstage.yml files.
-             *
-             * Pattern breakdown:
-             * - `owner:` - Literal "owner:" key
-             * - `\s*` - Optional whitespace after colon
-             * - `group:default/` - Literal "group:default/" prefix
-             * - `(.+)` - Capture group for the team name (one or more characters)
-             *
-             * Example matches:
-             * - `owner: group:default/team-mobile` -> captures "team-mobile"
-             * - `owner:group:default/platform-team` -> captures "platform-team"
-             * - `  owner:  group:default/design-system  ` -> captures "design-system"
-             *
-             * Non-matches:
-             * - `owner: user:john.doe` ✗ (not a group)
-             * - `maintainer: group:default/team-web` ✗ (wrong key)
-             */
-            val regex = """owner:\s*group:default/(.+)""".toRegex()
-            regex.find(content)?.groupValues?.get(1)?.trim()
-        }.onFailure { e ->
-            println("   ⚠️ Failed to parse ${file.name}: ${e.message}")
-        }.getOrNull()
-    }
-
-    /**
-     * Returns statistics about the current cache state for debugging/reporting.
-     */
-    fun getCacheStats(): CacheStats {
-        val uniqueTeams = fileToTeamCache.values.filterNotNull().filterNot { it.isEmpty() }.toSet().size
-        val cachedFiles = fileToTeamCache.size
-        return CacheStats(cachedFiles, uniqueTeams)
-    }
+    val allUsages: List<AnalysisResultItem> = componentDirectUsages.plus(componentWrapperUsages)
 }
 
 // Parallel file discovery function with count tracking
@@ -350,22 +165,19 @@ suspend fun discoverKotlinFilesParallelWithCount(
 
     return if (topLevelDirs.isEmpty()) {
         val filesInDir = mutableListOf<File>()
-        sourceDir.walkTopDown()
-            .onEnter {
-                // Optimization: If a directory itself matches an exclusion pattern, don't descend into it.
-                // This requires careful handling of how baseDir is used in shouldExcludeFile.
-                // For now, we filter files, not directories, to keep it simpler.
-                !shouldExcludeFile(it, sourceDir, exclusionPatterns)
+        sourceDir.walkTopDown().onEnter {
+            // Optimization: If a directory itself matches an exclusion pattern, don't descend into it.
+            // This requires careful handling of how baseDir is used in shouldExcludeFile.
+            // For now, we filter files, not directories, to keep it simpler.
+            !shouldExcludeFile(it, sourceDir, exclusionPatterns)
+        }.filter { it.isFile && it.extension == "kt" }.forEach { file ->
+            val count = fileCounter.incrementAndGet()
+            // Update discovery progress periodically
+            print("\r   📊 Files discovered: $count")
+            if (!shouldExcludeFile(file, sourceDir, exclusionPatterns)) {
+                filesInDir.add(file)
             }
-            .filter { it.isFile && it.extension == "kt" }
-            .forEach { file ->
-                val count = fileCounter.incrementAndGet()
-                // Update discovery progress periodically
-                print("\r   📊 Files discovered: $count")
-                if (!shouldExcludeFile(file, sourceDir, exclusionPatterns)) {
-                    filesInDir.add(file)
-                }
-            }
+        }
         println() // Add a newline after the progress updates
         filesInDir
     } else {
@@ -390,17 +202,14 @@ suspend fun discoverKotlinFilesParallelWithCount(
                         val chunkFiles = mutableListOf<File>()
 
                         dirsInChunk.forEach { dir ->
-                            dir.walkTopDown()
-                                .onEnter {
-                                    !shouldExcludeFile(it, sourceDir, exclusionPatterns)
-                                }
-                                .filter { it.isFile && it.extension == "kt" }
-                                .forEach { file ->
-                                    val count = fileCounter.incrementAndGet()
-                                    // Update discovery progress periodically
-                                    print("\r   📊 Files discovered: $count")
-                                    chunkFiles.add(file)
-                                }
+                            dir.walkTopDown().onEnter {
+                                !shouldExcludeFile(it, sourceDir, exclusionPatterns)
+                            }.filter { it.isFile && it.extension == "kt" }.forEach { file ->
+                                val count = fileCounter.incrementAndGet()
+                                // Update discovery progress periodically
+                                print("\r   📊 Files discovered: $count")
+                                chunkFiles.add(file)
+                            }
                         }
                         if (verbose) {
                             println("\n   ✅ Chunk ${chunkIndex + 1}/${dirChunks.size}: Found ${chunkFiles.size}")
@@ -422,7 +231,6 @@ suspend fun discoverKotlinFilesParallelWithCount(
 // Main analyzer class
 class ComponentAnalyzer(
     private val components: List<Component>,
-    private val teamDetector: TeamOwnershipDetector,
     private val contextLines: Int = 3,
 ) {
     // Optimization: Use ConcurrentHashMap for caches to allow parallel access during file processing
@@ -430,7 +238,6 @@ class ComponentAnalyzer(
     private val importCache = ConcurrentHashMap<String, Set<String>>()
     private val packageCache = ConcurrentHashMap<String, String>()
 
-    // Optimization: Compile regex patterns once
     /**
      * Matches @Composable function definitions with optional visibility modifiers.
      *
@@ -446,10 +253,10 @@ class ComponentAnalyzer(
      * - `@Composable private fun CustomCard(title: String) { ... }`
      * - `@Composable internal fun NestedComponent() { if (condition) { ButtonFilled() } }`
      */
-    private val composableFunctionPattern: Pattern = Pattern.compile(
-        """@Composable\s+(?:public\s+|private\s+|internal\s+)?fun\s+(\w+)\s*\([^)]*\)\s*\{([^}]*(?:\{[^}]*\}[^}]*)*)\}""",
-        Pattern.DOTALL,
-    )
+    private val composableFunctionPattern: Regex =
+        """@Composable\s+(?:public\s+|private\s+|internal\s+)?fun\s+(\w+)\s*\([^)]*\)\s*\{([^}]*(?:\{[^}]*\}[^}]*)*)\}""".toRegex(
+            RegexOption.DOT_MATCHES_ALL,
+        )
 
     /**
      * Matches @Preview annotation with optional parameters.
@@ -458,10 +265,7 @@ class ComponentAnalyzer(
      * - `@Preview` - The Preview annotation
      * - `(?:\s*\([^)]*\))?` - Optional parameters in parentheses
      */
-    private val previewAnnotationPattern: Pattern = Pattern.compile(
-        """@Preview(?:\s*\([^)]*\))?""",
-        Pattern.DOTALL
-    )
+    private val previewAnnotationPattern: Regex = """@Preview(?:\s*\([^)]*\))?""".toRegex(RegexOption.DOT_MATCHES_ALL)
 
     /**
      * Matches function definitions (with or without @Composable) for finding containing functions.
@@ -478,10 +282,9 @@ class ComponentAnalyzer(
      * - `private fun helper()` -> captures "helper"
      * - Multi-line: `@Composable\n@ExperimentalSparkApi\nfun AwarenessCard()` -> captures "AwarenessCard"
      */
-    private val functionPatternForContaining: Pattern =
-        Pattern.compile(
-            """(?:(?:@\w+(?:\s*\([^)]*\))?\s+)*)(?:public\s+|private\s+|internal\s+|external\s+|inline\s+|suspend\s+)*fun\s+(\w+)\s*\(""",
-            Pattern.DOTALL
+    private val functionPatternForContaining: Regex =
+        """(?:(?:@\w+(?:\s*\([^)]*\))?\s+)*)(?:public\s+|private\s+|internal\s+|external\s+|inline\s+|suspend\s+)*fun\s+(\w+)\s*\(""".toRegex(
+            RegexOption.DOT_MATCHES_ALL,
         )
 
     /**
@@ -496,7 +299,7 @@ class ComponentAnalyzer(
      * - `import kotlinx.coroutines.*` -> captures "kotlinx.coroutines.*"
      * - `import androidx.compose.runtime.Composable` -> captures full path
      */
-    private val importPatternRegex: Pattern = Pattern.compile("""import\s+([^\s\n]+)""")
+    private val importPatternRegex: Regex = """import\s+([^\s\n]+)""".toRegex()
 
     /**
      * Matches package declarations to extract the current file's package name.
@@ -509,10 +312,10 @@ class ComponentAnalyzer(
      * - `package com.example.myapp.ui` -> captures "com.example.myapp.ui"
      * - `package com.adevinta.example.catalog` -> captures "com.adevinta.example.catalog"
      */
-    private val packagePatternRegex: Pattern = Pattern.compile("""package\s+([^\s\n]+)""")
+    private val packagePatternRegex: Regex = """package\s+([^\s\n]+)""".toRegex()
 
     // Cache for compiled component patterns to avoid recompiling them for every file
-    private val componentRegexCache = ConcurrentHashMap<String, Pattern>()
+    private val componentRegexCache = ConcurrentHashMap<String, Regex>()
 
     /**
      * Gets or creates a cached regex pattern for matching component usage.
@@ -534,31 +337,22 @@ class ComponentAnalyzer(
      * @param componentName The name of the component to match
      * @return Compiled regex pattern for the component
      */
-    private fun getComponentPattern(componentName: String): Pattern {
-        return componentRegexCache.getOrPut(componentName) {
-            Pattern.compile("""(?<![a-zA-Z0-9_])$componentName\s*\(""")
-        }
+    private fun getComponentRegex(componentName: String): Regex = componentRegexCache.getOrPut(componentName) {
+        """(?<![a-zA-Z0-9_])$componentName\s*\(""".toRegex()
     }
 
-    private fun getCachedContent(file: File): String {
-        return fileContentCache.getOrPut(file.absolutePath) { file.readText() }
+    private fun getCachedContent(file: File): String = fileContentCache.getOrPut(file.absolutePath) { file.readText() }
+
+
+    private fun getCachedImports(file: File, content: String): Set<String> = importCache.getOrPut(file.absolutePath) {
+        extractImports(content)
     }
 
-
-    private fun getCachedImports(file: File, content: String): Set<String> {
-        return importCache.getOrPut(file.absolutePath) {
-            extractImports(content)
-        }
-    }
-
-    private fun getCachedPackage(file: File, content: String): String {
-        return packageCache.getOrPut(file.absolutePath) {
-            extractPackageName(content)
-        }
+    private fun getCachedPackage(file: File, content: String): String = packageCache.getOrPut(file.absolutePath) {
+        extractPackageName(content)
     }
 
     suspend fun analyze(sourceFiles: List<File>, excludePreviews: Boolean): AnalysisResult {
-        val result = AnalysisResult()
         val cpuCores = Runtime.getRuntime().availableProcessors()
 
         println("📁 Analyzing ${sourceFiles.size} Kotlin files using $cpuCores CPU cores...")
@@ -567,8 +361,10 @@ class ComponentAnalyzer(
 
         // Phase 1: Find all direct component usages and wrapper definitions using coroutines
         println("🔍 Phase 1: Finding direct component usages and wrapper definitions...")
+        var componentUsages: List<AnalysisResultItem> = emptyList()
+        var wrapperDefinitions: List<WrapperComponent> = emptyList()
         val unifiedAnalysisTime = measureTimeMillis {
-            supervisorScope {
+            val results = supervisorScope {
                 sourceFiles.map { file ->
                     async(Dispatchers.IO) {
                         try {
@@ -578,53 +374,49 @@ class ComponentAnalyzer(
                                 print("\r   📊 Unified Analysis Progress: $percentage% ($currentProgress/${sourceFiles.size})")
                             }
 
+                            // We get the content from a cache since we can come back later for a wrapper usage analysis
                             val content = getCachedContent(file)
-                            if (content.isEmpty()) return@async // Skip if file read failed or empty
+                            if (content.isEmpty()) return@async emptyList<AnalysisResultItem>() to emptyList() // Skip if file read failed or empty
 
                             val lines = content.lines() // Do this once
                             val imports = getCachedImports(file, content)
                             val currentPackageName = getCachedPackage(file, content)
-                            val team = teamDetector.getTeamForFile(file)
 
-                            val data = AnalysisData(
+                            val fileComponentUsages = analyzeFileForDirectUsages(
                                 file = file,
                                 content = content,
                                 lines = lines,
                                 imports = imports,
+                                excludePreviews = excludePreviews,
+                            )
+                            val fileWrapperDefinitions = analyzeFileForWrapperComponents(
+                                file = file,
+                                content = content,
+                                imports = imports,
                                 packageName = currentPackageName,
-                                team = team,
                             )
-                            analyzeFileForDirectUsages(
-                                file = data.file,
-                                content = data.content,
-                                lines = data.lines,
-                                imports = data.imports,
-                                team = data.team,
-                                excludePreviews= excludePreviews,
-                                result = result,
-                            )
-                            analyzeFileForWrapperComponents(
-                                file = data.file,
-                                content = data.content,
-                                imports = data.imports,
-                                packageName = data.packageName,
-                                result = result,
-                            )
+                            fileComponentUsages to fileWrapperDefinitions
                         } catch (e: Exception) {
                             println("\n   ⚠️ Error analyzing file ${file.name}: ${e.message}")
+                            emptyList<AnalysisResultItem>() to emptyList()
                         }
                     }
                 }.awaitAll()
             }
+            // Process the results to populate componentUsages and wrapperDefinitions
+            componentUsages = results.flatMap { it.first }
+            wrapperDefinitions = results.flatMap { it.second }
             println()
         }
         println("   ⏱️ Phase 1 completed in ${unifiedAnalysisTime}ms")
+
+        val wrapperUsages: List<AnalysisResultItem>
 
         // Phase 2: Find usages of wrapper components
         println("📊 Phase 2: Analyzing wrapper usages...")
         progressCounter.set(0)
         val phase2Time = measureTimeMillis {
-            supervisorScope {
+            wrapperUsages = supervisorScope {
                 sourceFiles.map { file ->
                     async(Dispatchers.IO) {
                         try {
@@ -635,69 +427,113 @@ class ComponentAnalyzer(
                             }
 
                             val content = getCachedContent(file) // Content should be cached from previous pass
-                            if (content.isEmpty()) return@async
+                            if (content.isEmpty()) return@async emptyList()
 
-                            val lines = content.lines() // Recalculate or retrieve if not passed
+                            val lines = content.lines()
                             val currentPackageName = getCachedPackage(file, content) // Should be cached
                             val imports = getCachedImports(file, content) // Should be cached
-                            val team = teamDetector.getTeamForFile(file) // Can be re-fetched
 
-                            analyzeFileForWrapperUsages(file, content, lines, currentPackageName, imports, team, excludePreviews, result)
+                            analyzeFileForWrapperUsages(
+                                file,
+                                content,
+                                lines,
+                                currentPackageName,
+                                imports,
+                                excludePreviews,
+                                wrapperDefinitions,
+                            )
                         } catch (e: Exception) {
                             println("\n   ⚠️ Error analyzing wrapper usages in file ${file.name}: ${e.message}")
+                            emptyList()
                         }
                     }
-                }.awaitAll()
+                }.awaitAll().flatten()
             }
             println()
         }
         println("   ⏱️ Phase 2 completed in ${phase2Time}ms")
 
-        // Phase 3: Discover team ownership for all discovered components and wrappers
-        println("👥 Phase 3: Discovering team ownership...")
-        val allFilesToAnalyze = mutableSetOf<File>()
-
-        // Collect all files that have component usages
-        result.directUsages.values.flatten().forEach { usage -> allFilesToAnalyze.add(usage.file) }
-        result.wrapperUsages.values.flatten().forEach { usage -> allFilesToAnalyze.add(usage.file) }
-
-        // Collect all files that define wrapper components
-        result.wrapperDefinitions.values.forEach { definition -> allFilesToAnalyze.add(definition.file) }
-
-        val phase3Time = measureTimeMillis {
-            println("   📂 Analyzing team ownership for ${allFilesToAnalyze.size} relevant files...")
-
-            // Perform on-demand team discovery for these specific files
-            val processedFiles = AtomicInteger(0)
-            supervisorScope {
-                allFilesToAnalyze.chunked(50).map { fileChunk ->
-                    async(Dispatchers.IO) {
-                        try {
-                            fileChunk.forEach { file ->
-                                teamDetector.getTeamForFile(file) // This will cache the result
-                                val current = processedFiles.incrementAndGet()
-                                if (current % 20 == 0 || current == allFilesToAnalyze.size) {
-                                    print("\r   📊 Team discovery progress: $current/${allFilesToAnalyze.size} files")
-                                }
-                            }
-                        } catch (e: Exception) {
-                            println("\n   ⚠️ Error discovering team ownership: ${e.message}")
-                        }
-                    }
-                }.awaitAll()
-            }
-            println()
-        }
-        println("   ⏱️ Phase 3 completed in ${phase3Time}ms")
-
-        val totalAnalysisTime = unifiedAnalysisTime + phase2Time + phase3Time
+        val totalAnalysisTime = unifiedAnalysisTime + phase2Time
         println("🚀 Total analysis time: ${totalAnalysisTime}ms (${totalAnalysisTime / 1000.0}s)")
 
-        // Report team discovery statistics
-        val cacheStats = teamDetector.getCacheStats()
-        println("   📊 Team ownership: analyzed ${allFilesToAnalyze.size} files, found ${cacheStats.uniqueTeams} unique teams")
+        val (activeWrapperDefs, refinedWrapperUsages) = determineActiveWrappers(wrapperDefinitions, wrapperUsages)
+        val refinedComponentUsages = refineDirectUsages(componentUsages, activeWrapperDefs)
 
-        return result
+        // Use the fully refined lists for the AnalysisResult
+        return AnalysisResult(refinedComponentUsages, refinedWrapperUsages)
+    }
+
+    private fun determineActiveWrappers(
+        allPotentialWrapperDefs: List<WrapperComponent>,
+        allWrapperUsageItems: List<AnalysisResultItem>,
+    ): Pair<List<WrapperComponent>, List<AnalysisResultItem>> {
+        println("ℹ️ Identifying active wrappers (used more than once)...")
+
+        val wrapperUsageCounts = allWrapperUsageItems
+            .groupingBy { it.component.fqn } // it.component is the wrapper that was used
+            .eachCount()
+
+        val activeDefinitions = allPotentialWrapperDefs.filter { wrapperDef ->
+            (wrapperUsageCounts[wrapperDef.fqn] ?: 0) > 1
+        }
+
+        val activeUsages = allWrapperUsageItems.filter { wrapperUsageItem ->
+            (wrapperUsageCounts[wrapperUsageItem.component.fqn] ?: 0) > 1
+        }
+
+        val definedCount = allPotentialWrapperDefs.size
+        val activeCount = activeDefinitions.size
+        val omittedCount = definedCount - activeCount
+
+        if (omittedCount > 0) {
+            println("   ✅ Identified $activeCount active wrappers (out of $definedCount total). $omittedCount single-use wrappers will not be counted as separate wrappers.")
+        } else {
+            println("   ✅ All $definedCount defined wrappers are active or no wrappers were defined.")
+        }
+        return activeDefinitions to activeUsages
+    }
+
+    private fun refineDirectUsages(
+        initialDirectUsages: List<AnalysisResultItem>,
+        activeWrapperDefinitions: List<WrapperComponent>,
+    ): List<AnalysisResultItem> {
+        println("ℹ️ Refining direct component usages: Excluding usages that are part of ACTIVE wrapper definitions...")
+
+        val refinedUsages = initialDirectUsages.filterNot { directUsageItem ->
+            isUsageInsideWrapperDefinition(directUsageItem, activeWrapperDefinitions)
+        }
+
+        val removedCount = initialDirectUsages.size - refinedUsages.size
+        if (removedCount > 0) {
+            println("   ✅ Refined direct usages: $removedCount items were identified as part of active wrapper definitions and excluded.")
+        } else {
+            println("   ✅ Refined direct usages: No direct usages needed exclusion based on active wrappers.")
+        }
+        return refinedUsages
+    }
+
+    private fun isUsageInsideWrapperDefinition(
+        directUsageItem: AnalysisResultItem,
+        wrapperDefinitionsToCheckAgainst: List<WrapperComponent>,
+    ): Boolean {
+        val usageFile = directUsageItem.usage.file
+        val usageColumnOffset = directUsageItem.usage.column
+
+        val fileContent = getCachedContent(usageFile)
+        if (fileContent.isEmpty()) {
+            return false // Cannot determine, default to not inside
+        }
+
+        val functionContainingUsage = findContainingFunction(fileContent, usageColumnOffset)
+        if (functionContainingUsage == null) {
+            return false // Not in a function, so not in a wrapper function definition
+        }
+
+        return wrapperDefinitionsToCheckAgainst.any { activeWrapperDef ->
+            activeWrapperDef.file == usageFile &&
+                    activeWrapperDef.name == functionContainingUsage.name &&
+                    directUsageItem.usage.lineNumber >= activeWrapperDef.lineNumber
+        }
     }
 
     private fun analyzeFileForDirectUsages(
@@ -705,46 +541,47 @@ class ComponentAnalyzer(
         content: String,
         lines: List<String>,
         imports: Set<String>,
-        team: String?,
         excludePreviews: Boolean,
-        result: AnalysisResult,
-    ) {
+    ): List<AnalysisResultItem> {
+        val directFileUsages = mutableListOf<AnalysisResultItem>()
         val availableComponents = getAvailableComponents(imports)
 
-        availableComponents.forEach { (componentName, _) ->
-            // Use word boundaries to ensure exact function name match
-            val pattern = getComponentPattern(componentName)
-            val matcher = pattern.matcher(content)
-
-            var searchStart = 0
-            while (matcher.find(searchStart)) {
-                val lineNumber = content.substring(0, matcher.start()).count { it == '\n' } + 1
-                val context = extractContext(lines, lineNumber)
-                val containingFunction = findContainingFunction(content, matcher.start())
-
-                // Skip if this usage is inside a preview composable and we're excluding previews
-                if (excludePreviews && containingFunction?.isPreview == true) {
-                    searchStart = matcher.end()
-                    continue
-                }
-
-                // Skip if this is a function definition (not a function call)
-                if (isFunctionDefinition(content, matcher.start(), componentName)) {
-                    searchStart = matcher.end()
-                    continue
-                }
-
-                result.addDirectUsage(
-                    component = componentName,
-                    file = file,
-                    lineNumber = lineNumber,
-                    context = context,
-                    containingFunction = containingFunction?.name,
-                    team = team,
-                )
-                searchStart = matcher.end()
-            }
+        // Skip analysis if no components are available (no proper imports)
+        if (availableComponents.isEmpty()) {
+            return emptyList()
         }
+
+        availableComponents.forEach { component -> // Iterate over each component to check for
+            val componentRegex = getComponentRegex(component.name) // Get Kotlin Regex for the current component
+
+            componentRegex.findAll(content)
+                .forEach { matchResult -> // Find all occurrences of this component in the content
+                    val matchStartIndex = matchResult.range.first
+
+                    val currentLineNumber = content.substring(0, matchStartIndex).count { it == '\n' } + 1
+
+                    val containingFunction = findContainingFunction(content, matchStartIndex)
+
+                    if (excludePreviews && containingFunction?.isPreview == true) {
+                        return@forEach // Skips to the next matchResult for this component
+                    }
+
+                    if (isFunctionDefinition(content, matchStartIndex, component.name)) {
+                        return@forEach // Skips to the next matchResult for this component
+                    }
+
+                    val context = extractContext(lines, currentLineNumber) // Use 'lines' passed to the function
+
+                    directFileUsages.add(
+                        AnalysisResultItem(
+                            component = component,
+                            usage = Usage(file, currentLineNumber, column = matchStartIndex, context),
+                            // wrapper = null, // If your AnalysisResultItem has an optional wrapper
+                        ),
+                    )
+                }
+        }
+        return directFileUsages
     }
 
     private fun analyzeFileForWrapperComponents(
@@ -752,14 +589,18 @@ class ComponentAnalyzer(
         content: String,
         imports: Set<String>,
         packageName: String,
-        result: AnalysisResult,
-    ) {
+    ): List<WrapperComponent> {
+        val fileWrapperDefinitions = mutableListOf<WrapperComponent>()
         val availableComponents = getAvailableComponents(imports)
 
-        val matcher = composableFunctionPattern.matcher(content)
-        while (matcher.find()) {
-            val functionName = matcher.group(1)
-            val functionBody = matcher.group(2)
+        // Skip analysis if no components are available (no proper imports)
+        if (availableComponents.isEmpty()) {
+            return emptyList()
+        }
+
+        val matches = composableFunctionPattern.findAll(content)
+        for (match in matches) {
+            val (functionName, functionBody) = match.destructured
 
             // Skip if this is already a known component
             if (components.any { it.name == functionName } || components.any { it.fqn == functionName }) {
@@ -767,39 +608,32 @@ class ComponentAnalyzer(
             }
 
             // Find which components this function uses
-            val usedComponents = mutableListOf<String>()
+            val usedComponents = mutableListOf<Component>()
             val definedInPackage = packageName
-            availableComponents.forEach { (componentName, _) ->
+            availableComponents.forEach { component ->
                 // Check if the component is used *within* the body of this Composable function
-                val compPattern = getComponentPattern(componentName)
-                if (compPattern.matcher(functionBody).find()) {
-                    usedComponents.add(componentName)
+                val compRegex = getComponentRegex(component.name)
+                if (compRegex.find(functionBody) != null) {
+                    usedComponents += component
                 }
             }
 
             if (usedComponents.isNotEmpty()) {
-                val lineNumber = content.substring(0, matcher.start()).count { it == '\n' } + 1
+                val column = match.range.start
+                val lineNumber = content.substring(0, column).count { it == '\n' } + 1
                 val wrapperFqn = if (definedInPackage.isNotEmpty()) "$definedInPackage.$functionName" else functionName
 
-                if (usedComponents.size == 1) {
-                    result.addWrapperComponent(
-                        wrapperName = wrapperFqn,
-                        wrappedComponent = usedComponents.first(),
-                        file = file,
-                        lineNumber = lineNumber,
-                        packageName = definedInPackage,
-                    )
-                } else {
-                    result.addMultiComponentWrapper(
-                        wrapperName = wrapperFqn,
-                        wrappedComponents = usedComponents,
-                        file = file,
-                        lineNumber = lineNumber,
-                        packageName = definedInPackage,
-                    )
-                }
+                fileWrapperDefinitions += WrapperComponent(
+                    components = usedComponents,
+                    name = functionName,
+                    fqn = wrapperFqn,
+                    file = file,
+                    lineNumber = lineNumber,
+                    column = column,
+                )
             }
         }
+        return fileWrapperDefinitions
     }
 
     private fun analyzeFileForWrapperUsages(
@@ -808,69 +642,83 @@ class ComponentAnalyzer(
         lines: List<String>,
         currentPackageName: String,
         imports: Set<String>,
-        team: String?,
         excludePreviews: Boolean,
-        result: AnalysisResult,
-    ) {
+        wrapperDefinitions: List<WrapperComponent>,
+    ): List<AnalysisResultItem> {
+        val fileWrapperUsages = mutableListOf<AnalysisResultItem>()
         // We need all wrapper definitions to check for their usages.
         // This includes wrappers defined in any package.
-        val allWrapperDefinitions = result.wrapperDefinitions.keys // FQNs of all discovered wrappers
 
-        allWrapperDefinitions.forEach { wrapperFqn ->
+        wrapperDefinitions.forEach { wrapper ->
+            val wrapperFqn = wrapper.fqn
             // Extract just the function name from the fully qualified name
-            val wrapperShortName = wrapperFqn.substringAfterLast('.')
+            val wrapperShortName = wrapper.name
             val wrapperPackageName = wrapperFqn.substringBeforeLast('.', missingDelimiterValue = "")
 
             // Check if this wrapper is usable in the current file:
             // 1. Defined in the same package
             // 2. Imported explicitly (e.g., import com.example.MyWrapper)
             // 3. Imported via star import (e.g., import com.example.*)
-            val isUsable = currentPackageName == wrapperPackageName ||
-                    imports.contains(wrapperFqn) ||
-                    imports.contains("$wrapperPackageName.*")
+            val isUsable =
+                currentPackageName == wrapperPackageName || wrapperFqn in imports || "$wrapperPackageName.*" in imports
 
             if (!isUsable) {
-                return@forEach // Skip this wrapper if it's not accessible
+                return@forEach // Skip()// Skip this wrapper if it's not accessible
             }
 
             // Use word boundaries to ensure exact function name match
-            val pattern = getComponentPattern(wrapperShortName)
-            val matcher = pattern.matcher(content)
-            var searchStart = 0
-            while (matcher.find(searchStart)) {
-                // Basic check to ensure it's not a self-reference if the wrapper is defined in this file
-                // More robust would be to check if matcher.start() is within the definition of the wrapper itself.
-                // For now, this is a simplification.
-                val currentLineNumber = content.substring(0, matcher.start()).count { it == '\n' } + 1
-                val isPotentiallySelfReference = result.wrapperDefinitions[wrapperFqn]?.file == file &&
-                        currentLineNumber == result.wrapperDefinitions[wrapperFqn]?.lineNumber
+            val componentUsageRegex = getComponentRegex(wrapperShortName)
+            componentUsageRegex.findAll(content).forEach { matchResult ->
+                val matchStartIndex = matchResult.range.first
+
+                // Basic check to ensure it's not a self-reference if the wrapper is defined in this file.
+                // This calculates line number for each match.
+                val currentLineNumber = content.substring(0, matchStartIndex).count { it == '\n' } + 1
+                val isPotentiallySelfReference = wrapper.file == file &&
+                        currentLineNumber == wrapper.lineNumber &&
+                        matchStartIndex == wrapper.column
+
                 if (isPotentiallySelfReference) {
-                    searchStart = matcher.end()
-                    continue
+                    // This logic might need refinement: if a wrapper function calls itself (recursion),
+                    // it's a valid usage unless you specifically want to exclude direct self-calls
+                    // from the definition site. For now, skipping if it matches the definition location.
+                    return@forEach // This forEach is for matchResult, so it continues to next match
                 }
 
-                val lineNumber = currentLineNumber
-                val context = extractContext(lines, lineNumber)
-                val containingFunction = findContainingFunction(content, matcher.start())
+                // More robust self-reference check (optional, if needed):
+                // Check if matchStartIndex falls within the body of the wrapper definition itself.
+                // This would require knowing the start and end of the wrapper function's body.
+                // For now, the line & column check is a simpler heuristic.
+
+                val containingFunction = findContainingFunction(content, matchStartIndex)
 
                 // Skip if this usage is inside a preview composable and we're excluding previews
                 if (excludePreviews && containingFunction?.isPreview == true) {
-                    searchStart = matcher.end()
-                    continue
+                    return@forEach // Continue to the next matchResult
                 }
 
-                result.addWrapperUsage(
-                    wrapperName = wrapperFqn,
-                    file = file,
-                    lineNumber = lineNumber,
-                    context = context,
-                    containingFunction = containingFunction?.name,
-                    team = team,
-                )
+                // Skip if this is a function definition (not a function call)
+                // Assuming isFunctionDefinition is adapted or available
+                if (isFunctionDefinition(content, matchStartIndex, wrapperShortName)) {
+                    return@forEach // Continue to the next matchResult
+                }
 
-                searchStart = matcher.end()
+
+                val context = extractContext(lines, currentLineNumber) // Assuming extractContext is available
+
+                fileWrapperUsages += AnalysisResultItem(
+                    component = Component(
+                        wrapperShortName,
+                        wrapperFqn,
+                        documentation = "",
+                        componentGroup = "",
+                    ), // Example
+                    wrapper = wrapper,
+                    usage = Usage(file, currentLineNumber, column = matchStartIndex, context),
+                )
             }
         }
+        return fileWrapperUsages
     }
 
     /**
@@ -878,7 +726,7 @@ class ComponentAnalyzer(
      */
     private data class ContainingFunction(
         val name: String,
-        val isPreview: Boolean
+        val isPreview: Boolean,
     )
 
     /**
@@ -913,7 +761,7 @@ class ComponentAnalyzer(
             // This pattern looks for: (optional annotations and modifiers) + "fun" + componentName
             val functionDefPattern = Pattern.compile(
                 """(?:^|\n)\s*(?:@\w+(?:\s*\([^)]*\))?\s+)*(?:public\s+|private\s+|internal\s+|external\s+|inline\s+|suspend\s+)*fun\s+$componentName\s*\(""",
-                Pattern.DOTALL or Pattern.MULTILINE
+                Pattern.DOTALL or Pattern.MULTILINE,
             )
 
             if (functionDefPattern.matcher(textBlock).find()) {
@@ -927,15 +775,13 @@ class ComponentAnalyzer(
     private fun findContainingFunction(content: String, position: Int): ContainingFunction? {
         val beforePosition = content.substring(0, position)
 
-        val matcher = functionPatternForContaining.matcher(beforePosition)
-
-        var lastFunctionName: String? = null
-        var lastFunctionStart = -1
-
-        while (matcher.find()) {
-            lastFunctionName = matcher.group(1)
-            lastFunctionStart = matcher.start()
+        val lastMatch = functionPatternForContaining.findAll(beforePosition).lastOrNull()
+        if (lastMatch == null) {
+            return null
         }
+
+        val lastFunctionName = lastMatch.groupValues.getOrNull(1)
+        val lastFunctionStart = lastMatch.range.start
 
         if (lastFunctionName == null) {
             return null
@@ -945,40 +791,47 @@ class ComponentAnalyzer(
         // Look for @Preview in the text between the last function start and the previous function or file start
         val functionDeclarationText = if (lastFunctionStart > 0) {
             // Look at up to 10 lines before the function declaration to find annotations
-            val lookbackStart = Math.max(0, beforePosition.lastIndexOf('\n', Math.max(0, lastFunctionStart - 200)))
+            val lookbackStart = 0.coerceAtLeast(
+                beforePosition.lastIndexOf(
+                    '\n',
+                    0.coerceAtLeast(lastFunctionStart - 200),
+                ),
+            )
             beforePosition.substring(lookbackStart, lastFunctionStart)
         } else {
             ""
         }
 
-        val isPreview = previewAnnotationPattern.matcher(functionDeclarationText).find()
+        val isPreview = previewAnnotationPattern.containsMatchIn(functionDeclarationText)
 
         return ContainingFunction(lastFunctionName, isPreview)
     }
 
+    /**
+     * Extracts [contextLines] lines of context around the given [lineNumber].
+     */
     private fun extractContext(lines: List<String>, lineNumber: Int): String {
-        val start = maxOf(0, lineNumber - contextLines - 1)
-        val end = minOf(lines.size, lineNumber + contextLines)
+        // lineNumber is typically 1-based, adjust for 0-based list access
+        val targetIndex = lineNumber - 1
+
+        val start = (targetIndex - contextLines).coerceAtLeast(0)
+        val end =
+            (targetIndex + contextLines + 1).coerceAtMost(lines.size) // +1 because subList's 'toIndex' is exclusive
+
         return lines.subList(start, end).joinToString("\n")
     }
 
     private fun extractImports(content: String): Set<String> {
-        val imports = mutableSetOf<String>()
-        val matcher = importPatternRegex.matcher(content)
-
-        while (matcher.find()) {
-            imports.add(matcher.group(1))
-        }
-        return imports
+        return importPatternRegex.findAll(content)
+            .mapNotNull { it.groupValues.getOrNull(1) }
+            .toSet()
     }
 
     private fun extractPackageName(content: String): String {
-        val matcher = packagePatternRegex.matcher(content)
-        return if (matcher.find()) {
-            matcher.group(1)
-        } else {
-            ""
-        }
+        return packagePatternRegex.find(content)
+            ?.groupValues
+            ?.getOrNull(1)
+            .orEmpty()
     }
 
     /**
@@ -989,16 +842,8 @@ class ComponentAnalyzer(
      * @return Map of available component names to their fully qualified names
      */
     private fun getAvailableComponents(imports: Set<String>): List<Component> {
-        // Fast path: if no imports, return all components (they could be in the same package)
-        if (imports.isEmpty()) {
-            return components
-        }
-
         // Process star imports once and cache the results
-        val starImportPrefixes = imports
-            .filter { it.endsWith(".*") }
-            .map { it.dropLast(1) }
-            .toSet()
+        val starImportPrefixes = imports.filter { it.endsWith(".*") }.map { it.dropLast(1) }.toSet()
 
         // Fast path: check if we have a star import that covers all components
         // This is a common case for files that import all components
@@ -1027,11 +872,8 @@ class ComponentAnalyzer(
             }
         }
 
-        // If no specific imports found, assume all components might be available
-        if (availableComponents.isEmpty()) {
-            return components
-        }
-
+        // Only return components that are actually available through imports
+        // This prevents false positives when components are not properly imported
         return availableComponents.values.toList()
     }
 }
@@ -1046,46 +888,76 @@ class HtmlReportGenerator(private val components: List<Component>) {
         // Get all components from the original components list
         val allComponents = components.map { it.name }.toSet()
 
+        // Map: Base Component Name -> Direct Usage Count
+        val directUsageCounts = result.componentDirectUsages
+            .groupingBy { it.component.name } // Group by the name of the directly used component
+            .eachCount()
+
+        // Map: Base Component Name -> Wrapper Usage Count
+        val wrapperUsageCounts = mutableMapOf<String, Int>().withDefault { 0 }
+        result.componentWrapperUsages.forEach { wrapperUsageItem ->
+            // wrapperUsageItem.component is the wrapper that was used.
+            // wrapperUsageItem.wrapper is its definition.
+            wrapperUsageItem.wrapper?.components?.forEach { baseComponentWrapped ->
+                // For each base component inside the used wrapper, increment its count.
+                // If WrapperA (used once) contains BaseX and BaseY,
+                // then BaseX gets +1 and BaseY gets +1 from this usage of WrapperA.
+                wrapperUsageCounts[baseComponentWrapped.name] =
+                    wrapperUsageCounts.getValue(baseComponentWrapped.name) + 1
+            }
+        }
+
+        // Create a map that includes all components, defaulting to 0 for unused ones
+        // This map will store: Base Component Name -> Total Effective Usage Count
+        val allComponentsWithTotalUsage = allComponents.associateWith { componentName ->
+            (directUsageCounts[componentName] ?: 0) + (wrapperUsageCounts[componentName] ?: 0)
+        }
+
         // Get effective usage for existing components
-        val effectiveUsage = result.getEffectiveUsage()
+        val effectiveUsage = result
 
         // Create a map that includes all components, defaulting to 0 for unused ones
         val allComponentsWithUsage = allComponents.associateWith { component ->
-            effectiveUsage[component] ?: 0
+            effectiveUsage.componentDirectUsages.count { it.component.name == component } +
+                    effectiveUsage.componentWrapperUsages.count {
+                        it.wrapper?.components?.any { it.name == component } ?: false
+                    }
         }
 
         // Generate individual items (default view)
         div("individual-view summary-grid") {
             id = "individualView"
-            allComponentsWithUsage.toList().sortedByDescending { it.second }.forEach { (component, count) ->
-                val directCount = result.directUsages[component]?.size ?: 0
-                val wrapperCount = getWrapperUsageCount(result, component)
-                val componentInfo = componentDocMap[component]
+            allComponentsWithTotalUsage.toList()
+                .sortedWith(compareByDescending<Pair<String, Int>> { it.second }.thenBy { it.first })
+                .forEach { (componentName, totalCount) ->
+                    val actualDirectCount = directUsageCounts[componentName] ?: 0
+                    val actualWrapperCount = wrapperUsageCounts[componentName] ?: 0
+                    val componentInfo = componentDocMap[componentName]
 
-                val classes = if (count == 0) "summary-item unused-component" else "summary-item"
-                div(classes = classes) {
-                    attributes["data-component"] = component
-                    attributes["data-total"] = count.toString()
-                    attributes["data-direct"] = directCount.toString()
-                    attributes["data-wrapper"] = wrapperCount.toString()
-                    attributes["data-group"] = componentInfo?.componentGroup ?: "other"
+                    val classes = if (totalCount == 0) "summary-item unused-component" else "summary-item"
+                    div(classes = classes) {
+                        attributes["data-component"] = componentName
+                        attributes["data-total"] = totalCount.toString()
+                        attributes["data-direct"] = actualDirectCount.toString()
+                        attributes["data-wrapper"] = actualWrapperCount.toString()
+                        attributes["data-group"] = componentInfo?.componentGroup ?: "other"
 
-                    div("component-name") {
-                        if (componentInfo?.documentation?.isNotBlank() == true) {
-                            unsafe {
-                                +"""<a href="${componentInfo.documentation}" target="_blank" class="component-link">$component</a>"""
+                        div("component-name") {
+                            if (componentInfo?.documentation?.isNotBlank() == true) {
+                                unsafe {
+                                    +"""<a href="${componentInfo.documentation}" target="_blank" class="component-link">${componentName}</a>"""
+                                }
+                            } else {
+                                +componentName
                             }
-                        } else {
-                            +component
+                        }
+                        div("usage-count") { +totalCount.toString() }
+                        div("usage-label") { +"total usages" }
+                        div("usage-breakdown") {
+                            +"($actualDirectCount direct + $actualWrapperCount wrapper)"
                         }
                     }
-                    div("usage-count") { +count.toString() }
-                    div("usage-label") { +"total usages" }
-                    div("usage-breakdown") {
-                        +"($directCount direct + $wrapperCount wrapper)"
-                    }
                 }
-            }
         }
 
         // Generate grouped view
@@ -1093,79 +965,65 @@ class HtmlReportGenerator(private val components: List<Component>) {
             id = "groupedView"
             style = "display: none;"
 
-            val groupedComponents = allComponentsWithUsage.entries.groupBy { (component, _) ->
-                componentDocMap[component]?.componentGroup ?: "other"
-            }
+            val groupedComponentsData = allComponentsWithTotalUsage.entries
+                .mapNotNull { (name, total) ->
+                    componentDocMap[name]?.let { Triple(it.componentGroup, name, total) }
+                }
+                .groupBy { it.first } // Group by componentGroup
 
-            groupedComponents.toList().sortedBy { it.first }.forEach { (group, componentsInGroup) ->
-                div("component-group") {
-                    attributes["data-group-name"] = group
+            groupedComponentsData.toList()
+                .sortedBy { it.first } // Sort groups by name
+                .forEach { (groupName, componentsInGroup) ->
+                    div("component-group") {
+                        attributes["data-group-name"] = groupName
 
-                    h3("group-header") {
-                        +group.replaceFirstChar { it.uppercase() }
-                        span("group-count") {
-                            +"(${componentsInGroup.size} components)"
+                        h3("group-header") {
+                            +groupName.replaceFirstChar { it.uppercase() }
+                            span("group-count") {
+                                +"(${componentsInGroup.size} components)"
+                            }
                         }
-                    }
 
-                    div("group-items") {
-                        componentsInGroup.sortedByDescending { it.value }.forEach { (component, count) ->
-                            val directCount = result.directUsages[component]?.size ?: 0
-                            val wrapperCount = getWrapperUsageCount(result, component)
-                            val componentInfo = componentDocMap[component]
+                        div("group-items") {
+                            componentsInGroup
+                                .sortedWith(compareByDescending<Triple<String, String, Int>> { it.third }.thenBy { it.second })
+                                .forEach { (_, componentName, totalCount) ->
+                                    val actualDirectCount = directUsageCounts[componentName] ?: 0
+                                    val actualWrapperCount = wrapperUsageCounts[componentName] ?: 0
+                                    val componentInfo = componentDocMap[componentName]
 
-                            val classes = if (count == 0) "summary-item grouped-item unused-component" else "summary-item grouped-item"
-                            div(classes = classes) {
-                                attributes["data-component"] = component
-                                attributes["data-total"] = count.toString()
-                                attributes["data-direct"] = directCount.toString()
-                                attributes["data-wrapper"] = wrapperCount.toString()
-                                attributes["data-group"] = group
+                                    val itemClasses =
+                                        if (totalCount == 0) "summary-item grouped-item unused-component" else "summary-item grouped-item"
+                                    div(classes = itemClasses) {
+                                        attributes["data-component"] = componentName
+                                        attributes["data-total"] = totalCount.toString()
+                                        attributes["data-direct"] = actualDirectCount.toString()
+                                        attributes["data-wrapper"] = actualWrapperCount.toString()
+                                        attributes["data-group"] = groupName // Already have groupName
 
-                                div("component-name") {
-                                    if (componentInfo?.documentation?.isNotBlank() == true) {
-                                        unsafe {
-                                            +"""<a href="${componentInfo.documentation}" target="_blank" class="component-link">$component</a>"""
+                                        div("component-name") {
+                                            if (componentInfo?.documentation?.isNotBlank() == true) {
+                                                unsafe {
+                                                    +"""<a href="${componentInfo.documentation}" target="_blank" class="component-link">$componentName</a>"""
+                                                }
+                                            } else {
+                                                +componentName
+                                            }
                                         }
-                                    } else {
-                                        +component
+                                        div("usage-count") { +totalCount.toString() }
+                                        div("usage-label") { +"total usages" }
+                                        div("usage-breakdown") {
+                                            +"($actualDirectCount direct + $actualWrapperCount wrapper)"
+                                        }
                                     }
                                 }
-                                div("usage-count") { +count.toString() }
-                                div("usage-label") { +"total usages" }
-                                div("usage-breakdown") {
-                                    +"($directCount direct + $wrapperCount wrapper)"
-                                }
-                            }
                         }
                     }
                 }
-            }
         }
     }
 
-    private fun getWrapperUsageCount(result: AnalysisResult, component: String): Int {
-        var wrapperCount = 0
-
-        // Single-component wrappers
-        result.wrapperUsages.forEach { (wrapperName, usages) ->
-            if (result.wrapperComponents[wrapperName] == component) {
-                wrapperCount += usages.size
-            }
-        }
-
-        // Multi-component wrappers
-        result.wrapperUsages.forEach { (wrapperName, usages) ->
-            val wrappedComponents = result.multiComponentWrappers[wrapperName]
-            if (wrappedComponents != null && wrappedComponents.contains(component)) {
-                wrapperCount += usages.size / wrappedComponents.size
-            }
-        }
-
-        return wrapperCount
-    }
-
-    fun generateReport(result: AnalysisResult, outputFile: File, teamDetector: TeamOwnershipDetector) {
+    fun generateReport(result: AnalysisResult, outputFile: File) {
         val html = createHTML().html {
             head {
                 meta(charset = "UTF-8")
@@ -1272,8 +1130,11 @@ class HtmlReportGenerator(private val components: List<Component>) {
                 }
 
                 // Wrapper components section
-                val allWrappers =
-                    result.wrapperComponents + result.multiComponentWrappers.mapValues { it.value.joinToString(", ") }
+                val allWrappers = result.componentWrapperUsages
+                val allWrappersDefinitions = allWrappers.map { it.wrapper!! }
+                val wrapperUsageCounts = allWrappers
+                    .groupingBy { it.component.fqn } // Group by the FQN of the used wrapper component
+                    .eachCount()
                 if (allWrappers.isNotEmpty()) {
                     div("section") {
                         h2("collapsible-header collapsed") {
@@ -1282,71 +1143,36 @@ class HtmlReportGenerator(private val components: List<Component>) {
                         }
                         div("wrapper-list collapsible-content") {
                             // Sort wrappers by usage count (descending)
-                            allWrappers.toList().sortedByDescending { (wrapper, _) ->
-                                result.wrapperUsages[wrapper]?.size ?: 0
-                            }.forEach { (wrapper, components) ->
-                                val definition = result.wrapperDefinitions[wrapper]
-                                val usageCount = result.wrapperUsages[wrapper]?.size ?: 0
-                                val displayName = wrapper.substringAfterLast('.')
-                                val packageName = definition?.packageName ?: ""
-                                val ownerTeam =
-                                    if (definition != null) teamDetector.getTeamForFile(definition.file) else null
+                            allWrappersDefinitions
+                                .sortedWith(
+                                    compareByDescending<WrapperComponent> { wrapperDef ->
+                                        wrapperUsageCounts[wrapperDef.fqn]
+                                            ?: 0 // Get usage count for this wrapper's FQN
+                                    }.thenBy { it.name },
+                                )
+                                .forEach { wrapperDefinition ->
+                                    val usageCount = wrapperUsageCounts[wrapperDefinition.fqn] ?: 0
+                                    val displayName = wrapperDefinition.name
+                                    val packageName = wrapperDefinition.fqn.substringBeforeLast('.')
 
-                                div("wrapper-item") {
-                                    div("wrapper-header") {
-                                        span("wrapper-name") { +displayName }
-                                        if (packageName.isNotEmpty()) {
-                                            span("wrapper-package") { +"($packageName)" }
-                                        }
-                                        if (ownerTeam != null) {
-                                            span("team-badge") { +"👥 $ownerTeam" }
-                                        }
-                                        span("wraps") { +"wraps" }
-                                        span("component") { +components }
-                                        span("usage-badge") { +"$usageCount usages" }
-                                    }
-                                    if (definition != null) {
-                                        div("definition-location") {
-                                            +"Defined in: ${definition.file.name}:${definition.lineNumber}"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                                    val wrappedBaseComponents =
+                                        wrapperDefinition.components.joinToString(", ") { baseComp -> baseComp.name }
 
-                // Team usage section
-                if (result.teamUsages.isNotEmpty()) {
-                    div("section") {
-                        h2("collapsible-header collapsed") {
-                            +"👥 Usage by Team"
-                            span("toggle-icon") { +"▶" }
-                        }
-                        div("collapsible-content") {
-
-                            // Get all components
-                            val allComponents = components.map { it.name }.toSet()
-
-                            result.teamUsages.toList().sortedByDescending { (_, components) ->
-                                components.values.sum()
-                            }.forEach { (team, teamComponents) ->
-                                div("team-section") {
-                                    h3("team-header") {
-                                        +"$team (${teamComponents.values.sum()} total usages)"
-                                    }
-                                    div("team-components") {
-                                        // Show all components, including unused ones
-                                        allComponents.sorted().forEach { component ->
-                                            val count = teamComponents[component] ?: 0
-                                            div(if (count == 0) "team-component-item unused-component" else "team-component-item") {
-                                                span("component-name") { +component }
-                                                span("usage-count-small") { +"$count" }
+                                    div("wrapper-item") {
+                                        div("wrapper-header") {
+                                            span("wrapper-name") { +displayName }
+                                            if (packageName.isNotEmpty()) {
+                                                span("wrapper-package") { +"($packageName)" }
                                             }
+                                            span("wraps") { +"wraps" }
+                                            span("component") { +wrappedBaseComponents }
+                                            span("usage-badge") { +"$usageCount usages" }
+                                        }
+                                        div("definition-location") {
+                                            +"Defined in: ${wrapperDefinition.file.name}:${wrapperDefinition.lineNumber}"
                                         }
                                     }
                                 }
-                            }
                         }
                     }
                 }
@@ -1358,65 +1184,79 @@ class HtmlReportGenerator(private val components: List<Component>) {
                         span("toggle-icon") { +"▶" }
                     }
                     div("collapsible-content") {
-
-                        result.directUsages.forEach { (component, usages) ->
+                        val directUsagesGrouped = result.componentDirectUsages
+                            .groupBy { it.component.name } // Group by the name of the directly used base component
+                            .toList()
+                            .sortedBy { it.first }
+                        directUsagesGrouped.forEach { (componentName, usageItems) ->
                             div("component-section") {
                                 h3("collapsible-header collapsed") {
-                                    val componentInfo = componentDocMap[component]
+                                    val componentInfo = componentDocMap[componentName]
                                     if (componentInfo?.documentation?.isNotBlank() == true) {
                                         unsafe {
-                                            +"""<a href="${componentInfo.documentation}" target="_blank" class="component-link">$component</a> - Direct Usages (${usages.size})"""
+                                            +"""<a href="${componentInfo.documentation}" target="_blank" class="component-link">$componentName</a> - Direct Usages (${usageItems.size})"""
                                         }
                                     } else {
-                                        +"$component - Direct Usages (${usages.size})"
+                                        +"$componentName - Direct Usages (${usageItems.size})"
                                     }
                                     span("toggle-icon") { +"▶" }
                                 }
                                 div("collapsible-content") {
-                                    usages.forEach { usage ->
-                                        div("usage-item") {
-                                            div("usage-header") {
-                                                span("file-info") { +"${usage.file.name}:${usage.lineNumber}" }
-                                                if (usage.team != null) {
-                                                    span("team-badge-small") { +"👥 ${usage.team}" }
+                                    usageItems.sortedBy { it.usage.file.name }.sortedBy { it.usage.lineNumber }
+                                        .forEach { usageItem ->
+                                            val usageInfo = usageItem.usage
+                                            div("usage-item") {
+                                                attributes["data-file"] = usageInfo.file.path
+                                                attributes["data-line"] = usageInfo.lineNumber.toString()
+                                                div("usage-header") {
+                                                    span("file-info") { +"${usageInfo.file.name}:${usageInfo.lineNumber}" }
                                                 }
+                                                pre("code-context") { +usageInfo.context }
                                             }
-                                            pre("code-context") { +usage.context }
                                         }
-                                    }
                                 }
                             }
                         }
 
-                        result.wrapperUsages.forEach { (wrapper, usages) ->
-                            val components = result.wrapperComponents[wrapper]
-                                ?: result.multiComponentWrappers[wrapper]?.joinToString(", ")
-                                ?: "Unknown"
-                            val displayName = wrapper.substringAfterLast('.')
-                            val definition = result.wrapperDefinitions[wrapper]
-                            val packageInfo = if (definition?.packageName?.isNotEmpty() == true) {
-                                " (${definition.packageName})"
-                            } else {
-                                ""
-                            }
+                        val wrapperUsagesGrouped = result.componentWrapperUsages
+                            .groupBy { it.component.fqn } // it.component is the wrapper itself
+                            .toList()
+                            .sortedBy { it.first }
 
-                            div("component-section") {
+                        wrapperUsagesGrouped.forEach { (wrapperFqn, usageItems) ->
+                            val wrapperDefinition =
+                                result.componentWrapperUsages.map { it.wrapper!! }.find { it.fqn == wrapperFqn }!!
+
+                            val displayName = wrapperDefinition.name
+                            val packageName = wrapperDefinition.fqn.substringBeforeLast(".")
+
+                            val wrappedBaseComponentsString =
+                                wrapperDefinition.components.joinToString(", ") { it.name }
+
+                            val packageInfoString = if (packageName.isNotEmpty()) " ($packageName)" else ""
+
+                            div("component-section wrapper-usage-section") {
                                 h3("collapsible-header collapsed") {
-                                    +"$displayName$packageInfo - Wrapper Usages (${usages.size}) → $components"
+                                    // Display information about the wrapper that was used
+                                    +displayName
+                                    +packageInfoString
+                                    +" - Wrapper Usages (${usageItems.size}) → "
+                                    span("component") { +wrappedBaseComponentsString } // Show what base components this wrapper represents
                                     span("toggle-icon") { +"▶" }
                                 }
                                 div("collapsible-content") {
-                                    usages.forEach { usage ->
-                                        div("usage-item wrapper-usage") {
-                                            div("usage-header") {
-                                                span("file-info") { +"${usage.file.name}:${usage.lineNumber}" }
-                                                if (usage.team != null) {
-                                                    span("team-badge-small") { +"👥 ${usage.team}" }
+                                    usageItems.sortedBy { it.usage.file.name }.sortedBy { it.usage.lineNumber }
+                                        .forEach { usageItem -> // usageItem is AnalysisResultItem
+                                            val usageInfo = usageItem.usage
+                                            div("usage-item wrapper-usage") { // Added 'wrapper-usage' class for specific styling
+                                                attributes["data-file"] = usageInfo.file.path
+                                                attributes["data-line"] = usageInfo.lineNumber.toString()
+                                                div("usage-header") {
+                                                    span("file-info") { +"${usageInfo.file.name}:${usageInfo.lineNumber}" }
                                                 }
+                                                pre("code-context") { +usageInfo.context }
                                             }
-                                            pre("code-context") { +usage.context }
                                         }
-                                    }
                                 }
                             }
                         }
@@ -1425,7 +1265,7 @@ class HtmlReportGenerator(private val components: List<Component>) {
 
                 // Footer
                 div("footer") {
-                    p { +"Generated by Component Usage Analyzer Script at ${java.time.LocalDateTime.now()}" }
+                    p { +"Generated by Component Usage Analyzer Script at ${LocalDateTime.now()}" }
                 }
             }
         }
@@ -2198,8 +2038,7 @@ fun shouldExcludeFile(file: File, baseDir: File, patterns: List<String>): Boolea
          * - `module/submodule/build/classes/Main.class` ✓
          * - `src/main/kotlin/File.kt` ✗
          */
-        val glob = pattern
-            .replace("**/", ".*/") // Allow matching any directory depth
+        val glob = pattern.replace("**/", ".*/") // Allow matching any directory depth
             .replace("*", "[^/]*")   // Match any character except path separator
             .replace("?", "[^/]")    // Match single character except path separator
         runCatching {
@@ -2241,8 +2080,7 @@ class ComponentUsageReport : SuspendingCliktCommand(
         canBeDir = true,
         mustExist = true,
         mustBeReadable = true,
-    ).multiple()
-        .unique()
+    ).multiple().unique()
 
     private val componentsJsonFile by argument(
         name = "COMPONENTS_FILE",
@@ -2273,8 +2111,7 @@ class ComponentUsageReport : SuspendingCliktCommand(
         "--exclude", "-e",
         help = "Exclude patterns (comma-separated glob patterns)",
         metavar = "PATTERNS",
-    ).convert { it.split(",").map { pattern -> pattern.trim() } }
-        .default(DEFAULT_EXCLUSION_PATTERNS)
+    ).convert { it.split(",").map { pattern -> pattern.trim() } }.default(DEFAULT_EXCLUSION_PATTERNS)
 
     private val verbose by option(
         "--verbose", "-v",
@@ -2285,9 +2122,7 @@ class ComponentUsageReport : SuspendingCliktCommand(
         "--context-lines", "-l",
         help = "Number of context lines to show around each usage (default: 3)",
         metavar = "NUMBER",
-    ).int()
-        .restrictTo(min = 1, max = 20, clamp = true)
-        .default(3)
+    ).int().restrictTo(min = 1, max = 20, clamp = true).default(3)
 
     private val excludePreviews by option(
         "--exclude-previews",
@@ -2390,9 +2225,6 @@ class ComponentUsageReport : SuspendingCliktCommand(
 
         echo("📝 Found ${kotlinFiles.size} Kotlin files")
 
-        // Initialize team detector for on-demand discovery
-        val teamDetector = TeamOwnershipDetector()
-
         // Load components from JSON file
         val components = try {
             val components = parseComponentsFromJson(componentsJsonFile)
@@ -2408,15 +2240,10 @@ class ComponentUsageReport : SuspendingCliktCommand(
         }
 
         // Run analysis with coroutines
-        val analyzer = ComponentAnalyzer(components, teamDetector, contextLines)
+        val analyzer = ComponentAnalyzer(components, contextLines)
         val analysisStartTime = System.currentTimeMillis()
         val result = analyzer.analyze(kotlinFiles, excludePreviews)
         val analysisDurationMs = System.currentTimeMillis() - analysisStartTime
-
-        // Print console summary
-        if (verbose) {
-            printSummary(result, teamDetector)
-        }
 
         // Create output directory if it doesn't exist
         outputDir.mkdirs()
@@ -2427,21 +2254,21 @@ class ComponentUsageReport : SuspendingCliktCommand(
                 echo("\n📊 Generating HTML report...")
                 val htmlFile = File(outputDir, "component-usage-report.html")
                 val reportGenerator = HtmlReportGenerator(components)
-                reportGenerator.generateReport(result, htmlFile, teamDetector)
+                reportGenerator.generateReport(result, htmlFile)
                 echo("✅ HTML report generated: ${htmlFile.absolutePath}")
             }
 
             ExportFormat.JSON -> {
                 echo("\n📊 Generating JSON report...")
                 val jsonFile = File(outputDir, "component-usage-report.json")
-                generateJsonReport(result, jsonFile, components, teamDetector, kotlinFiles.size, analysisDurationMs)
+                generateJsonReport(result, jsonFile, components, kotlinFiles.size, analysisDurationMs)
                 echo("✅ JSON report generated: ${jsonFile.absolutePath}")
             }
 
             ExportFormat.CSV -> {
                 echo("\n📊 Generating CSV report...")
                 val csvFile = File(outputDir, "component-usage-report.csv")
-                generateCsvReport(result, csvFile, teamDetector, components, kotlinFiles.size, analysisDurationMs)
+                generateCsvReport(result, csvFile, components, kotlinFiles.size, analysisDurationMs)
                 echo("✅ CSV report generated: ${csvFile.absolutePath}")
             }
 
@@ -2452,9 +2279,9 @@ class ComponentUsageReport : SuspendingCliktCommand(
                 val csvFile = File(outputDir, "component-usage-report.csv")
 
                 val reportGenerator = HtmlReportGenerator(components)
-                reportGenerator.generateReport(result, htmlFile, teamDetector)
-                generateJsonReport(result, jsonFile, components, teamDetector, kotlinFiles.size, analysisDurationMs)
-                generateCsvReport(result, csvFile, teamDetector, components, kotlinFiles.size, analysisDurationMs)
+                reportGenerator.generateReport(result, htmlFile)
+                generateJsonReport(result, jsonFile, components, kotlinFiles.size, analysisDurationMs)
+                generateCsvReport(result, csvFile, components, kotlinFiles.size, analysisDurationMs)
 
                 echo("✅ HTML report generated: ${htmlFile.absolutePath}")
                 echo("✅ JSON report generated: ${jsonFile.absolutePath}")
@@ -2475,7 +2302,7 @@ data class ComponentUsageSummary(
     val directUsage: Int,
     val wrapperUsage: Int,
     val componentGroup: String? = null,
-    val documentation: String? = null
+    val documentation: String? = null,
 )
 
 data class ComponentUsageDetail(
@@ -2483,9 +2310,8 @@ data class ComponentUsageDetail(
     val file: String,
     val lineNumber: Int,
     val containingFunction: String?,
-    val team: String?,
     val context: String,
-    val usageType: String = "direct" // "direct" or "wrapper"
+    val usageType: String = "direct", // "direct" or "wrapper"
 )
 
 data class WrapperComponentInfo(
@@ -2493,23 +2319,15 @@ data class WrapperComponentInfo(
     val packageName: String,
     val wrappedComponents: List<String>,
     val usageCount: Int,
-    val ownerTeam: String?,
     val definitionFile: String,
-    val definitionLine: Int
-)
-
-data class TeamUsageSummary(
-    val team: String,
-    val component: String,
-    val usageCount: Int
+    val definitionLine: Int,
 )
 
 data class ExportData(
     val summary: List<ComponentUsageSummary>,
     val details: List<ComponentUsageDetail>,
     val wrappers: List<WrapperComponentInfo>,
-    val teamUsage: List<TeamUsageSummary>,
-    val metadata: ExportMetadata
+    val metadata: ExportMetadata,
 )
 
 data class ExportMetadata(
@@ -2517,330 +2335,84 @@ data class ExportMetadata(
     val totalFilesAnalyzed: Int,
     val totalComponents: Int,
     val totalUsages: Int,
-    val uniqueTeams: Int,
-    val analysisDurationMs: Long
+    val analysisDurationMs: Long,
 )
 
 enum class ExportFormat {
     HTML, JSON, CSV, ALL
 }
 
-// Build clean export data from analysis results
-private fun buildExportData(
-    result: AnalysisResult,
-    components: List<Component>,
-    teamDetector: TeamOwnershipDetector,
-    totalFilesAnalyzed: Int,
-    analysisDurationMs: Long
-): ExportData {
-    // Create component info lookup
-    val componentInfoMap = components.associateBy { it.name }
-    
-    // Build summary data
-    val effectiveUsage = result.getEffectiveUsage()
-    val summary = effectiveUsage.map { (component, totalUsage) ->
-        val directUsage = result.directUsages[component]?.size ?: 0
-        val wrapperUsage = getWrapperUsageCount(result, component)
-        val componentInfo = componentInfoMap[component]
-        
-        ComponentUsageSummary(
-            component = component,
-            totalUsage = totalUsage,
-            directUsage = directUsage,
-            wrapperUsage = wrapperUsage,
-            componentGroup = componentInfo?.componentGroup,
-            documentation = componentInfo?.documentation
-        )
-    }.sortedByDescending { it.totalUsage }
-    
-    // Build detailed usage data
-    val details = mutableListOf<ComponentUsageDetail>()
-    
-    // Add direct usages
-    result.directUsages.forEach { (component, usages) ->
-        usages.forEach { usage ->
-            details.add(
-                ComponentUsageDetail(
-                    component = component,
-                    file = usage.file.absolutePath,
-                    lineNumber = usage.lineNumber,
-                    containingFunction = usage.containingFunction,
-                    team = usage.team,
-                    context = usage.context.replace("\n", " ").replace(",", ";"),
-                    usageType = "direct"
-                )
-            )
-        }
-    }
-    
-    // Add wrapper usages
-    result.wrapperUsages.forEach { (wrapper, usages) ->
-        val displayName = wrapper.substringAfterLast('.')
-        usages.forEach { usage ->
-            details.add(
-                ComponentUsageDetail(
-                    component = displayName,
-                    file = usage.file.absolutePath,
-                    lineNumber = usage.lineNumber,
-                    containingFunction = usage.containingFunction,
-                    team = usage.team,
-                    context = usage.context.replace("\n", " ").replace(",", ";"),
-                    usageType = "wrapper"
-                )
-            )
-        }
-    }
-    
-    // Build wrapper component info
-    val wrappers = mutableListOf<WrapperComponentInfo>()
-    
-    // Single-component wrappers
-    result.wrapperComponents.forEach { (wrapper, wrappedComponent) ->
-        val wrapperUsages = result.wrapperUsages[wrapper]?.size ?: 0
-        val displayName = wrapper.substringAfterLast('.')
-        val definition = result.wrapperDefinitions[wrapper]
-        val packageName = definition?.packageName ?: ""
-        val ownerTeam = if (definition != null) teamDetector.getTeamForFile(definition.file) else null
-        val definitionFile = definition?.file?.absolutePath ?: ""
-        val definitionLine = definition?.lineNumber ?: 0
-        
-        wrappers.add(
-            WrapperComponentInfo(
-                wrapperName = displayName,
-                packageName = packageName,
-                wrappedComponents = listOf(wrappedComponent),
-                usageCount = wrapperUsages,
-                ownerTeam = ownerTeam,
-                definitionFile = definitionFile,
-                definitionLine = definitionLine
-            )
-        )
-    }
-    
-    // Multi-component wrappers
-    result.multiComponentWrappers.forEach { (wrapper, wrappedComponents) ->
-        val wrapperUsages = result.wrapperUsages[wrapper]?.size ?: 0
-        val displayName = wrapper.substringAfterLast('.')
-        val definition = result.wrapperDefinitions[wrapper]
-        val packageName = definition?.packageName ?: ""
-        val ownerTeam = if (definition != null) teamDetector.getTeamForFile(definition.file) else null
-        val definitionFile = definition?.file?.absolutePath ?: ""
-        val definitionLine = definition?.lineNumber ?: 0
-        
-        wrappers.add(
-            WrapperComponentInfo(
-                wrapperName = displayName,
-                packageName = packageName,
-                wrappedComponents = wrappedComponents,
-                usageCount = wrapperUsages,
-                ownerTeam = ownerTeam,
-                definitionFile = definitionFile,
-                definitionLine = definitionLine
-            )
-        )
-    }
-    
-    // Build team usage summary
-    val teamUsage = mutableListOf<TeamUsageSummary>()
-    result.teamUsages.forEach { (team, components) ->
-        components.forEach { (component, count) ->
-            teamUsage.add(
-                TeamUsageSummary(
-                    team = team,
-                    component = component,
-                    usageCount = count
-                )
-            )
-        }
-    }
-    
-    // Build metadata
-    val metadata = ExportMetadata(
-        generatedAt = java.time.LocalDateTime.now().toString(),
-        totalFilesAnalyzed = totalFilesAnalyzed,
-        totalComponents = components.size,
-        totalUsages = details.size,
-        uniqueTeams = result.teamUsages.size,
-        analysisDurationMs = analysisDurationMs
-    )
-    
-    return ExportData(
-        summary = summary,
-        details = details,
-        wrappers = wrappers,
-        teamUsage = teamUsage,
-        metadata = metadata
-    )
-}
-
 // Add JSON report generation function
 @OptIn(ExperimentalStdlibApi::class)
-private fun generateJsonReport(result: AnalysisResult, outputFile: File, components: List<Component>, teamDetector: TeamOwnershipDetector, totalFilesAnalyzed: Int, analysisDurationMs: Long) {
-    val exportData = buildExportData(result, components, teamDetector, totalFilesAnalyzed, analysisDurationMs)
-    val adapter = sharedMoshi.adapter<ExportData>()
-    val json = adapter.toJson(exportData)
-    outputFile.writeText(json)
+private fun generateJsonReport(
+    result: AnalysisResult,
+    outputFile: File,
+    components: List<Component>,
+    totalFilesAnalyzed: Int,
+    analysisDurationMs: Long,
+) {
+//    val exportData = buildExportData(result, components, totalFilesAnalyzed, analysisDurationMs)
+//    val adapter = sharedMoshi.adapter<ExportData>()
+//    val json = adapter.toJson(exportData)
+//    outputFile.writeText(json)
 }
 
 // Add CSV report generation functions
-private fun generateCsvReport(result: AnalysisResult, outputFile: File, teamDetector: TeamOwnershipDetector, components: List<Component>, totalFilesAnalyzed: Int, analysisDurationMs: Long) {
-    try {
-        val exportData = buildExportData(result, components, teamDetector, totalFilesAnalyzed, analysisDurationMs)
-        
-        val csvContent = buildString {
-            // Component usage summary
-            appendLine("Component Usage Summary")
-            appendLine("component,total_usage,direct_usage,wrapper_usage,component_group,documentation")
-            
-            exportData.summary.forEach { summary ->
-                appendLine("${summary.component},${summary.totalUsage},${summary.directUsage},${summary.wrapperUsage},${summary.componentGroup ?: ""},${summary.documentation ?: ""}")
-            }
-            
-            appendLine() // Empty line for separation
-            
-            // Detailed usages (both direct and wrapper)
-            appendLine("Component Usage Details")
-            appendLine("component,file,line_number,containing_function,team,context,usage_type")
-            
-            exportData.details.forEach { detail ->
-                appendLine("${detail.component},${detail.file},${detail.lineNumber},${detail.containingFunction ?: ""},${detail.team ?: ""},${detail.context},${detail.usageType}")
-            }
-            
-            appendLine() // Empty line for separation
-            
-            // Wrapper components
-            appendLine("Wrapper Components")
-            appendLine("wrapper_name,package_name,wrapped_components,usage_count,owner_team,definition_file,definition_line")
-            
-            exportData.wrappers.forEach { wrapper ->
-                appendLine("${wrapper.wrapperName},${wrapper.packageName},${wrapper.wrappedComponents.joinToString(";")},${wrapper.usageCount},${wrapper.ownerTeam ?: ""},${wrapper.definitionFile},${wrapper.definitionLine}")
-            }
-            
-            appendLine() // Empty line for separation
-            
-            // Team usage summary
-            appendLine("Team Usage Summary")
-            appendLine("team,component,usage_count")
-            
-            exportData.teamUsage.forEach { teamUsage ->
-                appendLine("${teamUsage.team},${teamUsage.component},${teamUsage.usageCount}")
-            }
-            
-            appendLine() // Empty line for separation
-            
-            // Metadata
-            appendLine("Analysis Metadata")
-            appendLine("metric,value")
-            appendLine("generated_at,${exportData.metadata.generatedAt}")
-            appendLine("total_files_analyzed,${exportData.metadata.totalFilesAnalyzed}")
-            appendLine("total_components,${exportData.metadata.totalComponents}")
-            appendLine("total_usages,${exportData.metadata.totalUsages}")
-            appendLine("unique_teams,${exportData.metadata.uniqueTeams}")
-            appendLine("analysis_duration_ms,${exportData.metadata.analysisDurationMs}")
-        }
-        
-        outputFile.writeText(csvContent)
-    } catch (e: Exception) {
-        println("❌ Error writing CSV file: ${e.message}")
-    }
-}
-
-private fun getWrapperUsageCount(result: AnalysisResult, component: String): Int {
-    var wrapperCount = 0
-
-    // Single-component wrappers
-    result.wrapperUsages.forEach { (wrapperName, usages) ->
-        if (result.wrapperComponents[wrapperName] == component) {
-            wrapperCount += usages.size
-        }
-    }
-
-    // Multi-component wrappers
-    result.wrapperUsages.forEach { (wrapperName, usages) ->
-        val wrappedComponents = result.multiComponentWrappers[wrapperName]
-        if (wrappedComponents != null && wrappedComponents.contains(component)) {
-            wrapperCount += usages.size / wrappedComponents.size
-        }
-    }
-
-    return wrapperCount
-}
-
-// Console output functions
-fun printSummary(result: AnalysisResult, teamDetector: TeamOwnershipDetector) {
-    println("\n" + "=".repeat(50))
-    println("🎯 COMPONENT USAGE SUMMARY")
-    println("=".repeat(50))
-
-    val effectiveUsage = result.getEffectiveUsage()
-
-    if (result.directUsages.isNotEmpty()) {
-        println("\n📊 Direct Usages:")
-        result.directUsages.forEach { (component, usages) ->
-            println("  • $component: ${usages.size} direct usages")
-        }
-    }
-
-    if (result.wrapperComponents.isNotEmpty() || result.multiComponentWrappers.isNotEmpty()) {
-        println("\n🔗 Wrapper Components Found:")
-        result.wrapperComponents.forEach { (wrapper, wrappedComponent) ->
-            val wrapperUsages = result.wrapperUsages[wrapper]?.size ?: 0
-            val displayName = wrapper.substringAfterLast('.')
-            val definition = result.wrapperDefinitions[wrapper]
-            val packageInfo = if (definition?.packageName?.isNotEmpty() == true) {
-                " (${definition.packageName})"
-            } else {
-                ""
-            }
-            val ownerTeam = if (definition != null) {
-                teamDetector.getTeamForFile(definition.file)
-            } else null
-            val teamInfo = if (ownerTeam != null) " [👥 $ownerTeam]" else ""
-            println("  • $displayName$packageInfo$teamInfo (wraps $wrappedComponent): $wrapperUsages usages")
-        }
-        result.multiComponentWrappers.forEach { (wrapper, wrappedComponents) ->
-            val wrapperUsages = result.wrapperUsages[wrapper]?.size ?: 0
-            val displayName = wrapper.substringAfterLast('.')
-            val definition = result.wrapperDefinitions[wrapper]
-            val packageInfo = if (definition?.packageName?.isNotEmpty() == true) {
-                " (${definition.packageName})"
-            } else {
-                ""
-            }
-            val ownerTeam = if (definition != null) {
-                teamDetector.getTeamForFile(definition.file)
-            } else null
-            val teamInfo = if (ownerTeam != null) " [👥 $ownerTeam]" else ""
-            println("  • $displayName$packageInfo$teamInfo (wraps ${wrappedComponents.joinToString(", ")}): $wrapperUsages usages")
-        }
-    }
-
-    println("\n🎯 Total Effective Usage (sorted by usage count):")
-    if (effectiveUsage.isEmpty()) {
-        println("  No components found!")
-    } else {
-        effectiveUsage.toList().sortedByDescending { it.second }.forEach { (component, count) ->
-            println("  • $component: $count total effective usages")
-        }
-    }
-
-    if (result.teamUsages.isNotEmpty()) {
-        println("\n👥 Usage by Team:")
-        result.teamUsages.toList().sortedByDescending { (_, components) ->
-            components.values.sum()
-        }.forEach { (team, components) ->
-            val totalUsages = components.values.sum()
-            println("  • $team: $totalUsages total usages")
-            components.toList().sortedByDescending { it.second }.take(3).forEach { (component, count) ->
-                println("    - $component: $count usages")
-            }
-            if (components.size > 3) {
-                println("    - ... and ${components.size - 3} more components")
-            }
-        }
-    }
-
-    println("\n" + "=".repeat(50))
+private fun generateCsvReport(
+    result: AnalysisResult,
+    outputFile: File,
+    components: List<Component>,
+    totalFilesAnalyzed: Int,
+    analysisDurationMs: Long,
+) {
+//    try {
+//        val exportData = buildExportData(result, components, totalFilesAnalyzed, analysisDurationMs)
+//
+//        val csvContent = buildString {
+//            // Component usage summary
+//            appendLine("Component Usage Summary")
+//            appendLine("component,total_usage,direct_usage,wrapper_usage,component_group,documentation")
+//
+//            exportData.summary.forEach { summary ->
+//                appendLine("${summary.component},${summary.totalUsage},${summary.directUsage},${summary.wrapperUsage},${summary.componentGroup ?: ""},${summary.documentation ?: ""}")
+//            }
+//
+//            appendLine() // Empty line for separation
+//
+//            // Detailed usages (both direct and wrapper)
+//            appendLine("Component Usage Details")
+//            appendLine("component,file,line_number,containing_function,team,context,usage_type")
+//
+//            exportData.details.forEach { detail ->
+//                appendLine("${detail.component},${detail.file},${detail.lineNumber},${detail.containingFunction ?: ""},${detail.context},${detail.usageType}")
+//            }
+//
+//            appendLine() // Empty line for separation
+//
+//            // Wrapper components
+//            appendLine("Wrapper Components")
+//            appendLine("wrapper_name,package_name,wrapped_components,usage_count,owner_team,definition_file,definition_line")
+//
+//            exportData.wrappers.forEach { wrapper ->
+//                appendLine("${wrapper.wrapperName},${wrapper.packageName},${wrapper.wrappedComponents.joinToString(";")},${wrapper.usageCount},${wrapper.definitionFile},${wrapper.definitionLine}")
+//            }
+//
+//            appendLine() // Empty line for separation
+//
+//            // Metadata
+//            appendLine("Analysis Metadata")
+//            appendLine("metric,value")
+//            appendLine("generated_at,${exportData.metadata.generatedAt}")
+//            appendLine("total_files_analyzed,${exportData.metadata.totalFilesAnalyzed}")
+//            appendLine("total_components,${exportData.metadata.totalComponents}")
+//            appendLine("total_usages,${exportData.metadata.totalUsages}")
+//            appendLine("analysis_duration_ms,${exportData.metadata.analysisDurationMs}")
+//        }
+//
+//        outputFile.writeText(csvContent)
+//    } catch (e: Exception) {
+//        println("❌ Error writing CSV file: ${e.message}")
+//    }
 }
 
 // Main execution
