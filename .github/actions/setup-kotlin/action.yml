@@ -1,0 +1,32 @@
+name: 🤖 Setup Kotlin
+description: Kotlin setup
+
+inputs:
+  kotlin-version:
+    description: Kotlin version
+    default: 2.0.0
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/cache@v4
+      id: cache
+      with:
+        path: ~/.kotlin
+        key: kotlin-${{ inputs.kotlin-version }}-${{ runner.os }}
+
+    - name: Installing Kotlin v${{ inputs.kotlin-version }}…
+      if: steps.cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        mkdir --parents ~/.kotlin
+        wget --no-verbose -O "$KOTLIN_ZIP" "$KOTLIN_URL"
+        unzip "$KOTLIN_ZIP" -d ~/.kotlin
+      env:
+        KOTLIN_URL: https://github.com/JetBrains/kotlin/releases/download/v${{ inputs.kotlin-version }}/kotlin-compiler-${{ inputs.kotlin-version }}.zip
+        KOTLIN_ZIP: ${{ runner.temp }}/kotlin-${{ inputs.kotlin-version }}.zip
+
+    - name: Add Kotlin to PATH
+      shell: bash
+      run: echo "$HOME/.kotlin/kotlinc/bin" >> $GITHUB_PATH
