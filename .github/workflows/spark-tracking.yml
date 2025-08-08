@@ -20,6 +20,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-java
       - uses: ./.github/actions/setup-kotlin
+      - run: mkdir -p ./build/reports
       - run: ./scripts/component-usage-remort.main.kts catalog ./scripts/1.4.0-alpha02.json -l 5 -o ./build/reports/
       - uses: actions/upload-artifact@v3
         with:
