@@ -17,7 +17,7 @@ jobs:
       NUMBER: ${{ github.event.issue.number }}
       COMMENT: ${{ github.event.comment.body }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - if: github.event.issue.pull_request
         run: gh pr checkout $NUMBER
 
