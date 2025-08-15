@@ -86,6 +86,7 @@ dependencies {
     implementation(libs.androidx.compose.material.iconsExtended)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.graphics.shapes)
+    implementation(libs.androidx.metrics)
 
     implementation(libs.androidx.activity)
     implementation(libs.androidx.activity.compose)
