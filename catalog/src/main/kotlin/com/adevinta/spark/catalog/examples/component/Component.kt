@@ -47,6 +47,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -63,6 +64,7 @@ import com.adevinta.spark.catalog.examples.example.ExampleItem
 import com.adevinta.spark.catalog.model.Component
 import com.adevinta.spark.catalog.ui.animations.LocalAnimatedVisibilityScope
 import com.adevinta.spark.catalog.ui.animations.LocalSharedTransitionScope
+import com.adevinta.spark.catalog.util.TrackScrollJank
 import com.adevinta.spark.components.image.Image
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.Layout
@@ -86,6 +88,8 @@ public fun Component(
             targetBounds at 500
         }
     }
+    val state = rememberLazyListState()
+    TrackScrollJank(scrollableState = state, stateName = "component:list")
     val origin = ComponentOrigin.Example.name
     with(LocalSharedTransitionScope.current) {
         val cardRadius by animatedVisibilityScope.transition
@@ -125,6 +129,7 @@ public fun Component(
                         top = contentPadding.calculateTopPadding(),
                         bottom = contentPadding.calculateBottomPadding(),
                     ),
+                    state = state,
                     verticalArrangement = Arrangement.spacedBy(ExampleItemPadding),
                 ) {
                     item {

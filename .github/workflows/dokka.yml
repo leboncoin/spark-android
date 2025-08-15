@@ -27,7 +27,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: ${{ inputs.ref }}
           lfs: true
@@ -38,7 +38,7 @@ jobs:
         # https://github.com/Kotlin/dokka/issues/1217
         run: ./gradlew dokkaHtmlMultiModule --no-configuration-cache --no-parallel --max-workers=1
       - uses: actions/configure-pages@v5.0.0
-      - uses: actions/upload-pages-artifact@v3.0.1
+      - uses: actions/upload-pages-artifact@v4.0.0
         with:
           path: 'build/dokka'
       - id: deployment
