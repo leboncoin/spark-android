@@ -33,17 +33,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.model.Configurator
-import com.adevinta.spark.catalog.ui.ButtonGroup
-import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.TextField
-import com.adevinta.spark.components.toggles.ContentSide
 import com.adevinta.spark.components.toggles.RadioButton
 import com.adevinta.spark.components.toggles.RadioButtonLabelled
 import com.adevinta.spark.components.toggles.SwitchLabelled
-import com.adevinta.spark.components.toggles.ToggleIntent
 
 public val RadioButtonConfigurator: Configurator = Configurator(
     id = "radio-button",
@@ -57,19 +53,15 @@ public val RadioButtonConfigurator: Configurator = Configurator(
 @Composable
 private fun ColumnScope.RadioButtonSample() {
     var isEnabled by remember { mutableStateOf(true) }
-    var contentSide by remember { mutableStateOf(ContentSide.End) }
     var label: String? by remember { mutableStateOf(null) }
     var selected by remember { mutableStateOf(false) }
-    var intent by remember { mutableStateOf(ToggleIntent.Main) }
     val onClick = { selected = !selected }
 
-    ConfigedRadioButton(
+    ConfiguredRadioButton(
         label = label,
         onClick = onClick,
         selected = selected,
         isEnabled = isEnabled,
-        intent = intent,
-        contentSide = contentSide,
     )
     SwitchLabelled(
         checked = isEnabled,
@@ -82,19 +74,6 @@ private fun ColumnScope.RadioButtonSample() {
             modifier = Modifier.fillMaxWidth(),
         )
     }
-    DropdownEnum(
-        modifier = Modifier.fillMaxWidth(),
-        title = stringResource(id = R.string.configurator_component_screen_intent_label),
-        selectedOption = intent,
-        onOptionSelect = {
-            intent = it
-        },
-    )
-    ButtonGroup(
-        title = stringResource(id = R.string.configurator_component_toggle_content_side_label),
-        selectedOption = contentSide,
-        onOptionSelect = { contentSide = it },
-    )
     TextField(
         modifier = Modifier.fillMaxWidth(),
         value = label.orEmpty(),
@@ -113,14 +92,12 @@ private fun RadioButtonSamplePreview() {
 }
 
 @Composable
-private fun ConfigedRadioButton(
+private fun ConfiguredRadioButton(
     modifier: Modifier = Modifier,
     label: String?,
     onClick: () -> Unit,
     selected: Boolean,
     isEnabled: Boolean,
-    contentSide: ContentSide,
-    intent: ToggleIntent,
 ) {
     if (label.isNullOrBlank().not()) {
         RadioButtonLabelled(
@@ -128,16 +105,13 @@ private fun ConfigedRadioButton(
             enabled = isEnabled,
             selected = selected,
             onClick = onClick,
-            contentSide = contentSide,
-            intent = intent,
-        ) { Text(text = label!!) }
+        ) { Text(text = label) }
     } else {
         RadioButton(
             modifier = modifier,
             enabled = isEnabled,
             selected = selected,
             onClick = onClick,
-            intent = intent,
         )
     }
 }

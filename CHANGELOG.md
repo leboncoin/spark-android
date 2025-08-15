@@ -4,6 +4,84 @@
 
 ## [Unreleased]
 
+## [1.4.0-alpha03]
+
+_2025-08-01_
+
+### Spark
+
+#### Animations
+
+##### 🆕 Add new `pulse` modifier animation
+
+This animation display a pulsating wave from the component to catch the attention of the user eyes.
+THe color, scales, duration and shape are customizable.
+```kotlin
+ButtonTinted(
+    modifier = Modifier
+        .pulse(
+            shape = SparkTheme.shapes.large,
+        ),
+    text = "Vibing",
+)
+```
+
+##### 🆕 Add new `shake` modifier animation
+
+This animation display a transformative animations using a spring animation spec.
+It's ideal to indicate validation on user interaction.
+```kotlin
+ val vibrateController = rememberShakeController()
+
+ButtonTinted(
+    modifier = Modifier.shake(vibrateController),
+    onClick = {
+        vibrateController.shake(
+            ShakeConfig(
+                iterations = 8,
+                intensity = 100_000f,
+                translateX = -15f,
+            ),
+        )
+    },
+    text = "Vibrate me",
+)
+```
+
+- 🔧 Add a `positionProvider` argument to change the spacing between a `Popover` and its anchor
+
+## [1.4.0-alpha02]
+
+_2025-07-29_
+
+### Spark
+
+#### Switch
+- 🔧 Reverted the removal of `contentSide` parameter from `SwitchLabelled` components to maintain backward compatibility
+
+#### Modal
+- 🐛 Fixed ModalScaffold by removing `FLAG_LAYOUT_NO_LIMITS` window flag to allow proper scrollable popup behavior when it's used inside it
+
+## [1.4.0-alpha01]
+
+_2025-07-28_
+
+### Spark
+
+#### Checkbox, RadioButton & Switch: API changes
+
+- The `intent` parameter for `Checkbox`, `RadioButton`, and `Switch` is now deprecated and will be removed in a future release. We are keeping only the "Basic" and "Error" colors to ensure better visual consistency.
+- Use the new `error: Boolean` parameter to indicate error/validation state for `Checkbox` & `RadioButton` components.
+- The `ContentSide` parameter will be deprecated in a future release to improve readability and accessibility (a11y). All content will be aligned to the right/end by default for better screen reader support.
+
+> [!CAUTION]
+> - If you use a color other than **"Basic"** or **"Error"**, consider replacing it and use the new `error` parameter.
+> - If you use Start/left content side, update your usage to End/right alignment for improved accessibility.
+
+## [1.3.0]
+
+_2025-07-23_
+
 ### Spark
 
 #### 🆕 High Color Contrast Support
@@ -627,7 +705,13 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.2.2...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.4.0-alpha02...HEAD
+
+[1.4.0-alpha02]: https://github.com/leboncoin/spark-android/releases/tag/1.4.0-alpha02
+
+[1.4.0-alpha01]: https://github.com/leboncoin/spark-android/releases/tag/1.4.0-alpha01
+
+[1.3.0]: https://github.com/leboncoin/spark-android/releases/tag/1.3.0
 
 [1.2.2]: https://github.com/leboncoin/spark-android/releases/tag/1.2.2
 

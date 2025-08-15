@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.dialog
 
-import android.view.WindowManager
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -68,6 +67,7 @@ import androidx.compose.ui.window.DialogWindowProvider
 import androidx.window.core.layout.WindowSizeClass.Companion.HEIGHT_DP_MEDIUM_LOWER_BOUND
 import androidx.window.core.layout.WindowSizeClass.Companion.WIDTH_DP_MEDIUM_LOWER_BOUND
 import com.adevinta.spark.ExperimentalSparkApi
+import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.R
 import com.adevinta.spark.SparkTheme
@@ -123,7 +123,7 @@ public fun ModalScaffold(
     supportButton: (@Composable (Modifier) -> Unit)? = null,
     title: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
-    inEdgeToEdge: Boolean = false,
+    inEdgeToEdge: Boolean = LocalSparkFeatureFlag.current.isContainingActivityEdgeToEdge,
     content: @Composable (PaddingValues) -> Unit,
 ) {
     val size = LocalWindowSizeClass.current
@@ -132,7 +132,7 @@ public fun ModalScaffold(
     val isFoldableOrTablet = size.isAtLeastBreakpoint(WIDTH_DP_MEDIUM_LOWER_BOUND, HEIGHT_DP_MEDIUM_LOWER_BOUND)
 
     val properties = DialogProperties(
-        usePlatformDefaultWidth = !inEdgeToEdge,
+        usePlatformDefaultWidth = false,
         decorFitsSystemWindows = !inEdgeToEdge,
     )
 
@@ -439,7 +439,8 @@ private fun SetUpEdgeToEdgeDialog() {
     window.statusBarColor = Color.Transparent.toArgb()
     window.navigationBarColor = Color.Transparent.toArgb()
     window.navigationBarColor = Color.Transparent.toArgb()
-    window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+    // Displaying a popup with this flag will make it un scrollable if it's bigger that the screen
+    // window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
     window.setDimAmount(0f)
 }
 

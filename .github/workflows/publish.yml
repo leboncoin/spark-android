@@ -10,13 +10,13 @@ jobs:
     if: github.repository == 'leboncoin/spark-android'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: ./.github/actions/setup-java
       - uses: ./.github/actions/setup-gradle
       - uses: ./.github/actions/setup-gradle-properties
 
       - name: '📦 Publish to Central Portal'
-        run: ./gradlew publishAllPublicationsToCentralPortal --no-configuration-cache
+        run: ./gradlew publishAggregationToCentralPortal --no-configuration-cache
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CENTRAL_PORTAL_USERNAME: ${{ secrets.CENTRAL_PORTAL_USERNAME }}
