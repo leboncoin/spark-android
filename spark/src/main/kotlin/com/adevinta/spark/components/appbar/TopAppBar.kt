@@ -120,7 +120,8 @@ import kotlin.math.roundToInt
  * [IconButton]s. The default layout here is a [Row], so icons inside will be placed horizontally.
  * @param windowInsets a window insets that app bar will respect.
  * @param colors [TopAppBarColors] that will be used to resolve the colors used for this [TopAppBar]
- * in different states. See [TopAppBarSparkDefaults.topAppBarColors].
+ * in different states.
+ * @see [TopAppBarSparkDefaults.topAppBarColors]
  * @param scrollBehavior a [TopAppBarScrollBehavior] which holds various offset values that will be
  * applied by this top app bar to set up its height and colors. A scroll behavior is designed to
  * work in conjunction with a scrolled content to change the top app bar appearance as the content
@@ -170,7 +171,8 @@ public fun TopAppBar(
  * [IconButton]s. The default layout here is a [Row], so icons inside will be placed horizontally.
  * @param windowInsets a window insets that app bar will respect.
  * @param colors [TopAppBarColors] that will be used to resolve the colors used for this [TopAppBar]
- * in different states. See [TopAppBarSparkDefaults.mediumTopAppBarColors].
+ * in different states.
+ * @see [TopAppBarSparkDefaults.topAppBarColors]
  * @param scrollBehavior a [TopAppBarScrollBehavior] which holds various offset values that will be
  * applied by this top app bar to set up its height and colors. A scroll behavior is designed to
  * work in conjunction with a scrolled content to change the top app bar appearance as the content
@@ -224,7 +226,8 @@ public fun MediumTopAppBar(
  * [IconButton]s. The default layout here is a [Row], so icons inside will be placed horizontally.
  * @param windowInsets a window insets that app bar will respect.
  * @param colors [TopAppBarColors] that will be used to resolve the colors used for this [TopAppBar]
- * in different states. See [TopAppBarSparkDefaults.largeTopAppBarColors].
+ * in different states.
+ * @see [TopAppBarSparkDefaults.topAppBarColors]
  * @param scrollBehavior a [TopAppBarScrollBehavior] which holds various offset values that will be
  * applied by this top app bar to set up its height and colors. A scroll behavior is designed to
  * work in conjunction with a scrolled content to change the top app bar appearance as the content
@@ -278,7 +281,8 @@ public fun LargeTopAppBar(
  * [IconButton]s. The default layout here is a [Row], so icons inside will be placed horizontally.
  * @param windowInsets a window insets that app bar will respect.
  * @param colors [TopAppBarColors] that will be used to resolve the colors used for this [TopAppBar]
- * in different states. See [TopAppBarSparkDefaults.centerAlignedTopAppBarColors].
+ * in different states.
+ * @see [TopAppBarSparkDefaults.topAppBarColors]
  * @param scrollBehavior a [TopAppBarScrollBehavior] which holds various offset values that will be
  * applied by this top app bar to set up its height and colors. A scroll behavior is designed to
  * work in conjunction with a scrolled content to change the top app bar appearance as the content
