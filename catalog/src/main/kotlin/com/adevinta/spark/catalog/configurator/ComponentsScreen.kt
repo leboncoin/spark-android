@@ -113,12 +113,16 @@ internal fun ComponentsListScreen(
         columns = GridCells.Fixed(columns),
         state = state,
         contentPadding = PaddingValues(
-            start = Layout.bodyMargin / 2 + contentPadding.calculateLeftPadding(
-                LocalLayoutDirection.current,
-            ),
-            end = Layout.bodyMargin / 2 + contentPadding.calculateRightPadding(
-                LocalLayoutDirection.current,
-            ),
+            start = Layout.bodyMargin /
+                2 +
+                contentPadding.calculateLeftPadding(
+                    LocalLayoutDirection.current,
+                ),
+            end = Layout.bodyMargin /
+                2 +
+                contentPadding.calculateRightPadding(
+                    LocalLayoutDirection.current,
+                ),
             top = contentPadding.calculateTopPadding(),
             bottom = contentPadding.calculateBottomPadding(),
         ),
