@@ -885,7 +885,7 @@ fun MyScreen() {
 
 ## 🚀 Release Process
 
-The indepth documentation for this subject is available in [RELEASING.md](../RELEASING.md).
+The indepth documentation for this subject is available in [RELEASING.md](RELEASING.md).
 
 ### Local Testing
 
