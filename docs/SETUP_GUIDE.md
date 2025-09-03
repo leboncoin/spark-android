@@ -37,7 +37,7 @@ If you don't already have a GitHub account:
    - Go to [github.com](https://github.com)
    - Click "Sign up" in the top right corner
 
-![GitHub homepage with "Sign up" button highlighted](../../art/setup/signup-home.png)
+![GitHub homepage with "Sign up" button highlighted](../art/setup/signup-home.png)
 
 1. **Account Registration**
    - Enter your **personal email** (not your Adevinta email initially)
@@ -45,7 +45,7 @@ If you don't already have a GitHub account:
    - Create a strong password
    - Complete the verification process
 
-![GitHub homepage with "Sign up" button highlighted](../../art/setup/signup.png)
+![GitHub homepage with "Sign up" button highlighted](../art/setup/signup.png)
 
 1. **Email Verification**
    - Check your email for the GitHub verification message
@@ -65,7 +65,7 @@ Once your account is created and verified:
    - Enter your `@adevinta.com` email address
    - Click "Add"
 
-![GitHub homepage with "Sign up" button highlighted](../../art/setup/signup-home.png)
+![GitHub homepage with "Sign up" button highlighted](../art/setup/signup-home.png)
 
 1. **Verify Adevinta Email**
    - Check your Adevinta email for verification
