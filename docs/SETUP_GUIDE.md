@@ -65,7 +65,7 @@ Once your account is created and verified:
    - Enter your `@adevinta.com` email address
    - Click "Add"
 
-![GitHub homepage with "Sign up" button highlighted](../art/setup/signup-home.png)
+![GitHub homepage with "Sign up" button highlighted](../art/setup/email.png)
 
 1. **Verify Adevinta Email**
    - Check your Adevinta email for verification
