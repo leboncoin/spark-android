@@ -40,6 +40,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
@@ -78,6 +79,8 @@ private fun ColumnScope.PulseSample(snackbarHostState: SnackbarHostState) {
     var pulseShape by remember { mutableStateOf(PulseShape.Large) }
     var animationDuration by remember { mutableIntStateOf(1000) }
     var isEnabled by remember { mutableStateOf(true) }
+
+    val firstLocale = LocalConfiguration.current.locales[0]
 
     // Quick and dirty way to restart the animation otherwise when we change the scales they'll become
     // synchronized with the alpha as they'll be restarted
@@ -125,7 +128,7 @@ private fun ColumnScope.PulseSample(snackbarHostState: SnackbarHostState) {
     }
 
     // Initial Scale Slider
-    Text(text = "Initial Scale: ${String.format("%.1f", initialScale)}")
+    Text(text = "Initial Scale: ${String.format(locale= firstLocale , format = "%.1f", initialScale)}")
 
     Slider(
         value = initialScale,
@@ -138,7 +141,7 @@ private fun ColumnScope.PulseSample(snackbarHostState: SnackbarHostState) {
     )
 
     // Target Scale Slider
-    Text(text = "Target Scale: ${String.format("%.1f", targetScale)}")
+    Text(text = "Target Scale: ${String.format(locale= firstLocale , format = "%.1f", targetScale)}")
     Slider(
         value = targetScale,
         onValueChange = { targetScale = it },
