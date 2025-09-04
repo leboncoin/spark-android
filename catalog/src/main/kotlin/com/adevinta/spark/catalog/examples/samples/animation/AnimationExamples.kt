@@ -189,7 +189,7 @@ private fun PulseShapesExample() {
             verticalArrangement = Arrangement.spacedBy(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
 
-            ) {
+        ) {
             ButtonFilled(
                 modifier = Modifier
                     .pulse(
@@ -253,7 +253,7 @@ private fun PulseTimingExample() {
             verticalArrangement = Arrangement.spacedBy(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
 
-            ) {
+        ) {
             ButtonTinted(
                 modifier = Modifier
                     .pulse(

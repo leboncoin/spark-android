@@ -50,6 +50,7 @@ import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.buttons.ButtonIntent
 import com.adevinta.spark.components.buttons.ButtonTinted
 import com.adevinta.spark.tokens.dim3
+import com.adevinta.spark.tools.modifiers.ifTrue
 
 /**
  * Applies a pulsating effect that is drawn behind the composable element. This effect creates
@@ -69,18 +70,21 @@ import com.adevinta.spark.tokens.dim3
 @Composable
 @ExperimentalSparkApi
 public fun Modifier.pulse(
+    enabled: Boolean = true,
     targetScale: Float = 1.5f,
     initialScale: Float = 1f,
     color: Color = SparkTheme.colors.onSurface.dim3,
     shape: Shape = CircleShape,
     animationSpec: DurationBasedAnimationSpec<Float> = tween(1000),
-): Modifier = pulse(
-    brush = SolidColor(color),
-    targetScale = targetScale,
-    initialScale = initialScale,
-    shape = shape,
-    animationSpec = animationSpec,
-)
+): Modifier =
+    pulse(
+        enabled = enabled,
+        brush = SolidColor(color),
+        targetScale = targetScale,
+        initialScale = initialScale,
+        shape = shape,
+        animationSpec = animationSpec,
+    )
 
 /**
  * Applies a pulsating effect that is drawn behind the composable element. This effect creates
@@ -99,25 +103,27 @@ public fun Modifier.pulse(
 @ExperimentalSparkApi
 public fun Modifier.pulse(
     brush: Brush,
+    enabled: Boolean = true,
     targetScale: Float = 1.5f,
     initialScale: Float = 1f,
     shape: Shape = CircleShape,
     animationSpec: DurationBasedAnimationSpec<Float> = tween(1000),
-): Modifier {
+): Modifier = ifTrue(enabled) {
     val pulseTransition = rememberInfiniteTransition("PulseTransition")
+    val infiniteAnimationSpec = infiniteRepeatable(animationSpec)
     val pulseScale by pulseTransition.animateFloat(
         initialValue = initialScale,
         targetValue = targetScale,
-        animationSpec = infiniteRepeatable(animationSpec),
+        animationSpec = infiniteAnimationSpec,
         label = "PulseScale",
     )
     val pulseAlpha by pulseTransition.animateFloat(
         initialValue = 1f,
         targetValue = 0f,
-        animationSpec = infiniteRepeatable(animationSpec),
+        animationSpec = infiniteAnimationSpec,
         label = "PulseAlpha",
     )
-    return this.drawBehind {
+    this.drawBehind {
         val outline = shape.createOutline(size, layoutDirection, this)
         scale(pulseScale) {
             drawOutline(outline, brush, pulseAlpha)
