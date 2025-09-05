@@ -29,6 +29,7 @@ import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.movableContentOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -71,12 +72,14 @@ internal fun SparkToggleLabelledContainer(
             .then(toggleableModifier)
             .sparkUsageOverlay(),
     ) {
-        val label = movableContentOf {
-            ProvideTextStyle(value = SparkTheme.typography.body1) {
-                Row(
-                    modifier = Modifier.weight(1f, false),
-                ) {
-                    content()
+        val label = remember(content) {
+            movableContentOf {
+                ProvideTextStyle(value = SparkTheme.typography.body1) {
+                    Row(
+                        modifier = Modifier.weight(1f, false),
+                    ) {
+                        content()
+                    }
                 }
             }
         }

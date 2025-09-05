@@ -110,6 +110,7 @@
     <string name="component_textlink_description">Un lien textuelle est une référence à une ressource. Elle peut être externe (par exemple, une autre page Web) ou interne (par exemple, un élément spécifique de la page actuelle).</string>
 
     <string name="component_slider_description">Un slider/curseur est un composant interactif qui permet aux utilisateurs de définir des valeurs en déplaçant une poignée dans une plage définie.</string>
+    <string name="component_animation_description">Les animations fournissent un retour visuel et améliorent l’expérience utilisateur par le mouvement. L’animation de pulsation crée un effet pulsant qui attire l’attention sur les éléments interactifs.</string>
 
     <string name="configurator_component_screen_title">Configurations des composants</string>
     <string name="configurator_component_screen_description">Le configurateur permet de visualiser un composant dans tous les états possibles disponibles en personnalisant chaque propriété pour chaque composant.</string>
