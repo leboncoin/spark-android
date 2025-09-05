@@ -1,12 +1,12 @@
 [versions]
 accompanist = "0.36.0"
-agp = "8.12.0"
+agp = "8.13.0"
 androidx-activity = "1.10.1"
 androidx-appCompat = "1.7.1"
 compileSdk = "35"
 dokka = "1.9.20"
 kotlin = "2.2.10"
-lint = "31.12.0"
+lint = "31.13.0"
 minCompileSdk = "24"
 targetSdk = "35"
 
@@ -50,7 +50,7 @@ androidx-core = "androidx.core:core-ktx:1.16.0"
 androidx-graphics-shapes = "androidx.graphics:graphics-shapes:1.0.1"
 
 androidx-lifecycle-viewmodel = "androidx.lifecycle:lifecycle-viewmodel:2.9.2"
-androidx-metrics =  "androidx.metrics:metrics-performance:1.0.0-beta02"
+androidx-metrics =  "androidx.metrics:metrics-performance:1.0.0-beta03"
 
 androidx-navigation-compose = "androidx.navigation:navigation-compose:2.9.3"
 
@@ -97,7 +97,7 @@ lint-tests = { module = "com.android.tools.lint:lint-tests", version.ref = "lint
 material-motion = "io.github.fornewid:material-motion-compose-core:2.0.1"
 
 # https://github.com/robolectric/robolectric
-robolectric = "org.robolectric:robolectric:4.15.1"
+robolectric = "org.robolectric:robolectric:4.16"
 
 slack-lint-compose = "com.slack.lint.compose:compose-lint-checks:1.4.2"
 
@@ -115,7 +115,7 @@ dependencyGuard = "com.dropbox.dependency-guard:0.5.0"
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-nmcp = "com.gradleup.nmcp:1.0.3"
+nmcp = "com.gradleup.nmcp:1.1.0"
 paparazzi = "app.cash.paparazzi:1.3.5"
 spotless = "com.diffplug.spotless:7.2.1"
 
