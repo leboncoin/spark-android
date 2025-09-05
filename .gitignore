@@ -127,3 +127,7 @@ Temporary Items
 keystore.jks
 keystore.properties
 firebase-service-account.json
+
+# AI tools
+.history
+.junie
