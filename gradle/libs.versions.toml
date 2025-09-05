@@ -3,12 +3,12 @@ accompanist = "0.36.0"
 agp = "8.13.0"
 androidx-activity = "1.10.1"
 androidx-appCompat = "1.7.1"
-compileSdk = "35"
+compileSdk = "36"
 dokka = "1.9.20"
 kotlin = "2.2.10"
 lint = "31.13.0"
 minCompileSdk = "24"
-targetSdk = "35"
+targetSdk = "36"
 
 [libraries]
 accompanist-drawablepainter = { module = "com.google.accompanist:accompanist-drawablepainter", version.ref = "accompanist" }
