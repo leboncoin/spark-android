@@ -21,7 +21,7 @@
  */
 package com.adevinta.spark
 
-import com.android.build.gradle.LibraryExtension
+import com.android.build.api.dsl.LibraryExtension
 import nmcp.NmcpAggregationExtension
 import nmcp.NmcpAggregationPlugin
 import nmcp.NmcpPlugin
