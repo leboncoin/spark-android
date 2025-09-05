@@ -23,9 +23,12 @@ package com.adevinta.spark.components.progress.tracker
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateColor
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -49,13 +52,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.MultiContentMeasurePolicy
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.lerp
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
@@ -211,8 +215,8 @@ private fun ProgressTracker(
             val nextStep = items[nextIndex]
             ProgressTrack(
                 enabled = progressStep.enabled && nextStep.enabled,
-                color = colors.color,
                 orientation = orientation,
+                index = index,
             )
         }
     }
@@ -225,6 +229,7 @@ private fun ProgressTracker(
                 label = progressStep.label,
                 enabled = progressStep.enabled,
                 orientation = orientation,
+                index = index,
                 selected = index == selectedStep,
                 interactionSource = interactionSources[index],
                 onClick = { onStepClick?.invoke(index) },
@@ -291,16 +296,31 @@ private fun StepLabel(
     orientation: LayoutOrientation,
     modifier: Modifier = Modifier,
     label: CharSequence = "",
+    index: Int = 0,
     selected: Boolean = false,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     if (label.isBlank()) return Spacer(modifier = Modifier.size(0.dp))
-    val labelColor by animateColorAsState(
-        targetValue = if (enabled) SparkTheme.colors.onSurface else SparkTheme.colors.onSurface.dim1,
-        label = "Label color",
+    val transition = updateTransition(selected, label = "ProgressTrackerSelectedState")
+    val labelColor by transition.animateColor(
+        label = "Label color $index",
+    ) {
+        if (it) SparkTheme.colors.onSurface else SparkTheme.colors.onSurface.dim1
+    }
+    val labelProgress by transition.animateFloat(
+        label = "LabelProgress $index",
+    ) {
+        if (it) 1f else 0f
+    }
+    val textStyle = lerp(
+        SparkTheme.typography.body2,
+        SparkTheme.typography.body2.highlight,
+        labelProgress,
     )
-    CompositionLocalProvider(LocalContentColor provides labelColor) {
+    CompositionLocalProvider(
+        LocalContentColor provides labelColor,
+    ) {
         val labelModifier = modifier
             .layoutId(LabelId)
             .paddingFromBaseline(top = 16.dp)
@@ -309,6 +329,7 @@ private fun StepLabel(
                 interactionSource = interactionSource,
                 indication = LocalIndication.current,
                 enabled = enabled,
+                role = Role.Tab,
             ) {
                 onClick()
             }
@@ -317,12 +338,14 @@ private fun StepLabel(
             is AnnotatedString -> Text(
                 text = label,
                 textAlign = textAlign,
+                style = textStyle,
                 modifier = labelModifier,
             )
 
             else -> Text(
                 text = label.toString(),
                 textAlign = textAlign,
+                style = textStyle,
                 modifier = labelModifier,
             )
         }
@@ -331,14 +354,15 @@ private fun StepLabel(
 
 @Composable
 private fun ProgressTrack(
-    color: Color,
     orientation: LayoutOrientation,
     modifier: Modifier = Modifier,
+    index: Int = 0,
     enabled: Boolean = true,
 ) {
+    val color = SparkTheme.colors.outline
     val trackColor by animateColorAsState(
         targetValue = if (enabled) color else color.disabled,
-        label = "Track color",
+        label = "Track color $index",
     )
     if (orientation == Horizontal) {
         MaterialHorizontalDivider(modifier = modifier, color = trackColor)
@@ -365,7 +389,7 @@ private fun StepIndicator(
     val isOutlined = style == ProgressStyles.Outlined
     val indicatorColor by animateColorAsState(
         targetValue = if (selected) {
-            if (isOutlined) colors.containerColor else colors.color
+            colors.color
         } else {
             if (isOutlined) colors.containerColor.transparent else colors.containerColor
         },
@@ -374,19 +398,19 @@ private fun StepIndicator(
 
     val indicatorContentColor by animateColorAsState(
         targetValue = if (selected) {
-            if (isOutlined) colors.onContainerColor else colors.onColor
+            colors.onColor
         } else {
             if (isOutlined) SparkTheme.colors.onSurface else colors.onContainerColor
         },
-        label = "Indicator color",
+        label = "Indicator color $index",
     )
     val indicatorAlpha by animateFloatAsState(
         targetValue = if (enabled) 1f else SparkTheme.colors.dim3,
-        label = "Indicator color",
+        label = "Indicator color $index",
     )
     val borderSize by animateDpAsState(
-        targetValue = if (isOutlined) 1.dp else 0.dp,
-        label = "Border size",
+        targetValue = if (isOutlined && !selected) 1.dp else 0.dp,
+        label = "Border size $index",
     )
     val indicatorSize = with(LocalDensity.current) {
         size.size.toDp()
@@ -521,6 +545,7 @@ private fun PreviewProgressSizes() {
     }
 }
 
+@Preview
 @Composable
 private fun PreviewProgressStyles() {
     PreviewTheme(padding = PaddingValues(0.dp)) {
@@ -530,10 +555,13 @@ private fun PreviewProgressStyles() {
             ProgressStep("Lorem ipsume dolar sit amet", true),
             ProgressStep("Lorem ipsume", false),
         )
+        val intent = ProgressTrackerIntent.Main
+        val style = ProgressStyles.Outlined
         ProgressTrackerRow(
             items = items,
             size = ProgressSizes.Large,
-            style = ProgressStyles.Tinted,
+            style = style,
+            intent = intent,
             onStepClick = {
                 selectedStep = it
             },
@@ -542,7 +570,8 @@ private fun PreviewProgressStyles() {
         ProgressTrackerRow(
             items = items,
             size = ProgressSizes.Medium,
-            style = ProgressStyles.Tinted,
+            style = style,
+            intent = intent,
             onStepClick = {
                 selectedStep = it
             },
@@ -552,6 +581,7 @@ private fun PreviewProgressStyles() {
             items = items,
             size = ProgressSizes.Small,
             style = ProgressStyles.Tinted,
+            intent = intent,
             onStepClick = {
                 selectedStep = it
             },
