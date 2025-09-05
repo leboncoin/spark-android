@@ -226,9 +226,11 @@ public fun Component(
                                         animatedVisibilityScope = animatedVisibilityScope,
                                     )
                                     .animateEnterExit(
-                                        enter = materialFadeThroughIn() + slideInVertically(
-                                            tween(durationMillis = 500, delayMillis = (index - 1) * 50),
-                                        ) { it } + materialElevationScaleIn(),
+                                        enter = materialFadeThroughIn() +
+                                            slideInVertically(
+                                                tween(durationMillis = 500, delayMillis = (index - 1) * 50),
+                                            ) { it } +
+                                            materialElevationScaleIn(),
                                         exit = materialFadeThroughOut(),
                                     ),
                             )

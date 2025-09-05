@@ -218,16 +218,19 @@ internal fun ComponentActivity.CatalogApp(
                     frontLayerScrimColor = Color.Unspecified,
                     headerHeight = BackdropScaffoldDefaults.HeaderHeight +
                         WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding(),
-                    peekHeight = BackdropScaffoldDefaults.PeekHeight + WindowInsets.statusBars.asPaddingValues()
-                        .calculateTopPadding() - 4.dp,
+                    peekHeight = BackdropScaffoldDefaults.PeekHeight +
+                        WindowInsets.statusBars.asPaddingValues()
+                            .calculateTopPadding() -
+                        4.dp,
                     backLayerBackgroundColor = SparkTheme.colors.mainContainer,
                     appBar = {
                         HomeTabBar(
                             modifier = Modifier
                                 .requiredHeightIn(
                                     min =
-                                    BackdropScaffoldDefaults.PeekHeight + WindowInsets.statusBars.asPaddingValues()
-                                        .calculateTopPadding(),
+                                    BackdropScaffoldDefaults.PeekHeight +
+                                        WindowInsets.statusBars.asPaddingValues()
+                                            .calculateTopPadding(),
                                 )
                                 .statusBarsPadding(),
                             tabSelected = homeScreenValues[pagerState.currentPage],

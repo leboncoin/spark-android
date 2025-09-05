@@ -193,11 +193,13 @@ internal data class ProgressTrackerMeasurePolicy(
 
                 labelPlaceable.placeRelative(
                     x = indicatorPlaceable.width + labelPlaceable.hasWidthThenDefault(arrangementSpacing.roundToPx()),
-                    y = previousLabelY + (
-                        indicatorPlaceable.height / 2 -
-                            labelFirstBaseline +
-                            5.sp.roundToPx() // Magic number to center the text to the indicator text baseline
-                        ),
+                    y = previousLabelY +
+                        (
+                            indicatorPlaceable.height /
+                                2 -
+                                labelFirstBaseline +
+                                5.sp.roundToPx() // Magic number to center the text to the indicator text baseline
+                            ),
                 )
                 indicatorPlaceable.placeRelative(x = 0, y = previousLabelY)
                 if (index < indicatorPlaceables.size - 1) {
@@ -209,7 +211,8 @@ internal data class ProgressTrackerMeasurePolicy(
                 previousLabelY += maxOf(
                     labelPlaceable.height,
                     indicatorSize.roundToPx(),
-                ) + arrangementSpacing.roundToPx()
+                ) +
+                    arrangementSpacing.roundToPx()
             }
         }
     }
