@@ -129,5 +129,5 @@ keystore.properties
 firebase-service-account.json
 
 # AI tools
-.history//
+.history
 .junie
