@@ -49,12 +49,6 @@ dependencies {
     fun DependencyHandlerScope.plugin(plugin: Provider<PluginDependency>) = plugin.map {
         "${it.pluginId}:${it.pluginId}.gradle.plugin:${it.version.requiredVersion}"
     }
-    compileOnly(gradleApi())
-    implementation(plugin(libs.plugins.android.application))
-    implementation(plugin(libs.plugins.android.kotlin))
-    implementation(plugin(libs.plugins.android.library))
-    implementation(plugin(libs.plugins.android.lint))
-    implementation(plugin(libs.plugins.android.test))
     implementation(plugin(libs.plugins.compose))
     implementation(plugin(libs.plugins.dependencyGuard))
     implementation(plugin(libs.plugins.dokka))
@@ -62,6 +56,7 @@ dependencies {
     implementation(plugin(libs.plugins.nmcp))
     implementation(plugin(libs.plugins.paparazzi))
     implementation(plugin(libs.plugins.spotless))
+    implementation(libs.android.gradle)
     implementation(libs.dokka.base)
 }
 
