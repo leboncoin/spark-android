@@ -119,6 +119,9 @@ import kotlin.math.roundToInt
  * @param actions the actions displayed at the end of the top app bar. This should typically be
  * [IconButton]s. The default layout here is a [Row], so icons inside will be placed horizontally.
  * @param windowInsets a window insets that app bar will respect.
+ * @param colors [TopAppBarColors] that will be used to resolve the colors used for this [TopAppBar]
+ * in different states.
+ * @see [TopAppBarSparkDefaults.topAppBarColors]
  * @param scrollBehavior a [TopAppBarScrollBehavior] which holds various offset values that will be
  * applied by this top app bar to set up its height and colors. A scroll behavior is designed to
  * work in conjunction with a scrolled content to change the top app bar appearance as the content
@@ -132,6 +135,7 @@ public fun TopAppBar(
     navigationIcon: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
     windowInsets: WindowInsets = TopAppBarDefaults.windowInsets,
+    colors: TopAppBarColors = TopAppBarSparkDefaults.topAppBarColors(),
     scrollBehavior: TopAppBarScrollBehavior? = null,
 ) {
     SingleRowTopAppBar(
@@ -142,7 +146,7 @@ public fun TopAppBar(
         navigationIcon = navigationIcon,
         actions = actions,
         windowInsets = windowInsets,
-        colors = TopAppBarSparkDefaults.topAppBarColors(),
+        colors = colors,
         scrollBehavior = scrollBehavior,
     )
 }
@@ -166,6 +170,9 @@ public fun TopAppBar(
  * @param actions the actions displayed at the end of the top app bar. This should typically be
  * [IconButton]s. The default layout here is a [Row], so icons inside will be placed horizontally.
  * @param windowInsets a window insets that app bar will respect.
+ * @param colors [TopAppBarColors] that will be used to resolve the colors used for this [TopAppBar]
+ * in different states.
+ * @see [TopAppBarSparkDefaults.topAppBarColors]
  * @param scrollBehavior a [TopAppBarScrollBehavior] which holds various offset values that will be
  * applied by this top app bar to set up its height and colors. A scroll behavior is designed to
  * work in conjunction with a scrolled content to change the top app bar appearance as the content
@@ -179,6 +186,7 @@ public fun MediumTopAppBar(
     navigationIcon: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
     windowInsets: WindowInsets = TopAppBarDefaults.windowInsets,
+    colors: TopAppBarColors = TopAppBarSparkDefaults.mediumTopAppBarColors(),
     scrollBehavior: TopAppBarScrollBehavior? = null,
 ) {
     TwoRowsTopAppBar(
@@ -190,7 +198,7 @@ public fun MediumTopAppBar(
         smallTitle = title,
         navigationIcon = navigationIcon,
         actions = actions,
-        colors = TopAppBarSparkDefaults.mediumTopAppBarColors(),
+        colors = colors,
         windowInsets = windowInsets,
         maxHeight = 112.0.dp,
         pinnedHeight = 64.dp,
@@ -217,6 +225,9 @@ public fun MediumTopAppBar(
  * @param actions the actions displayed at the end of the top app bar. This should typically be
  * [IconButton]s. The default layout here is a [Row], so icons inside will be placed horizontally.
  * @param windowInsets a window insets that app bar will respect.
+ * @param colors [TopAppBarColors] that will be used to resolve the colors used for this [TopAppBar]
+ * in different states.
+ * @see [TopAppBarSparkDefaults.topAppBarColors]
  * @param scrollBehavior a [TopAppBarScrollBehavior] which holds various offset values that will be
  * applied by this top app bar to set up its height and colors. A scroll behavior is designed to
  * work in conjunction with a scrolled content to change the top app bar appearance as the content
@@ -230,6 +241,7 @@ public fun LargeTopAppBar(
     navigationIcon: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
     windowInsets: WindowInsets = TopAppBarDefaults.windowInsets,
+    colors: TopAppBarColors = TopAppBarSparkDefaults.largeTopAppBarColors(),
     scrollBehavior: TopAppBarScrollBehavior? = null,
 ) {
     TwoRowsTopAppBar(
@@ -241,7 +253,7 @@ public fun LargeTopAppBar(
         modifier = modifier,
         navigationIcon = navigationIcon,
         actions = actions,
-        colors = TopAppBarSparkDefaults.topAppBarColors(),
+        colors = colors,
         windowInsets = windowInsets,
         maxHeight = 152.dp,
         pinnedHeight = 64.dp,
@@ -268,6 +280,9 @@ public fun LargeTopAppBar(
  * @param actions the actions displayed at the end of the top app bar. This should typically be
  * [IconButton]s. The default layout here is a [Row], so icons inside will be placed horizontally.
  * @param windowInsets a window insets that app bar will respect.
+ * @param colors [TopAppBarColors] that will be used to resolve the colors used for this [TopAppBar]
+ * in different states.
+ * @see [TopAppBarSparkDefaults.topAppBarColors]
  * @param scrollBehavior a [TopAppBarScrollBehavior] which holds various offset values that will be
  * applied by this top app bar to set up its height and colors. A scroll behavior is designed to
  * work in conjunction with a scrolled content to change the top app bar appearance as the content
@@ -281,6 +296,7 @@ public fun CenterAlignedTopAppBar(
     navigationIcon: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
     windowInsets: WindowInsets = TopAppBarDefaults.windowInsets,
+    colors: TopAppBarColors = TopAppBarSparkDefaults.centerAlignedTopAppBarColors(),
     scrollBehavior: TopAppBarScrollBehavior? = null,
 ) {
     SingleRowTopAppBar(
@@ -290,7 +306,7 @@ public fun CenterAlignedTopAppBar(
         centeredTitle = true,
         navigationIcon = navigationIcon,
         actions = actions,
-        colors = TopAppBarSparkDefaults.centerAlignedTopAppBarColors(),
+        colors = colors,
         windowInsets = windowInsets,
         scrollBehavior = scrollBehavior,
     )
