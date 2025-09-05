@@ -128,6 +128,6 @@ keystore.jks
 keystore.properties
 firebase-service-account.json
 
-# AI tools history files, they polute the search while using an ide
+# AI tools
 .history//
 .junie
