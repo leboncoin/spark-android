@@ -62,7 +62,7 @@ androidx-test-truth = "androidx.test.ext:truth:1.7.0"
 androidx-window = "androidx.window:window:1.4.0"
 
 # https://coil-kt.github.io/coil/
-coil-bom = "io.coil-kt.coil3:coil-bom:3.2.0"
+coil-bom = "io.coil-kt.coil3:coil-bom:3.3.0"
 coil-compose = { module = "io.coil-kt.coil3:coil-compose" }
 
 constraintsExplorer = "com.zachklipp:constraints-explorer:1.1.0"
