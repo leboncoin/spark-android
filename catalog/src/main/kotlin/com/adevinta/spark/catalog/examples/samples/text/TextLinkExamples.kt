@@ -24,6 +24,7 @@ package com.adevinta.spark.catalog.examples.samples.text
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.Text
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,6 +39,7 @@ import com.adevinta.spark.components.text.TextLinkButton
 import com.adevinta.spark.icons.Link
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.res.annotatedStringResource
+import kotlinx.collections.immutable.persistentMapOf
 import kotlinx.coroutines.launch
 
 private const val TextLinksExampleSourceUrl = "$SampleSourceUrl/TextLinkExamples.kt"
@@ -50,28 +52,35 @@ public val TextLinksExamples: List<Example> = listOf(
         sourceUrl = TextLinksExampleSourceUrl,
     ) { snackbarHostState ->
         val scope = rememberCoroutineScope()
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier.fillMaxSize(),
-        ) {
 
-            TextLink(
-                style = SparkTheme.typography.subhead,
-                text = annotatedStringResource(id = R.string.spark_text_link_short_example_),
-                lineHeight = 40.sp,
-                onClickLabel = "Aller au site web",
-                onClick = {
-                    scope.launch {
-                        snackbarHostState.showSnackbar(
-                            message = "https://kotlinlang.org",
-                            actionLabel = "Action",
-                            duration = SnackbarDuration.Short,
-                            intent = SnackbarIntent.Success,
-                        )
-                    }
-                },
-            )
-        }
+        TextLink(
+            style = SparkTheme.typography.subhead,
+            text = annotatedStringResource(id = R.string.spark_text_link_short_example_),
+            lineHeight = 40.sp,
+            onClickLabel = "Aller au site web",
+            onClick = {
+                scope.launch {
+                    snackbarHostState.showSnackbar(
+                        message = "https://kotlinlang.org",
+                        actionLabel = "Action",
+                        duration = SnackbarDuration.Short,
+                        intent = SnackbarIntent.Success,
+                    )
+                }
+            },
+        )
+        Text(
+            text = annotatedStringResource(
+                com.adevinta.spark.R.string.spark_annotatedStringResource_test_args,
+                persistentMapOf("who" to "Bob"),
+            ),
+        )
+        Text(
+            text = annotatedStringResource(
+                com.adevinta.spark.R.string.spark_annotatedStringResource_test_new_args,
+                "Bob",
+            ),
+        )
     },
     Example(
         id = "paragraph",

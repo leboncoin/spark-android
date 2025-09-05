@@ -127,9 +127,9 @@
 
     <string name="icons_screen_search_helper">Search Spark Icon</string>
 
-    <string name="spark_text_link_paragraph_example_"><annotation color="neutral" typography="body1">This is Adevinta </annotation><annotation color="main" typography="body1"><u><b>Privacy &amp; Policy</b></u></annotation><annotation color="neutral" typography="body1"> also lots of extra information you may be interested in or should I inform you about that extra information. you might not be aware of it</annotation></string>
+    <string name="spark_text_link_paragraph_example_">&lt;annotation color="neutral" typography="body1">This is Adevinta &lt;/annotation>&lt;annotation color="main" typography="body1">&lt;u>&lt;b>Privacy &amp; Policy&lt;/b>&lt;/u>&lt;/annotation>&lt;annotation color="neutral" typography="body1"> also lots of extra information you may be interested in or should I inform you about that extra information. you might not be aware of it&lt;/annotation></string>
 
-    <string name="spark_text_link_short_example_"><annotation color="neutral" typography="display2">Learn Kotlin Programming </annotation><annotation color="success" typography="display3"><u><b>https://kotlinlang.org</b></u></annotation></string>
+    <string name="spark_text_link_short_example_">&lt;annotation color="neutral" typography="display2">Learn Kotlin Programming &lt;/annotation>&lt;annotation color="success" typography="display3">&lt;u>&lt;b>https://kotlinlang.org&lt;/b>&lt;/u>&lt;/annotation></string>
 
     <!--region Divider-->
     <string name="component_divider_description">The Divider component provides a thin, unobtrusive line that separates and distinguishes sections of content to reinforce visual hierarchy. A few common uses are:

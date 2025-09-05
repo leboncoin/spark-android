@@ -47,12 +47,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.StringAnnotation
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
@@ -114,39 +118,17 @@ public fun annotatedStringResource(@StringRes id: Int, formatArgs: PersistentMap
  * @param formatArgs the format arguments
  * @return the [AnnotatedString] data associated with the resource
  */
-@Deprecated(
-    message = "Use the annotatedStringResource with PersistentMap overload instead",
-    replaceWith = ReplaceWith("annotatedStringResource(id, persistentMapOf(formatArgs))"),
-)
+//@Deprecated(
+//    message = "Use the annotatedStringResource with PersistentMap overload instead",
+//    replaceWith = ReplaceWith("annotatedStringResource(id, persistentMapOf(formatArgs))"),
+//)
 @Composable
 public fun annotatedStringResource(@StringRes id: Int, vararg formatArgs: Any): AnnotatedString {
-    val resources = resources()
     val density = LocalDensity.current
     val colors = SparkTheme.colors
     val typography = SparkTheme.typography
-    return remember(id, formatArgs) {
-        val text = resources.getText(id, *formatArgs)
-        text.asAnnotatedString(density, colors, typography)
-    }
-}
-
-private fun Resources.buildSpannedStringWithArgs(
-    @StringRes id: Int,
-    args: PersistentMap<String, String>,
-): SpannedString = buildSpannedString {
-    append(getText(id))
-    getSpans<Annotation>().filter { it.key == "variable" }
-        .forEach { replace(getSpanStart(it), getSpanEnd(it), args.getValue(it.value)) }
-}
-
-private fun Resources.buildSpannedStringWithArgs(
-    @PluralsRes id: Int,
-    count: Int,
-    args: PersistentMap<String, String>,
-): SpannedString = buildSpannedString {
-    append(getQuantityText(id, count))
-    getSpans<Annotation>().filter { it.key == "variable" }
-        .forEach { replace(getSpanStart(it), getSpanEnd(it), args.getValue(it.value)) }
+    val string = stringResource(id, *formatArgs)
+    return AnnotatedString.fromHtml(string).asAnnotatedString(density, colors, typography)
 }
 
 /**
@@ -157,15 +139,11 @@ private fun Resources.buildSpannedStringWithArgs(
  */
 @Composable
 public fun annotatedStringResource(@StringRes id: Int): AnnotatedString {
-    val resources = resources()
     val density = LocalDensity.current
-
     val colors = SparkTheme.colors
     val typography = SparkTheme.typography
-    return remember(id) {
-        val text = resources.getText(id)
-        text.asAnnotatedString(density, colors, typography)
-    }
+    val string = stringResource(id)
+    return AnnotatedString.fromHtml(string).asAnnotatedString(density, colors, typography)
 }
 
 /**
@@ -181,14 +159,11 @@ public fun annotatedPluralStringResource(
     @PluralsRes id: Int,
     count: Int,
 ): AnnotatedString {
-    val resources = resources()
     val density = LocalDensity.current
     val colors = SparkTheme.colors
     val typography = SparkTheme.typography
-    return remember(id) {
-        val text = resources.getQuantityText(id, count)
-        text.asAnnotatedString(density, colors, typography)
-    }
+    val string = pluralStringResource(id, count)
+    return AnnotatedString.fromHtml(string).asAnnotatedString(density, colors, typography)
 }
 
 /**
@@ -233,14 +208,30 @@ public fun annotatedPluralStringResource(
     count: Int,
     vararg formatArgs: Any,
 ): AnnotatedString {
-    val resources = resources()
     val density = LocalDensity.current
     val colors = SparkTheme.colors
     val typography = SparkTheme.typography
-    return remember(id) {
-        val text = resources.getQuantityText(id, count, *formatArgs)
-        text.asAnnotatedString(density, colors, typography)
-    }
+    val string = pluralStringResource(id, count, *formatArgs)
+    return AnnotatedString.fromHtml(string).asAnnotatedString(density, colors, typography)
+}
+
+private fun Resources.buildSpannedStringWithArgs(
+    @StringRes id: Int,
+    args: PersistentMap<String, String>,
+): SpannedString = buildSpannedString {
+    append(getText(id))
+    getSpans<Annotation>().filter { it.key == "variable" }
+        .forEach { replace(getSpanStart(it), getSpanEnd(it), args.getValue(it.value)) }
+}
+
+private fun Resources.buildSpannedStringWithArgs(
+    @PluralsRes id: Int,
+    count: Int,
+    args: PersistentMap<String, String>,
+): SpannedString = buildSpannedString {
+    append(getQuantityText(id, count))
+    getSpans<Annotation>().filter { it.key == "variable" }
+        .forEach { replace(getSpanStart(it), getSpanEnd(it), args.getValue(it.value)) }
 }
 
 @Composable
@@ -284,12 +275,29 @@ private fun Spanned.toHtmlWithoutParagraphs(): String = toHtml()
     .substringAfter("<p dir=\"ltr\">")
     .substringBeforeLast("</p>")
 
-private fun CharSequence.asAnnotatedString(
+@Suppress("UNCHECKED_CAST") // We're sure that we can only get a StringAnnotation
+private fun AnnotatedString.asAnnotatedString(
     density: Density,
     colors: SparkColors,
     typography: SparkTypography,
 ): AnnotatedString {
-    if (this !is Spanned) return AnnotatedString(this.toString())
+    return mapAnnotations {
+        when(it.item) {
+            is StringAnnotation -> SparkStringAnnotations.toStyleAnnotation(
+                annotation = it as AnnotatedString.Range<StringAnnotation>,
+                colors = colors,
+                typography = typography
+            )
+            else  -> it
+        }
+    }
+}
+
+private fun SpannedString.asAnnotatedString(
+    density: Density,
+    colors: SparkColors,
+    typography: SparkTypography,
+): AnnotatedString {
     return buildAnnotatedString {
         append(this@asAnnotatedString.toString())
         getSpans(0, length, Any::class.java).forEach {
@@ -326,8 +334,8 @@ private fun AnnotatedString.Builder.buildWithSpan(
         is SuperscriptSpan -> SpanStyle(baselineShift = BaselineShift.Superscript)
         is SubscriptSpan -> SpanStyle(baselineShift = BaselineShift.Subscript)
         is ForegroundColorSpan -> SpanStyle(color = Color(it.foregroundColor))
-        is Annotation -> SparkStringAnnotations.toSpanStyle(annotation = it, colors, typography) ?: return
-        else -> return
+//        is Annotation -> SparkStringAnnotations.toSpanStyle(annotation = it, colors, typography) ?: return
+        else -> return/**/
     }
     addStyle(span, start, end)
 }
@@ -366,6 +374,12 @@ private fun AnnotatedStringResourcePreview() {
             text = annotatedStringResource(
                 R.string.spark_annotatedStringResource_test_args,
                 persistentMapOf("who" to "Bob"),
+            ),
+        )
+        Text(
+            text = annotatedStringResource(
+                R.string.spark_annotatedStringResource_test_new_args,
+                "Bob",
             ),
         )
     }
