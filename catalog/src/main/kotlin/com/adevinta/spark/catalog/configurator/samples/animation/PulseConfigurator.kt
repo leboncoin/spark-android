@@ -128,7 +128,7 @@ private fun ColumnScope.PulseSample(snackbarHostState: SnackbarHostState) {
     }
 
     // Initial Scale Slider
-    Text(text = "Initial Scale: ${String.format(locale= firstLocale , format = "%.1f", initialScale)}")
+    Text(text = "Initial Scale: ${String.format(locale = firstLocale , format = "%.1f", initialScale)}")
 
     Slider(
         value = initialScale,
@@ -141,7 +141,7 @@ private fun ColumnScope.PulseSample(snackbarHostState: SnackbarHostState) {
     )
 
     // Target Scale Slider
-    Text(text = "Target Scale: ${String.format(locale= firstLocale , format = "%.1f", targetScale)}")
+    Text(text = "Target Scale: ${String.format(locale = firstLocale , format = "%.1f", targetScale)}")
     Slider(
         value = targetScale,
         onValueChange = { targetScale = it },
