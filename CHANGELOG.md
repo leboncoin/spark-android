@@ -4,6 +4,17 @@
 
 ## [Unreleased]
 
+## [1.4.0-beta01]
+
+_2025-09-04_
+
+### Spark
+
+#### Animations
+
+- 🆕 Add a `pulse` example and configurator
+- Pulse now have a `enabled` argument to avoid making a complex modifier chain when we want to control the visibility of this animation
+
 ## [1.4.0-alpha03]
 
 _2025-08-01_
