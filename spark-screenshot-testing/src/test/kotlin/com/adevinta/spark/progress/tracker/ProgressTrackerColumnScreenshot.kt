@@ -31,7 +31,6 @@ import com.adevinta.spark.DefaultTestDevices
 import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.components.progress.tracker.ProgressSizes
 import com.adevinta.spark.components.progress.tracker.ProgressStep
-import com.adevinta.spark.components.progress.tracker.ProgressStyles
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerColumn
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshotNightMode
@@ -61,30 +60,27 @@ internal class ProgressTrackerColumnScreenshot {
         FlowRow(maxItemsInEachRow = 3) {
             val selectedStep = 1
             ProgressSizes.entries.forEach { size ->
-                ProgressStyles.entries.forEach { style ->
-                    ProgressTrackerColumn(
-                        modifier = Modifier.width(240.dp),
-                        items = persistentListOf(
-                            ProgressStep(
-                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" +
-                                    " incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis" +
-                                    " nostrud exercitation.",
-                                true,
-                            ),
-                            ProgressStep(
-                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod" +
-                                    " tempor incididunt ut labore et dolore magna aliqua.",
-                                false,
-                            ),
-                            ProgressStep("Lorem ipsume dolar sit amet", true),
+                ProgressTrackerColumn(
+                    modifier = Modifier.width(240.dp),
+                    items = persistentListOf(
+                        ProgressStep(
+                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" +
+                                " incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis" +
+                                " nostrud exercitation.",
+                            true,
                         ),
-                        size = size,
-                        style = style,
-                        onStepClick = {
-                        },
-                        selectedStep = selectedStep,
-                    )
-                }
+                        ProgressStep(
+                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod" +
+                                " tempor incididunt ut labore et dolore magna aliqua.",
+                            false,
+                        ),
+                        ProgressStep("Lorem ipsume dolar sit amet", true),
+                    ),
+                    size = size,
+                    onStepClick = {
+                    },
+                    selectedStep = selectedStep,
+                )
             }
         }
     }
