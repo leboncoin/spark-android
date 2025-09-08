@@ -160,8 +160,8 @@ public fun ProgressTrackerColumn(
 ) {
     require(items.all { it.label.isNotBlank() }) {
         "All steps in the vertical layout should have a label otherwise it'll have render issues." +
-                "This is a known bug, if you need to make this layout please report it there" +
-                " https://github.com/leboncoin/spark-android/issues/1080"
+            "This is a known bug, if you need to make this layout please report it there" +
+            " https://github.com/leboncoin/spark-android/issues/1080"
     }
     ProgressTracker(
         items = items,
@@ -191,7 +191,7 @@ private fun ProgressTracker(
             "At least two progress indicators should be displayed"
         } else {
             "If a process needs more than six steps, consider simplifying the process or breaking it up " +
-                    "into multiple tasks"
+                "into multiple tasks"
         }
         baseMessage + " Found ${items.size} steps."
     }
@@ -457,12 +457,12 @@ private fun PreviewProgressTracker() {
             items = persistentListOf(
                 ProgressStep(
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt " +
-                            "ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation.",
+                        "ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation.",
                     true,
                 ),
                 ProgressStep(
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt " +
-                            "ut labore et dolore magna aliqua.",
+                        "ut labore et dolore magna aliqua.",
                     true,
                 ),
                 ProgressStep("Lorem ipsume dolar sit amet", true),

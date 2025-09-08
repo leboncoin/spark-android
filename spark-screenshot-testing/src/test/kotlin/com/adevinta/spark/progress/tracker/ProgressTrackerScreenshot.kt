@@ -51,7 +51,6 @@ internal class ProgressTrackerScreenshot {
     @get:Rule
     val paparazzi = paparazziRule(
         // fixme: fix to make it portrait while #1190 is not released
-
         deviceConfig = DefaultTestDevices.Tablet,
         renderingMode = V_SCROLL,
     )

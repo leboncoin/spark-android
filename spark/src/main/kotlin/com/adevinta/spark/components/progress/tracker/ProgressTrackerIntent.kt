@@ -38,7 +38,6 @@ public enum class ProgressTrackerIntent {
         override fun colors(): IntentColor = IntentColors.Basic.colors()
     },
 
-
     /**
      * Used for feedbacks that are neutral.
      */
