@@ -25,11 +25,9 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.updateTransition
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
@@ -82,7 +80,6 @@ import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.dim1
 import com.adevinta.spark.tokens.disabled
 import com.adevinta.spark.tokens.highlight
-import com.adevinta.spark.tokens.transparent
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -101,7 +98,6 @@ import androidx.compose.material3.VerticalDivider as MaterialVerticalDivider
  * @property items The list of steps to be displayed in the progress tracker.
  * @property modifier The modifier to be applied to the progress tracker.
  * @property intent The intent of the progress tracker, which determines its color scheme. Basic being the default.
- * @property style The style of the progress tracker, either outlined (default) or tinted.
  * @property size The size of the progress tracker, either large (default), medium, or small.
  * @property hasIndicatorContent A boolean value indicating whether the step indicator should show the step index.
  * @property onStepClick Callback with the step index selected.
@@ -115,7 +111,6 @@ public fun ProgressTrackerRow(
     items: ImmutableList<ProgressStep>,
     modifier: Modifier = Modifier,
     intent: ProgressTrackerIntent = ProgressTrackerIntent.Basic,
-    style: ProgressStyles = ProgressStyles.Outlined,
     size: ProgressSizes = ProgressSizes.Large,
     hasIndicatorContent: Boolean = true,
     onStepClick: ((index: Int) -> Unit)? = null,
@@ -126,7 +121,6 @@ public fun ProgressTrackerRow(
         orientation = Horizontal,
         modifier = modifier,
         intent = intent,
-        style = style,
         size = size,
         hasIndicatorContent = hasIndicatorContent,
         onStepClick = onStepClick,
@@ -146,7 +140,6 @@ public fun ProgressTrackerRow(
  * @property items The list of steps to be displayed in the progress tracker.
  * @property modifier The modifier to be applied to the progress tracker.
  * @property intent The intent of the progress tracker, which determines its color scheme. Basic being the default.
- * @property style The style of the progress tracker, either outlined (default) or tinted.
  * @property size The size of the progress tracker, either large (default), medium, or small.
  * @property hasIndicatorContent A boolean value indicating whether the step indicator should show the step index.
  * @property onStepClick Callback with the step index selected.
@@ -160,7 +153,6 @@ public fun ProgressTrackerColumn(
     items: ImmutableList<ProgressStep>,
     modifier: Modifier = Modifier,
     intent: ProgressTrackerIntent = ProgressTrackerIntent.Basic,
-    style: ProgressStyles = ProgressStyles.Outlined,
     size: ProgressSizes = ProgressSizes.Large,
     hasIndicatorContent: Boolean = true,
     onStepClick: ((index: Int) -> Unit)? = null,
@@ -168,15 +160,14 @@ public fun ProgressTrackerColumn(
 ) {
     require(items.all { it.label.isNotBlank() }) {
         "All steps in the vertical layout should have a label otherwise it'll have render issues." +
-            "This is a known bug, if you need to make this layout please report it there" +
-            " https://github.com/leboncoin/spark-android/issues/1080"
+                "This is a known bug, if you need to make this layout please report it there" +
+                " https://github.com/leboncoin/spark-android/issues/1080"
     }
     ProgressTracker(
         items = items,
         orientation = Vertical,
         modifier = modifier,
         intent = intent,
-        style = style,
         size = size,
         hasIndicatorContent = hasIndicatorContent,
         onStepClick = onStepClick,
@@ -190,7 +181,6 @@ private fun ProgressTracker(
     orientation: LayoutOrientation,
     modifier: Modifier = Modifier,
     intent: ProgressTrackerIntent = ProgressTrackerIntent.Basic,
-    style: ProgressStyles = ProgressStyles.Outlined,
     size: ProgressSizes = ProgressSizes.Large,
     hasIndicatorContent: Boolean = true,
     onStepClick: ((index: Int) -> Unit)? = null,
@@ -201,7 +191,7 @@ private fun ProgressTracker(
             "At least two progress indicators should be displayed"
         } else {
             "If a process needs more than six steps, consider simplifying the process or breaking it up " +
-                "into multiple tasks"
+                    "into multiple tasks"
         }
         baseMessage + " Found ${items.size} steps."
     }
@@ -242,7 +232,6 @@ private fun ProgressTracker(
             StepIndicator(
                 colors = colors,
                 size = size,
-                style = style,
                 index = index,
                 enabled = progressStep.enabled,
                 selected = index == selectedStep,
@@ -375,7 +364,6 @@ private fun ProgressTrack(
 private fun StepIndicator(
     colors: IntentColor,
     size: ProgressSizes,
-    style: ProgressStyles,
     index: Int,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -385,32 +373,19 @@ private fun StepIndicator(
     onClick: (() -> Unit)? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
-    val elevation = animateStepElevation(enabled, style, interactionSource).value
-    val isOutlined = style == ProgressStyles.Outlined
+    val elevation = animateStepElevation(enabled, interactionSource).value
     val indicatorColor by animateColorAsState(
-        targetValue = if (selected) {
-            colors.color
-        } else {
-            if (isOutlined) colors.containerColor.transparent else colors.containerColor
-        },
+        targetValue = if (selected) colors.color else colors.containerColor,
         label = "Indicator color",
     )
 
     val indicatorContentColor by animateColorAsState(
-        targetValue = if (selected) {
-            colors.onColor
-        } else {
-            if (isOutlined) SparkTheme.colors.onSurface else colors.onContainerColor
-        },
+        targetValue = if (selected) colors.onColor else colors.onContainerColor,
         label = "Indicator color $index",
     )
     val indicatorAlpha by animateFloatAsState(
         targetValue = if (enabled) 1f else SparkTheme.colors.dim3,
         label = "Indicator color $index",
-    )
-    val borderSize by animateDpAsState(
-        targetValue = if (isOutlined && !selected) 1.dp else 0.dp,
-        label = "Border size $index",
     )
     val indicatorSize = with(LocalDensity.current) {
         size.size.toDp()
@@ -426,11 +401,6 @@ private fun StepIndicator(
             },
         color = indicatorColor,
         contentColor = indicatorContentColor,
-        border = if (isOutlined) {
-            BorderStroke(borderSize, colors.color)
-        } else {
-            null
-        },
         elevation = elevation,
         enabled = enabled,
         onClick = { onClick?.invoke() },
@@ -487,12 +457,12 @@ private fun PreviewProgressTracker() {
             items = persistentListOf(
                 ProgressStep(
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt " +
-                        "ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation.",
+                            "ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation.",
                     true,
                 ),
                 ProgressStep(
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt " +
-                        "ut labore et dolore magna aliqua.",
+                            "ut labore et dolore magna aliqua.",
                     true,
                 ),
                 ProgressStep("Lorem ipsume dolar sit amet", true),
@@ -537,51 +507,6 @@ private fun PreviewProgressSizes() {
         ProgressTrackerRow(
             items = items,
             size = ProgressSizes.Small,
-            onStepClick = {
-                selectedStep = it
-            },
-            selectedStep = selectedStep,
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun PreviewProgressStyles() {
-    PreviewTheme(padding = PaddingValues(0.dp)) {
-        var selectedStep by remember { mutableIntStateOf(1) }
-        val items = persistentListOf(
-            ProgressStep("Lorem ipsume", true),
-            ProgressStep("Lorem ipsume dolar sit amet", true),
-            ProgressStep("Lorem ipsume", false),
-        )
-        val intent = ProgressTrackerIntent.Main
-        val style = ProgressStyles.Outlined
-        ProgressTrackerRow(
-            items = items,
-            size = ProgressSizes.Large,
-            style = style,
-            intent = intent,
-            onStepClick = {
-                selectedStep = it
-            },
-            selectedStep = selectedStep,
-        )
-        ProgressTrackerRow(
-            items = items,
-            size = ProgressSizes.Medium,
-            style = style,
-            intent = intent,
-            onStepClick = {
-                selectedStep = it
-            },
-            selectedStep = selectedStep,
-        )
-        ProgressTrackerRow(
-            items = items,
-            size = ProgressSizes.Small,
-            style = ProgressStyles.Tinted,
-            intent = intent,
             onStepClick = {
                 selectedStep = it
             },
@@ -640,7 +565,6 @@ private fun PreviewProgressIndicator() {
             StepIndicator(
                 colors = ProgressTrackerIntent.Basic.colors(),
                 size = ProgressSizes.Large,
-                style = ProgressStyles.Outlined,
                 index = index,
                 enabled = progressStep.enabled,
                 selected = index == selectedStep,

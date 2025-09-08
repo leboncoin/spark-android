@@ -38,21 +38,6 @@ public enum class ProgressTrackerIntent {
         override fun colors(): IntentColor = IntentColors.Basic.colors()
     },
 
-    /**
-     * Used to highlight information.
-     */
-    Support {
-        @Composable
-        override fun colors(): IntentColor = IntentColors.Support.colors()
-    },
-
-    /**
-     * Used for the most important information.
-     */
-    Main {
-        @Composable
-        override fun colors(): IntentColor = IntentColors.Main.colors()
-    },
 
     /**
      * Used for feedbacks that are neutral.
@@ -68,38 +53,6 @@ public enum class ProgressTrackerIntent {
     Success {
         @Composable
         override fun colors(): IntentColor = IntentColors.Success.colors()
-    },
-
-    /**
-     * Used to give information with no emphasis
-     */
-    Info {
-        @Composable
-        override fun colors(): IntentColor = IntentColors.Info.colors()
-    },
-
-    /**
-     * Used to make UI component visually accentuated.
-     */
-    Accent {
-        @Composable
-        override fun colors(): IntentColor = IntentColors.Accent.colors()
-    },
-
-    /**
-     * Used for feedbacks that are negative.
-     */
-    Alert {
-        @Composable
-        override fun colors(): IntentColor = IntentColors.Alert.colors()
-    },
-
-    /**
-     * Used for first level information
-     */
-    Danger {
-        @Composable
-        override fun colors(): IntentColor = IntentColors.Danger.colors()
     },
     ;
 
