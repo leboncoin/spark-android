@@ -104,7 +104,7 @@ robolectric = "org.robolectric:robolectric:4.16"
 slack-lint-compose = "com.slack.lint.compose:compose-lint-checks:1.4.2"
 
 # https://github.com/google/TestParameterInjector
-testParameterInjector = "com.google.testparameterinjector:test-parameter-injector:1.18"
+testParameterInjector = "com.google.testparameterinjector:test-parameter-injector:1.19"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
