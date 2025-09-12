@@ -62,7 +62,6 @@ dependencies {
     implementation(libs.accompanist.drawablepainter)
 
     implementation(libs.androidx.appCompat.resources)
-    implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core)
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.savedstate)
