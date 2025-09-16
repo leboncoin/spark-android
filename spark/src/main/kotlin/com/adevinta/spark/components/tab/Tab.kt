@@ -29,13 +29,17 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CornerBasedShape
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.semantics.contentDescription
@@ -46,6 +50,7 @@ import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
+import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconSize
 import com.adevinta.spark.components.text.Text
@@ -66,6 +71,7 @@ import androidx.compose.material3.Tab as MaterialTab
  * as well as providing the correct colors for selected / unselected states.
  *
  * @param selected whether this tab is selected or not
+ * @param shape [Shape] to be applied to this tab
  * @param onClick called when this tab is clicked
  * @param modifier the Modifier to be applied to this tab
  * @param text label to be displayed
@@ -87,6 +93,7 @@ import androidx.compose.material3.Tab as MaterialTab
 @Composable
 internal fun SparkTab(
     selected: Boolean,
+    shape: CornerBasedShape,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     text: String? = null,
@@ -121,7 +128,8 @@ internal fun SparkTab(
                         this.contentDescription = requireNotNull(contentDescription)
                     }
                 }
-                .sparkUsageOverlay(),
+                .sparkUsageOverlay()
+                .clip(shape.copy(bottomStart = CornerSize(0.dp), bottomEnd = CornerSize(0.dp))),
             enabled = enabled,
             selectedContentColor = selectedContentColor,
             unselectedContentColor = LocalContentColor.current,
@@ -216,10 +224,11 @@ private fun TabLayout(
  * and it will appear visually disabled and disabled to accessibility services.
  * @param intent [TabIntent] used to highlight the selected tab
  * @param size [TabSize] to apply to the tab
+ * @param shape [Shape] to be applied to this tab
  * @param interactionSource the MutableInteractionSource representing the stream of Interactions for this tab.
  * You can create and pass in your own remembered instance to observe Interactions
  * and customize the appearance / behavior of this tab in different states.
- * @param trailingContent optional trailing content, typically a [com.adevinta.
+ * @param trailingContent optional trailing content, typically a [com.adevinta.spark.components.badge.Badge]
  *
  **/
 @Composable
@@ -233,6 +242,7 @@ public fun Tab(
     enabled: Boolean = true,
     intent: TabIntent = TabDefaults.SelectedContentIntent,
     size: TabSize = TabDefaults.Size,
+    shape: CornerBasedShape = SparkTheme.shapes.large,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     trailingContent: @Composable () -> Unit = {},
 ) {
@@ -246,6 +256,7 @@ public fun Tab(
         enabled = enabled,
         selectedContentColor = intent.color(),
         size = size,
+        shape = shape,
         interactionSource = interactionSource,
         trailingContent = trailingContent,
     )

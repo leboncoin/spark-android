@@ -27,6 +27,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -47,19 +48,24 @@ import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.badge.Badge
 import com.adevinta.spark.components.iconbuttons.IconButtonFilled
+import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.components.tab.Tab
 import com.adevinta.spark.components.tab.TabGroup
 import com.adevinta.spark.components.tab.TabIntent
 import com.adevinta.spark.components.tab.TabSize
 import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.components.textfields.SingleChoiceDropdown
 import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.icons.MessageOutline
 import com.adevinta.spark.icons.Minus
 import com.adevinta.spark.icons.Plus
 import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.tokens.Order
 import com.adevinta.spark.tokens.bodyWidth
 import com.adevinta.spark.tokens.highlight
 import kotlin.random.Random
+import kotlin.reflect.full.declaredMemberProperties
+import kotlin.reflect.full.findAnnotation
 
 public val TabsConfigurator: Configurator = Configurator(
     id = "tab",
@@ -77,6 +83,11 @@ private fun ColumnScope.TabSample() {
     var tabSize by remember { mutableStateOf(TabSize.Medium) }
     var intent by remember { mutableStateOf(TabIntent.Main) }
     var selectedIndex by remember { mutableIntStateOf(0) }
+
+    val defaultShape = SparkTheme.shapes.large
+    var selectedShape by remember { mutableStateOf(defaultShape) }
+    var shapeDropdownExpanded by remember { mutableStateOf(false) }
+
     val tabs =
         remember { mutableStateListOf(Pair("Home", null) to 0, Pair("Message", SparkIcons.MessageOutline) to 120) }
 
@@ -95,6 +106,7 @@ private fun ColumnScope.TabSample() {
                 onClick = { selectedIndex = index },
                 enabled = isEnabled,
                 size = tabSize,
+                shape = selectedShape,
                 trailingContent = {
                     if (unread > 0) {
                         Badge(count = unread)
@@ -140,6 +152,27 @@ private fun ColumnScope.TabSample() {
         selectedOption = tabSize,
         onOptionSelect = { tabSize = it },
     )
+
+    SingleChoiceDropdown(
+        modifier = Modifier.fillMaxWidth(),
+        value = selectedShape.propertyName(),
+        label = "Shape",
+        expanded = shapeDropdownExpanded,
+        onExpandedChange = { shapeDropdownExpanded = !shapeDropdownExpanded },
+        onDismissRequest = { shapeDropdownExpanded = false },
+        dropdownContent = {
+            shapes.forEach { shape ->
+                DropdownMenuItem(
+                    text = { Text(shape.propertyName()) },
+                    onClick = {
+                        selectedShape = shape
+                        shapeDropdownExpanded = false
+                    },
+                    selected = selectedShape == shape,
+                )
+            }
+        },
+    )
     Column {
         Text(
             text = "Number of tabs",
@@ -168,6 +201,26 @@ private fun ColumnScope.TabSample() {
         }
     }
 }
+
+private val shapes: List<CornerBasedShape>
+    @Composable
+    get() = listOf(
+        SparkTheme.shapes.none,
+        SparkTheme.shapes.extraSmall,
+        SparkTheme.shapes.small,
+        SparkTheme.shapes.medium,
+        SparkTheme.shapes.large,
+        SparkTheme.shapes.extraLarge,
+        SparkTheme.shapes.full,
+    )
+
+@Suppress("ReplaceGetOrSet")
+@Composable
+private fun CornerBasedShape.propertyName(): String = SparkTheme.shapes::class
+    .declaredMemberProperties
+    .sortedBy { it.findAnnotation<Order>()?.value ?: Int.MAX_VALUE }
+    .get(shapes.indexOf(this))
+    .name
 
 @Preview
 @Composable
