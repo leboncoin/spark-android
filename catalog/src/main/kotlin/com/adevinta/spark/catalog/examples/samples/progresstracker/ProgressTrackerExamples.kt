@@ -37,7 +37,6 @@ import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.progress.tracker.ProgressSizes
 import com.adevinta.spark.components.progress.tracker.ProgressStep
-import com.adevinta.spark.components.progress.tracker.ProgressStyles
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerColumn
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerIntent
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerRow
@@ -85,14 +84,6 @@ public val ProgressTrackerExamples: List<Example> = listOf(
         sourceUrl = ProgressTrackerExampleSourceUrl,
     ) {
         ProgressTrackerColors()
-    },
-    Example(
-        id = "styles",
-        name = "Styles",
-        description = "Use `style` param to set the look and feel.",
-        sourceUrl = ProgressTrackerExampleSourceUrl,
-    ) {
-        ProgressTrackerStyles()
     },
 )
 
@@ -284,37 +275,6 @@ private fun ColumnScope.ProgressTrackerColors() {
                     ProgressStep("Step 3", false),
                 ),
                 intent = intent,
-                selectedStep = selectedStep,
-            )
-        }
-    }
-}
-
-@Composable
-@Preview
-private fun ColumnScope.ProgressTrackerStyles() {
-    val selectedStep by remember { mutableIntStateOf(1) }
-    val items = persistentListOf(
-        ProgressStep("label1", true),
-        ProgressStep("label2", true),
-        ProgressStep("label3", false),
-    )
-    for (style in ProgressStyles.entries) {
-        ProgressTrackerRow(
-            items = items,
-            style = style,
-            selectedStep = selectedStep,
-        )
-    }
-    Row {
-        for (style in ProgressStyles.entries) {
-            ProgressTrackerColumn(
-                items = persistentListOf(
-                    ProgressStep("Step 1", true),
-                    ProgressStep("Step 2", true),
-                    ProgressStep("Step 3", false),
-                ),
-                style = style,
                 selectedStep = selectedStep,
             )
         }

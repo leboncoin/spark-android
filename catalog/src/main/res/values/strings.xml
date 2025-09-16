@@ -67,6 +67,7 @@
     <string name="component_tab_description">Tabs are used to group different but related content, allowing users to navigate views without leaving the page. They always contain at least two items and one tab is active at a time.</string>
     <string name="component_textfield_description">The input / text-field component allows users to write in the space provided for the content.</string>
     <string name="component_tokens_description">The tokens are the basis of this Design System and allow to choose its colours, shapes, typos and icons.</string>
+    <string name="component_animation_description">Animations provide visual feedback and enhance user experience through motion. The pulse animation creates a pulsating effect that draws attention to interactive elements.</string>
     <string name="component_popovers_description">Provides a descriptive message or Info for an Anchor.</string>
     <string name="component_bottomsheets_description">A bottom sheet is a UI component commonly used in mobile applications to present additional content or options from the bottom of the screen.</string>
     <!--region Icon button-->

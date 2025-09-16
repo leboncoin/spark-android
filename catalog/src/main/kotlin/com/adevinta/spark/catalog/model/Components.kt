@@ -24,6 +24,7 @@ package com.adevinta.spark.catalog.model
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.adevinta.spark.catalog.R
+import com.adevinta.spark.catalog.configurator.samples.animation.PulseConfigurator
 import com.adevinta.spark.catalog.configurator.samples.bottomsheet.BottomSheetConfigurator
 import com.adevinta.spark.catalog.configurator.samples.buttons.ButtonsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.buttons.IconButtonsConfigurator
@@ -48,6 +49,7 @@ import com.adevinta.spark.catalog.configurator.samples.textfields.TextFieldsConf
 import com.adevinta.spark.catalog.configurator.samples.toggles.CheckboxConfigurator
 import com.adevinta.spark.catalog.configurator.samples.toggles.RadioButtonConfigurator
 import com.adevinta.spark.catalog.configurator.samples.toggles.SwitchConfigurator
+import com.adevinta.spark.catalog.examples.samples.animation.AnimationExamples
 import com.adevinta.spark.catalog.examples.samples.bottomsheet.BottomSheetExamples
 import com.adevinta.spark.catalog.examples.samples.buttons.ButtonsExamples
 import com.adevinta.spark.catalog.examples.samples.buttons.IconButtonsExamples
@@ -197,6 +199,17 @@ private val Dropdowns = Component(
     sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/textfields/Dropdown.kt",
     examples = DropdownsExamples,
     configurators = listOf(DropdownsConfigurator),
+)
+
+private val Animations = Component(
+    id = "animations",
+    name = "Animations",
+    description = R.string.component_animation_description,
+    guidelinesUrl = "$ComponentGuidelinesUrl/p/3075e9-foundations",
+    docsUrl = "$PackageSummaryUrl/com.adevinta.spark.animation/index.html",
+    sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/animation/Pulse.kt",
+    examples = AnimationExamples,
+    configurators = PulseConfigurator,
 )
 
 private val Icons = Component(
@@ -410,6 +423,7 @@ private val TextLinks = Component(
 
 /** Components for the catalog, ordered alphabetically by name. */
 public val Components: List<Component> = listOf(
+    Animations,
     Tokens,
     BottomSheets,
     Buttons,

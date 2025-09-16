@@ -28,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.components.progress.tracker.ProgressSizes
 import com.adevinta.spark.components.progress.tracker.ProgressStep
-import com.adevinta.spark.components.progress.tracker.ProgressStyles
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerColumn
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerRow
 import com.adevinta.spark.paparazziRule
@@ -48,29 +47,26 @@ internal class ProgressTrackerDocScreenshot {
     fun progressColumnShowcase() {
         paparazzi.sparkSnapshotNightMode {
             Column {
-                ProgressStyles.entries.forEach {
-                    ProgressTrackerColumn(
-                        modifier = Modifier.width(240.dp),
-                        items = persistentListOf(
-                            ProgressStep(
-                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" +
-                                    " incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis" +
-                                    " nostrud exercitation.",
-                                true,
-                            ),
-                            ProgressStep(
-                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod" +
-                                    " tempor incididunt ut labore et dolore magna aliqua.",
-                                false,
-                            ),
-                            ProgressStep("Lorem ipsume dolar sit amet", true),
+                ProgressTrackerColumn(
+                    modifier = Modifier.width(240.dp),
+                    items = persistentListOf(
+                        ProgressStep(
+                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" +
+                                " incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis" +
+                                " nostrud exercitation.",
+                            true,
                         ),
-                        style = it,
-                        onStepClick = {
-                        },
-                        selectedStep = 1,
-                    )
-                }
+                        ProgressStep(
+                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod" +
+                                " tempor incididunt ut labore et dolore magna aliqua.",
+                            false,
+                        ),
+                        ProgressStep("Lorem ipsume dolar sit amet", true),
+                    ),
+                    onStepClick = {
+                    },
+                    selectedStep = 1,
+                )
             }
         }
     }
@@ -79,20 +75,17 @@ internal class ProgressTrackerDocScreenshot {
     fun progressRowShowcase() {
         paparazzi.sparkSnapshotNightMode {
             Column {
-                ProgressStyles.entries.forEach {
-                    ProgressTrackerRow(
-                        modifier = Modifier.width(240.dp),
-                        items = persistentListOf(
-                            ProgressStep("Lorem ipsume", true),
-                            ProgressStep("Lorem ipsume dolar sit amet", false),
-                            ProgressStep("Lorem ipsume", true),
-                        ),
-                        style = it,
-                        onStepClick = {
-                        },
-                        selectedStep = 1,
-                    )
-                }
+                ProgressTrackerRow(
+                    modifier = Modifier.width(240.dp),
+                    items = persistentListOf(
+                        ProgressStep("Lorem ipsume", true),
+                        ProgressStep("Lorem ipsume dolar sit amet", false),
+                        ProgressStep("Lorem ipsume", true),
+                    ),
+                    onStepClick = {
+                    },
+                    selectedStep = 1,
+                )
             }
         }
     }

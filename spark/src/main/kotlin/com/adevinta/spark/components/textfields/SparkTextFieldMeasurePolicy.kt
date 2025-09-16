@@ -346,7 +346,8 @@ private fun calculateWidth(
             paddingValues.calculateLeftPadding(LayoutDirection.Ltr) +
                 paddingValues.calculateRightPadding(LayoutDirection.Ltr)
             )
-            .value * density
+            .value *
+            density
     val focusedLabelWidth =
         ((labelPlaceableWidth + labelHorizontalPadding) * animationProgress).roundToInt()
     return maxOf(wrappedWidth, focusedLabelWidth, constraints.minWidth)
@@ -389,7 +390,8 @@ private fun calculateHeight(
             leadingPlaceableHeight,
             trailingPlaceableHeight,
             middleSectionHeight.roundToInt(),
-        ) + supportingPlaceableHeight,
+        ) +
+            supportingPlaceableHeight,
     )
 }
 
@@ -472,7 +474,8 @@ private fun Placeable.PlacementScope.place(
                 } else {
                     (widthOrZero(leadingPlaceable) - startPadding) * (1 - animationProgress) + startPadding
                 }
-                ).roundToInt() + startPadding
+                ).roundToInt() +
+                startPadding
         it.placeRelative(positionX, positionY)
     }
 

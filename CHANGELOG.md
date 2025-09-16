@@ -4,6 +4,82 @@
 
 ## [Unreleased]
 
+## [1.4.0]
+
+_2025-09-05_
+
+### Spark
+
+#### Animations
+
+##### 🆕 Add new `pulse` modifier animation
+
+This animation display a pulsating wave from the component to catch the attention of the user eyes.
+THe color, scales, duration and shape are customizable.
+```kotlin
+ButtonTinted(
+    modifier = Modifier
+        .pulse(
+            shape = SparkTheme.shapes.large,
+        ),
+    text = "Vibing",
+)
+```
+
+##### 🆕 Add new `shake` modifier animation
+
+This animation display a transformative animations using a spring animation spec.
+It's ideal to indicate validation on user interaction.
+```kotlin
+ val vibrateController = rememberShakeController()
+
+ButtonTinted(
+    modifier = Modifier.shake(vibrateController),
+    onClick = {
+        vibrateController.shake(
+            ShakeConfig(
+                iterations = 8,
+                intensity = 100_000f,
+                translateX = -15f,
+            ),
+        )
+    },
+    text = "Vibrate me",
+)
+```
+
+- 🆕 Add a `pulse` example and configurator
+- Pulse now have a `enabled` argument to avoid making a complex modifier chain when we want to control the visibility of this animation
+
+#### Popover
+
+- 🔧 Add a `positionProvider` argument to change the spacing between a `Popover` and its anchor
+
+#### Modal
+
+- 🐛 Fixed ModalScaffold by removing `FLAG_LAYOUT_NO_LIMITS` window flag to allow proper scrollable popup behavior when it's used inside it
+
+#### Checkbox, RadioButton & Switch: API changes
+
+- The `intent` parameter for `Checkbox`, `RadioButton`, and `Switch` is now deprecated and will be removed in a future release. We are keeping only the "Basic" and "Error" colors to ensure better visual consistency.
+- Use the new `error: Boolean` parameter to indicate error/validation state for `Checkbox` & `RadioButton` components.
+- The `ContentSide` parameter will be deprecated in a future release to improve readability and accessibility (a11y). All content will be aligned to the right/end by default for better screen reader support.
+
+> [!CAUTION]
+> - If you use a color other than **"Basic"** or **"Error"**, consider replacing it and use the new `error` parameter.
+> - If you use Start/left content side, update your usage to End/right alignment for improved accessibility.
+
+## [1.4.0-beta01]
+
+_2025-09-04_
+
+### Spark
+
+#### Animations
+
+- 🆕 Add a `pulse` example and configurator
+- Pulse now have a `enabled` argument to avoid making a complex modifier chain when we want to control the visibility of this animation
+
 ## [1.4.0-alpha03]
 
 _2025-08-01_
@@ -705,7 +781,13 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.4.0-alpha02...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.4.0...HEAD
+
+[1.4.0]: https://github.com/leboncoin/spark-android/releases/tag/1.4.0
+
+[1.4.0-beta01]: https://github.com/leboncoin/spark-android/releases/tag/1.4.0-beta01
+
+[1.4.0-alpha03]: https://github.com/leboncoin/spark-android/releases/tag/1.4.0-alpha03
 
 [1.4.0-alpha02]: https://github.com/leboncoin/spark-android/releases/tag/1.4.0-alpha02
 

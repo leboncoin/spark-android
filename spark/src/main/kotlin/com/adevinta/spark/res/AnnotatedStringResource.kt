@@ -44,9 +44,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -245,10 +244,7 @@ public fun annotatedPluralStringResource(
 
 @Composable
 @ReadOnlyComposable
-internal fun resources(): Resources {
-    LocalConfiguration.current
-    return LocalContext.current.resources
-}
+internal fun resources(): Resources = LocalResources.current
 
 /**
  * The framework `getText()` method doesn't support formatting arguments, so we need to do it ourselves.
