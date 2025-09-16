@@ -1,7 +1,7 @@
 [versions]
 accompanist = "0.36.0"
 agp = "8.13.0"
-androidx-activity = "1.10.1"
+androidx-activity = "1.11.0"
 androidx-appCompat = "1.7.1"
 compileSdk = "36"
 dokka = "1.9.20"
