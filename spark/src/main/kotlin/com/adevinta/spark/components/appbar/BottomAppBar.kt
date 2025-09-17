@@ -89,6 +89,61 @@ import com.adevinta.spark.tokens.contentColorFor
  * and shows elevation when content has been scrolled up from a scrolled-down position
  * (contentOffset > 0), indicating there's content above the current scroll position.
  *
+ * Example usage with a scrollable screen:
+ * ```kotlin
+ * @OptIn(ExperimentalMaterial3Api::class)
+ * @Composable
+ * fun ScrollableScreenWithBottomBar() {
+ *     // Create scroll behaviors for both bars if needed
+ *     val topBarBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+ *     val bottomBarBehavior = BottomAppBarSparkDefaults.bottomAppBarScrollBehavior()
+ *
+ *     Scaffold(
+ *         modifier = Modifier
+ *             .fillMaxSize()
+ *             // Connect both scroll behaviors
+ *             .nestedScroll(topBarBehavior.nestedScrollConnection)
+ *             .nestedScroll(bottomBarBehavior.nestedScrollConnection),
+ *         topBar = {
+ *             TopAppBar(
+ *                 title = { Text("My App") },
+ *                 scrollBehavior = topBarBehavior
+ *             )
+ *         },
+ *         bottomBar = {
+ *             BottomAppBar(
+ *                 scrollBehavior = bottomBarBehavior,
+ *                 actions = {
+ *                     ButtonOutlined(
+ *                         onClick = { /* Handle click */ },
+ *                         text = "Cancel",
+ *                         modifier = Modifier.weight(1f)
+ *                     )
+ *                     ButtonFilled(
+ *                         onClick = { /* Handle click */ },
+ *                         text = "Save",
+ *                         modifier = Modifier.weight(1f)
+ *                     )
+ *                 }
+ *             )
+ *         }
+ *     ) { padding ->
+ *         LazyColumn(
+ *             modifier = Modifier
+ *                 .fillMaxSize()
+ *                 .padding(padding),
+ *             verticalArrangement = Arrangement.spacedBy(8.dp)
+ *         ) {
+ *             items(50) { index ->
+ *                 ListItem(
+ *                     headlineContent = { Text("Item ${index + 1}") }
+ *                 )
+ *             }
+ *         }
+ *     }
+ * }
+ * ```
+ *
  * This behavior uses the BottomAppBarState.contentOffset to determine elevation:
  * - contentOffset > 0: Content has been scrolled up from scrolled-down position, show elevation
  * - contentOffset <= 0: At the top or scrolling down, no elevation needed
