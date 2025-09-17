@@ -44,6 +44,7 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.BottomAppBarDefaults
+import androidx.compose.material3.BottomAppBarScrollBehavior
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.TopAppBarDefaults
@@ -72,6 +73,7 @@ import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.R
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.appbar.BottomAppBar
+import com.adevinta.spark.components.appbar.BottomAppBarSparkDefaults
 import com.adevinta.spark.components.appbar.TopAppBar
 import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.buttons.ButtonOutlined
@@ -202,10 +204,13 @@ private fun DialogScaffold(
         onDismissRequest = onClose,
     ) {
         val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+        val bottomAppBarScrollBehavior = BottomAppBarSparkDefaults.bottomAppBarScrollBehavior()
+
         Surface(
             modifier = modifier
                 .sizeIn(minWidth = 280.dp, maxWidth = 560.dp)
-                .nestedScroll(scrollBehavior.nestedScrollConnection),
+                .nestedScroll(scrollBehavior.nestedScrollConnection)
+                .nestedScroll(bottomAppBarScrollBehavior.nestedScrollConnection),
             elevation = 6.dp,
             shape = SparkTheme.shapes.large,
         ) {
@@ -232,16 +237,20 @@ private fun DialogScaffold(
                     content(padding)
                 }
                 if (supportButton == null && mainButton == null) return@Column
-                FlowRow(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = 76.dp)
-                        .padding(vertical = 16.dp, horizontal = 24.dp),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.End),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                BottomAppBar(
+                    scrollBehavior = bottomAppBarScrollBehavior,
                 ) {
-                    supportButton?.invoke(Modifier)
-                    mainButton?.invoke(Modifier)
+                    FlowRow(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 76.dp)
+                            .padding(vertical = 16.dp, horizontal = 24.dp),
+                        horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.End),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        supportButton?.invoke(Modifier)
+                        mainButton?.invoke(Modifier)
+                    }
                 }
             }
         }
@@ -272,11 +281,13 @@ private fun PhonePortraitModalScaffold(
         if (inEdgeToEdge) SetUpEdgeToEdgeDialog()
 
         val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+        val bottomAppBarScrollBehavior = BottomAppBarSparkDefaults.bottomAppBarScrollBehavior()
 
         Scaffold(
             modifier = modifier
                 .fillMaxSize()
-                .nestedScroll(scrollBehavior.nestedScrollConnection),
+                .nestedScroll(scrollBehavior.nestedScrollConnection)
+                .nestedScroll(bottomAppBarScrollBehavior.nestedScrollConnection),
             snackbarHost = snackbarHost,
             contentWindowInsets = contentWindowInsets,
             topBar = {
@@ -289,7 +300,7 @@ private fun PhonePortraitModalScaffold(
                     scrollBehavior = scrollBehavior,
                 )
             },
-            bottomBar = { BottomBarPortrait(mainButton, supportButton) },
+            bottomBar = { BottomBarPortrait(mainButton, supportButton, bottomAppBarScrollBehavior) },
         ) { innerPadding ->
             Box(Modifier.padding(contentPadding)) {
                 content(innerPadding)
@@ -298,13 +309,17 @@ private fun PhonePortraitModalScaffold(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun BottomBarPortrait(
     mainButton: @Composable ((Modifier) -> Unit)?,
     supportButton: @Composable ((Modifier) -> Unit)?,
+    scrollBehavior: BottomAppBarScrollBehavior,
 ) {
     if (supportButton == null && mainButton == null) return
-    BottomAppBar {
+    BottomAppBar(
+        scrollBehavior = scrollBehavior,
+    ) {
         val buttonsLayoutModifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 24.dp)
@@ -355,16 +370,20 @@ private fun PhoneLandscapeModalScaffold(
         // Work around for b/246909281 as for now Dialog doesn't pass the drawing insets to its content
         if (inEdgeToEdge) SetUpEdgeToEdgeDialog()
         val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+        val bottomAppBarScrollBehavior = BottomAppBarSparkDefaults.bottomAppBarScrollBehavior()
 
         Scaffold(
             modifier = modifier
                 .fillMaxSize()
-                .nestedScroll(scrollBehavior.nestedScrollConnection),
+                .nestedScroll(scrollBehavior.nestedScrollConnection)
+                .nestedScroll(bottomAppBarScrollBehavior.nestedScrollConnection),
             snackbarHost = snackbarHost,
             contentWindowInsets = contentWindowInsets,
             bottomBar = {
                 if (supportButton == null && mainButton == null) return@Scaffold
-                Surface {
+                BottomAppBar(
+                    scrollBehavior = bottomAppBarScrollBehavior,
+                ) {
                     Row(
                         modifier = Modifier
                             .padding(bottom = 16.dp, top = 8.dp)
