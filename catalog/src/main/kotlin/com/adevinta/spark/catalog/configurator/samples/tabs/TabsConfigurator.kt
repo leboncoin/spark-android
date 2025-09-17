@@ -77,6 +77,7 @@ private fun ColumnScope.TabSample() {
     var tabSize by remember { mutableStateOf(TabSize.Medium) }
     var intent by remember { mutableStateOf(TabIntent.Main) }
     var selectedIndex by remember { mutableIntStateOf(0) }
+
     val tabs =
         remember { mutableStateListOf(Pair("Home", null) to 0, Pair("Message", SparkIcons.MessageOutline) to 120) }
 
@@ -140,6 +141,7 @@ private fun ColumnScope.TabSample() {
         selectedOption = tabSize,
         onOptionSelect = { tabSize = it },
     )
+
     Column {
         Text(
             text = "Number of tabs",
