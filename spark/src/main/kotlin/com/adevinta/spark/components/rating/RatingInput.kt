@@ -81,16 +81,16 @@ import kotlin.math.roundToInt
 
 /**
  * A rating input component that allows the user to select a rating from 0 to 5.
+ * This component can have it's value changed either by a tap on the star or dragging horizontally.
  *
  * @param value The current rating value [Int].
  * @param onRatingChanged The callback that is called when the rating value changes.
  * @param modifier The modifier to be applied to the layout.
  * @param enabled Whether the rating input is enabled.
  * @param stateDescription Lambda to generate the accessibility state description from the current value.
- *                        Defaults to "$value stars".
  * @param allowSemantics Whether to enable semantic properties for accessibility. Set to false when
- *                      using the component as part of a larger component that handles its own semantics
- *                      to avoid duplicate announcements.
+ * using the component as part of a larger component that handles its own semantics to avoid duplicate announcements.
+ * @param testTag Optional tag for UI testing, if defined then all stars will have a test tag in the format "$testTag Star $index" where index is 0-4.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
