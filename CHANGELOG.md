@@ -2,7 +2,21 @@
 
 <!-- Don't forget to update links at the end of this page! -->
 
+
 ## [Unreleased]
+
+### Spark
+
+#### ♿ RatingInput Accessibility & Interaction Improvements
+
+- ♿ `RatingInput` now behaves like a slider for accessibility, providing improved screen reader support and customizable state descriptions.
+- ♿ Added horizontal drag gesture to change the rating value, with haptic feedback for each change.
+- 🎨 Keyboard support: Shift + Arrow keys increment/decrement the rating for enhanced accessibility while still maintaining focus on a each starts for selection.
+- 🧪 Added `testTag` parameter for robust UI testing and automation.
+
+> [!CAUTION]
+> Like the Stepper If you use custom accessibility semantics or parent components, set `allowSemantics = false` to avoid duplicate announcements.
+
 
 ## [1.4.0]
 
@@ -180,7 +194,7 @@ if (useDarkColors) {
 > ComboBox uses the new TextFieldState API for improved state management.
 
 - ✨ **Major API Upgrade**: ComboBox components now use `TextFieldState` instead of value/onValueChange pattern (#1572)
-- ✨ **Enhanced Single Selection**: `SingleChoiceComboBox` with improved filtering and suggestion capabilities 
+- ✨ **Enhanced Single Selection**: `SingleChoiceComboBox` with improved filtering and suggestion capabilities
 - ✨ **Multi-Selection Support**: `MultiChoiceComboBox` with chip-based selection display and management
 
 **Example: Real-time Filtering ComboBox**
@@ -192,8 +206,8 @@ var searchText by remember { mutableStateOf("") }
 val filteredBooks by remember(searchText) {
     derivedStateOf {
         if (searchText.isBlank()) comboBoxSampleValues
-        else comboBoxSampleValues.filter { 
-            it.title.contains(searchText, ignoreCase = true) 
+        else comboBoxSampleValues.filter {
+            it.title.contains(searchText, ignoreCase = true)
         }
     }
 }
@@ -235,8 +249,8 @@ var searchText by remember { mutableStateOf("") }
 val suggestedBooks by remember(searchText) {
     derivedStateOf {
         if (searchText.isBlank()) emptyList()
-        else comboBoxSampleValues.filter { 
-            it.title.contains(searchText, ignoreCase = true) 
+        else comboBoxSampleValues.filter {
+            it.title.contains(searchText, ignoreCase = true)
         }.take(3) // Limit to top 3 suggestions
     }
 }
@@ -250,9 +264,9 @@ SingleChoiceComboBox(
     state = state,
     expanded = expanded,
     onExpandedChange = { showDropdown = it },
-    onDismissRequest = { 
+    onDismissRequest = {
         searchText = ""
-        showDropdown = false 
+        showDropdown = false
     },
     label = "Search with suggestions",
     placeholder = "Type to see suggestions...",
@@ -352,7 +366,7 @@ _2025-02-19_
 _2025-01-29_
 
 ### Spark
-- 🛠 Use latest and simpler workaround to display a Dialog in fullscreen with support to edge-to-edge. 
+- 🛠 Use latest and simpler workaround to display a Dialog in fullscreen with support to edge-to-edge.
 - 🛠️ Modal `inEdgeToEdge` parameter now default to false.
 
 ## [1.1.2]
@@ -363,7 +377,7 @@ _2025-01-29_
 - 🐛 Conditional modifiers were not working as expected since they returned an empty modifier instead of modifier chain if the condition was not met.
 
 
-## [1.1.1] 
+## [1.1.1]
 
 _2025-01-28_
 
@@ -419,7 +433,7 @@ _2024-12-11_
 ### Spark
 
 - ⬆️ Upgrade Compose BOM to `2024.11.00` since it only contains bugfixes changes.
-- 
+-
 - ## [1.0.1]
 
 _2024-11-07_
@@ -507,7 +521,7 @@ _2024-06-18_
 
 ### Catalog App
 - `ModalScaffold` Added an example that will show the modal with no actions.
- 
+
 ## [0.10.0]
 
 _2024-05-16_
@@ -547,7 +561,7 @@ If you want to make your Chip closable then you will need to add a callback acti
 > [!WARNING]
 > The `BottomSheet` currently only accept M3 snackbars, you won't be able to display a SparkSnackbar
 
---- 
+---
 
 - 🆕 ProgressTracker is now available! it still has a few minor visual bugs but it can be tested by squads on their scope don't hesitate to give us feedbacks!
 - 🆕 `TextLinkButton` will now use `LocalContentColor` when using the Surface intent. This will allow you to have a `onSurface` `TextLink` when needed
@@ -716,7 +730,7 @@ _2023-08-17_
 _2023-07-31_
 
 * 🆕 Added `Basic` and `Accent` intents to all released components.
-* 💄Updated the default color intents to `Basic` for `Tag`, `Chip`, `Spinner`. 
+* 💄Updated the default color intents to `Basic` for `Tag`, `Chip`, `Spinner`.
 * 🗑️ Deprecated `Primary` and `Secondary` intents, `Main` and `Support`should be used instead.
 
 ## [0.3.0]
