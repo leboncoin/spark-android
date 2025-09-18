@@ -28,6 +28,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerBasedShape
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -106,6 +107,12 @@ public fun SparkShapes.asMaterial3Shapes(): Material3Shapes = Material3Shapes(
     large = large,
     extraLarge = extraLarge,
 )
+
+/**
+ * Extension property to get a [CornerBasedShape] with a bottom start of 0.dp
+ */
+public val CornerBasedShape.highlight: CornerBasedShape
+    get() = this.copy( bottomStart= CornerSize(0.dp))
 
 /**
  * CompositionLocal used to specify the default shapes for the surfaces.
