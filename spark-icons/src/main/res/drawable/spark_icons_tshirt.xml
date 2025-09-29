@@ -1,0 +1,31 @@
+<!--
+  Copyright (c) 2023 Adevinta
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="20dp"
+    android:height="18dp"
+    android:viewportWidth="20"
+    android:viewportHeight="18">
+  <path
+      android:pathData="M5.15,0c-0.26,0 -0.52,0.1 -0.7,0.3L0.29,4.65a1.06,1.06 0,0 0,0 1.46l2.77,2.9c0.3,0.3 0.73,0.38 1.1,0.22v6.29c0,0.65 0.25,1.29 0.7,1.75 0.44,0.47 1.04,0.73 1.68,0.73h6.92c0.64,0 1.24,-0.26 1.69,-0.73 0.44,-0.46 0.7,-1.1 0.7,-1.75v-6.3c0.36,0.17 0.8,0.1 1.09,-0.21l2.77,-2.9a1.06,1.06 0,0 0,0 -1.46L15.55,0.3a0.97,0.97 0,0 0,-0.7 -0.3zM2.4,5.38l3.16,-3.3h8.88l3.16,3.3 -1.36,1.43 -0.69,-0.71a0.96,0.96 0,0 0,-1.08 -0.23c-0.37,0.16 -0.61,0.54 -0.61,0.96v8.69c0,0.1 -0.04,0.2 -0.12,0.29a0.38,0.38 0,0 1,-0.28 0.12H6.54c-0.1,0 -0.2,-0.05 -0.28,-0.12a0.42,0.42 0,0 1,-0.12 -0.3V6.84c0,-0.42 -0.24,-0.8 -0.61,-0.96a0.96,0.96 0,0 0,-1.08 0.23l-0.69,0.71z"
+      android:fillColor="#3A4757"
+      android:fillType="evenOdd"/>
+</vector>

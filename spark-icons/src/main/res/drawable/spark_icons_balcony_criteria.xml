@@ -1,0 +1,30 @@
+<!--
+  Copyright (c) 2023 Adevinta
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="14dp"
+    android:height="16dp"
+    android:viewportWidth="14"
+    android:viewportHeight="16">
+  <path
+      android:pathData="M10.91,8.72L10.91,3.88A3.9,3.9 0,0 0,7 0a3.9,3.9 0,0 0,-3.92 3.88v4.84L0.4,8.72c-0.22,0 -0.41,0.2 -0.41,0.43 0,0.24 0.19,0.44 0.41,0.44h0.21v6.05c0,0.2 0.15,0.36 0.34,0.36h12.08c0.19,0 0.34,-0.17 0.34,-0.37L13.37,9.6h0.21c0.22,0 0.41,-0.2 0.41,-0.44 0,-0.23 -0.19,-0.43 -0.41,-0.43zM3.45,9.58h1.87v5.68L3.45,15.26zM6.06,9.58h1.87v5.68L6.06,15.26zM8.67,9.58h1.87v5.68L8.67,15.26zM7.33,8.72L7.33,5.56h2.91v3.16zM10.24,4.83h-2.9L7.34,0.72a3.2,3.2 0,0 1,2.9 3.16zM6.66,0.72v4.11L3.75,4.83v-0.95A3.2,3.2 0,0 1,6.66 0.72m0,4.84v0.85h-0.58c-0.2,0 -0.2,0.25 -0.2,0.37s0,0.36 0.2,0.36h0.58v1.58L3.75,8.72L3.75,5.56zM2.7,9.58v5.68L1.3,15.26L1.3,9.58zM11.29,15.26L11.29,9.58h1.41v5.68z"
+      android:fillColor="#3A4757"/>
+</vector>
