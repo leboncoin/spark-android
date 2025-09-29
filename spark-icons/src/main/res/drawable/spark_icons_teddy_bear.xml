@@ -1,0 +1,33 @@
+<!--
+  Copyright (c) 2023 Adevinta
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="20dp"
+    android:height="20dp"
+    android:viewportWidth="20"
+    android:viewportHeight="20">
+  <path
+      android:pathData="M8.16,2.9a0.83,0.83 0,0 0,-0.82 0.82v0.98a0.83,0.83 0,0 0,1.65 0v-0.98a0.83,0.83 0,0 0,-0.83 -0.83m3.69,0.01a0.83,0.83 0,0 0,-0.83 0.82v0.98a0.83,0.83 0,0 0,1.65 0v-0.98a0.83,0.83 0,0 0,-0.82 -0.83"
+      android:fillColor="#3A4757"/>
+  <path
+      android:pathData="M19.66,14.86c-0.3,-0.57 -1.11,-1.72 -2.54,-1.72 -0.1,0 -0.21,0 -0.32,0.02a6.13,6.13 0,0 0,-2.26 -3.6,5.33 5.33,0 0,0 1.41,-4.92A2.42,2.42 0,0 0,15 0.01c-0.8,0 -1.51,0.38 -1.96,1.02 -1.84,-1 -4.23,-1 -6.07,-0.01a2.4,2.4 0,0 0,-4.37 1.4c0,0.97 0.59,1.84 1.46,2.21a5.1,5.1 0,0 0,1.4 4.92,6.18 6.18,0 0,0 -2.26,3.6 3.2,3.2 0,0 0,-0.32 -0.02c-1.71,0 -2.5,1.68 -2.64,2.03a3.72,3.72 0,0 0,1.46 4.4c0.5,0.3 1.03,0.44 1.7,0.44 0.71,0 1.43,-0.21 1.95,-0.36 1,-0.28 1.91,-0.74 2.74,-1.4a6.05,6.05 0,0 0,3.82 0,7.83 7.83,0 0,0 2.74,1.4 7.5,7.5 0,0 0,2 0.36,3 3,0 0,0 1.65,-0.46 3.71,3.71 0,0 0,1.46 -4.38zM17.45,18.12 L17.37,18.17a0.82,0.82 0,0 1,-0.17 0.07c-0.1,-0.55 0.08,-1.1 0.45,-1.39 0.2,-0.17 0.47,-0.23 0.7,-0.24 -0.07,0.61 -0.4,1.22 -0.9,1.51m-2.35,-0.08a6.13,6.13 0,0 1,-1.64 -0.73l0.15,-0.16c0.31,-0.33 0.57,-0.72 0.75,-1.15l0.64,0.24c0.21,0.07 0.45,0.06 0.64,-0.04a0.9,0.9 0,0 0,0.42 -0.5c0.17,-0.52 0.62,-0.9 1.08,-0.91 0.22,0 0.41,0.1 0.57,0.24 -0.41,0.1 -0.78,0.27 -1.11,0.53a3.04,3.04 0,0 0,-1.08 2.59zM4.5,18.16a3.04,3.04 0,0 0,-1.09 -2.59c-0.32,-0.25 -0.7,-0.43 -1.11,-0.53a0.9,0.9 0,0 1,0.58 -0.24c0.46,0 0.9,0.39 1.07,0.9 0.06,0.22 0.22,0.4 0.42,0.5 0.2,0.1 0.44,0.11 0.66,0.04l0.64,-0.24c0.19,0.44 0.43,0.82 0.74,1.16l0.14,0.16c-0.51,0.33 -1.06,0.57 -1.64,0.73zM2.37,16.86c0.37,0.3 0.53,0.84 0.45,1.4 -0.09,-0.04 -0.17,-0.07 -0.24,-0.13 -0.5,-0.3 -0.83,-0.88 -0.9,-1.51 0.23,0.01 0.48,0.07 0.7,0.24m6.06,-7.8c0.16,0.21 0.35,0.4 0.57,0.54 -0.73,-0.22 -1.26,-0.67 -1.26,-1.12 0,-0.24 0.16,-0.5 0.43,-0.72 -0.13,0.39 -0.05,0.87 0.26,1.3m3.16,0c0.3,-0.43 0.4,-0.9 0.26,-1.3 0.27,0.22 0.43,0.48 0.43,0.72 0,0.45 -0.54,0.91 -1.27,1.13 0.22,-0.15 0.43,-0.34 0.58,-0.56m3.27,5.35 l-0.12,-0.04a6.45,6.45 0,0 0,-0.5 -2.79c0.53,0.62 0.98,1.44 0.96,2.42 -0.12,0.13 -0.24,0.28 -0.34,0.43zM13.85,7.8c-0.4,-1.32 -1.93,-2.28 -3.82,-2.28 -1.9,0 -3.44,0.97 -3.82,2.28a3.5,3.5 0,0 1,-0.62 -1.98c0,-2.16 2,-3.92 4.44,-3.92 2.44,0 4.43,1.76 4.43,3.92a3.5,3.5 0,0 1,-0.61 1.98m-8.56,6.56 l-0.12,0.04c-0.1,-0.14 -0.21,-0.3 -0.34,-0.42a3.6,3.6 0,0 1,0.95 -2.4,6.24 6.24,0 0,0 -0.47,2.78zM7.94,11.06a7.15,7.15 0,0 0,2.5 0.32,6.16 6.16,0 0,0 1.65,-0.31c1.33,1.87 1.23,3.95 0.3,4.95a3.1,3.1 0,0 1,-2.37 0.85h-0.03c-0.37,0.03 -1.6,-0.03 -2.38,-0.85 -0.92,-1 -1.02,-3.08 0.31,-4.95zM15.32,3.1a6.1,6.1 0,0 0,-0.91 -1.13c0.14,-0.2 0.36,-0.32 0.61,-0.32a0.76,0.76 0,0 1,0.3 1.45M5,1.66c0.25,0 0.48,0.13 0.61,0.32a5.8,5.8 0,0 0,-0.9 1.13,0.76 0.76,0 0,1 -0.46,-0.7c0,-0.4 0.34,-0.75 0.75,-0.75"
+      android:fillColor="#3A4757"/>
+</vector>

@@ -1,0 +1,30 @@
+<!--
+  Copyright (c) 2023 Adevinta
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="20dp"
+    android:height="20dp"
+    android:viewportWidth="20"
+    android:viewportHeight="20">
+  <path
+      android:pathData="M19.67,13.45C17.07,8.5 13.6,3.48 11.76,0.92A2.2,2.2 0,0 0,8.99 0.23c-0.3,0.17 -0.57,0.4 -0.77,0.68A111.14,111.14 0,0 0,0.31 13.44a2.63,2.63 0,0 0,-0.17 2.1,2.61 2.61,0 0,0 1.38,1.57C4.32,18.43 8.07,20 10,20c1.93,0 5.68,-1.58 8.48,-2.89a2.53,2.53 0,0 0,1.38 -1.57,2.58 2.58,0 0,0 -0.17,-2.09zM2.15,15.1a0.57,0.57 0,0 1,-0.12 -0.21c-0.03,-0.08 -0.04,-0.17 -0.03,-0.24a0.5,0.5 0,0 1,0.07 -0.23C4.25,10.24 7.08,6 8.99,3.32V17.8a37.3,37.3 0,0 1,-6.65 -2.56,0.52 0.52,0 0,1 -0.2,-0.15m15.8,-0.2a0.58,0.58 0,0 1,-0.12 0.2,0.52 0.52,0 0,1 -0.19,0.15A36.99,36.99 0,0 1,11 17.8V3.3c1.9,2.7 4.74,6.93 6.92,11.12 0.04,0.07 0.06,0.15 0.07,0.23 0,0.08 0,0.17 -0.03,0.24z"
+      android:fillColor="#3A4757"/>
+</vector>

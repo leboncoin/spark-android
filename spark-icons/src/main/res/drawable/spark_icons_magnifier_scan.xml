@@ -1,0 +1,34 @@
+<!--
+  Copyright (c) 2023 Adevinta
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="20dp"
+    android:height="20dp"
+    android:viewportWidth="20"
+    android:viewportHeight="20">
+  <path
+      android:pathData="M5,2a3,3 0,0 0,-3 3v2a1,1 0,0 1,-1 1,1 1,0 0,1 -1,-1L0,5a5,5 0,0 1,5 -5h2a1,1 0,0 1,1 1,1 1,0 0,1 -1,1zM5,18a3,3 0,0 1,-3 -3v-2a1,1 0,0 0,-1 -1,1 1,0 0,0 -1,1v2a5,5 0,0 0,5 5h2a1,1 0,0 0,1 -1,1 1,0 0,0 -1,-1zM15,2a3,3 0,0 1,3 3v2a1,1 0,0 0,1 1,1 1,0 0,0 1,-1L20,5a5,5 0,0 0,-5 -5h-2a1,1 0,0 0,-1 1,1 1,0 0,0 1,1zM15,18a3,3 0,0 0,3 -3v-2a1,1 0,0 1,1 -1,1 1,0 0,1 1,1v2a5,5 0,0 1,-5 5h-2a1,1 0,0 1,-1 -1,1 1,0 0,1 1,-1z"
+      android:fillColor="#3A4757"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="m15.28,13.86 l-0.07,-0.08 -1.53,-1.53a5,5 0,1 0,-1.43 1.43l1.53,1.53 0.08,0.07a1.01,1.01 0,0 0,1.42 -1.42M6.51,9.51a3,3 0,1 1,6 0,3 3,0 0,1 -6,0"
+      android:fillColor="#3A4757"/>
+</vector>
