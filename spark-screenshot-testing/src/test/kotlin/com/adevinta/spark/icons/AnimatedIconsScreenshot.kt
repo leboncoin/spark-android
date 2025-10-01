@@ -49,8 +49,8 @@ internal class AnimatedIconsScreenshot {
                 atEnd = true
             }
             Icon(
-                sparkIcon = SparkAnimatedIcons.BellShake,
-                contentDescription = SparkAnimatedIcons.BellShake.toString(),
+                sparkIcon = SparkAnimatedIcons.bellShake(),
+                contentDescription = "Bell Shake Animation",
                 size = IconSize.ExtraLarge,
                 tint = Color.Black,
                 atEnd = atEnd,
@@ -70,8 +70,112 @@ internal class AnimatedIconsScreenshot {
                 atEnd = false
             }
             Icon(
-                sparkIcon = SparkAnimatedIcons.CollapseExpand,
-                contentDescription = SparkAnimatedIcons.CollapseExpand.toString(),
+                sparkIcon = SparkAnimatedIcons.collapseExpand(),
+                contentDescription = "Collapse Expand Animation",
+                size = IconSize.ExtraLarge,
+                tint = Color.Black,
+                atEnd = atEnd,
+            )
+        }
+
+        paparazzi.gif(view, start = 0, end = 400, fps = 60)
+    }
+
+    @Test
+    fun likeHeart() {
+        val view = paparazzi.gifView {
+            var atEnd by remember { mutableStateOf(false) }
+            LaunchedEffect(Unit) {
+                atEnd = true
+                delay(200)
+                atEnd = false
+            }
+            Icon(
+                sparkIcon = SparkAnimatedIcons.likeHeart(),
+                contentDescription = "Like Heart Animation",
+                size = IconSize.ExtraLarge,
+                tint = Color.Black,
+                atEnd = atEnd,
+            )
+        }
+
+        paparazzi.gif(view, start = 0, end = 400, fps = 60)
+    }
+
+    @Test
+    fun searchIcon() {
+        val view = paparazzi.gifView {
+            var atEnd by remember { mutableStateOf(false) }
+            LaunchedEffect(Unit) {
+                atEnd = true
+                delay(200)
+                atEnd = false
+            }
+            Icon(
+                sparkIcon = SparkAnimatedIcons.searchIcon(),
+                contentDescription = "Search Icon Animation",
+                size = IconSize.ExtraLarge,
+                tint = Color.Black,
+                atEnd = atEnd,
+            )
+        }
+
+        paparazzi.gif(view, start = 0, end = 400, fps = 60)
+    }
+
+    @Test
+    fun addButton() {
+        val view = paparazzi.gifView {
+            var atEnd by remember { mutableStateOf(false) }
+            LaunchedEffect(Unit) {
+                delay(300)
+                atEnd = true
+            }
+            Icon(
+                sparkIcon = SparkAnimatedIcons.addButton(),
+                contentDescription = "Add Button Animation",
+                size = IconSize.ExtraLarge,
+                tint = Color.Black,
+                atEnd = atEnd,
+            )
+        }
+
+        paparazzi.gif(view, start = 0, end = 400, fps = 60)
+    }
+
+    @Test
+    fun accountIcon() {
+        val view = paparazzi.gifView {
+            var atEnd by remember { mutableStateOf(false) }
+            LaunchedEffect(Unit) {
+                atEnd = true
+                delay(200)
+                atEnd = false
+            }
+            Icon(
+                sparkIcon = SparkAnimatedIcons.accountIcon(),
+                contentDescription = "Account Icon Animation",
+                size = IconSize.ExtraLarge,
+                tint = Color.Black,
+                atEnd = atEnd,
+            )
+        }
+
+        paparazzi.gif(view, start = 0, end = 400, fps = 60)
+    }
+
+    @Test
+    fun messageIcon() {
+        val view = paparazzi.gifView {
+            var atEnd by remember { mutableStateOf(false) }
+            LaunchedEffect(Unit) {
+                atEnd = true
+                delay(200)
+                atEnd = false
+            }
+            Icon(
+                sparkIcon = SparkAnimatedIcons.messageIcon(),
+                contentDescription = "Message Icon Animation",
                 size = IconSize.ExtraLarge,
                 tint = Color.Black,
                 atEnd = atEnd,

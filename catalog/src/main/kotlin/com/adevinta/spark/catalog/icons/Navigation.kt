@@ -21,20 +21,25 @@
  */
 package com.adevinta.spark.catalog.icons
 
+import android.content.Context
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navDeepLink
 import androidx.navigation.toRoute
 import com.adevinta.spark.catalog.AppBasePath
+import com.adevinta.spark.icons.Search
 import com.adevinta.spark.icons.SparkIcon
+import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.allAnimatedIconsMetadata
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class IconShowcase(val iconId: Int, val iconName: String, val isIconAnimated: Boolean) {
+internal data class IconShowcase(val iconName: String, val isIconAnimated: Boolean) {
     companion object {
         val deepLinks = listOf(
             navDeepLink<IconShowcase>(basePath = "${AppBasePath}icons/detail"),
@@ -55,9 +60,9 @@ internal fun NavGraphBuilder.iconsDemoDestination(
             contentPadding = contentPadding,
             sharedTransitionScope = sharedTransitionScope,
             animatedContentScope = this@composable,
-            onIconClick = { id, name, isAnimated ->
+            onIconClick = { name, isAnimated ->
                 navController.navigate(
-                    route = IconShowcase(iconId = id, iconName = name, isIconAnimated = isAnimated),
+                    route = IconShowcase(iconName = name, isIconAnimated = isAnimated),
                 )
             },
         )
@@ -67,14 +72,14 @@ internal fun NavGraphBuilder.iconsDemoDestination(
         deepLinks = IconShowcase.deepLinks,
     ) { navBackStackEntry ->
         val iconShowcase = navBackStackEntry.toRoute<IconShowcase>()
-        val iconId = iconShowcase.iconId
         val iconName = iconShowcase.iconName
         val isIconAnimated = iconShowcase.isIconAnimated
+        val context = LocalContext.current
         val icon = if (isIconAnimated) {
-            SparkIcon.AnimatedDrawableRes(iconId)
+            getAnimatedIcon(iconName)
         } else {
-            SparkIcon.DrawableRes(iconId)
-        }
+            getDrawableIcon(context, iconName)
+        } ?: SparkIcons.Search // Fallback to a valid icon
         IconExampleScreen(
             icon = icon,
             name = iconName,
@@ -83,4 +88,16 @@ internal fun NavGraphBuilder.iconsDemoDestination(
             animatedContentScope = this@composable,
         )
     }
+}
+
+private fun String.toSnakeCase(): String =
+    replace(Regex("([a-z])([A-Z])"), "$1_$2").lowercase()
+
+private fun getAnimatedIcon(name: String): SparkIcon.AnimatedPainter? =
+    allAnimatedIconsMetadata.find { it.name == name }?.iconProvider?.invoke()
+
+private fun getDrawableIcon(context: Context, name: String): SparkIcon.DrawableRes? {
+    val resourceName = "spark_icons_${name.toSnakeCase()}"
+    val resId = context.resources.getIdentifier(resourceName, "drawable", context.packageName)
+    return if (resId != 0) SparkIcon.DrawableRes(resId) else null
 }
