@@ -83,10 +83,10 @@ import com.adevinta.spark.components.popover.PlainTooltip
 import com.adevinta.spark.components.popover.TooltipBox
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.CollapseExpand
 import com.adevinta.spark.icons.DeleteOutline
 import com.adevinta.spark.icons.SparkAnimatedIcons
 import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.collapseExpand
 import com.adevinta.spark.tokens.SparkTypography
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 import kotlinx.collections.immutable.ImmutableList
@@ -851,7 +851,7 @@ public fun SparkSelectTrailingIcon(
             modifier = modifier,
         ) {
             Icon(
-                sparkIcon = SparkAnimatedIcons.CollapseExpand,
+                sparkIcon = SparkAnimatedIcons.collapseExpand(),
                 size = IconSize.Medium,
                 contentDescription = null,
                 atEnd = expanded,
@@ -859,7 +859,7 @@ public fun SparkSelectTrailingIcon(
         }
     } else {
         Icon(
-            sparkIcon = SparkAnimatedIcons.CollapseExpand,
+            sparkIcon = SparkAnimatedIcons.collapseExpand(),
             size = IconSize.Medium,
             contentDescription = null,
             atEnd = expanded,

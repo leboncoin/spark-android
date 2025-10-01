@@ -40,7 +40,6 @@ import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -64,19 +63,49 @@ import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.AccountToFill
-import com.adevinta.spark.icons.AccountToFillAlt
-import com.adevinta.spark.icons.AddToFill
-import com.adevinta.spark.icons.LikeToFill
-import com.adevinta.spark.icons.MessageToOutline
-import com.adevinta.spark.icons.SearchToOutline
 import com.adevinta.spark.icons.SparkAnimatedIcons
+import com.adevinta.spark.icons.SparkIcon
+import com.adevinta.spark.icons.accountIcon
+import com.adevinta.spark.icons.addButton
+import com.adevinta.spark.icons.likeHeart
+import com.adevinta.spark.icons.messageIcon
+import com.adevinta.spark.icons.searchIcon
 import com.adevinta.spark.tokens.disabled
 import com.adevinta.spark.tokens.highlight
 import com.adevinta.spark.tokens.ripple
 import kotlin.math.roundToInt
 
 private const val IconsExampleSourceUrl = "$SampleSourceUrl/IconsSamples.kt"
+
+private data class NavigationIconItem(val id: String, val iconProvider: () -> SparkIcon, val label: String)
+
+private val navigationIconItems = listOf(
+    NavigationIconItem(
+        id = "SearchToOutline",
+        iconProvider = SparkAnimatedIcons::searchIcon,
+        label = "Rechercher",
+    ),
+    NavigationIconItem(
+        id = "LikeToFill",
+        iconProvider = SparkAnimatedIcons::likeHeart,
+        label = "Favoris",
+    ),
+    NavigationIconItem(
+        id = "AddToFill",
+        iconProvider = SparkAnimatedIcons::addButton,
+        label = "Publier",
+    ),
+    NavigationIconItem(
+        id = "MessageToOutline",
+        iconProvider = SparkAnimatedIcons::messageIcon,
+        label = "Messages",
+    ),
+    NavigationIconItem(
+        id = "AccountToFill",
+        iconProvider = SparkAnimatedIcons::accountIcon,
+        label = "Compte",
+    ),
+)
 
 public val IconsExamples: List<Example> = listOf(
     Example(
@@ -85,18 +114,7 @@ public val IconsExamples: List<Example> = listOf(
         description = "Show how a lbc animated nav bar could look like",
         sourceUrl = IconsExampleSourceUrl,
     ) {
-        var selected by remember { mutableIntStateOf(SparkAnimatedIcons.SearchToOutline.drawableId) }
-        var icons by remember {
-            mutableStateOf(
-                listOf(
-                    SparkAnimatedIcons.SearchToOutline,
-                    SparkAnimatedIcons.LikeToFill,
-                    SparkAnimatedIcons.AddToFill,
-                    SparkAnimatedIcons.MessageToOutline,
-                    SparkAnimatedIcons.AccountToFillAlt,
-                ),
-            )
-        }
+        var selected by remember { mutableStateOf(navigationIconItems.first().id) }
         Surface(
             elevation = NavigationBarDefaults.Elevation,
         ) {
@@ -108,111 +126,29 @@ public val IconsExamples: List<Example> = listOf(
                     .defaultMinSize(NavigationBarHeight)
                     .selectableGroup(),
             ) {
-                NavigationBarItem(
-                    selected = selected == SparkAnimatedIcons.SearchToOutline.drawableId,
-                    onClick = {
-                        selected = SparkAnimatedIcons.SearchToOutline.drawableId
-                    },
-                    icon = {
-                        Icon(
-                            modifier = Modifier.size(24.dp),
-                            sparkIcon = SparkAnimatedIcons.SearchToOutline,
-                            contentDescription = null,
-                            atEnd = selected != SparkAnimatedIcons.SearchToOutline.drawableId,
-                        )
-                    },
-                    label = {
-                        Text(
-                            text = "Rechercher",
-                            overflow = TextOverflow.Ellipsis,
-                            maxLines = 1,
-                        )
-                    },
-                )
-                NavigationBarItem(
-                    selected = selected == SparkAnimatedIcons.LikeToFill.drawableId,
-                    onClick = {
-                        selected = SparkAnimatedIcons.LikeToFill.drawableId
-                    },
-                    icon = {
-                        Icon(
-                            modifier = Modifier.size(24.dp),
-                            sparkIcon = SparkAnimatedIcons.LikeToFill,
-                            contentDescription = null,
-                            atEnd = selected == SparkAnimatedIcons.LikeToFill.drawableId,
-                        )
-                    },
-                    label = {
-                        Text(
-                            text = "Favoris",
-                            overflow = TextOverflow.Ellipsis,
-                            maxLines = 1,
-                        )
-                    },
-                )
-                NavigationBarItem(
-                    selected = selected == SparkAnimatedIcons.AddToFill.drawableId,
-                    onClick = {
-                        selected = SparkAnimatedIcons.AddToFill.drawableId
-                    },
-                    icon = {
-                        Icon(
-                            modifier = Modifier.size(24.dp),
-                            sparkIcon = SparkAnimatedIcons.AddToFill,
-                            contentDescription = null,
-                            atEnd = selected == SparkAnimatedIcons.AddToFill.drawableId,
-                        )
-                    },
-                    label = {
-                        Text(
-                            text = "Publier",
-                            overflow = TextOverflow.Ellipsis,
-                            maxLines = 1,
-                        )
-                    },
-                )
-                NavigationBarItem(
-                    selected = selected == SparkAnimatedIcons.MessageToOutline.drawableId,
-                    onClick = {
-                        selected = SparkAnimatedIcons.MessageToOutline.drawableId
-                    },
-                    icon = {
-                        Icon(
-                            modifier = Modifier.size(24.dp),
-                            sparkIcon = SparkAnimatedIcons.MessageToOutline,
-                            contentDescription = null,
-                            atEnd = selected != SparkAnimatedIcons.MessageToOutline.drawableId,
-                        )
-                    },
-                    label = {
-                        Text(
-                            text = "Messages",
-                            overflow = TextOverflow.Ellipsis,
-                            maxLines = 1,
-                        )
-                    },
-                )
-                NavigationBarItem(
-                    selected = selected == SparkAnimatedIcons.AccountToFill.drawableId,
-                    onClick = {
-                        selected = SparkAnimatedIcons.AccountToFill.drawableId
-                    },
-                    icon = {
-                        Icon(
-                            modifier = Modifier.size(24.dp),
-                            sparkIcon = SparkAnimatedIcons.AccountToFill,
-                            contentDescription = null,
-                            atEnd = selected == SparkAnimatedIcons.AccountToFill.drawableId,
-                        )
-                    },
-                    label = {
-                        Text(
-                            text = "Compte",
-                            overflow = TextOverflow.Ellipsis,
-                            maxLines = 1,
-                        )
-                    },
-                )
+                navigationIconItems.forEach { item ->
+                    NavigationBarItem(
+                        selected = selected == item.id,
+                        onClick = {
+                            selected = item.id
+                        },
+                        icon = {
+                            Icon(
+                                modifier = Modifier.size(24.dp),
+                                sparkIcon = item.iconProvider(),
+                                contentDescription = null,
+                                atEnd = selected == item.id,
+                            )
+                        },
+                        label = {
+                            Text(
+                                text = item.label,
+                                overflow = TextOverflow.Ellipsis,
+                                maxLines = 1,
+                            )
+                        },
+                    )
+                }
             }
         }
     },
@@ -309,15 +245,11 @@ internal fun NavigationBarItemLayout(
     ) { measurables, constraints ->
         @Suppress("NAME_SHADOWING")
         val looseConstraints = constraints.copy(minWidth = 0, minHeight = 0)
-        val iconPlaceable =
-            measurables.fastFirst { it.layoutId == IconLayoutIdTag }.measure(looseConstraints)
+        val iconPlaceable = measurables.fastFirst { it.layoutId == IconLayoutIdTag }.measure(looseConstraints)
 
-        val labelPlaceable =
-            label?.let {
-                measurables
-                    .fastFirst { it.layoutId == LabelLayoutIdTag }
-                    .measure(looseConstraints)
-            }
+        val labelPlaceable = label?.let {
+            measurables.fastFirst { it.layoutId == LabelLayoutIdTag }.measure(looseConstraints)
+        }
 
         placeLabelAndIcon(
             labelPlaceable!!,

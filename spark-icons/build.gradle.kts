@@ -41,4 +41,6 @@ kotlin {
 dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.appCompat.resources) // Needed for compat vector drawables
+    api(libs.androidx.compose.animation.graphics) // needed for the animated icons
+    debugImplementation(libs.androidx.compose.ui.tooling)
 }
