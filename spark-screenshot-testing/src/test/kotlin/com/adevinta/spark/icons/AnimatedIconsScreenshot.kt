@@ -40,25 +40,21 @@ internal class AnimatedIconsScreenshot {
     @get:Rule
     val paparazzi = paparazziRule()
 
-    @Test
-    fun bellShake() {
-        val view = paparazzi.gifView {
-            var atEnd by remember { mutableStateOf(false) }
-            LaunchedEffect(Unit) {
-                delay(500)
-                atEnd = true
-            }
-            Icon(
-                sparkIcon = SparkAnimatedIcons.bellShake(),
-                contentDescription = "Bell Shake Animation",
-                size = IconSize.ExtraLarge,
-                tint = Color.Black,
-                atEnd = atEnd,
-            )
-        }
-
-        paparazzi.gif(view, start = 500, end = 1500, fps = 60)
-    }
+//    Blocked until https://github.com/cashapp/paparazzi/pull/1645 is merged and available
+//    @Test
+//    fun bellShake() {
+//        val view = paparazzi.gifView {
+//            Icon(
+//                sparkIcon = SparkAnimatedIcons.bellShake(),
+//                contentDescription = "Bell Shake Animation",
+//                size = IconSize.ExtraLarge,
+//                tint = Color.Black,
+//                atEnd = true,
+//            )
+//        }
+//
+//        paparazzi.gif(view, start = 0, end = 800, fps = 60)
+//    }
 
     @Test
     fun collapseExpand() {
@@ -66,7 +62,7 @@ internal class AnimatedIconsScreenshot {
             var atEnd by remember { mutableStateOf(false) }
             LaunchedEffect(Unit) {
                 atEnd = true
-                delay(200)
+                delay(250)
                 atEnd = false
             }
             Icon(
@@ -78,7 +74,7 @@ internal class AnimatedIconsScreenshot {
             )
         }
 
-        paparazzi.gif(view, start = 0, end = 400, fps = 60)
+        paparazzi.gif(view, start = 0, end = 500, fps = 60)
     }
 
     @Test
@@ -87,7 +83,7 @@ internal class AnimatedIconsScreenshot {
             var atEnd by remember { mutableStateOf(false) }
             LaunchedEffect(Unit) {
                 atEnd = true
-                delay(200)
+                delay(250)
                 atEnd = false
             }
             Icon(
@@ -99,7 +95,7 @@ internal class AnimatedIconsScreenshot {
             )
         }
 
-        paparazzi.gif(view, start = 0, end = 400, fps = 60)
+        paparazzi.gif(view, start = 0, end = 500, fps = 60)
     }
 
     @Test
@@ -108,7 +104,7 @@ internal class AnimatedIconsScreenshot {
             var atEnd by remember { mutableStateOf(false) }
             LaunchedEffect(Unit) {
                 atEnd = true
-                delay(200)
+                delay(300)
                 atEnd = false
             }
             Icon(
@@ -120,7 +116,7 @@ internal class AnimatedIconsScreenshot {
             )
         }
 
-        paparazzi.gif(view, start = 0, end = 400, fps = 60)
+        paparazzi.gif(view, start = 0, end = 600, fps = 60)
     }
 
     @Test
@@ -140,7 +136,7 @@ internal class AnimatedIconsScreenshot {
             )
         }
 
-        paparazzi.gif(view, start = 0, end = 400, fps = 60)
+        paparazzi.gif(view, start = 0, end = 600, fps = 60)
     }
 
     @Test
@@ -149,7 +145,7 @@ internal class AnimatedIconsScreenshot {
             var atEnd by remember { mutableStateOf(false) }
             LaunchedEffect(Unit) {
                 atEnd = true
-                delay(200)
+                delay(300)
                 atEnd = false
             }
             Icon(
@@ -161,7 +157,7 @@ internal class AnimatedIconsScreenshot {
             )
         }
 
-        paparazzi.gif(view, start = 0, end = 400, fps = 60)
+        paparazzi.gif(view, start = 0, end = 600, fps = 60)
     }
 
     @Test
@@ -170,7 +166,7 @@ internal class AnimatedIconsScreenshot {
             var atEnd by remember { mutableStateOf(false) }
             LaunchedEffect(Unit) {
                 atEnd = true
-                delay(200)
+                delay(300)
                 atEnd = false
             }
             Icon(
@@ -182,6 +178,6 @@ internal class AnimatedIconsScreenshot {
             )
         }
 
-        paparazzi.gif(view, start = 0, end = 400, fps = 60)
+        paparazzi.gif(view, start = 0, end = 600, fps = 60)
     }
 }
