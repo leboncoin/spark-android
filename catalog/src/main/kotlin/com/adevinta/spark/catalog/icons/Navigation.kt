@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.catalog.icons
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
@@ -96,6 +97,7 @@ private fun String.toSnakeCase(): String =
 private fun getAnimatedIcon(name: String): SparkIcon.AnimatedPainter? =
     allAnimatedIconsMetadata.find { it.name == name }?.iconProvider?.invoke()
 
+@SuppressLint("DiscouragedApi")
 private fun getDrawableIcon(context: Context, name: String): SparkIcon.DrawableRes? {
     val resourceName = "spark_icons_${name.toSnakeCase()}"
     val resId = context.resources.getIdentifier(resourceName, "drawable", context.packageName)
