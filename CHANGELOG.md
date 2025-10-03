@@ -2,6 +2,13 @@
 
 <!-- Don't forget to update links at the end of this page! -->
 
+## [1.5.0-alpha02]
+
+_2025-10-03_
+
+Revert "chore(deps): bump androidx.core:core-ktx from 1.16.0 to 1.17.0 (#1662)"
+
+The version 1.17.0 require consumers to upgrade their compile sdk version to api 36 but this breaks the unit test for modules where a roboeletric & paparazzi test is present.
 
 ## [1.5.0-alpha01]
 
