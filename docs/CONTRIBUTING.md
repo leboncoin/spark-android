@@ -182,11 +182,10 @@ public fun ComponentName(
 
 ### Example: Creating a Tag Component
 
-1. Create the main component file with the internal version (see https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/spark/src/main/kotlin/com/adevinta/spark/components/badge/Badge.kt#L58C1-L137)
-2. Create the public api (see https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/spark/src/main/kotlin/com/adevinta/spark/components/tags/TagFilled.kt#L35-L60)
-3. Create defaults either inlined in the component file or in a separate file if its already too big (see https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/spark/src/main/kotlin/com/adevinta/spark/components/tags/Tag.kt#L246-L292):
-4. Create intent and size enums (see https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/spark/src/main/kotlin/com/adevinta/spark/components/tags/TagIntent.kt#L14-L19):
-5. 
+1. Create the main component file with the internal version ([see](https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/spark/src/main/kotlin/com/adevinta/spark/components/badge/Badge.kt#L58C1-L137))
+2. Create the public api ([see](https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/spark/src/main/kotlin/com/adevinta/spark/components/tags/TagFilled.kt#L35-L60))
+3. Create defaults either inlined in the component file or in a separate file if its already too big ([see](https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/spark/src/main/kotlin/com/adevinta/spark/components/tags/Tag.kt#L246-L292)):
+4. Create intent and size enums ([see](https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/spark/src/main/kotlin/com/adevinta/spark/components/tags/TagIntent.kt#L14-L19)):
 ---
 
 ## 🧪 Testing
@@ -206,7 +205,7 @@ We use Paparazzi for screenshot testing to prevent unintended visual changes.
 
 #### Creating Screenshot Tests
 
-Screenshot tests live in the `spark-screenshot-testing` module (see https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/spark-screenshot-testing/src/test/kotlin/com/adevinta/spark/tags/TagsScreenshot.kt)
+Screenshot tests live in the `spark-screenshot-testing` module ([see](https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/spark-screenshot-testing/src/test/kotlin/com/adevinta/spark/tags/TagsScreenshot.kt))
 
 Group all component states into a single screenshot when possible. This approach helps you quickly identify visual changes when you introduce them. It also prevents hundreds of small changes that could hide regressions.
 This pattern saves disk space (Git LFS storage on [GitHub incurs costs](https://docs.github.com/en/billing/concepts/product-billing/git-lfs)) and reduces the burden on reviewers.
@@ -318,7 +317,7 @@ fun `Button responds to click events correctly`() {
 
 The Catalog App is a demo application that showcases all components, configurators, and icons available in the Design System. It serves as both a development tool for testing components interactively and a reference implementation for developers integrating Spark into their applications.
 
-For information about the core Spark Design System components, see Components. For details about theming and design tokens, see Design System.
+For information about the core Spark Design System components, see [Components](https://spark.adevinta.com/1186e1705/p/590121-components). For details about theming and design tokens, see [Design System](https://spark.adevinta.com/1186e1705/p/1983fd-comment-est-compose-notre-design-system-).
 
 > [!NOTE]
 > Leboncoin developers, you can install the catalog application by registering on Firebase App Distribution if you follow this [guide](https://backstage.mpi-internal.com/docs/polaris/system/guild-android/deliveries/#firebase-app-distribution)
@@ -333,11 +332,11 @@ Each component must provide interactive examples that demonstrate core functiona
 - 🎨 **Design validation** via visual component showcase showing all the variants and states
 - 🔧 **Integration testing** in realistic usage contexts showing how the component can be used in a real app
 
-See https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/catalog/src/main/kotlin/com/adevinta/spark/catalog/examples/samples/tags/TagsExamples.kt
+[See](https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/catalog/src/main/kotlin/com/adevinta/spark/catalog/examples/samples/tags/TagsExamples.kt) 
 
 ### Registering Components
 
-Add your component to the central registry (see https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/catalog/src/main/kotlin/com/adevinta/spark/catalog/model/Components.kt#L387-L398)
+Add your component to the central registry ([see](https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/catalog/src/main/kotlin/com/adevinta/spark/catalog/model/Components.kt#L387-L398))
 
 > [!TIP]
 > If you want to plan your examples before doing the implementation you can use the WipIllustration component that shows an illustration with a work in progress text. 🚧
@@ -345,7 +344,7 @@ Add your component to the central registry (see https://github.com/leboncoin/spa
 ### Interactive Configurators
 
 For components with multiple configuration options, provide interactive configurators that allow real-time parameter adjustment
-See https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/catalog/src/main/kotlin/com/adevinta/spark/catalog/configurator/samples/tags/TagsConfigurator.kt
+[See](https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/catalog/src/main/kotlin/com/adevinta/spark/catalog/configurator/samples/tags/TagsConfigurator.kt)
 
 ---
 
@@ -355,7 +354,7 @@ See https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa5633
 
 Each component requires a comprehensive README following this structure:
 
-See https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/spark/src/main/kotlin/com/adevinta/spark/components/tags/Tag.md
+[See](https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/spark/src/main/kotlin/com/adevinta/spark/components/tags/Tag.md)
 
 ### API Documentation Standards
 
