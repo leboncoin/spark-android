@@ -36,7 +36,8 @@ This guide provides instructions for contributing to Spark Android. It covers en
 
 ### Repository Access
 
-> [!NOTE] Leboncoin employees only
+> [!NOTE] 
+> Leboncoin employees only
 > Please ensure you have push rights to this repository, rather than forking the repository for contributions. Follow the "Engineering Contribution" guide in the (To be defined, Android Guild or Foundation) space in Backstage to get access.
 
 This repository being public, you can directly contribute to it. However, we encourage you to fork the repository for your contributions to avoid conflicts when pulling as only contributors can push to the main repository.
@@ -71,35 +72,14 @@ Configure your development environment for Spark Android development. This secti
    - Download from [developer.android.com](https://developer.android.com/studio)
    - Install with recommended settings
 
-2. **Configure Android SDK Command-line Tools**
-   - Go to Tools > SDK Manager
-   - In the "SDK Tools" tab, check "Android SDK Command-line Tools (latest)"
-   - Click "Apply" to install the selected components
-
-3. **Set up environment variables**
-
-   Run the appropriate commands for your shell:
-
-   ```bash
-   # For bash users
-   echo "export ANDROID_HOME=\"$HOME/Library/Android/sdk\"" >> ~/.bash_profile
-   echo "export ANDROID_SDK_ROOT=\"$HOME/Library/Android/sdk\"" >> ~/.bash_profile
-   source ~/.bash_profile
-
-   # For zsh users
-   echo "export ANDROID_HOME=\"$HOME/Library/Android/sdk\"" >> ~/.zshrc
-   echo "export ANDROID_SDK_ROOT=\"$HOME/Library/Android/sdk\"" >> ~/.zshrc
-   source ~/.zshrc
-   ```
-
-4. **Verify your setup**
+2. **Verify your setup**
 
    ```bash
    echo $ANDROID_HOME
    # Should output something like: /Users/username/Library/Android/sdk
    ```
 
-5. **[Git LFS](https://git-lfs.com/)**
+3. **[Git LFS](https://git-lfs.com/)**
 
     This repository uses Git LFS to handle [cashapp/paparazzi](https://github.com/cashapp/paparazzi)
     screenshot testing. Git LFS (Large File Storage) manages large binary files efficiently.
@@ -113,9 +93,9 @@ Configure your development environment for Spark Android development. This secti
     git lfs install
     ```
 
-6. **[Java 17](https://github.com/leboncoin/spark-android/issues/74)**
+4. **[Java 17](https://github.com/leboncoin/spark-android/issues/74)**
 
-    We currently use **AGP 8.1.0** which requires developers to use **JDK 17** on Gradle JDK.
+    We currently use a version of AGP which requires developers to use **JDK 17** on Gradle JDK.
 
     _If you're on macOS, you can install it with [brew](https://formulae.brew.sh/formula/openjdk@17)_
 
@@ -200,93 +180,13 @@ public fun ComponentName(
 )
 ```
 
-### Example: Creating a Badge Component
+### Example: Creating a Tag Component
 
-<details>
-<summary>Complete Badge Component Implementation</summary>
-
-1. **Create the main component file** (`spark/src/main/kotlin/com/adevinta/spark/components/badge/Badge.kt`):
-
-    ```kotlin
-    @Composable
-    public fun Badge(
-        text: String,
-        modifier: Modifier = Modifier,
-        intent: BadgeIntent = BadgeDefaults.intent,
-        style: BadgeStyle = BadgeDefaults.style,
-    ) {
-        SparkBadge(
-            text = text,
-            colors = intent.color,
-            modifier = modifier.size(size.dimensions.dp),
-        )
-    }
-
-    @InternalSparkApi
-    @Composable
-    internal fun SparkBadge(
-        text: String,
-        intent: BadgeIntent,
-        badgeStyle: BadgeStyle,
-        modifier: Modifier = Modifier,
-    ) {
-        Surface(
-            color = intent.colors.color,
-            shape = SparkTheme.shapes.full,
-            modifier = modifier,
-        ) {
-            Text(text = text)
-        }
-    }
-    ```
-
-2. **Create defaults** (`BadgeDefaults.kt`):
-
-    ```kotlin
-    public object BadgeDefaults {
-        public val intent: BadgeIntent = BadgeIntent.Basic
-        public val style: BadgeStyle = BadgeStyle.Medium
-    }
-    ```
-
-3. **Create intent and size enums** (`BadgeIntent.kt`, `BadgeStyle.kt`):
-
-    ```kotlin
-    public enum class BadgeIntent {
-        Basic {
-            @Composable
-            override fun colors(): IntentColor = IntentColors.Basic.colors()
-        },
-
-        Accent {
-            @Composable
-            override fun colors(): IntentColor = IntentColors.Accent.colors()
-        },
-
-        Main {
-            @Composable
-            override fun colors(): IntentColor = IntentColors.Main.colors()
-        },
-        ;
-
-        @Composable
-        internal abstract fun colors(): IntentColor
-    }
-
-    public enum class BadgeStyle(public val size: Dp, public val contentPadding: Dp) {
-        Small(size = smallBadgeSize, contentPadding = smallBadgeContentPadding),
-        Medium(size = mediumBadgeSize, contentPadding = mediumBadgeContentPadding),
-    }
-
-    @Composable
-    internal fun BadgeStyle.getTextStyle() = when (this) {
-        BadgeStyle.Small -> SparkTheme.typography.small
-        BadgeStyle.Medium -> SparkTheme.typography.caption
-    }.highlight
-    ```
-
-    </details>
-
+1. Create the main component file with the internal version (see https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/spark/src/main/kotlin/com/adevinta/spark/components/badge/Badge.kt#L58C1-L137)
+2. Create the public api (see https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/spark/src/main/kotlin/com/adevinta/spark/components/tags/TagFilled.kt#L35-L60)
+3. Create defaults either inlined in the component file or in a separate file if its already too big (see https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/spark/src/main/kotlin/com/adevinta/spark/components/tags/Tag.kt#L246-L292):
+4. Create intent and size enums (see https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/spark/src/main/kotlin/com/adevinta/spark/components/tags/TagIntent.kt#L14-L19):
+5. 
 ---
 
 ## 🧪 Testing
@@ -306,48 +206,7 @@ We use Paparazzi for screenshot testing to prevent unintended visual changes.
 
 #### Creating Screenshot Tests
 
-Screenshot tests live in the `spark-screenshot-testing` module:
-
-```kotlin
-// spark-screenshot-testing/src/test/kotlin/com/adevinta/spark/badge/
-class BadgeScreenshot {
-    @get:Rule
-    val paparazzi = paparazziRule(
-        deviceConfig = DefaultTestDevices.Tablet,
-        renderingMode = RenderingMode.SHRINK,
-    )
-
-    @Test
-    fun badgeVariants() {
-        paparazzi.sparkSnapshot {
-            BadgeShowcase()
-        }
-    }
-    
-    @Test
-    fun badgeStates() {
-        paparazzi.sparkSnapshotNightMode {
-            BadgeStateShowcase()
-        }
-    }
-}
-
-@Composable
-private fun BadgeShowcase() {
-    FlowRow(
-        contentPadding = PaddingValues(8.dp),
-        horizontalArrangement = spacedBy(4.dp),
-        verticalArrangement = spacedBy(4.dp),
-    ) {
-        items(BadgeIntent.entries) { intent ->
-            Badge(
-                text = intent.name,
-                intent = intent,
-            )
-        }
-    }
-}
-```
+Screenshot tests live in the `spark-screenshot-testing` module (see https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/spark-screenshot-testing/src/test/kotlin/com/adevinta/spark/tags/TagsScreenshot.kt)
 
 Group all component states into a single screenshot when possible. This approach helps you quickly identify visual changes when you introduce them. It also prevents hundreds of small changes that could hide regressions.
 This pattern saves disk space (Git LFS storage on [GitHub incurs costs](https://docs.github.com/en/billing/concepts/product-billing/git-lfs)) and reduces the burden on reviewers.
@@ -375,6 +234,28 @@ Alternatively, use the run configuration: `⚡️ Run unit tests & screenshot te
 Alternatively, use the run configuration: `📸 Record Paparazzi Golden Images`
 
 This command generates the snapshots. Verify that the changes and generated snapshots are as expected, but don't commit the snapshot files. Our CI will generate them using the [automated action](https://github.com/leboncoin/spark-android/actions/workflows/paparazzi-golden-images.yml). Therefore, snapshots generated on your local machine will be different, and the CI will fail. Use this command only for debugging purposes.
+
+#### Best Practices
+
+##### Test Organization
+
+- Group related component tests in dedicated test classes
+- Use descriptive test method names that indicate what is being tested
+- Test multiple component states in a single screenshot when logical
+- Use FlowColumn or similar layouts for compact multi-variant displays
+
+##### Performance Optimization
+
+- Use tablet device configuration for better screenshot real estate
+- Enable scrolling (H_SCROLL/V_SCROLL) for wide content layouts
+- Limit the number of variants per test to balance coverage and execution time
+
+##### Maintenance
+
+- Update baseline images when legitimate design changes occur
+- Review failed screenshot tests carefully to distinguish bugs from intentional changes
+- Use consistent component configurations across similar tests
+
 
 ### ♿ Accessibility Testing (Required for Interactive Components)
 
@@ -433,9 +314,11 @@ fun `Button responds to click events correctly`() {
 
 ---
 
-## 📱 Demo App Integration
+## 📱 Catalog/Demo App Integration
 
-The catalog app showcases all Spark components and serves as a development tool.
+The Catalog App is a demo application that showcases all components, configurators, and icons available in the Design System. It serves as both a development tool for testing components interactively and a reference implementation for developers integrating Spark into their applications.
+
+For information about the core Spark Design System components, see Components. For details about theming and design tokens, see Design System.
 
 > [!NOTE]
 > Leboncoin developers, you can install the catalog application by registering on Firebase App Distribution if you follow this [guide](https://backstage.mpi-internal.com/docs/polaris/system/guild-android/deliveries/#firebase-app-distribution)
@@ -450,136 +333,19 @@ Each component must provide interactive examples that demonstrate core functiona
 - 🎨 **Design validation** via visual component showcase showing all the variants and states
 - 🔧 **Integration testing** in realistic usage contexts showing how the component can be used in a real app
 
-```kotlin
-// catalog/src/main/kotlin/com/adevinta/spark/catalog/examples/samples/badge/
-public val BadgeExamples: List<Example> = listOf(
-    Example(
-        id = "basic-usage",
-        name = "Basic Implementation",
-        description = "Demonstrates default badge behavior with minimal configuration",
-        sourceUrl = "$SampleSourceUrl/BadgeSamples.kt",
-    ) {
-        BasicBadgeExample()
-    },
-    Example(
-        id = "variant-showcase",
-        name = "Style Variants",
-        description = "Shows all available visual styles and semantic intents",
-        sourceUrl = "$SampleSourceUrl/BadgeSamples.kt",
-    ) {
-        BadgeVariantsExample()
-    },
-)
-
-@Composable
-private fun BasicBadgeExample() {
-    Badge(text = "Basic Badge")
-}
-
-@Composable
-private fun BadgeVariantsExample() {
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
-        contentPadding = PaddingValues(SparkTheme.dimensions.spacingMd),
-        horizontalArrangement = Arrangement.spacedBy(SparkTheme.dimensions.spacingSm),
-        verticalArrangement = Arrangement.spacedBy(SparkTheme.dimensions.spacingSm),
-    ) {
-        items(BadgeIntent.values()) { intent ->
-            Badge(
-                text = intent.name,
-                intent = intent,
-            )
-        }
-    }
-}
-```
+See https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/catalog/src/main/kotlin/com/adevinta/spark/catalog/examples/samples/tags/TagsExamples.kt
 
 ### Registering Components
 
-Add your component to the central registry:
-
-```kotlin
-// catalog/src/main/kotlin/com/adevinta/spark/catalog/model/Components.kt
-private val Badge = Component(
-    id = "badge",
-    name = "Badge",
-    description = R.string.component_badge_description,
-    illustration = R.drawable.ic_component_badge, // Optional
-    guidelinesUrl = "$ComponentGuidelinesUrl/badge",
-    docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.badge/index.html",
-    sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/badge/Badge.kt",
-    examples = BadgeExamples,
-    configurators = listOf(BadgeConfigurator), // Optional
-)
-
-// Add to the main components list
-public val Components: List<Component> = listOf(
-    // ... existing components
-    Badge,
-).sortedBy { it.name }
-```
+Add your component to the central registry (see https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/catalog/src/main/kotlin/com/adevinta/spark/catalog/model/Components.kt#L387-L398)
 
 > [!TIP]
 > If you want to plan your examples before doing the implementation you can use the WipIllustration component that shows an illustration with a work in progress text. 🚧
 
 ### Interactive Configurators
 
-For components with multiple configuration options, provide interactive configurators that allow real-time parameter adjustment:
-
-```kotlin
-// catalog/src/main/kotlin/com/adevinta/spark/catalog/configurator/badge/
-public val BadgeConfigurator = Configurator(
-    id = "badge-configurator",
-    name = "Badge Configuration",
-    description = "Interactive badge customization",
-    sourceUrl = "$ConfiguratorSourceUrl/BadgeConfigurator.kt",
-) {
-    BadgeConfiguratorExample()
-}
-
-@Composable
-private fun ColumnScope.BadgeConfiguratorExample() {
-    Column(
-        modifier = Modifier.padding(SparkTheme.dimensions.spacingMd),
-        verticalArrangement = Arrangement.spacedBy(SparkTheme.dimensions.spacingMd),
-    ) {
-        var intent by remember { mutableStateOf(BadgeIntent.Basic) }
-        var style by remember { mutableStateOf(BadgeStyle.Medium) }
-        var text by remember { mutableStateOf("Badge") }
-        var contentDescription by remember { mutableStateOf("Content Description") }
-        
-        Badge(
-            modifier = Modifier,
-            text = text,
-            intent = intent,
-            style = style,
-            contentDescription = contentDescription,
-        )
-
-        ButtonGroup(
-            title = "Style",
-            selectedOption = style,
-            onOptionSelect = { style = it },
-        )
-
-        DropdownEnum(
-            modifier = Modifier.fillMaxWidth(),
-            title = "Intent",
-            selectedOption = intent,
-            onOptionSelect = { intent = it },
-        )
-        TextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = contentDescription,
-            onValueChange = {
-                contentDescription = it
-            },
-            label = "Content Description",
-            placeholder = "Content Description",
-        )
-    }
-}
-```
+For components with multiple configuration options, provide interactive configurators that allow real-time parameter adjustment
+See https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/catalog/src/main/kotlin/com/adevinta/spark/catalog/configurator/samples/tags/TagsConfigurator.kt
 
 ---
 
@@ -589,53 +355,7 @@ private fun ColumnScope.BadgeConfiguratorExample() {
 
 Each component requires a comprehensive README following this structure:
 
-> ```markdown
-> # Package com.adevinta.spark.components.badge
-> 
-> [Badge](https://spark.adevinta.com/guidelines/badge) serves as a visual indicator for status, count, or category in the Spark Design System. This component implements semantic color intentions and provides consistent visual hierarchy.
-> 
-> ## When to Use
-> - Display status indicators (success, warning, error)
-> - Show counts or numerical values
-> - Categorize or label content
-> 
-> ## API Overview
-> 
-> ```kotlin
-> @Composable
-> fun Badge(
->     text: String,
->     modifier: Modifier = Modifier,
->     intent: BadgeIntent = BadgeIntent.Basic,
->     size: BadgeStyle = BadgeStyle.Medium,
-> )
-> ```
->
-> ## Variants
->
-> The component supports the following semantic variants:
->
-> |       | Light Theme | Dark Theme |
-> |-------|-------------|------------|
-> | Basic | ![Basic Badge Light](screenshots/basic-light.png) | ![Basic Badge Dark](screenshots/basic-dark.png) |
-> | Success  | ![Success Badge Light](screenshots/success-light.png) | ![Success Badge Dark](screenshots/success-dark.png) |
->
-> ## Usage Examples
->
-> ### Basic Implementation
->
-> ```kotlin
-> Badge(text = "New")
-> ```
->
-> ### Success Status
->
-> ```kotlin
-> Badge(
->     text = "Complete",
->     intent = BadgeIntent.Success,
-> )
-> ```
+See https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/spark/src/main/kotlin/com/adevinta/spark/components/tags/Tag.md
 
 ### API Documentation Standards
 
@@ -720,9 +440,6 @@ The project includes custom lint rules that enforce Spark Design System patterns
 ```bash
 # Run all lint checks
 ./gradlew lintRelease
-
-# Run lint with detailed output
-./gradlew lintRelease --info
 ```
 
 Alternatively, use the `🔎 Lint` run configuration.
