@@ -33,9 +33,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navDeepLink
 import androidx.navigation.toRoute
 import com.adevinta.spark.catalog.AppBasePath
-import com.adevinta.spark.icons.Search
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.allAnimatedIconsMetadata
 import kotlinx.serialization.Serializable
 
@@ -80,7 +78,7 @@ internal fun NavGraphBuilder.iconsDemoDestination(
             getAnimatedIcon(iconName)
         } else {
             getDrawableIcon(context, iconName)
-        } ?: SparkIcons.Search // Fallback to a valid icon
+        }
         IconExampleScreen(
             icon = icon,
             name = iconName,
@@ -94,12 +92,13 @@ internal fun NavGraphBuilder.iconsDemoDestination(
 private fun String.toSnakeCase(): String =
     replace(Regex("([a-z])([A-Z])"), "$1_$2").lowercase()
 
-private fun getAnimatedIcon(name: String): SparkIcon.AnimatedPainter? =
-    allAnimatedIconsMetadata.find { it.name == name }?.iconProvider?.invoke()
+private fun getAnimatedIcon(name: String): SparkIcon.AnimatedPainter =
+    allAnimatedIconsMetadata.first { it.name == name }.iconProvider()
 
 @SuppressLint("DiscouragedApi")
-private fun getDrawableIcon(context: Context, name: String): SparkIcon.DrawableRes? {
+private fun getDrawableIcon(context: Context, name: String): SparkIcon.DrawableRes {
     val resourceName = "spark_icons_${name.toSnakeCase()}"
     val resId = context.resources.getIdentifier(resourceName, "drawable", context.packageName)
-    return if (resId != 0) SparkIcon.DrawableRes(resId) else null
+    check(resId != 0) { "Icon $name no found in resources"}
+    return SparkIcon.DrawableRes(resId)
 }
