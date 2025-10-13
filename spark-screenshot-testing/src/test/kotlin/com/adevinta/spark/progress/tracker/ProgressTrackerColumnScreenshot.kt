@@ -32,6 +32,9 @@ import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.components.progress.tracker.ProgressSizes
 import com.adevinta.spark.components.progress.tracker.ProgressStep
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerColumn
+import com.adevinta.spark.icons.AddFill
+import com.adevinta.spark.icons.AddToFill
+import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshotNightMode
 import com.android.ide.common.rendering.api.SessionParams.RenderingMode.SHRINK
@@ -63,6 +66,12 @@ internal class ProgressTrackerColumnScreenshot {
                 ProgressTrackerColumn(
                     modifier = Modifier.width(240.dp),
                     items = persistentListOf(
+                        ProgressStep("Lorem ipsume", true, doneIcon = SparkIcons.AddFill),
+                        ProgressStep(
+                            "Lorem ipsume dolar sit amet",
+                            true,
+                            icon = _root_ide_package_.com.adevinta.spark.icons.SparkAnimatedIcons.AddToFill,
+                        ),
                         ProgressStep(
                             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" +
                                 " incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis" +
