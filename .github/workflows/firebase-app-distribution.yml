@@ -54,7 +54,7 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEYSTORE_KEY_ALIAS: spark
           KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_ALIAS_PASSWORD }}
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: 20
       - run: npm install -g firebase-tools@12.4.7
