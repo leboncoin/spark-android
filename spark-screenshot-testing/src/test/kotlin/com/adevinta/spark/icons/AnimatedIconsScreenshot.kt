@@ -32,6 +32,7 @@ import com.adevinta.spark.components.icons.IconSize
 import com.adevinta.spark.gifView
 import com.adevinta.spark.paparazziRule
 import kotlinx.coroutines.delay
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 
@@ -40,21 +41,21 @@ internal class AnimatedIconsScreenshot {
     @get:Rule
     val paparazzi = paparazziRule()
 
-//    Blocked until https://github.com/cashapp/paparazzi/pull/1645 is merged and available
-//    @Test
-//    fun bellShake() {
-//        val view = paparazzi.gifView {
-//            Icon(
-//                sparkIcon = SparkAnimatedIcons.bellShake(),
-//                contentDescription = "Bell Shake Animation",
-//                size = IconSize.ExtraLarge,
-//                tint = Color.Black,
-//                atEnd = true,
-//            )
-//        }
-//
-//        paparazzi.gif(view, start = 0, end = 800, fps = 60)
-//    }
+    @Test
+    @Ignore("Blocked until https://github.com/cashapp/paparazzi/pull/1645 is merged and available")
+    fun bellShake() {
+        val view = paparazzi.gifView {
+            Icon(
+                sparkIcon = SparkAnimatedIcons.bellShake(),
+                contentDescription = "Bell Shake Animation",
+                size = IconSize.ExtraLarge,
+                tint = Color.Black,
+                atEnd = true,
+            )
+        }
+
+        paparazzi.gif(view, start = 0, end = 800, fps = 60)
+    }
 
     @Test
     fun collapseExpand() {
@@ -124,8 +125,9 @@ internal class AnimatedIconsScreenshot {
         val view = paparazzi.gifView {
             var atEnd by remember { mutableStateOf(false) }
             LaunchedEffect(Unit) {
-                delay(300)
                 atEnd = true
+                delay(300)
+                atEnd = false
             }
             Icon(
                 sparkIcon = SparkAnimatedIcons.addButton(),
