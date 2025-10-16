@@ -10,14 +10,8 @@ androidx.autofill:autofill:1.0.0
 androidx.collection:collection-jvm:1.5.0
 androidx.collection:collection-ktx:1.5.0
 androidx.collection:collection:1.5.0
-androidx.compose.animation:animation-android:1.9.1
 androidx.compose.animation:animation-core-android:1.9.1
 androidx.compose.animation:animation-core:1.9.1
-androidx.compose.animation:animation-graphics-android:1.9.1
-androidx.compose.animation:animation-graphics:1.9.1
-androidx.compose.animation:animation:1.9.1
-androidx.compose.foundation:foundation-layout-android:1.9.1
-androidx.compose.foundation:foundation-layout:1.9.1
 androidx.compose.runtime:runtime-android:1.9.1
 androidx.compose.runtime:runtime-annotation-android:1.9.1
 androidx.compose.runtime:runtime-annotation:1.9.1
