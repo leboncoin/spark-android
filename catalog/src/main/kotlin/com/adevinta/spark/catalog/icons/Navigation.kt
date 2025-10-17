@@ -99,6 +99,6 @@ private fun getAnimatedIcon(name: String): SparkIcon.AnimatedPainter =
 private fun getDrawableIcon(context: Context, name: String): SparkIcon.DrawableRes {
     val resourceName = "spark_icons_${name.toSnakeCase()}"
     val resId = context.resources.getIdentifier(resourceName, "drawable", context.packageName)
-    check(resId != 0) { "Icon $name no found in resources"}
+    check(resId != 0) { "Icon $name no found in resources" }
     return SparkIcon.DrawableRes(resId)
 }
