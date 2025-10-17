@@ -8,7 +8,7 @@ _2025-10-16_
 
 ### Spark
 
-- 🔧 Updated contrast level threshold in `LeboncoinTheme` to Material Medium to High as Users do not expect the drastic change in color
+- 🔧 Updated contrast level threshold in `LeboncoinTheme` from Material Medium to High as Users do not expect the drastic change in color
 
 ## [1.5.0-alpha02]
 
