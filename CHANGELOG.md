@@ -6,9 +6,13 @@
 
 _2025-10-03_
 
-Revert "chore(deps): bump androidx.core:core-ktx from 1.16.0 to 1.17.0 (#1662)"
+### Spark
 
-The version 1.17.0 require consumers to upgrade their compile sdk version to api 36 but this breaks the unit test for modules where a roboeletric & paparazzi test is present.
+#### Dependency Updates
+- ⬇️ Revert "chore(deps): bump androidx.core:core-ktx from 1.16.0 to 1.17.0 (#1662)" because the version 1.17.0 require consumers to upgrade their compile sdk version to api 36 but this breaks the unit test for modules where a roboeletric & paparazzi test is present.
+
+#### Scaffold
+- `Scaffold` now correctly applies `containerColor` for its content's background.  
 
 ## [1.5.0-alpha01]
 
