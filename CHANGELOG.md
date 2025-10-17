@@ -4,6 +4,16 @@
 
 ## [Unreleased]
 
+## [1.4.2]
+
+_2025-10-17_
+
+### Spark
+
+#### Scaffold
+
+- `Scaffold` now correctly applies `containerColor` for its content's background.
+
 ## [1.4.1]
 
 _2025-10-17_
@@ -792,7 +802,9 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.4.1...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.4.2...HEAD
+
+[1.4.2]: https://github.com/leboncoin/spark-android/releases/tag/1.4.2
 
 [1.4.1]: https://github.com/leboncoin/spark-android/releases/tag/1.4.1
 
