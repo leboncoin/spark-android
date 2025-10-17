@@ -4,6 +4,15 @@
 
 ## [Unreleased]
 
+## [1.4.1]
+
+_2025-10-17_
+
+### Spark
+
+- 🔧 Updated contrast level threshold in `LeboncoinTheme` from Material Medium to High as Users do
+  not expect the drastic change in color
+
 ## [1.4.0]
 
 _2025-09-05_
@@ -783,7 +792,9 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.4.0...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.4.1...HEAD
+
+[1.4.1]: https://github.com/leboncoin/spark-android/releases/tag/1.4.1
 
 [1.4.0]: https://github.com/leboncoin/spark-android/releases/tag/1.4.0
 
