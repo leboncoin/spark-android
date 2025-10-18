@@ -39,7 +39,7 @@ public object LeboncoinTheme : ThemeProvider {
         isPro: Boolean,
         @FloatRange(from = -1.0, to = 1.0) contrastLevel: Float,
     ): SparkColors =
-        if (contrastLevel in -1.0f..0.33f) {
+        if (contrastLevel in -1.0f..0.66f) {
             basicTheme(useDarkColors, isPro)
         } else {
             highContrastTheme(useDarkColors)

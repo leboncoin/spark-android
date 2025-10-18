@@ -130,21 +130,21 @@ jobs:
 
       - name: Analyze SARIF report for spark module
         if: ${{ always() && hashFiles('spark/**/*.sarif') != '' }}
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: ./spark/
           category: spark
 
       - name: Analyze SARIF report for spark-screenshot-testing module
         if: ${{ always() && hashFiles('spark-screenshot-testing/**/*.sarif') != '' }}
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: ./spark-screenshot-testing/
           category: spark-screenshot-testing
 
       - name: Analyze SARIF report for catalog module
         if: ${{ always() && hashFiles('catalog/**/*.sarif') != '' }}
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: ./catalog/
           category: catalog
