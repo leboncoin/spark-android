@@ -25,6 +25,16 @@ package com.adevinta.spark.icons
 
 import com.adevinta.spark.icons.SparkIcon.DrawableRes
 
+/**
+ * A collection of static icons from Spark.
+ *
+ * This object provides access to all static vector icons as drawable resources.
+ * Each icon is available as a property that returns a [SparkIcon.DrawableRes] or a [SparkIcon.Vector],
+ * ensuring type safety and consistency across the icon system.
+ *
+ * @see SparkIcon.DrawableRes
+ * @see SparkIcon.Vector
+ */
 public object SparkIcons
 
 public val SparkIcons.Accessories: DrawableRes get() = DrawableRes(R.drawable.spark_icons_accessories)
