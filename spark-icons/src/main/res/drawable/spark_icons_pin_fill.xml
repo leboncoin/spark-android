@@ -1,0 +1,31 @@
+<!--
+  Copyright (c) 2023 Adevinta
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="16dp"
+    android:height="20dp"
+    android:viewportWidth="16"
+    android:viewportHeight="20">
+  <path
+      android:pathData="M0,7.75A7.88,7.88 0,0 1,8 0c4.42,0 8,3.47 8,7.75 0,1.14 -0.41,2.45 -0.97,3.73a26.24,26.24 0,0 1,-2.15 3.84,24.8 24.8,0 0,1 -2.44,3.12c-0.38,0.4 -0.75,0.76 -1.1,1.02a3.8,3.8 0,0 1,-0.57 0.35A1.8,1.8 0,0 1,8 20c-0.31,0 -0.58,-0.1 -0.77,-0.19 -0.2,-0.1 -0.39,-0.22 -0.56,-0.35a8.87,8.87 0,0 1,-1.11 -1.02,24.76 24.76,0 0,1 -2.44,-3.12 27.99,27.99 0,0 1,-2.15 -3.84A9.77,9.77 0,0 1,0 7.75m8,1.82c1.52,0 2.76,-1.2 2.76,-2.67A2.72,2.72 0,0 0,8 4.22,2.72 2.72,0 0,0 5.24,6.9 2.72,2.72 0,0 0,8 9.57"
+      android:fillColor="#3A4757"
+      android:fillType="evenOdd"/>
+</vector>
