@@ -288,6 +288,7 @@ private fun PhonePortraitModalScaffold(
                 .fillMaxSize()
                 .nestedScroll(scrollBehavior.nestedScrollConnection)
                 .nestedScroll(bottomAppBarScrollBehavior.nestedScrollConnection),
+            containerColor = SparkTheme.colors.surface,
             snackbarHost = snackbarHost,
             contentWindowInsets = contentWindowInsets,
             topBar = {
@@ -377,6 +378,7 @@ private fun PhoneLandscapeModalScaffold(
                 .fillMaxSize()
                 .nestedScroll(scrollBehavior.nestedScrollConnection)
                 .nestedScroll(bottomAppBarScrollBehavior.nestedScrollConnection),
+            containerColor = SparkTheme.colors.surface,
             snackbarHost = snackbarHost,
             contentWindowInsets = contentWindowInsets,
             bottomBar = {
