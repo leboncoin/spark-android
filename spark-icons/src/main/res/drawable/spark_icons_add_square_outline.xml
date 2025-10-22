@@ -20,15 +20,15 @@
   SOFTWARE.
   -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="20dp"
-    android:height="20dp"
-    android:viewportWidth="20"
-    android:viewportHeight="20">
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
   <path
-      android:pathData="M10,4.84a1,1 0,0 1,1 1.01v3.14h3.15a1,1 0,0 1,0 2.02h-3.14v3.14a1,1 0,1 1,-2.02 0v-3.14H5.85a1,1 0,0 1,0 -2.02h3.14V5.85a1,1 0,0 1,1.01 -1"
+      android:pathData="M12,6.84a1,1 0,0 1,1 1.01v3.14h3.15a1,1 0,0 1,0 2.02h-3.14v3.14a1,1 0,1 1,-2.02 0v-3.14H7.85a1,1 0,0 1,0 -2.02h3.14V7.85a1,1 0,0 1,1.01 -1"
       android:fillColor="#3A4757"/>
   <path
-      android:pathData="M5.16,0A5.16,5.16 0,0 0,0 5.16v9.68A5.16,5.16 0,0 0,5.16 20h9.68A5.16,5.16 0,0 0,20 14.84V5.16A5.16,5.16 0,0 0,14.84 0zM2.02,5.16c0,-1.74 1.4,-3.14 3.14,-3.14h9.68c1.74,0 3.14,1.4 3.14,3.14v9.68c0,1.74 -1.4,3.14 -3.14,3.14H5.16a3.14,3.14 0,0 1,-3.14 -3.14z"
+      android:pathData="M7.16,2A5.16,5.16 0,0 0,2 7.16v9.68A5.16,5.16 0,0 0,7.16 22h9.68A5.16,5.16 0,0 0,22 16.84V7.16A5.16,5.16 0,0 0,16.84 2zM4.02,7.16c0,-1.74 1.4,-3.14 3.14,-3.14h9.68c1.74,0 3.14,1.4 3.14,3.14v9.68c0,1.74 -1.4,3.14 -3.14,3.14H7.16a3.14,3.14 0,0 1,-3.14 -3.14z"
       android:fillColor="#3A4757"
       android:fillType="evenOdd"/>
 </vector>

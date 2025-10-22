@@ -20,14 +20,14 @@
   SOFTWARE.
   -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="22dp"
-    android:height="18dp"
-    android:viewportWidth="22"
-    android:viewportHeight="18">
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
   <path
-      android:pathData="M14.1,2a5.02,5.02 0,0 0,1.26 4.42l-5.07,4a0.48,0.48 0,0 1,-0.3 0.1,0.48 0.48,0 0,1 -0.29,-0.1L3.14,5.25a0.99,0.99 0,0 0,-1.41 0.18c-0.34,0.45 -0.26,1.1 0.18,1.44l6.57,5.17a2.46,2.46 0,0 0,3.03 0l5.6,-4.41A4.98,4.98 0,0 0,20 7.9v6.65c0,1.9 -1.52,3.45 -3.38,3.45H3.38A3.42,3.42 0,0 1,0 14.55v-9.1C0,3.55 1.52,2 3.38,2z"
+      android:pathData="M15.1,5a5.02,5.02 0,0 0,1.26 4.42l-5.07,4a0.48,0.48 0,0 1,-0.3 0.1,0.48 0.48,0 0,1 -0.29,-0.1L4.14,8.25a0.99,0.99 0,0 0,-1.41 0.18c-0.34,0.45 -0.26,1.1 0.18,1.44l6.57,5.17a2.46,2.46 0,0 0,3.03 0l5.6,-4.41a4.98,4.98 0,0 0,2.88 0.27v2.84H21v3.81c0,1.9 -1.52,3.45 -3.38,3.45H4.38A3.42,3.42 0,0 1,1 17.55v-9.1C1,6.55 2.52,5 4.38,5z"
       android:fillColor="#3A4757"/>
   <path
-      android:pathData="M22,3a3,3 0,1 1,-6 0,3 3,0 0,1 6,0"
+      android:pathData="M23,6a3,3 0,1 1,-6 0,3 3,0 0,1 6,0"
       android:fillColor="#3A4757"/>
 </vector>

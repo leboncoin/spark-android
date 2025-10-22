@@ -20,12 +20,12 @@
   SOFTWARE.
   -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="15dp"
-    android:height="20dp"
-    android:viewportWidth="15"
-    android:viewportHeight="20">
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
   <path
-      android:pathData="m10.38,5.83 l3.55,-4.22c0.24,-0.3 0.3,-0.7 0.14,-1.04A0.95,0.95 0,0 0,13.2 0H0.96A0.96,0.96 0,0 0,0 0.98v18.04a0.96,0.96 0,1 0,1.92 0v-7.35h11.3c0.37,0 0.7,-0.23 0.86,-0.57a0.99,0.99 0,0 0,-0.14 -1.04z"
+      android:pathData="m15.38,7.83 l3.55,-4.22c0.24,-0.3 0.3,-0.7 0.14,-1.04A0.95,0.95 0,0 0,18.2 2H5.96a0.96,0.96 0,0 0,-0.96 0.98v18.04a0.96,0.96 0,1 0,1.92 0v-7.35h11.3c0.37,0 0.7,-0.23 0.86,-0.57a0.99,0.99 0,0 0,-0.14 -1.04z"
       android:fillColor="#3A4757"
       android:fillType="evenOdd"/>
 </vector>

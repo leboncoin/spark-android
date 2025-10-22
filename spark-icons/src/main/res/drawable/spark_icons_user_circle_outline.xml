@@ -20,16 +20,16 @@
   SOFTWARE.
   -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="20dp"
-    android:height="20dp"
-    android:viewportWidth="20"
-    android:viewportHeight="20">
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
   <path
-      android:pathData="M10,3.38a4.12,4.12 0,1 0,0 8.24,4.12 4.12,0 0,0 0,-8.24M7.87,7.5a2.12,2.12 0,1 1,4.25 0,2.12 2.12,0 0,1 -4.25,0"
+      android:pathData="M12,5.38a4.12,4.12 0,1 0,0 8.24,4.12 4.12,0 0,0 0,-8.24M9.87,9.5a2.12,2.12 0,1 1,4.25 0,2.12 2.12,0 0,1 -4.25,0"
       android:fillColor="#3A4757"
       android:fillType="evenOdd"/>
   <path
-      android:pathData="M2.95,17.1a10,10 0,1 1,14.1 0l0.01,0.02 -0.39,0.33A9.96,9.96 0,0 1,10 20h-0.2a9.96,9.96 0,0 1,-6.47 -2.55l-0.4,-0.33zM2,10a8,8 0,1 1,13.97 5.32A7.6,7.6 0,0 0,10 12.48a7.6,7.6 0,0 0,-5.97 2.84A7.97,7.97 0,0 1,2 10m7.65,8H10c1.65,0 3.19,-0.5 4.46,-1.36A5.58,5.58 0,0 0,10 14.48c-1.83,0 -3.46,0.84 -4.46,2.16 1.18,0.8 2.6,1.29 4.11,1.35"
+      android:pathData="M4.95,19.1a10,10 0,1 1,14.1 0l0.01,0.02 -0.39,0.33A9.96,9.96 0,0 1,12 22h-0.2a9.96,9.96 0,0 1,-6.47 -2.55l-0.4,-0.33zM4,12a8,8 0,1 1,13.97 5.32A7.6,7.6 0,0 0,12 14.48a7.6,7.6 0,0 0,-5.97 2.84A7.97,7.97 0,0 1,4 12m7.65,8H12c1.65,0 3.19,-0.5 4.46,-1.36A5.58,5.58 0,0 0,12 16.48c-1.83,0 -3.46,0.84 -4.46,2.16 1.18,0.8 2.6,1.29 4.11,1.35"
       android:fillColor="#3A4757"
       android:fillType="evenOdd"/>
 </vector>
