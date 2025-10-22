@@ -30,8 +30,8 @@ import com.adevinta.spark.DefaultTestDevices
 import com.adevinta.spark.components.toggles.ContentSide
 import com.adevinta.spark.components.toggles.SwitchIcons
 import com.adevinta.spark.components.toggles.SwitchLabelled
-import com.adevinta.spark.icons.AlarmOffFill
-import com.adevinta.spark.icons.AlarmOnFill
+import com.adevinta.spark.icons.BellOffFill
+import com.adevinta.spark.icons.BellOnFill
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshotNightMode
@@ -57,8 +57,8 @@ private fun SwitchStates() {
     val text =
         "This is an example of a multi-line text which is very long and in which the user should read all the information."
     val icons = SwitchIcons(
-        checked = SparkIcons.AlarmOnFill,
-        unchecked = SparkIcons.AlarmOffFill,
+        checked = SparkIcons.BellOnFill,
+        unchecked = SparkIcons.BellOffFill,
     )
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),

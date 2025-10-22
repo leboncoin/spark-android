@@ -37,8 +37,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
-import com.adevinta.spark.icons.IdentityOutline
-import com.adevinta.spark.icons.Link
+import com.adevinta.spark.icons.Chain
+import com.adevinta.spark.icons.IdentityCardOutline
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.disabled
@@ -250,7 +250,7 @@ public fun ButtonGhost(
 @Composable
 internal fun ButtonGhostPreview() {
     PreviewTheme {
-        val icon = SparkIcons.Link
+        val icon = SparkIcons.Chain
         var isLoading by remember { mutableStateOf(false) }
         val buttonText = "Main Button"
         ButtonGhost(
@@ -288,7 +288,7 @@ internal fun ButtonGhostIntentPreview() {
     PreviewTheme(
         color = { SparkTheme.colors.backgroundVariant },
     ) {
-        val icon = SparkIcons.IdentityOutline
+        val icon = SparkIcons.IdentityCardOutline
         ButtonIntent.entries.forEach { intent ->
             ButtonGhost(
                 text = intent.name,

@@ -52,9 +52,9 @@ import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconSize
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.AccountFill
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.Userfill
 import com.adevinta.spark.tokens.disabled
 import com.adevinta.spark.tools.modifiers.ifNotNull
 import com.adevinta.spark.tools.modifiers.ifNull
@@ -286,7 +286,7 @@ private fun TabPreview() {
             selected = false,
             onClick = {},
             enabled = true,
-            icon = SparkIcons.AccountFill,
+            icon = SparkIcons.Userfill,
             contentDescription = "Account",
         )
     }

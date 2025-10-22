@@ -49,7 +49,7 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.Dropdown
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.SwitchLabelled
-import com.adevinta.spark.icons.LikeFill
+import com.adevinta.spark.icons.HeartFill
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.highlight
@@ -98,11 +98,11 @@ private fun ColumnScope.ChipSample() {
         FilledTonalIconToggleButton(
             checked = icon != null,
             onCheckedChange = {
-                icon = if (it) SparkIcons.LikeFill else null
+                icon = if (it) SparkIcons.HeartFill else null
             },
         ) {
             Icon(
-                sparkIcon = SparkIcons.LikeFill,
+                sparkIcon = SparkIcons.HeartFill,
                 contentDescription = null,
             )
         }

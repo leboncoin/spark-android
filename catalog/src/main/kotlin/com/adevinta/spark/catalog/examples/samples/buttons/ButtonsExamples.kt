@@ -43,7 +43,7 @@ import com.adevinta.spark.components.buttons.ButtonGhost
 import com.adevinta.spark.components.buttons.ButtonOutlined
 import com.adevinta.spark.components.buttons.ButtonTinted
 import com.adevinta.spark.components.buttons.IconSide
-import com.adevinta.spark.icons.LikeFill
+import com.adevinta.spark.icons.HeartFill
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 
@@ -232,7 +232,7 @@ private fun ButtonSample(
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        val icon = SparkIcons.LikeFill
+        val icon = SparkIcons.HeartFill
         var isLoading by remember { mutableStateOf(false) }
         val buttonText = "Filled Button"
 

@@ -58,8 +58,8 @@ import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.SwitchLabelled
-import com.adevinta.spark.icons.LikeFill
-import com.adevinta.spark.icons.LikeOutline
+import com.adevinta.spark.icons.HeartFill
+import com.adevinta.spark.icons.HeartOutline
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.highlight
@@ -113,11 +113,11 @@ private fun ColumnScope.ButtonSample() {
         IconToggleButtonFilled(
             checked = icon != null,
             onCheckedChange = {
-                icon = if (it) SparkIcons.LikeFill else null
+                icon = if (it) SparkIcons.HeartFill else null
             },
             icons = IconToggleButtonIcons(
-                checked = SparkIcons.LikeFill,
-                unchecked = SparkIcons.LikeOutline,
+                checked = SparkIcons.HeartFill,
+                unchecked = SparkIcons.HeartOutline,
             ),
         )
     }

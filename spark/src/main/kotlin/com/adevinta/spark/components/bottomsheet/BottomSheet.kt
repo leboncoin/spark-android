@@ -64,7 +64,7 @@ import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.list.ListItem
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.toggles.CheckboxLabelled
-import com.adevinta.spark.icons.LikeFill
+import com.adevinta.spark.icons.HeartFill
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.contentColorFor
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
@@ -259,7 +259,7 @@ private fun ModalBottomSheetSample() {
                         headlineContent = { Text("Item $it") },
                         leadingContent = {
                             Icon(
-                                SparkIcons.LikeFill,
+                                SparkIcons.HeartFill,
                                 contentDescription = "Localized description",
                             )
                         },

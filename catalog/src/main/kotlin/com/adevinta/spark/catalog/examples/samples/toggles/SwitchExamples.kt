@@ -39,8 +39,8 @@ import com.adevinta.spark.components.toggles.Switch
 import com.adevinta.spark.components.toggles.SwitchDefaults
 import com.adevinta.spark.components.toggles.SwitchIcons
 import com.adevinta.spark.components.toggles.SwitchLabelled
-import com.adevinta.spark.icons.AlarmOffFill
-import com.adevinta.spark.icons.AlarmOnFill
+import com.adevinta.spark.icons.BellOffFill
+import com.adevinta.spark.icons.BellOnFill
 import com.adevinta.spark.icons.SparkIcons
 
 private const val SwitchExampleDescription = "Switch examples"
@@ -66,8 +66,8 @@ public val SwitchExamples: List<Example> = listOf(
             )
             SwitchPair(
                 icons = SwitchIcons(
-                    checked = SparkIcons.AlarmOnFill,
-                    unchecked = SparkIcons.AlarmOffFill,
+                    checked = SparkIcons.BellOnFill,
+                    unchecked = SparkIcons.BellOffFill,
                 ),
                 checked = switchState,
                 onCheckedChange = onCheckedChange,

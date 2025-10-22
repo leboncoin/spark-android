@@ -27,7 +27,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.DismissibleNavigationDrawer
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalNavigationDrawer
-import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.PermanentNavigationDrawer
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -44,11 +43,11 @@ import com.adevinta.spark.components.badge.Badge
 import com.adevinta.spark.components.badge.BadgeStyle
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.AccountFill
+import com.adevinta.spark.icons.HeartOutline
 import com.adevinta.spark.icons.House
-import com.adevinta.spark.icons.LikeOutline
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.Userfill
 import androidx.compose.material3.NavigationDrawerItem as MaterialNavigationDrawerItem
 import androidx.compose.material3.NavigationDrawerItemColors as MaterialNavigationDrawerItemColors
 import androidx.compose.material3.NavigationDrawerItemDefaults as MaterialNavigationDrawerItemDefaults
@@ -159,8 +158,8 @@ internal fun NavigationDrawerItemPreview() {
     PreviewTheme {
         val items = mutableListOf(
             Pair("Home", SparkIcons.House),
-            Pair("Favourite", SparkIcons.LikeOutline),
-            Pair("Account", SparkIcons.AccountFill),
+            Pair("Favourite", SparkIcons.HeartOutline),
+            Pair("Account", SparkIcons.Userfill),
         )
         items.forEachIndexed { index, tab ->
             NavigationDrawerItem(

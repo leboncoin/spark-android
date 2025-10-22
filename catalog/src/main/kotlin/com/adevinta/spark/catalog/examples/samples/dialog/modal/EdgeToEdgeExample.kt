@@ -56,8 +56,8 @@ import com.adevinta.spark.components.spacer.VerticalSpacer
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.ImageFill
-import com.adevinta.spark.icons.MoreMenuVertical
 import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.ThreeDotsVertical
 
 @Composable
 internal fun EdgeToEdgeExample() {
@@ -72,7 +72,7 @@ internal fun EdgeToEdgeExample() {
         )
 
         if (showDialog) {
-            val displayCutout = WindowInsets.displayCutout.only(
+            WindowInsets.displayCutout.only(
                 WindowInsetsSides.Horizontal,
             )
             ModalScaffold(
@@ -97,7 +97,7 @@ internal fun EdgeToEdgeExample() {
                         Icon(sparkIcon = SparkIcons.ImageFill, contentDescription = "")
                     }
                     IconButton(onClick = { /*TODO*/ }) {
-                        Icon(sparkIcon = SparkIcons.MoreMenuVertical, contentDescription = "")
+                        Icon(sparkIcon = SparkIcons.ThreeDotsVertical, contentDescription = "")
                     }
                 },
             ) { innerPadding ->

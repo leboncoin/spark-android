@@ -35,7 +35,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.icons.CameraFill
-import com.adevinta.spark.icons.IdentityOutline
+import com.adevinta.spark.icons.IdentityCardOutline
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.disabled
@@ -263,7 +263,7 @@ internal fun ButtonOutlinedIntentPreview() {
     PreviewTheme(
         color = { SparkTheme.colors.backgroundVariant },
     ) {
-        val icon = SparkIcons.IdentityOutline
+        val icon = SparkIcons.IdentityCardOutline
         ButtonIntent.entries.forEach { intent ->
             ButtonOutlined(
                 text = intent.name,

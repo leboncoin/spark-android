@@ -31,10 +31,10 @@ import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.badge.Badge
 import com.adevinta.spark.components.tab.Tab
 import com.adevinta.spark.components.tab.TabGroup
-import com.adevinta.spark.icons.AccountFill
-import com.adevinta.spark.icons.AlarmOnFill
-import com.adevinta.spark.icons.MessageOutline
+import com.adevinta.spark.icons.BellOnFill
+import com.adevinta.spark.icons.BubbleTextOutline
 import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.Userfill
 
 private const val TabsExampleSourceUrl = "$SampleSourceUrl/TabExamples.kt"
 public val TabsExamples: List<Example> = listOf(
@@ -76,7 +76,7 @@ public val TabsExamples: List<Example> = listOf(
 private fun TabSimpleSample() {
     val tabs = mutableListOf(
         Pair("Home", null) to 0,
-        Pair("Message", SparkIcons.MessageOutline) to 0,
+        Pair("Message", SparkIcons.BubbleTextOutline) to 0,
     )
     var selectedIndex by remember { mutableIntStateOf(0) }
     TabGroup(selectedTabIndex = selectedIndex) {
@@ -103,7 +103,7 @@ private fun TabSimpleSample() {
 private fun TabWithBadgeSample() {
     val tabs = mutableListOf(
         Pair("Home", null) to 0,
-        Pair("Message", SparkIcons.MessageOutline) to 1,
+        Pair("Message", SparkIcons.BubbleTextOutline) to 1,
         Pair("MIM", null) to 0,
     )
     var selectedIndex by remember { mutableIntStateOf(0) }
@@ -131,8 +131,8 @@ private fun TabWithBadgeSample() {
 private fun ScrollableTabsSample() {
     val tabs = mutableListOf(
         Pair("Home", null) to 0,
-        Pair("Message", SparkIcons.MessageOutline) to 1,
-        Pair("Notifications", SparkIcons.MessageOutline) to 0,
+        Pair("Message", SparkIcons.BubbleTextOutline) to 1,
+        Pair("Notifications", SparkIcons.BubbleTextOutline) to 0,
     )
     var selectedIndex by remember { mutableIntStateOf(0) }
     TabGroup(
@@ -161,9 +161,9 @@ private fun ScrollableTabsSample() {
 @Composable
 private fun IconsTabsSample() {
     val tabs = mutableListOf(
-        Triple(SparkIcons.AlarmOnFill, 0, "notifications"),
-        Triple(SparkIcons.MessageOutline, 1, "messages"),
-        Triple(SparkIcons.AccountFill, 0, "compte"),
+        Triple(SparkIcons.BellOnFill, 0, "notifications"),
+        Triple(SparkIcons.BubbleTextOutline, 1, "messages"),
+        Triple(SparkIcons.Userfill, 0, "compte"),
     )
     var selectedIndex by remember { mutableIntStateOf(0) }
     TabGroup(

@@ -33,7 +33,7 @@ import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.divider.HorizontalDivider
 import com.adevinta.spark.components.icons.Icon
-import com.adevinta.spark.icons.FavoriteFill
+import com.adevinta.spark.icons.HeartFill
 import com.adevinta.spark.icons.SparkIcons
 import androidx.compose.material3.ListItem as MaterialListItem
 
@@ -120,7 +120,7 @@ internal fun OneLineListItemPreview() {
                 headlineContent = { Text("One line list item with 24x24 icon") },
                 leadingContent = {
                     Icon(
-                        sparkIcon = SparkIcons.FavoriteFill,
+                        sparkIcon = SparkIcons.HeartFill,
                         contentDescription = "Localized description",
                     )
                 },
@@ -144,7 +144,7 @@ internal fun TwoLineListItemPreview() {
                 trailingContent = { Text("meta") },
                 leadingContent = {
                     Icon(
-                        sparkIcon = SparkIcons.FavoriteFill,
+                        sparkIcon = SparkIcons.HeartFill,
                         contentDescription = "Localized description",
                     )
                 },
@@ -168,7 +168,7 @@ internal fun ThreeLineListItemPreview() {
                 supportingContent = { Text("Secondary text") },
                 leadingContent = {
                     Icon(
-                        sparkIcon = SparkIcons.FavoriteFill,
+                        sparkIcon = SparkIcons.HeartFill,
                         contentDescription = "Localized description",
                     )
                 },
@@ -194,7 +194,7 @@ internal fun ThreeLineContentListItemPreview() {
                 },
                 leadingContent = {
                     Icon(
-                        sparkIcon = SparkIcons.FavoriteFill,
+                        sparkIcon = SparkIcons.HeartFill,
                         contentDescription = "Localized description",
                     )
                 },

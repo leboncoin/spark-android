@@ -47,7 +47,7 @@ import com.adevinta.spark.components.iconbuttons.IconButtonDefaults.ghostIconBut
 import com.adevinta.spark.components.iconbuttons.IconButtonSize
 import com.adevinta.spark.components.iconbuttons.SparkIconButton
 import com.adevinta.spark.components.icons.Icon
-import com.adevinta.spark.icons.Close
+import com.adevinta.spark.icons.Cross
 import com.adevinta.spark.icons.FlashlightFill
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
@@ -132,7 +132,7 @@ private fun DismissIcon(
     if (!withDismissAction) return
 
     SparkIconButton(
-        icon = SparkIcons.Close,
+        icon = SparkIcons.Cross,
         onClick = { onClick.invoke() },
         size = IconButtonSize.Small,
         modifier = Modifier.padding(end = 8.dp),

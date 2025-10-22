@@ -35,7 +35,7 @@ import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.snackbars.SnackbarIntent
 import com.adevinta.spark.components.text.TextLink
 import com.adevinta.spark.components.text.TextLinkButton
-import com.adevinta.spark.icons.Link
+import com.adevinta.spark.icons.Chain
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.res.annotatedStringResource
 import kotlinx.coroutines.launch
@@ -141,7 +141,7 @@ public val TextLinksExamples: List<Example> = listOf(
 
             TextLinkButton(
                 text = "Try out Android Development",
-                icon = SparkIcons.Link,
+                icon = SparkIcons.Chain,
                 onClick = {
                     scope.launch {
                         snackbarHostState.showSnackbar(

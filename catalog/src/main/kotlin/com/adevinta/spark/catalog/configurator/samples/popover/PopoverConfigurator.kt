@@ -60,7 +60,7 @@ import com.adevinta.spark.components.text.TextLinkButton
 import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.icons.BurgerMenu
 import com.adevinta.spark.icons.SparkIcons
-import com.adevinta.spark.icons.Store
+import com.adevinta.spark.icons.StoreCriteria
 import com.adevinta.spark.tokens.highlight
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -177,7 +177,7 @@ private fun ConfiguredPopover(
                 )
 
                 PopoverContentExamples.Illustration -> Illustration(
-                    sparkIcon = SparkIcons.Store,
+                    sparkIcon = SparkIcons.StoreCriteria,
                     contentDescription = null,
 
                     modifier = Modifier.size(100.dp),

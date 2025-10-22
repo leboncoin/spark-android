@@ -38,8 +38,8 @@ import com.adevinta.spark.components.iconbuttons.IconButtonColors
 import com.adevinta.spark.components.iconbuttons.IconButtonDefaults
 import com.adevinta.spark.components.iconbuttons.IconButtonIntent
 import com.adevinta.spark.components.iconbuttons.IconButtonSize
-import com.adevinta.spark.icons.FavoriteFill
-import com.adevinta.spark.icons.FavoriteOutline
+import com.adevinta.spark.icons.HeartFill
+import com.adevinta.spark.icons.HeartOutline
 import com.adevinta.spark.icons.SparkIcons
 
 /**
@@ -109,7 +109,7 @@ private fun IconToggleButtonOutlinedPreview() {
         var isChecked by remember { mutableStateOf(false) }
         IconToggleButtonOutlined(
             checked = isChecked,
-            icons = IconToggleButtonIcons(SparkIcons.FavoriteOutline, SparkIcons.FavoriteFill),
+            icons = IconToggleButtonIcons(SparkIcons.HeartOutline, SparkIcons.HeartFill),
             onCheckedChange = { isChecked = !isChecked },
         )
     }

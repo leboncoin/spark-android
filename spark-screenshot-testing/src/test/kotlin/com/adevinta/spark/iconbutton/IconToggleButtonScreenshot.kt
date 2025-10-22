@@ -40,11 +40,10 @@ import com.adevinta.spark.components.iconbuttons.toggle.IconToggleButtonGhost
 import com.adevinta.spark.components.iconbuttons.toggle.IconToggleButtonIcons
 import com.adevinta.spark.components.iconbuttons.toggle.IconToggleButtonOutlined
 import com.adevinta.spark.components.iconbuttons.toggle.IconToggleButtonTinted
-import com.adevinta.spark.components.icons.IconDefaults.intent
 import com.adevinta.spark.components.surface.Surface
-import com.adevinta.spark.icons.AccountFill
-import com.adevinta.spark.icons.AccountOutline
 import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.UserOutline
+import com.adevinta.spark.icons.Userfill
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshot
 import com.android.ide.common.rendering.api.SessionParams
@@ -53,7 +52,10 @@ import org.junit.Test
 
 internal class IconToggleButtonScreenshot {
 
-    private val icons: IconToggleButtonIcons = IconToggleButtonIcons(SparkIcons.AccountOutline, SparkIcons.AccountFill)
+    private val icons: IconToggleButtonIcons = IconToggleButtonIcons(
+        SparkIcons.UserOutline,
+        SparkIcons.Userfill,
+    )
 
     private val shapes = ButtonShape.entries
 

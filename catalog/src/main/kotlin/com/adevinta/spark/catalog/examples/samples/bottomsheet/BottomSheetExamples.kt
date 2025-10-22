@@ -59,9 +59,9 @@ import com.adevinta.spark.components.list.ListItem
 import com.adevinta.spark.components.spacer.VerticalSpacer
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.text.TextLinkButton
-import com.adevinta.spark.icons.LikeFill
+import com.adevinta.spark.icons.HeartFill
 import com.adevinta.spark.icons.SparkIcons
-import com.adevinta.spark.icons.Store
+import com.adevinta.spark.icons.StoreCriteria
 import com.adevinta.spark.tokens.highlight
 import kotlinx.coroutines.launch
 
@@ -217,7 +217,7 @@ private fun ListContent(onHideBottomSheetClicked: () -> Unit) {
                 headlineContent = { Text("Item $it") },
                 leadingContent = {
                     Icon(
-                        SparkIcons.LikeFill,
+                        SparkIcons.HeartFill,
                         contentDescription = "Localized description",
                     )
                 },
@@ -262,7 +262,7 @@ private fun ImageContent() {
 @Composable
 private fun IllustrationContent() {
     Illustration(
-        sparkIcon = SparkIcons.Store,
+        sparkIcon = SparkIcons.StoreCriteria,
         contentDescription = null,
         modifier = Modifier.size(100.dp),
     )

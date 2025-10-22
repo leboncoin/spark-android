@@ -77,10 +77,10 @@ import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.textfields.MultiChoiceComboBox
 import com.adevinta.spark.components.textfields.SingleChoiceComboBox
 import com.adevinta.spark.icons.Check
-import com.adevinta.spark.icons.MailOutline
+import com.adevinta.spark.icons.GearOutline
+import com.adevinta.spark.icons.LetterOutline
 import com.adevinta.spark.icons.PenFill
 import com.adevinta.spark.icons.SparkIcons
-import com.adevinta.spark.icons.WheelOutline
 import com.adevinta.spark.tokens.ElevationTokens
 import com.adevinta.spark.tokens.EmphasizeDim1
 import com.adevinta.spark.tokens.SparkColors
@@ -746,7 +746,7 @@ private fun DropdownMenuItemPreview() {
             enabled = false,
             leadingIcon = {
                 Icon(
-                    SparkIcons.WheelOutline,
+                    SparkIcons.GearOutline,
                     contentDescription = null,
                 )
             },
@@ -757,7 +757,7 @@ private fun DropdownMenuItemPreview() {
             text = { Text("Send Feedback") },
             leadingIcon = {
                 Icon(
-                    SparkIcons.MailOutline,
+                    SparkIcons.LetterOutline,
                     contentDescription = null,
                 )
             },
@@ -767,7 +767,7 @@ private fun DropdownMenuItemPreview() {
             text = { Text("Send Feedback Send Feedback Send Feedback Send Feedback Send Feedback Send Feed") },
             leadingIcon = {
                 Icon(
-                    SparkIcons.MailOutline,
+                    SparkIcons.LetterOutline,
                     contentDescription = null,
                 )
             },
@@ -808,7 +808,7 @@ private fun DropdownMenuGroupItemPreview() {
                 enabled = false,
                 leadingIcon = {
                     Icon(
-                        SparkIcons.WheelOutline,
+                        SparkIcons.GearOutline,
                         contentDescription = null,
                     )
                 },

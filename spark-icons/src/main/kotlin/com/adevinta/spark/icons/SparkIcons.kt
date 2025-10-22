@@ -561,3 +561,412 @@ public val SparkIcons.WoodenDoorCriteria: DrawableRes get() = DrawableRes(R.draw
 public val SparkIcons.WorkFill: DrawableRes get() = DrawableRes(R.drawable.spark_icons_work_fill)
 public val SparkIcons.WorkOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_work_outline)
 public val SparkIcons.Wrench: DrawableRes get() = DrawableRes(R.drawable.spark_icons_wrench)
+
+@Deprecated("CardFill has been renamed CreditCardFill", ReplaceWith("SparkIcons.CreditCardFill"))
+public val SparkIcons.CardFill: DrawableRes get() = CreditCardFill
+
+@Deprecated("CardOutline has been renamed CreditCardOutline", ReplaceWith("SparkIcons.CreditCardOutline"))
+public val SparkIcons.CardOutline: DrawableRes get() = CreditCardOutline
+
+@Deprecated("OfferFill has been renamed TagFill", ReplaceWith("SparkIcons.TagFill"))
+public val SparkIcons.OfferFill: DrawableRes get() = TagFill
+
+@Deprecated("OfferOutline has been renamed TagOutline", ReplaceWith("SparkIcons.TagOutline"))
+public val SparkIcons.OfferOutline: DrawableRes get() = TagOutline
+
+@Deprecated("FilePdfFill has been renamed PdfFill", ReplaceWith("SparkIcons.PdfFill"))
+public val SparkIcons.FilePdfFill: DrawableRes get() = PdfFill
+
+@Deprecated("FilePdfOutline has been renamed PdfOutline", ReplaceWith("SparkIcons.PdfOutline"))
+public val SparkIcons.FilePdfOutline: DrawableRes get() = PdfOutline
+
+@Deprecated("Directory has been renamed List", ReplaceWith("SparkIcons.List"))
+public val SparkIcons.Directory: DrawableRes get() = List
+
+@Deprecated("CalculateFill has been renamed CalculatorFill", ReplaceWith("SparkIcons.CalculatorFill"))
+public val SparkIcons.CalculateFill: DrawableRes get() = CalculatorFill
+
+@Deprecated("CalculateOutline has been renamed CalculatorOutline", ReplaceWith("SparkIcons.CalculatorOutline"))
+public val SparkIcons.CalculateOutline: DrawableRes get() = CalculatorOutline
+
+@Deprecated("LikeFill has been renamed HeartFill", ReplaceWith("SparkIcons.HeartFill"))
+public val SparkIcons.LikeFill: DrawableRes get() = HeartFill
+
+@Deprecated("LikeOutline has been renamed HeartOutline", ReplaceWith("SparkIcons.HeartOutline"))
+public val SparkIcons.LikeOutline: DrawableRes get() = HeartOutline
+
+@Deprecated("MoreMenuVertical has been renamed ThreeDotsVertical", ReplaceWith("SparkIcons.ThreeDotsVertical"))
+public val SparkIcons.MoreMenuVertical: DrawableRes get() = ThreeDotsVertical
+
+@Deprecated("MoreMenuHorizontal has been renamed ThreeDotsHorizontal", ReplaceWith("SparkIcons.ThreeDotsHorizontal"))
+public val SparkIcons.MoreMenuHorizontal: DrawableRes get() = ThreeDotsHorizontal
+
+@Deprecated("PrintFill has been renamed PrinterFill", ReplaceWith("SparkIcons.PrinterFill"))
+public val SparkIcons.PrintFill: DrawableRes get() = PrinterFill
+
+@Deprecated("PrintOutline has been renamed PrinterOutline", ReplaceWith("SparkIcons.PrinterOutline"))
+public val SparkIcons.PrintOutline: DrawableRes get() = PrinterOutline
+
+@Deprecated("TrashCloseFill has been renamed TrashCrossFill", ReplaceWith("SparkIcons.TrashCrossFill"))
+public val SparkIcons.TrashCloseFill: DrawableRes get() = TrashCrossFill
+
+@Deprecated("TrashCloseOutline has been renamed TrashCrossOutline", ReplaceWith("SparkIcons.TrashCrossOutline"))
+public val SparkIcons.TrashCloseOutline: DrawableRes get() = TrashCrossOutline
+
+@Deprecated("WheelFill has been renamed GearFill", ReplaceWith("SparkIcons.GearFill"))
+public val SparkIcons.WheelFill: DrawableRes get() = GearFill
+
+@Deprecated("WheelOutline has been renamed GearOutline", ReplaceWith("SparkIcons.GearOutline"))
+public val SparkIcons.WheelOutline: DrawableRes get() = GearOutline
+
+@Deprecated("PauseFill has been renamed StopFill", ReplaceWith("SparkIcons.StopFill"))
+public val SparkIcons.PauseFill: DrawableRes get() = StopFill
+
+@Deprecated("PauseOutline has been renamed StopOutline", ReplaceWith("SparkIcons.StopOutline"))
+public val SparkIcons.PauseOutline: DrawableRes get() = StopOutline
+
+@Deprecated("SearchFill has been renamed MagnifierFill", ReplaceWith("SparkIcons.MagnifierFill"))
+public val SparkIcons.SearchFill: DrawableRes get() = MagnifierFill
+
+@Deprecated("SearchOutline has been renamed MagnifierOutline", ReplaceWith("SparkIcons.MagnifierOutline"))
+public val SparkIcons.SearchOutline: DrawableRes get() = MagnifierOutline
+
+@Deprecated("SortFilled has been renamed Sort", ReplaceWith("SparkIcons.Sort"))
+public val SparkIcons.SortFilled: DrawableRes get() = Sort
+
+@Deprecated("ArrowDoubleLeft has been renamed DoubleChevronsLeft", ReplaceWith("SparkIcons.DoubleChevronsLeft"))
+public val SparkIcons.ArrowDoubleLeft: DrawableRes get() = DoubleChevronsLeft
+
+@Deprecated("ArrowDoubleRight has been renamed DoubleChevronsRight", ReplaceWith("SparkIcons.DoubleChevronsRight"))
+public val SparkIcons.ArrowDoubleRight: DrawableRes get() = DoubleChevronsRight
+
+@Deprecated("ArrowVerticalLeft has been renamed ChevronVerticalLeft", ReplaceWith("SparkIcons.ChevronVerticalLeft"))
+public val SparkIcons.ArrowVerticalLeft: DrawableRes get() = ChevronVerticalLeft
+
+@Deprecated("ArrowVerticalRight has been renamed ChevronVerticalRight", ReplaceWith("SparkIcons.ChevronVerticalRight"))
+public val SparkIcons.ArrowVerticalRight: DrawableRes get() = ChevronVerticalRight
+
+@Deprecated(
+    "ArrowHorizontalDown has been renamed ChevronHorizontalDown",
+    ReplaceWith("SparkIcons.ChevronHorizontalDown"),
+)
+public val SparkIcons.ArrowHorizontalDown: DrawableRes get() = ChevronHorizontalDown
+
+@Deprecated("ArrowHorizontalUp has been renamed ChevronHorizontalUp", ReplaceWith("SparkIcons.ChevronHorizontalUp"))
+public val SparkIcons.ArrowHorizontalUp: DrawableRes get() = ChevronHorizontalUp
+
+@Deprecated("DeleteFill has been renamed CircleCrossFill", ReplaceWith("SparkIcons.CircleCrossFill"))
+public val SparkIcons.DeleteFill: DrawableRes get() = CircleCrossFill
+
+@Deprecated("DeleteOutline has been renamed CircleCrossOutline", ReplaceWith("SparkIcons.CircleCrossOutline"))
+public val SparkIcons.DeleteOutline: DrawableRes get() = CircleCrossOutline
+
+@Deprecated("Close has been renamed Cross", ReplaceWith("SparkIcons.Cross"))
+public val SparkIcons.Close: DrawableRes get() = Cross
+
+@Deprecated("CalendarFill has been renamed CalendarTextFill", ReplaceWith("SparkIcons.CalendarTextFill"))
+public val SparkIcons.CalendarFill: DrawableRes get() = CalendarTextFill
+
+@Deprecated("CalendarOutline has been renamed CalendarTextOutline", ReplaceWith("SparkIcons.CalendarTextOutline"))
+public val SparkIcons.CalendarOutline: DrawableRes get() = CalendarTextOutline
+
+@Deprecated("CalendarValidFill has been renamed CalendarCheckFill", ReplaceWith("SparkIcons.CalendarCheckFill"))
+public val SparkIcons.CalendarValidFill: DrawableRes get() = CalendarCheckFill
+
+@Deprecated(
+    "CalendarValidOutline has been renamed CalendarCheckOutline",
+    ReplaceWith("SparkIcons.CalendarCheckOutline"),
+)
+public val SparkIcons.CalendarValidOutline: DrawableRes get() = CalendarCheckOutline
+
+@Deprecated("VoiceOffFill has been renamed MicrophoneOffFill", ReplaceWith("SparkIcons.MicrophoneOffFill"))
+public val SparkIcons.VoiceOffFill: DrawableRes get() = MicrophoneOffFill
+
+@Deprecated("VoiceOffOutline has been renamed MicrophoneOffOutline", ReplaceWith("SparkIcons.MicrophoneOffOutline"))
+public val SparkIcons.VoiceOffOutline: DrawableRes get() = MicrophoneOffOutline
+
+@Deprecated("VoiceFill has been renamed MicrophoneFill", ReplaceWith("SparkIcons.MicrophoneFill"))
+public val SparkIcons.VoiceFill: DrawableRes get() = MicrophoneFill
+
+@Deprecated("VoiceOutline has been renamed MicrophoneOutline", ReplaceWith("SparkIcons.MicrophoneOutline"))
+public val SparkIcons.VoiceOutline: DrawableRes get() = MicrophoneOutline
+
+@Deprecated("TypingFill has been renamed BubbleDotsFill", ReplaceWith("SparkIcons.BubbleDotsFill"))
+public val SparkIcons.TypingFill: DrawableRes get() = BubbleDotsFill
+
+@Deprecated("TypingOutline has been renamed BubbleDotsOutline", ReplaceWith("SparkIcons.BubbleDotsOutline"))
+public val SparkIcons.TypingOutline: DrawableRes get() = BubbleDotsOutline
+
+@Deprecated("MessageFill has been renamed BubbleTextFill", ReplaceWith("SparkIcons.BubbleTextFill"))
+public val SparkIcons.MessageFill: DrawableRes get() = BubbleTextFill
+
+@Deprecated("MessageOutline has been renamed BubbleTextOutline", ReplaceWith("SparkIcons.BubbleTextOutline"))
+public val SparkIcons.MessageOutline: DrawableRes get() = BubbleTextOutline
+
+//@Deprecated("ConversationFill has been renamed ChatBubblesFill", ReplaceWith("SparkIcons.ChatBubblesFill"))
+//public val SparkIcons.ConversationFill: DrawableRes get() = ChatBubblesFill
+//@Deprecated("ConversationOutline has been renamed ChatBubblesOutline", ReplaceWith("SparkIcons.ChatBubblesOutline"))
+//public val SparkIcons.ConversationOutline: DrawableRes get() = ChatBubblesOutline
+@Deprecated("SendFill has been renamed FoldedEnvelopFill", ReplaceWith("SparkIcons.FoldedEnvelopFill"))
+public val SparkIcons.SendFill: DrawableRes get() = FoldedEnvelopFill
+
+@Deprecated("SendOutline has been renamed FoldedEnvelopOutline", ReplaceWith("SparkIcons.FoldedEnvelopOutline"))
+public val SparkIcons.SendOutline: DrawableRes get() = FoldedEnvelopOutline
+
+@Deprecated("CallFill has been renamed PhoneCallFill", ReplaceWith("SparkIcons.PhoneCallFill"))
+public val SparkIcons.CallFill: DrawableRes get() = PhoneCallFill
+
+@Deprecated("CallOutline has been renamed PhoneCallOutline", ReplaceWith("SparkIcons.PhoneCallOutline"))
+public val SparkIcons.CallOutline: DrawableRes get() = PhoneCallOutline
+
+@Deprecated("SupportFill has been renamed HeadphoneFill", ReplaceWith("SparkIcons.HeadphoneFill"))
+public val SparkIcons.SupportFill: DrawableRes get() = HeadphoneFill
+
+@Deprecated("SupportOutline has been renamed HeadphoneOutline", ReplaceWith("SparkIcons.HeadphoneOutline"))
+public val SparkIcons.SupportOutline: DrawableRes get() = HeadphoneOutline
+
+@Deprecated("SupportSmileFill has been renamed HeadphoneSmileFill", ReplaceWith("SparkIcons.HeadphoneSmileFill"))
+public val SparkIcons.SupportSmileFill: DrawableRes get() = HeadphoneSmileFill
+
+@Deprecated(
+    "SupportSmileOutline has been renamed HeadphoneSmileOutline",
+    ReplaceWith("SparkIcons.HeadphoneSmileOutline"),
+)
+public val SparkIcons.SupportSmileOutline: DrawableRes get() = HeadphoneSmileOutline
+
+//@Deprecated("FeedbackFill has been renamed WarningBubbleFill", ReplaceWith("SparkIcons.WarningBubbleFill"))
+//public val SparkIcons.FeedbackFill: DrawableRes get() = WarningBubbleFill
+//@Deprecated("FeedbackOutline has been renamed WarningBubbleOutline", ReplaceWith("SparkIcons.WarningBubbleOutline"))
+//public val SparkIcons.FeedbackOutline: DrawableRes get() = WarningBubbleOutline
+@Deprecated("CallEnterFill has been renamed PhoneCallEnterFill", ReplaceWith("SparkIcons.PhoneCallEnterFill"))
+public val SparkIcons.CallEnterFill: DrawableRes get() = PhoneCallEnterFill
+
+@Deprecated("CallEnterOutline has been renamed PhoneCallEnterOutline", ReplaceWith("SparkIcons.PhoneCallEnterOutline"))
+public val SparkIcons.CallEnterOutline: DrawableRes get() = PhoneCallEnterOutline
+
+@Deprecated("CallMissFill has been renamed PhoneCallMissFill", ReplaceWith("SparkIcons.PhoneCallMissFill"))
+public val SparkIcons.CallMissFill: DrawableRes get() = PhoneCallMissFill
+
+@Deprecated("CallMissOutline has been renamed PhoneCallMissOutline", ReplaceWith("SparkIcons.PhoneCallMissOutline"))
+public val SparkIcons.CallMissOutline: DrawableRes get() = PhoneCallMissOutline
+
+@Deprecated("NoPhoto has been renamed StrokeImage", ReplaceWith("SparkIcons.StrokeImage"))
+public val SparkIcons.NoPhoto: DrawableRes get() = StrokeImage
+
+@Deprecated("ErrorPhoto has been renamed WarningImage", ReplaceWith("SparkIcons.WarningImage"))
+public val SparkIcons.ErrorPhoto: DrawableRes get() = WarningImage
+
+@Deprecated("Redo has been renamed RedoArrow", ReplaceWith("SparkIcons.RedoArrow"))
+public val SparkIcons.Redo: DrawableRes get() = RedoArrow
+
+@Deprecated("Undo has been renamed UndoArrow", ReplaceWith("SparkIcons.UndoArrow"))
+public val SparkIcons.Undo: DrawableRes get() = UndoArrow
+
+@Deprecated("Lens has been renamed CameraLens", ReplaceWith("SparkIcons.CameraLens"))
+public val SparkIcons.Lens: DrawableRes get() = CameraLens
+
+@Deprecated("Block has been renamed Banned", ReplaceWith("SparkIcons.Banned"))
+public val SparkIcons.Block: DrawableRes get() = Banned
+
+@Deprecated("IdeaFill has been renamed LightBulbFill", ReplaceWith("SparkIcons.LightBulbFill"))
+public val SparkIcons.IdeaFill: DrawableRes get() = LightBulbFill
+
+@Deprecated("IdeaOutline has been renamed LightBulbOutline", ReplaceWith("SparkIcons.LightBulbOutline"))
+public val SparkIcons.IdeaOutline: DrawableRes get() = LightBulbOutline
+
+@Deprecated("DeliveryFastFill has been renamed TruckClockFill", ReplaceWith("SparkIcons.TruckClockFill"))
+public val SparkIcons.DeliveryFastFill: DrawableRes get() = TruckClockFill
+
+@Deprecated("DeliveryFastOutline has been renamed TruckClockOutline", ReplaceWith("SparkIcons.TruckClockOutline"))
+public val SparkIcons.DeliveryFastOutline: DrawableRes get() = TruckClockOutline
+
+@Deprecated("MailCloseFill has been renamed MailBoxCloseFill", ReplaceWith("SparkIcons.MailBoxCloseFill"))
+public val SparkIcons.MailCloseFill: DrawableRes get() = MailBoxCloseFill
+
+@Deprecated("MailCloseOutline has been renamed MailBoxCloseOutline", ReplaceWith("SparkIcons.MailBoxCloseOutline"))
+public val SparkIcons.MailCloseOutline: DrawableRes get() = MailBoxCloseOutline
+
+@Deprecated("MailOpenFill has been renamed MailBoxOpenFill", ReplaceWith("SparkIcons.MailBoxOpenFill"))
+public val SparkIcons.MailOpenFill: DrawableRes get() = MailBoxOpenFill
+
+@Deprecated("MailOpenOutline has been renamed MailBoxOpenOutline", ReplaceWith("SparkIcons.MailBoxOpenOutline"))
+public val SparkIcons.MailOpenOutline: DrawableRes get() = MailBoxOpenOutline
+
+@Deprecated("DeliveryFill has been renamed DeliveryBoxFill", ReplaceWith("SparkIcons.DeliveryBoxFill"))
+public val SparkIcons.DeliveryFill: DrawableRes get() = DeliveryBoxFill
+
+@Deprecated("DeliveryOutline has been renamed DeliveryBoxOutline", ReplaceWith("SparkIcons.DeliveryBoxOutline"))
+public val SparkIcons.DeliveryOutline: DrawableRes get() = DeliveryBoxOutline
+
+@Deprecated("ThreeD has been renamed ThreeDimension", ReplaceWith("SparkIcons.ThreeDimension"))
+public val SparkIcons.ThreeD: DrawableRes get() = ThreeDimension
+
+@Deprecated("AllDirection has been renamed AllDirectionArrows", ReplaceWith("SparkIcons.AllDirectionArrows"))
+public val SparkIcons.AllDirection: DrawableRes get() = AllDirectionArrows
+
+@Deprecated("MapExpand has been renamed ArrowExpand", ReplaceWith("SparkIcons.ArrowExpand"))
+public val SparkIcons.MapExpand: DrawableRes get() = ArrowExpand
+
+@Deprecated("MapCursorFill has been renamed CursorFill", ReplaceWith("SparkIcons.CursorFill"))
+public val SparkIcons.MapCursorFill: DrawableRes get() = CursorFill
+
+@Deprecated("MapCursorOutline has been renamed CursorOutline", ReplaceWith("SparkIcons.CursorOutline"))
+public val SparkIcons.MapCursorOutline: DrawableRes get() = CursorOutline
+
+@Deprecated("HotelFill has been renamed BedFill", ReplaceWith("SparkIcons.BedFill"))
+public val SparkIcons.HotelFill: DrawableRes get() = BedFill
+
+@Deprecated("HotelOutline has been renamed BedOutline", ReplaceWith("SparkIcons.BedOutline"))
+public val SparkIcons.HotelOutline: DrawableRes get() = BedOutline
+
+@Deprecated("WalkerFill has been renamed ManWalkingFill", ReplaceWith("SparkIcons.ManWalkingFill"))
+public val SparkIcons.WalkerFill: DrawableRes get() = ManWalkingFill
+
+@Deprecated("WalkerOutline has been renamed ManWalkingOutline", ReplaceWith("SparkIcons.ManWalkingOutline"))
+public val SparkIcons.WalkerOutline: DrawableRes get() = ManWalkingOutline
+
+@Deprecated("DissatisfiedFill has been renamed DissatisfiedFaceFill", ReplaceWith("SparkIcons.DissatisfiedFaceFill"))
+public val SparkIcons.DissatisfiedFill: DrawableRes get() = DissatisfiedFaceFill
+
+@Deprecated(
+    "DissatisfiedOutline has been renamed DissatisfiedFaceOutline",
+    ReplaceWith("SparkIcons.DissatisfiedFaceOutline"),
+)
+public val SparkIcons.DissatisfiedOutline: DrawableRes get() = DissatisfiedFaceOutline
+
+@Deprecated("NeutralFill has been renamed NeutralFaceFill", ReplaceWith("SparkIcons.NeutralFaceFill"))
+public val SparkIcons.NeutralFill: DrawableRes get() = NeutralFaceFill
+
+@Deprecated("NeutralOutline has been renamed NeutralFaceOutline", ReplaceWith("SparkIcons.NeutralFaceOutline"))
+public val SparkIcons.NeutralOutline: DrawableRes get() = NeutralFaceOutline
+
+@Deprecated("SadFill has been renamed SadFaceFill", ReplaceWith("SparkIcons.SadFaceFill"))
+public val SparkIcons.SadFill: DrawableRes get() = SadFaceFill
+
+@Deprecated("SadOutline has been renamed SadFaceOutline", ReplaceWith("SparkIcons.SadFaceOutline"))
+public val SparkIcons.SadOutline: DrawableRes get() = SadFaceOutline
+
+@Deprecated("Euro has been renamed EuroSymbol", ReplaceWith("SparkIcons.EuroSymbol"))
+public val SparkIcons.Euro: DrawableRes get() = EuroSymbol
+
+@Deprecated("Refund has been renamed RefundEuro", ReplaceWith("SparkIcons.RefundEuro"))
+public val SparkIcons.Refund: DrawableRes get() = RefundEuro
+
+@Deprecated("AlarmOnFill has been renamed BellOnFill", ReplaceWith("SparkIcons.BellOnFill"))
+public val SparkIcons.AlarmOnFill: DrawableRes get() = BellOnFill
+
+@Deprecated("AlarmOnOutline has been renamed BellOnOutline", ReplaceWith("SparkIcons.BellOnOutline"))
+public val SparkIcons.AlarmOnOutline: DrawableRes get() = BellOnOutline
+
+@Deprecated("AlarmOffFill has been renamed BellOffFill", ReplaceWith("SparkIcons.BellOffFill"))
+public val SparkIcons.AlarmOffFill: DrawableRes get() = BellOffFill
+
+@Deprecated("AlarmOffOutline has been renamed BellOffOutline", ReplaceWith("SparkIcons.BellOffOutline"))
+public val SparkIcons.AlarmOffOutline: DrawableRes get() = BellOffOutline
+
+@Deprecated("AlarmFill has been renamed BellFill", ReplaceWith("SparkIcons.BellFill"))
+public val SparkIcons.AlarmFill: DrawableRes get() = BellFill
+
+@Deprecated("AlarmOutline has been renamed BellOutline", ReplaceWith("SparkIcons.BellOutline"))
+public val SparkIcons.AlarmOutline: DrawableRes get() = BellOutline
+
+@Deprecated("NotificationFill has been renamed BellShakeFill", ReplaceWith("SparkIcons.BellShakeFill"))
+public val SparkIcons.NotificationFill: DrawableRes get() = BellShakeFill
+
+@Deprecated("NotificationOutline has been renamed BellShakeOutline", ReplaceWith("SparkIcons.BellShakeOutline"))
+public val SparkIcons.NotificationOutline: DrawableRes get() = BellShakeOutline
+
+@Deprecated("MoneyFill has been renamed CoinsFill", ReplaceWith("SparkIcons.CoinsFill"))
+public val SparkIcons.MoneyFill: DrawableRes get() = CoinsFill
+
+@Deprecated("MoneyOutline has been renamed CoinsOutline", ReplaceWith("SparkIcons.CoinsOutline"))
+public val SparkIcons.MoneyOutline: DrawableRes get() = CoinsOutline
+
+@Deprecated("Wallet has been renamed WalletBrand", ReplaceWith("SparkIcons.WalletBrand"))
+public val SparkIcons.Wallet: DrawableRes get() = WalletBrand
+
+@Deprecated("Card has been renamed CardBrand", ReplaceWith("SparkIcons.CardBrand"))
+public val SparkIcons.Card: DrawableRes get() = CardBrand
+
+@Deprecated("ProCursorFill has been renamed ClickCursorFill", ReplaceWith("SparkIcons.ClickCursorFill"))
+public val SparkIcons.ProCursorFill: DrawableRes get() = ClickCursorFill
+
+@Deprecated("ProCursorOutline has been renamed ClickCursorOutline", ReplaceWith("SparkIcons.ClickCursorOutline"))
+public val SparkIcons.ProCursorOutline: DrawableRes get() = ClickCursorOutline
+
+@Deprecated("DownloadFill has been renamed DownloadFileFill", ReplaceWith("SparkIcons.DownloadFileFill"))
+public val SparkIcons.DownloadFill: DrawableRes get() = DownloadFileFill
+
+@Deprecated("DownloadOutline has been renamed DownloadFileOutline", ReplaceWith("SparkIcons.DownloadFileOutline"))
+public val SparkIcons.DownloadOutline: DrawableRes get() = DownloadFileOutline
+
+@Deprecated("FacebookFill has been renamed FacebookLogoFill", ReplaceWith("SparkIcons.FacebookLogoFill"))
+public val SparkIcons.FacebookFill: DrawableRes get() = FacebookLogoFill
+
+@Deprecated("FacebookOutline has been renamed FacebookLogoOutline", ReplaceWith("SparkIcons.FacebookLogoOutline"))
+public val SparkIcons.FacebookOutline: DrawableRes get() = FacebookLogoOutline
+
+@Deprecated("Twitter has been renamed TwitterLogo", ReplaceWith("SparkIcons.TwitterLogo"))
+public val SparkIcons.Twitter: DrawableRes get() = TwitterLogo
+
+@Deprecated("Linkedin has been renamed LinkedinLogo", ReplaceWith("SparkIcons.LinkedinLogo"))
+public val SparkIcons.Linkedin: DrawableRes get() = LinkedinLogo
+
+@Deprecated("Link has been renamed Chain", ReplaceWith("SparkIcons.Chain"))
+public val SparkIcons.Link: DrawableRes get() = Chain
+
+@Deprecated("InstagramFill has been renamed InstagramLogoFill", ReplaceWith("SparkIcons.InstagramLogoFill"))
+public val SparkIcons.InstagramFill: DrawableRes get() = InstagramLogoFill
+
+@Deprecated("InstagramOutline has been renamed InstagramLogoOutline", ReplaceWith("SparkIcons.InstagramLogoOutline"))
+public val SparkIcons.InstagramOutline: DrawableRes get() = InstagramLogoOutline
+
+@Deprecated("Messenger has been renamed MessengerLogo", ReplaceWith("SparkIcons.MessengerLogo"))
+public val SparkIcons.Messenger: DrawableRes get() = MessengerLogo
+
+@Deprecated("Pinterest has been renamed PinterestLogo", ReplaceWith("SparkIcons.PinterestLogo"))
+public val SparkIcons.Pinterest: DrawableRes get() = PinterestLogo
+
+@Deprecated("Whatsapp has been renamed WhatsappLogo", ReplaceWith("SparkIcons.WhatsappLogo"))
+public val SparkIcons.Whatsapp: DrawableRes get() = WhatsappLogo
+
+@Deprecated("ShareExpand has been renamed ShareExternal", ReplaceWith("SparkIcons.ShareExternal"))
+public val SparkIcons.ShareExpand: DrawableRes get() = ShareExternal
+
+@Deprecated("ValidFill has been renamed CircleCheckFill", ReplaceWith("SparkIcons.CircleCheckFill"))
+public val SparkIcons.ValidFill: DrawableRes get() = CircleCheckFill
+
+@Deprecated("ValidOutline has been renamed CircleCheckOutline", ReplaceWith("SparkIcons.CircleCheckOutline"))
+public val SparkIcons.ValidOutline: DrawableRes get() = CircleCheckOutline
+
+@Deprecated("AddFill has been renamed AddCircleFill", ReplaceWith("SparkIcons.AddCircleFill"))
+public val SparkIcons.AddFill: DrawableRes get() = AddCircleFill
+
+@Deprecated("AddOutline has been renamed AddCircleOutline", ReplaceWith("SparkIcons.AddCircleOutline"))
+public val SparkIcons.AddOutline: DrawableRes get() = AddCircleOutline
+
+@Deprecated("RemoveFill has been renamed MinusCircleFill", ReplaceWith("SparkIcons.MinusCircleFill"))
+public val SparkIcons.RemoveFill: DrawableRes get() = MinusCircleFill
+
+@Deprecated("RemoveOutline has been renamed MinusCircleOutline", ReplaceWith("SparkIcons.MinusCircleOutline"))
+public val SparkIcons.RemoveOutline: DrawableRes get() = MinusCircleOutline
+
+//@Deprecated("AccountFill has been renamed Userfill", ReplaceWith("SparkIcons.Userfill"))
+//public val SparkIcons.AccountFill: DrawableRes get() = Userfill
+@Deprecated("AccountOutline has been renamed UserOutline", ReplaceWith("SparkIcons.UserOutline"))
+public val SparkIcons.AccountOutline: DrawableRes get() = UserOutline
+
+@Deprecated("IdentityFill has been renamed IdentityCardFill", ReplaceWith("SparkIcons.IdentityCardFill"))
+public val SparkIcons.IdentityFill: DrawableRes get() = IdentityCardFill
+
+@Deprecated("IdentityOutline has been renamed IdentityCardOutline", ReplaceWith("SparkIcons.IdentityCardOutline"))
+public val SparkIcons.IdentityOutline: DrawableRes get() = IdentityCardOutline
+
+@Deprecated("Search has been renamed MagnifierOutline", ReplaceWith("SparkIcons.MagnifierOutline"))
+public val SparkIcons.Search: DrawableRes get() = MagnifierOutline
+
+@Deprecated("FavoriteFill has been renamed HeartFill", ReplaceWith("SparkIcons.HeartFill"))
+public val SparkIcons.FavoriteFill: DrawableRes get() = HeartFill
+
+@Deprecated("FavoriteOutline has been renamed HeartOutline", ReplaceWith("SparkIcons.HeartOutline"))
+public val SparkIcons.FavoriteOutline: DrawableRes get() = HeartOutline

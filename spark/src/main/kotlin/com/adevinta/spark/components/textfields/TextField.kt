@@ -54,7 +54,7 @@ import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconSize
 import com.adevinta.spark.components.icons.IconToggleButton
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.LikeOutline
+import com.adevinta.spark.icons.HeartOutline
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.SparkTypography
 import kotlinx.coroutines.flow.flowOf
@@ -355,7 +355,7 @@ private fun ColumnScope.PreviewTextFields(
             checked = true,
         ) {
             Icon(
-                sparkIcon = SparkIcons.LikeOutline,
+                sparkIcon = SparkIcons.HeartOutline,
                 contentDescription = null,
                 size = IconSize.Medium,
             )

@@ -76,13 +76,13 @@ import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.TextField
-import com.adevinta.spark.icons.AccountFill
-import com.adevinta.spark.icons.ArrowHorizontalUp
-import com.adevinta.spark.icons.CalendarOutline
+import com.adevinta.spark.icons.CalendarTextOutline
 import com.adevinta.spark.icons.Check
+import com.adevinta.spark.icons.ChevronHorizontalUp
 import com.adevinta.spark.icons.EyeOutline
-import com.adevinta.spark.icons.MailOutline
+import com.adevinta.spark.icons.LetterOutline
 import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.Userfill
 import com.adevinta.spark.tokens.ElevationTokens
 import kotlinx.coroutines.delay
 import java.time.LocalDate
@@ -191,7 +191,7 @@ private fun ColumnScope.ChipsKind() {
     FlowRow(
         horizontalArrangement = spacedBy(8.dp),
     ) {
-        Chip(text = "Assist", leadingIcon = SparkIcons.CalendarOutline, onClick = {})
+        Chip(text = "Assist", leadingIcon = SparkIcons.CalendarTextOutline, onClick = {})
         ChipSelectable(
             text = "Filter",
             leadingIcon = if (selected) SparkIcons.Check else null,
@@ -309,7 +309,7 @@ private fun ColumnScope.ChipAssist() {
                 ) {
                     Chip(
                         text = "Add to Calendar",
-                        leadingIcon = SparkIcons.CalendarOutline,
+                        leadingIcon = SparkIcons.CalendarTextOutline,
                         onClick = {},
                         intent = ChipIntent.Surface,
                     )
@@ -394,7 +394,7 @@ private fun ChipSuggestion() {
         label = "From",
         leadingContent = {
             TextFieldIcon(
-                icon = SparkIcons.MailOutline,
+                icon = SparkIcons.LetterOutline,
                 contentDescription = null,
             )
         },
@@ -411,7 +411,7 @@ private fun ChipSuggestion() {
                 text = "john.doe@email.com",
                 style = if (value == "john.doe@email.com") Tinted else Dashed,
                 intent = ChipIntent.Neutral,
-                leadingIcon = SparkIcons.AccountFill,
+                leadingIcon = SparkIcons.Userfill,
                 onClick = {
                     value = "john.doe@email.com"
                 },
@@ -420,7 +420,7 @@ private fun ChipSuggestion() {
                 text = "jane.doe@email.com",
                 style = if (value == "jane.doe@email.com") Tinted else Dashed,
                 intent = ChipIntent.Neutral,
-                leadingIcon = SparkIcons.AccountFill,
+                leadingIcon = SparkIcons.Userfill,
                 onClick = {
                     value = "jane.doe@email.com"
                 },
@@ -461,7 +461,7 @@ private fun ChipSelection() {
         ) {
             Text(text = value.ifEmpty { "Animals" })
             Icon(
-                sparkIcon = SparkIcons.ArrowHorizontalUp,
+                sparkIcon = SparkIcons.ChevronHorizontalUp,
                 modifier = Modifier.size(12.dp),
                 contentDescription = null,
                 tint = LocalContentColor.current,

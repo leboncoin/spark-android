@@ -36,7 +36,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
-import com.adevinta.spark.icons.IdentityOutline
+import com.adevinta.spark.icons.IdentityCardOutline
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.dim3
@@ -250,7 +250,7 @@ public fun ButtonFilled(
 @Composable
 internal fun MainButtonPreview() {
     PreviewTheme {
-        val icon = SparkIcons.IdentityOutline
+        val icon = SparkIcons.IdentityCardOutline
         var isLoading by remember { mutableStateOf(false) }
         val buttonText = "Main Button"
         ButtonFilled(
@@ -288,7 +288,7 @@ internal fun ButtonFilledIntentPreview() {
     PreviewTheme(
         color = { SparkTheme.colors.backgroundVariant },
     ) {
-        val icon = SparkIcons.IdentityOutline
+        val icon = SparkIcons.IdentityCardOutline
         ButtonIntent.entries.forEach { intent ->
             ButtonFilled(
                 text = intent.name,
@@ -310,7 +310,7 @@ internal fun ButtonSizePreview() {
     PreviewTheme(
         color = { SparkTheme.colors.backgroundVariant },
     ) {
-        val icon = SparkIcons.IdentityOutline
+        val icon = SparkIcons.IdentityCardOutline
         ButtonSize.entries.forEach { size ->
             ButtonFilled(
                 text = size.name,
