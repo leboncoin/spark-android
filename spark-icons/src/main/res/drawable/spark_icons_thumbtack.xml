@@ -25,7 +25,7 @@
     android:viewportWidth="24"
     android:viewportHeight="24">
   <path
-      android:pathData="m9.95,15.44 l-3.89,3.88a1,1 0,1 1,-1.41 -1.41l3.89,-3.89z"
+      android:pathData="m9.95,15.44 l-3.89,3.88a1,1 0,0 1,-1.41 -1.41l3.89,-3.89z"
       android:fillColor="#3A4757"
       android:fillType="evenOdd"/>
   <path
