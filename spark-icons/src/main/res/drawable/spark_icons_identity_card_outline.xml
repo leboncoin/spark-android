@@ -1,0 +1,36 @@
+<!--
+  Copyright (c) 2023 Adevinta
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="20dp"
+    android:height="15dp"
+    android:viewportWidth="20"
+    android:viewportHeight="15">
+  <path
+      android:pathData="M11.9,9.33h3.93a0.8,0.8 0,1 0,0 -1.6H11.9a0.8,0.8 0,1 0,0 1.6M6.85,8.21c0.42,0 0.8,-0.15 1.1,-0.46 0.3,-0.3 0.45,-0.67 0.45,-1.1 0,-0.43 -0.16,-0.8 -0.46,-1.1a1.5,1.5 0,0 0,-1.1 -0.47c-0.42,0 -0.8,0.16 -1.1,0.46 -0.3,0.31 -0.45,0.68 -0.45,1.1 0,0.44 0.16,0.8 0.46,1.11 0.3,0.31 0.67,0.46 1.1,0.46m5.05,-1.58h3.93a0.8,0.8 0,1 0,0 -1.6H11.9a0.8,0.8 0,1 0,0 1.6"
+      android:fillColor="#3A4757"/>
+  <path
+      android:pathData="M19.46,0.55A1.8,1.8 0,0 0,18.14 0H1.86C1.35,0 0.91,0.19 0.54,0.55 0.2,0.9 0,1.36 0,1.87v11.26A1.85,1.85 0,0 0,1.86 15h16.28c0.51,0 0.95,-0.19 1.32,-0.55 0.36,-0.36 0.54,-0.8 0.54,-1.32V1.88c0,-0.52 -0.19,-0.96 -0.54,-1.32zM1.77,1.88c0,-0.06 0.02,-0.07 0.02,-0.08 0,0 0.01,-0.02 0.07,-0.02h16.28c0.05,0 0.06,0.02 0.07,0.02 0,0 0.02,0.02 0.02,0.08v11.26c0,0.05 -0.02,0.07 -0.02,0.08l-0.07,0.01H1.86l-0.07,-0.01s-0.02,-0.03 -0.02,-0.08z"
+      android:fillColor="#3A4757"/>
+  <path
+      android:pathData="M9.96,10.49c0,-0.32 -0.08,-0.61 -0.24,-0.87a1.46,1.46 0,0 0,-0.68 -0.57,6.2 6.2,0 0,0 -2.2,-0.46 5.6,5.6 0,0 0,-2.25 0.45,1.57 1.57,0 0,0 -0.94,1.44v0.5h6.32z"
+      android:fillColor="#3A4757"/>
+</vector>

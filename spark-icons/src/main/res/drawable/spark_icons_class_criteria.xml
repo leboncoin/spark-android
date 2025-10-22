@@ -1,0 +1,31 @@
+<!--
+  Copyright (c) 2023 Adevinta
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="13dp"
+    android:height="14dp"
+    android:viewportWidth="13"
+    android:viewportHeight="14">
+  <path
+      android:pathData="M12.62,11.05c0.2,0 0.38,0.17 0.38,0.37v2.21c0,0.2 -0.17,0.37 -0.38,0.37L0.38,14a0.38,0.38 0,0 1,-0.38 -0.37v-2.2c0,-0.21 0.17,-0.38 0.38,-0.38zM12.24,11.79L0.76,11.79v1.47h11.48zM11.09,7.37c0.2,0 0.38,0.16 0.38,0.37v2.2c0,0.21 -0.17,0.38 -0.38,0.38L0.39,10.32A0.38,0.38 0,0 1,0 9.95L0,7.74c0,-0.2 0.17,-0.37 0.38,-0.37zM10.71,8.11L0.76,8.11v1.47h9.95zM9.56,3.68c0.21,0 0.38,0.17 0.38,0.37v2.21c0,0.2 -0.17,0.37 -0.38,0.37L0.38,6.63A0.38,0.38 0,0 1,0 6.26v-2.2c0,-0.21 0.17,-0.38 0.38,-0.38zM9.18,4.42L0.76,4.42L0.76,5.9h8.42zM8.03,0c0.21,0 0.38,0.16 0.38,0.37v2.2c0,0.21 -0.17,0.38 -0.38,0.38L0.38,2.95A0.38,0.38 0,0 1,0 2.58L0,0.37C0,0.17 0.17,0 0.38,0zM7.65,0.74L0.76,0.74L0.76,2.2h6.89z"
+      android:fillColor="#3A4757"
+      android:fillType="evenOdd"/>
+</vector>

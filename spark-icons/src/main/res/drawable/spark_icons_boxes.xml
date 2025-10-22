@@ -1,0 +1,33 @@
+<!--
+  Copyright (c) 2023 Adevinta
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="22dp"
+    android:height="20dp"
+    android:viewportWidth="22"
+    android:viewportHeight="20">
+  <path
+      android:pathData="M19.88,0L7.55,0c-1.2,0 -2.21,1 -2.21,2.18v0.54L2.2,2.72C1,2.72 0,3.72 0,4.9v12.17a2.22,2.22 0,0 0,2.2 2.18h12.34c1.2,0 2.2,-1 2.2,-2.18v-0.54h3.05c1.2,0 2.2,-1 2.2,-2.18L21.99,2.18C22.1,0.9 21.07,0 19.88,0m-7.36,2.18h2.3v3.9h-2.3zM14.54,17.08L2.21,17.08L2.21,4.9h3.04v9.45a2.22,2.22 0,0 0,2.2 2.18h7.09zM19.88,14.35L7.55,14.35L7.55,2.18h2.85v4.45c0,0.45 0.18,0.82 0.46,1.18s0.74,0.45 1.2,0.45h3.4c0.46,0 0.83,-0.18 1.2,-0.45 0.18,-0.36 0.36,-0.82 0.36,-1.27L17.02,2.18h2.86z"
+      android:fillColor="#3A4757"/>
+  <path
+      android:pathData="M18.13,11.62h-2.76c-0.65,0 -1.1,0.46 -1.1,1.1 0,0.63 0.45,1.08 1.1,1.08h2.76c0.64,0 1.1,-0.45 1.1,-1.09 0,-0.63 -0.46,-1.09 -1.1,-1.09"
+      android:fillColor="#3A4757"/>
+</vector>

@@ -1,0 +1,35 @@
+<!--
+  Copyright (c) 2023 Adevinta
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="20dp"
+    android:height="20dp"
+    android:viewportWidth="20"
+    android:viewportHeight="20">
+  <path
+      android:pathData="M6.18,8.48c0.4,0.41 0.4,1.08 -0.01,1.49L2.9,13.2a2.75,2.75 0,0 0,0 3.89,2.71 2.71,0 0,0 3.84,0.01l3.28,-3.3a1.05,1.05 0,0 1,1.5 1.49l-3.3,3.3a4.85,4.85 0,0 1,-6.8 -6.87l3.26,-3.26c0.41,-0.4 1.08,-0.4 1.49,0.01m5.55,-7.05a4.84,4.84 0,1 1,6.85 6.86,2396.5 2396.5,0 0,1 -3.25,3.23 1.05,1.05 0,0 1,-1.48 -1.48,1706.84 1706.84,0 0,1 3.25,-3.24 2.74,2.74 0,1 0,-3.88 -3.89,1369.01 1369.01,0 0,0 -3.24,3.28 1.05,1.05 0,0 1,-1.5 -1.48l1.77,-1.78z"
+      android:fillColor="#3A4757"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M13.8,6.21c0.4,0.41 0.4,1.08 0,1.49l-6.1,6.08a1.05,1.05 0,0 1,-1.49 -1.49l6.1,-6.08c0.41,-0.4 1.08,-0.4 1.49,0"
+      android:fillColor="#3A4757"
+      android:fillType="evenOdd"/>
+</vector>
