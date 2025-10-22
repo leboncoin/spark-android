@@ -42,7 +42,7 @@ import com.adevinta.spark.icons.House
 import com.adevinta.spark.icons.MagnifierOutline
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
-import com.adevinta.spark.icons.Userfill
+import com.adevinta.spark.icons.UserFill
 import com.adevinta.spark.tokens.highlight
 import androidx.compose.material3.NavigationRailItem as MaterialNavigationRailItem
 import androidx.compose.material3.NavigationRailItemDefaults as MaterialNavigationRailItemDefaults
@@ -157,7 +157,7 @@ internal fun NavigationRailItemPreview() {
         val items = mutableListOf(
             Pair("Home", SparkIcons.House),
             Pair("Search", SparkIcons.MagnifierOutline),
-            Pair("Account", SparkIcons.Userfill),
+            Pair("Account", SparkIcons.UserFill),
         )
         items.forEach {
             NavigationRailItem(selected = true, onClick = { }, icon = it.second, label = it.first)

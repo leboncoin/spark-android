@@ -57,7 +57,7 @@ import com.adevinta.spark.components.tab.TabGroupDefaults.tabIndicatorOffset
 import com.adevinta.spark.icons.BubbleTextOutline
 import com.adevinta.spark.icons.MagnifierOutline
 import com.adevinta.spark.icons.SparkIcons
-import com.adevinta.spark.icons.Userfill
+import com.adevinta.spark.icons.UserFill
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -347,7 +347,7 @@ private fun TabGroupPreview() {
         Pair("Home", null) to 0,
         Pair("Search", SparkIcons.MagnifierOutline) to 0,
         Pair("Message", SparkIcons.BubbleTextOutline) to 0,
-        Pair(null, SparkIcons.Userfill) to 0,
+        Pair(null, SparkIcons.UserFill) to 0,
     )
     var selectedIndex by remember { mutableIntStateOf(0) }
     PreviewTheme {

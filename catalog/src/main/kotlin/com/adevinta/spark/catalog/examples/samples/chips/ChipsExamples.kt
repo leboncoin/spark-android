@@ -82,7 +82,7 @@ import com.adevinta.spark.icons.ChevronHorizontalUp
 import com.adevinta.spark.icons.EyeOutline
 import com.adevinta.spark.icons.LetterOutline
 import com.adevinta.spark.icons.SparkIcons
-import com.adevinta.spark.icons.Userfill
+import com.adevinta.spark.icons.UserFill
 import com.adevinta.spark.tokens.ElevationTokens
 import kotlinx.coroutines.delay
 import java.time.LocalDate
@@ -411,7 +411,7 @@ private fun ChipSuggestion() {
                 text = "john.doe@email.com",
                 style = if (value == "john.doe@email.com") Tinted else Dashed,
                 intent = ChipIntent.Neutral,
-                leadingIcon = SparkIcons.Userfill,
+                leadingIcon = SparkIcons.UserFill,
                 onClick = {
                     value = "john.doe@email.com"
                 },
@@ -420,7 +420,7 @@ private fun ChipSuggestion() {
                 text = "jane.doe@email.com",
                 style = if (value == "jane.doe@email.com") Tinted else Dashed,
                 intent = ChipIntent.Neutral,
-                leadingIcon = SparkIcons.Userfill,
+                leadingIcon = SparkIcons.UserFill,
                 onClick = {
                     value = "jane.doe@email.com"
                 },

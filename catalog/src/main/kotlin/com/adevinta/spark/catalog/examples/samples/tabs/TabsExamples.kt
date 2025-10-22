@@ -34,7 +34,7 @@ import com.adevinta.spark.components.tab.TabGroup
 import com.adevinta.spark.icons.BellOnFill
 import com.adevinta.spark.icons.BubbleTextOutline
 import com.adevinta.spark.icons.SparkIcons
-import com.adevinta.spark.icons.Userfill
+import com.adevinta.spark.icons.UserFill
 
 private const val TabsExampleSourceUrl = "$SampleSourceUrl/TabExamples.kt"
 public val TabsExamples: List<Example> = listOf(
@@ -163,7 +163,7 @@ private fun IconsTabsSample() {
     val tabs = mutableListOf(
         Triple(SparkIcons.BellOnFill, 0, "notifications"),
         Triple(SparkIcons.BubbleTextOutline, 1, "messages"),
-        Triple(SparkIcons.Userfill, 0, "compte"),
+        Triple(SparkIcons.UserFill, 0, "compte"),
     )
     var selectedIndex by remember { mutableIntStateOf(0) }
     TabGroup(

@@ -47,7 +47,7 @@ import com.adevinta.spark.icons.HeartOutline
 import com.adevinta.spark.icons.House
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
-import com.adevinta.spark.icons.Userfill
+import com.adevinta.spark.icons.UserFill
 import androidx.compose.material3.NavigationDrawerItem as MaterialNavigationDrawerItem
 import androidx.compose.material3.NavigationDrawerItemColors as MaterialNavigationDrawerItemColors
 import androidx.compose.material3.NavigationDrawerItemDefaults as MaterialNavigationDrawerItemDefaults
@@ -159,7 +159,7 @@ internal fun NavigationDrawerItemPreview() {
         val items = mutableListOf(
             Pair("Home", SparkIcons.House),
             Pair("Favourite", SparkIcons.HeartOutline),
-            Pair("Account", SparkIcons.Userfill),
+            Pair("Account", SparkIcons.UserFill),
         )
         items.forEachIndexed { index, tab ->
             NavigationDrawerItem(

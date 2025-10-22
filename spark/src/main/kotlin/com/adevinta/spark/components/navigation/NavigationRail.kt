@@ -36,7 +36,7 @@ import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.icons.House
 import com.adevinta.spark.icons.MagnifierOutline
 import com.adevinta.spark.icons.SparkIcons
-import com.adevinta.spark.icons.Userfill
+import com.adevinta.spark.icons.UserFill
 import androidx.compose.material3.NavigationRail as MaterialNavigationRail
 
 @InternalSparkApi
@@ -94,7 +94,7 @@ internal fun NavigationRailPreview() {
         val items = mutableListOf(
             Pair("Home", SparkIcons.House),
             Pair("Search", SparkIcons.MagnifierOutline),
-            Pair(null, SparkIcons.Userfill),
+            Pair(null, SparkIcons.UserFill),
         )
         NavigationRail {
             items.forEach {
