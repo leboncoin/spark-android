@@ -30,7 +30,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
@@ -51,8 +50,8 @@ import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconButton
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.ArrowHorizontalDown
 import com.adevinta.spark.icons.Check
+import com.adevinta.spark.icons.ChevronHorizontalDown
 import com.adevinta.spark.icons.PenOutline
 import com.adevinta.spark.icons.SparkIcons
 
@@ -216,7 +215,7 @@ private fun BottomAppBarWithIconsExample() {
                         }
                         IconButton(onClick = { /* Handle action */ }) {
                             Icon(
-                                sparkIcon = SparkIcons.ArrowHorizontalDown,
+                                sparkIcon = SparkIcons.ChevronHorizontalDown,
                                 contentDescription = "Action 3",
                             )
                         }

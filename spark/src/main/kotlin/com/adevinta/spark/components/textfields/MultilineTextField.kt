@@ -48,8 +48,8 @@ import com.adevinta.spark.R
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconSize
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.DeleteOutline
-import com.adevinta.spark.icons.LikeFill
+import com.adevinta.spark.icons.CircleCrossOutline
+import com.adevinta.spark.icons.HeartFill
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.SparkTypography
 import kotlinx.coroutines.flow.flowOf
@@ -139,7 +139,7 @@ public fun MultilineTextField(
                     .semantics {
                         role = Role.Button
                     },
-                sparkIcon = SparkIcons.DeleteOutline,
+                sparkIcon = SparkIcons.CircleCrossOutline,
                 contentDescription = stringResource(R.string.spark_textfield_delete_a11y),
             )
         }
@@ -255,7 +255,7 @@ public fun MultilineTextField(
                     .semantics {
                         role = Role.Button
                     },
-                sparkIcon = SparkIcons.DeleteOutline,
+                sparkIcon = SparkIcons.CircleCrossOutline,
                 contentDescription = stringResource(R.string.spark_textfield_delete_a11y),
             )
         }
@@ -309,7 +309,7 @@ private fun ColumnScope.PreviewTextFields(
 ) {
     val icon: @Composable (AddonScope.() -> Unit) = @Composable {
         Icon(
-            sparkIcon = SparkIcons.LikeFill,
+            sparkIcon = SparkIcons.HeartFill,
             contentDescription = null,
             size = IconSize.Medium,
         )

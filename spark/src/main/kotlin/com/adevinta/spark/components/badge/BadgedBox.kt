@@ -39,11 +39,11 @@ import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.icons.Icon
-import com.adevinta.spark.icons.AccountOutline
-import com.adevinta.spark.icons.LikeOutline
-import com.adevinta.spark.icons.MessageOutline
-import com.adevinta.spark.icons.Search
+import com.adevinta.spark.icons.BubbleTextOutline
+import com.adevinta.spark.icons.HeartOutline
+import com.adevinta.spark.icons.MagnifierOutline
 import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.UserOutline
 
 internal val SmallBadgeWithContentOffset = 4.dp
 internal val MediumBadgeWithContentOffset = 8.dp
@@ -191,7 +191,7 @@ private fun BadgedBoxIntentPreview(
             },
         ) {
             Icon(
-                SparkIcons.LikeOutline,
+                SparkIcons.HeartOutline,
                 modifier = Modifier.size(24.dp),
                 contentDescription = "Favorite",
             )
@@ -202,7 +202,7 @@ private fun BadgedBoxIntentPreview(
             },
         ) {
             Icon(
-                SparkIcons.MessageOutline,
+                SparkIcons.BubbleTextOutline,
                 modifier = Modifier.size(24.dp),
                 contentDescription = "Notifications",
             )
@@ -213,7 +213,7 @@ private fun BadgedBoxIntentPreview(
             },
         ) {
             Icon(
-                SparkIcons.Search,
+                SparkIcons.MagnifierOutline,
                 modifier = Modifier.size(24.dp),
                 contentDescription = "Search",
             )
@@ -224,7 +224,7 @@ private fun BadgedBoxIntentPreview(
             },
         ) {
             Icon(
-                SparkIcons.AccountOutline,
+                SparkIcons.UserOutline,
                 modifier = Modifier.size(24.dp),
                 contentDescription = "Notifications",
             )

@@ -29,6 +29,7 @@ import androidx.compose.animation.core.ArcMode
 import androidx.compose.animation.core.ExperimentalAnimationSpecApi
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.keyframes
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -44,6 +45,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.chips.ChipTinted
 import com.adevinta.spark.components.iconbuttons.IconButtonFilled
@@ -54,7 +56,7 @@ import com.adevinta.spark.components.tags.TagFilled
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.toggles.SwitchIcons
 import com.adevinta.spark.components.toggles.SwitchLabelled
-import com.adevinta.spark.icons.Close
+import com.adevinta.spark.icons.Cross
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 import kotlinx.coroutines.delay
@@ -108,6 +110,7 @@ internal fun IconExampleScreen(
                 contentDescription = name,
                 modifier = Modifier
                     .size(128.dp)
+                    .background(SparkTheme.colors.alert)
                     .sharedElement(
                         sharedTransitionScope.rememberSharedContentState(key = "icon-$name"),
                         animatedVisibilityScope = animatedContentScope,
@@ -135,7 +138,7 @@ internal fun IconExampleScreen(
             SwitchLabelled(
                 checked = atEnd,
                 onCheckedChange = { atEnd = !atEnd },
-                icons = SwitchIcons(checked = icon, unchecked = SparkIcons.Close),
+                icons = SwitchIcons(checked = icon, unchecked = SparkIcons.Cross),
             ) {
                 Text(text = name)
             }

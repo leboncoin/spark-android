@@ -33,7 +33,7 @@ import com.adevinta.spark.components.tags.TagFilled
 import com.adevinta.spark.components.tags.TagIntent
 import com.adevinta.spark.components.tags.TagOutlined
 import com.adevinta.spark.components.tags.TagTinted
-import com.adevinta.spark.icons.Booster
+import com.adevinta.spark.icons.Medal
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 
@@ -123,7 +123,7 @@ private fun TagSample(
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        val icon = SparkIcons.Booster
+        val icon = SparkIcons.Medal
         val tagText = "available"
 
         tag(

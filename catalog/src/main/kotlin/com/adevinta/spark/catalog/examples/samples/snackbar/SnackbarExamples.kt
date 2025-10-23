@@ -25,9 +25,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.Text
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -40,7 +38,7 @@ import com.adevinta.spark.components.snackbars.SnackbarSparkVisuals
 import com.adevinta.spark.components.snackbars.SnackbarStyle
 import com.adevinta.spark.components.spacer.VerticalSpacer
 import com.adevinta.spark.components.text.TextLinkButton
-import com.adevinta.spark.icons.LikeFill
+import com.adevinta.spark.icons.HeartFill
 import com.adevinta.spark.icons.SparkIcons
 import kotlinx.coroutines.launch
 
@@ -58,7 +56,7 @@ public val SnackbarExamples: List<Example> = listOf(
             withDismissAction = true,
             actionOnNewLine = true,
             style = SnackbarStyle.Filled,
-            icon = SparkIcons.LikeFill,
+            icon = SparkIcons.HeartFill,
             actionLabel = "Action",
         ) {
             Text("Simple message!")
@@ -75,7 +73,7 @@ public val SnackbarExamples: List<Example> = listOf(
             withDismissAction = true,
             actionOnNewLine = false,
             style = SnackbarStyle.Tinted,
-            icon = SparkIcons.LikeFill,
+            icon = SparkIcons.HeartFill,
             actionLabel = "Action",
         ) {
             Text("Simple message!")

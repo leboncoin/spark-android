@@ -76,8 +76,8 @@ import com.adevinta.spark.components.scaffold.Scaffold
 import com.adevinta.spark.components.snackbars.SnackbarHost
 import com.adevinta.spark.components.snackbars.SnackbarHostState
 import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.icons.Chain
 import com.adevinta.spark.icons.Computer
-import com.adevinta.spark.icons.Link
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.Layout
 
@@ -90,7 +90,7 @@ public fun ConfiguratorComponentScreen(
     val scrollState = rememberScrollState()
     TrackScrollJank(scrollableState = scrollState, stateName = "configurator-component:screen")
     val snackbarHostState = remember { SnackbarHostState() }
-    val boundsTransform = BoundsTransform { initialBounds, targetBounds ->
+    BoundsTransform { initialBounds, targetBounds ->
         keyframes {
             durationMillis = 300
             initialBounds at 0 using ArcMode.ArcBelow using FastOutSlowInEasing
@@ -129,7 +129,7 @@ public fun ConfiguratorComponentScreen(
                 ) {
                     var expanded by remember { mutableStateOf(false) }
                     IconButtonGhost(
-                        icon = SparkIcons.Link,
+                        icon = SparkIcons.Chain,
                         onClick = { expanded = true },
                         contentDescription = "Localized description",
                     )
