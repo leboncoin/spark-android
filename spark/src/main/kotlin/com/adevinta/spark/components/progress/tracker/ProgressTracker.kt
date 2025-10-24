@@ -79,10 +79,10 @@ import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.LabelId
 import com.adevinta.spark.icons.AddFill
-import com.adevinta.spark.icons.AddToFill
 import com.adevinta.spark.icons.SparkAnimatedIcons
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.addButton
 import com.adevinta.spark.tokens.dim1
 import com.adevinta.spark.tokens.disabled
 import com.adevinta.spark.tokens.highlight
@@ -652,7 +652,7 @@ private fun PreviewProgressIndicator() {
         val selectedStep by remember { mutableIntStateOf(1) }
         val items = persistentListOf(
             ProgressStep("", true, doneIcon = SparkIcons.AddFill),
-            ProgressStep("", true, icon = SparkAnimatedIcons.AddToFill),
+            ProgressStep("", true, icon = SparkAnimatedIcons.addButton()),
             ProgressStep("", true),
             ProgressStep("", false),
         )
