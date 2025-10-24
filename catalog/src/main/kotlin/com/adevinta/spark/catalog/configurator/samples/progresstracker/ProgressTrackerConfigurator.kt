@@ -29,7 +29,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -75,7 +74,8 @@ private fun ColumnScope.ProgressTrackerSample() {
     var intent by remember { mutableStateOf(ProgressTrackerIntent.Basic) }
     var size by remember { mutableStateOf(ProgressSizes.Large) }
     var hasIndicatorContent by remember { mutableStateOf(true) }
-    var selectedStep by remember { mutableIntStateOf(1) }
+    var selectedStep: Int? by remember { mutableStateOf(1) }
+    var readOnly by remember { mutableStateOf(false) }
     var items by remember {
         mutableStateOf(
             persistentListOf(
@@ -96,6 +96,7 @@ private fun ColumnScope.ProgressTrackerSample() {
         size = size,
         intent = intent,
         hasIndicatorContent = hasIndicatorContent,
+        readOnly = readOnly,
         onStepClick = {
             selectedStep = it
         },
@@ -112,6 +113,7 @@ private fun ColumnScope.ProgressTrackerSample() {
         size = size,
         intent = intent,
         hasIndicatorContent = hasIndicatorContent,
+        readOnly = readOnly,
         onStepClick = {
             selectedStep = it
         },
@@ -133,6 +135,15 @@ private fun ColumnScope.ProgressTrackerSample() {
     ) {
         Text(
             text = "Indicator content",
+            modifier = Modifier.fillMaxWidth(),
+        )
+    }
+    SwitchLabelled(
+        checked = readOnly,
+        onCheckedChange = { readOnly = it },
+    ) {
+        Text(
+            text = "Read only",
             modifier = Modifier.fillMaxWidth(),
         )
     }

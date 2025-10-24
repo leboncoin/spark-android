@@ -39,6 +39,9 @@ import com.adevinta.spark.components.progress.tracker.ProgressStep
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerIntent
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerRow
 import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.icons.AddFill
+import com.adevinta.spark.icons.AddToFill
+import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshotNightMode
 import com.android.ide.common.rendering.api.SessionParams.RenderingMode.V_SCROLL
@@ -87,8 +90,14 @@ internal class ProgressTrackerScreenshot {
                             ProgressTrackerRow(
                                 modifier = Modifier.width(240.dp),
                                 items = persistentListOf(
-                                    ProgressStep("Lorem ipsume", true),
-                                    ProgressStep("Lorem ipsume dolar sit amet", true),
+                                    ProgressStep("Lorem ipsume", true, doneIcon = SparkIcons.AddFill),
+                                    ProgressStep(
+                                        "Lorem ipsume dolar sit amet",
+                                        true,
+                                        icon = _root_ide_package_.com.adevinta.spark.icons.SparkAnimatedIcons.AddToFill,
+                                    ),
+                                    ProgressStep("Lorem ipsume", false),
+                                    ProgressStep("Lorem ipsume", false),
                                     ProgressStep("Lorem ipsume", false),
                                 ),
                                 intent = intent,

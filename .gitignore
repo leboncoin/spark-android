@@ -131,3 +131,9 @@ firebase-service-account.json
 # AI tools
 .history
 .junie
+
+# Node
+node_modules
+
+# Componly
+.componly
