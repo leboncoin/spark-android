@@ -28,7 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.PreviewTheme
-import com.adevinta.spark.icons.Booster
+import com.adevinta.spark.icons.Medal
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 
@@ -121,7 +121,7 @@ public fun TagTinted(
 @Composable
 internal fun TagTonalPreview() {
     PreviewTheme {
-        val icon = SparkIcons.Booster
+        val icon = SparkIcons.Medal
         TagTinted("", leadingIcon = icon)
         TagTinted("Tag Basic")
         TagTinted("Tag Basic", leadingIcon = icon)

@@ -55,8 +55,8 @@ import com.adevinta.spark.components.snackbars.SnackbarHost
 import com.adevinta.spark.components.snackbars.SnackbarHostState
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.ImageFill
-import com.adevinta.spark.icons.MoreMenuVertical
 import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.ThreeDotsVertical
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -107,7 +107,7 @@ internal fun ModalSample(
                         Icon(sparkIcon = SparkIcons.ImageFill, contentDescription = "")
                     }
                     IconButton(onClick = { /*TODO*/ }) {
-                        Icon(sparkIcon = SparkIcons.MoreMenuVertical, contentDescription = "")
+                        Icon(sparkIcon = SparkIcons.ThreeDotsVertical, contentDescription = "")
                     }
                 },
                 snackbarHost = {

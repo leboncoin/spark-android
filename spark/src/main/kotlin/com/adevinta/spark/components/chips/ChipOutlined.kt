@@ -37,9 +37,9 @@ import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.badge.Badge
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.OfferOutline
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.TagOutline
 import com.adevinta.spark.tools.modifiers.ifTrue
 
 /**
@@ -186,7 +186,7 @@ internal fun ChipOutlinedPreview() {
                     ChipOutlined(
                         text = intent.name,
                         intent = intent,
-                        leadingIcon = SparkIcons.OfferOutline,
+                        leadingIcon = SparkIcons.TagOutline,
                         enabled = enabled,
                     )
                     ChipOutlined(
@@ -197,7 +197,7 @@ internal fun ChipOutlinedPreview() {
                     ChipOutlined(
                         contentDescription = intent.name,
                         intent = intent,
-                        icon = SparkIcons.OfferOutline,
+                        icon = SparkIcons.TagOutline,
                         enabled = enabled,
                     )
                 }

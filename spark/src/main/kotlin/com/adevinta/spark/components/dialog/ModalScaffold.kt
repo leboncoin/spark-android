@@ -84,10 +84,10 @@ import com.adevinta.spark.components.image.Illustration
 import com.adevinta.spark.components.scaffold.Scaffold
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.Close
+import com.adevinta.spark.icons.Cross
 import com.adevinta.spark.icons.ImageFill
-import com.adevinta.spark.icons.MoreMenuVertical
 import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.ThreeDotsVertical
 import com.adevinta.spark.tokens.Layout
 import com.adevinta.spark.tokens.LocalWindowSizeClass
 
@@ -447,7 +447,7 @@ private fun PhoneLandscapeModalScaffold(
 private fun CloseIconButton(onClose: () -> Unit) {
     IconButton(onClick = onClose) {
         Icon(
-            sparkIcon = SparkIcons.Close,
+            sparkIcon = SparkIcons.Cross,
             modifier = Modifier.size(24.dp),
             contentDescription = stringResource(id = R.string.spark_a11y_modal_fullscreen_close),
         )
@@ -507,7 +507,7 @@ private fun ModalPreview() {
                 actions = {
                     Icon(sparkIcon = SparkIcons.ImageFill, contentDescription = "")
                     Icon(sparkIcon = SparkIcons.ImageFill, contentDescription = "")
-                    Icon(sparkIcon = SparkIcons.MoreMenuVertical, contentDescription = "")
+                    Icon(sparkIcon = SparkIcons.ThreeDotsVertical, contentDescription = "")
                 },
             ) { innerPadding ->
                 Text(

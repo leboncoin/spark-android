@@ -27,7 +27,7 @@ import app.cash.paparazzi.DeviceConfig
 import com.adevinta.spark.components.snackbars.Snackbar
 import com.adevinta.spark.components.snackbars.SnackbarIntent
 import com.adevinta.spark.components.snackbars.SnackbarStyle
-import com.adevinta.spark.icons.LikeFill
+import com.adevinta.spark.icons.HeartFill
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshotNightMode
@@ -53,7 +53,7 @@ internal class SnackbarScreenshot {
                         intent = it,
                         actionOnNewLine = true,
                         withDismissAction = true,
-                        icon = SparkIcons.LikeFill,
+                        icon = SparkIcons.HeartFill,
                         actionLabel = "Action",
                     ) {
                         Text("Lorem ipsum dolor sit amet")
@@ -72,7 +72,7 @@ internal class SnackbarScreenshot {
                         style = SnackbarStyle.Tinted,
                         intent = it,
                         withDismissAction = true,
-                        icon = SparkIcons.LikeFill,
+                        icon = SparkIcons.HeartFill,
                         actionOnNewLine = true,
                         actionLabel = "Action",
                     ) {

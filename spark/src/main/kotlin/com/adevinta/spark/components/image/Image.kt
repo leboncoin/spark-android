@@ -70,11 +70,11 @@ import com.adevinta.spark.components.icons.rememberSparkIconPainter
 import com.adevinta.spark.components.placeholder.illustrationPlaceholder
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.ErrorPhoto
-import com.adevinta.spark.icons.NoPhoto
+import com.adevinta.spark.icons.InstagramLogoOutline
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
-import com.adevinta.spark.icons.Tattoo
+import com.adevinta.spark.icons.StrokeImage
+import com.adevinta.spark.icons.WarningImage
 import com.adevinta.spark.tokens.EmphasizeDim2
 import com.adevinta.spark.tools.SparkExceptionHandler
 import com.adevinta.spark.tools.modifiers.ifNotNull
@@ -90,10 +90,10 @@ public fun SparkImage(
     // Useful to preview different states
     transform: (AsyncImagePainter.State) -> AsyncImagePainter.State = AsyncImagePainter.DefaultTransform,
     onState: ((State) -> Unit)? = null,
-    emptyIcon: @Composable () -> Unit = { ImageIconState(SparkIcons.NoPhoto) },
+    emptyIcon: @Composable () -> Unit = { ImageIconState(SparkIcons.StrokeImage) },
     errorIcon: @Composable () -> Unit = {
         ImageIconState(
-            sparkIcon = SparkIcons.ErrorPhoto,
+            sparkIcon = SparkIcons.WarningImage,
             color = SparkTheme.colors.errorContainer,
         )
     },
@@ -210,10 +210,10 @@ public fun Image(
     contentDescription: String?,
     modifier: Modifier = Modifier,
     onState: ((State) -> Unit)? = null,
-    emptyIcon: @Composable () -> Unit = { ImageIconState(SparkIcons.NoPhoto) },
+    emptyIcon: @Composable () -> Unit = { ImageIconState(SparkIcons.StrokeImage) },
     errorIcon: @Composable () -> Unit = {
         ImageIconState(
-            sparkIcon = SparkIcons.ErrorPhoto,
+            sparkIcon = SparkIcons.WarningImage,
             color = SparkTheme.colors.errorContainer,
         )
     },
@@ -386,9 +386,9 @@ private fun AsyncImagePainter.State.asImageState(): State = when (this) {
 @Composable
 private fun ImagePreview() {
     PreviewTheme {
-        val painter = rememberSparkIconPainter(sparkIcon = SparkIcons.Tattoo)
+        val painter = rememberSparkIconPainter(sparkIcon = SparkIcons.InstagramLogoOutline)
         val drawable =
-            AppCompatResources.getDrawable(LocalContext.current, SparkIcons.Tattoo.drawableId)!!
+            AppCompatResources.getDrawable(LocalContext.current, SparkIcons.InstagramLogoOutline.drawableId)!!
         val imageRequest = ImageRequest.Builder(LocalContext.current).data(Unit).build()
 
         Text("Empty")

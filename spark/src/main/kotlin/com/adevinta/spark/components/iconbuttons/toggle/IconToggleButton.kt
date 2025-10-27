@@ -52,8 +52,8 @@ import com.adevinta.spark.components.popover.PlainTooltip
 import com.adevinta.spark.components.popover.TooltipBox
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.FavoriteFill
-import com.adevinta.spark.icons.FavoriteOutline
+import com.adevinta.spark.icons.HeartFill
+import com.adevinta.spark.icons.HeartOutline
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tools.modifiers.minimumTouchTargetSize
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
@@ -154,7 +154,7 @@ private fun IconToggleButtonPreview() {
             SparkIconToggleButton(
                 checked = state,
                 onCheckedChange = { state = !state },
-                icons = IconToggleButtonIcons(SparkIcons.FavoriteOutline, SparkIcons.FavoriteFill),
+                icons = IconToggleButtonIcons(SparkIcons.HeartOutline, SparkIcons.HeartFill),
                 colors = IconButtonDefaults.filledIconButtonColors(intent = intent.colors()),
                 size = size,
             )

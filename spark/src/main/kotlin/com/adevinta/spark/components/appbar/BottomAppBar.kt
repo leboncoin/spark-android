@@ -75,10 +75,10 @@ import com.adevinta.spark.components.icons.IconButton
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.Check
+import com.adevinta.spark.icons.GearOutline
 import com.adevinta.spark.icons.PenOutline
 import com.adevinta.spark.icons.Plus
 import com.adevinta.spark.icons.SparkIcons
-import com.adevinta.spark.icons.WheelOutline
 import com.adevinta.spark.tokens.ElevationTokens
 import com.adevinta.spark.tokens.applyTonalElevation
 import com.adevinta.spark.tokens.contentColorFor
@@ -426,7 +426,7 @@ internal fun BottomAppBarPreview() {
     ) {
         BottomAppBar {
             IconButton(onClick = { /* doSomething() */ }) {
-                Icon(SparkIcons.WheelOutline, contentDescription = "Localized description")
+                Icon(SparkIcons.GearOutline, contentDescription = "Localized description")
             }
         }
 

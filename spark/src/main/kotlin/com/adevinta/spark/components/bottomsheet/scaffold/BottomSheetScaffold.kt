@@ -52,7 +52,7 @@ import com.adevinta.spark.components.bottomsheet.SheetDefaults.ContentTopPadding
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.list.ListItem
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.LikeFill
+import com.adevinta.spark.icons.HeartFill
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
@@ -163,7 +163,7 @@ internal fun BottomSheetPreview() {
                         headlineContent = { Text("Item $it") },
                         leadingContent = {
                             Icon(
-                                SparkIcons.LikeFill,
+                                SparkIcons.HeartFill,
                                 contentDescription = "Localized description",
                             )
                         },

@@ -71,10 +71,10 @@ import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.heightOrZero
 import com.adevinta.spark.components.textfields.widthOrZero
-import com.adevinta.spark.icons.DeleteOutline
-import com.adevinta.spark.icons.OfferOutline
+import com.adevinta.spark.icons.CircleCrossOutline
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.TagOutline
 import com.adevinta.spark.tokens.ripple
 import com.adevinta.spark.tools.modifiers.dashedBorder
 import com.adevinta.spark.tools.modifiers.ifTrue
@@ -325,7 +325,7 @@ private fun CloseIconButton(
 ) {
     AnimatedVisibility(visible = onClose != null) {
         Icon(
-            sparkIcon = SparkIcons.DeleteOutline,
+            sparkIcon = SparkIcons.CircleCrossOutline,
             modifier = Modifier
                 .size(ChipDefaults.LeadingIconSize)
                 .clickable(
@@ -618,7 +618,7 @@ private const val TrailingIconLayoutId = "trailingIcon"
 @Composable
 private fun ChipPreview() {
     PreviewTheme {
-        val leadingIcon = SparkIcons.OfferOutline
+        val leadingIcon = SparkIcons.TagOutline
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             ChipOutlined("outlined", leadingIcon = leadingIcon)
             ChipTinted("tinted", leadingIcon = leadingIcon)
@@ -643,7 +643,7 @@ private fun ChipPreview() {
 private fun SelectableChipPreview() {
     PreviewTheme {
         var selected by remember { mutableStateOf(false) }
-        val leadingIcon = SparkIcons.OfferOutline
+        val leadingIcon = SparkIcons.TagOutline
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             ChipSelectable(
                 selected,
@@ -733,7 +733,7 @@ private fun SingleSelectableChipPreview() {
     PreviewTheme {
         val chips by remember { mutableStateOf(chipsData) }
         var selectedIndex by remember { mutableStateOf<Int?>(null) }
-        val leadingIcon = SparkIcons.OfferOutline
+        val leadingIcon = SparkIcons.TagOutline
         FlowRow(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.selectableGroup(),
@@ -773,7 +773,7 @@ private fun MultiSelectableChipPreview() {
     PreviewTheme {
         val chips by remember { mutableStateOf(chipsData) }
         var selectedIndices by remember { mutableStateOf(setOf<Int>()) }
-        val leadingIcon = SparkIcons.OfferOutline
+        val leadingIcon = SparkIcons.TagOutline
         FlowRow(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
