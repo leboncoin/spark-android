@@ -58,12 +58,12 @@ jobs:
         id: build
         run: ./gradlew assembleRelease
       - name: 📦 Archive APKs
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: apk
           path: '**/build/outputs/apk/**/*.apk'
       - name: 📦 Archive AARs
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: aar
           path: '**/build/outputs/aar'
@@ -163,7 +163,7 @@ jobs:
         # https://github.com/Kotlin/dokka/issues/1217
         run: ./gradlew dokkaHtmlMultiModule --no-configuration-cache --no-parallel --max-workers=1
       - name: 📦 Archive Dokka
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: dokka
           path: build/dokka
@@ -180,7 +180,7 @@ jobs:
         with:
           version: latest
           config: lava.yaml
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: lava-metrics.json
           path: metrics.json
