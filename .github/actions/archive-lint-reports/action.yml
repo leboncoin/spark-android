@@ -12,19 +12,19 @@ runs:
   steps:
     - name: 'Archive Lint HTML report'
       if: inputs.html != ''
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: lint-html
         path: ${{ inputs.html }}
     - name: 'Archive Lint SARIF report'
       if: inputs.sarif != ''
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: lint-sarif
         path: ${{ inputs.sarif }}
     - name: 'Archive Lint XML report'
       if: inputs.xml != ''
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: lint-xml
         path: ${{ inputs.xml }}
