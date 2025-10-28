@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Adevinta
+ * Copyright (c) 2023-2025 Adevinta
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,24 +21,21 @@
  */
 package com.adevinta.spark.components.progress.tracker
 
-import androidx.compose.ui.text.AnnotatedString
-import com.adevinta.spark.icons.Check
-import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
-
 /**
- * Step in the [ProgressTrackerRow] & [ProgressTrackerColumn] component.
- * Each step has a label and a enabled state.
+ * Represents the different styles of the progress tracker component and determine the visual appearance.
+ * There are two possible styles: tinted with [Tinted] or outlined with [Outlined].
  *
- * @property label The label of the step to be displayed in the progress tracker. [AnnotatedString]s will be styled but
- * other class inheriting from [CharSequence] will be displayed as plain text.
- * @property enabled Indicate whether the step is enabled or disabled. Disabled steps won't be interactive.
- * @property icon The icon displayed when an icon is no yet considered as done by the user.
- * @property doneIcon The icon displayed when an icon is considered as done by the user
+ * @property Tinted This style represents a tinted progress tracker. It is typically used when the progress tracker needs to be more visually prominent.
+ * @property Outlined This style represents an outlined progress tracker. It is typically used when the progress tracker needs to be less visually prominent.
  */
-public data class ProgressStep(
-    public val label: CharSequence,
-    public val enabled: Boolean,
-    public val icon: SparkIcon? = null,
-    public val doneIcon: SparkIcon = SparkIcons.Check,
-)
+public enum class ProgressStyles {
+    /**
+     * This style represents a tinted progress tracker. It is typically used when the progress tracker needs to be more visually prominent.
+     */
+    Tinted,
+
+    /**
+     * This style represents an outlined progress tracker. It is typically used when the progress tracker needs to be less visually prominent.
+     */
+    Outlined,
+}
