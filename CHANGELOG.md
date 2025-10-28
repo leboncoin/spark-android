@@ -2,6 +2,14 @@
 
 <!-- Don't forget to update links at the end of this page! -->
 
+## [1.5.0-beta02]
+
+_2025-10-28_
+
+### Spark
+
+- 🐛 `SparkAnimatedIcons.searchIcon` was set to filled in its start state instead of outlined.
+
 ## [1.5.0-beta01]
 
 _2025-10-28_
@@ -860,7 +868,9 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.5.0-beta01...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.5.0-beta02...HEAD
+
+[1.5.0-beta02]: https://github.com/leboncoin/spark-android/releases/tag/1.5.0-beta02
 
 [1.5.0-beta01]: https://github.com/leboncoin/spark-android/releases/tag/1.5.0-beta01
 

@@ -119,12 +119,12 @@ public fun SparkAnimatedIcons.likeHeart(): SparkIcon.AnimatedPainter = SparkIcon
 
 public fun SparkAnimatedIcons.searchIcon(): SparkIcon.AnimatedPainter = SparkIcon.AnimatedPainter { filled ->
     val animatedScale by animateFloatAsState(
-        targetValue = if (filled) 0f else 1f,
+        targetValue = if (filled) 1f else 0f,
         animationSpec = tween(durationMillis = 275, easing = FastOutSlowInEasing),
         label = "search_icon_scale",
     )
     val animatedRotation by animateFloatAsState(
-        targetValue = if (filled) -90f else 0f,
+        targetValue = if (filled) 0f else -90f,
         animationSpec = tween(durationMillis = 300, easing = FastOutSlowInEasing),
         label = "search_icon_rotation",
     )
