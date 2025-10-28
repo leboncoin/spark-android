@@ -98,8 +98,6 @@ internal class ProgressTrackerScreenshot {
                                         icon = SparkAnimatedIcons.addButton(),
                                     ),
                                     ProgressStep("Lorem ipsume", false),
-                                    ProgressStep("Lorem ipsume", false),
-                                    ProgressStep("Lorem ipsume", false),
                                 ),
                                 intent = intent,
                                 size = size,
