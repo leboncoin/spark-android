@@ -2,6 +2,18 @@
 
 <!-- Don't forget to update links at the end of this page! -->
 
+## [1.5.0-beta01]
+
+_2025-10-28_
+
+### Spark
+
+- 🔧 Replace vector drawable animated icons by their vector painter alternative. They're still
+  available through `SparkAnimatedIcons`
+- 🔧 Revert the removal of the outline style for the `ProgressTracker`
+- ✨ Add more api to `ProgressTracker`, with a `readonly` mode & the possibility to change the icons
+  for each steps.
+
 ## [1.5.0-alpha03]
 
 _2025-10-16_
@@ -51,6 +63,25 @@ _2025-09-18_
 - ⬆️ Bump `kotlin` from 2.2.10 to 2.2.20.
 - ⬆️ Bump `paparazzi` to 2.0.0-alpha02.
 - ⬆️ Bump `io.coil-kt.coil3:coil-bom` from 3.2.0 to 3.3.0.=
+
+## [1.4.2]
+
+_2025-10-17_
+
+### Spark
+
+#### Scaffold
+
+- `Scaffold` now correctly applies `containerColor` for its content's background.
+
+## [1.4.1]
+
+_2025-10-17_
+
+### Spark
+
+- 🔧 Updated contrast level threshold in `LeboncoinTheme` from Material Medium to High as Users do
+  not expect the drastic change in color
 
 ## [1.4.0]
 
@@ -829,9 +860,19 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.5.0-alpha01...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.5.0-beta01...HEAD
+
+[1.5.0-beta01]: https://github.com/leboncoin/spark-android/releases/tag/1.5.0-beta01
+
+[1.5.0-alpha03]: https://github.com/leboncoin/spark-android/releases/tag/1.5.0-alpha03
+
+[1.5.0-alpha02]: https://github.com/leboncoin/spark-android/releases/tag/1.5.0-alpha02
 
 [1.5.0-alpha01]: https://github.com/leboncoin/spark-android/releases/tag/1.5.0-alpha01
+
+[1.4.2]: https://github.com/leboncoin/spark-android/releases/tag/1.4.2
+
+[1.4.1]: https://github.com/leboncoin/spark-android/releases/tag/1.4.1
 
 [1.4.0]: https://github.com/leboncoin/spark-android/releases/tag/1.4.0
 
