@@ -390,7 +390,7 @@ The best way to make an impact is by creating code submissions called pull reque
 1. **Create an issue first** - Make sure there's a GitHub issue for the change you're proposing
 2. **Fork the repository** - [Fork](https://github.com/leboncoin/spark-android/fork) the repo for your contributions
 3. **Create a feature branch** - Write code in your fork, on a branch if you plan to make multiple changes
-4. **Follow the template** - [Create a pull request](https://help.github.com/articles/creating-a-pull-request/) following our [pull request template](.github/pull_request_template.md)
+4. **Follow the template** - [Create a pull request](https://help.github.com/articles/creating-a-pull-request/) following our [pull request template](.github/PULL_REQUEST_TEMPLATE.md)
 5. **Wait for review** - A **[leboncoin/android](https://github.com/orgs/leboncoin/teams/android)** team member will triage and review your pull request
 6. **Merge** - If we accept your pull request, the accepting member will merge it for you
 
