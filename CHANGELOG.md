@@ -4,6 +4,20 @@
 
 ## [Unreleased]
 
+
+## [1.6.0-alpha01]
+
+_2025-10-30_
+
+### Spark
+
+- ✨ Add TagHighlight component for highlighting new features
+
+> [!NOTE]
+> This component is experimental and marked with `@ExperimentalSparkApi`. It provides two variants:
+`TagHighlight` for card integration and `TagHighlightBadge` for positioning near highlighted
+> elements. Both include localized "New!" labels and should be used with an End-of-Life Remote Config
+> to prevent indefinite production presence.
 ### Catalog
 
 - 💄Add new vignettes illustrations to represent the components when browsing them in the app
@@ -920,7 +934,9 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.5.0...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.6.0-alpha01...HEAD
+
+[1.6.0-alpha01]: https://github.com/leboncoin/spark-android/releases/tag/1.6.0-alpha01
 
 [1.5.0]: https://github.com/leboncoin/spark-android/releases/tag/1.5.0
 
