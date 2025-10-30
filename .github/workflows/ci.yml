@@ -58,12 +58,12 @@ jobs:
         id: build
         run: ./gradlew assembleRelease
       - name: 📦 Archive APKs
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: apk
           path: '**/build/outputs/apk/**/*.apk'
       - name: 📦 Archive AARs
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: aar
           path: '**/build/outputs/aar'
@@ -129,21 +129,21 @@ jobs:
 
       - name: Analyze SARIF report for spark module
         if: ${{ always() && hashFiles('spark/**/*.sarif') != '' }}
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: ./spark/
           category: spark
 
       - name: Analyze SARIF report for spark-screenshot-testing module
         if: ${{ always() && hashFiles('spark-screenshot-testing/**/*.sarif') != '' }}
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: ./spark-screenshot-testing/
           category: spark-screenshot-testing
 
       - name: Analyze SARIF report for catalog module
         if: ${{ always() && hashFiles('catalog/**/*.sarif') != '' }}
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: ./catalog/
           category: catalog
@@ -163,7 +163,7 @@ jobs:
         # https://github.com/Kotlin/dokka/issues/1217
         run: ./gradlew dokkaHtmlMultiModule --no-configuration-cache --no-parallel --max-workers=1
       - name: 📦 Archive Dokka
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: dokka
           path: build/dokka
@@ -180,7 +180,7 @@ jobs:
         with:
           version: latest
           config: lava.yaml
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: lava-metrics.json
           path: metrics.json

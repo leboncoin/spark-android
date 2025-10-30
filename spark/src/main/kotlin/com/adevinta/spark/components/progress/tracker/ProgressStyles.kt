@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Adevinta
+ * Copyright (c) 2023-2025 Adevinta
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,30 +19,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-plugins {
-    alias(libs.plugins.spark.library)
-    alias(libs.plugins.spark.compose)
-    alias(libs.plugins.spark.dokka)
-    alias(libs.plugins.spark.publishing)
-    alias(libs.plugins.spark.dependencyGuard)
-}
+package com.adevinta.spark.components.progress.tracker
 
-android {
-    namespace = "com.adevinta.spark.icons"
-    resourcePrefix = "spark_icons_"
-}
+/**
+ * Represents the different styles of the progress tracker component and determine the visual appearance.
+ * There are two possible styles: tinted with [Tinted] or outlined with [Outlined].
+ *
+ * @property Tinted This style represents a tinted progress tracker. It is typically used when the progress tracker needs to be more visually prominent.
+ * @property Outlined This style represents an outlined progress tracker. It is typically used when the progress tracker needs to be less visually prominent.
+ */
+public enum class ProgressStyles {
+    /**
+     * This style represents a tinted progress tracker. It is typically used when the progress tracker needs to be more visually prominent.
+     */
+    Tinted,
 
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xannotation-default-target=param-property")
-    }
-}
-
-dependencies {
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.appCompat.resources) // Needed for compat vector drawables
-    api(libs.androidx.compose.animation.core) {
-        because("Needed to access the animations api for animating icons")
-    }
-    debugImplementation(libs.androidx.compose.ui.tooling)
+    /**
+     * This style represents an outlined progress tracker. It is typically used when the progress tracker needs to be less visually prominent.
+     */
+    Outlined,
 }

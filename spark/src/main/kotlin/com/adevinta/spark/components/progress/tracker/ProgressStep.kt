@@ -22,6 +22,9 @@
 package com.adevinta.spark.components.progress.tracker
 
 import androidx.compose.ui.text.AnnotatedString
+import com.adevinta.spark.icons.Check
+import com.adevinta.spark.icons.SparkIcon
+import com.adevinta.spark.icons.SparkIcons
 
 /**
  * Step in the [ProgressTrackerRow] & [ProgressTrackerColumn] component.
@@ -30,5 +33,12 @@ import androidx.compose.ui.text.AnnotatedString
  * @property label The label of the step to be displayed in the progress tracker. [AnnotatedString]s will be styled but
  * other class inheriting from [CharSequence] will be displayed as plain text.
  * @property enabled Indicate whether the step is enabled or disabled. Disabled steps won't be interactive.
+ * @property icon The icon displayed when an icon is no yet considered as done by the user.
+ * @property doneIcon The icon displayed when an icon is considered as done by the user
  */
-public data class ProgressStep(public val label: CharSequence, public val enabled: Boolean)
+public data class ProgressStep(
+    public val label: CharSequence,
+    public val enabled: Boolean,
+    public val icon: SparkIcon? = null,
+    public val doneIcon: SparkIcon = SparkIcons.Check,
+)

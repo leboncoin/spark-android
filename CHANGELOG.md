@@ -2,13 +2,91 @@
 
 <!-- Don't forget to update links at the end of this page! -->
 
+## [1.5.0]
+
+_2025-10-29_
+
+### Spark
+
+- 🔧 Replace vector drawable animated icons by their vector painter alternative. They're still
+  available through `SparkAnimatedIcons`
+- ✨ Add more api to `ProgressTracker`, with a `readonly` mode & the possibility to change the icons
+  for each steps.
+- 🔧 Updated contrast level threshold in `LeboncoinTheme` from Material Medium to High as Users do
+  not expect the drastic change in color
+
+#### Rating
+
+- ♿ `RatingInput` now behaves like a slider for accessibility, improving screen reader support and
+  customisable state descriptions.
+- 🔧 Added horizontal drag gesture to change the rating value, with haptic feedback for each change.
+- ⌨️ Keyboard support: Shift + Arrow keys increment/decrement the rating for enhanced accessibility
+  while still maintaining focus on each star for selection.
+- 🧪 Added `testTag` parameter for UI testing and automation.
+
+> [!CAUTION]
+> If you use custom accessibility semantics or parent components, set `allowSemantics = false` to
+> avoid duplicate announcements.
+
+#### 🎨 Improvements
+
+- 🎨 `Tab` now use a rounded shape for its top corners.
+- 🎨 `TopAppBar` now supports a `colors` parameter for customisation, however note that tokens other
+  than surface will not apply the elevation overlay.
+- 🎨 `ProgressTracker` styles and animations enhanced to match new specs.
+- 🎨 Added Sticky BottomAppBar examples and improved elevation behaviour.
+
+#### 🐛 Bug Fixes
+
+- 🐛 Fi xed `ModalScaffold` to allow proper scrollable popup behaviour.
+- 💄`Scaffold` now correctly applies `containerColor` for its content's background.
+
+#### ⬆️ Dependency Updates
+
+- ⬆️ Bump `androidx.compose:compose-bom` from 2025.08.01 to 2025.09.00.
+- ⬆️ Bump `kotlin` from 2.2.10 to 2.2.20.
+- ⬆️ Bump `paparazzi` to 2.0.0-alpha02.
+- ⬆️ Bump `io.coil-kt.coil3:coil-bom` from 3.2.0 to 3.3.0
+
+## [1.5.0-beta02]
+
+_2025-10-29_
+
+### Spark
+
+- 🐛 `SparkAnimatedIcons.searchIcon` was set to filled in its start state instead of outlined.
+
+- ## [1.5.0-beta01]
+
+_2025-10-28_
+
+### Spark
+
+- 🔧 Replace vector drawable animated icons by their vector painter alternative. They're still
+  available through `SparkAnimatedIcons`
+- 🔧 Revert the removal of the outline style for the `ProgressTracker`
+- ✨ Add more api to `ProgressTracker`, with a `readonly` mode & the possibility to change the icons
+  for each steps.
+
+## [1.5.0-alpha03]
+
+_2025-10-16_
+
+### Spark
+
+- 🔧 Updated contrast level threshold in `LeboncoinTheme` from Material Medium to High as Users do not expect the drastic change in color
+
 ## [1.5.0-alpha02]
 
 _2025-10-03_
 
-Revert "chore(deps): bump androidx.core:core-ktx from 1.16.0 to 1.17.0 (#1662)"
+### Spark
 
-The version 1.17.0 require consumers to upgrade their compile sdk version to api 36 but this breaks the unit test for modules where a roboeletric & paparazzi test is present.
+#### Dependency Updates
+- ⬇️ Revert "chore(deps): bump androidx.core:core-ktx from 1.16.0 to 1.17.0 (#1662)" because the version 1.17.0 require consumers to upgrade their compile sdk version to api 36 but this breaks the unit test for modules where a roboeletric & paparazzi test is present.
+
+#### Scaffold
+- `Scaffold` now correctly applies `containerColor` for its content's background.  
 
 ## [1.5.0-alpha01]
 
@@ -38,7 +116,26 @@ _2025-09-18_
 - ⬆️ Bump `androidx.compose:compose-bom` from 2025.08.01 to 2025.09.00.
 - ⬆️ Bump `kotlin` from 2.2.10 to 2.2.20.
 - ⬆️ Bump `paparazzi` to 2.0.0-alpha02.
-- ⬆️ Bump `io.coil-kt.coil3:coil-bom` from 3.2.0 to 3.3.0.=
+- ⬆️ Bump `io.coil-kt.coil3:coil-bom` from 3.2.0 to 3.3.0
+
+## [1.4.2]
+
+_2025-10-17_
+
+### Spark
+
+#### Scaffold
+
+- `Scaffold` now correctly applies `containerColor` for its content's background.
+
+## [1.4.1]
+
+_2025-10-17_
+
+### Spark
+
+- 🔧 Updated contrast level threshold in `LeboncoinTheme` from Material Medium to High as Users do
+  not expect the drastic change in color
 
 ## [1.4.0]
 
@@ -817,9 +914,23 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.5.0-alpha01...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.5.0...HEAD
+
+[1.5.0]: https://github.com/leboncoin/spark-android/releases/tag/1.5.0
+
+[1.5.0-beta02]: https://github.com/leboncoin/spark-android/releases/tag/1.5.0-beta02
+
+[1.5.0-beta01]: https://github.com/leboncoin/spark-android/releases/tag/1.5.0-beta01
+
+[1.5.0-alpha03]: https://github.com/leboncoin/spark-android/releases/tag/1.5.0-alpha03
+
+[1.5.0-alpha02]: https://github.com/leboncoin/spark-android/releases/tag/1.5.0-alpha02
 
 [1.5.0-alpha01]: https://github.com/leboncoin/spark-android/releases/tag/1.5.0-alpha01
+
+[1.4.2]: https://github.com/leboncoin/spark-android/releases/tag/1.4.2
+
+[1.4.1]: https://github.com/leboncoin/spark-android/releases/tag/1.4.1
 
 [1.4.0]: https://github.com/leboncoin/spark-android/releases/tag/1.4.0
 
