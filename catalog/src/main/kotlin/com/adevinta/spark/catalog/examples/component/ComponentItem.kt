@@ -32,10 +32,9 @@ import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
@@ -159,8 +158,7 @@ public fun ComponentItem(
             onClick = onClick,
             modifier = modifier
                 .semantics(mergeDescendants = true) {}
-                .height(ComponentItemHeight)
-                .padding(ComponentItemOuterPadding)
+                .aspectRatio(1f)
                 .sharedBounds(
                     sharedContentState = rememberSharedContentState(
                         ExamplesSharedElementKey(
@@ -175,12 +173,10 @@ public fun ComponentItem(
                     clipInOverlayDuringTransition = OverlayClip(RoundedCornerShape(cardRadius)),
                     placeHolderSize = SharedTransitionScope.PlaceHolderSize.animatedSize,
                 ),
-            shape = SparkTheme.shapes.medium,
+            shape = SparkTheme.shapes.extraLarge,
             colors = CardDefaults.elevatedCardColors(containerColor = SparkTheme.colors.surface),
         ) {
-            Box(
-                modifier = Modifier.wrapContentSize(Alignment.TopStart),
-            ) {
+            Box {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -190,7 +186,7 @@ public fun ComponentItem(
                 ) {
                     Image(
                         modifier = Modifier
-                            .fillMaxSize()
+                            .matchParentSize()
                             .sharedElement(
                                 rememberSharedContentState(
                                     ExamplesSharedElementKey(
@@ -254,7 +250,7 @@ public enum class ComponentOrigin {
     Configurator,
 }
 
-private val ComponentItemHeight = 180.dp
+private val ComponentItemHeight = 200.dp
 private val ComponentItemOuterPadding = 4.dp
 private val ComponentItemInnerPadding = 16.dp
 

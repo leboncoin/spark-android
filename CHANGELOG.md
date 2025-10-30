@@ -2,6 +2,12 @@
 
 <!-- Don't forget to update links at the end of this page! -->
 
+## [Unreleased]
+
+### Catalog
+
+- 💄Add new vignettes illustrations to represent the components when browsing them in the app
+
 ## [1.5.0]
 
 _2025-10-29_
