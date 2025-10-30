@@ -33,9 +33,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.DefaultTestDevices
+import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.tags.TagFilled
+import com.adevinta.spark.components.tags.TagHighlight
+import com.adevinta.spark.components.tags.TagHighlightBadge
 import com.adevinta.spark.components.tags.TagIntent
 import com.adevinta.spark.components.tags.TagOutlined
 import com.adevinta.spark.components.tags.TagTinted
@@ -48,9 +51,11 @@ import com.adevinta.spark.sparkSnapshotNightMode
 import com.adevinta.spark.tags.TagsScreenshot.Style.Filled
 import com.adevinta.spark.tags.TagsScreenshot.Style.Outlined
 import com.adevinta.spark.tags.TagsScreenshot.Style.Tinted
+import com.android.ide.common.rendering.api.SessionParams
 import com.android.ide.common.rendering.api.SessionParams.RenderingMode.V_SCROLL
 import org.junit.Rule
 import org.junit.Test
+import java.util.Locale
 
 internal class TagsScreenshot {
 
@@ -77,6 +82,23 @@ internal class TagsScreenshot {
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 Tags()
+            }
+        }
+    }
+
+    @Test
+    fun tagHighlight() {
+        paparazzi.unsafeUpdateConfig(
+            deviceConfig = DefaultTestDevices.Phone.copy(
+                locale = Locale.FRENCH.toLanguageTag(),
+            ),
+            renderingMode = SessionParams.RenderingMode.SHRINK,
+        )
+        paparazzi.sparkSnapshotNightMode {
+            Surface(
+                color = SparkTheme.colors.backgroundVariant,
+            ) {
+                TagHighlightPreview()
             }
         }
     }
@@ -135,6 +157,28 @@ internal class TagsScreenshot {
                     }
                 }
             }
+        }
+    }
+
+    @OptIn(ExperimentalSparkApi::class)
+    @Composable
+    private fun TagHighlightPreview() {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalAlignment = Alignment.Start,
+        ) {
+            Text(
+                text = "TagHighlight",
+                style = SparkTheme.typography.headline2,
+            )
+            TagHighlight()
+
+            Text(
+                text = "TagHighlightBadge",
+                style = SparkTheme.typography.headline2,
+            )
+            TagHighlightBadge()
         }
     }
 
