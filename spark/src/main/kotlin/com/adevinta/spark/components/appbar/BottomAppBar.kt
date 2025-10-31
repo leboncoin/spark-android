@@ -153,12 +153,14 @@ import com.adevinta.spark.tokens.contentColorFor
  * overlappedFraction but for bottom positioning.
  */
 @ExperimentalMaterial3Api
-public class SparkBottomAppBarScrollBehavior(
+public class PinnedBottomAppBarScrollBehavior(
     override val state: BottomAppBarState,
-    override val snapAnimationSpec: AnimationSpec<Float>?,
-    override val flingAnimationSpec: DecayAnimationSpec<Float>?,
     public val canScroll: () -> Boolean = { true },
 ) : BottomAppBarScrollBehavior {
+
+    override val snapAnimationSpec: AnimationSpec<Float>? = null
+
+    override val flingAnimationSpec: DecayAnimationSpec<Float>? = null
 
     override val isPinned: Boolean = true
 
@@ -224,7 +226,7 @@ public class SparkBottomAppBarScrollBehavior(
  * @param contentColor the preferred color for content inside this BottomAppBar. Defaults to either
  * the matching content color for [containerColor], or to the current [LocalContentColor] if
  * [containerColor] is not a color from the theme.
- * @param elevation when [containerColor] is [ColorScheme.surface], a translucent main color
+ * @param elevation when [containerColor] is [SparkColors.surface], a translucent main color
  * overlay is applied on top of the container. A higher tonal elevation value will result in a
  * darker color in light theme and lighter color in dark theme. See also: [Surface].
  * @param contentPadding the padding applied to the content of this BottomAppBar
@@ -246,7 +248,7 @@ public fun BottomAppBar(
     elevation: Dp = BottomAppBarDefaults.ContainerElevation,
     contentPadding: PaddingValues = BottomAppBarDefaults.ContentPadding,
     windowInsets: WindowInsets = BottomAppBarDefaults.windowInsets,
-    scrollBehavior: SparkBottomAppBarScrollBehavior? = null,
+    scrollBehavior: PinnedBottomAppBarScrollBehavior? = null,
 ): Unit = BottomAppBar(
     modifier = modifier,
     containerColor = containerColor,
@@ -290,7 +292,7 @@ public fun BottomAppBar(
  * @param contentColor the preferred color for content inside this BottomAppBar. Defaults to either
  * the matching content color for [containerColor], or to the current [LocalContentColor] if
  * [containerColor] is not a color from the theme.
- * @param elevation when [containerColor] is [ColorScheme.surface], a translucent main color
+ * @param elevation when [containerColor] is [SparkColors.surface], a translucent main color
  * overlay is applied on top of the container. A higher tonal elevation value will result in a
  * darker color in light theme and lighter color in dark theme. See also: [Surface].
  * @param contentPadding the padding applied to the content of this BottomAppBar
@@ -298,7 +300,7 @@ public fun BottomAppBar(
  * @param scrollBehavior a [BottomAppBarScrollBehavior] which holds scroll state and will be used to
  * determine the bottom app bar elevation. Elevation is shown when state.contentOffset > 0, indicating
  * there's content above the current scroll position to scroll back to. When using
- * [SparkBottomAppBarScrollBehavior], the overlappedFraction property enables smooth elevation
+ * [PinnedBottomAppBarScrollBehavior], the overlappedFraction property enables smooth elevation
  * transitions with performance-optimized recomposition using derivedStateOf.
  * @param content the content of this BottomAppBar. The default layout here is a [Row],
  * so content inside will be placed horizontally.
@@ -323,7 +325,8 @@ public fun BottomAppBar(
         remember(scrollBehavior) {
             // derivedStateOf to prevent redundant recompositions when the content scrolls.
             derivedStateOf {
-                val overlappingFraction = (scrollBehavior as? SparkBottomAppBarScrollBehavior)?.overlappedFraction ?: 0f
+                val overlappingFraction =
+                    (scrollBehavior as? PinnedBottomAppBarScrollBehavior)?.overlappedFraction ?: 0f
                 if (overlappingFraction > 0.001f) 1f else 0f
             }
         }
@@ -379,7 +382,7 @@ public fun BottomAppBar(
 public object BottomAppBarSparkDefaults {
 
     /**
-     * Creates a [SparkBottomAppBarScrollBehavior] for [BottomAppBar]. This scroll behavior is designed to work
+     * Creates a [PinnedBottomAppBarScrollBehavior] for [BottomAppBar]. This scroll behavior is designed to work
      * in conjunction with scrolled content to change the bottom app bar appearance as the content scrolls.
      * The bottom app bar will show elevation when BottomAppBarState.contentOffset > 0, indicating
      * there's content above the current scroll position to scroll back to.
@@ -390,16 +393,12 @@ public object BottomAppBarSparkDefaults {
      */
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    public fun bottomAppBarScrollBehavior(
+    public fun pinnedScrollBehavior(
         state: BottomAppBarState = rememberBottomAppBarState(initialContentOffset = Float.POSITIVE_INFINITY),
         canScroll: () -> Boolean = { true },
-        snapAnimationSpec: AnimationSpec<Float>? = null,
-        flingAnimationSpec: DecayAnimationSpec<Float>? = null,
-    ): SparkBottomAppBarScrollBehavior = remember(state, canScroll, snapAnimationSpec, flingAnimationSpec) {
-        SparkBottomAppBarScrollBehavior(
+    ): PinnedBottomAppBarScrollBehavior = remember(state, canScroll) {
+        PinnedBottomAppBarScrollBehavior(
             state = state,
-            snapAnimationSpec = snapAnimationSpec,
-            flingAnimationSpec = flingAnimationSpec,
             canScroll = canScroll,
         )
     }
@@ -465,11 +464,11 @@ internal fun BottomAppBarPreview() {
     name = "BottomAppBar with Scroll Behavior",
 )
 @Composable
-internal fun BottomAppBarScrollablePreview() {
+internal fun pinnedScrollablePreview() {
     PreviewTheme(
         padding = PaddingValues(0.dp),
     ) {
-        val bottomAppBarScrollBehavior = BottomAppBarSparkDefaults.bottomAppBarScrollBehavior()
+        val bottomAppBarScrollBehavior = BottomAppBarSparkDefaults.pinnedScrollBehavior()
 
         Scaffold(
             modifier = Modifier

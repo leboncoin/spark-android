@@ -204,7 +204,7 @@ private fun DialogScaffold(
         onDismissRequest = onClose,
     ) {
         val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-        val bottomAppBarScrollBehavior = BottomAppBarSparkDefaults.bottomAppBarScrollBehavior()
+        val bottomAppBarScrollBehavior = BottomAppBarSparkDefaults.pinnedScrollBehavior()
 
         Surface(
             modifier = modifier
@@ -281,7 +281,7 @@ private fun PhonePortraitModalScaffold(
         if (inEdgeToEdge) SetUpEdgeToEdgeDialog()
 
         val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-        val bottomAppBarScrollBehavior = BottomAppBarSparkDefaults.bottomAppBarScrollBehavior()
+        val bottomAppBarScrollBehavior = BottomAppBarSparkDefaults.pinnedScrollBehavior()
 
         Scaffold(
             modifier = modifier
@@ -371,7 +371,7 @@ private fun PhoneLandscapeModalScaffold(
         // Work around for b/246909281 as for now Dialog doesn't pass the drawing insets to its content
         if (inEdgeToEdge) SetUpEdgeToEdgeDialog()
         val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-        val bottomAppBarScrollBehavior = BottomAppBarSparkDefaults.bottomAppBarScrollBehavior()
+        val bottomAppBarScrollBehavior = BottomAppBarSparkDefaults.pinnedScrollBehavior()
 
         Scaffold(
             modifier = modifier

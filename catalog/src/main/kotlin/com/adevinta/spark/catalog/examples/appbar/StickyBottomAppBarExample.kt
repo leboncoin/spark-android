@@ -30,7 +30,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
@@ -66,11 +65,11 @@ import com.adevinta.spark.icons.SparkIcons
     showBackground = true,
 )
 @Composable
-private fun StickyBottomAppBarExample() {
+private fun StickyPinnedExample() {
     PreviewTheme {
         // Create scroll behaviors for both top and bottom app bars
         val topAppBarScrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-        val bottomAppBarScrollBehavior = BottomAppBarSparkDefaults.bottomAppBarScrollBehavior()
+        val bottomAppBarScrollBehavior = BottomAppBarSparkDefaults.pinnedScrollBehavior()
 
         Scaffold(
             modifier = Modifier
@@ -190,9 +189,9 @@ private fun StickyBottomAppBarExample() {
     showBackground = true,
 )
 @Composable
-private fun BottomAppBarWithIconsExample() {
+private fun pinnedWithIconsExample() {
     PreviewTheme {
-        val bottomAppBarScrollBehavior = BottomAppBarSparkDefaults.bottomAppBarScrollBehavior()
+        val bottomAppBarScrollBehavior = BottomAppBarSparkDefaults.pinnedScrollBehavior()
 
         Scaffold(
             modifier = Modifier
@@ -286,9 +285,9 @@ private fun BottomAppBarWithIconsExample() {
     showBackground = true,
 )
 @Composable
-private fun BottomAppBarMinimalContentExample() {
+private fun pinnedMinimalContentExample() {
     PreviewTheme {
-        val bottomAppBarScrollBehavior = BottomAppBarSparkDefaults.bottomAppBarScrollBehavior()
+        val bottomAppBarScrollBehavior = BottomAppBarSparkDefaults.pinnedScrollBehavior()
 
         Scaffold(
             modifier = Modifier
