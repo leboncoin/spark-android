@@ -4,6 +4,13 @@
 
 ## [Unreleased]
 
+### Catalog
+
+- ✨ Add Badge component examples
+- ✨ Add AlertDialog component examples
+- ✨ Add Placeholder/skeletons component examples
+- ✨ Add new modal example demonstrating modal with no content to showcase Bottom App Bar behavior
+- 💄 Update Backdrop component to use `background` color instead of `surface` for front layer
 
 ## [1.6.0-alpha01]
 
@@ -106,7 +113,8 @@ _2025-10-03_
 - ⬇️ Revert "chore(deps): bump androidx.core:core-ktx from 1.16.0 to 1.17.0 (#1662)" because the version 1.17.0 require consumers to upgrade their compile sdk version to api 36 but this breaks the unit test for modules where a roboeletric & paparazzi test is present.
 
 #### Scaffold
-- `Scaffold` now correctly applies `containerColor` for its content's background.  
+
+- `Scaffold` now correctly applies `containerColor` for its content's background.
 
 ## [1.5.0-alpha01]
 
