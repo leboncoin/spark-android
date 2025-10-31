@@ -23,6 +23,10 @@ package com.adevinta.spark.catalog.examples.samples.dialog
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.unit.dp
+import com.adevinta.spark.catalog.examples.samples.dialog.alertdialog.AlertDialogLongTextSample
+import com.adevinta.spark.catalog.examples.samples.dialog.alertdialog.AlertDialogSample
+import com.adevinta.spark.catalog.examples.samples.dialog.alertdialog.AlertDialogSimpleSample
+import com.adevinta.spark.catalog.examples.samples.dialog.alertdialog.AlertDialogWithIconSample
 import com.adevinta.spark.catalog.examples.samples.dialog.modal.EdgeToEdgeExample
 import com.adevinta.spark.catalog.examples.samples.dialog.modal.ModalSample
 import com.adevinta.spark.catalog.model.Example
@@ -30,6 +34,38 @@ import com.adevinta.spark.catalog.util.SampleSourceUrl
 
 private const val ModalsExampleSourceUrl = "$SampleSourceUrl/ModalExamples.kt"
 public val DialogsExamples: List<Example> = listOf(
+    Example(
+        id = "alert-dialog-basic",
+        name = "Alert Dialog - Basic",
+        description = "Basic alert dialog with icon, title, text, and action buttons",
+        sourceUrl = ModalsExampleSourceUrl,
+    ) {
+        AlertDialogSample()
+    },
+    Example(
+        id = "alert-dialog-icon",
+        name = "Alert Dialog - With Icon",
+        description = "Alert dialog with custom icon for destructive actions",
+        sourceUrl = ModalsExampleSourceUrl,
+    ) {
+        AlertDialogWithIconSample()
+    },
+    Example(
+        id = "alert-dialog-simple",
+        name = "Alert Dialog - Simple",
+        description = "Simple alert dialog with only title, text, and confirm button",
+        sourceUrl = ModalsExampleSourceUrl,
+    ) {
+        AlertDialogSimpleSample()
+    },
+    Example(
+        id = "alert-dialog-long",
+        name = "Alert Dialog - Long Text",
+        description = "Alert dialog with longer text content for terms and conditions",
+        sourceUrl = ModalsExampleSourceUrl,
+    ) {
+        AlertDialogLongTextSample()
+    },
     Example(
         id = "modal",
         name = "Modal",
@@ -54,6 +90,15 @@ public val DialogsExamples: List<Example> = listOf(
         sourceUrl = ModalsExampleSourceUrl,
     ) {
         ModalSample(withButtons = false)
+    },
+    Example(
+        id = "no-content",
+        name = "Modal with no content",
+        description = "Showcase the modal component with no text content. \n This will make sure that the Bottom " +
+            "App Bar will not be elevated when there's no scroll available",
+        sourceUrl = ModalsExampleSourceUrl,
+    ) {
+        ModalSample(withContent = false)
     },
 
     Example(

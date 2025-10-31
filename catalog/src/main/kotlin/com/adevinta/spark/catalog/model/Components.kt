@@ -50,6 +50,7 @@ import com.adevinta.spark.catalog.configurator.samples.toggles.CheckboxConfigura
 import com.adevinta.spark.catalog.configurator.samples.toggles.RadioButtonConfigurator
 import com.adevinta.spark.catalog.configurator.samples.toggles.SwitchConfigurator
 import com.adevinta.spark.catalog.examples.samples.animation.AnimationExamples
+import com.adevinta.spark.catalog.examples.samples.badge.BadgeExamples
 import com.adevinta.spark.catalog.examples.samples.bottomsheet.BottomSheetExamples
 import com.adevinta.spark.catalog.examples.samples.buttons.ButtonsExamples
 import com.adevinta.spark.catalog.examples.samples.buttons.IconButtonsExamples
@@ -58,6 +59,7 @@ import com.adevinta.spark.catalog.examples.samples.combobox.ComboBoxExample
 import com.adevinta.spark.catalog.examples.samples.dialog.DialogsExamples
 import com.adevinta.spark.catalog.examples.samples.divider.DividerExamples
 import com.adevinta.spark.catalog.examples.samples.icons.IconsExamples
+import com.adevinta.spark.catalog.examples.samples.placeholder.PlaceholderExamples
 import com.adevinta.spark.catalog.examples.samples.popover.PopoverExamples
 import com.adevinta.spark.catalog.examples.samples.progressbar.ProgressbarExamples
 import com.adevinta.spark.catalog.examples.samples.progresstracker.ProgressTrackerExamples
@@ -102,6 +104,17 @@ private val Tokens = Component(
     docsUrl = "$PackageSummaryUrl/com.adevinta.spark.tokens/index.html",
     sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/tokens/Color.kt",
     examples = TokensExamples,
+    configurators = emptyList(),
+)
+private val Badges = Component(
+    id = "badges",
+    name = "Badges",
+    illustration = R.drawable.badge,
+    description = R.string.component_badge_description,
+    guidelinesUrl = "$ComponentGuidelinesUrl/p/8711ec-badge",
+    docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.badge/index.html",
+    sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/badge/Badge.kt",
+    examples = BadgeExamples,
     configurators = emptyList(),
 )
 
@@ -332,6 +345,18 @@ private val Rating = Component(
     configurators = listOf(RatingsConfigurator),
 )
 
+private val Skeletons = Component(
+    id = "skeleton",
+    name = "Skeletons",
+    illustration = R.drawable.skeleton,
+    description = R.string.component_placeholder_description,
+    guidelinesUrl = "$ComponentGuidelinesUrl/p/43dea8-skeleton",
+    docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.placeholder/index.html",
+    sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/placeholder/Placeholder.kt",
+    examples = PlaceholderExamples,
+    configurators = emptyList(),
+)
+
 private val Sliders = Component(
     id = "slider",
     name = "Slider",
@@ -435,6 +460,7 @@ private val TextLinks = Component(
 public val Components: List<Component> = listOf(
     Animations,
     Tokens,
+    Badges,
     BottomSheets,
     Buttons,
     ComboBox,
@@ -452,6 +478,7 @@ public val Components: List<Component> = listOf(
     ProgressTracker,
     RadioButtons,
     Rating,
+    Skeletons,
     Sliders,
     Snackbars,
     Stepper,
