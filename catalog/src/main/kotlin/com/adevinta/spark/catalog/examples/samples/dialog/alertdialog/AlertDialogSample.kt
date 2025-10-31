@@ -62,7 +62,7 @@ internal fun AlertDialogSample() {
             text = {
                 Text(
                     "This is the content of the alert dialog. It can contain " +
-                            "information about an action that requires user confirmation.",
+                        "information about an action that requires user confirmation.",
                 )
             },
             confirmButton = {
@@ -112,7 +112,7 @@ internal fun AlertDialogWithIconSample() {
             text = {
                 Text(
                     "Are you sure you want to delete this item? " +
-                            "This action cannot be undone.",
+                        "This action cannot be undone.",
                 )
             },
             confirmButton = {
@@ -186,9 +186,9 @@ internal fun AlertDialogLongTextSample() {
             text = {
                 Text(
                     "By using this application, you agree to our terms and conditions. " +
-                            "This includes our privacy policy, data usage guidelines, and user " +
-                            "conduct rules. Please read these documents carefully before proceeding. " +
-                            "If you do not agree with any of these terms, please do not use the application.",
+                        "This includes our privacy policy, data usage guidelines, and user " +
+                        "conduct rules. Please read these documents carefully before proceeding. " +
+                        "If you do not agree with any of these terms, please do not use the application.",
                 )
             },
             confirmButton = {
