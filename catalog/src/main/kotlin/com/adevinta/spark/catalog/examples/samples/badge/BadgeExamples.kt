@@ -176,19 +176,19 @@ private fun ColumnScope.BadgeBadgedBox() {
                 Icon(SparkIcons.MailOutline, contentDescription = "Mail")
             }
 
-            BadgedBox(badge = { Badge()}) {
+            BadgedBox(badge = { Badge() }) {
                 Text(text = "Notifications")
             }
         }
 
         Text("Badge positioned over surface")
         BadgedBox(
-            badge = { Badge(count = 3, badgeStyle = BadgeStyle.Medium) }
+            badge = { Badge(count = 3, badgeStyle = BadgeStyle.Medium) },
         ) {
             Surface(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(16.dp),
             ) {
                 Text("Content with badge overlay")
             }
