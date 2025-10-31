@@ -138,7 +138,7 @@ internal fun ComponentsListScreen(
                     LocalLayoutDirection.current,
                 ),
             top = contentPadding.calculateTopPadding(),
-            bottom = contentPadding.calculateBottomPadding(),
+            bottom = 16.dp + contentPadding.calculateBottomPadding(),
         ),
     ) {
         item(
