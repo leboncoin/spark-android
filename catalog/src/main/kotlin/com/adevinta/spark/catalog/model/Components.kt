@@ -31,6 +31,7 @@ import com.adevinta.spark.catalog.configurator.samples.buttons.IconButtonsConfig
 import com.adevinta.spark.catalog.configurator.samples.buttons.IconToggleButtonsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.chips.ChipsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.divider.DividerConfigurator
+import com.adevinta.spark.catalog.configurator.samples.gauge.GaugesConfigurator
 import com.adevinta.spark.catalog.configurator.samples.image.ImageConfigurator
 import com.adevinta.spark.catalog.configurator.samples.modal.ModalConfigurator
 import com.adevinta.spark.catalog.configurator.samples.popover.PopoverConfigurator
@@ -58,6 +59,7 @@ import com.adevinta.spark.catalog.examples.samples.chips.ChipsExamples
 import com.adevinta.spark.catalog.examples.samples.combobox.ComboBoxExample
 import com.adevinta.spark.catalog.examples.samples.dialog.DialogsExamples
 import com.adevinta.spark.catalog.examples.samples.divider.DividerExamples
+import com.adevinta.spark.catalog.examples.samples.gauge.SegmentedGaugeExamples
 import com.adevinta.spark.catalog.examples.samples.icons.IconsExamples
 import com.adevinta.spark.catalog.examples.samples.placeholder.PlaceholderExamples
 import com.adevinta.spark.catalog.examples.samples.popover.PopoverExamples
@@ -345,6 +347,17 @@ private val Rating = Component(
     configurators = listOf(RatingsConfigurator),
 )
 
+private val SegmentedGauge = Component(
+    id = "gauge",
+    name = "Segmented Gauge",
+    description = R.string.component_segmentedgauge_description,
+    guidelinesUrl = "$ComponentGuidelinesUrl/p/43dea8-segmentedgauge",
+    docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.gauge/index.html",
+    sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/gauge/SegmentedGauge.kt",
+    examples = SegmentedGaugeExamples,
+    configurators = listOf(GaugesConfigurator),
+)
+
 private val Skeletons = Component(
     id = "skeleton",
     name = "Skeletons",
@@ -478,6 +491,7 @@ public val Components: List<Component> = listOf(
     ProgressTracker,
     RadioButtons,
     Rating,
+    SegmentedGauge,
     Skeletons,
     Sliders,
     Snackbars,
