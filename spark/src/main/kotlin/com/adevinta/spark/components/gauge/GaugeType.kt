@@ -23,41 +23,94 @@
 package com.adevinta.spark.components.gauge
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
 import com.adevinta.spark.SparkTheme
 
-public enum class GaugeType(internal val index: Int) {
-    VeryHigh(index = 4) {
+/**
+ * Common interface for all gauge types.
+ */
+@Immutable
+public sealed interface GaugeType {
+    public val index: Int
+
+    @get:Composable
+    public val color: Color
+}
+
+/**
+ * Defines the available types for three-segment gauges.
+ */
+@Stable
+public sealed interface GaugeTypeShort : GaugeType {
+    public data object VeryHigh : GaugeTypeShort {
+        override val index: Int = 2
+
         override val color: Color
             @Composable
             get() = SparkTheme.colors.success
-    },
-    High(index = 3) {
-        override val color: Color
-            @Composable
-            get() = SparkTheme.colors.success
-    },
-    Medium(index = 2) {
-        override val color: Color
-            @Composable
-            get() = SparkTheme.colors.neutral
-    },
-    Low(index = 1) {
+    }
+
+    public data object Low : GaugeTypeShort {
+        override val index: Int = 1
+
         override val color: Color
             @Composable
             get() = SparkTheme.colors.alert
-    },
-    VeryLow(index = 0) {
+    }
+
+    public data object VeryLow : GaugeTypeShort {
+        override val index: Int = 0
+
         override val color: Color
             @Composable
             get() = SparkTheme.colors.error
-    },
-    NoData(index = 0) {
+    }
+}
+
+/**
+ * Defines the available types for five-segment gauges.
+ */
+@Stable
+public sealed interface GaugeTypeNormal : GaugeType {
+    public data object VeryHigh : GaugeTypeNormal {
+        override val index: Int = 4
+
         override val color: Color
             @Composable
-            get() = SparkTheme.colors.surface
-    };
+            get() = SparkTheme.colors.success
+    }
 
-    @get:Composable
-    public abstract val color: Color
+    public data object High : GaugeTypeNormal {
+        override val index: Int = 3
+
+        override val color: Color
+            @Composable
+            get() = SparkTheme.colors.success
+    }
+
+    public data object Medium : GaugeTypeNormal {
+        override val index: Int = 2
+
+        override val color: Color
+            @Composable
+            get() = SparkTheme.colors.neutral
+    }
+
+    public data object Low : GaugeTypeNormal {
+        override val index: Int = 1
+
+        override val color: Color
+            @Composable
+            get() = SparkTheme.colors.alert
+    }
+
+    public data object VeryLow : GaugeTypeNormal {
+        override val index: Int = 0
+
+        override val color: Color
+            @Composable
+            get() = SparkTheme.colors.error
+    }
 }

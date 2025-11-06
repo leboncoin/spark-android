@@ -22,17 +22,20 @@
 
 package com.adevinta.spark.components.gauge
 
-import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.animateIntOffsetAsState
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.Transition
+import androidx.compose.animation.core.animateDp
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.animateIntOffset
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
@@ -40,198 +43,292 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
-import com.adevinta.spark.components.snackbars.animatedOpacity
-import com.adevinta.spark.components.spacer.Spacer
 import com.adevinta.spark.tokens.transparent
+import com.adevinta.spark.tools.modifiers.ifNotNull
+import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
 @Composable
-public fun SparkSegmentedGauge(
+private fun SparkSegmentedGauge(
+    segments: GaugeSegments,
+    size: GaugeSize,
+    type: GaugeType?,
+    color: Color,
     modifier: Modifier = Modifier,
-    size: GaugeSize = GaugeSize.Small,
-    type: GaugeType = GaugeType.NoData,
-    color: Color = Color.Unspecified,
+    testTag: String? = null,
 ) {
     val (cellWidth, indicatorSize, spacingSize) = with(LocalDensity.current) {
-        listOf(size.width.dp.roundToPx(), size.indicatorSize.dp.roundToPx(), 4.dp.roundToPx())
+        listOf(size.width.dp.roundToPx(), size.indicatorSize.dp.roundToPx(), GaugeDefaults.SegmentSpacing.roundToPx())
     }
-    val indicatorOffset by animateIntOffsetAsState(
+    val index = type?.index ?: 0
+
+    val indicatorOffset = remember(index, cellWidth, indicatorSize) {
         IntOffset(
-            x = cellWidth * type.index + cellWidth / 2 - indicatorSize / 2 + type.index * spacingSize,
+            x = cellWidth * index + cellWidth / 2 - indicatorSize / 2 + index * spacingSize,
             y = 0,
+        )
+    }
+
+    // Coordinated animation state
+    val transition = updateTransition(
+        targetState = GaugeAnimationState(
+            type = type,
+            index = index,
+            customColor = color,
+            segments = segments,
+            cellWidth = cellWidth,
+            indicatorSize = indicatorSize,
+            spacingSize = spacingSize,
+            indicatorOffset = indicatorOffset,
         ),
+        label = "gauge",
     )
+
     Box(
-        modifier = modifier,
+        modifier = modifier.sparkUsageOverlay(),
         contentAlignment = Alignment.CenterStart,
     ) {
         Row(
-            horizontalArrangement = spacedBy(4.dp),
+            horizontalArrangement = Arrangement.spacedBy(GaugeDefaults.SegmentSpacing),
         ) {
-            repeat(5) { index ->
-                val inRange = index <= type.index
+            repeat(segments.count) { segmentIndex ->
                 Cell(
                     size = size,
-                    type = if (inRange) type else GaugeType.NoData,
-                    color = when {
-                        !inRange -> GaugeType.NoData.color
-                        color == Color.Unspecified -> type.color
-                        else -> color
-                    },
+                    type = type?.takeIf { it.index >= segmentIndex },
+                    customColor = color,
+                    segmentIndex = segmentIndex,
+                    transition = transition,
+                    testTag = testTag?.let { "${it}_cell" },
                 )
             }
         }
-        val indicatorColor by animateColorAsState(
-            targetValue = if (type == GaugeType.NoData) type.color.transparent else type.color,
-            label = "indicator color",
-        )
-        val indicatorAlpha by animatedOpacity(
-            visible = type != GaugeType.NoData,
-            animation = spring(),
-        )
-        val indicatorSize = size.indicatorSize.dp
-        Spacer(
-            modifier = Modifier
-                .offset { indicatorOffset }
-                .size(indicatorSize)
-                .graphicsLayer {
-                    alpha = indicatorAlpha
-                }
-                .border(
-                    border = BorderStroke(indicatorSize / 4, indicatorColor), shape = SparkTheme.shapes.full,
-                )
-                .padding(1.dp) // to avoid the background from overflowing du to the clipping aliasing
-                .clip(SparkTheme.shapes.full)
-                .background(SparkTheme.colors.surface),
+        Indicator(
+            size = size.indicatorSize.dp,
+            type = type,
+            offset = { indicatorOffset },
+            customColor = color,
+            transition = transition,
+            testTag = testTag?.let { "${it}_indicator" },
         )
     }
+}
+
+/**
+ * Internal state for coordinated gauge animations.
+ */
+private data class GaugeAnimationState(
+    val type: GaugeType?,
+    val index: Int,
+    val customColor: Color,
+    val segments: GaugeSegments,
+    val cellWidth: Int,
+    val indicatorSize: Int,
+    val spacingSize: Int,
+    val indicatorOffset: IntOffset,
+)
+
+@Composable
+private fun Indicator(
+    modifier: Modifier = Modifier,
+    type: GaugeType?,
+    customColor: Color,
+    size: Dp,
+    offset: () -> IntOffset,
+    transition: Transition<GaugeAnimationState>,
+    testTag: String? = null,
+) {
+    val animatedIndicatorOffset by transition.animateIntOffset(
+        transitionSpec = { GaugeDefaults.IndicatorAnimationSpec },
+        label = "indicator offset",
+    ) { offset() }
+
+    val indicatorColor by transition.animateColor(
+        transitionSpec = { spring() },
+        label = "indicator color",
+    ) {
+        when {
+            type == null -> SparkTheme.colors.surface
+            customColor != Color.Unspecified -> customColor
+            else -> type.color
+        }
+    }
+    val indicatorAlpha by transition.animateFloat(
+        transitionSpec = { spring() },
+        label = "indicator color",
+    ) {
+        if (type == null) 0f else 1f
+    }
+
+    Spacer(
+        modifier = modifier
+            .size(size)
+            // We use alpha instead of visibility because if we hide the indicator the overall size of
+            // The gauge would change and make the siblings move.
+            .graphicsLayer { alpha = indicatorAlpha }
+            .offset { animatedIndicatorOffset }
+            .border(
+                border = BorderStroke(size / 4, indicatorColor),
+                shape = SparkTheme.shapes.full,
+            )
+            .padding(1.dp) // to avoid the background from overflowing du to the clipping aliasing
+            .clip(SparkTheme.shapes.full)
+            .background(SparkTheme.colors.surface)
+            .ifNotNull(testTag) { testTag(it) },
+    )
 }
 
 @Composable
 private fun Cell(
     size: GaugeSize,
-    type: GaugeType,
-    color: Color,
+    type: GaugeType?,
+    customColor: Color,
+    segmentIndex: Int,
+    transition: Transition<GaugeAnimationState>,
     modifier: Modifier = Modifier,
+    testTag: String? = null,
 ) {
-    val color by animateColorAsState(color)
-    val borderColor by animateColorAsState(
-        if (type == GaugeType.NoData) {
+    val animatedColor by transition.animateColor(
+        transitionSpec = { spring() },
+        label = "cell color $segmentIndex",
+    ) {
+        when {
+            type == null -> SparkTheme.colors.surface
+            customColor != Color.Unspecified -> customColor
+            else -> type.color
+        }
+    }
+
+    val animatedBorderColor by transition.animateColor(
+        transitionSpec = { spring() },
+        label = "cell border color $segmentIndex",
+    ) {
+        if (type == null) {
             SparkTheme.colors.outline
         } else {
             SparkTheme.colors.outline.transparent
-        },
-    )
-    val borderSize by animateDpAsState(if (type == GaugeType.NoData) 1.dp else 0.dp)
+        }
+    }
+
+    val animatedBorderSize by transition.animateDp(
+        transitionSpec = { spring() },
+        label = "cell border size $segmentIndex",
+    ) {
+        if (type == null) 1.dp else 0.dp
+    }
+
     Spacer(
         modifier = Modifier
             .width(size.width.dp)
             .requiredHeight(size.height.dp)
-            .border(width = borderSize, color = borderColor, shape = SparkTheme.shapes.full)
-            .background(color = color, shape = SparkTheme.shapes.full),
+            .border(width = animatedBorderSize, color = animatedBorderColor, shape = SparkTheme.shapes.full)
+            .background(color = animatedColor, shape = SparkTheme.shapes.full)
+            .ifNotNull(testTag) { testTag(it) },
     )
 }
 
-public enum class GaugeSize(
-    internal val width: Int,
-    internal val height: Int,
-    internal val indicatorSize: Int,
-) {
-    Medium(34, 12, 16),
-    Small(24, 8, 12);
-}
-
-public enum class GaugeSegment(
-    internal val width: Int,
-    internal val height: Int,
-    internal val indicatorSize: Int,
-) {
-    Medium(34, 12, 16),
-    Small(24, 8, 12);
-}
-
+/**
+ * A compact, three-segment read-only gauge used to represent qualitative levels (for example:
+ * "Very low", "Low", "Very high").
+ *
+ * @param modifier Modifier applied to the gauge.
+ * @param size Size of the gauge; typically [GaugeSize.Small] or [GaugeSize.Medium].
+ * @param type Optional gauge type that determines which segments are filled and the semantic color.
+ * When `null`, the gauge renders unfilled segments (neutral state).
+ * @param color Optional color override for filled segments. When `Color.Unspecified`, the color from [type] is used.
+ * @param testTag Optional test tag used for UI testing. When provided the implementation
+ * exposes tags "<testTag>_cell" for cells and "<testTag>_indicator" for the marker.
+ *
+ * @see SegmentedGauge
+ */
 @ExperimentalSparkApi
 @Composable
-public fun SegmentedGauge(
+public fun SegmentedGaugeShort(
     modifier: Modifier = Modifier,
-    size: GaugeSize = GaugeSize.Small,
-    type: GaugeType = GaugeType.NoData,
-    color: Color = Color.Unspecified,
+    size: GaugeSize = GaugeDefaults.Size,
+    type: GaugeTypeShort? = null,
+    color: Color = GaugeDefaults.Color,
+    testTag: String? = null,
 ) {
     SparkSegmentedGauge(
         modifier = modifier,
         size = size,
         type = type,
         color = color,
+        segments = GaugeSegments.Short,
+        testTag = testTag,
+    )
+}
+
+/**
+ * A five-segment read-only gauge used to represent qualitative levels (for example: Very low →
+ * Very high)..
+ *
+ * @param modifier Modifier applied to the gauge.
+ * @param size Size of the gauge; typically [GaugeSize.Small] or [GaugeSize.Medium].
+ * @param type Optional gauge type that determines which segments are filled and the semantic color.
+ * When `null`, the gauge renders unfilled segments (neutral state).
+ * @param color Optional color override for filled segments. When [Color.Unspecified], the semantic color
+ * from [type] is used.
+ * @param testTag Optional test tag used for UI testing. When provided the implementation
+ * exposes tags "<testTag>_cell" for cells and "<testTag>_indicator" for the marker.
+ * @see SegmentedGaugeShort
+ *
+ */
+@ExperimentalSparkApi
+@Composable
+public fun SegmentedGauge(
+    modifier: Modifier = Modifier,
+    size: GaugeSize = GaugeDefaults.Size,
+    type: GaugeTypeNormal? = null,
+    color: Color = GaugeDefaults.Color,
+    testTag: String? = null,
+) {
+    SparkSegmentedGauge(
+        modifier = modifier,
+        size = size,
+        type = type,
+        color = color,
+        segments = GaugeSegments.Normal,
+        testTag = testTag,
     )
 }
 
 @Preview
 @Composable
 private fun PreviewSegmentedGauge() {
-    PreviewTheme() {
-        SparkSegmentedGauge(type = GaugeType.VeryHigh)
-        SparkSegmentedGauge(type = GaugeType.High)
-        SparkSegmentedGauge(type = GaugeType.Medium)
-        SparkSegmentedGauge(type = GaugeType.Low)
-        SparkSegmentedGauge(type = GaugeType.VeryLow)
-        SparkSegmentedGauge(type = GaugeType.NoData)
+    PreviewTheme {
+        SegmentedGauge(type = GaugeTypeNormal.VeryHigh, color = SparkTheme.colors.accent)
+        SegmentedGauge(type = null, color = SparkTheme.colors.accentContainer)
+        SegmentedGauge(type = GaugeTypeNormal.VeryHigh)
+        SegmentedGauge(type = GaugeTypeNormal.High)
+        SegmentedGauge(type = GaugeTypeNormal.Medium)
+        SegmentedGauge(type = GaugeTypeNormal.Low)
+        SegmentedGauge(type = GaugeTypeNormal.VeryLow)
+        SegmentedGauge(type = null)
     }
 }
 
 @Preview
 @Composable
-private fun PreviewCell() {
-    PreviewTheme(
-        color = { SparkTheme.colors.backgroundVariant },
-    ) {
-        Row() {
-            GaugeSize.entries.forEach { size ->
-                Column() {
-                    Cell(
-                        size = size,
-                        type = GaugeType.VeryHigh,
-                        color = GaugeType.VeryHigh.color,
-                    )
-                    Cell(
-                        size = size,
-                        type = GaugeType.High,
-                        color = GaugeType.High.color,
-                    )
-                    Cell(
-                        size = size,
-                        type = GaugeType.Medium,
-                        color = GaugeType.Medium.color,
-                    )
-                    Cell(
-                        size = size,
-                        type = GaugeType.Low,
-                        color = GaugeType.Low.color,
-                    )
-                    Cell(
-                        size = size,
-                        type = GaugeType.VeryLow,
-                        color = GaugeType.VeryLow.color,
-                    )
-                    Cell(
-                        size = size,
-                        type = GaugeType.NoData,
-                        color = GaugeType.NoData.color,
-                    )
-                }
-            }
-        }
-
+private fun PreviewSegmentedGaugeShort() {
+    PreviewTheme {
+        SegmentedGaugeShort(type = GaugeTypeShort.VeryHigh)
+        SegmentedGaugeShort(type = GaugeTypeShort.Low)
+        SegmentedGaugeShort(type = GaugeTypeShort.VeryLow)
+        SegmentedGaugeShort(type = null)
     }
 }
