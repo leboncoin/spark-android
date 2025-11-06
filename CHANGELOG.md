@@ -9,6 +9,7 @@ _2026-01-22_
 
 ### Spark
 - Apply the MaterialComposableHasSparkReplacement in spark modules
+- Add new SurfaceDark color token to be used when we need a surface/background to remain dark in light and darkmode like the footer in the website or the drawer in dashboard pro
 
 ### CI
 - Run lint task on the `:spark-lint` module
