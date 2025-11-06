@@ -24,16 +24,19 @@ package com.adevinta.spark.catalog.configurator.samples.gauge
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.catalog.model.Configurator
 import com.adevinta.spark.catalog.ui.ButtonGroup
-import com.adevinta.spark.catalog.ui.WipIllustration
+import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
+import com.adevinta.spark.components.gauge.GaugeSize
+import com.adevinta.spark.components.gauge.GaugeType
+import com.adevinta.spark.components.gauge.SegmentedGauge
 
 public val GaugesConfigurator: Configurator = Configurator(
     id = "gauge",
@@ -47,23 +50,40 @@ public val GaugesConfigurator: Configurator = Configurator(
 @Composable
 private fun ColumnScope.GaugeSample() {
     var size by remember { mutableStateOf(GaugeSize.Medium) }
+    var type by remember { mutableStateOf(GaugeType.NoData) }
+//    var type by remember { mutableStateOf(GaugeSegment.Five) }
 
-    WipIllustration()
+    SegmentedGauge(
+        size = size,
+        type = type,
+        color = Color.Unspecified,
+    )
 
     ButtonGroup(
         title = "Sizes",
         selectedOption = size,
         onOptionSelect = { size = it },
     )
+//    ButtonGroup(
+//        title = "Sizes",
+//        selectedOption = size,
+//        onOptionSelect = { size = it },
+//    )
+
+    DropdownEnum(
+        title = "Types",
+        selectedOption = type,
+        onOptionSelect = { type = it },
+    )
+}
+
+private enum class GaugeSegment {
+    Three,
+    Five;
 }
 
 @Preview
 @Composable
 private fun GaugeSamplePreview() {
     PreviewTheme { GaugeSample() }
-}
-
-private enum class GaugeSize {
-    Small(),
-    Medium(),
 }
