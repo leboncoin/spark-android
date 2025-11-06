@@ -94,13 +94,15 @@ import com.adevinta.spark.catalog.ui.shaders.colorblindness.ColorBlindNessType
 import com.adevinta.spark.catalog.ui.shaders.colorblindness.shader
 import com.adevinta.spark.tokens.asSparkColors
 import com.adevinta.spark.tokens.contrastLevel
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.launch
 
 @Composable
 internal fun ComponentActivity.CatalogApp(
     theme: Theme,
     onThemeChange: (theme: Theme) -> Unit,
-    components: List<Component>,
+    components: ImmutableList<Component>,
 ) {
     val themeProvider: ThemeProvider = LeboncoinTheme
 
@@ -315,7 +317,7 @@ private fun HomeTabBar(
     val catalogScreens by remember { mutableStateOf(CatalogHomeScreen.entries) }
     val catalogScreensName by remember {
         derivedStateOf {
-            catalogScreens.map { it.name }
+            catalogScreens.map { it.name }.toImmutableList()
         }
     }
     CatalogTabBar(

@@ -47,6 +47,8 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.MultiChoiceComboBox
 import com.adevinta.spark.components.textfields.SelectedChoice
 import com.adevinta.spark.components.textfields.SingleChoiceComboBox
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collect
@@ -293,7 +295,7 @@ private val SuggestionComboBox = Example(
     )
 }
 
-public val ComboBoxExample: List<Example> = listOf(
+public val ComboBoxExample: ImmutableList<Example> = persistentListOf(
     MultipleComboBox,
     SingleSelectionWithUnselect,
     FilteringComboBox,

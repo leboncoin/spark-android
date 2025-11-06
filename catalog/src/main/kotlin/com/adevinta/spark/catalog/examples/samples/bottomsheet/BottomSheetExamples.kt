@@ -63,12 +63,14 @@ import com.adevinta.spark.icons.LikeFill
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.Store
 import com.adevinta.spark.tokens.highlight
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.launch
 
 private const val BottomSheetExampleSourceUrl = "$SparkSampleSourceUrl/bottomsheet/BottomSheetExamples.kt"
 
 @OptIn(ExperimentalMaterial3Api::class)
-public val BottomSheetExamples: List<Example> = listOf(
+public val BottomSheetExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "list-content",
         name = "BottomSheet List Content",

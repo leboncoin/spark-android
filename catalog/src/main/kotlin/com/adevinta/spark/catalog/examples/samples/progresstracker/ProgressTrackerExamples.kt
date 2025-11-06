@@ -41,11 +41,12 @@ import com.adevinta.spark.components.progress.tracker.ProgressStep
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerColumn
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerIntent
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerRow
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
 private const val ProgressTrackerExampleSourceUrl = "$SampleSourceUrl/ProgressTrackerSamples.kt"
 
-public val ProgressTrackerExamples: List<Example> = listOf(
+public val ProgressTrackerExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "default",
         name = "Default",

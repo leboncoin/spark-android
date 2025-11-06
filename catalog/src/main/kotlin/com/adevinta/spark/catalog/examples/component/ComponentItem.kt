@@ -72,6 +72,7 @@ import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.WheelOutline
 import com.adevinta.spark.tokens.applyTonalElevation
 import com.adevinta.spark.tools.modifiers.invisibleSemantic
+import kotlinx.collections.immutable.persistentListOf
 import soup.compose.material.motion.animation.materialFadeIn
 import soup.compose.material.motion.animation.materialFadeOut
 
@@ -266,8 +267,8 @@ private fun ComponentItemPreview() {
                 guidelinesUrl = "https://www.google.com/#q=constituto",
                 docsUrl = "https://www.google.com/#q=dictas",
                 sourceUrl = "http://www.bing.com/search?q=inani",
-                examples = listOf(),
-                configurators = emptyList(),
+                examples = persistentListOf(),
+                configurators = persistentListOf(),
             ),
             countIndicator = 3,
             onClick = {},
@@ -282,8 +283,8 @@ private fun ComponentItemPreview() {
                 guidelinesUrl = "https://www.google.com/#q=constituto",
                 docsUrl = "https://www.google.com/#q=dictas",
                 sourceUrl = "http://www.bing.com/search?q=inani",
-                examples = listOf(),
-                configurators = emptyList(),
+                examples = persistentListOf(),
+                configurators = persistentListOf(),
             ),
             onClick = {},
         )

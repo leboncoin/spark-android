@@ -38,12 +38,14 @@ import com.adevinta.spark.components.tags.TagTinted
 import com.adevinta.spark.icons.Booster
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 private const val TagsExampleDescription = "Tags examples"
 private const val TagsExampleSourceUrl = "$SampleSourceUrl/TagSamples.kt"
 
 @OptIn(ExperimentalLayoutApi::class)
-public val TagsExamples: List<Example> = listOf(
+public val TagsExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "filled",
         name = "Filled Tag",
