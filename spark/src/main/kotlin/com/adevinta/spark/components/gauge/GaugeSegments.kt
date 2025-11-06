@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Adevinta
+ * Copyright (c) 2025 Adevinta
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,21 +19,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.adevinta.spark.catalog.examples.samples.gauge
 
-import com.adevinta.spark.catalog.model.Example
-import com.adevinta.spark.catalog.ui.WipIllustration
-import com.adevinta.spark.catalog.util.SampleSourceUrl
+package com.adevinta.spark.components.gauge
 
-private const val SegmentedGaugeExampleSourceUrl = "$SampleSourceUrl/PlaceholderSamples.kt"
+import androidx.compose.runtime.Stable
 
-public val SegmentedGaugeExamples: List<Example> = listOf(
-    Example(
-        id = "text",
-        name = "SegmentedGauge",
-        description = "Placeholder for segmented gauge component",
-        sourceUrl = SegmentedGaugeExampleSourceUrl,
-    ) {
-        WipIllustration()
-    },
-)
+/**
+ * Defines the available segment counts for the SegmentedGauge component.
+ * Using a sealed interface allows for extensibility and type safety.
+ */
+@Stable
+internal sealed interface GaugeSegments {
+    val count: Int
+
+    data object Short : GaugeSegments {
+        override val count: Int = 3
+    }
+
+    data object Normal : GaugeSegments {
+        override val count: Int = 5
+    }
+}
