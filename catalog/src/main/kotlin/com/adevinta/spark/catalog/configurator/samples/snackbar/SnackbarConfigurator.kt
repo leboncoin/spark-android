@@ -34,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.catalog.R
+import com.adevinta.spark.catalog.icons.IconPickerItem
 import com.adevinta.spark.catalog.model.Configurator
 import com.adevinta.spark.catalog.ui.ButtonGroup
 import com.adevinta.spark.catalog.ui.DropdownEnum
@@ -49,8 +50,7 @@ import com.adevinta.spark.components.snackbars.SnackbarStyle
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.SwitchLabelled
-import com.adevinta.spark.icons.FlashlightFill
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.SparkIcon
 import kotlinx.coroutines.launch
 
 public val SnackbarConfigurator: Configurator = Configurator(
@@ -65,7 +65,7 @@ public val SnackbarConfigurator: Configurator = Configurator(
 @Composable
 private fun ColumnScope.SnackbarSample(snackbarHostState: SnackbarHostState) {
     var withDismissAction by remember { mutableStateOf(false) }
-    var isIconEnabled by remember { mutableStateOf(false) }
+    var icon: SparkIcon? by remember { mutableStateOf(null) }
     var style by remember { mutableStateOf(SnackbarStyle.Filled) }
     var actionOnNewLine by remember { mutableStateOf(false) }
     var intent by remember { mutableStateOf(SnackbarIntent.Basic) }
@@ -105,17 +105,11 @@ private fun ColumnScope.SnackbarSample(snackbarHostState: SnackbarHostState) {
             modifier = Modifier.fillMaxWidth(),
         )
     }
-    SwitchLabelled(
-        checked = isIconEnabled,
-        onCheckedChange = {
-            isIconEnabled = it
-        },
-    ) {
-        Text(
-            text = "Icon enabled",
-            modifier = Modifier.fillMaxWidth(),
-        )
-    }
+    IconPickerItem(
+        label = "With Icon",
+        selectedIcon = icon,
+        onIconSelected = { icon = it },
+    )
 
     ButtonGroup(
         title = "Style",
@@ -127,7 +121,7 @@ private fun ColumnScope.SnackbarSample(snackbarHostState: SnackbarHostState) {
         withDismissAction = withDismissAction,
         actionOnNewLine = actionOnNewLine,
         style = style,
-        icon = if (isIconEnabled) SparkIcons.FlashlightFill else null,
+        icon = icon,
         actionLabel = actionText,
     ) {
         Text(contentText)
@@ -144,7 +138,7 @@ private fun ColumnScope.SnackbarSample(snackbarHostState: SnackbarHostState) {
                         withDismissAction = withDismissAction,
                         actionOnNewLine = actionOnNewLine,
                         style = style,
-                        icon = if (isIconEnabled) SparkIcons.FlashlightFill else null,
+                        icon = icon,
                         actionLabel = actionText,
                         message = contentText,
                         duration = SnackbarDuration.Short,

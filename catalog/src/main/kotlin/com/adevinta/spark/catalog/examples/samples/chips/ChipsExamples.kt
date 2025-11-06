@@ -84,6 +84,8 @@ import com.adevinta.spark.icons.EyeOutline
 import com.adevinta.spark.icons.MailOutline
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.ElevationTokens
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.delay
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -92,7 +94,7 @@ import androidx.compose.material3.HorizontalDivider as MaterialHorizontalDivider
 
 private const val ChipsExampleSourceUrl = "$SampleSourceUrl/ChipsSamples.kt"
 
-public val ChipsExamples: List<Example> = listOf(
+public val ChipsExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "default",
         name = "Default",

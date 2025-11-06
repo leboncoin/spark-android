@@ -34,6 +34,7 @@ import com.adevinta.spark.catalog.examples.component.Component
 import com.adevinta.spark.catalog.examples.example.Example
 import com.adevinta.spark.catalog.model.Component
 import com.adevinta.spark.catalog.ui.animations.LocalAnimatedVisibilityScope
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -58,7 +59,7 @@ internal data class ExampleShowcase(val componentId: String, val exampleId: Stri
 @OptIn(ExperimentalSharedTransitionApi::class)
 internal fun NavGraphBuilder.examplesDestination(
     navController: NavHostController,
-    components: List<Component>,
+    components: ImmutableList<Component>,
     contentPadding: PaddingValues,
 ) {
     composable<ExamplesList>(

@@ -42,10 +42,12 @@ import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.icons.MailOutline
 import com.adevinta.spark.icons.SparkIcons
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 private const val BadgeExampleSourceUrl = "$SampleSourceUrl/BadgeSamples.kt"
 
-public val BadgeExamples: List<Example> = listOf(
+public val BadgeExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "default",
         name = "Default Badge",

@@ -56,11 +56,13 @@ import com.adevinta.spark.components.slider.SliderIntent
 import com.adevinta.spark.components.snackbars.SnackbarHostState
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.toggles.SwitchLabelled
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.milliseconds
 
-public val PulseConfigurator: List<Configurator> = listOf(
+public val PulseConfigurator: ImmutableList<Configurator> = persistentListOf(
     Configurator(
         id = "pulse",
         name = "Pulse",

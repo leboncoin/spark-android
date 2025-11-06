@@ -35,9 +35,11 @@ import com.adevinta.spark.icons.AccountFill
 import com.adevinta.spark.icons.AlarmOnFill
 import com.adevinta.spark.icons.MessageOutline
 import com.adevinta.spark.icons.SparkIcons
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 private const val TabsExampleSourceUrl = "$SampleSourceUrl/TabExamples.kt"
-public val TabsExamples: List<Example> = listOf(
+public val TabsExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "simple",
         name = "Simple tabs",

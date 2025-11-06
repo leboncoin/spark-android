@@ -21,11 +21,14 @@
  */
 package com.adevinta.spark.tools
 
+import androidx.compose.runtime.Stable
+
 /**
  * Implementations of this interface provide a centralized mechanism for
  * dealing with errors and exceptions that may arise when using a Spark component in an unexpected way.
  * This allows for custom error handling logic, such as log reporting for production or crash in development.
  */
+@Stable
 public fun interface SparkExceptionHandler {
     public fun handleException(throwable: Throwable)
 }

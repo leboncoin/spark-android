@@ -42,10 +42,12 @@ import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.icons.AlarmOffFill
 import com.adevinta.spark.icons.AlarmOnFill
 import com.adevinta.spark.icons.SparkIcons
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 private const val SwitchExampleDescription = "Switch examples"
 private const val SwitchExampleSourceUrl = "$SampleSourceUrl/SwitchSamples.kt"
-public val SwitchExamples: List<Example> = listOf(
+public val SwitchExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "standalone",
         name = "Standalone switch",

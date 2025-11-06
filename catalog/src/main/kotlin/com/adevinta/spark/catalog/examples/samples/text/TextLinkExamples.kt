@@ -38,11 +38,13 @@ import com.adevinta.spark.components.text.TextLinkButton
 import com.adevinta.spark.icons.Link
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.res.annotatedStringResource
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.launch
 
 private const val TextLinksExampleSourceUrl = "$SampleSourceUrl/TextLinkExamples.kt"
 
-public val TextLinksExamples: List<Example> = listOf(
+public val TextLinksExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "filled",
         name = "Link inside title",

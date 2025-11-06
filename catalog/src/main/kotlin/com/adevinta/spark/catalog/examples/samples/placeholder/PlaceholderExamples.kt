@@ -52,10 +52,12 @@ import com.adevinta.spark.components.placeholder.placeholder
 import com.adevinta.spark.components.placeholder.textPlaceholder
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 private const val PlaceholderExampleSourceUrl = "$SampleSourceUrl/PlaceholderSamples.kt"
 
-public val PlaceholderExamples: List<Example> = listOf(
+public val PlaceholderExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "text",
         name = "Text Placeholder",

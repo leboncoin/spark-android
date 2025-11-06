@@ -25,9 +25,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.Text
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -42,11 +40,13 @@ import com.adevinta.spark.components.spacer.VerticalSpacer
 import com.adevinta.spark.components.text.TextLinkButton
 import com.adevinta.spark.icons.LikeFill
 import com.adevinta.spark.icons.SparkIcons
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.launch
 
 private const val SnackbarExampleSourceUrl = "$SampleSourceUrl/SnackbarSamples.kt"
 
-public val SnackbarExamples: List<Example> = listOf(
+public val SnackbarExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "filled",
         name = "Snackbar",

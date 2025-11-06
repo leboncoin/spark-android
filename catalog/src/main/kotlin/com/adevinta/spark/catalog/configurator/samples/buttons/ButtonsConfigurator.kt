@@ -22,10 +22,8 @@
 package com.adevinta.spark.catalog.configurator.samples.buttons
 
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -33,11 +31,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.catalog.icons.IconPickerItem
 import com.adevinta.spark.catalog.model.Configurator
 import com.adevinta.spark.catalog.ui.ButtonGroup
 import com.adevinta.spark.catalog.ui.DropdownEnum
@@ -52,19 +50,15 @@ import com.adevinta.spark.components.buttons.ButtonShape
 import com.adevinta.spark.components.buttons.ButtonSize
 import com.adevinta.spark.components.buttons.ButtonTinted
 import com.adevinta.spark.components.buttons.IconSide
-import com.adevinta.spark.components.iconbuttons.toggle.IconToggleButtonFilled
-import com.adevinta.spark.components.iconbuttons.toggle.IconToggleButtonIcons
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.SwitchLabelled
-import com.adevinta.spark.icons.LikeFill
-import com.adevinta.spark.icons.LikeOutline
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
-import com.adevinta.spark.tokens.highlight
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
-public val ButtonsConfigurator: List<Configurator> = listOf(
+public val ButtonsConfigurator: ImmutableList<Configurator> = persistentListOf(
     Configurator(
         id = "button",
         name = "Button",
@@ -101,26 +95,12 @@ private fun ColumnScope.ButtonSample() {
         iconSide = iconSide,
     )
 
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = spacedBy(8.dp),
-    ) {
-        Text(
-            text = "With Icon",
-            modifier = Modifier.weight(1f),
-            style = SparkTheme.typography.body2.highlight,
-        )
-        IconToggleButtonFilled(
-            checked = icon != null,
-            onCheckedChange = {
-                icon = if (it) SparkIcons.LikeFill else null
-            },
-            icons = IconToggleButtonIcons(
-                checked = SparkIcons.LikeFill,
-                unchecked = SparkIcons.LikeOutline,
-            ),
-        )
-    }
+    IconPickerItem(
+        label = "With Icon",
+        selectedIcon = icon,
+        onIconSelected = { icon = it },
+    )
+
     SwitchLabelled(
         checked = isLoading,
         onCheckedChange = { isLoading = it },
