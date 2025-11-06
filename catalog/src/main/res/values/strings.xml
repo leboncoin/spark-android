@@ -126,6 +126,10 @@
     <string name="component_menu_issue">Report an issue</string>
 
     <string name="icons_screen_search_helper">Search Spark Icon</string>
+    <string name="icon_picker_title">Select Icon</string>
+    <string name="icon_picker_select">Select</string>
+    <string name="icon_picker_clear">Clear</string>
+    <string name="icon_picker_no_icon_selected">No icon selected</string>
 
     <string name="spark_text_link_paragraph_example_"><annotation color="neutral" typography="body1">This is Adevinta </annotation><annotation color="main" typography="body1"><u><b>Privacy &amp; Policy</b></u></annotation><annotation color="neutral" typography="body1"> also lots of extra information you may be interested in or should I inform you about that extra information. you might not be aware of it</annotation></string>
 

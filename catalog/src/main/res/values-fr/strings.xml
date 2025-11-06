@@ -127,6 +127,10 @@
     <string name="component_menu_issue">Signaler un problème</string>
 
     <string name="icons_screen_search_helper">Rechercher une icône Spark</string>
+    <string name="icon_picker_title">Sélectionner une icône</string>
+    <string name="icon_picker_select">Sélectionner</string>
+    <string name="icon_picker_clear">Effacer</string>
+    <string name="icon_picker_no_icon_selected">Aucune icône sélectionnée</string>
 
     <string name="spark_text_link_paragraph_example_"><annotation color="neutral" typography="body1">Ceci est la </annotation><annotation color="main" typography="body1"><u><b>Politique de confidentialité</b></u></annotation><annotation color="neutral" typography="body1">d’Adevinta ainsi que de nombreuses informations supplémentaires qui pourraient vous intéresser ou dont je devrais vous informer et que vous ignorez peut-être</annotation></string>
 
