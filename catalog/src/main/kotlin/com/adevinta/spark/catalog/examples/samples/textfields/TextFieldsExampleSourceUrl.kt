@@ -51,11 +51,13 @@ import com.adevinta.spark.icons.EyeFill
 import com.adevinta.spark.icons.EyeOffFill
 import com.adevinta.spark.icons.QuestionOutline
 import com.adevinta.spark.icons.SparkIcons
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlin.random.Random
 
 private const val TextFieldsExampleSourceUrl = "$SampleSourceUrl/DropdownExamples.kt"
 
-public val TextFieldsExamples: List<Example> = listOf(
+public val TextFieldsExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "addons",
         name = "Default Addons",

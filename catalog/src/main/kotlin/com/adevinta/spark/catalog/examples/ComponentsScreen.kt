@@ -62,6 +62,7 @@ import com.adevinta.spark.catalog.ui.navigation.NavHostSpark
 import com.adevinta.spark.catalog.util.TrackScrollJank
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.Layout
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -76,7 +77,7 @@ internal val ExamplesList.deepLinks: List<NavDeepLink>
 @Composable
 public fun ComponentsScreen(
     modifier: Modifier = Modifier,
-    components: List<Component>,
+    components: ImmutableList<Component>,
     pagerState: PagerState,
     contentPadding: PaddingValues,
     navigationMode: NavigationMode,
@@ -108,7 +109,7 @@ public fun ComponentsScreen(
 
 @Composable
 internal fun ComponentsListScreen(
-    components: List<Component>,
+    components: ImmutableList<Component>,
     onExampleSectionClick: (String) -> Unit,
     contentPadding: PaddingValues,
 ) {

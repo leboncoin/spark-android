@@ -41,13 +41,15 @@ import com.adevinta.spark.icons.LikeFill
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.highlight
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.launch
 
 private const val PopoverExampleDescription = "Popover examples"
 private const val PopoverExampleSourceUrl = "$SampleSourceUrl/PopoverSamples.kt"
 
 @OptIn(ExperimentalMaterial3Api::class)
-public val PopoverExamples: List<Example> = listOf(
+public val PopoverExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "default",
         name = "Popover",

@@ -31,9 +31,11 @@ import com.adevinta.spark.catalog.examples.samples.dialog.modal.EdgeToEdgeExampl
 import com.adevinta.spark.catalog.examples.samples.dialog.modal.ModalSample
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 private const val ModalsExampleSourceUrl = "$SampleSourceUrl/ModalExamples.kt"
-public val DialogsExamples: List<Example> = listOf(
+public val DialogsExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "alert-dialog-basic",
         name = "Alert Dialog - Basic",
