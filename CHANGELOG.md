@@ -4,6 +4,14 @@
 
 ## [Unreleased]
 
+
+## [1.8.0-alpha02]
+
+_2026-01-22_
+
+### Spark
+- Add new SurfaceDark color token to be used when we need a surface/background to remain dark in light and darkmode like the footer in the website or the drawer in dashboard pro
+
 ## [1.8.0-alpha01]
 _2026-01-22_
 
@@ -1045,7 +1053,9 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.8.0-alpha01...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.8.0-alpha02...HEAD
+
+[1.8.0-alpha02]: https://github.com/leboncoin/spark-android/compare/1.8.0-alpha02
 
 [1.8.0-alpha01]: https://github.com/leboncoin/spark-android/compare/1.8.0-alpha01
 
