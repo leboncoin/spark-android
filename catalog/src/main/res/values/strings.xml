@@ -150,4 +150,16 @@
 
     <string name="component_popovers_description">Provides a descriptive message or Info for an Anchor.</string>
     <string name="component_placeholder_description">Skeletons provide visual feedback during loading states, showing skeleton UI that mimics the structure of the actual content avoiding jumps in the interfae once the content is loaded.</string>
+
+    <!--region Color Picker-->
+    <string name="color_picker_title">Select Color</string>
+    <string name="color_picker_select_custom">Validate</string>
+    <string name="color_picker_tokens_title">Spark Colors</string>
+    <string name="color_picker_custom_title">Custom Color</string>
+    <string name="color_picker_custom">Custom</string>
+    <!--endregion-->
+
+    <!--region Color Selector Test-->
+    <string name="component_color_selector_test_description">Test component for the ColorSelector functionality.</string>
+    <!--endregion-->
 </resources>

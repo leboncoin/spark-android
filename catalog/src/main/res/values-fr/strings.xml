@@ -146,4 +146,15 @@
     <string name="icons_filter_icon">Icône</string>
     <string name="combobox_example_no_books_found_label">Aucun livre trouvé</string>
 
+    <!--region Color Picker-->
+    <string name="color_picker_title">Sélectionner une couleur</string>
+    <string name="color_picker_select_custom">Valider</string>
+    <string name="color_picker_tokens_title">Couleurs Spark</string>
+    <string name="color_picker_custom_title">Couleur personnalisée</string>
+    <string name="color_picker_custom">Personnalisé</string>
+    <!--endregion-->
+
+    <!--region Color Selector Test-->
+    <string name="component_color_selector_test_description">Composant de test pour la fonctionnalité ColorSelector.</string>
+    <!--endregion-->
 </resources>
