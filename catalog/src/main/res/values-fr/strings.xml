@@ -128,7 +128,6 @@
 
     <string name="icons_screen_search_helper">Rechercher une icône Spark</string>
     <string name="icon_picker_title">Sélectionner une icône</string>
-    <string name="icon_picker_select">Sélectionner</string>
     <string name="icon_picker_clear">Effacer</string>
     <string name="icon_picker_no_icon_selected">Aucune icône sélectionnée</string>
 
