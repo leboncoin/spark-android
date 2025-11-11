@@ -49,7 +49,8 @@ dependencies {
     fun DependencyHandlerScope.plugin(plugin: Provider<PluginDependency>) = plugin.map {
         "${it.pluginId}:${it.pluginId}.gradle.plugin:${it.version.requiredVersion}"
     }
-    implementation(plugin(libs.plugins.compose))
+    implementation(plugin(libs.plugins.compose.multiplatform))
+    implementation(plugin(libs.plugins.compose.compiler))
     implementation(plugin(libs.plugins.dependencyGuard))
     implementation(plugin(libs.plugins.dokka))
     implementation(plugin(libs.plugins.kotlin.jvm))
@@ -65,7 +66,10 @@ gradlePlugin {
         create("com.adevinta.spark.SparkAndroidPlugin", id = "com.adevinta.spark.android")
         create("com.adevinta.spark.SparkAndroidApplicationPlugin", id = "com.adevinta.spark.android-application")
         create("com.adevinta.spark.SparkAndroidLibraryPlugin", id = "com.adevinta.spark.android-library")
-        create("com.adevinta.spark.SparkAndroidComposePlugin", id = "com.adevinta.spark.android-compose")
+        create("com.adevinta.spark.SparkComposePlugin", id = "com.adevinta.spark.compose")
+        create("com.adevinta.spark.SparkComposeMultiplatformPlugin", id = "com.adevinta.spark.compose.multiplatform")
+        create("com.adevinta.spark.SparkMultiplatformPlugin", id = "com.adevinta.spark.multiplatform")
+        create("com.adevinta.spark.SparkMultiplatformLibraryPlugin", id = "com.adevinta.spark.multiplatform.library")
         create("com.adevinta.spark.SparkAndroidLintPlugin", id = "com.adevinta.spark.android-lint")
         create("com.adevinta.spark.SparkPublishingPlugin", id = "com.adevinta.spark.publishing")
         create("com.adevinta.spark.SparkKotlinJvmPlugin", id = "com.adevinta.spark.kotlin-jvm")

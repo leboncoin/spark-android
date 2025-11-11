@@ -20,30 +20,38 @@
  * SOFTWARE.
  */
 plugins {
-    alias(libs.plugins.spark.library)
-    alias(libs.plugins.spark.compose)
+    alias(libs.plugins.spark.multiplatform)
+    alias(libs.plugins.spark.multiplatform.library)
+    alias(libs.plugins.spark.compose.multiplatform)
     alias(libs.plugins.spark.dokka)
-    alias(libs.plugins.spark.publishing)
-    alias(libs.plugins.spark.dependencyGuard)
-}
-
-android {
-    namespace = "com.adevinta.spark.icons"
-    resourcePrefix = "spark_icons_"
+//    alias(libs.plugins.spark.publishing)
+//    alias(libs.plugins.spark.dependencyGuard)
 }
 
 kotlin {
     compilerOptions {
         freeCompilerArgs.add("-Xannotation-default-target=param-property")
     }
+    android {
+        namespace = "com.adevinta.spark.icons"
+//        resourcePrefix = "spark_icons_"
+    }
+    sourceSets {
+        commonMain.dependencies {
+            api(platform(projects.sparkBom))
+    implementation(compose.ui)
+            implementation(compose.runtime)
+            implementation(compose.components.resources)
+            api(compose.animation)
+        }
+        androidMain.dependencies {
+            implementation(libs.androidx.compose.ui.tooling)
+        }
+    }
 }
 
-dependencies {
-    api(platform(projects.sparkBom))
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.appCompat.resources) // Needed for compat vector drawables
-    api(libs.androidx.compose.animation.core) {
-        because("Needed to access the animations api for animating icons")
-    }
-    debugImplementation(libs.androidx.compose.ui.tooling)
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "com.adevinta.spark.icons"
+    generateResClass = always
 }

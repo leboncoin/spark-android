@@ -25,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
+import org.jetbrains.compose.resources.DrawableResource
 
 /**
  * A unified representation of different icon types used in the Spark design system.
@@ -45,7 +46,16 @@ public sealed interface SparkIcon {
      *
      * @property drawableId The resource ID of the drawable to display
      */
-    public data class DrawableRes(@androidx.annotation.DrawableRes val drawableId: Int) : SparkIcon
+    public data class DrawableRes(val drawableId: Int) : SparkIcon
+
+    /**
+     * An icon represented by an android drawable resource.
+     *
+     * It should be a vector drawable rather than a raster image/icon.
+     *
+     * @property res The resource ID of the drawable to display
+     */
+    public data class Resource(val res: DrawableResource) : SparkIcon
 
     /**
      * An icon represented by an android animated vector drawable.
@@ -62,7 +72,7 @@ public sealed interface SparkIcon {
             "com.adevinta.spark.icons.SparkIcon.AnimatedPainter",
         ),
     )
-    public data class AnimatedDrawableRes(@androidx.annotation.DrawableRes val drawableId: Int) : SparkIcon
+    public data class AnimatedDrawableRes(val drawableId: Int) : SparkIcon
 
     /**
      * An icon represented by a Compose [ImageVector].
