@@ -19,26 +19,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-plugins {
-    alias(libs.plugins.android.application) apply false
-    alias(libs.plugins.android.library) apply false
-    alias(libs.plugins.android.lint) apply false
-    alias(libs.plugins.kotlin.multiplatform) apply false
-    alias(libs.plugins.android.kotlin.multiplatform.library) apply false
-    alias(libs.plugins.android.test) apply false
-    alias(libs.plugins.kotlin.jvm) apply false
-    alias(libs.plugins.paparazzi) apply false
-    alias(libs.plugins.dokka) apply false
-    alias(libs.plugins.dependencyGuard) apply false
-    alias(libs.plugins.spotless) apply false
-    alias(libs.plugins.compose.compiler) apply false
-    alias(libs.plugins.compose.multiplatform) apply false
-    alias(libs.plugins.nmcp) apply false
+package com.adevinta.spark
 
-    alias(libs.plugins.spark.root)
-    alias(libs.plugins.spark.dokka)
-}
+import org.gradle.api.Plugin
+import org.gradle.api.Project
+import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.dependencies
 
-allprojects {
-    apply(plugin = "com.adevinta.spark.spotless")
+internal class SparkComposePlugin : Plugin<Project> {
+    override fun apply(target: Project) {
+        with(target) {
+            apply(plugin = "org.jetbrains.kotlin.plugin.compose")
+            apply(plugin = "com.adevinta.spark.android")
+
+            android {
+                buildFeatures.compose = true
+            }
+
+            dependencies {
+                add("implementation", platform(spark().libraries.`androidx-compose-bom`))
+            }
+        }
+    }
 }

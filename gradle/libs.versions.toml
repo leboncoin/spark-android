@@ -1,6 +1,7 @@
 [versions]
 accompanist = "0.36.0"
 agp = "9.1.0"
+compose-multiplatform = "1.9.3"
 androidx-activity = "1.12.4"
 androidx-appCompat = "1.7.1"
 compileSdk = "36"
@@ -119,9 +120,12 @@ unstyled = "com.composables:composeunstyled:1.49.6"
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-multiplatform  = "org.jetbrains.kotlin.multiplatform:2.2.21"
+android-kotlin-multiplatform-library = "com.android.kotlin.multiplatform.library:8.13.0"
+compose-multiplatform  = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 android-lint = { id = "com.android.lint", version.ref = "agp" }
 android-test = { id = "com.android.test", version.ref = "agp" }
-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 dependencyGuard = "com.dropbox.dependency-guard:0.5.0"
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -136,7 +140,10 @@ spark-root = { id = "com.adevinta.spark.root" }
 spark-android = { id = "com.adevinta.spark.android" }
 spark-application = { id = "com.adevinta.spark.android-application" }
 spark-library = { id = "com.adevinta.spark.android-library" }
-spark-compose = { id = "com.adevinta.spark.android-compose" }
+spark-compose = { id = "com.adevinta.spark.compose" }
+spark-compose-multiplatform = { id = "com.adevinta.spark.compose.multiplatform" }
+spark-multiplatform = { id = "com.adevinta.spark.multiplatform" }
+spark-multiplatform-library = { id = "com.adevinta.spark.multiplatform.library" }
 spark-lint = { id = "com.adevinta.spark.android-lint" }
 spark-publishing = { id = "com.adevinta.spark.publishing" }
 spark-kotlinJvm = { id = "com.adevinta.spark.kotlin-jvm" }
