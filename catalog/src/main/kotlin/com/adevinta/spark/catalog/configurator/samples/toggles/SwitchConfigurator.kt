@@ -68,7 +68,9 @@ private fun ColumnScope.SwitchSample() {
         onClick = onClick,
         icons = if (iconOn != null && iconOff != null) {
             SwitchIcons(iconOn!!, iconOff!!)
-        } else null,
+        } else {
+            null
+        },
         checked = state,
         isEnabled = isEnabled,
     )
