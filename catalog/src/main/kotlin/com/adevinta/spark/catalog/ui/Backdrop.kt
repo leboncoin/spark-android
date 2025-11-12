@@ -21,20 +21,23 @@
  */
 package com.adevinta.spark.catalog.ui
 
+import androidx.annotation.FloatRange
 import androidx.compose.animation.core.AnimationSpec
+import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.TweenSpec
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -44,36 +47,41 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.UiComposable
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.isSpecified
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.SubcomposeLayout
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.collapse
 import androidx.compose.ui.semantics.expand
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.unit.Constraints
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.offset
-import androidx.compose.ui.zIndex
+import androidx.compose.ui.util.fastCoerceIn
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.catalog.ui.BackdropScaffoldState.Companion.Saver
 import com.adevinta.spark.catalog.ui.BackdropValue.Concealed
 import com.adevinta.spark.catalog.ui.BackdropValue.Revealed
-import com.adevinta.spark.components.bottomsheet.layout.PreUpPostDownNestedScrollConnection
 import com.adevinta.spark.components.bottomsheet.layout.SwipeableDefaults
-import com.adevinta.spark.components.bottomsheet.layout.SwipeableState
-import com.adevinta.spark.components.bottomsheet.layout.swipeable
 import com.adevinta.spark.components.snackbars.SnackbarHost
 import com.adevinta.spark.components.snackbars.SnackbarHostState
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.tokens.contentColorFor
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
+import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -100,74 +108,118 @@ public enum class BackdropValue {
  *
  * @param initialValue The initial value of the state.
  * @param animationSpec The default animation that will be used to animate to a new state.
- * @param confirmStateChange Optional callback invoked to confirm or veto a pending state change.
+ * @param confirmValueChange Optional callback invoked to confirm or veto a pending state change.
  * @param snackbarHostState The [SnackbarHostState] used to show snackbars inside the scaffold.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Stable
 public class BackdropScaffoldState(
     initialValue: BackdropValue,
-    animationSpec: AnimationSpec<Float> = SwipeableDefaults.AnimationSpec,
-    confirmStateChange: (BackdropValue) -> Boolean = { true },
+    internal var density: Density,
+    animationSpec: AnimationSpec<Float> = BackdropScaffoldDefaults.AnimationSpec,
+    public val confirmValueChange: (BackdropValue) -> Boolean = { true },
     public val snackbarHostState: SnackbarHostState = SnackbarHostState(),
-) : SwipeableState<BackdropValue>(
-    initialValue = initialValue,
-    animationSpec = animationSpec,
-    confirmStateChange = confirmStateChange,
 ) {
-    /**
-     * Whether the back layer is revealed.
-     */
-    public val isRevealed: Boolean
-        get() = currentValue == Revealed
+    /** The current value of the [BottomSheetState]. */
+    public val currentValue: BackdropValue
+        get() = anchoredDraggableState.currentValue
 
     /**
-     * Whether the back layer is concealed.
+     * The target value the state will settle at once the current interaction ends, or the
+     * [currentValue] if there is no interaction in progress.
      */
-    public val isConcealed: Boolean
-        get() = currentValue == Concealed
+    public val targetValue: BackdropValue
+        get() = anchoredDraggableState.targetValue
 
     /**
-     * Reveal the back layer with animation and suspend until it if fully revealed or animation
-     * has been cancelled.  This method will throw [CancellationException] if the animation is
-     * interrupted
+     * Require the current offset.
      *
-     * @return the reason the reveal animation ended
+     * @throws IllegalStateException If the offset has not been initialized yet
      */
-    public suspend fun reveal(): Unit = animateTo(targetValue = Revealed)
+    public fun requireOffset(): Float = anchoredDraggableState.requireOffset()
+
+    /** Whether the back layer is revealed. */
+    public val isRevealed: Boolean
+        get() = anchoredDraggableState.currentValue == Revealed
+
+    /** Whether the back layer is concealed. */
+    public val isConcealed: Boolean
+        get() = anchoredDraggableState.currentValue == Concealed
+
+    /**
+     * Reveal the back layer with animation and suspend until it if fully revealed or animation has
+     * been cancelled. This method will throw [CancellationException] if the animation is
+     * interrupted
+     */
+    public suspend fun reveal(): Unit = anchoredDraggableState.animateTo(targetValue = Revealed)
 
     /**
      * Conceal the back layer with animation and suspend until it if fully concealed or animation
      * has been cancelled. This method will throw [CancellationException] if the animation is
      * interrupted
-     *
-     * @return the reason the conceal animation ended
      */
-    @Suppress("")
-    public suspend fun conceal(): Unit = animateTo(targetValue = Concealed)
+    public suspend fun conceal(): Unit = anchoredDraggableState.animateTo(targetValue = Concealed)
 
-    internal val nestedScrollConnection = this.PreUpPostDownNestedScrollConnection
+    /**
+     * The fraction of the offset between [from] and [to], as a fraction between [0f..1f], or 1f if
+     * [from] is equal to [to].
+     *
+     * @param from The starting value used to calculate the distance
+     * @param to The end value used to calculate the distance
+     */
+    @FloatRange(from = 0.0, to = 1.0)
+    public fun progress(from: BackdropValue, to: BackdropValue): Float {
+        val fromOffset = anchoredDraggableState.anchors.positionOf(from)
+        val toOffset = anchoredDraggableState.anchors.positionOf(to)
+        val currentOffset =
+            anchoredDraggableState.offset.coerceIn(
+                min(fromOffset, toOffset), // fromOffset might be > toOffset
+                max(fromOffset, toOffset),
+            )
+        val fraction = (currentOffset - fromOffset) / (toOffset - fromOffset)
+        return if (fraction.isNaN()) 1f else abs(fraction)
+    }
+
+    internal val anchoredDraggableState =
+        AnchoredDraggableState(
+            initialValue = initialValue,
+            animationSpec = animationSpec,
+            confirmValueChange = confirmValueChange,
+            positionalThreshold = { with(requireDensity()) { PositionalThreshold.toPx() } },
+            velocityThreshold = { with(requireDensity()) { VelocityThreshold.toPx() } },
+        )
+
+    private fun requireDensity() =
+        requireNotNull(density) {
+            "The density on BackdropScaffoldState ($this) was not set." +
+                " Did you use BackdropScaffoldState with " +
+                "the BackdropScaffold composable?"
+        }
+
+    internal val nestedScrollConnection =
+        consumeSwipeNestedScrollConnection(anchoredDraggableState, Orientation.Vertical)
 
     public companion object {
-        /**
-         * The default [Saver] implementation for [BackdropScaffoldState].
-         */
-        @Suppress("ktlint:standard:function-naming")
+
+        /** The default [Saver] implementation for [BackdropScaffoldState]. */
         public fun Saver(
             animationSpec: AnimationSpec<Float>,
             confirmStateChange: (BackdropValue) -> Boolean,
             snackbarHostState: SnackbarHostState,
-        ): Saver<BackdropScaffoldState, *> = Saver(
-            save = { it.currentValue },
-            restore = {
-                BackdropScaffoldState(
-                    initialValue = it,
-                    animationSpec = animationSpec,
-                    confirmStateChange = confirmStateChange,
-                    snackbarHostState = snackbarHostState,
-                )
-            },
-        )
+            density: Density,
+        ): Saver<BackdropScaffoldState, *> =
+            Saver(
+                save = { it.anchoredDraggableState.currentValue },
+                restore = {
+                    BackdropScaffoldState(
+                        initialValue = it,
+                        animationSpec = animationSpec,
+                        confirmValueChange = confirmStateChange,
+                        snackbarHostState = snackbarHostState,
+                        density = density,
+                    )
+                },
+            )
     }
 }
 
@@ -185,22 +237,27 @@ public fun rememberBackdropScaffoldState(
     animationSpec: AnimationSpec<Float> = SwipeableDefaults.AnimationSpec,
     confirmStateChange: (BackdropValue) -> Boolean = { true },
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
-): BackdropScaffoldState = rememberSaveable(
-    animationSpec,
-    confirmStateChange,
-    snackbarHostState,
-    saver = BackdropScaffoldState.Saver(
-        animationSpec = animationSpec,
-        confirmStateChange = confirmStateChange,
-        snackbarHostState = snackbarHostState,
-    ),
-) {
-    BackdropScaffoldState(
-        initialValue = initialValue,
-        animationSpec = animationSpec,
-        confirmStateChange = confirmStateChange,
-        snackbarHostState = snackbarHostState,
-    )
+): BackdropScaffoldState {
+    val density = LocalDensity.current
+    return rememberSaveable(
+        animationSpec,
+        confirmStateChange,
+        snackbarHostState,
+        saver = BackdropScaffoldState.Saver(
+            animationSpec = animationSpec,
+            confirmStateChange = confirmStateChange,
+            snackbarHostState = snackbarHostState,
+            density = density,
+        ),
+    ) {
+        BackdropScaffoldState(
+            initialValue = initialValue,
+            animationSpec = animationSpec,
+            confirmValueChange = confirmStateChange,
+            snackbarHostState = snackbarHostState,
+            density = density,
+        )
+    }
 }
 
 /**
@@ -281,11 +338,15 @@ public fun BackdropScaffold(
     backLayerContentColor: Color = contentColorFor(backLayerBackgroundColor),
     frontLayerShape: Shape = BackdropScaffoldDefaults.frontLayerShape,
     frontLayerElevation: Dp = BackdropScaffoldDefaults.FrontLayerElevation,
-    frontLayerBackgroundColor: Color = SparkTheme.colors.surface,
+    frontLayerBackgroundColor: Color = SparkTheme.colors.background,
     frontLayerContentColor: Color = contentColorFor(frontLayerBackgroundColor),
     frontLayerScrimColor: Color = BackdropScaffoldDefaults.frontLayerScrimColor,
     snackbarHost: @Composable (SnackbarHostState) -> Unit = { SnackbarHost(it) },
 ) {
+    // b/278692145 Remove this once deprecated methods without density are removed
+    val density = LocalDensity.current
+    SideEffect { scaffoldState.density = density }
+
     val peekHeightPx = with(LocalDensity.current) { peekHeight.toPx() }
     val headerHeightPx = with(LocalDensity.current) { headerHeight.toPx() }
 
@@ -303,6 +364,8 @@ public fun BackdropScaffold(
         it.copy(minWidth = 0, minHeight = 0).offset(vertical = -headerHeightPx.roundToInt())
     }
 
+    val state = scaffoldState.anchoredDraggableState
+
     // Back layer
     Surface(
         color = backLayerBackgroundColor,
@@ -314,8 +377,7 @@ public fun BackdropScaffold(
             backLayer,
             calculateBackLayerConstraints,
         ) { constraints, backLayerHeight ->
-            val fullHeight = constraints.maxHeight.toFloat()
-            var revealedHeight = fullHeight - headerHeightPx
+            var revealedHeight = constraints.maxHeight - headerHeightPx
             if (stickyFrontLayer) {
                 revealedHeight = min(revealedHeight, backLayerHeight)
             }
@@ -325,40 +387,51 @@ public fun BackdropScaffold(
                 Modifier
             }
 
-            val swipeable = Modifier
-                .then(nestedScroll)
-                .swipeable(
-                    state = scaffoldState,
-                    anchors = mapOf(
-                        peekHeightPx to Concealed,
-                        revealedHeight to Revealed,
-                    ),
-                    orientation = Orientation.Vertical,
-                    enabled = gesturesEnabled,
-                )
-                .semantics {
-                    if (scaffoldState.isConcealed) {
-                        collapse {
-                            if (scaffoldState.confirmStateChange(Revealed)) {
-                                scope.launch { scaffoldState.reveal() }
-                            }
-                            true
-                        }
-                    } else {
-                        expand {
-                            if (scaffoldState.confirmStateChange(Concealed)) {
-                                scope.launch { scaffoldState.conceal() }
-                            }
-                            true
-                        }
-                    }
-                }
-
             // Front layer
             Surface(
-                Modifier
-                    .offset { IntOffset(0, scaffoldState.offset.value.roundToInt()) }
-                    .then(swipeable),
+                nestedScroll
+                    .draggableAnchors(state, Orientation.Vertical) { layoutSize, _ ->
+                        val sheetHeight = layoutSize.height.toFloat()
+                        val collapsedHeight = layoutSize.height - peekHeightPx
+                        val newAnchors = DraggableAnchors {
+                            if (sheetHeight == 0f || sheetHeight == peekHeightPx) {
+                                Concealed at collapsedHeight
+                            } else {
+                                Concealed at peekHeightPx
+                                Revealed at revealedHeight
+                            }
+                        }
+                        val newTarget =
+                            when (scaffoldState.targetValue) {
+                                Concealed -> Concealed
+                                Revealed ->
+                                    if (newAnchors.hasAnchorFor(Revealed)) Revealed else Concealed
+                            }
+                        return@draggableAnchors newAnchors to newTarget
+                    }
+                    .anchoredDraggable(
+                        state = state,
+                        orientation = Orientation.Vertical,
+                        enabled = gesturesEnabled,
+                    )
+                    .semantics {
+                        if (scaffoldState.isConcealed) {
+                            collapse {
+                                if (scaffoldState.confirmValueChange(Revealed)) {
+                                    scope.launch { scaffoldState.reveal() }
+                                }
+                                true
+                            }
+                        } else {
+                            expand {
+                                if (scaffoldState.confirmValueChange(Concealed)) {
+                                    scope.launch { scaffoldState.conceal() }
+                                }
+                                true
+                            }
+                        }
+                        traversalIndex = -1f
+                    },
                 shape = frontLayerShape,
                 elevation = frontLayerElevation,
                 color = frontLayerBackgroundColor,
@@ -369,7 +442,7 @@ public fun BackdropScaffold(
                     Scrim(
                         color = frontLayerScrimColor,
                         onDismiss = {
-                            if (gesturesEnabled && scaffoldState.confirmStateChange(Concealed)) {
+                            if (gesturesEnabled && scaffoldState.confirmValueChange(Concealed)) {
                                 scope.launch { scaffoldState.conceal() }
                             }
                         },
@@ -383,7 +456,7 @@ public fun BackdropScaffold(
                 Modifier
                     .padding(
                         bottom = if (scaffoldState.isRevealed &&
-                            revealedHeight == fullHeight - headerHeightPx
+                            revealedHeight == constraints.maxHeight - headerHeightPx
                         ) {
                             headerHeight
                         } else {
@@ -445,27 +518,37 @@ private fun BackLayerTransition(
     )
     val animationSlideOffset = with(LocalDensity.current) { AnimationSlideOffset.toPx() }
 
-    val appBarFloat = (animationProgress - 1).coerceIn(0f, 1f)
-    val contentFloat = (1 - animationProgress).coerceIn(0f, 1f)
-
     Box {
         Box(
-            Modifier
-                .zIndex(appBarFloat)
-                .graphicsLayer(
-                    alpha = appBarFloat,
-                    translationY = (1 - appBarFloat) * animationSlideOffset,
-                ),
+            Modifier.layout { measurable, constraints ->
+                val appBarFloat = (animationProgress - 1).fastCoerceIn(0f, 1f)
+                val placeable = measurable.measure(constraints)
+                layout(placeable.width, placeable.height) {
+                    placeable.place(0, 0, zIndex = appBarFloat)
+                }
+            }
+                .graphicsLayer {
+                    val appBarFloat = (animationProgress - 1).fastCoerceIn(0f, 1f)
+                    alpha = appBarFloat
+                    translationY = (1 - appBarFloat) * animationSlideOffset
+                },
         ) {
             appBar()
         }
         Box(
-            Modifier
-                .zIndex(contentFloat)
-                .graphicsLayer(
-                    alpha = contentFloat,
-                    translationY = (1 - contentFloat) * -animationSlideOffset,
-                ),
+            @Suppress("SuspiciousIndentation") // b/320904953
+            Modifier.layout { measurable, constraints ->
+                val contentFloat = (1 - animationProgress).fastCoerceIn(0f, 1f)
+                val placeable = measurable.measure(constraints)
+                layout(placeable.width, placeable.height) {
+                    placeable.place(0, 0, zIndex = contentFloat)
+                }
+            }
+                .graphicsLayer {
+                    val contentFloat = (1 - animationProgress).fastCoerceIn(0f, 1f)
+                    alpha = contentFloat
+                    translationY = (1 - contentFloat) * animationSlideOffset
+                },
         ) {
             content()
         }
@@ -521,7 +604,7 @@ public object BackdropScaffoldDefaults {
     /**
      * The default header height of the front layer.
      */
-    public val HeaderHeight: Dp = 48.dp
+    public val HeaderHeight: Dp = 56.dp
 
     /**
      * The default shape of the front layer.
@@ -543,6 +626,66 @@ public object BackdropScaffoldDefaults {
      */
     public val frontLayerScrimColor: Color
         @Composable get() = SparkTheme.colors.surface.copy(alpha = 0.60f)
+
+    /** The default animation spec used by [BottomSheetScaffoldState]. */
+    public val AnimationSpec: AnimationSpec<Float> =
+        tween(durationMillis = 300, easing = FastOutSlowInEasing)
 }
 
 private val AnimationSlideOffset = 20.dp
+private val VelocityThreshold = 125.dp
+private val PositionalThreshold = 56.dp
+
+internal fun consumeSwipeNestedScrollConnection(
+    state: AnchoredDraggableState<*>,
+    orientation: Orientation,
+): NestedScrollConnection =
+    object : NestedScrollConnection {
+        override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+            val delta = available.toFloat()
+            return if (delta < 0 && source == NestedScrollSource.UserInput) {
+                state.dispatchRawDelta(delta).toOffset()
+            } else {
+                Offset.Zero
+            }
+        }
+
+        override fun onPostScroll(
+            consumed: Offset,
+            available: Offset,
+            source: NestedScrollSource,
+        ): Offset = if (source == NestedScrollSource.UserInput) {
+            state.dispatchRawDelta(available.toFloat()).toOffset()
+        } else {
+            Offset.Zero
+        }
+
+        override suspend fun onPreFling(available: Velocity): Velocity {
+            val toFling = available.toFloat()
+            val currentOffset = state.requireOffset()
+            return if (toFling < 0 && currentOffset > state.anchors.minAnchor()) {
+                state.settle(velocity = toFling)
+                // since we go to the anchor with tween settling, consume all for the best UX
+                available
+            } else {
+                Velocity.Zero
+            }
+        }
+
+        override suspend fun onPostFling(consumed: Velocity, available: Velocity): Velocity {
+            state.settle(velocity = available.toFloat())
+            return available
+        }
+
+        private fun Float.toOffset(): Offset =
+            Offset(
+                x = if (orientation == Orientation.Horizontal) this else 0f,
+                y = if (orientation == Orientation.Vertical) this else 0f,
+            )
+
+        @JvmName("velocityToFloat")
+        private fun Velocity.toFloat() = if (orientation == Orientation.Horizontal) x else y
+
+        @JvmName("offsetToFloat")
+        private fun Offset.toFloat(): Float = if (orientation == Orientation.Horizontal) x else y
+    }

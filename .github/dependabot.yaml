@@ -18,9 +18,16 @@ updates:
         patterns:
           - "com.android.tools.build:*"
           - "com.android.tools.lint:*"
+          - "com.android.application"
+          - "com.android.library"
+          - "com.android.lint"
+          - "com.android.settings"
+          - "com.android.test"
     open-pull-requests-limit: 20
 registries:
   maven-google:
     type: "maven-repository"
     url: "https://maven.google.com"
-    replaces-base: true
+  gradle-plugins:
+    type: "maven-repository"
+    url: "https://plugins.gradle.org/m2/"

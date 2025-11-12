@@ -3,7 +3,7 @@
 The [Icon](https://spark.adevinta.com/1186e1705/p/11373f-icon/b/80bf01) component display any Icon
 coming from either of these sources:
 
-- [SparkIcon](https://github.com/adevinta/spark-android/blob/main/spark-icons/src/main/kotlin/com/adevinta/spark/icons/SparkIcon.kt)
+- [SparkIcon](https://github.com/leboncoin/spark-android/blob/main/spark-icons/src/main/kotlin/com/adevinta/spark/icons/SparkIcon.kt)
 - [ImageVector](https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/vector/ImageVector)
 - [ImageBitmap](https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/ImageBitmap)
 - [Painter](https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/painter/Painter)

@@ -20,8 +20,8 @@
  * SOFTWARE.
  */
 plugins {
-    id("com.adevinta.spark.kotlin-jvm")
-    id("com.adevinta.spark.android-lint")
+    alias(libs.plugins.spark.kotlinJvm)
+    alias(libs.plugins.spark.lint)
 }
 
 dependencies {

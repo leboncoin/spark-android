@@ -42,10 +42,13 @@ import com.adevinta.spark.components.rating.RatingSimpleLarge
 import com.adevinta.spark.components.rating.RatingStar
 import com.adevinta.spark.components.rating.RatingStarState
 import com.adevinta.spark.components.text.Text
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import java.util.Locale
 
-public val RatingExamples: List<Example> = listOf(
+public val RatingExamples: ImmutableList<Example> = persistentListOf(
     Example(
+        id = "display",
         name = "Rating Display",
         description = "Rating Display example that show every step value",
         sourceUrl = "$SampleSourceUrl/RatingDisplaySample.kt",
@@ -53,6 +56,7 @@ public val RatingExamples: List<Example> = listOf(
         RatingDisplaySample()
     },
     Example(
+        id = "display-medium",
         name = "Rating Display Medium",
         description = "Rating Display example in medium size that show every step value",
         sourceUrl = "$SampleSourceUrl/RatingDisplaySample.kt",
@@ -60,6 +64,7 @@ public val RatingExamples: List<Example> = listOf(
         RatingDisplaySample(starSize = RatingDefault.StarSize)
     },
     Example(
+        id = "input",
         name = "Rating Input",
         description = "Rating input example that le the user select a rating value",
         sourceUrl = "$SampleSourceUrl/RatingInputSample.kt",
@@ -67,6 +72,7 @@ public val RatingExamples: List<Example> = listOf(
         RatingInputSample()
     },
     Example(
+        id = "full",
         name = "Rating Full",
         description = "Rating Full for Polaris that highlight the different layout possible and the difference " +
             "in locale",
@@ -75,6 +81,7 @@ public val RatingExamples: List<Example> = listOf(
         RatingFull()
     },
     Example(
+        id = "simple",
         name = "Rating Simple",
         description = "Rating Simple for Polaris that highlight the different layout possible and the difference " +
             "in locale",
@@ -83,6 +90,7 @@ public val RatingExamples: List<Example> = listOf(
         RatingSimpleSample()
     },
     Example(
+        id = "star",
         name = "Rating Star",
         description = "The star used for the rating component",
         sourceUrl = "$SampleSourceUrl/RatingStarSample.kt",
@@ -147,11 +155,6 @@ private fun RatingSimpleSample() {
         RatingSimple(value = 3.0f, locale = frenchLocale, labelSide = RatingLabelSide.End)
         RatingSimple(value = 4.50f, commentCount = 12, locale = frenchLocale, labelSide = RatingLabelSide.End)
         RatingSimpleLarge(value = 4.50f, locale = frenchLocale, labelSide = RatingLabelSide.End)
-
-        Text("German")
-        RatingSimple(value = 3.0f, locale = germanLocale, labelSide = RatingLabelSide.End)
-        RatingSimple(value = 4.50f, commentCount = 12, locale = germanLocale, labelSide = RatingLabelSide.End)
-        RatingSimpleLarge(value = 4.50f, locale = germanLocale, labelSide = RatingLabelSide.End)
 
         Text("US English")
         RatingSimple(value = 3.0f, locale = Locale.US, labelSide = RatingLabelSide.End)

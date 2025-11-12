@@ -28,6 +28,7 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,7 +37,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.PopupProperties
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
@@ -44,17 +44,22 @@ import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.SparkSelectTrailingIcon
 import com.adevinta.spark.components.textfields.TextField
+import com.adevinta.spark.components.textfields.TextFieldCharacterCounter
+import com.adevinta.spark.components.textfields.TextFieldState
 import com.adevinta.spark.icons.Booster
 import com.adevinta.spark.icons.EyeFill
 import com.adevinta.spark.icons.EyeOffFill
 import com.adevinta.spark.icons.QuestionOutline
 import com.adevinta.spark.icons.SparkIcons
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlin.random.Random
 
 private const val TextFieldsExampleSourceUrl = "$SampleSourceUrl/DropdownExamples.kt"
 
-public val TextFieldsExamples: List<Example> = listOf(
+public val TextFieldsExamples: ImmutableList<Example> = persistentListOf(
     Example(
+        id = "addons",
         name = "Default Addons",
         description = "Sample of addons provided by Spark through the AddonScope api",
         sourceUrl = TextFieldsExampleSourceUrl,
@@ -74,6 +79,9 @@ private fun ColumnScope.Addons() {
         TextFieldWithIconButton()
         TextFieldWithIconToggleButton()
         TextFieldWithPrefixSuffixButton()
+        TextFieldMandatoryWithHelper()
+        TextFieldWithCounter()
+        TextFieldWithState()
     }
 }
 
@@ -97,7 +105,6 @@ private fun TextFieldWithDropdown() {
                 onDismissRequest = {
                     expanded = false
                 },
-                properties = PopupProperties(),
                 dropdownLabel = {
                     Canvas(
                         modifier = Modifier.size(width = 24.dp, height = 14.dp),
@@ -224,5 +231,60 @@ private fun TextFieldWithPrefixSuffixButton() {
         trailingContent = {
             TextFieldText(text = ".com")
         },
+    )
+}
+
+@Composable
+private fun TextFieldMandatoryWithHelper() {
+    var valueText by remember { mutableStateOf("AA-123-BB") }
+
+    TextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = valueText,
+        label = "Helper addon",
+        onValueChange = { valueText = it },
+        required = true,
+        helper = "Help me please, this is mandatory",
+    )
+}
+
+@Composable
+private fun TextFieldWithCounter() {
+    var valueText by remember { mutableStateOf("AA-123-BB") }
+
+    TextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = valueText,
+        label = "Counter addon",
+        onValueChange = { valueText = it },
+        counter = TextFieldCharacterCounter(
+            count = valueText.length,
+            maxCharacter = 20,
+        ),
+    )
+}
+
+@Composable
+private fun TextFieldWithState() {
+    var valueText by remember { mutableStateOf("AA-123-BB") }
+    val state by remember {
+        derivedStateOf {
+            when (valueText.length) {
+                0 -> null
+                in 1..8 -> TextFieldState.Alert
+                9 -> TextFieldState.Success
+                else -> TextFieldState.Error
+            }
+        }
+    }
+
+    TextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = valueText,
+        label = "State addon",
+        onValueChange = { valueText = it },
+        helper = "Enter something",
+        state = state,
+        stateMessage = "This field should contain 9 characters",
     )
 }

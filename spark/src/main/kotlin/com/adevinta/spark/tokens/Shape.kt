@@ -28,6 +28,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerBasedShape
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -37,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.surface.Surface
@@ -55,30 +57,30 @@ import androidx.compose.material3.Shapes as Material3Shapes
  * @param none A shape style with 4 same-sized corners whose size are equal to [RectangleShape].
  * By default app bars, navigation bars, banners, full-screen dialogs, and navigation rails use this shape.
  * @param extraSmall A shape style with 4 same-sized corners whose size are bigger than
- * [RectangleShape] and smaller than [SparkShapes.small]. By default autocomplete menu, select menu,
+ * [RectangleShape] and smaller than [SparkShapes.small]. By default, autocomplete menu, select menu,
  * snackbars, standard menu, and text fields use this shape.
  * @param small A shape style with 4 same-sized corners whose size are bigger than
- * [SparkShapes.extraSmall] and smaller than [SparkShapes.medium]. By default chips use this shape.
+ * [SparkShapes.extraSmall] and smaller than [SparkShapes.medium]. By default, chips use this shape.
  * @param medium A shape style with 4 same-sized corners whose size are bigger than [SparkShapes.small]
- * and smaller than [SparkShapes.large]. By default cards and small FABs use this shape.
+ * and smaller than [SparkShapes.large]. By default, cards and small FABs use this shape.
  * @param large A shape style with 4 same-sized corners whose size are bigger than [SparkShapes.medium]
- * and smaller than [SparkShapes.extraLarge]. By default extended FABs, FABs, and navigation drawers use
+ * and smaller than [SparkShapes.extraLarge]. By default, extended FABs, FABs, and navigation drawers use
  * this shape.
  * @param extraLarge A shape style with 4 same-sized corners whose size are bigger than
- * [SparkShapes.large] and smaller than [CircleShape]. By default large FABs, Bottom sheets, Dialogs and Time picker
+ * [SparkShapes.large] and smaller than [CircleShape]. By default, large FABs, bottom sheets, dialogs, and time picker
  * use this shape.
- * @param full A shape style with 4 same-sized corners whose size are equal to [CircleShape]. By default large Badge,
- * Buttons, Icon buttons, Sliders, Switches and Search bar use this shape.
+ * @param full A shape style with 4 same-sized corners whose size are equal to [CircleShape]. By default, large badges,
+ * buttons, icon buttons, sliders, switches, and search bar use this shape.
  */
 @Immutable
 public data class SparkShapes(
-    val none: CornerBasedShape = RoundedCornerShape(0.dp),
-    val extraSmall: CornerBasedShape = RoundedCornerShape(4.0.dp),
-    val small: CornerBasedShape = RoundedCornerShape(8.0.dp),
-    val medium: CornerBasedShape = RoundedCornerShape(12.0.dp),
-    val large: CornerBasedShape = RoundedCornerShape(16.0.dp),
-    val extraLarge: CornerBasedShape = RoundedCornerShape(28.0.dp),
-    val full: CornerBasedShape = CircleShape,
+    @Order(0) val none: CornerBasedShape = RoundedCornerShape(0.dp),
+    @Order(1) val extraSmall: CornerBasedShape = RoundedCornerShape(4.0.dp),
+    @Order(2) val small: CornerBasedShape = RoundedCornerShape(8.0.dp),
+    @Order(3) val medium: CornerBasedShape = RoundedCornerShape(12.0.dp),
+    @Order(4) val large: CornerBasedShape = RoundedCornerShape(16.0.dp),
+    @Order(5) val extraLarge: CornerBasedShape = RoundedCornerShape(28.0.dp),
+    @Order(6) val full: CornerBasedShape = CircleShape,
 )
 
 public fun sparkShapes(
@@ -106,6 +108,19 @@ public fun SparkShapes.asMaterial3Shapes(): Material3Shapes = Material3Shapes(
     large = large,
     extraLarge = extraLarge,
 )
+
+/**
+ * Extension property to get a [CornerBasedShape] with a bottom start of 0.dp.
+ *
+ * ```kotlin
+ * Box(
+ *      modifier = Modifier.clip(SparkTheme.shapes.small.highlight)
+ * )
+ * ```
+ */
+@ExperimentalSparkApi
+public val CornerBasedShape.highlight: CornerBasedShape
+    get() = copy(bottomStart = CornerSize(percent = 0))
 
 /**
  * CompositionLocal used to specify the default shapes for the surfaces.

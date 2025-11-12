@@ -27,14 +27,14 @@ plugins {
     alias(libs.plugins.spotless)
 }
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 kotlin {
     compilerOptions {
         allWarningsAsErrors = true
-        jvmTarget = JvmTarget.JVM_11
+        jvmTarget = JvmTarget.JVM_17
     }
     explicitApi()
 }
@@ -42,16 +42,21 @@ kotlin {
 repositories {
     google()
     mavenCentral()
+    gradlePluginPortal()
 }
 
 dependencies {
-    compileOnly(gradleApi())
-    compileOnly(libs.gradlePlugins.android)
-    compileOnly(libs.gradlePlugins.kotlin)
-    compileOnly(libs.gradlePlugins.compose)
-    compileOnly(libs.gradlePlugins.dependencyGuard)
-    compileOnly(libs.gradlePlugins.dokka)
-    compileOnly(libs.gradlePlugins.spotless)
+    fun DependencyHandlerScope.plugin(plugin: Provider<PluginDependency>) = plugin.map {
+        "${it.pluginId}:${it.pluginId}.gradle.plugin:${it.version.requiredVersion}"
+    }
+    implementation(plugin(libs.plugins.compose))
+    implementation(plugin(libs.plugins.dependencyGuard))
+    implementation(plugin(libs.plugins.dokka))
+    implementation(plugin(libs.plugins.kotlin.jvm))
+    implementation(plugin(libs.plugins.nmcp))
+    implementation(plugin(libs.plugins.paparazzi))
+    implementation(plugin(libs.plugins.spotless))
+    implementation(libs.android.gradle)
     implementation(libs.dokka.base)
 }
 
@@ -87,7 +92,9 @@ private operator fun VersionCatalog.getValue(
     IllegalStateException("Missing catalog version ${property.name}")
 }
 
-val ktlint: VersionConstraint by extensions.getByType<VersionCatalogsExtension>().named("libs")
+val ktlint = extensions.getByType<VersionCatalogsExtension>()
+    .named("libs")
+    .findLibrary("ktlint-bom").orElseThrow()
 
 // This block is a copy of SparkSpotlessPlugin since this included build can't use it's own plugins...
 spotless {
@@ -98,13 +105,13 @@ spotless {
     }
     kotlin {
         target("src/**/*.kt")
-        ktlint(ktlint.toString())
+        ktlint(ktlint.get().version)
         trimTrailingWhitespace()
         endWithNewline()
         licenseHeaderFile(licenseHeader)
     }
     kotlinGradle {
-        ktlint(ktlint.toString())
+        ktlint(ktlint.get().version)
         trimTrailingWhitespace()
         endWithNewline()
         licenseHeaderFile(

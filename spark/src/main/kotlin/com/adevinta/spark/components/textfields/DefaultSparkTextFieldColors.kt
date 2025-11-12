@@ -27,7 +27,6 @@ import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.text.selection.LocalTextSelectionColors
 import androidx.compose.foundation.text.selection.TextSelectionColors
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -65,7 +64,7 @@ internal fun sparkOutlinedTextFieldColors(
     disabledPlaceholderColor: Color = SparkTheme.colors.onSurface.dim3,
     focusedSupportingTextColor: Color = SparkTheme.colors.onSurface.dim1,
     unfocusedSupportingTextColor: Color = focusedSupportingTextColor,
-    disabledSupportingTextColor: Color = focusedSupportingTextColor,
+    disabledSupportingTextColor: Color = focusedSupportingTextColor.dim3,
 ): DefaultSparkTextFieldColors = DefaultSparkTextFieldColors(
     textColor = textColor,
     disabledTextColor = disabledTextColor,
@@ -96,9 +95,7 @@ internal fun sparkOutlinedTextFieldColors(
  * Represents the colors of the input text, container, and content (including label, placeholder,
  * leading and trailing icons) used in a text field in different states.
  *
- * See [TextFieldDefaults.textFieldColors] for the default colors used in [TextField].
- * See [TextFieldDefaults.outlinedTextFieldColors] for the default colors used in
- * [OutlinedTextField].
+ * See [TextFieldDefaults.defaultTextFieldColors] for the default colors used in [TextField].
  */
 @Immutable
 internal data class DefaultSparkTextFieldColors(
@@ -253,7 +250,7 @@ internal data class DefaultSparkTextFieldColors(
     @Composable
     internal fun supportingTextColor(
         enabled: Boolean,
-        state: TextFieldState?,
+        state: FormFieldStatus?,
         interactionSource: InteractionSource,
     ): State<Color> {
         val focused by interactionSource.collectIsFocusedAsState()
@@ -261,7 +258,7 @@ internal data class DefaultSparkTextFieldColors(
         return rememberUpdatedState(
             when {
                 !enabled -> disabledSupportingTextColor
-                state == TextFieldState.Error -> state.color()
+                state == FormFieldStatus.Error -> state.color()
                 focused -> focusedSupportingTextColor
                 else -> unfocusedSupportingTextColor
             },

@@ -74,7 +74,7 @@ internal fun SparkBadge(
             .defaultMinSize(minWidth = size, minHeight = size)
             .background(color = colors.color, shape = shape)
             .clip(shape)
-            .ifNotNull(content) { Modifier.padding(horizontal = badgeStyle.contentPadding) },
+            .ifNotNull(content) { padding(horizontal = badgeStyle.contentPadding) },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {
@@ -126,7 +126,7 @@ public fun Badge(
     SparkBadge(
         badgeStyle = badgeStyle,
         modifier = modifier
-            .semantics(mergeDescendants = true) {
+            .semantics {
                 contentDescription = contentA11y
             }
             .sparkUsageOverlay(),

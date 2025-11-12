@@ -21,52 +21,77 @@
  */
 package com.adevinta.spark.catalog.icons
 
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
+import androidx.navigation.NavDeepLink
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import com.adevinta.spark.icons.SparkIcon
+import androidx.navigation.navDeepLink
+import com.adevinta.spark.catalog.AppBasePath
+import com.adevinta.spark.catalog.CatalogHomeScreen
+import com.adevinta.spark.catalog.MainActivity
+import com.adevinta.spark.catalog.themes.NavigationMode
+import com.adevinta.spark.catalog.ui.navigation.ChangeSelectedNavControllerOnPageChange
+import com.adevinta.spark.catalog.ui.navigation.NavHostSpark
+import kotlinx.coroutines.flow.filter
+import kotlinx.serialization.Serializable
 
+@Serializable
+public object IconsList
+
+internal val IconsList.deepLinks: List<NavDeepLink>
+    get() = listOf(
+        navDeepLink<IconsList>(basePath = "${AppBasePath}icons"),
+    )
+
+@Composable
+private fun MonitorPagerChanges(
+    pagerState: PagerState,
+    catalogScreen: CatalogHomeScreen,
+    navController: androidx.navigation.NavController,
+    activity: MainActivity,
+) {
+    LaunchedEffect(pagerState) {
+        snapshotFlow { pagerState.currentPage }
+            .filter { it == catalogScreen.ordinal }
+            .collect { activity.activeNavController = navController }
+    }
+}
+
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 public fun IconDemoScreen(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues,
+    pagerState: PagerState,
+    navigationMode: NavigationMode,
 ) {
-    val navController = rememberNavController()
+    SharedTransitionLayout {
+        val navController = rememberNavController()
 
-    NavHost(
-        modifier = modifier,
-        navController = navController,
-        startDestination = IconsList,
-        builder = {
-            composable(route = IconsList) {
-                IconsScreen(
+        ChangeSelectedNavControllerOnPageChange(
+            pagerState = pagerState,
+            catalogScreen = CatalogHomeScreen.Icons,
+            navController = navController,
+        )
+
+        NavHostSpark(
+            modifier = modifier,
+            navController = navController,
+            startDestination = IconsList,
+            navigationMode = navigationMode,
+            builder = {
+                iconsDemoDestination(
                     navController = navController,
                     contentPadding = contentPadding,
+                    this@SharedTransitionLayout,
                 )
-            }
-            composable(
-                route = "$IconDemoRoute/{$IconIdArgName}/{$IconNameArgName}",
-                arguments = listOf(
-                    navArgument(IconIdArgName) { type = NavType.IntType },
-                    navArgument(IconNameArgName) { type = NavType.StringType },
-                ),
-            ) { navBackStackEntry ->
-                val arguments = requireNotNull(navBackStackEntry.arguments) { "No arguments" }
-                IconExampleScreen(
-                    icon = SparkIcon.DrawableRes(arguments.getInt(IconIdArgName)),
-                    name = requireNotNull(arguments.getString(IconNameArgName)) { "No name provided for the Icon" },
-                )
-            }
-        },
-    )
+            },
+        )
+    }
 }
-
-internal const val IconsList = "icons"
-internal const val IconDemoRoute = "iconDemo"
-internal const val IconIdArgName = "iconId"
-internal const val IconNameArgName = "iconName"

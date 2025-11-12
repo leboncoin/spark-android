@@ -21,9 +21,10 @@
  */
 package com.adevinta.spark.catalog.themes
 
+import android.app.UiModeManager
 import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
@@ -34,32 +35,31 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.systemGestureExclusion
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.getSystemService
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.ui.ButtonGroup
+import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.ui.shaders.colorblindness.ColorBlindSetting
 import com.adevinta.spark.catalog.util.PreviewTheme
-import com.adevinta.spark.components.icons.Icon
-import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.components.slider.Slider
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.components.textfields.Dropdown
 import com.adevinta.spark.components.toggles.SwitchLabelled
-import com.adevinta.spark.icons.Check
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.Layout
 import com.adevinta.spark.tokens.highlight
+import java.text.NumberFormat
 
 @Composable
 public fun ThemePicker(
@@ -67,6 +67,8 @@ public fun ThemePicker(
     theme: Theme,
     onThemeChange: (theme: Theme) -> Unit,
 ) {
+    val uiModeManager = LocalContext.current.getSystemService<UiModeManager>()
+
     LazyColumn(
         modifier = modifier,
         contentPadding = WindowInsets.safeDrawing
@@ -80,7 +82,8 @@ public fun ThemePicker(
                 ),
             )
             .asPaddingValues(),
-        verticalArrangement = Arrangement.spacedBy(ThemePickerPadding),
+        verticalArrangement = spacedBy(ThemePickerPadding),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         item {
             val themeModes = ThemeMode.entries
@@ -93,7 +96,9 @@ public fun ThemePicker(
             )
         }
         item {
-            Column {
+            Column(
+                verticalArrangement = spacedBy(8.dp),
+            ) {
                 val colorModes = ColorMode.entries
                 val colorModesLabel = colorModes.map { it.name }
                 ButtonGroup(
@@ -103,43 +108,7 @@ public fun ThemePicker(
                     options = colorModesLabel,
                 )
                 AnimatedVisibility(
-                    visible = theme.colorMode == ColorMode.Brand,
-                    modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .fillMaxWidth(),
-                ) {
-                    var expanded by remember { mutableStateOf(false) }
-                    val selectedIcon = @Composable { Icon(SparkIcons.Check, contentDescription = null) }
-                    Dropdown(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = ThemePickerPadding),
-                        value = theme.brandMode.name,
-                        label = stringResource(id = R.string.brand),
-                        onDismissRequest = {
-                            expanded = false
-                        },
-                        expanded = expanded,
-                        onExpandedChange = {
-                            expanded = !expanded
-                        },
-                    ) {
-                        BrandMode.entries.forEach { brand ->
-                            DropdownMenuItem(
-                                text = {
-                                    Text(text = brand.name)
-                                },
-                                trailingIcon = if (brand == theme.brandMode) selectedIcon else null,
-                                onClick = {
-                                    onThemeChange(theme.copy(brandMode = brand))
-                                    expanded = false
-                                },
-                            )
-                        }
-                    }
-                }
-                AnimatedVisibility(
-                    visible = theme.colorMode == ColorMode.Brand,
+                    visible = theme.colorMode == ColorMode.Baseline,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                 ) {
                     SwitchLabelled(
@@ -153,6 +122,31 @@ public fun ThemePicker(
                             modifier = Modifier.fillMaxWidth(),
                         )
                     }
+                }
+            }
+        }
+
+        val isContrastAvailable = Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE
+        if (isContrastAvailable) {
+            item {
+                Column {
+                    val contrastLevel = 1 + (uiModeManager?.contrast ?: 0f)
+                    val level = remember { NumberFormat.getInstance().format(contrastLevel - 1) }
+                    Text(
+                        text = "Contrast level: $level",
+                        modifier = Modifier.padding(bottom = 8.dp),
+                        style = SparkTheme.typography.body2.highlight,
+                    )
+
+                    androidx.compose.material3.Slider(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .systemGestureExclusion(),
+                        value = contrastLevel - 1f,
+                        valueRange = 0f..1f,
+                        steps = 9,
+                        onValueChange = { },
+                    )
                 }
             }
         }
@@ -205,6 +199,16 @@ public fun ThemePicker(
                     )
                 }
             }
+        }
+        item {
+            DropdownEnum(
+                title = stringResource(id = R.string.themepicker_navigation_label),
+                selectedOption = theme.navigationMode,
+                onOptionSelect = { onThemeChange(theme.copy(navigationMode = it)) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = ThemePickerPadding),
+            )
         }
         item {
             SwitchLabelled(

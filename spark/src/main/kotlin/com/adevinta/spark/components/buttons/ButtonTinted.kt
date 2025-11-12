@@ -74,6 +74,7 @@ public fun ButtonTinted(
     iconSide: IconSide = IconSide.START,
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    atEnd: Boolean = false,
     content: @Composable RowScope.() -> Unit,
 ) {
     val backgroundColor by animateColorAsState(
@@ -102,6 +103,7 @@ public fun ButtonTinted(
         iconSide = iconSide,
         isLoading = isLoading,
         interactionSource = interactionSource,
+        atEnd = atEnd,
         content = content,
     )
 }
@@ -140,6 +142,7 @@ public fun ButtonTinted(
     iconSide: IconSide = IconSide.START,
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    atEnd: Boolean = false,
 ) {
     val backgroundColor by animateColorAsState(
         targetValue = intent.colors().containerColor,
@@ -168,6 +171,7 @@ public fun ButtonTinted(
         iconSide = iconSide,
         isLoading = isLoading,
         interactionSource = interactionSource,
+        atEnd = atEnd,
     )
 }
 
@@ -205,6 +209,7 @@ public fun ButtonTinted(
     iconSide: IconSide = IconSide.START,
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    atEnd: Boolean = false,
 ) {
     val colors = ButtonDefaults.buttonColors(
         containerColor = intent.colors().color,
@@ -223,6 +228,7 @@ public fun ButtonTinted(
         iconSide = iconSide,
         isLoading = isLoading,
         interactionSource = interactionSource,
+        atEnd = atEnd,
     )
 }
 

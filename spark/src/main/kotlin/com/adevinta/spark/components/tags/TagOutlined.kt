@@ -39,6 +39,7 @@ import com.adevinta.spark.icons.SparkIcons
  * @param intent The [TagIntent] color to use
  * @param leadingIcon The spark icon shown at the start of the tag
  * @param tint The tint color for the icon. Use Color.Unspecified to not apply tint.
+ * @param atEnd Whether the animated vector should be rendered at the end of all its animations.
  */
 @Composable
 public fun TagOutlined(
@@ -46,6 +47,7 @@ public fun TagOutlined(
     intent: TagIntent = TagIntent.Basic,
     leadingIcon: SparkIcon? = null,
     tint: Color? = null,
+    atEnd: Boolean = false,
     content: @Composable RowScope.() -> Unit,
 ) {
     val colors = TagDefaults.outlinedColors(intent)
@@ -58,6 +60,7 @@ public fun TagOutlined(
         ),
         leadingIcon = leadingIcon,
         tint = tint,
+        atEnd = atEnd,
         content = content,
     )
 }
@@ -69,6 +72,7 @@ public fun TagOutlined(
  * @param intent The [TagIntent] color to use
  * @param leadingIcon The spark icon shown at the start of the tag
  * @param tint The tint color for the icon. Use Color.Unspecified to not apply tint.
+ * @param atEnd Whether the animated vector should be rendered at the end of all its animations.
  */
 @Composable
 public fun TagOutlined(
@@ -77,6 +81,7 @@ public fun TagOutlined(
     intent: TagIntent = TagIntent.Basic,
     leadingIcon: SparkIcon? = null,
     tint: Color? = null,
+    atEnd: Boolean = false,
 ) {
     val colors = TagDefaults.outlinedColors(intent)
     SparkTag(
@@ -89,6 +94,7 @@ public fun TagOutlined(
         ),
         leadingIcon = leadingIcon,
         tint = tint,
+        atEnd = atEnd,
     )
 }
 
@@ -99,6 +105,7 @@ public fun TagOutlined(
  * @param intent The [TagIntent] color to use
  * @param leadingIcon The spark icon shown at the start of the tag
  * @param tint The tint color for the icon. Use Color.Unspecified to not apply tint.
+ * @param atEnd Whether the animated vector should be rendered at the end of all its animations.
  */
 @Composable
 public fun TagOutlined(
@@ -107,6 +114,7 @@ public fun TagOutlined(
     intent: TagIntent = TagIntent.Basic,
     leadingIcon: SparkIcon? = null,
     tint: Color? = null,
+    atEnd: Boolean = false,
 ) {
     val colors = TagDefaults.outlinedColors(intent)
     SparkTag(
@@ -119,6 +127,7 @@ public fun TagOutlined(
         ),
         leadingIcon = leadingIcon,
         tint = tint,
+        atEnd = atEnd,
     )
 }
 

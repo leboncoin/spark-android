@@ -28,6 +28,13 @@
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
         <item name="android:windowLightStatusBar" tools:targetApi="o_mr1">false</item>
+        <item name="dialogTheme">@style/ThemeOverlay.Catalog.Dialog</item>
+    </style>
+
+    <style name="ThemeOverlay.Catalog.Dialog" parent="@android:style/ThemeOverlay.Material.Dialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="o_mr1">false</item>
     </style>
 
 </resources>

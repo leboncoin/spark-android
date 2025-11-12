@@ -55,6 +55,7 @@ import com.adevinta.spark.icons.WheelOutline
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this icon button. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this icon button in different states.
+ * @param atEnd Whether the animated vector should be rendered at the end of all its animations.
  */
 @Composable
 public fun IconButtonFilled(
@@ -68,6 +69,7 @@ public fun IconButtonFilled(
     size: IconButtonSize = IconButtonDefaults.DefaultSize,
     contentDescription: String? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    atEnd: Boolean = false,
 ) {
     val colors = IconButtonDefaults.filledIconButtonColors(intent.colors())
     SparkIconButton(
@@ -81,6 +83,7 @@ public fun IconButtonFilled(
         size = size,
         contentDescription = contentDescription,
         interactionSource = interactionSource,
+        atEnd = atEnd,
     )
 }
 

@@ -84,6 +84,8 @@ import com.adevinta.spark.icons.EyeOutline
 import com.adevinta.spark.icons.MailOutline
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.ElevationTokens
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.delay
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -92,8 +94,9 @@ import androidx.compose.material3.HorizontalDivider as MaterialHorizontalDivider
 
 private const val ChipsExampleSourceUrl = "$SampleSourceUrl/ChipsSamples.kt"
 
-public val ChipsExamples: List<Example> = listOf(
+public val ChipsExamples: ImmutableList<Example> = persistentListOf(
     Example(
+        id = "default",
         name = "Default",
         description = "Step indicator content defaults to step index, or checkmark icon when completed.",
         sourceUrl = ChipsExampleSourceUrl,
@@ -101,6 +104,7 @@ public val ChipsExamples: List<Example> = listOf(
         ChipsDefault()
     },
     Example(
+        id = "kind",
         name = "Kind",
         description = "",
         sourceUrl = ChipsExampleSourceUrl,
@@ -108,6 +112,7 @@ public val ChipsExamples: List<Example> = listOf(
         ChipsKind()
     },
     Example(
+        id = "intent",
         name = "Intent",
         description = "All intents are available",
         sourceUrl = ChipsExampleSourceUrl,
@@ -115,6 +120,7 @@ public val ChipsExamples: List<Example> = listOf(
         ChipsIntent()
     },
     Example(
+        id = "selectable",
         name = "Intent Selectable",
         description = "All intents are available and selectable",
         sourceUrl = ChipsExampleSourceUrl,
@@ -122,6 +128,7 @@ public val ChipsExamples: List<Example> = listOf(
         ChipSelectablesIntent()
     },
     Example(
+        id = "assist",
         name = "Assist",
         description = "Assist chips represent smart or automated actions that can span multiple apps, such as " +
             "opening a calendar event from the home screen.\n\n" +
@@ -133,6 +140,7 @@ public val ChipsExamples: List<Example> = listOf(
         ChipAssist()
     },
     Example(
+        id = "filter",
         name = "Filter",
         description = "Filter chips represent filters for a collection. They use tags or descriptive words to filter " +
             "content. They can be a good alternative to toggle buttons or checkboxes.\n" +
@@ -144,6 +152,7 @@ public val ChipsExamples: List<Example> = listOf(
         ChipFilter()
     },
     Example(
+        id = "input",
         name = "Input",
         description = "Input chips represent discrete pieces of information entered by a user, such as Gmail " +
             "contacts or filter options within a search field.\n" +
@@ -153,6 +162,7 @@ public val ChipsExamples: List<Example> = listOf(
         ChipInput()
     },
     Example(
+        id = "suggestion",
         name = "Suggestion",
         description = "Suggestion chips help narrow a user’s intent by presenting dynamically generated suggestions," +
             " such as possible responses or search filters.",
@@ -161,6 +171,7 @@ public val ChipsExamples: List<Example> = listOf(
         ChipSuggestion()
     },
     Example(
+        id = "selection",
         name = "Selection",
         description = "Chips can also add other extra rare usages like acting as a Select combined with the popover.",
         sourceUrl = ChipsExampleSourceUrl,

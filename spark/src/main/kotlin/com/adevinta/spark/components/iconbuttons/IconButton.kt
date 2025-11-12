@@ -89,12 +89,14 @@ internal fun SparkIconButton(
     border: BorderStroke? = null,
     contentDescription: String? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    atEnd: Boolean = false,
 ) {
     val content: @Composable () -> Unit = {
         Icon(
             sparkIcon = icon,
             contentDescription = contentDescription,
             size = size.iconSize,
+            atEnd = atEnd,
         )
     }
     Box(modifier = modifier) {

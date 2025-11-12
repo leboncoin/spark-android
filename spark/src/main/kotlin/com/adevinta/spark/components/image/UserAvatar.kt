@@ -40,16 +40,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImagePainter
+import coil3.compose.AsyncImagePainter
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.R
 import com.adevinta.spark.SparkTheme
-import com.adevinta.spark.components.icons.Icon
-import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.icons.ProFill
 import com.adevinta.spark.icons.ProfileFill
-import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
@@ -70,6 +67,7 @@ internal fun SparkUserAvatar(
         ImageIconState(
             sparkIcon = if (isPro) SparkIcons.ProFill else SparkIcons.ProfileFill,
             color = color,
+            size = null,
         )
     }
     val indicatorColor = SparkTheme.colors.success
@@ -131,21 +129,6 @@ internal fun SparkUserAvatar(
         emptyIcon = emptyIcon,
         errorIcon = emptyIcon,
     )
-}
-
-@Composable
-private fun ImageIconState(
-    sparkIcon: SparkIcon,
-    color: Color,
-) {
-    Surface(
-        color = color,
-    ) {
-        Icon(
-            sparkIcon = sparkIcon,
-            contentDescription = null, // The SparkImage handle the content description
-        )
-    }
 }
 
 @Composable

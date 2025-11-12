@@ -132,6 +132,7 @@ private fun UnionFilter() {
     }
     var unionSelected by remember { mutableStateOf(listOf("Animal", "Tree")) }
     FlowRow(
+        modifier = Modifier.selectableGroup(),
         horizontalArrangement = spacedBy(8.dp),
     ) {
         unionSelectionFilter.forEach { filter ->

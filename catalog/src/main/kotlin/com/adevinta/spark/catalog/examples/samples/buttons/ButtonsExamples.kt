@@ -31,6 +31,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
@@ -45,11 +46,14 @@ import com.adevinta.spark.components.buttons.IconSide
 import com.adevinta.spark.icons.LikeFill
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 private const val ButtonsExampleDescription = "Button examples"
 private const val ButtonsExampleSourceUrl = "$SampleSourceUrl/ButtonSamples.kt"
-public val ButtonsExamples: List<Example> = listOf(
+public val ButtonsExamples: ImmutableList<Example> = persistentListOf(
     Example(
+        id = "filled",
         name = "Filled Button",
         description = ButtonsExampleDescription,
         sourceUrl = ButtonsExampleSourceUrl,
@@ -68,6 +72,7 @@ public val ButtonsExamples: List<Example> = listOf(
         )
     },
     Example(
+        id = "tinted",
         name = "Tinted Button",
         description = ButtonsExampleDescription,
         sourceUrl = ButtonsExampleSourceUrl,
@@ -86,6 +91,7 @@ public val ButtonsExamples: List<Example> = listOf(
         )
     },
     Example(
+        id = "outlined",
         name = "Outlined Button",
         description = ButtonsExampleDescription,
         sourceUrl = ButtonsExampleSourceUrl,
@@ -104,6 +110,7 @@ public val ButtonsExamples: List<Example> = listOf(
         )
     },
     Example(
+        id = "ghost",
         name = "Ghost Button",
         description = ButtonsExampleDescription,
         sourceUrl = ButtonsExampleSourceUrl,
@@ -122,6 +129,7 @@ public val ButtonsExamples: List<Example> = listOf(
         )
     },
     Example(
+        id = "contrast",
         name = "Contrast Button",
         description = ButtonsExampleDescription,
         sourceUrl = ButtonsExampleSourceUrl,
@@ -140,6 +148,7 @@ public val ButtonsExamples: List<Example> = listOf(
         )
     },
     Example(
+        id = "toggle",
         name = "Toggle Button",
         description = "This is currently not a Spark component," +
             "\nthis example shows that you can achieve" +
@@ -159,6 +168,21 @@ public val ButtonsExamples: List<Example> = listOf(
                     isLoading,
                 )
             },
+        )
+    },
+    Example(
+        id = "A11y",
+        name = "Button label",
+        description = "Use a different click label for accessibility purposes",
+        sourceUrl = ButtonsExampleSourceUrl,
+    ) {
+        ButtonFilled(text = "No click label", onClick = {})
+        ButtonFilled(
+            text = "Naviguer label",
+            modifier = Modifier.semantics {
+                onClick(label = "Naviguer", action = null)
+            },
+            onClick = {},
         )
     },
 )

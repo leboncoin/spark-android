@@ -33,6 +33,8 @@
 
     <style name="ThemeOverlay.Catalog.Dialog" parent="@android:style/ThemeOverlay.Material.Dialog">
         <item name="android:windowIsFloating">false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="o_mr1">true</item>
     </style>
 
 </resources>

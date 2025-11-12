@@ -59,8 +59,15 @@
     <string name="spark_annotatedStringResource_test"><b>Best</b> <annotation typography="large">practices</annotation> <p dir="rtl">for text on</p> <i><annotation color="main">Android</annotation></i></string>
     <string name="spark_annotatedStringResource_test_args">Hello, <b><annotation color="main" typography="large" variable="who">who</annotation></b>!</string>
 
-    <!--region Rating-->
-    <string name="spark_textfield_content_description">Mandatory</string>
+    <!--region TextField-->
+    <string name="spark_textfield_mandatory_content_description">Mandatory</string>
+    <plurals name="spark_textfield_counter_content_description">
+        <item quantity="one">%1$d character entered out of %2$d maximum</item>
+        <item quantity="other">%1$d characters entered out of %2$d maximum</item>
+    </plurals>
+    <string name="spark_textfield_state_success_content_description">The field is valid</string>
+    <string name="spark_textfield_state_alert_content_description">The field contains an alert</string>
+    <string name="spark_textfield_state_error_content_description">The field contains an error</string>
     <string name="spark_textfield_delete_a11y">Cancel</string>
     <!--endregion-->
 
@@ -69,6 +76,10 @@
     <!--endregion-->
 
     <!--region Snackbar-->
-    <string name="spark_snackbar_dismiss_a11y">Dismiss</string>
+    <string name="spark_combobox_multiple_chip_click_a11y">Remove %1$s</string>
+    <string name="spark_dropdown_menu_item_no_result_label">No result</string>
+    <!--endregion-->
+    <!--region Tag-->
+    <string name="spark_tag_highlight_new_label">New!</string>
     <!--endregion-->
 </resources>

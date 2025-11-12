@@ -32,20 +32,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.catalog.R
+import com.adevinta.spark.catalog.icons.IconPickerItem
 import com.adevinta.spark.catalog.model.Configurator
-import com.adevinta.spark.catalog.ui.ButtonGroup
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
-import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.components.textfields.Dropdown
 import com.adevinta.spark.components.textfields.TextField
-import com.adevinta.spark.components.toggles.ContentSide
 import com.adevinta.spark.components.toggles.Switch
+import com.adevinta.spark.components.toggles.SwitchIcons
 import com.adevinta.spark.components.toggles.SwitchLabelled
-import com.adevinta.spark.components.toggles.ToggleIntent
+import com.adevinta.spark.icons.Check
+import com.adevinta.spark.icons.Close
+import com.adevinta.spark.icons.SparkIcon
+import com.adevinta.spark.icons.SparkIcons
 
 public val SwitchConfigurator: Configurator = Configurator(
+    id = "switch",
     name = "Switch",
     description = "Switch configuration",
     sourceUrl = "$SampleSourceUrl/SwitchSamples.kt",
@@ -56,18 +58,21 @@ public val SwitchConfigurator: Configurator = Configurator(
 @Composable
 private fun ColumnScope.SwitchSample() {
     var isEnabled by remember { mutableStateOf(true) }
-    var contentSide by remember { mutableStateOf(ContentSide.End) }
+    var iconOn: SparkIcon? by remember { mutableStateOf(SparkIcons.Check) }
+    var iconOff: SparkIcon? by remember { mutableStateOf(SparkIcons.Close) }
     var label: String? by remember { mutableStateOf(null) }
     var state by remember { mutableStateOf(false) }
-    var intent by remember { mutableStateOf(ToggleIntent.Main) }
     val onClick = { checked: Boolean -> state = checked }
-    ConfigedSwitch(
+    ConfiguredSwitch(
         label = label,
         onClick = onClick,
+        icons = if (iconOn != null && iconOff != null) {
+            SwitchIcons(iconOn!!, iconOff!!)
+        } else {
+            null
+        },
         checked = state,
         isEnabled = isEnabled,
-        intent = intent,
-        contentSide = contentSide,
     )
     SwitchLabelled(
         checked = isEnabled,
@@ -80,30 +85,17 @@ private fun ColumnScope.SwitchSample() {
             modifier = Modifier.fillMaxWidth(),
         )
     }
-    var expanded by remember { mutableStateOf(false) }
-    Dropdown(
-        modifier = Modifier.fillMaxWidth(),
-        value = intent.name,
-        label = stringResource(id = R.string.configurator_component_screen_intent_label),
-        expanded = expanded,
-        onExpandedChange = { expanded = !expanded },
-        onDismissRequest = { expanded = false },
-        dropdownContent = {
-            ToggleIntent.entries.forEach {
-                DropdownMenuItem(
-                    text = { Text(it.name) },
-                    onClick = {
-                        intent = it
-                        expanded = false
-                    },
-                )
-            }
-        },
+
+    IconPickerItem(
+        label = "On Icon",
+        selectedIcon = iconOn,
+        onIconSelected = { iconOn = it },
     )
-    ButtonGroup(
-        title = stringResource(id = R.string.configurator_component_toggle_content_side_label),
-        selectedOption = contentSide,
-        onOptionSelect = { contentSide = it },
+
+    IconPickerItem(
+        label = "Off Icon",
+        selectedIcon = iconOff,
+        onIconSelected = { iconOff = it },
     )
     TextField(
         modifier = Modifier.fillMaxWidth(),
@@ -123,31 +115,29 @@ private fun SwitchSamplePreview() {
 }
 
 @Composable
-private fun ConfigedSwitch(
+private fun ConfiguredSwitch(
     modifier: Modifier = Modifier,
     label: String?,
     onClick: (Boolean) -> Unit,
     checked: Boolean,
+    icons: SwitchIcons?,
     isEnabled: Boolean,
-    contentSide: ContentSide,
-    intent: ToggleIntent,
 ) {
     if (label.isNullOrBlank().not()) {
         SwitchLabelled(
             modifier = modifier,
             enabled = isEnabled,
             checked = checked,
+            icons = icons,
             onCheckedChange = onClick,
-            contentSide = contentSide,
-            intent = intent,
-        ) { Text(text = label!!) }
+        ) { Text(text = label) }
     } else {
         Switch(
             modifier = modifier,
             enabled = isEnabled,
             checked = checked,
+            icons = icons,
             onCheckedChange = onClick,
-            intent = intent,
         )
     }
 }

@@ -38,12 +38,15 @@ import com.adevinta.spark.components.text.TextLinkButton
 import com.adevinta.spark.icons.Link
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.res.annotatedStringResource
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.launch
 
 private const val TextLinksExampleSourceUrl = "$SampleSourceUrl/TextLinkExamples.kt"
 
-public val TextLinksExamples: List<Example> = listOf(
+public val TextLinksExamples: ImmutableList<Example> = persistentListOf(
     Example(
+        id = "filled",
         name = "Link inside title",
         description = "Link inside title no icon",
         sourceUrl = TextLinksExampleSourceUrl,
@@ -58,7 +61,7 @@ public val TextLinksExamples: List<Example> = listOf(
                 style = SparkTheme.typography.subhead,
                 text = annotatedStringResource(id = R.string.spark_text_link_short_example_),
                 lineHeight = 40.sp,
-                onClickLabel = "https://kotlinlang.org",
+                onClickLabel = "Aller au site web",
                 onClick = {
                     scope.launch {
                         snackbarHostState.showSnackbar(
@@ -73,6 +76,7 @@ public val TextLinksExamples: List<Example> = listOf(
         }
     },
     Example(
+        id = "paragraph",
         name = "Link inside paragraph",
         description = "Link inside paragraph no icon",
         sourceUrl = TextLinksExampleSourceUrl,
@@ -86,7 +90,7 @@ public val TextLinksExamples: List<Example> = listOf(
             TextLink(
                 style = SparkTheme.typography.subhead,
                 text = annotatedStringResource(id = R.string.spark_text_link_paragraph_example_),
-                onClickLabel = "textLink",
+                onClickLabel = "Voir les conditions Conditions générales d’utilisation",
                 onClick = {
                     scope.launch {
                         snackbarHostState.showSnackbar(
@@ -100,6 +104,7 @@ public val TextLinksExamples: List<Example> = listOf(
         }
     },
     Example(
+        id = "button",
         name = "Entire text as link no icon",
         description = "Entire text as link no icon using Text Link Button",
         sourceUrl = TextLinksExampleSourceUrl,
@@ -116,7 +121,7 @@ public val TextLinksExamples: List<Example> = listOf(
                     scope.launch {
                         snackbarHostState.showSnackbar(
                             message = "Try out Android Development Clicked",
-                            actionLabel = "Action",
+                            actionLabel = "Accéder au site",
                             duration = SnackbarDuration.Short,
                         )
                     }
@@ -125,6 +130,7 @@ public val TextLinksExamples: List<Example> = listOf(
         }
     },
     Example(
+        id = "button-icon",
         name = "Entire text as link with icon",
         description = "Entire text as link with icon using Text Link Button",
         sourceUrl = TextLinksExampleSourceUrl,

@@ -28,13 +28,14 @@ import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
@@ -50,6 +51,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.Constraints
@@ -87,6 +91,7 @@ internal fun SegmentedButton(
             .clip(
                 shape = SparkTheme.shapes.full,
             )
+            .selectableGroup()
             .border(
                 width = 1.dp,
                 color = SparkTheme.colors.outlineHigh,
@@ -94,9 +99,10 @@ internal fun SegmentedButton(
             ),
         content = {
             options.forEachIndexed { index, option ->
+                val selected = index == selectedIndex
                 val textColor by animateColorAsState(
                     label = "Button text color",
-                    targetValue = if (index == selectedIndex) selectedColor else unSelectedColor,
+                    targetValue = if (selected) selectedColor else unSelectedColor,
                 )
 
                 val shape = RoundedCornerShape(
@@ -110,7 +116,8 @@ internal fun SegmentedButton(
                     modifier = Modifier
                         .layoutId(MultiSelectorOption.Option)
                         .clip(shape)
-                        .clickable { onOptionSelect(option) },
+                        .selectable(selected) { onOptionSelect(option) }
+                        .semantics { role = Role.RadioButton },
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(

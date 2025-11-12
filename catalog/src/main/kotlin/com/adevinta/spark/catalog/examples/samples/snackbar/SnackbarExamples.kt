@@ -25,9 +25,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.Text
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -42,12 +40,15 @@ import com.adevinta.spark.components.spacer.VerticalSpacer
 import com.adevinta.spark.components.text.TextLinkButton
 import com.adevinta.spark.icons.LikeFill
 import com.adevinta.spark.icons.SparkIcons
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.launch
 
 private const val SnackbarExampleSourceUrl = "$SampleSourceUrl/SnackbarSamples.kt"
 
-public val SnackbarExamples: List<Example> = listOf(
+public val SnackbarExamples: ImmutableList<Example> = persistentListOf(
     Example(
+        id = "filled",
         name = "Snackbar",
         description = "Snackbar example filled ",
         sourceUrl = SnackbarExampleSourceUrl,
@@ -64,6 +65,7 @@ public val SnackbarExamples: List<Example> = listOf(
         }
     },
     Example(
+        id = "tinted",
         name = "Snackbar",
         description = "Snackbar example tinted ",
         sourceUrl = SnackbarExampleSourceUrl,
@@ -81,6 +83,7 @@ public val SnackbarExamples: List<Example> = listOf(
         VerticalSpacer(8.dp)
     },
     Example(
+        id = "host",
         name = "Snackbar host",
         description = "Snackbar host with intent success",
         sourceUrl = SnackbarExampleSourceUrl,
@@ -108,6 +111,7 @@ public val SnackbarExamples: List<Example> = listOf(
     },
 
     Example(
+        id = "host-action-long",
         name = "Snackbar host",
         description = "Snackbar host with intent success with SnackbarVisuals, long duration, intent accent",
         sourceUrl = SnackbarExampleSourceUrl,

@@ -47,7 +47,7 @@ import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.components.slider.Slider
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.components.textfields.Dropdown
+import com.adevinta.spark.components.textfields.SingleChoiceDropdown
 import com.adevinta.spark.tokens.ElevationTokens
 import com.adevinta.spark.tokens.highlight
 import kotlin.math.roundToInt
@@ -69,7 +69,7 @@ internal fun ColumnScope.ElevationCustomSample() {
     var selectedElevation by remember { mutableStateOf(ElevationTokens.Level1) }
 
     var expanded by remember { mutableStateOf(false) }
-    Dropdown(
+    SingleChoiceDropdown(
         modifier = Modifier.fillMaxWidth(),
         value = tokensElevationsGroups.firstOrNull {
             it.second == selectedElevation
@@ -86,6 +86,7 @@ internal fun ColumnScope.ElevationCustomSample() {
                         selectedElevation = elevation
                         expanded = false
                     },
+                    selected = selectedElevation == elevation,
                 )
             }
         },

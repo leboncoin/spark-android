@@ -44,12 +44,14 @@ import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.spacer.VerticalSpacer
 import com.adevinta.spark.components.toggles.Checkbox
 import com.adevinta.spark.components.toggles.CheckboxLabelled
-import com.adevinta.spark.components.toggles.ContentSide
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 private const val CheckboxExampleDescription = "Checkbox examples"
 private const val CheckboxExampleSourceUrl = "$SampleSourceUrl/CheckboxSamples.kt"
-public val CheckboxExamples: List<Example> = listOf(
+public val CheckboxExamples: ImmutableList<Example> = persistentListOf(
     Example(
+        id = "standalone",
         name = "Standalone checkbox",
         description = CheckboxExampleDescription,
         sourceUrl = CheckboxExampleSourceUrl,
@@ -71,41 +73,14 @@ public val CheckboxExamples: List<Example> = listOf(
         }
     },
     Example(
+        id = "labeled",
         name = "Labeled checkbox group",
         description = CheckboxExampleDescription,
         sourceUrl = CheckboxExampleSourceUrl,
     ) {
         LabeledCheckboxGroupExample()
     },
-    Example(
-        name = "Labeled checkbox content side",
-        description = CheckboxExampleDescription,
-        sourceUrl = CheckboxExampleSourceUrl,
-    ) {
-        LabeledCheckboxContentSideExample()
-    },
 )
-
-@Composable
-private fun LabeledCheckboxContentSideExample() {
-    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        val label = stringResource(id = R.string.component_checkbox_content_side_example_label)
-        ContentSide.values().forEach { side ->
-            var checkboxState by remember { mutableStateOf(ToggleableState.Off) }
-            CheckboxLabelled(
-                enabled = true,
-                state = checkboxState,
-                onClick = {
-                    checkboxState = when (checkboxState) {
-                        ToggleableState.Indeterminate, ToggleableState.Off -> ToggleableState.On
-                        ToggleableState.On -> ToggleableState.Off
-                    }
-                },
-                contentSide = side,
-            ) { Text(label) }
-        }
-    }
-}
 
 @Composable
 private fun LabeledCheckboxGroupExample() {

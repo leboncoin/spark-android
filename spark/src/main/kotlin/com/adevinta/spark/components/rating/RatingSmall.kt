@@ -32,7 +32,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
@@ -205,10 +204,7 @@ internal enum class RatingSize {
 }
 
 @Composable
-internal fun firstLocale(): Locale {
-    LocalConfiguration.current
-    return LocalContext.current.resources.configuration.locales[0]
-}
+internal fun firstLocale(): Locale = LocalConfiguration.current.locales[0]
 
 @Composable
 @Preview(
@@ -217,15 +213,12 @@ internal fun firstLocale(): Locale {
 )
 internal fun RatingSmallPreview() {
     val frenchLocale = Locale.FRANCE
-    val germanLocale = Locale.GERMANY
     PreviewTheme {
         RatingSimple(value = 3.0f, locale = frenchLocale, labelSide = RatingLabelSide.End)
         RatingSimple(value = 4.50f, locale = frenchLocale, labelSide = RatingLabelSide.End)
 
         RatingSimple(value = 3.0f, commentCount = 8, locale = frenchLocale, labelSide = RatingLabelSide.End)
         RatingSimple(value = 4.50f, commentCount = 12, locale = frenchLocale, labelSide = RatingLabelSide.End)
-        RatingSimple(value = 4.50f, commentCount = 12, locale = germanLocale, labelSide = RatingLabelSide.End)
-        RatingSimpleLarge(value = 4.50f, locale = germanLocale, labelSide = RatingLabelSide.End)
         RatingSimpleLarge(value = 4.50f, locale = Locale.US, labelSide = RatingLabelSide.End)
         RatingSimple(value = 4.50f, commentCount = 12, locale = Locale.US, labelSide = RatingLabelSide.End)
         RatingSimple(value = 4.51f, commentCount = 12, locale = Locale.US, labelSide = RatingLabelSide.End)

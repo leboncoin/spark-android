@@ -28,25 +28,17 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.DefaultTestDevices
 import com.adevinta.spark.SparkTheme
-import com.adevinta.spark.ThemeVariant
-import com.adevinta.spark.ThemeVariant.Light
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.paparazziRule
+import com.adevinta.spark.sparkSnapshotHighContrast
 import com.adevinta.spark.sparkSnapshotNightMode
 import org.junit.Rule
 import org.junit.Test
@@ -92,25 +84,9 @@ internal class ColorsScreenshot {
     }
 
     @Test
-    fun verifyColorsDoChangeOnThemeChange() {
-        ThemeVariant.entries.forEach {
-            paparazzi.snapshot(name = it.name) {
-                var debugColors by remember {
-                    mutableStateOf(if (it == Light) lightSparkColors() else darkSparkColors())
-                }
-                CompositionLocalProvider(LocalInspectionMode provides true) {
-                    SparkTheme(
-                        colors = debugColors,
-                    ) {
-                        Surface {
-                            Colors()
-                            LaunchedEffect(key1 = Unit) {
-                                debugColors = debugColors()
-                            }
-                        }
-                    }
-                }
-            }
+    fun themesColorsHighContrast() {
+        paparazzi.sparkSnapshotHighContrast {
+            Colors()
         }
     }
 

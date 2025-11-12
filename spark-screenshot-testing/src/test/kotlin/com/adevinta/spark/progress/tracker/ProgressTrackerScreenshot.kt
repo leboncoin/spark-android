@@ -36,10 +36,13 @@ import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.progress.tracker.ProgressSizes
 import com.adevinta.spark.components.progress.tracker.ProgressStep
-import com.adevinta.spark.components.progress.tracker.ProgressStyles
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerIntent
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerRow
 import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.icons.AddFill
+import com.adevinta.spark.icons.SparkAnimatedIcons
+import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.addButton
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshotNightMode
 import com.android.ide.common.rendering.api.SessionParams.RenderingMode.V_SCROLL
@@ -52,7 +55,6 @@ internal class ProgressTrackerScreenshot {
     @get:Rule
     val paparazzi = paparazziRule(
         // fixme: fix to make it portrait while #1190 is not released
-
         deviceConfig = DefaultTestDevices.Tablet,
         renderingMode = V_SCROLL,
     )
@@ -86,23 +88,23 @@ internal class ProgressTrackerScreenshot {
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         ProgressSizes.entries.forEach { size ->
-                            ProgressStyles.entries.forEach { style ->
-
-                                ProgressTrackerRow(
-                                    modifier = Modifier.width(240.dp),
-                                    items = persistentListOf(
-                                        ProgressStep("Lorem ipsume", true),
-                                        ProgressStep("Lorem ipsume dolar sit amet", true),
-                                        ProgressStep("Lorem ipsume", false),
+                            ProgressTrackerRow(
+                                modifier = Modifier.width(240.dp),
+                                items = persistentListOf(
+                                    ProgressStep("Lorem ipsume", true, doneIcon = SparkIcons.AddFill),
+                                    ProgressStep(
+                                        "Lorem ipsume dolar sit amet",
+                                        true,
+                                        icon = SparkAnimatedIcons.addButton(),
                                     ),
-                                    intent = intent,
-                                    style = style,
-                                    size = size,
-                                    onStepClick = {
-                                    },
-                                    selectedStep = selectedStep,
-                                )
-                            }
+                                    ProgressStep("Lorem ipsume", false),
+                                ),
+                                intent = intent,
+                                size = size,
+                                onStepClick = {
+                                },
+                                selectedStep = selectedStep,
+                            )
                         }
                     }
                 }

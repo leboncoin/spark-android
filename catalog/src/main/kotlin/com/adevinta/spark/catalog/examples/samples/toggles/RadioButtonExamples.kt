@@ -39,14 +39,16 @@ import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.spacer.VerticalSpacer
-import com.adevinta.spark.components.toggles.ContentSide
 import com.adevinta.spark.components.toggles.RadioButton
 import com.adevinta.spark.components.toggles.RadioButtonLabelled
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 private const val RadioButtonExampleDescription = "RadioButton examples"
 private const val RadioButtonExampleSourceUrl = "$SampleSourceUrl/RadioButtonSamples.kt"
-public val RadioButtonExamples: List<Example> = listOf(
+public val RadioButtonExamples: ImmutableList<Example> = persistentListOf(
     Example(
+        id = "standalone",
         name = "Standalone radio button",
         description = RadioButtonExampleDescription,
         sourceUrl = RadioButtonExampleSourceUrl,
@@ -67,6 +69,7 @@ public val RadioButtonExamples: List<Example> = listOf(
         }
     },
     Example(
+        id = "labeled",
         name = "Labeled radio button content side",
         description = RadioButtonExampleDescription,
         sourceUrl = RadioButtonExampleSourceUrl,
@@ -74,6 +77,7 @@ public val RadioButtonExamples: List<Example> = listOf(
         RadioButtonContentSideExample()
     },
     Example(
+        id = "group",
         name = "Labeled radio button group",
         description = RadioButtonExampleDescription,
         sourceUrl = RadioButtonExampleSourceUrl,
@@ -86,20 +90,17 @@ public val RadioButtonExamples: List<Example> = listOf(
 private fun RadioButtonContentSideExample() {
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
         val label = stringResource(id = R.string.component_checkbox_content_side_example_label)
-        ContentSide.values().forEach { contentSide ->
-            var selected by remember { mutableStateOf(false) }
-            RadioButtonLabelled(
+        var selected by remember { mutableStateOf(false) }
+        RadioButtonLabelled(
+            modifier = Modifier.fillMaxWidth(),
+            enabled = true,
+            selected = selected,
+            onClick = { selected = !selected },
+        ) {
+            Text(
+                text = label,
                 modifier = Modifier.fillMaxWidth(),
-                enabled = true,
-                selected = selected,
-                contentSide = contentSide,
-                onClick = { selected = !selected },
-            ) {
-                Text(
-                    text = label,
-                    modifier = Modifier.fillMaxWidth(),
-                )
-            }
+            )
         }
     }
 }
@@ -145,7 +146,6 @@ private fun LabeledRadioButtonVerticalGroupExample(
             RadioButtonLabelled(
                 enabled = true,
                 selected = selected,
-                contentSide = ContentSide.End,
                 onClick = onClick,
             ) {
                 Text(text = label)

@@ -76,6 +76,7 @@ public fun ButtonContrast(
     iconSide: IconSide = IconSide.START,
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    atEnd: Boolean = false,
     content: @Composable RowScope.() -> Unit,
 ) {
     val containerColor = SparkTheme.colors.surface
@@ -104,6 +105,7 @@ public fun ButtonContrast(
         iconSide = iconSide,
         isLoading = isLoading,
         interactionSource = interactionSource,
+        atEnd = atEnd,
     )
 }
 
@@ -142,6 +144,7 @@ public fun ButtonContrast(
     iconSide: IconSide = IconSide.START,
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    atEnd: Boolean = false,
 ) {
     val containerColor = SparkTheme.colors.surface
     val colors = intent.colors()
@@ -169,6 +172,7 @@ public fun ButtonContrast(
         iconSide = iconSide,
         isLoading = isLoading,
         interactionSource = interactionSource,
+        atEnd = atEnd,
     )
 }
 
@@ -206,6 +210,7 @@ public fun ButtonContrast(
     iconSide: IconSide = IconSide.START,
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    atEnd: Boolean = false,
 ) {
     val containerColor = SparkTheme.colors.surface
     val colors = intent.colors()
@@ -232,6 +237,7 @@ public fun ButtonContrast(
         iconSide = iconSide,
         isLoading = isLoading,
         interactionSource = interactionSource,
+        atEnd = atEnd,
     )
 }
 

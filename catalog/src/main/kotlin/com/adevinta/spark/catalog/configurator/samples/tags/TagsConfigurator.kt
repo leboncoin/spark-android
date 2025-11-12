@@ -21,10 +21,8 @@
  */
 package com.adevinta.spark.catalog.configurator.samples.tags
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -37,12 +35,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.catalog.icons.IconPickerItem
 import com.adevinta.spark.catalog.model.Configurator
 import com.adevinta.spark.catalog.ui.ButtonGroup
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
-import com.adevinta.spark.components.icons.FilledTonalIconToggleButton
-import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.tags.TagFilled
@@ -52,12 +49,10 @@ import com.adevinta.spark.components.tags.TagTinted
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.Dropdown
 import com.adevinta.spark.components.textfields.TextField
-import com.adevinta.spark.icons.LikeFill
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
-import com.adevinta.spark.tokens.highlight
 
 public val TagsConfigurator: Configurator = Configurator(
+    id = "tag",
     name = "Tag",
     description = "Tag configuration",
     sourceUrl = "$SampleSourceUrl/TagSamples.kt",
@@ -81,27 +76,11 @@ private fun ColumnScope.TagSample() {
         icon = icon,
     )
 
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Absolute.spacedBy(8.dp),
-    ) {
-        Text(
-            text = "With Icon",
-            modifier = Modifier.weight(1f),
-            style = SparkTheme.typography.body2.highlight,
-        )
-        FilledTonalIconToggleButton(
-            checked = icon != null,
-            onCheckedChange = {
-                icon = if (it) SparkIcons.LikeFill else null
-            },
-        ) {
-            Icon(
-                sparkIcon = SparkIcons.LikeFill,
-                contentDescription = null,
-            )
-        }
-    }
+    IconPickerItem(
+        label = "With Icon",
+        selectedIcon = icon,
+        onIconSelected = { icon = it },
+    )
 
     ButtonGroup(
         title = "Style",

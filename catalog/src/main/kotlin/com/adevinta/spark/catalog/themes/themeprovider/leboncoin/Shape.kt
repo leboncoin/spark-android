@@ -21,17 +21,6 @@
  */
 package com.adevinta.spark.catalog.themes.themeprovider.leboncoin
 
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.ui.unit.dp
 import com.adevinta.spark.tokens.sparkShapes
 
-internal val LeboncoinShapes = sparkShapes(
-    none = RoundedCornerShape(0.dp),
-    extraSmall = RoundedCornerShape(4.0.dp),
-    small = RoundedCornerShape(8.0.dp),
-    medium = RoundedCornerShape(12.0.dp),
-    large = RoundedCornerShape(16.0.dp),
-    extraLarge = RoundedCornerShape(28.0.dp),
-    full = CircleShape,
-)
+internal val LeboncoinShapes = sparkShapes()

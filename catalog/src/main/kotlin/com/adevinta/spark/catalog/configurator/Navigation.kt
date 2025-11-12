@@ -22,43 +22,74 @@
 package com.adevinta.spark.catalog.configurator
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
+import androidx.navigation.toRoute
+import com.adevinta.spark.catalog.AppBasePath
 import com.adevinta.spark.catalog.configurator.component.ConfiguratorComponentScreen
 import com.adevinta.spark.catalog.model.Component
+import com.adevinta.spark.catalog.ui.animations.LocalAnimatedVisibilityScope
+import kotlinx.serialization.Serializable
 
-internal fun NavGraphBuilder.navGraph(
-    navController: NavHostController,
-    components: List<Component>,
-    contentPadding: PaddingValues,
-) {
-    composable(route = ConfiguratorRoute) {
-        ComponentsListScreen(
-            components = components,
-            navController = navController,
-            contentPadding = contentPadding,
-        )
-    }
+@Serializable
+public object ConfiguratorsList
 
-    composable(
-        route = "$ConfiguratorRoute/" +
-            "{$ComponentIdArgName}",
-        arguments = listOf(
-            navArgument(ComponentIdArgName) { type = NavType.IntType },
-        ),
-    ) { navBackStackEntry ->
-        val arguments = requireNotNull(navBackStackEntry.arguments) { "No arguments" }
-        val componentId = arguments.getInt(ComponentIdArgName)
-        val component = components.first { component -> component.configurator != null && component.id == componentId }
-        ConfiguratorComponentScreen(
-            component = component,
-            configurator = requireNotNull(component.configurator),
+internal val ConfiguratorsList.deepLinks: List<NavDeepLink>
+    get() = listOf(
+        navDeepLink<ConfiguratorsList>(basePath = "${AppBasePath}configurator"),
+    )
+
+@Serializable
+internal data class ConfiguratorShowcase(val componentId: String, val configuratorId: String) {
+    companion object {
+        val deepLinks = listOf(
+            navDeepLink<ConfiguratorShowcase>(basePath = "${AppBasePath}configurator/detail"),
         )
     }
 }
 
-internal const val ConfiguratorRoute = "configurator"
-internal const val ComponentIdArgName = "componentId"
+internal fun NavGraphBuilder.configuratorsDestination(
+    navController: NavHostController,
+    components: List<Component>,
+    contentPadding: PaddingValues,
+) {
+    composable<ConfiguratorsList>(
+        deepLinks = ConfiguratorsList.deepLinks,
+    ) {
+        CompositionLocalProvider(LocalAnimatedVisibilityScope provides this) {
+            ComponentsListScreen(
+                components = components,
+                contentPadding = contentPadding,
+                onConfiguratorSelected = { id, index ->
+                    navController.navigate(
+                        route = ConfiguratorShowcase(componentId = id, configuratorId = index),
+                    )
+                },
+            )
+        }
+    }
+
+    composable<ConfiguratorShowcase>(
+        deepLinks = ConfiguratorShowcase.deepLinks,
+    ) { navBackStackEntry ->
+        val configuratorShowcase = navBackStackEntry.toRoute<ConfiguratorShowcase>()
+        val componentId = configuratorShowcase.componentId
+        val configuratorId = configuratorShowcase.configuratorId
+        val component =
+            components.first { component ->
+                component.configurators.firstOrNull() != null &&
+                    component.id == componentId
+            }
+        val configurator = component.configurators.first { it.id == configuratorId }
+        CompositionLocalProvider(LocalAnimatedVisibilityScope provides this) {
+            ConfiguratorComponentScreen(
+                component = component,
+                configurator = configurator,
+            )
+        }
+    }
+}

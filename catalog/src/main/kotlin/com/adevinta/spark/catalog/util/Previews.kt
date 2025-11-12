@@ -21,21 +21,28 @@
  */
 package com.adevinta.spark.catalog.util
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.PreviewWrapper
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.catalog.ui.animations.LocalAnimatedVisibilityScope
+import com.adevinta.spark.catalog.ui.animations.LocalSharedTransitionScope
 import com.adevinta.spark.tokens.darkSparkColors
 import com.adevinta.spark.tokens.lightSparkColors
 import com.adevinta.spark.tokens.sparkShapes
 import com.adevinta.spark.tokens.sparkTypography
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Suppress("ComposeModifierMissing") // It's okay since it’s a base theme
 @Composable
 internal fun PreviewTheme(
@@ -49,12 +56,21 @@ internal fun PreviewTheme(
         // We don't want to automatically support dark theme in the app but still want it in the previews
         useDarkColors = useDarkColors,
     ) {
-        PreviewWrapper(
-            padding = padding,
-            contentPadding = contentPadding,
-            color = color,
-            content = content,
-        )
+        SharedTransitionLayout {
+            AnimatedVisibility(true, label = "LocalSharedTransitionScope") {
+                CompositionLocalProvider(
+                    LocalSharedTransitionScope provides this@SharedTransitionLayout,
+                    LocalAnimatedVisibilityScope provides this,
+                ) {
+                    PreviewWrapper(
+                        padding = padding,
+                        contentPadding = contentPadding,
+                        color = color,
+                        content = content,
+                    )
+                }
+            }
+        }
     }
 }
 

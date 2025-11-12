@@ -20,11 +20,11 @@
  * SOFTWARE.
  */
 plugins {
-    id("com.adevinta.spark.android-library")
-    id("com.adevinta.spark.android-compose")
-    id("com.adevinta.spark.dokka")
-    id("com.adevinta.spark.publishing")
-    id("com.adevinta.spark.dependencyGuard")
+    alias(libs.plugins.spark.library)
+    alias(libs.plugins.spark.compose)
+    alias(libs.plugins.spark.dokka)
+    alias(libs.plugins.spark.publishing)
+    alias(libs.plugins.spark.dependencyGuard)
 }
 
 android {
@@ -40,17 +40,20 @@ android {
         unitTests.isReturnDefaultValues = true
     }
 
-    kotlinOptions {
-        freeCompilerArgs += listOf(
-            "-opt-in=com.adevinta.spark.InternalSparkApi",
-            "-opt-in=com.adevinta.spark.ExperimentalSparkApi",
-        )
+    kotlin {
+        compilerOptions {
+            optIn.addAll(
+                "com.adevinta.spark.InternalSparkApi",
+                "com.adevinta.spark.ExperimentalSparkApi",
+            )
+            freeCompilerArgs.add("-Xannotation-default-target=param-property")
+        }
     }
 }
 
 dependencies {
     implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.constraintlayoutCompose)
+    implementation(libs.androidx.constraintlayout.compose)
     lintPublish(projects.sparkLint)
     lintChecks(libs.slack.lint.compose)
 
@@ -59,21 +62,24 @@ dependencies {
     implementation(libs.accompanist.drawablepainter)
 
     implementation(libs.androidx.appCompat.resources)
-    implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core)
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.savedstate)
     implementation(libs.androidx.window)
 
+    api(libs.androidx.compose.animation.graphics)
     api(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.material.iconsExtended)
     api(libs.androidx.compose.material3)
-    api(libs.androidx.compose.material3.windowSizeClass)
+    api(libs.androidx.compose.material3.adaptive)
     api(libs.androidx.compose.ui)
     api(libs.androidx.compose.ui.text)
     api(libs.androidx.compose.ui.tooling.preview)
     debugImplementation(libs.androidx.compose.ui.tooling)
+    debugImplementation(libs.constraintsExplorer)
     implementation(libs.androidx.compose.ui.util)
-    api(libs.coilCompose)
+    api(platform(libs.coil.bom))
+    api(libs.coil.compose)
     api(libs.kotlinx.collections.immutable)
 
     testImplementation(libs.junit)
@@ -82,13 +88,13 @@ dependencies {
     testImplementation(libs.androidx.test.runner)
     testImplementation(libs.testParameterInjector)
     testImplementation(libs.robolectric)
-    testImplementation(libs.androidx.compose.ui.test)
+    testImplementation(libs.androidx.compose.ui.testJUnit)
     testImplementation(libs.androidx.compose.ui.testManifest)
 
     androidTestImplementation(libs.junit)
     androidTestImplementation(libs.kotlin.test)
     androidTestImplementation(libs.androidx.test.truth)
     androidTestImplementation(libs.androidx.test.runner)
-    androidTestImplementation(libs.androidx.compose.ui.test)
+    androidTestImplementation(libs.androidx.compose.ui.testJUnit)
     androidTestImplementation(libs.androidx.compose.ui.testManifest)
 }

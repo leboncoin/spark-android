@@ -1,10 +1,13 @@
 name: '🐘 Setup Gradle'
 description: 'Gradle setup and wrapper validation'
+inputs:
+  cache-encryption-key:
+    description: Gradle Configuration Cache encryption key
+    required: false
 runs:
   using: composite
   steps:
-    - uses: gradle/actions/setup-gradle@d156388eb19639ec20ade50009f3d199ce1e2808 # v4.1.0
+    - uses: gradle/actions/setup-gradle@4d9f0ba0025fe599b4ebab900eb7f3a1d93ef4c2 # v5.0.0
       with:
-        validate-wrappers: true
-        gradle-home-cache-cleanup: true
         add-job-summary-as-pr-comment: on-failure
+        cache-encryption-key: ${{ inputs.cache-encryption-key }}

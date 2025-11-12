@@ -1,35 +1,39 @@
 # Based on https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows#force-deleting-cache-entries
-name: '♻️ Clear GitHub Actions cache'
+name: ♻️ Clear GitHub Actions cache
+
 on:
   workflow_dispatch:
   pull_request:
     types: [ closed ]
 
+permissions:
+  actions: write
+  contents: read
+
 env:
   GH_TOKEN: ${{ github.token }}
   GH_REPO: ${{ github.repository }}
+  GH_FORCE_TTY: true # Force terminal-style output even when the output is redirected
+  NO_COLOR: 1 # Disable gh colored output to avoid sed -e 's/\x1b\[[0-9;]*m//g'
 
 jobs:
   clear-cache:
     runs-on: ubuntu-latest
     steps:
-      - run: gh extension install actions/gh-actions-cache
-      - run: gh actions-cache list
       - name: Clear cache entries
         if: github.event_name == 'workflow_dispatch'
         run: |
           set +e
-          for key in $(gh actions-cache list --sort size --order desc --limit 100 | cut -f 1 )
-          do
-              gh actions-cache delete $key --confirm | sed -e 's/\x1b\[[0-9;]*m//g' >> $GITHUB_STEP_SUMMARY
-          done
+          gh cache delete --all | tee -a $GITHUB_STEP_SUMMARY >&2
       - name: Clear cache entries from PR
         if: github.event_name == 'pull_request'
         run: |
           set +e
-          BRANCH="refs/pull/${{ github.event.pull_request.number }}/merge"
-          for key in $(gh actions-cache list --sort size --order desc --limit 100 --branch $BRANCH | cut -f 1 )
-          do
-              gh actions-cache delete $key --branch $BRANCH --confirm | sed -e 's/\x1b\[[0-9;]*m//g' >> $GITHUB_STEP_SUMMARY
+          refs=("refs/pull/$PR/head" "refs/pull/$PR/merge")
+          for ref in "${refs[@]}"; do
+            for key in $(gh cache list --ref "$ref" --limit 1000 --json id --jq 'map(.id) | join("\n")'); do
+              gh cache delete "$key" | tee -a $GITHUB_STEP_SUMMARY >&2
+            done
           done
-      - run: gh actions-cache list
+        env:
+          PR: ${{ github.event.pull_request.number }}

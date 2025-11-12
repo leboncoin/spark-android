@@ -21,15 +21,20 @@
  */
 package com.adevinta.spark
 
+import android.view.View
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalInspectionMode
 import app.cash.paparazzi.Paparazzi
+import com.adevinta.spark.tokens.SparkColors
+import com.adevinta.spark.tokens.darkHighContrastSparkColors
 import com.adevinta.spark.tokens.darkSparkColors
+import com.adevinta.spark.tokens.lightHighContrastSparkColors
 import com.adevinta.spark.tokens.lightSparkColors
 
 internal fun Paparazzi.sparkSnapshot(
@@ -37,11 +42,52 @@ internal fun Paparazzi.sparkSnapshot(
     drawBackground: Boolean = true,
     isDark: Boolean = false,
     composable: @Composable () -> Unit,
+): Unit = sparkSnapshotWithColors(
+    name = name,
+    drawBackground = drawBackground,
+    colors = if (isDark) darkSparkColors() else lightSparkColors(),
+    composable = composable,
+)
+
+internal fun Paparazzi.gifView(
+    drawBackground: Boolean = true,
+    isDark: Boolean = false,
+    composable: @Composable () -> Unit,
+): View {
+    val view = ComposeView(context)
+    view.setContent {
+        SparkThemeContent(
+            colors = if (isDark) darkSparkColors() else lightSparkColors(),
+            drawBackground = drawBackground,
+            composable = composable,
+        )
+    }
+    return view
+}
+
+internal fun Paparazzi.sparkSnapshotWithColors(
+    name: String? = null,
+    drawBackground: Boolean = true,
+    colors: SparkColors,
+    composable: @Composable () -> Unit,
 ): Unit = snapshot(name) {
+    SparkThemeContent(
+        colors = colors,
+        drawBackground = drawBackground,
+        composable = composable,
+    )
+}
+
+@Composable
+private fun SparkThemeContent(
+    colors: SparkColors,
+    drawBackground: Boolean,
+    composable: @Composable () -> Unit,
+) {
     // Behave like in Android Studio Preview renderer
     CompositionLocalProvider(LocalInspectionMode provides true) {
         SparkTheme(
-            colors = if (isDark) darkSparkColors() else lightSparkColors(),
+            colors = colors,
         ) {
             // The first box acts as a shield from ComposeView which forces the first layout node
             // to match it's size. This allows the content below to wrap as needed.
@@ -61,7 +107,6 @@ internal fun Paparazzi.sparkSnapshot(
  * Generate 3 screenshots for each device: phone, tablet and foldable
  */
 internal fun Paparazzi.sparkSnapshotDevices(
-    name: String? = null,
     drawBackground: Boolean = true,
     isDark: Boolean = false,
     composable: @Composable () -> Unit,
@@ -70,7 +115,7 @@ internal fun Paparazzi.sparkSnapshotDevices(
         unsafeUpdateConfig(
             deviceConfig = deviceConfig,
         )
-        sparkSnapshot(name.orEmpty() + "_${deviceConfig.screenWidth}", drawBackground, isDark, composable)
+        sparkSnapshot("${deviceConfig.screenWidth}", drawBackground, isDark, composable)
     }
 }
 
@@ -78,13 +123,53 @@ internal fun Paparazzi.sparkSnapshotDevices(
  * Generate 2 screenshots for each theme: light and dark
  */
 internal fun Paparazzi.sparkSnapshotNightMode(
-    name: String? = null,
     drawBackground: Boolean = true,
     composable: @Composable () -> Unit,
 ) {
+    var exception: Throwable? = null
     ThemeVariant.entries.forEach {
-        sparkSnapshot(name.orEmpty() + "_${it.name}", drawBackground, it == ThemeVariant.Dark, composable)
+        try {
+            sparkSnapshot(
+                name = it.name,
+                drawBackground = drawBackground,
+                isDark = it == ThemeVariant.Dark,
+                composable = composable,
+            )
+        } catch (e: Throwable) {
+            // Keep track of the last exception to rethrow after running all tests
+            exception = e
+        }
     }
+    exception?.let { throw it }
+}
+
+/**
+ * Generate 2 screenshots for high contrast themes: light and dark high contrast
+ */
+internal fun Paparazzi.sparkSnapshotHighContrast(
+    drawBackground: Boolean = true,
+    composable: @Composable () -> Unit,
+) {
+    var exception: Throwable? = null
+    HighContrastThemeVariant.entries.forEach {
+        try {
+            sparkSnapshotWithColors(
+                name = it.name,
+                drawBackground = drawBackground,
+                colors = when (it) {
+                    HighContrastThemeVariant.LightHighContrast -> lightHighContrastSparkColors()
+                    HighContrastThemeVariant.DarkHighContrast -> darkHighContrastSparkColors()
+                },
+                composable = composable,
+            )
+        } catch (e: Throwable) {
+            // Keep track of the last exception to rethrow after running all tests
+            exception = e
+        }
+    }
+    exception?.let { throw it }
 }
 
 enum class ThemeVariant { Light, Dark }
+
+enum class HighContrastThemeVariant { LightHighContrast, DarkHighContrast }

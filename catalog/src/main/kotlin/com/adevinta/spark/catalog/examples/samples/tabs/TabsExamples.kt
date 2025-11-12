@@ -35,11 +35,13 @@ import com.adevinta.spark.icons.AccountFill
 import com.adevinta.spark.icons.AlarmOnFill
 import com.adevinta.spark.icons.MessageOutline
 import com.adevinta.spark.icons.SparkIcons
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
-private const val TabsExampleDescription = "Tab examples"
 private const val TabsExampleSourceUrl = "$SampleSourceUrl/TabExamples.kt"
-public val TabsExamples: List<Example> = listOf(
+public val TabsExamples: ImmutableList<Example> = persistentListOf(
     Example(
+        id = "simple",
         name = "Simple tabs",
         description = "2 tabs displayed on screen",
         sourceUrl = TabsExampleSourceUrl,
@@ -47,6 +49,7 @@ public val TabsExamples: List<Example> = listOf(
         TabSimpleSample()
     },
     Example(
+        id = "badge",
         name = "Tabs with badge",
         description = "3 tabs and the middle one contains a badge",
         sourceUrl = TabsExampleSourceUrl,
@@ -54,6 +57,7 @@ public val TabsExamples: List<Example> = listOf(
         TabWithBadgeSample()
     },
     Example(
+        id = "scrollable",
         name = "Scrollable tabs",
         description = "Display 3 tabs with a long one that overflows to showcase the scrolling",
         sourceUrl = TabsExampleSourceUrl,
@@ -61,6 +65,7 @@ public val TabsExamples: List<Example> = listOf(
         ScrollableTabsSample()
     },
     Example(
+        id = "icon",
         name = "Icons tabs",
         description = "Tabs with no label, only icons",
         sourceUrl = TabsExampleSourceUrl,
@@ -158,22 +163,22 @@ private fun ScrollableTabsSample() {
 @Composable
 private fun IconsTabsSample() {
     val tabs = mutableListOf(
-        SparkIcons.AlarmOnFill to 0,
-        SparkIcons.MessageOutline to 1,
-        SparkIcons.AccountFill to 0,
+        Triple(SparkIcons.AlarmOnFill, 0, "notifications"),
+        Triple(SparkIcons.MessageOutline, 1, "messages"),
+        Triple(SparkIcons.AccountFill, 0, "compte"),
     )
     var selectedIndex by remember { mutableIntStateOf(0) }
     TabGroup(
         selectedTabIndex = selectedIndex,
     ) {
-        tabs.forEachIndexed { index, (tab, unread) ->
+        tabs.forEachIndexed { index, (tab, unread, contentDescription) ->
             Tab(
                 selected = selectedIndex == index,
                 onClick = { selectedIndex = index },
                 enabled = true,
                 icon = tab,
                 text = null,
-                contentDescription = "description",
+                contentDescription = contentDescription,
                 trailingContent = {
                     if (unread > 0) {
                         Badge(count = unread)

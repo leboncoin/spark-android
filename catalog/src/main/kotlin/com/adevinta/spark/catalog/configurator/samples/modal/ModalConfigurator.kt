@@ -65,6 +65,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 public val ModalConfigurator: Configurator = Configurator(
+    id = "modal",
     name = "Modal",
     description = "Modal configuration",
     sourceUrl = "$SampleSourceUrl/ModalSample.kt",

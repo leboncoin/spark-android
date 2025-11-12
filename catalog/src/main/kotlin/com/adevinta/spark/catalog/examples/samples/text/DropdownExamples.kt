@@ -51,8 +51,9 @@ private val DropdownStubData = persistentListOf(
     DropdownExampleGroup("Novelties", persistentListOf("A Picture of Dorian Gray", "1984", "Pride and Prejudice")),
 )
 
-public val DropdownsExamples: List<Example> = listOf(
+public val DropdownsExamples: ImmutableList<Example> = persistentListOf(
     Example(
+        id = "single-select",
         name = "Single selection",
         description = "Clicking the selected item does not unselect it",
         sourceUrl = DropdownsExampleSourceUrl,
@@ -60,6 +61,7 @@ public val DropdownsExamples: List<Example> = listOf(
         SingleSelectDropdown()
     },
     Example(
+        id = "multi-select",
         name = "Multi selection",
         description = "You have full control on how the menu behave when clicking an item to close it or not.",
         sourceUrl = DropdownsExampleSourceUrl,
@@ -67,6 +69,7 @@ public val DropdownsExamples: List<Example> = listOf(
         MultiSelectDropdown()
     },
     Example(
+        id = "custom-item",
         name = "Custom Item",
         description = "The Dropdown takes a slot for the menu content, you can use a different item than " +
             "DropdownItem if you need a different layout than the classic one.",

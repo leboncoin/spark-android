@@ -21,6 +21,8 @@
  */
 package com.adevinta.spark.catalog.configurator
 
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -31,7 +33,10 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -39,60 +44,87 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.catalog.CatalogHomeScreen
 import com.adevinta.spark.catalog.R
-import com.adevinta.spark.catalog.examples.component.ComponentItem
+import com.adevinta.spark.catalog.examples.component.ComponentConfiguratorItem
 import com.adevinta.spark.catalog.model.Component
+import com.adevinta.spark.catalog.themes.NavigationMode
+import com.adevinta.spark.catalog.ui.animations.LocalSharedTransitionScope
+import com.adevinta.spark.catalog.ui.navigation.ChangeSelectedNavControllerOnPageChange
+import com.adevinta.spark.catalog.ui.navigation.NavHostSpark
+import com.adevinta.spark.catalog.util.TrackScrollJank
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.Layout
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 public fun ConfiguratorComponentsScreen(
     modifier: Modifier = Modifier,
     components: List<Component>,
+    pagerState: PagerState,
     contentPadding: PaddingValues,
+    navigationMode: NavigationMode,
 ) {
-    val navController = rememberNavController()
+    SharedTransitionLayout {
+        val navController = rememberNavController()
 
-    NavHost(
-        modifier = modifier,
-        navController = navController,
-        startDestination = ConfiguratorRoute,
-        builder = {
-            navGraph(
+        ChangeSelectedNavControllerOnPageChange(
+            pagerState = pagerState,
+            catalogScreen = CatalogHomeScreen.Configurator,
+            navController = navController,
+        )
+        CompositionLocalProvider(LocalSharedTransitionScope provides this) {
+            NavHostSpark(
+                modifier = modifier,
                 navController = navController,
-                contentPadding = contentPadding,
-                components = components,
+                startDestination = ConfiguratorsList,
+                navigationMode = navigationMode,
+                builder = {
+                    configuratorsDestination(
+                        navController = navController,
+                        contentPadding = contentPadding,
+                        components = components,
+                    )
+                },
             )
-        },
-    )
+        }
+    }
 }
 
 @Composable
 internal fun ComponentsListScreen(
     components: List<Component>,
-    navController: NavController,
     contentPadding: PaddingValues,
+    onConfiguratorSelected: (componentId: String, configuratorId: String) -> Unit,
 ) {
     val configuratorsComponents by remember(components) {
-        mutableStateOf(components.filter { it.configurator != null })
+        mutableStateOf(components.filter { it.configurators.firstOrNull() != null })
     }
     val columns = Layout.columns / 2
+    val state = rememberLazyGridState()
+    TrackScrollJank(scrollableState = state, stateName = "configurator:component:grid")
+
     LazyVerticalGrid(
         modifier = Modifier
             .fillMaxSize()
             .consumeWindowInsets(contentPadding),
         columns = GridCells.Fixed(columns),
+        state = state,
+        verticalArrangement = Arrangement.spacedBy(Layout.gutter),
+        horizontalArrangement = Arrangement.spacedBy(Layout.gutter),
         contentPadding = PaddingValues(
-            start = Layout.bodyMargin / 2 + contentPadding.calculateLeftPadding(
-                LocalLayoutDirection.current,
-            ),
-            end = Layout.bodyMargin / 2 + contentPadding.calculateRightPadding(
-                LocalLayoutDirection.current,
-            ),
+            start = Layout.bodyMargin /
+                2 +
+                contentPadding.calculateLeftPadding(
+                    LocalLayoutDirection.current,
+                ),
+            end = Layout.bodyMargin /
+                2 +
+                contentPadding.calculateRightPadding(
+                    LocalLayoutDirection.current,
+                ),
             top = contentPadding.calculateTopPadding(),
             bottom = contentPadding.calculateBottomPadding(),
         ),
@@ -125,13 +157,13 @@ internal fun ComponentsListScreen(
             span = { GridItemSpan(1) },
             contentType = { ComponentsItemType.Component },
             itemContent = { component ->
-                ComponentItem(
+                val configuratorCount = component.configurators.size
+                ComponentConfiguratorItem(
                     component = component,
-                    showExampleCount = false,
-                    onClick = {
-                        val componentId = component.id
-                        val route = "$ConfiguratorRoute/$componentId"
-                        navController.navigate(route)
+                    countIndicator = configuratorCount,
+                    onClick = { selectedComponent, selectedConfigurator ->
+                        val componentId = selectedComponent.id
+                        onConfiguratorSelected(componentId, selectedConfigurator)
                     },
                 )
             },

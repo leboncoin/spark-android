@@ -10,13 +10,13 @@ runs:
   steps:
     - name: 'Archive JUnit HTML report'
       if: inputs.html != ''
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: junit-html
         path: ${{ inputs.html }}
     - name: 'Archive JUnit XML report'
       if: inputs.xml != ''
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: junit-xml
         path: ${{ inputs.xml }}

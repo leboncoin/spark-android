@@ -21,9 +21,9 @@
  */
 package com.adevinta.spark.catalog.datastore.theme
 
-import com.adevinta.spark.catalog.themes.BrandMode
 import com.adevinta.spark.catalog.themes.ColorMode
 import com.adevinta.spark.catalog.themes.FontScaleMode
+import com.adevinta.spark.catalog.themes.NavigationMode
 import com.adevinta.spark.catalog.themes.TextDirection
 import com.adevinta.spark.catalog.themes.ThemeMode
 import com.adevinta.spark.catalog.themes.UserMode
@@ -36,10 +36,10 @@ internal data class ThemeProperties(
     val userMode: UserMode,
     val themeMode: ThemeMode,
     val colorMode: ColorMode,
-    val brandMode: BrandMode,
     val fontScaleMode: FontScaleMode,
     val colorBlindNessType: ColorBlindNessType,
     val colorBlindNessSeverity: Float,
+    val navigationMode: NavigationMode,
     val textDirection: TextDirection,
     val highlightSparkComponents: Boolean,
     val highlightSparkTokens: Boolean,
@@ -49,12 +49,12 @@ internal data class ThemeProperties(
             fontScale = 1.0f,
             userMode = UserMode.Part,
             themeMode = ThemeMode.System,
-            brandMode = BrandMode.Leboncoin,
             colorMode = ColorMode.Baseline,
             textDirection = TextDirection.System,
             fontScaleMode = FontScaleMode.System,
             colorBlindNessType = ColorBlindNessType.None,
             colorBlindNessSeverity = 0.5f,
+            navigationMode = NavigationMode.Default,
             highlightSparkComponents = false,
             highlightSparkTokens = false,
         )

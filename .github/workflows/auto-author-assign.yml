@@ -2,6 +2,8 @@ name: '🫵 Auto Author Assign'
 on:
   pull_request:
     types: [ opened, reopened ]
+permissions:
+  pull-requests: write
 jobs:
   assign-author:
     if: ${{ !github.event.pull_request.head.repo.fork }}

@@ -35,13 +35,14 @@ import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.textfields.AddonScope
 import com.adevinta.spark.components.textfields.TextField
+import com.adevinta.spark.components.textfields.TextFieldCharacterCounter
 import com.adevinta.spark.components.textfields.TextFieldState
 import com.adevinta.spark.icons.Check
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshot
-import com.android.ide.common.rendering.api.SessionParams.RenderingMode.SHRINK
+import com.android.ide.common.rendering.api.SessionParams.RenderingMode.H_SCROLL
 import org.junit.Rule
 import org.junit.Test
 
@@ -54,7 +55,7 @@ internal class TextFieldScreenshot {
     @get:Rule
     val paparazzi = paparazziRule(
         deviceConfig = DefaultTestDevices.Tablet,
-        renderingMode = SHRINK,
+        renderingMode = H_SCROLL,
     )
 
     @OptIn(ExperimentalLayoutApi::class)
@@ -144,6 +145,85 @@ internal class TextFieldScreenshot {
                         )
                     }
                 }
+            }
+        }
+    }
+
+    @OptIn(ExperimentalLayoutApi::class)
+    @Test
+    fun helperMessage() {
+        paparazzi.sparkSnapshot {
+            FlowColumn(
+                modifier = Modifier.padding(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                // With no helper, status message or char counter
+                TextField(
+                    value = "value",
+                    onValueChange = {},
+                    label = "Label",
+                )
+                // With helper, but no status message or char counter
+                TextField(
+                    value = "value",
+                    onValueChange = {},
+                    label = "Label",
+                    helper = "helper",
+                )
+                // With helper, status message but no char counter
+                TextField(
+                    value = "value",
+                    onValueChange = {},
+                    label = "Label",
+                    helper = "helper",
+                    state = TextFieldState.Error,
+                    stateMessage = "state message",
+                )
+                // With helper, status message & char counter
+                TextField(
+                    value = "value",
+                    onValueChange = {},
+                    label = "Label",
+                    helper = "helper",
+                    state = TextFieldState.Error,
+                    stateMessage = "state message",
+                )
+                // With no helper, status message but with char counter
+                TextField(
+                    value = "value",
+                    onValueChange = {},
+                    label = "Label",
+                    counter = TextFieldCharacterCounter(10, 50),
+                )
+                // With helper, char counter but no status message
+                TextField(
+                    value = "value",
+                    onValueChange = {},
+                    label = "Label",
+                    helper = "helper",
+                    counter = TextFieldCharacterCounter(10, 50),
+                )
+                // With helper, status message but no char counter
+                TextField(
+                    value = "value",
+                    onValueChange = {},
+                    label = "Label",
+                    helper = "helper",
+                    state = TextFieldState.Error,
+                    stateMessage = "state message",
+                    counter = TextFieldCharacterCounter(10, 50),
+                )
+                // With helper, status message & char counter
+                TextField(
+                    value = "value",
+                    onValueChange = {},
+                    label = "Label",
+                    helper = "helper",
+                    state = TextFieldState.Error,
+                    stateMessage = "state message",
+                    counter = TextFieldCharacterCounter(10, 50),
+                )
             }
         }
     }

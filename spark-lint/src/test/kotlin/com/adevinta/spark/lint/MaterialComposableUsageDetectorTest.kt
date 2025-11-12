@@ -23,10 +23,10 @@ package com.adevinta.spark.lint
 
 import com.adevinta.spark.lint.MaterialComposableUsageDetector.Companion.ISSUE
 import com.adevinta.spark.lint.stubs.CoilComponentsStub
-import com.adevinta.spark.lint.stubs.Composable
+import com.adevinta.spark.lint.stubs.Composables
 import com.adevinta.spark.lint.stubs.FoundationStub
 import com.adevinta.spark.lint.stubs.MaterialComponentsStub
-import com.adevinta.spark.lint.stubs.SparkComponentsStub
+import com.adevinta.spark.lint.stubs.SparkComponentsStubs
 import com.android.tools.lint.checks.infrastructure.LintDetectorTest
 import com.android.tools.lint.detector.api.Detector
 import com.android.tools.lint.detector.api.Issue
@@ -75,57 +75,56 @@ public class MaterialComposableUsageDetectorTest : LintDetectorTest() {
             """,
             ),
             MaterialComponentsStub,
-            Composable,
+            *Composables,
         )
-            .allowMissingSdk()
             .run()
             .expect(
                 """
                 src/foo/test.kt:9: ${explanation("Button" to "ButtonFilled")}
                                     Button()
-                                    ~~~~~~~~
+                                    ~~~~~~
                 src/foo/test.kt:10: ${explanation("ElevatedButton" to "ButtonFilled")}
                                     ElevatedButton()
-                                    ~~~~~~~~~~~~~~~~
+                                    ~~~~~~~~~~~~~~
                 src/foo/test.kt:11: ${explanation("FilledTonalButton" to "ButtonTinted")}
                                     FilledTonalButton()
-                                    ~~~~~~~~~~~~~~~~~~~
+                                    ~~~~~~~~~~~~~~~~~
                 src/foo/test.kt:12: ${explanation("OutlinedButton" to "ButtonOutlined")}
                                     OutlinedButton()
-                                    ~~~~~~~~~~~~~~~~
+                                    ~~~~~~~~~~~~~~
                 src/foo/test.kt:13: ${explanation("TextButton" to "ButtonGhost")}
                                     TextButton()
-                                    ~~~~~~~~~~~~
+                                    ~~~~~~~~~~
                 src/foo/test.kt:14: ${explanation("OutlinedTextField" to "TextField")}
                                     OutlinedTextField()
-                                    ~~~~~~~~~~~~~~~~~~~
+                                    ~~~~~~~~~~~~~~~~~
                 src/foo/test.kt:15: ${explanation("FilledTextField" to "TextField")}
                                     FilledTextField()
-                                    ~~~~~~~~~~~~~~~~~
+                                    ~~~~~~~~~~~~~~~
                 src/foo/test.kt:16: ${explanation("CheckBox" to "CheckBox")}
                                     CheckBox()
-                                    ~~~~~~~~~~
+                                    ~~~~~~~~
                 src/foo/test.kt:17: ${explanation("TriStateCheckbox" to "CheckBox")}
                                     TriStateCheckbox()
-                                    ~~~~~~~~~~~~~~~~~~
+                                    ~~~~~~~~~~~~~~~~
                 src/foo/test.kt:18: ${explanation("RadioButton" to "RadioButton")}
                                     RadioButton()
-                                    ~~~~~~~~~~~~~
+                                    ~~~~~~~~~~~
                 src/foo/test.kt:19: ${explanation("Switch" to "Switch")}
                                     Switch()
-                                    ~~~~~~~~
+                                    ~~~~~~
                 src/foo/test.kt:20: ${explanation("Snackbar" to "Snackbar")}
                                     Snackbar()
-                                    ~~~~~~~~~~
+                                    ~~~~~~~~
                 src/foo/test.kt:21: ${explanation("LinearProgressIndicator" to "LinearProgressIndicator")}
                                     LinearProgressIndicator()
-                                    ~~~~~~~~~~~~~~~~~~~~~~~~~
+                                    ~~~~~~~~~~~~~~~~~~~~~~~
                 src/foo/test.kt:22: ${explanation("CircularProgressIndicator" to "CircularProgressIndicator")}
                                     CircularProgressIndicator()
-                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                    ~~~~~~~~~~~~~~~~~~~~~~~~~
                 src/foo/test.kt:23: ${explanation("MaterialTheme" to "SparkTheme")}
                                     MaterialTheme()
-                                    ~~~~~~~~~~~~~~~
+                                    ~~~~~~~~~~~~~
                 15 errors, 0 warnings
                 """.trimIndent(),
             )
@@ -222,16 +221,15 @@ public class MaterialComposableUsageDetectorTest : LintDetectorTest() {
                 }
             """,
             ),
-            Composable,
+            *Composables,
             FoundationStub,
         )
-            .allowMissingSdk()
             .run()
             .expect(
                 """
                 src/foo/test.kt:8: ${explanation("Image" to "Illustration")}
                                     Image()
-                                    ~~~~~~~
+                                    ~~~~~
                 1 errors, 0 warnings
                 """.trimIndent(),
             )
@@ -264,19 +262,18 @@ public class MaterialComposableUsageDetectorTest : LintDetectorTest() {
                 }
             """,
             ),
-            Composable,
+            *Composables,
             CoilComponentsStub,
         )
-            .allowMissingSdk()
             .run()
             .expect(
                 """
                 src/foo/test.kt:9: ${explanation("AsyncImage" to "Image")}
                                     AsyncImage()
-                                    ~~~~~~~~~~~~
+                                    ~~~~~~~~~~
                 src/foo/test.kt:10: ${explanation("SubcomposeAsyncImage" to "Image")}
                                     SubcomposeAsyncImage()
-                                    ~~~~~~~~~~~~~~~~~~~~~~
+                                    ~~~~~~~~~~~~~~~~~~~~
                 2 errors, 0 warnings
                 """.trimIndent(),
             )
@@ -306,6 +303,16 @@ public class MaterialComposableUsageDetectorTest : LintDetectorTest() {
                 package foo
                 import androidx.compose.runtime.*
                 import com.adevinta.spark.*
+                import com.adevinta.spark.components.buttons.*
+                import com.adevinta.spark.components.textfields.*
+                import com.adevinta.spark.components.toggles.*
+                import com.adevinta.spark.components.snackbars.*
+                import com.adevinta.spark.components.progress.*
+                import com.adevinta.spark.components.image.*
+                import com.adevinta.spark.components.icons.*
+                import com.adevinta.spark.components.divider.*
+                import com.adevinta.spark.components.text.*
+                import com.adevinta.spark.components.tags.*
 
                 @Composable
                 fun Test() {
@@ -315,21 +322,43 @@ public class MaterialComposableUsageDetectorTest : LintDetectorTest() {
                     ButtonGhost()
                     ButtonContrast()
                     TextField()
+                    DropDown()
                     MultilineTextField()
-                    SelectTextField()
+                    Combobox()
                     CheckBox()
                     RadioButton()
                     Switch()
+                    CheckboxLabelled()
+                    RadioButtonLabelled()
+                    SwitchLabelled()
+                    Snackbar()
+                    SnackbarHost()
                     SparkTheme()
                     LinearProgressIndicator()
-                    Snackbar()
+                    Image()
+                    Illustration()
+                    UserAvatar()
+                    Icon()
+                    IconButton()
+                    FilledIconButton()
+                    FilledTonalIconButton()
+                    OutlinedIconButton()
+                    IconToggleButton()
+                    FilledIconToggleButton()
+                    FilledTonalIconToggleButton()
+                    OutlinedIconToggleButton()
+                    HorizontalDivider()
+                    VerticalDivider()
+                    Text()
+                    TagFilled()
+                    TagOutlined()
+                    TagTinted()
                 }
-            """,
+                """.trimIndent(),
             ),
-            SparkComponentsStub,
-            Composable,
+            *Composables,
+            * SparkComponentsStubs,
         )
-            .allowMissingSdk()
             .run()
             .expectClean()
     }

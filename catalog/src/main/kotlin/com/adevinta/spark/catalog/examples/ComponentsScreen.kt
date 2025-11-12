@@ -19,11 +19,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+@file:OptIn(ExperimentalSharedTransitionApi::class)
+
 package com.adevinta.spark.catalog.examples
 
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -32,7 +35,10 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,61 +46,98 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.NavHost
+import androidx.navigation.NavDeepLink
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navDeepLink
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.catalog.AppBasePath
+import com.adevinta.spark.catalog.CatalogHomeScreen
 import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.examples.component.ComponentItem
 import com.adevinta.spark.catalog.model.Component
+import com.adevinta.spark.catalog.themes.NavigationMode
+import com.adevinta.spark.catalog.ui.animations.LocalSharedTransitionScope
+import com.adevinta.spark.catalog.ui.navigation.ChangeSelectedNavControllerOnPageChange
+import com.adevinta.spark.catalog.ui.navigation.NavHostSpark
+import com.adevinta.spark.catalog.util.TrackScrollJank
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.Layout
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.serialization.Serializable
 
+@Serializable
+public object ExamplesList
+
+internal val ExamplesList.deepLinks: List<NavDeepLink>
+    get() = listOf(
+        navDeepLink<ExamplesList>(basePath = "${AppBasePath}examples"),
+    )
+
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 public fun ComponentsScreen(
     modifier: Modifier = Modifier,
-    components: List<Component>,
+    components: ImmutableList<Component>,
+    pagerState: PagerState,
     contentPadding: PaddingValues,
+    navigationMode: NavigationMode,
 ) {
-    val navController = rememberNavController()
-
-    NavHost(
-        modifier = modifier,
-        navController = navController,
-        startDestination = ComponentRoute,
-        builder = {
-            navGraph(
+    SharedTransitionLayout {
+        val navController = rememberNavController()
+        ChangeSelectedNavControllerOnPageChange(
+            pagerState = pagerState,
+            catalogScreen = CatalogHomeScreen.Examples,
+            navController = navController,
+        )
+        CompositionLocalProvider(LocalSharedTransitionScope provides this) {
+            NavHostSpark(
+                modifier = modifier,
                 navController = navController,
-                contentPadding = contentPadding,
-                components = components,
+                startDestination = ExamplesList,
+                navigationMode = navigationMode,
+                builder = {
+                    examplesDestination(
+                        navController = navController,
+                        contentPadding = contentPadding,
+                        components = components,
+                    )
+                },
             )
-        },
-    )
+        }
+    }
 }
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun ComponentsListScreen(
-    components: List<Component>,
-    navController: NavController,
+    components: ImmutableList<Component>,
+    onExampleSectionClick: (String) -> Unit,
     contentPadding: PaddingValues,
 ) {
     val examplesComponents by remember(components) {
         mutableStateOf(components.filter { it.examples.isNotEmpty() })
     }
     val columns = Layout.columns / 2
+    val state = rememberLazyGridState()
+    TrackScrollJank(scrollableState = state, stateName = "example:component:grid")
     LazyVerticalGrid(
         modifier = Modifier
             .fillMaxSize()
             .consumeWindowInsets(contentPadding),
         columns = GridCells.Fixed(columns),
+        state = state,
+        verticalArrangement = Arrangement.spacedBy(Layout.gutter),
+        horizontalArrangement = Arrangement.spacedBy(Layout.gutter),
         contentPadding = PaddingValues(
-            start = Layout.bodyMargin / 2 + contentPadding.calculateLeftPadding(
-                LocalLayoutDirection.current,
-            ),
-            end = Layout.bodyMargin / 2 + contentPadding.calculateRightPadding(
-                LocalLayoutDirection.current,
-            ),
+            start = Layout.bodyMargin /
+                2 +
+                contentPadding.calculateLeftPadding(
+                    LocalLayoutDirection.current,
+                ),
+            end = Layout.bodyMargin /
+                2 +
+                contentPadding.calculateRightPadding(
+                    LocalLayoutDirection.current,
+                ),
             top = contentPadding.calculateTopPadding(),
             bottom = contentPadding.calculateBottomPadding(),
         ),
@@ -128,11 +171,11 @@ internal fun ComponentsListScreen(
             contentType = { ComponentsItemType.Component },
             itemContent = { component ->
                 ComponentItem(
+                    // modifier = Modifier.semantics { onClick("Aller aux exemples", null) },
                     component = component,
+                    countIndicator = component.examples.size,
                     onClick = {
-                        val componentId = component.id
-                        val route = "$ComponentRoute/$componentId"
-                        navController.navigate(route)
+                        onExampleSectionClick(component.id)
                     },
                 )
             },

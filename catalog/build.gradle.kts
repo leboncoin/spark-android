@@ -22,8 +22,8 @@
 import java.util.Properties
 
 plugins {
-    id("com.adevinta.spark.android-application")
-    id("com.adevinta.spark.android-compose")
+    alias(libs.plugins.spark.application)
+    alias(libs.plugins.spark.compose)
     id("kotlin-parcelize")
     alias(libs.plugins.kotlin.serialization)
 }
@@ -31,6 +31,9 @@ plugins {
 android {
     namespace = "com.adevinta.spark.catalog"
     defaultConfig.applicationId = "com.adevinta.spark.catalog"
+    defaultConfig.resourceConfigurations.addAll(
+        setOf("en-rGB", "fr"),
+    )
     defaultConfig {
         versionName = version.toString()
         if (providers.environmentVariable("GITHUB_ACTION").isPresent) {
@@ -40,11 +43,14 @@ android {
 
     compileOptions.isCoreLibraryDesugaringEnabled = true
 
-    kotlinOptions {
-        freeCompilerArgs += listOf(
-            "-opt-in=com.adevinta.spark.InternalSparkApi",
-            "-opt-in=com.adevinta.spark.ExperimentalSparkApi",
-        )
+    kotlin {
+        compilerOptions {
+            optIn.addAll(
+                "com.adevinta.spark.InternalSparkApi",
+                "com.adevinta.spark.ExperimentalSparkApi",
+            )
+            freeCompilerArgs.add("-Xannotation-default-target=param-property")
+        }
     }
 
     val keystore = rootProject.file("keystore.properties")
@@ -71,19 +77,22 @@ dependencies {
     implementation(libs.kotlin.reflect)
     implementation(libs.kotlinx.collections.immutable)
 
-    implementation(libs.accompanist.testharness)
     implementation(libs.accompanist.drawablepainter)
 
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.test)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material.iconsExtended)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.graphics.shapes)
+    implementation(libs.androidx.metrics)
 
     implementation(libs.androidx.activity)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appCompat)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.material.motion)
 
     implementation(libs.androidx.datastore)
     implementation(libs.kotlinx.serialization.json)

@@ -23,7 +23,7 @@ Dropdown is an interactive element that allows users to select an option from a 
 
 The minimal usage of the component is :
 
-- The value of your textfield
+- The value of your TextField
 - The callback when the user exit the dismiss the dropdown without selecting a value.
 - A value to indicate if the dropdown should be shown or not.
 - A value

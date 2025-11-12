@@ -34,7 +34,8 @@ import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.menu.DropdownMenuGroupItem
 import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.components.textfields.Dropdown
+import com.adevinta.spark.components.textfields.MultiChoiceDropdown
+import com.adevinta.spark.components.textfields.SingleChoiceDropdown
 import com.adevinta.spark.icons.FlashlightFill
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.ValidFill
@@ -62,7 +63,7 @@ internal class DropdownScreenshot {
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                Dropdown(
+                SingleChoiceDropdown(
                     value = stubBody,
                     enabled = true,
                     onExpandedChange = {},
@@ -72,9 +73,10 @@ internal class DropdownScreenshot {
                     DropdownMenuItem(
                         text = { Text("book") },
                         onClick = { },
+                        selected = false,
                     )
                 }
-                Dropdown(
+                MultiChoiceDropdown(
                     value = stubShortBody,
                     enabled = true,
                     onExpandedChange = {},
@@ -83,7 +85,8 @@ internal class DropdownScreenshot {
                 ) {
                     DropdownMenuItem(
                         text = { Text("book") },
-                        onClick = { },
+                        onCheckedChange = { },
+                        checked = false,
                     )
                 }
             }
@@ -124,6 +127,7 @@ internal class DropdownScreenshot {
         }
     }
 
+    @Suppress("DEPRECATION") // Just for test we ant to show them
     @Composable
     private fun DropdownMenuItems(
         enabled: Boolean = true,

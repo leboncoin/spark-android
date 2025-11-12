@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  Copyright (c) 2025 Adevinta
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+  -->
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="fr">
+    <string name="app_name">Spark</string>
+
+    <string name="pro">Utiliser le thème Pro</string>
+
+    <string name="example_tokens_elevation_label">Valeur d’élévation : %d</string>
+    <string name="themepicker_navigation_label">Animation de la navigation</string>
+
+    <string name="description">Description</string>
+    <string name="examples">Exemples</string>
+    <string name="no_examples">Pas d’exemples</string>
+
+    <string name="theme_picker_mode_title">Mode</string>
+    <string name="theme_picker_theme_title" description="Thème de marque Spark. [CHAR_LIMIT=NONE]">Thème</string>
+    <string name="theme_picker_text_direction_title" description="Simuler la direction du texte du système en LTR ou RTL. [CHAR_LIMIT=NONE]">Sens du texte</string>
+    <string name="theme_picker_font_scale_title" description="Simuler la mise à l'échelle de la police a11y. [CHAR_LIMIT=NONE]">Échelle de la police</string>
+    <string name="examples_component_screen_title">Exemples de composants</string>
+    <string name="examples_component_screen_description">Voici les exemples que l’on peut trouver dans les échantillons de la javadoc ou dans les fichiers README.md. Ils montrent l’utilisation des composants avec les paramètres par défaut dans différents scénarios qui devraient représenter des cas d’utilisation réels.</string>
+    <string name="component_button_description">Les boutons aident les utilisateurs à exécuter des actions, comme envoyer un e-mail, partager un document ou aimer une publication.</string>
+    <!--region Toggle-->
+    <string name="component_combobox_description">Est une liste déroulante avec un filtre de saisie ou une saisie pouvant afficher des suggestions.</string>
+    <string name="component_toggle_vertical_group_title">Groupe de checkbox vertical</string>
+    <string name="component_toggle_horizontal_group_title">Regroupement de bascules avec alignement horizontal</string>
+    <string name="configurator_component_checkbox_toggleable_state_label">État de coche</string>
+    <string name="configurator_component_toggle_placeholder_label">Titre de la case</string>
+    <!--endregion-->
+    <!--region Checkbox-->
+    <string name="component_checkbox_description">Les cases à cocher sont utilisées lorsqu’il y a plusieurs éléments à sélectionner dans une liste. Les utilisateurs peuvent sélectionner zéro, un ou plusieurs éléments.</string>
+    <string name="component_checkbox_content_side_example_label">Ceci est un exemple de texte multiligne qui est très long et dans lequel l’utilisateur doit lire toutes les informations.</string>
+    <string name="component_checkbox_group_example_group_label">Notifications et e-mails</string>
+    <string name="component_checkbox_group_example_option1_label">Notifications</string>
+    <string name="component_checkbox_group_example_option2_label">E-mail</string>
+    <!--endregion-->
+    <!--Chips example-->
+    <string name="component_chips_description">Les chips aident les utilisateurs à reconnaître rapidement une information importante qu’ils ont saisie, à déclencher des actions, à faire des sélections ou à filtrer du contenu.</string>
+    <!--endregion-->
+
+    <string name="component_dialog_description">Une boîte de dialogue est une fenêtre modale (qui survol l\'affichage principal) qui apparaît devant le contenu pour fournir des informations essentielles ou demander une décision.</string>
+    <!--Dropdowns example-->
+    <string name="component_dropdowns_description">Une liste déroulante est un élément interactif qui permet aux utilisateurs de sélectionner une option dans une liste de choix présentée dans un menu pliable. Elle permet de gagner de la place sur l’interface en masquant les options jusqu’à ce que l’utilisateur interagisse avec le composant.</string>
+    <!--endregion-->
+
+    <string name="component_tab_description">Les onglets sont utilisés pour regrouper des contenus différents mais connexes, ce qui permet aux utilisateurs de naviguer dans les vues sans quitter la page. Ils contiennent toujours au moins deux éléments et un seul onglet est actif à la fois.</string>
+    <string name="component_textfield_description">Le composant champ de saisie / champ de texte permet aux utilisateurs d’écrire dans l’espace prévu à cet effet.</string>
+    <string name="component_tokens_description">Les tokens/jetons sont la base de ce système de design et permettent à chaque marque de choisir ses couleurs, formes, typos et icônes.</string>
+    <string name="component_popovers_description">Fournit un message descriptif ou une information pour un élément d’ancrage.</string>
+    <string name="component_bottomsheets_description">Une Bottom sheet est un composant d’interface utilisateur couramment utilisé dans les applications mobiles pour présenter du contenu ou des options supplémentaires à partir du bas de l’écran.</string>
+    <!--region Icon button-->
+    <string name="component_iconbutton_description">Les icône boutons aident les utilisateurs à effectuer des actions supplémentaires d’un simple toucher. Elles sont utilisées lorsqu’un bouton compact est nécessaire, par exemple dans une barre d’outils ou une liste d’images.</string>
+    <!--endregion-->
+    <!--region Icon Toggle button-->
+    <string name="component_icontogglebutton_description">Les icône boutons à selectionner aident les utilisateurs à effectuer des actions de selection supplémentaires d’un simple toucher. Ils sont utilisés lorsqu’un bouton compact est nécessaire, par exemple dans une barre d’outils ou une liste d’images.</string>
+    <!--endregion-->
+    <!--region image -->
+    <string name="component_image_description">Le composant Image est utilisé pour afficher des images avec une prise en charge de d\'image ou icône de secours en cas de problème de chargment.</string>
+    <string name="component_image_narrow_description">Photographie de rue d’une personne marchant dans une ruelle pavée après la pluie avec des lumières blanches/dorées brillantes sur le côté et la couleur bleue foncée au centre avec un parapluie</string>
+    <string name="component_image_wide_description">Un immense portrait de la statue grandeur nature de l’Unicorn Gundam à l’Odaiba’s DiverCity Tokyo Plaza.</string>
+    <string name="component_image_content_scale_crop_description">Mettre l’image à l’échelle pour remplir à 100 % les limites du composant Image, mais sans modifier son rapport</string>
+    <string name="component_image_content_scale_fit_description">Mettre à l’échelle pour s’assurer que l’image n’est pas rognée et que les limites du composant d’image sont remplies dans au moins une direction</string>
+    <string name="component_image_content_scale_fill_height_description">Mettre l’image à l’échelle pour remplir la hauteur de ses limites tout en conservant son rapport hauteur/largeur, mais peut remplir ou non la largeur en rognant</string>
+    <string name="component_image_content_scale_fill_width_description">Mettre l’image à l’échelle pour remplir la largeur de ses limites tout en conservant son rapport hauteur/largeur, mais peut remplir ou non la hauteur en rognant</string>
+    <string name="component_image_content_scale_inside_description">Identique à <b>Ajuster</b>, sauf qu’elle ne la met à l’échelle que si elle est plus grande que le composant image, sinon elle restera <i>plus petite</i> que les limites</string>
+    <string name="component_image_content_scale_none_description">Pas de mise à l’échelle, l’image reste à sa taille d’origine</string>
+    <string name="component_image_content_scale_fill_bounds_description">Étirer l’image pour remplir 100 % des limites du composant d’image</string>
+    <!--endregion-->
+    <!--region Radio button-->
+    <string name="component_radiobutton_description">Composant utilisé lorsqu’un seul choix peut être sélectionné dans une série d’options.</string>
+    <!--endregion-->
+    <!--region rating-->
+    <string name="component_ratingdisplay_description">Les évaluations / notes permettent aux utilisateurs de voir et/ou de définir une note en étoiles pour un utilisateur ou une expérience.</string>
+    <!--endregion-->
+    <!--region Switch-->
+    <string name="component_switch_description">Le composant Switch permet à l’utilisateur d’activer ou de désactiver l’état d’un élément ou d’un concept. Il est également utilisé pour contrôler les options binaires (Activé/Désactivé ou Vrai/Faux).</string>
+
+    <!--endregion-->
+    <!--region Stepper-->
+    <string name="component_stepper_description">Le Stepper permet aux utilisateurs de spécifier rapidement une valeur dans une plage donnée.</string>
+
+    <!--endregion-->
+    <string name="component_progressbar_description">Le composant barre de progression est utilisé pour afficher la longueur et votre progression à l’intérieur du processus ou pour exprimer un temps d’attente. Ce temps d’attente peut être déterminé ou indéterminé.</string>
+    <string name="component_tag_description">Les tags/étiquettes sont utilisées pour étiqueter le contenu et aider les utilisateurs à reconnaître rapidement des informations les concernant : Catégories, État… Peuvent être appliquées avec différentes couleurs et différents designs qui sont associés à un contenu en raison de ses caractéristiques : nouveau contenu, contenu non visité, contenu en vedette… Les utilisateurs ne peuvent pas interagir avec les étiquettes.</string>
+
+    <!--region Progress Tracker-->
+    <string name="component_progresstracker_description">Un composant de suivi de la progression est un élément de navigation visuelle généralement utilisé pour afficher la progression ou guider l’utilisateur à travers un processus à plusieurs étapes.</string>
+    <!--endregion-->
+
+    <string name="component_textlink_description">Un lien textuelle est une référence à une ressource. Elle peut être externe (par exemple, une autre page Web) ou interne (par exemple, un élément spécifique de la page actuelle).</string>
+
+    <string name="component_slider_description">Un slider/curseur est un composant interactif qui permet aux utilisateurs de définir des valeurs en déplaçant une poignée dans une plage définie.</string>
+    <string name="component_animation_description">Les animations fournissent un retour visuel et améliorent l’expérience utilisateur par le mouvement. L’animation de pulsation crée un effet pulsant qui attire l’attention sur les éléments interactifs.</string>
+    <string name="component_badge_description">Les badges sont des indicateurs visuels pour les valeurs numériques telles que les totaux et les scores, ou pour mettre en évidence les informations de statut.</string>
+    <string name="component_placeholder_description">Les squelettes fournissent un retour visuel pendant les états de chargement, affichant une interface utilisateur qui imite la structure du contenu réel évitant les sauts de pages une fois les élements chargés</string>
+
+    <string name="configurator_component_screen_title">Configurations des composants</string>
+    <string name="configurator_component_screen_description">Le configurateur permet de visualiser un composant dans tous les états possibles disponibles en personnalisant chaque propriété pour chaque composant.</string>
+    <string name="configurator_component_screen_enabled_label">Activé</string>
+    <string name="configurator_component_screen_rounded_label">Coins arrondis</string>
+    <string name="configurator_component_screen_textfield_label">Titre</string>
+    <string name="configurator_component_screen_intent_label">Intention</string>
+
+    <string name="component_menu_guidlines">Voir les directives de conception</string>
+    <string name="component_menu_dev_docs">Voir la documentation pour développeur</string>
+    <string name="component_menu_source">Voir le code source</string>
+    <string name="component_menu_issue">Signaler un problème</string>
+
+    <string name="icons_screen_search_helper">Rechercher une icône Spark</string>
+    <string name="icon_picker_title">Sélectionner une icône</string>
+    <string name="icon_picker_clear">Effacer</string>
+    <string name="icon_picker_no_icon_selected">Aucune icône sélectionnée</string>
+
+    <string name="spark_text_link_paragraph_example_"><annotation color="neutral" typography="body1">Ceci est la </annotation><annotation color="main" typography="body1"><u><b>Politique de confidentialité</b></u></annotation><annotation color="neutral" typography="body1">d’Adevinta ainsi que de nombreuses informations supplémentaires qui pourraient vous intéresser ou dont je devrais vous informer et que vous ignorez peut-être</annotation></string>
+
+    <string name="spark_text_link_short_example_"><annotation color="neutral" typography="display2">Apprendre la programmation Kotlin </annotation><annotation color="success" typography="display3"><u><b>https://kotlinlang.org</b></u></annotation></string>
+
+    <!--region Divider-->
+    <string name="component_divider_description">Le composant Divider/Séparateur fournit une ligne fine et discrète qui sépare et distingue les sections de contenu afin de renforcer la hiérarchie visuelle.\\u2028Voici quelques utilisations courantes:\nSéparer les sections sur une page.\nSéparer les éléments d’une liste.\nCréer un contraste visuel entre les deux côtés d’une page.</string>
+    <!--endregion-->
+
+    <string name="component_snackbar_description">Un composant snackbar/barre de notification est une brève notification non intrusive qui apparaît en bas d’un écran, fournissant un retour d’information ou des informations concises sur les actions de l’utilisateur.</string>
+    <string name="icons_item_long_click_a11y">Copier dans le presse-papier</string>
+    <string name="icons_item_click_a11y">Accéder aux détails</string>
+    <string name="icons_filter_icon_animated">Icône animée</string>
+    <string name="icons_filter_icon">Icône</string>
+    <string name="combobox_example_no_books_found_label">Aucun livre trouvé</string>
+
+</resources>

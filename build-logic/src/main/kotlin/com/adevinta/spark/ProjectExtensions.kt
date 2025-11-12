@@ -36,8 +36,8 @@ import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinBaseExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
-import org.jetbrains.kotlin.gradle.dsl.KotlinTopLevelExtension
 
 internal val Project.isAndroidApplication: Boolean get() = pluginManager.hasPlugin("com.android.application")
 internal val Project.isAndroidLibrary: Boolean get() = pluginManager.hasPlugin("com.android.library")
@@ -82,7 +82,7 @@ internal fun Project.getVersionsCatalog(): VersionCatalog = runCatching {
     throw IllegalStateException("No versions catalog found!", it)
 }.getOrThrow()
 
-internal inline fun <reified T : KotlinTopLevelExtension> Project.configureKotlin(
+internal inline fun <reified T : KotlinBaseExtension> Project.configureKotlin(
     crossinline configure: T.() -> Unit = {},
 ) {
     configure<JavaPluginExtension> {

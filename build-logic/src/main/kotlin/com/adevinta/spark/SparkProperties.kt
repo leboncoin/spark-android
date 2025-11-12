@@ -42,12 +42,10 @@ internal class SparkProperties private constructor(project: Project) {
 
 @Suppress("HasPlatformType", "PropertyName")
 internal class SparkVersions(catalog: VersionCatalog) {
-    val `androidx-compose-compiler` by catalog
     val `targetSdk` by catalog
     val `minCompileSdk` by catalog
     val `compileSdk` by catalog
     val `kotlin` by catalog
-    val `ktlint` by catalog
 
     private operator fun VersionCatalog.getValue(
         thisRef: Any?,
@@ -62,6 +60,7 @@ internal class SparkLibraries(catalog: VersionCatalog) {
     val `androidx-compose-bom` by catalog
     val `dokka-android-documentation-plugin` by catalog
     val `kotlin-bom` by catalog
+    val `ktlint-bom` by catalog
 
     private operator fun VersionCatalog.getValue(
         thisRef: Any?,

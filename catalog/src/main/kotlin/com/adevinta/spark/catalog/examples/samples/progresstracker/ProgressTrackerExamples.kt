@@ -28,6 +28,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -37,16 +38,17 @@ import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.progress.tracker.ProgressSizes
 import com.adevinta.spark.components.progress.tracker.ProgressStep
-import com.adevinta.spark.components.progress.tracker.ProgressStyles
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerColumn
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerIntent
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerRow
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
 private const val ProgressTrackerExampleSourceUrl = "$SampleSourceUrl/ProgressTrackerSamples.kt"
 
-public val ProgressTrackerExamples: List<Example> = listOf(
+public val ProgressTrackerExamples: ImmutableList<Example> = persistentListOf(
     Example(
+        id = "default",
         name = "Default",
         description = "Step indicator content defaults to step index, or checkmark icon when completed.",
         sourceUrl = ProgressTrackerExampleSourceUrl,
@@ -54,6 +56,7 @@ public val ProgressTrackerExamples: List<Example> = listOf(
         ProgressTrackerDefault()
     },
     Example(
+        id = "controlled",
         name = "Controlled",
         description = "Use `onStepClick` param to control component's state.",
         sourceUrl = ProgressTrackerExampleSourceUrl,
@@ -61,6 +64,7 @@ public val ProgressTrackerExamples: List<Example> = listOf(
         ProgressTrackerControlled()
     },
     Example(
+        id = "disabled",
         name = "Disabled",
         description = "Use `enabled` param on a `Step` to disable it.",
         sourceUrl = ProgressTrackerExampleSourceUrl,
@@ -68,6 +72,7 @@ public val ProgressTrackerExamples: List<Example> = listOf(
         ProgressTrackerDisabled()
     },
     Example(
+        id = "sizes",
         name = "Sizes",
         description = "Use `size` param to set the size of the progress indicators. Only the large one is clickable.",
         sourceUrl = ProgressTrackerExampleSourceUrl,
@@ -75,18 +80,12 @@ public val ProgressTrackerExamples: List<Example> = listOf(
         ProgressTrackerSizes()
     },
     Example(
+        id = "intent",
         name = "Intent",
         description = "Use `intent` param to set the color of the progress indicators.",
         sourceUrl = ProgressTrackerExampleSourceUrl,
     ) {
         ProgressTrackerColors()
-    },
-    Example(
-        name = "Styles",
-        description = "Use `style` param to set the look and feel.",
-        sourceUrl = ProgressTrackerExampleSourceUrl,
-    ) {
-        ProgressTrackerStyles()
     },
 )
 
@@ -146,7 +145,7 @@ private fun ColumnScope.ProgressTrackerDefault() {
 @Composable
 @Preview
 private fun ColumnScope.ProgressTrackerControlled() {
-    var selectedStep by remember { mutableIntStateOf(0) }
+    var selectedStep: Int? by remember { mutableStateOf(0) }
     val items = persistentListOf(
         ProgressStep("Lorem ipsume", true),
         ProgressStep("Lorem ipsume dolar sit amet", true),
@@ -184,7 +183,7 @@ private fun ColumnScope.ProgressTrackerControlled() {
 @Composable
 @Preview
 private fun ColumnScope.ProgressTrackerDisabled() {
-    var selectedStep by remember { mutableIntStateOf(0) }
+    var selectedStep: Int? by remember { mutableStateOf(0) }
     val items = persistentListOf(
         ProgressStep("Lorem ipsume", true),
         ProgressStep("Lorem ipsume dolar sit amet", false),
@@ -278,37 +277,6 @@ private fun ColumnScope.ProgressTrackerColors() {
                     ProgressStep("Step 3", false),
                 ),
                 intent = intent,
-                selectedStep = selectedStep,
-            )
-        }
-    }
-}
-
-@Composable
-@Preview
-private fun ColumnScope.ProgressTrackerStyles() {
-    val selectedStep by remember { mutableIntStateOf(1) }
-    val items = persistentListOf(
-        ProgressStep("label1", true),
-        ProgressStep("label2", true),
-        ProgressStep("label3", false),
-    )
-    for (style in ProgressStyles.entries) {
-        ProgressTrackerRow(
-            items = items,
-            style = style,
-            selectedStep = selectedStep,
-        )
-    }
-    Row {
-        for (style in ProgressStyles.entries) {
-            ProgressTrackerColumn(
-                items = persistentListOf(
-                    ProgressStep("Step 1", true),
-                    ProgressStep("Step 2", true),
-                    ProgressStep("Step 3", false),
-                ),
-                style = style,
                 selectedStep = selectedStep,
             )
         }

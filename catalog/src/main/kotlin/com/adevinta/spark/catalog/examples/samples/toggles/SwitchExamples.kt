@@ -42,11 +42,14 @@ import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.icons.AlarmOffFill
 import com.adevinta.spark.icons.AlarmOnFill
 import com.adevinta.spark.icons.SparkIcons
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 private const val SwitchExampleDescription = "Switch examples"
 private const val SwitchExampleSourceUrl = "$SampleSourceUrl/SwitchSamples.kt"
-public val SwitchExamples: List<Example> = listOf(
+public val SwitchExamples: ImmutableList<Example> = persistentListOf(
     Example(
+        id = "standalone",
         name = "Standalone switch",
         description = SwitchExampleDescription,
         sourceUrl = SwitchExampleSourceUrl,
@@ -74,6 +77,7 @@ public val SwitchExamples: List<Example> = listOf(
         }
     },
     Example(
+        id = "labeled",
         name = "Labeled switch content side End",
         description = SwitchExampleDescription,
         sourceUrl = SwitchExampleSourceUrl,
@@ -81,6 +85,7 @@ public val SwitchExamples: List<Example> = listOf(
         LabeledSwitchGroupExample(ContentSide.End)
     },
     Example(
+        id = "labeled-start",
         name = "Labeled switch content side Start",
         description = SwitchExampleDescription,
         sourceUrl = SwitchExampleSourceUrl,
@@ -106,7 +111,6 @@ private fun LabeledSwitchGroupExample(
                 modifier = Modifier.fillMaxWidth(),
                 enabled = true,
                 checked = checked,
-                contentSide = contentSide,
                 onCheckedChange = { checked = !checked },
             ) {
                 Text(

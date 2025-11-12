@@ -52,6 +52,7 @@ import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.highlight
 
 public val TextFieldsConfigurator: Configurator = Configurator(
+    id = "textfield",
     name = "TextFields",
     description = "TextFields configuration",
     sourceUrl = "$SampleSourceUrl/ButtonSamples.kt",

@@ -32,7 +32,7 @@ internal class SparkSpotlessPlugin : Plugin<Project> {
         with(target) {
             apply(plugin = "com.diffplug.spotless")
 
-            val ktlint = spark().versions.ktlint
+            val ktlint = spark().libraries.`ktlint-bom`.get().version
             configure<SpotlessExtension> {
                 val licenseHeader = rootProject.file("spotless/spotless.kt")
                 format("misc") {

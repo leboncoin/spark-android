@@ -36,7 +36,7 @@ import androidx.compose.material3.LocalUseFallbackRippleImplementation
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.RippleConfiguration
-import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ProvidableCompositionLocal
@@ -63,7 +63,6 @@ import com.adevinta.spark.tokens.SparkTypography
 import com.adevinta.spark.tokens.asMaterial3Colors
 import com.adevinta.spark.tokens.asMaterial3Shapes
 import com.adevinta.spark.tokens.asMaterial3Typography
-import com.adevinta.spark.tokens.calculateWindowSizeClass
 import com.adevinta.spark.tokens.darkSparkColors
 import com.adevinta.spark.tokens.debugColors
 import com.adevinta.spark.tokens.lightSparkColors
@@ -73,6 +72,9 @@ import com.adevinta.spark.tokens.sparkShapes
 import com.adevinta.spark.tokens.sparkTypography
 import com.adevinta.spark.tokens.updateColorsFrom
 import com.adevinta.spark.tokens.updateFontFamily
+import com.adevinta.spark.tools.DefaultSparkExceptionHandler
+import com.adevinta.spark.tools.NoOpSparkExceptionHandler
+import com.adevinta.spark.tools.SparkExceptionHandler
 
 /**
  * **Spark Theming** refers to the customization of your Spark Design app to better reflect your
@@ -92,12 +94,11 @@ import com.adevinta.spark.tokens.updateFontFamily
  * @param typography A set of text styles to be used as this hierarchy's typography system.
  * @param shapes A set of corner shapes to be used as this hierarchy's shape system.
  * @param fontFamily the font family to be applied on [typography].
- * @param useSparkTokensHighlighter flag that use for typography, colors and shapes exaggerated values to find
- * which part of a screen is themed or not.
- * @param useSparkComponentsHighlighter flag to highlight the spark components with an overlay to recognize
- * which component is from spark or not.
+ * @param sparkFeatureFlag flags that activate debugging features from Spark or features hidden to consumers.
+ * @param exceptionHandler An instance of [SparkExceptionHandler] for handling logs within Spark components.
+ * Defaults to [DefaultSparkExceptionHandler].
  */
-@OptIn(ExperimentalMaterial3WindowSizeClassApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 public fun SparkTheme(
     // We don't want to automatically support dark theme in the app but still want it in the previews
@@ -108,6 +109,11 @@ public fun SparkTheme(
     fontFamily: SparkFontFamily = sparkFontFamily(
         useSparkTokensHighlighter = sparkFeatureFlag.useSparkTokensHighlighter,
     ),
+    exceptionHandler: SparkExceptionHandler = if (LocalInspectionMode.current) {
+        NoOpSparkExceptionHandler
+    } else {
+        DefaultSparkExceptionHandler
+    },
     content: @Composable () -> Unit,
 ) {
     val internalColors = if (sparkFeatureFlag.useSparkTokensHighlighter) debugColors() else colors
@@ -140,7 +146,8 @@ public fun SparkTheme(
         LocalSparkTypography provides typo,
         LocalSparkShapes provides internalShapes,
         LocalSparkFeatureFlag provides sparkFeatureFlag,
-        LocalWindowSizeClass provides calculateWindowSizeClass(),
+        LocalSparkExceptionHandler provides exceptionHandler,
+        LocalWindowSizeClass provides currentWindowAdaptiveInfo().windowSizeClass,
         LocalUseFallbackRippleImplementation provides false,
         LocalIndication provides rippleIndication,
     ) {
@@ -261,7 +268,21 @@ public object SparkTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalSparkShapes.current
+
+    /**
+     * Retrieves the current [SparkFeatureFlag] at the call site's position in the hierarchy.
+     */
+    public val featureFlag: SparkFeatureFlag
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalSparkFeatureFlag.current
 }
+
+/** CompositionLocal used to pass [SparkExceptionHandler] down the tree to enable control on some crashable
+ * behaviors at consumers
+ */
+public val LocalSparkExceptionHandler: ProvidableCompositionLocal<SparkExceptionHandler> =
+    staticCompositionLocalOf { error("SparkExceptionHandler not provided") }
 
 internal val LocalSparkFeatureFlag: ProvidableCompositionLocal<SparkFeatureFlag> = staticCompositionLocalOf {
     error("SparkFeatureFlag not provided")
@@ -274,11 +295,10 @@ internal val LocalSparkFeatureFlag: ProvidableCompositionLocal<SparkFeatureFlag>
  * makes the text in cursive, colors in red/green/blue and shapes in full cut corners.
  * @property useSparkComponentsHighlighter Highlight visually with an overlay where the spark components are used
  * or not. Setting it to true show an overlay on spark components.
- * @property useLegacyStyle Makes the components use the legacy style from the previous DS to make it easier for the
- * Leboncoin teams to migrate their screens to spark.
+ * @property isContainingActivityEdgeToEdge
  */
 public data class SparkFeatureFlag(
     val useSparkTokensHighlighter: Boolean = false,
     val useSparkComponentsHighlighter: Boolean = false,
-    val useLegacyStyle: Boolean = false,
+    val isContainingActivityEdgeToEdge: Boolean = false,
 )

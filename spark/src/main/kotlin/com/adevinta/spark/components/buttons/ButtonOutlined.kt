@@ -73,6 +73,7 @@ public fun ButtonOutlined(
     iconSide: IconSide = IconSide.START,
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    atEnd: Boolean = false,
     content: @Composable RowScope.() -> Unit,
 ) {
     val contentColor by animateColorAsState(
@@ -98,6 +99,7 @@ public fun ButtonOutlined(
         iconSide = iconSide,
         isLoading = isLoading,
         interactionSource = interactionSource,
+        atEnd = atEnd,
         content = content,
     )
 }
@@ -135,6 +137,7 @@ public fun ButtonOutlined(
     iconSide: IconSide = IconSide.START,
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    atEnd: Boolean = false,
 ) {
     val contentColor by animateColorAsState(
         targetValue = intent.colors().color,
@@ -160,6 +163,7 @@ public fun ButtonOutlined(
         iconSide = iconSide,
         isLoading = isLoading,
         interactionSource = interactionSource,
+        atEnd = atEnd,
     )
 }
 
@@ -196,6 +200,7 @@ public fun ButtonOutlined(
     iconSide: IconSide = IconSide.START,
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    atEnd: Boolean = false,
 ) {
     val contentColor by animateColorAsState(
         targetValue = intent.colors().onColor,
@@ -217,6 +222,7 @@ public fun ButtonOutlined(
         iconSide = iconSide,
         isLoading = isLoading,
         interactionSource = interactionSource,
+        atEnd = atEnd,
     )
 }
 

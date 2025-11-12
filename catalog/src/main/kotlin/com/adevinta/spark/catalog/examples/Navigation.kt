@@ -21,70 +21,101 @@
  */
 package com.adevinta.spark.catalog.examples
 
+import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
+import androidx.navigation.toRoute
+import com.adevinta.spark.catalog.AppBasePath
 import com.adevinta.spark.catalog.examples.component.Component
 import com.adevinta.spark.catalog.examples.example.Example
 import com.adevinta.spark.catalog.model.Component
+import com.adevinta.spark.catalog.ui.animations.LocalAnimatedVisibilityScope
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.serialization.Serializable
 
-internal fun NavGraphBuilder.navGraph(
-    navController: NavHostController,
-    components: List<Component>,
-    contentPadding: PaddingValues,
-) {
-    composable(route = ComponentRoute) {
-        ComponentsListScreen(
-            components = components,
-            navController = navController,
-            contentPadding = contentPadding,
-        )
-    }
-
-    composable(
-        route = "$ComponentRoute/" +
-            "{$ComponentIdArgName}",
-        arguments = listOf(
-            navArgument(ComponentIdArgName) { type = NavType.IntType },
-        ),
-    ) { navBackStackEntry ->
-        val arguments = requireNotNull(navBackStackEntry.arguments) { "No arguments" }
-        val componentId = arguments.getInt(ComponentIdArgName)
-        val component = components.first { component -> component.id == componentId }
-        Component(
-            component = component,
-            contentPadding = contentPadding,
-            onExampleClick = { example ->
-                val exampleIndex = component.examples.indexOf(example)
-                val route = "$ExampleRoute/$componentId/$exampleIndex"
-                navController.navigate(route)
-            },
-        )
-    }
-    composable(
-        route = "$ExampleRoute/" +
-            "{$ComponentIdArgName}/" +
-            "{$ExampleIndexArgName}",
-        arguments = listOf(
-            navArgument(ComponentIdArgName) { type = NavType.IntType },
-            navArgument(ExampleIndexArgName) { type = NavType.IntType },
-        ),
-    ) { navBackStackEntry ->
-        val arguments = requireNotNull(navBackStackEntry.arguments) { "No arguments" }
-        val componentId = arguments.getInt(ComponentIdArgName)
-        val exampleIndex = arguments.getInt(ExampleIndexArgName)
-        val component = components.first { component -> component.id == componentId }
-        val example = component.examples[exampleIndex]
-        Example(
-            example = example,
+@Serializable
+internal data class ExampleSection(val componentId: String) {
+    companion object {
+        val deepLinks = listOf(
+            navDeepLink<ExampleSection>(basePath = "${AppBasePath}examples/component"),
         )
     }
 }
 
-internal const val ComponentRoute = "component"
-internal const val ExampleRoute = "example"
-internal const val ComponentIdArgName = "componentId"
-internal const val ExampleIndexArgName = "exampleIndex"
+@Serializable
+internal data class ExampleShowcase(val componentId: String, val exampleId: String) {
+
+    companion object {
+        val deepLinks = listOf(
+            navDeepLink<ExampleShowcase>(basePath = "${AppBasePath}examples/component/detail"),
+        )
+    }
+}
+
+@OptIn(ExperimentalSharedTransitionApi::class)
+internal fun NavGraphBuilder.examplesDestination(
+    navController: NavHostController,
+    components: ImmutableList<Component>,
+    contentPadding: PaddingValues,
+) {
+    composable<ExamplesList>(
+        deepLinks = ExamplesList.deepLinks,
+    ) {
+        CompositionLocalProvider(LocalAnimatedVisibilityScope provides this) {
+            ComponentsListScreen(
+                components = components,
+                contentPadding = contentPadding,
+                onExampleSectionClick = { id ->
+                    navController.navigate(route = ExampleSection(componentId = id))
+                },
+            )
+        }
+    }
+
+    composable<ExampleSection>(
+        deepLinks = ExampleSection.deepLinks,
+    ) { navBackStackEntry ->
+        val exampleSection = navBackStackEntry.toRoute<ExampleSection>()
+        val componentId = exampleSection.componentId
+        val component = components.first { component -> component.id == componentId }
+        CompositionLocalProvider(LocalAnimatedVisibilityScope provides this) {
+            Component(
+                component = component,
+                contentPadding = contentPadding,
+                onExampleClick = { exampleId ->
+                    navController.navigate(route = ExampleShowcase(componentId = componentId, exampleId = exampleId))
+                },
+            )
+        }
+    }
+    composable<ExampleShowcase>(
+        deepLinks = ExampleShowcase.deepLinks,
+    ) { navBackStackEntry ->
+        val exampleShowcase = navBackStackEntry.toRoute<ExampleShowcase>()
+        val componentId = exampleShowcase.componentId
+        val exampleId = exampleShowcase.exampleId
+        val component = components.first { component -> component.id == componentId }
+        val example = component.examples.first { it.id == exampleId }
+        CompositionLocalProvider(LocalAnimatedVisibilityScope provides this) {
+            Example(
+                example = example,
+            )
+        }
+    }
+}
+
+public data class ExamplesSharedElementKey(
+    val exampleId: String,
+    val origin: String,
+    val type: ExamplesSharedElementType,
+)
+
+public enum class ExamplesSharedElementType {
+    Background,
+    Illustration,
+    Title,
+}

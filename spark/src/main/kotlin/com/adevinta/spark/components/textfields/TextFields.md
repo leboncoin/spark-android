@@ -7,13 +7,10 @@
 
 ![](../../images/com.adevinta.spark.textfields_TextFieldDocScreenshot_textFieldShowcase__light.png)
 
-The minimal usage of the component is the value of your textfield and the callback to be called
-when the user type a new character but you can configure your textfield much more.
+The minimal usage of the component is the value of your TextField and the callback to be called
+when the user type a new character but you can configure your TextField much more.
 
 ```kotlin
-
-import java.awt.TextField
-
 TextField(
     value = "Input",
     label = { Text("Label") },

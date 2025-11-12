@@ -27,4 +27,5 @@ import com.adevinta.spark.InternalSparkApi
  * Used to order tokens in the catalog, preview and tests.
  */
 @InternalSparkApi
+@Target(AnnotationTarget.PROPERTY)
 public annotation class Order(val value: Int)

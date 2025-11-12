@@ -63,13 +63,25 @@
     <string name="spark_annotatedStringResource_test">Les <b>Meilleures</b> <annotation typography="large">pratiques</annotation> pour les textes sur <i><annotation color="main">Android</annotation></i></string>
     <string name="spark_annotatedStringResource_test_args">Salut, <b><annotation variable="who" typography="large" color="main">who</annotation></b>!</string>
 
-    <!--region Rating-->
-    <string name="spark_textfield_content_description">Obligatoire</string>
+    <!--region TextField-->
+    <string name="spark_textfield_mandatory_content_description">Champs requis</string>
+    <plurals name="spark_textfield_counter_content_description" tools:ignore="UnusedQuantity">
+        <item quantity="one">%1$d caractère saisi sur %2$d maximum</item>
+        <item quantity="other">%1$d caractères saisis sur %2$d maximum</item>
+        <item quantity="many">%1$d de caractères saisis sur %2$d maximum</item>
+    </plurals>
+    <string name="spark_textfield_state_success_content_description">Le champ est valide</string>
+    <string name="spark_textfield_state_alert_content_description">Le champ contient une alerte</string>
+    <string name="spark_textfield_state_error_content_description">Le champ contient une erreur</string>
     <string name="spark_textfield_delete_a11y">Tout supprimer</string>
     <string name="spark_drag_handle_a11y">Poignée de déplacement</string>
     <!--endregion-->
 
-    <!--region Snackbar-->
-    <string name="spark_snackbar_dismiss_a11y">Fermer</string>
+    <!--region Stepper-->
+    <string name="spark_combobox_multiple_chip_click_a11y">Remove %1$s</string>
+    <string name="spark_dropdown_menu_item_no_result_label">Pas de résultat</string>
+    <!--endregion-->
+    <!--region Tag-->
+    <string name="spark_tag_highlight_new_label">Nouveau !</string>
     <!--endregion-->
 </resources>

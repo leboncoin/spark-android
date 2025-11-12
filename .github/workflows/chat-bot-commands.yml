@@ -11,13 +11,13 @@ jobs:
   check-comment:
     name: Check comment
     runs-on: ubuntu-latest
-    if: github.repository == 'adevinta/spark-android' && startsWith(github.event.comment.body, '@spark-ui-bot')
+    if: github.repository == 'leboncoin/spark-android' && startsWith(github.event.comment.body, '@spark-ui-bot')
     env:
       ACTOR: ${{ github.actor }}
       NUMBER: ${{ github.event.issue.number }}
       COMMENT: ${{ github.event.comment.body }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - if: github.event.issue.pull_request
         run: gh pr checkout $NUMBER
 

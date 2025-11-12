@@ -19,10 +19,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+@file:Suppress("DEPRECATION")
+
 package com.adevinta.spark.components.toggles
 
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement.spacedBy
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.Text
@@ -31,7 +35,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.tools.modifiers.minimumTouchTargetSize
@@ -80,13 +86,19 @@ internal fun SparkCheckbox(
  * [MutableInteractionSource] if you want to observe [Interaction]s and customize the
  * appearance / behavior of this Checkbox in different [Interaction]s.
  */
+@Deprecated(
+    message = "Intent Checkbox have been deprecated in favour of just an error parameter",
+    replaceWith = ReplaceWith(
+        "Checkbox(state = state, onClick = onClick, modifier = modifier, enabled = enabled, error = false, interactionSource = interactionSource)",
+    ),
+)
 @Composable
 public fun Checkbox(
     state: ToggleableState,
+    intent: ToggleIntent,
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    intent: ToggleIntent = ToggleIntent.Basic,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     SparkCheckbox(
@@ -95,6 +107,48 @@ public fun Checkbox(
         modifier = modifier,
         enabled = enabled,
         intent = intent,
+        interactionSource = interactionSource,
+    )
+}
+
+/**
+ *
+ * Checkboxes allows users to select one or more items from a set. Checkboxes can turn an option on or off.
+ *
+ *  - Toggle a single item on or off.
+ *  - Require another action to activate or deactivate something.
+ *
+ * @see [SparkCheckbox] if you require support for an indeterminate state, or more advanced
+ * color customization between states. Be aware that this is still an internal composable so if you need such
+ * state contact the Spark team.
+ *
+ * @param state whether TriStateCheckbox is checked, unchecked or in indeterminate state
+ * @param onClick callback to be invoked when checkbox is being clicked,
+ * therefore the change of checked state in requested.  If null, then this is passive
+ * and relies entirely on a higher-level component to control the "checked" state.
+ * @param modifier Modifier to be applied to the layout of the checkbox
+ * @param enabled whether the component is enabled or grayed out
+ * @param error whether the checkbox is in an error state
+ * @param interactionSource the [MutableInteractionSource] representing the stream of
+ * [Interaction]s for this Checkbox. You can create and pass in your own remembered
+ * [MutableInteractionSource] if you want to observe [Interaction]s and customize the
+ * appearance / behavior of this Checkbox in different [Interaction]s.
+ */
+@Composable
+public fun Checkbox(
+    state: ToggleableState,
+    onClick: (() -> Unit)?,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    error: Boolean = false,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+) {
+    SparkCheckbox(
+        state = state,
+        onClick = onClick,
+        modifier = modifier,
+        enabled = enabled,
+        intent = if (error) ToggleIntent.Danger else ToggleIntent.Basic,
         interactionSource = interactionSource,
     )
 }
@@ -124,15 +178,21 @@ public fun Checkbox(
  * @param intent The [ToggleIntent] to use to draw the checkbox
  * @param content The content displayed after the checkbox, usually a Text composable shown at the end.
  */
+@Deprecated(
+    message = "Intent CheckboxLabelled have been deprecated in favour of just an error parameter",
+    replaceWith = ReplaceWith(
+        "CheckboxLabelled(state, onClick, modifier, enabled, error, interactionSource, content = content)",
+    ),
+)
 @Composable
 public fun CheckboxLabelled(
     state: ToggleableState,
     onClick: (() -> Unit)?,
+    intent: ToggleIntent,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     contentSide: ContentSide = ContentSide.End,
-    intent: ToggleIntent = ToggleIntent.Basic,
     content: @Composable RowScope.() -> Unit,
 ) {
     SparkToggleLabelledContainer(
@@ -156,62 +216,118 @@ public fun CheckboxLabelled(
     )
 }
 
-@Preview(
-    group = "Toggles",
-    name = "Checkbox",
-)
+/**
+ *
+ * Checkboxes allows users to select one or more items from a set. Checkboxes can turn an option on or off.
+ *
+ *  - Toggle a single item on or off.
+ *  - Require another action to activate or deactivate something.
+ *
+ * @see [SparkCheckbox] if you require support for an indeterminate state, or more advanced
+ * color customization between states. Be aware that this is still an internal composable so if you need such
+ * state contact the Spark team
+ *
+ * @param state whether TriStateCheckbox is checked, unchecked or in indeterminate state
+ * @param onClick callback to be invoked when checkbox is being clicked,
+ * therefore the change of checked state in requested.  If null, then this is passive
+ * and relies entirely on a higher-level component to control the "checked" state.
+ * @param modifier Modifier to be applied to the layout of the checkbox
+ * @param enabled whether the component is enabled or grayed out
+ * @param interactionSource the [MutableInteractionSource] representing the stream of
+ * [Interaction]s for this Checkbox. You can create and pass in your own remembered
+ * [MutableInteractionSource] if you want to observe [Interaction]s and customize the
+ * appearance / behavior of this Checkbox in different [Interaction]s.
+ * @param contentSide The side where we want to show the label, default to [ContentSide.End].
+ * @param error whether the checkbox is in an error state
+ * @param content The content displayed after the checkbox, usually a Text composable shown at the end.
+ */
 @Composable
-internal fun AllStatesCheckboxPreview() {
-    PreviewTheme {
-        ToggleIntent.values().forEach { intent ->
-            Row {
-                Checkbox(enabled = true, state = ToggleableState.On, onClick = {}, intent = intent)
-                Checkbox(enabled = false, state = ToggleableState.On, onClick = {}, intent = intent)
-                Checkbox(enabled = true, state = ToggleableState.Indeterminate, onClick = {}, intent = intent)
-                Checkbox(enabled = false, state = ToggleableState.Indeterminate, onClick = {}, intent = intent)
-                Checkbox(enabled = true, state = ToggleableState.Off, onClick = {}, intent = intent)
-                Checkbox(enabled = false, state = ToggleableState.Off, onClick = {}, intent = intent)
-            }
-        }
-    }
+public fun CheckboxLabelled(
+    state: ToggleableState,
+    onClick: (() -> Unit)?,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    error: Boolean = false,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    contentSide: ContentSide = ContentSide.End,
+    content: @Composable RowScope.() -> Unit,
+) {
+    SparkToggleLabelledContainer(
+        state = state,
+        toggle = {
+            Checkbox(
+                modifier = it.minimumTouchTargetSize(),
+                state = state,
+                onClick = null,
+                interactionSource = interactionSource,
+                enabled = enabled,
+                error = error,
+            )
+        },
+        role = Role.Checkbox,
+        onClick = onClick,
+        modifier = modifier,
+        enabled = enabled,
+        contentSide = contentSide,
+        content = content,
+    )
 }
 
 @Preview(
     group = "Toggles",
     name = "CheckboxLabelled",
+    device = Devices.FOLDABLE,
 )
 @Composable
-internal fun AllStatesCheckBoxLabelledPreview() {
+private fun AllStatesCheckBoxLabelledPreview() {
     PreviewTheme {
+        Row {
+            CheckboxStates(isError = false)
+            CheckboxStates(isError = true)
+        }
+    }
+}
+
+@Composable
+private fun CheckboxStates(isError: Boolean) {
+    Column(
+        verticalArrangement = spacedBy(16.dp),
+    ) {
         CheckboxLabelled(
             enabled = true,
             state = ToggleableState.On,
             onClick = {},
+            error = isError,
         ) { Text("CheckBox On") }
         CheckboxLabelled(
             enabled = false,
             state = ToggleableState.On,
             onClick = {},
+            error = isError,
         ) { Text("CheckBox On") }
         CheckboxLabelled(
             enabled = true,
             state = ToggleableState.Indeterminate,
             onClick = {},
+            error = isError,
         ) { Text("CheckBox Indeterminate") }
         CheckboxLabelled(
             enabled = false,
             state = ToggleableState.Indeterminate,
             onClick = {},
+            error = isError,
         ) { Text("CheckBox Indeterminate") }
         CheckboxLabelled(
             enabled = true,
             state = ToggleableState.Off,
             onClick = {},
+            error = isError,
         ) { Text("CheckBox Off") }
         CheckboxLabelled(
             enabled = false,
             state = ToggleableState.Off,
             onClick = {},
+            error = isError,
         ) { Text("CheckBox Off") }
     }
 }

@@ -48,7 +48,6 @@ import com.adevinta.spark.R
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconSize
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.components.textfields.TextFieldDefault.getTrailingContent
 import com.adevinta.spark.icons.DeleteOutline
 import com.adevinta.spark.icons.LikeFill
 import com.adevinta.spark.icons.SparkIcons
@@ -74,10 +73,10 @@ import kotlinx.coroutines.flow.flowOf
  * @param required add an asterisk to the label to indicate that this field is required and read it as "label mandatory"
  * but doesn't do anything else so it's up to the developer to handle the behavior.
  * @param label the optional label to be displayed inside the text field container. The default
- * text style for internal [Text] is [SparkTypography.small] when the text field is in focus and
- * [SparkTypography.large] when the text field is not in focus
+ * text style for internal [Text] is [SparkTypography.body2] when the text field is in focus and
+ * [SparkTypography.body1] when the text field is not in focus
  * @param placeholder the optional placeholder to be displayed when the text field is in focus and
- * the input text is empty. The default text style for internal [Text] is [SparkTypography.large]
+ * the input text is empty. The default text style for internal [Text] is [SparkTypography.body1]
  * @param helper The optional helper text to be displayed at the bottom outside the text input container that give some
  * informations about expected text
  * @param counter The optional counter to be displayed the the end bottom outside the text input container
@@ -130,26 +129,23 @@ public fun MultilineTextField(
     minLines: Int = 1,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
-    val trailingIconComposable: (@Composable AddonScope.() -> Unit)? = getTrailingContent(
-        state = state,
-        trailingIcon = if (value.text.isNotBlank()) {
-            {
-                Icon(
-                    modifier = Modifier
-                        .clickable {
-                            onCancelClick()
-                        }
-                        .semantics {
-                            role = Role.Button
-                        },
-                    sparkIcon = SparkIcons.DeleteOutline,
-                    contentDescription = stringResource(R.string.spark_textfield_delete_a11y),
-                )
-            }
-        } else {
-            null
-        },
-    )
+    val trailingIcon: (@Composable AddonScope.() -> Unit)? = if (value.text.isNotBlank()) {
+        {
+            Icon(
+                modifier = Modifier
+                    .clickable {
+                        onCancelClick()
+                    }
+                    .semantics {
+                        role = Role.Button
+                    },
+                sparkIcon = SparkIcons.DeleteOutline,
+                contentDescription = stringResource(R.string.spark_textfield_delete_a11y),
+            )
+        }
+    } else {
+        null
+    }
 
     SparkTextField(
         value = value,
@@ -163,7 +159,7 @@ public fun MultilineTextField(
         helper = helper,
         counter = counter,
         leadingContent = leadingContent,
-        trailingContent = trailingIconComposable,
+        trailingContent = trailingIcon,
         state = state,
         stateMessage = stateMessage,
         visualTransformation = visualTransformation,
@@ -195,10 +191,10 @@ public fun MultilineTextField(
  * @param required add an asterisk to the label to indicate that this field is required and read it as "label mandatory"
  * but doesn't do anything else so it's up to the developer to handle the behavior.
  * @param label the optional label to be displayed inside the text field container. The default
- * text style for internal [Text] is [SparkTypography.small] when the text field is in focus and
- * [SparkTypography.large] when the text field is not in focus
+ * text style for internal [Text] is [SparkTypography.body2] when the text field is in focus and
+ * [SparkTypography.body1] when the text field is not in focus
  * @param placeholder the optional placeholder to be displayed when the text field is in focus and
- * the input text is empty. The default text style for internal [Text] is [SparkTypography.large]
+ * the input text is empty. The default text style for internal [Text] is [SparkTypography.body1]
  * @param helper The optional helper text to be displayed at the bottom outside the text input container that give some
  * informations about expected text
  * @param counter The optional counter to be displayed the the end bottom outside the text input container
@@ -251,26 +247,22 @@ public fun MultilineTextField(
     minLines: Int = 1,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
-    val trailingIconComposable: (@Composable AddonScope.() -> Unit)? = getTrailingContent(
-        state = state,
-        trailingIcon = if (value.isNotBlank()) {
-            {
-                Icon(
-                    modifier = Modifier
-                        .clickable {
-                            onCancelClick()
-                        }
-                        .semantics {
-                            role = Role.Button
-                        },
-                    sparkIcon = SparkIcons.DeleteOutline,
-                    contentDescription = "Cancel",
-                )
-            }
-        } else {
-            null
-        },
-    )
+    val trailingIconComposable: (@Composable AddonScope.() -> Unit)? = if (value.isNotBlank()) {
+        {
+            Icon(
+                modifier = Modifier
+                    .clickable(onClick = onCancelClick)
+                    .semantics {
+                        role = Role.Button
+                    },
+                sparkIcon = SparkIcons.DeleteOutline,
+                contentDescription = stringResource(R.string.spark_textfield_delete_a11y),
+            )
+        }
+    } else {
+        null
+    }
+
     SparkTextField(
         value = value,
         onValueChange = onValueChange,
@@ -350,6 +342,7 @@ private fun ColumnScope.PreviewTextFields(
         enabled = true,
         state = state,
         stateMessage = stateMessage,
+        counter = TextFieldCharacterCounter(0, 300),
         required = true,
         label = "Label",
         placeholder = "Placeholder",

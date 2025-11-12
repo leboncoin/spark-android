@@ -48,6 +48,7 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
 public val DropdownsConfigurator: Configurator = Configurator(
+    id = "dropdown",
     name = "Dropdowns",
     description = "Dropdowns configuration",
     sourceUrl = "$SampleSourceUrl/DropdownSamples.kt",

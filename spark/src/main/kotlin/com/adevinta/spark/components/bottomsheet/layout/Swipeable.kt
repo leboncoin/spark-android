@@ -679,9 +679,7 @@ public interface ThresholdConfig {
 @InternalSparkApi
 // This is a copy from Material 3 Swipeable until b/163132293 is closed
 // Until this is fixed use it when you really cannot use a BottomSheetDialogFragment
-public data class FixedThreshold(
-    private val offset: Dp,
-) : ThresholdConfig {
+public data class FixedThreshold(private val offset: Dp) : ThresholdConfig {
     override fun Density.computeThreshold(
         fromValue: Float,
         toValue: Float,

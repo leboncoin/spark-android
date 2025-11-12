@@ -43,7 +43,7 @@ public object SparkStringAnnotations {
         "color" -> annotation.value.toColorSpanStyle(colors)
         "typography" -> annotation.value.toTypographySpanStyle(typography)
         else -> null.also { _ ->
-            Log.d("StringResources", "Annotation  $this is not supported by spark")
+            Log.d("StringResources", "Annotation $this is not supported by spark")
         }
     }
 

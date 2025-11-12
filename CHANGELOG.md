@@ -4,9 +4,609 @@
 
 ## [Unreleased]
 
+## [1.6.0]
+
+_2025-11-12_
+
 ### Spark
 
-- 🎨 Add a new function to convert a Material Theme colors to a Spark Theme colors.
+- ✨ Add `TagHighlight` component for highlighting new features
+- ✨ Add `highlight` extension on the `CornerShape` type
+
+> [!NOTE]
+> This component is experimental and marked with `@ExperimentalSparkApi`. It provides two variants:
+`TagHighlight` for card integration and `TagHighlightBadge` for positioning near highlighted
+> elements. Both include localized "New!" labels and should be used with an End-of-Life Remote Config
+> to prevent indefinite production presence.
+
+### Catalog
+
+- 🎨 Update the Pro Theme colors to reflect the current one used in production
+- ✨ Add new icon picker component to select any icon available in components configurator when available in the api
+- ✨ Add Badge component examples
+- ✨ Add AlertDialog component examples
+- ✨ Add Placeholder/skeletons component examples
+- ✨ Add new modal example demonstrating modal with no content to showcase Bottom App Bar behavior
+- 💄 Update Backdrop component to use `background` color instead of `surface` for front layer
+- 💄Add new vignettes illustrations to represent the components when browsing them in the app
+
+## [1.6.0-alpha01]
+
+_2025-10-30_
+
+### Spark
+
+- ✨ Add TagHighlight component for highlighting new features
+
+> [!NOTE]
+> This component is experimental and marked with `@ExperimentalSparkApi`. It provides two variants:
+`TagHighlight` for card integration and `TagHighlightBadge` for positioning near highlighted
+> elements. Both include localized "New!" labels and should be used with an End-of-Life Remote Config
+> to prevent indefinite production presence.
+
+### Catalog
+
+- 💄Add new vignettes illustrations to represent the components when browsing them in the app
+
+## [1.5.0]
+
+_2025-10-29_
+
+### Spark
+
+- 🔧 Replace vector drawable animated icons by their vector painter alternative. They're still
+  available through `SparkAnimatedIcons`
+- ✨ Add more api to `ProgressTracker`, with a `readonly` mode & the possibility to change the icons
+  for each steps.
+- 🔧 Updated contrast level threshold in `LeboncoinTheme` from Material Medium to High as Users do
+  not expect the drastic change in color
+
+#### Rating
+
+- ♿ `RatingInput` now behaves like a slider for accessibility, improving screen reader support and
+  customisable state descriptions.
+- 🔧 Added horizontal drag gesture to change the rating value, with haptic feedback for each change.
+- ⌨️ Keyboard support: Shift + Arrow keys increment/decrement the rating for enhanced accessibility
+  while still maintaining focus on each star for selection.
+- 🧪 Added `testTag` parameter for UI testing and automation.
+
+> [!CAUTION]
+> If you use custom accessibility semantics or parent components, set `allowSemantics = false` to
+> avoid duplicate announcements.
+
+#### 🎨 Improvements
+
+- 🎨 `Tab` now use a rounded shape for its top corners.
+- 🎨 `TopAppBar` now supports a `colors` parameter for customisation, however note that tokens other
+  than surface will not apply the elevation overlay.
+- 🎨 `ProgressTracker` styles and animations enhanced to match new specs.
+- 🎨 Added Sticky BottomAppBar examples and improved elevation behaviour.
+
+#### 🐛 Bug Fixes
+
+- 🐛 Fi xed `ModalScaffold` to allow proper scrollable popup behaviour.
+- 💄`Scaffold` now correctly applies `containerColor` for its content's background.
+
+#### ⬆️ Dependency Updates
+
+- ⬆️ Bump `androidx.compose:compose-bom` from 2025.08.01 to 2025.09.00.
+- ⬆️ Bump `kotlin` from 2.2.10 to 2.2.20.
+- ⬆️ Bump `paparazzi` to 2.0.0-alpha02.
+- ⬆️ Bump `io.coil-kt.coil3:coil-bom` from 3.2.0 to 3.3.0
+
+## [1.5.0-beta02]
+
+_2025-10-29_
+
+### Spark
+
+- 🐛 `SparkAnimatedIcons.searchIcon` was set to filled in its start state instead of outlined.
+
+- ## [1.5.0-beta01]
+
+_2025-10-28_
+
+### Spark
+
+- 🔧 Replace vector drawable animated icons by their vector painter alternative. They're still
+  available through `SparkAnimatedIcons`
+- 🔧 Revert the removal of the outline style for the `ProgressTracker`
+- ✨ Add more api to `ProgressTracker`, with a `readonly` mode & the possibility to change the icons
+  for each steps.
+
+## [1.5.0-alpha03]
+
+_2025-10-16_
+
+### Spark
+
+- 🔧 Updated contrast level threshold in `LeboncoinTheme` from Material Medium to High as Users do not expect the drastic change in color
+
+## [1.5.0-alpha02]
+
+_2025-10-03_
+
+### Spark
+
+#### Dependency Updates
+- ⬇️ Revert "chore(deps): bump androidx.core:core-ktx from 1.16.0 to 1.17.0 (#1662)" because the version 1.17.0 require consumers to upgrade their compile sdk version to api 36 but this breaks the unit test for modules where a roboeletric & paparazzi test is present.
+
+#### Scaffold
+
+- `Scaffold` now correctly applies `containerColor` for its content's background.
+
+## [1.5.0-alpha01]
+
+_2025-09-18_
+
+### Spark
+
+#### Rating
+- ♿ `RatingInput` now behaves like a slider for accessibility, improving screen reader support and customisable state descriptions.
+- 🔧 Added horizontal drag gesture to change the rating value, with haptic feedback for each change.
+- ⌨️ Keyboard support: Shift + Arrow keys increment/decrement the rating for enhanced accessibility while still maintaining focus on each star for selection.
+- 🧪 Added `testTag` parameter for UI testing and automation.
+
+> [!CAUTION]
+> If you use custom accessibility semantics or parent components, set `allowSemantics = false` to avoid duplicate announcements.
+
+#### 🎨 Improvements
+- 🎨 `Tab` now use a rounded shape for its top corners.
+- 🎨 `TopAppBar` now supports a `colors` parameter for customisation, however note that tokens other than surface will not apply the elevation overlay.
+- 🎨 `ProgressTracker` styles and animations enhanced to match new specs.
+- 🎨 Added Sticky BottomAppBar examples and improved elevation behaviour.
+
+#### � Bug Fixes
+- 🐛 Fixed `ModalScaffold` to allow proper scrollable popup behaviour.
+
+#### ⬆️ Dependency Updates
+- ⬆️ Bump `androidx.compose:compose-bom` from 2025.08.01 to 2025.09.00.
+- ⬆️ Bump `kotlin` from 2.2.10 to 2.2.20.
+- ⬆️ Bump `paparazzi` to 2.0.0-alpha02.
+- ⬆️ Bump `io.coil-kt.coil3:coil-bom` from 3.2.0 to 3.3.0
+
+## [1.4.2]
+
+_2025-10-17_
+
+### Spark
+
+#### Scaffold
+
+- `Scaffold` now correctly applies `containerColor` for its content's background.
+
+## [1.4.1]
+
+_2025-10-17_
+
+### Spark
+
+- 🔧 Updated contrast level threshold in `LeboncoinTheme` from Material Medium to High as Users do
+  not expect the drastic change in color
+
+## [1.4.0]
+
+_2025-09-05_
+
+### Spark
+
+#### Animations
+
+##### 🆕 Add new `pulse` modifier animation
+
+This animation display a pulsating wave from the component to catch the attention of the user eyes.
+THe color, scales, duration and shape are customizable.
+```kotlin
+ButtonTinted(
+    modifier = Modifier
+        .pulse(
+            shape = SparkTheme.shapes.large,
+        ),
+    text = "Vibing",
+)
+```
+
+##### 🆕 Add new `shake` modifier animation
+
+This animation display a transformative animations using a spring animation spec.
+It's ideal to indicate validation on user interaction.
+```kotlin
+ val vibrateController = rememberShakeController()
+
+ButtonTinted(
+    modifier = Modifier.shake(vibrateController),
+    onClick = {
+        vibrateController.shake(
+            ShakeConfig(
+                iterations = 8,
+                intensity = 100_000f,
+                translateX = -15f,
+            ),
+        )
+    },
+    text = "Vibrate me",
+)
+```
+
+- 🆕 Add a `pulse` example and configurator
+- Pulse now have a `enabled` argument to avoid making a complex modifier chain when we want to control the visibility of this animation
+
+#### Popover
+
+- 🔧 Add a `positionProvider` argument to change the spacing between a `Popover` and its anchor
+
+#### Modal
+
+- 🐛 Fixed ModalScaffold by removing `FLAG_LAYOUT_NO_LIMITS` window flag to allow proper scrollable popup behavior when it's used inside it
+
+#### Checkbox, RadioButton & Switch: API changes
+
+- The `intent` parameter for `Checkbox`, `RadioButton`, and `Switch` is now deprecated and will be removed in a future release. We are keeping only the "Basic" and "Error" colors to ensure better visual consistency.
+- Use the new `error: Boolean` parameter to indicate error/validation state for `Checkbox` & `RadioButton` components.
+- The `ContentSide` parameter will be deprecated in a future release to improve readability and accessibility (a11y). All content will be aligned to the right/end by default for better screen reader support.
+
+> [!CAUTION]
+> - If you use a color other than **"Basic"** or **"Error"**, consider replacing it and use the new `error` parameter.
+> - If you use Start/left content side, update your usage to End/right alignment for improved accessibility.
+
+## [1.4.0-beta01]
+
+_2025-09-04_
+
+### Spark
+
+#### Animations
+
+- 🆕 Add a `pulse` example and configurator
+- Pulse now have a `enabled` argument to avoid making a complex modifier chain when we want to control the visibility of this animation
+
+## [1.4.0-alpha03]
+
+_2025-08-01_
+
+### Spark
+
+#### Animations
+
+##### 🆕 Add new `pulse` modifier animation
+
+This animation display a pulsating wave from the component to catch the attention of the user eyes.
+THe color, scales, duration and shape are customizable.
+```kotlin
+ButtonTinted(
+    modifier = Modifier
+        .pulse(
+            shape = SparkTheme.shapes.large,
+        ),
+    text = "Vibing",
+)
+```
+
+##### 🆕 Add new `shake` modifier animation
+
+This animation display a transformative animations using a spring animation spec.
+It's ideal to indicate validation on user interaction.
+```kotlin
+ val vibrateController = rememberShakeController()
+
+ButtonTinted(
+    modifier = Modifier.shake(vibrateController),
+    onClick = {
+        vibrateController.shake(
+            ShakeConfig(
+                iterations = 8,
+                intensity = 100_000f,
+                translateX = -15f,
+            ),
+        )
+    },
+    text = "Vibrate me",
+)
+```
+
+- 🔧 Add a `positionProvider` argument to change the spacing between a `Popover` and its anchor
+
+## [1.4.0-alpha02]
+
+_2025-07-29_
+
+### Spark
+
+#### Switch
+- 🔧 Reverted the removal of `contentSide` parameter from `SwitchLabelled` components to maintain backward compatibility
+
+#### Modal
+- 🐛 Fixed ModalScaffold by removing `FLAG_LAYOUT_NO_LIMITS` window flag to allow proper scrollable popup behavior when it's used inside it
+
+## [1.4.0-alpha01]
+
+_2025-07-28_
+
+### Spark
+
+#### Checkbox, RadioButton & Switch: API changes
+
+- The `intent` parameter for `Checkbox`, `RadioButton`, and `Switch` is now deprecated and will be removed in a future release. We are keeping only the "Basic" and "Error" colors to ensure better visual consistency.
+- Use the new `error: Boolean` parameter to indicate error/validation state for `Checkbox` & `RadioButton` components.
+- The `ContentSide` parameter will be deprecated in a future release to improve readability and accessibility (a11y). All content will be aligned to the right/end by default for better screen reader support.
+
+> [!CAUTION]
+> - If you use a color other than **"Basic"** or **"Error"**, consider replacing it and use the new `error` parameter.
+> - If you use Start/left content side, update your usage to End/right alignment for improved accessibility.
+
+## [1.3.0]
+
+_2025-07-23_
+
+### Spark
+
+#### 🆕 High Color Contrast Support
+> [!NOTE]
+> This feature requires Android 14 (API level 34) or higher to access system contrast settings.
+
+- ✨ High contrast color themes are now available for both light and dark modes
+
+Call these new methods to get the basic colors in high contrast for light and dark mode:
+```kotlin
+if (useDarkColors) {
+    darkHighContrastSparkColors()
+} else {
+    lightHighContrastSparkColors()
+}
+```
+
+#### 🆕 ComboBox Component
+> [!TIP]
+> ComboBox uses the new TextFieldState API for improved state management.
+
+- ✨ **Major API Upgrade**: ComboBox components now use `TextFieldState` instead of value/onValueChange pattern (#1572)
+- ✨ **Enhanced Single Selection**: `SingleChoiceComboBox` with improved filtering and suggestion capabilities
+- ✨ **Multi-Selection Support**: `MultiChoiceComboBox` with chip-based selection display and management
+
+**Example: Real-time Filtering ComboBox**
+```kotlin
+val state = rememberTextFieldState()
+var expanded by remember { mutableStateOf(false) }
+var searchText by remember { mutableStateOf("") }
+
+val filteredBooks by remember(searchText) {
+    derivedStateOf {
+        if (searchText.isBlank()) comboBoxSampleValues
+        else comboBoxSampleValues.filter {
+            it.title.contains(searchText, ignoreCase = true)
+        }
+    }
+}
+
+LaunchedEffect(Unit) {
+    snapshotFlow { state.text }
+        .debounce(300.milliseconds)
+        .onEach { queryText -> searchText = queryText.toString() }
+        .collect()
+}
+
+SingleChoiceComboBox(
+    state = state,
+    expanded = expanded,
+    onExpandedChange = { expanded = it },
+    onDismissRequest = { expanded = false },
+    label = "Search books",
+    placeholder = "Type to search...",
+    helper = "Filter books by typing in the search box"
+) {
+    filteredBooks.forEach { book ->
+        DropdownMenuItem(
+            text = { Text(book.title) },
+            onClick = {
+                state.setTextAndPlaceCursorAtEnd(book.title)
+                expanded = false
+            },
+            selected = book.title == state.text
+        )
+    }
+}
+```
+
+**Example: Smart Suggestions ComboBox**
+```kotlin
+val state = rememberTextFieldState()
+var searchText by remember { mutableStateOf("") }
+
+val suggestedBooks by remember(searchText) {
+    derivedStateOf {
+        if (searchText.isBlank()) emptyList()
+        else comboBoxSampleValues.filter {
+            it.title.contains(searchText, ignoreCase = true)
+        }.take(3) // Limit to top 3 suggestions
+    }
+}
+
+var showDropdown by remember { mutableStateOf(false) }
+val expanded by remember {
+    derivedStateOf { showDropdown && suggestedBooks.isNotEmpty() }
+}
+
+SingleChoiceComboBox(
+    state = state,
+    expanded = expanded,
+    onExpandedChange = { showDropdown = it },
+    onDismissRequest = {
+        searchText = ""
+        showDropdown = false
+    },
+    label = "Search with suggestions",
+    placeholder = "Type to see suggestions...",
+    helper = "Get book suggestions as you type"
+) {
+    suggestedBooks.forEach { book ->
+        DropdownMenuItem(
+            text = { Text(book.title) },
+            onClick = {
+                state.setTextAndPlaceCursorAtEnd(book.title)
+                searchText = ""
+                showDropdown = false
+            },
+            selected = book.title == state.text
+        )
+    }
+}
+```
+
+#### 🐛 Modal & Dialog Improvements
+- 🐛 Modal components now pass correct insets as padding and don't take space when no footer is available (#1579)
+- 🔧 Improved edge-to-edge support for modals with proper window flag handling
+- 🔧 BottomAppBar now uses `heightIn` instead of fixed height for better responsive behavior
+
+#### 🔧 Component Updates
+- 🗑️ Remove deprecation on `IconToggleButton` (#1573)
+- 🔧 Dropdown API enhanced to support both single and multi-selection patterns with improved `DropdownMenuItem` overloads thanks to the work done in the combobox
+- 🐛 Fixed lint rule stubs used for testing (#1564)
+- 🐛 Fixed popover hidden close button issue (#1570) by @amokhefi
+- ♿ Removed duplicate content description for tab icons to improve accessibility (#1563)
+
+### Catalog App
+
+- 🗑️ Removed brand theming options to simplify the configuration (#1571)
+- 🔧 Improved edge-to-edge modal examples with proper padding and inset handling
+- 💬🇫🇷 The catalog app more text translated to french locale
+- ✨ New stepper example for custom form usage (#1560)
+- ✨ New support for high color contrast themes based on system accessibility settings (#1464)
+- 🎨 The catalog app now includes a contrast level slider to test different contrast configurations
+
+#### 🆕 Animation Enhancements
+- ✨ New `AnimatedNullableVisibility` overloads that properly handle nullable content during exit animations (#1565)
+- ✨ Added `pulse` animation modifier for creating pulsating visual effects
+- 🎨 Enhanced animation support in preview environments with new composition locals
+- ✨ Added shared transitions throughout the app to showcase how to use them (#1567)
+
+### CI
+
+- 🚀 Added custom job to simplify required status checks (#1586)
+- 🚀 Enabled Gradle Configuration Cache on CI workflow for improved build performance (#1585)
+- 🚀 Optimized CI workflow by splitting jobs for better parallelization (#1584)
+- 🚀 Migrated publishing from OSSRH to Central Portal (#1581)
+
+## [1.2.2]
+
+_2025-04-28_
+
+### Spark
+* ✨ Introduce `SparkExceptionHandler` that allow users to control the behavior of some crashable unvalid events/states
+* 🐛 Fix `Image` Icon Size leading to crash
+* 🐛 `Image` will now signal that it's missing a defined size
+
+## [1.2.1]
+
+_2025-03-27_
+
+### Spark
+* 🐛 Ensure Modifiers are applied only once when using conditional Modifiers
+
+## [1.2.0]
+
+_2025-03-19_
+
+### Spark
+* ✨ New `Stepper` Component
+* 🗑️ `includeFontPadding`  on Spark typographies is not removed since it's no longer needed since Compose 1.6
+
+### Catalog
+
+* 🔗 The catalog app now supports **deeplinks** to any pages! This allows us to redirect our user quickly to a component that has been introduced or changed.
+* ✨ Now when a component is being worked on you will see a Work in Progress illustration.
+* ✨ A new Catalog component has been created to simplify the uses & selection of enum for configuration.
+* ✨ A component can now have more than 1 Configurator. This is to avoid configurators that are too complex and won't fit easily into one screen.
+* 🚀 Material transitions can now be tested in the catalog app to showcase & test their behaviour.
+* 🕶️ The screen reader navigation has been improved and we'll continue to improve it globally to meet the same standard as lbc
+
+## [1.1.4]
+
+_2025-02-19_
+
+### Spark
+- 🛠️ Modal `inEdgeToEdge` parameter was applied even when set to false.
+- 🐛 Conditional modifiers were reapplying the chain instead of doing nothing when the predicate was false.
+
+## [1.1.3]
+
+_2025-01-29_
+
+### Spark
+- 🛠 Use latest and simpler workaround to display a Dialog in fullscreen with support to edge-to-edge.
+- 🛠️ Modal `inEdgeToEdge` parameter now default to false.
+
+## [1.1.2]
+
+_2025-01-29_
+
+### Spark
+- 🐛 Conditional modifiers were not working as expected since they returned an empty modifier instead of modifier chain if the condition was not met.
+
+
+## [1.1.1]
+
+_2025-01-28_
+
+### Spark
+- 🐛 Conditional modifiers were not working as expected since they returned an empty.
+- 🐛 `Image` no longer use a `BoxWithConstraint`as its root component which forbid intrinsic sizes
+- 🐛 Revert `Image` behavior on sizing with empty/loading/error states.
+
+
+## [1.1.0]
+
+_2025-01-06_
+
+### Animated Icons
+> [!CAUTION]
+> The api for `Icon`, `IconButton`, `IconToggleButton` , `Button`, `Tag` & `Chip` has their api modified to support animated vector icons
+
+Animated Icons can now be used with spark components!
+
+### Image
+> [!IMPORTANT]
+> Image component now has it's specs updated to the design ones! with new colors to its error state!
+
+### TextField
+> [!CAUTION]
+> The position of the TextField status icon has been moved from the trailing addon to the support message which might impact your screens!
+
+Now all textfields (not only the multi line one) can display a character count and their min width has been reduced to allow for side to side Textfield layout to be possible (previously it was too big to allow it)!
+
+### Spark
+- ✨ New icons available.
+- 🥳 Showkase is no longer used in the catalog app which means it'll also no longer bleed in your code!
+- 🎨 A new api allow you to convert a **Material Theme** to a **Spark theme** which could be used to support dynamic theming for ex.
+- 🐛 `UserAvatar` badge position is now correctly positioned.
+- ⬆️ The Compose BOM version has been upgraded from `2024.10.01` to `2024.12.01`.
+- ⬆️  Bump compileSdk & targetSdk to API level 35 (Android 15).
+- ⬆️  Bump kotlin from 2.0.21 to 2.1.0.
+- ✨ A lint rule to detect wrong string annotation usages has been added by @EliottLujan!
+- 🎨 Theme color has been updated.
+
+### Catalog App
+
+- 🥳 Showkase is no longer used to preview some of our caspule components.
+- ✨ A `Modal` configurator as been added.
+- 💄 IconScreen no longer has clipping with the search bar.
+- 🛠️ Migrated from uri to the new Typesafe routes for navigation.
+- ✨ New examples for the shape tokens has benn added by @EliottLujan!
+
+## [1.0.2]
+
+_2024-12-11_
+
+### Spark
+
+- ⬆️ Upgrade Compose BOM to `2024.11.00` since it only contains bugfixes changes.
+-
+- ## [1.0.1]
+
+_2024-11-07_
+
+### Spark
+
+- 🐛 User Avatar presence badge was incorrectly placed, especially in big sizes.
 
 ## [1.0.0]
 
@@ -87,7 +687,7 @@ _2024-06-18_
 
 ### Catalog App
 - `ModalScaffold` Added an example that will show the modal with no actions.
- 
+
 ## [0.10.0]
 
 _2024-05-16_
@@ -127,7 +727,7 @@ If you want to make your Chip closable then you will need to add a callback acti
 > [!WARNING]
 > The `BottomSheet` currently only accept M3 snackbars, you won't be able to display a SparkSnackbar
 
---- 
+---
 
 - 🆕 ProgressTracker is now available! it still has a few minor visual bugs but it can be tested by squads on their scope don't hesitate to give us feedbacks!
 - 🆕 `TextLinkButton` will now use `LocalContentColor` when using the Surface intent. This will allow you to have a `onSurface` `TextLink` when needed
@@ -296,7 +896,7 @@ _2023-08-17_
 _2023-07-31_
 
 * 🆕 Added `Basic` and `Accent` intents to all released components.
-* 💄Updated the default color intents to `Basic` for `Tag`, `Chip`, `Spinner`. 
+* 💄Updated the default color intents to `Basic` for `Tag`, `Chip`, `Spinner`.
 * 🗑️ Deprecated `Primary` and `Secondary` intents, `Main` and `Support`should be used instead.
 
 ## [0.3.0]
@@ -361,44 +961,96 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/adevinta/spark-android/compare/1.0.0...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.6.0...HEAD
 
-[1.0.0]: https://github.com/adevinta/spark-android/releases/tag/1.0.0
+[1.6.0]: https://github.com/leboncoin/spark-android/releases/tag/1.6.0
 
-[0.11.0]: https://github.com/adevinta/spark-android/releases/tag/0.11.0
+[1.6.0-alpha01]: https://github.com/leboncoin/spark-android/releases/tag/1.6.0-alpha01
 
-[0.10.1]: https://github.com/adevinta/spark-android/releases/tag/0.10.1
+[1.5.0]: https://github.com/leboncoin/spark-android/releases/tag/1.5.0
 
-[0.10.0]: https://github.com/adevinta/spark-android/releases/tag/0.10.0
+[1.5.0-beta02]: https://github.com/leboncoin/spark-android/releases/tag/1.5.0-beta02
 
-[0.9.0]: https://github.com/adevinta/spark-android/releases/tag/0.9.0
+[1.5.0-beta01]: https://github.com/leboncoin/spark-android/releases/tag/1.5.0-beta01
 
-[0.8.0]: https://github.com/adevinta/spark-android/releases/tag/0.8.0
+[1.5.0-alpha03]: https://github.com/leboncoin/spark-android/releases/tag/1.5.0-alpha03
 
-[0.7.0]: https://github.com/adevinta/spark-android/releases/tag/0.7.0
+[1.5.0-alpha02]: https://github.com/leboncoin/spark-android/releases/tag/1.5.0-alpha02
 
-[0.6.1]: https://github.com/adevinta/spark-android/releases/tag/0.6.1
+[1.5.0-alpha01]: https://github.com/leboncoin/spark-android/releases/tag/1.5.0-alpha01
 
-[0.6.0]: https://github.com/adevinta/spark-android/releases/tag/0.6.0
+[1.4.2]: https://github.com/leboncoin/spark-android/releases/tag/1.4.2
 
-[0.5.0]: https://github.com/adevinta/spark-android/releases/tag/0.5.0
+[1.4.1]: https://github.com/leboncoin/spark-android/releases/tag/1.4.1
 
-[0.4.2]: https://github.com/adevinta/spark-android/releases/tag/0.4.2
+[1.4.0]: https://github.com/leboncoin/spark-android/releases/tag/1.4.0
 
-[0.4.1]: https://github.com/adevinta/spark-android/releases/tag/0.4.1
+[1.4.0-beta01]: https://github.com/leboncoin/spark-android/releases/tag/1.4.0-beta01
 
-[0.3.1]: https://github.com/adevinta/spark-android/releases/tag/0.3.1
+[1.4.0-alpha03]: https://github.com/leboncoin/spark-android/releases/tag/1.4.0-alpha03
 
-[0.3.0]: https://github.com/adevinta/spark-android/releases/tag/0.3.0
+[1.4.0-alpha02]: https://github.com/leboncoin/spark-android/releases/tag/1.4.0-alpha02
 
-[0.2.0]: https://github.com/adevinta/spark-android/releases/tag/0.2.0
+[1.4.0-alpha01]: https://github.com/leboncoin/spark-android/releases/tag/1.4.0-alpha01
 
-[0.1.1]: https://github.com/adevinta/spark-android/releases/tag/0.1.1
+[1.3.0]: https://github.com/leboncoin/spark-android/releases/tag/1.3.0
 
-[0.1.0]: https://github.com/adevinta/spark-android/releases/tag/0.1.0
+[1.2.2]: https://github.com/leboncoin/spark-android/releases/tag/1.2.2
 
-[0.0.3]: https://github.com/adevinta/spark-android/releases/tag/0.0.3
+[1.2.1]: https://github.com/leboncoin/spark-android/releases/tag/1.2.1
 
-[0.0.2]: https://github.com/adevinta/spark-android/releases/tag/0.0.2
+[1.2.0]: https://github.com/leboncoin/spark-android/releases/tag/1.2.0
 
-[0.0.1]: https://github.com/adevinta/spark-android/releases/tag/0.0.1
+[1.1.4]: https://github.com/leboncoin/spark-android/releases/tag/1.1.4
+
+[1.1.3]: https://github.com/leboncoin/spark-android/releases/tag/1.1.3
+
+[1.1.2]: https://github.com/leboncoin/spark-android/releases/tag/1.1.2
+
+[1.1.1]: https://github.com/leboncoin/spark-android/releases/tag/1.1.1
+
+[1.1.0]: https://github.com/leboncoin/spark-android/releases/tag/1.1.0
+
+[1.0.2]: https://github.com/leboncoin/spark-android/releases/tag/1.0.2
+
+[1.0.1]: https://github.com/leboncoin/spark-android/releases/tag/1.0.1
+
+[1.0.0]: https://github.com/leboncoin/spark-android/releases/tag/1.0.0
+
+[0.11.0]: https://github.com/leboncoin/spark-android/releases/tag/0.11.0
+
+[0.10.1]: https://github.com/leboncoin/spark-android/releases/tag/0.10.1
+
+[0.10.0]: https://github.com/leboncoin/spark-android/releases/tag/0.10.0
+
+[0.9.0]: https://github.com/leboncoin/spark-android/releases/tag/0.9.0
+
+[0.8.0]: https://github.com/leboncoin/spark-android/releases/tag/0.8.0
+
+[0.7.0]: https://github.com/leboncoin/spark-android/releases/tag/0.7.0
+
+[0.6.1]: https://github.com/leboncoin/spark-android/releases/tag/0.6.1
+
+[0.6.0]: https://github.com/leboncoin/spark-android/releases/tag/0.6.0
+
+[0.5.0]: https://github.com/leboncoin/spark-android/releases/tag/0.5.0
+
+[0.4.2]: https://github.com/leboncoin/spark-android/releases/tag/0.4.2
+
+[0.4.1]: https://github.com/leboncoin/spark-android/releases/tag/0.4.1
+
+[0.3.1]: https://github.com/leboncoin/spark-android/releases/tag/0.3.1
+
+[0.3.0]: https://github.com/leboncoin/spark-android/releases/tag/0.3.0
+
+[0.2.0]: https://github.com/leboncoin/spark-android/releases/tag/0.2.0
+
+[0.1.1]: https://github.com/leboncoin/spark-android/releases/tag/0.1.1
+
+[0.1.0]: https://github.com/leboncoin/spark-android/releases/tag/0.1.0
+
+[0.0.3]: https://github.com/leboncoin/spark-android/releases/tag/0.0.3
+
+[0.0.2]: https://github.com/leboncoin/spark-android/releases/tag/0.0.2
+
+[0.0.1]: https://github.com/leboncoin/spark-android/releases/tag/0.0.1

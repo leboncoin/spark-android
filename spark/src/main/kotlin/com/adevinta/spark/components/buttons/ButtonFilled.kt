@@ -146,6 +146,7 @@ public fun ButtonFilled(
     iconSide: IconSide = IconSide.START,
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    atEnd: Boolean = false,
 ) {
     val backgroundColor by animateColorAsState(
         targetValue = intent.colors().color,
@@ -174,6 +175,7 @@ public fun ButtonFilled(
         iconSide = iconSide,
         isLoading = isLoading,
         interactionSource = interactionSource,
+        atEnd = atEnd,
     )
 }
 
@@ -211,6 +213,7 @@ public fun ButtonFilled(
     iconSide: IconSide = IconSide.START,
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    atEnd: Boolean = false,
 ) {
     val backgroundColor by animateColorAsState(
         targetValue = intent.colors().color,
@@ -236,6 +239,7 @@ public fun ButtonFilled(
         iconSide = iconSide,
         isLoading = isLoading,
         interactionSource = interactionSource,
+        atEnd = atEnd,
     )
 }
 

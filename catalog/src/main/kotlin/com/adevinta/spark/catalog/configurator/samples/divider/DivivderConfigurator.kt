@@ -52,6 +52,7 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.TextField
 
 public val DividerConfigurator: Configurator = Configurator(
+    id = "divider",
     name = "Divider",
     description = "Divider configuration",
     sourceUrl = "$SampleSourceUrl/DividerSamples.kt",

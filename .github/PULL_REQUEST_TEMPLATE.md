@@ -1,6 +1,6 @@
 <!--
   Please remove sections wisely!
-  And checkout the contribution docs at https://github.com/adevinta/spark-android/blob/main/docs/contributing.md
+  And checkout the contribution docs at https://github.com/leboncoin/spark-android/blob/main/docs/contributing.md
 -->
 
 ## 📋 Changes
@@ -18,7 +18,6 @@
 <!-- Feel free to add or remove entries -->
 - [ ] I have reviewed the submitted code.
 - [ ] I have tested on a phone device/emulator.
-- [ ] If it includes design changes, please ask for a review `spark-design` GitHub team.
 
 ## 📸 Screenshots
 

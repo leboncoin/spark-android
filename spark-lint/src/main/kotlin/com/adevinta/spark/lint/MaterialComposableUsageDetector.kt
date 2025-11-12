@@ -59,14 +59,14 @@ public class MaterialComposableUsageDetector :
         node: UCallExpression,
         replacement: String,
     ) = Incident(context)
-        .issue(ISSUE).at(node)
+        .issue(ISSUE).location(context.getNameLocation(node))
         .message("Composable $name has a Spark replacement that should be used instead: ${replacement.methodName()}")
         .fix(quickfixData(replacement))
         .report()
 
     private fun PsiMethod.quickfixData(replacement: String) = LintFix.create()
         .name("Replace $name with Spark's ${replacement.methodName()}")
-        .replace().text(name).with(replacement.methodName()).imports(replacement).shortenNames()
+        .replace().all().with(replacement.methodName()).imports(replacement).shortenNames()
         .robot(false)
         .independent(true)
         .build()

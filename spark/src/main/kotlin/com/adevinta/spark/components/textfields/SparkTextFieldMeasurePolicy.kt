@@ -22,7 +22,6 @@
 package com.adevinta.spark.components.textfields
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.geometry.Size
@@ -138,20 +137,13 @@ internal class SparkTextFieldMeasurePolicy(
             paddingValues = paddingValues,
         )
 
-        val counterPlaceable = measurables.fastFirstOrNull { it.layoutId == CounterId }?.measure(relaxedConstraints)
-        val counterOccupiedWidth = counterPlaceable?.let {
-            it.width + CounterPadding.roundToPx() + paddingValues.calculateEndPadding(layoutDirection).roundToPx()
-        } ?: 0
-        val supportingMaxWidth =
-            maxOf(width - paddingValues.calculateLeftPadding(layoutDirection).roundToPx() - counterOccupiedWidth, 0)
-
         // measure supporting text
         val supportingConstraints = relaxedConstraints.offset(
             vertical = -occupiedSpaceVertically,
         ).copy(minHeight = 0, maxWidth = width)
 
         val supportingPlaceable =
-            supportingMeasurable?.measure(supportingConstraints.copy(maxWidth = supportingMaxWidth))
+            supportingMeasurable?.measure(supportingConstraints.copy(maxWidth = width))
         val supportingHeight = heightOrZero(supportingPlaceable)
 
         val totalHeight = calculateHeight(
@@ -161,14 +153,12 @@ internal class SparkTextFieldMeasurePolicy(
             labelPlaceableHeight = heightOrZero(labelPlaceable),
             placeholderPlaceableHeight = heightOrZero(placeholderPlaceable),
             supportingPlaceableHeight = supportingHeight,
-            counterPlaceableHeight = heightOrZero(counterPlaceable),
             animationProgress = animationProgress,
             constraints = constraints,
             density = density,
             paddingValues = paddingValues,
         )
-        val counterHelperMaxHeight = max(supportingHeight, heightOrZero(counterPlaceable))
-        val height = totalHeight - counterHelperMaxHeight
+        val height = totalHeight - supportingHeight
 
         val borderPlaceable =
             measurables
@@ -191,7 +181,6 @@ internal class SparkTextFieldMeasurePolicy(
                 labelPlaceable = labelPlaceable,
                 placeholderPlaceable = placeholderPlaceable,
                 supportingPlaceable = supportingPlaceable,
-                counterPlaceable = counterPlaceable,
                 containerPlaceable = borderPlaceable,
                 animationProgress = animationProgress,
                 singleLine = singleLine,
@@ -307,11 +296,6 @@ internal class SparkTextFieldMeasurePolicy(
                 .fastFirstOrNull { it.layoutId == SupportingId }
                 ?.let { intrinsicMeasurer(it, width) } ?: 0
 
-        val counterHeight =
-            measurables
-                .fastFirstOrNull { it.layoutId == CounterId }
-                ?.let { intrinsicMeasurer(it, width) } ?: 0
-
         return calculateHeight(
             leadingPlaceableHeight = leadingHeight,
             trailingPlaceableHeight = trailingHeight,
@@ -319,7 +303,6 @@ internal class SparkTextFieldMeasurePolicy(
             labelPlaceableHeight = labelHeight,
             placeholderPlaceableHeight = placeholderHeight,
             supportingPlaceableHeight = supportingHeight,
-            counterPlaceableHeight = counterHeight,
             animationProgress = animationProgress,
             constraints = ZeroConstraints,
             density = density,
@@ -363,7 +346,8 @@ private fun calculateWidth(
             paddingValues.calculateLeftPadding(LayoutDirection.Ltr) +
                 paddingValues.calculateRightPadding(LayoutDirection.Ltr)
             )
-            .value * density
+            .value *
+            density
     val focusedLabelWidth =
         ((labelPlaceableWidth + labelHorizontalPadding) * animationProgress).roundToInt()
     return maxOf(wrappedWidth, focusedLabelWidth, constraints.minWidth)
@@ -381,7 +365,6 @@ private fun calculateHeight(
     labelPlaceableHeight: Int,
     placeholderPlaceableHeight: Int,
     supportingPlaceableHeight: Int,
-    counterPlaceableHeight: Int,
     animationProgress: Float,
     constraints: Constraints,
     density: Float,
@@ -407,7 +390,8 @@ private fun calculateHeight(
             leadingPlaceableHeight,
             trailingPlaceableHeight,
             middleSectionHeight.roundToInt(),
-        ) + max(supportingPlaceableHeight, counterPlaceableHeight),
+        ) +
+            supportingPlaceableHeight,
     )
 }
 
@@ -424,7 +408,6 @@ private fun Placeable.PlacementScope.place(
     labelPlaceable: Placeable?,
     placeholderPlaceable: Placeable?,
     supportingPlaceable: Placeable?,
-    counterPlaceable: Placeable?,
     containerPlaceable: Placeable,
     animationProgress: Float,
     singleLine: Boolean,
@@ -437,7 +420,7 @@ private fun Placeable.PlacementScope.place(
 
     // Most elements should be positioned w.r.t the text field's "visual" height, i.e., excluding
     // the supporting text on bottom
-    val height = totalHeight - max(heightOrZero(supportingPlaceable), heightOrZero(counterPlaceable))
+    val height = totalHeight - heightOrZero(supportingPlaceable)
     val topPadding = (paddingValues.calculateTopPadding().value * density).roundToInt()
     val startPadding =
         (paddingValues.calculateStartPadding(layoutDirection).value * density).roundToInt()
@@ -491,7 +474,8 @@ private fun Placeable.PlacementScope.place(
                 } else {
                     (widthOrZero(leadingPlaceable) - startPadding) * (1 - animationProgress) + startPadding
                 }
-                ).roundToInt() + startPadding
+                ).roundToInt() +
+                startPadding
         it.placeRelative(positionX, positionY)
     }
 
@@ -514,10 +498,6 @@ private fun Placeable.PlacementScope.place(
 
     supportingPlaceable?.placeRelative(
         x = 0,
-        y = height,
-    )
-    counterPlaceable?.placeRelative(
-        x = width - counterPlaceable.width,
         y = height,
     )
 }

@@ -22,6 +22,12 @@
 package com.adevinta.spark.tokens
 
 import android.annotation.SuppressLint
+import android.app.UiModeManager
+import android.content.Context
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.content.res.Configuration.UI_MODE_TYPE_NORMAL
+import android.os.Build
+import androidx.annotation.FloatRange
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -42,6 +48,7 @@ import androidx.compose.runtime.structuralEqualityPolicy
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.takeOrElse
@@ -50,7 +57,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.core.content.getSystemService
 import androidx.core.graphics.ColorUtils
+import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
@@ -58,30 +67,29 @@ import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.PaletteTokens.Avocado100
-import com.adevinta.spark.tokens.PaletteTokens.Avocado400
+import com.adevinta.spark.tokens.PaletteTokens.Avocado300
 import com.adevinta.spark.tokens.PaletteTokens.Avocado50
-import com.adevinta.spark.tokens.PaletteTokens.Avocado600
 import com.adevinta.spark.tokens.PaletteTokens.Avocado700
-import com.adevinta.spark.tokens.PaletteTokens.Avocado800
+import com.adevinta.spark.tokens.PaletteTokens.Avocado900
 import com.adevinta.spark.tokens.PaletteTokens.Banana100
-import com.adevinta.spark.tokens.PaletteTokens.Banana400
+import com.adevinta.spark.tokens.PaletteTokens.Banana300
 import com.adevinta.spark.tokens.PaletteTokens.Banana50
 import com.adevinta.spark.tokens.PaletteTokens.Banana500
-import com.adevinta.spark.tokens.PaletteTokens.Banana700
 import com.adevinta.spark.tokens.PaletteTokens.Banana800
+import com.adevinta.spark.tokens.PaletteTokens.Banana900
 import com.adevinta.spark.tokens.PaletteTokens.Blueberry100
 import com.adevinta.spark.tokens.PaletteTokens.Blueberry200
+import com.adevinta.spark.tokens.PaletteTokens.Blueberry300
 import com.adevinta.spark.tokens.PaletteTokens.Blueberry50
-import com.adevinta.spark.tokens.PaletteTokens.Blueberry500
 import com.adevinta.spark.tokens.PaletteTokens.Blueberry700
 import com.adevinta.spark.tokens.PaletteTokens.Blueberry800
 import com.adevinta.spark.tokens.PaletteTokens.Blueberry900
 import com.adevinta.spark.tokens.PaletteTokens.Cherry100
-import com.adevinta.spark.tokens.PaletteTokens.Cherry400
+import com.adevinta.spark.tokens.PaletteTokens.Cherry300
 import com.adevinta.spark.tokens.PaletteTokens.Cherry50
-import com.adevinta.spark.tokens.PaletteTokens.Cherry500
+import com.adevinta.spark.tokens.PaletteTokens.Cherry600
 import com.adevinta.spark.tokens.PaletteTokens.Cherry700
-import com.adevinta.spark.tokens.PaletteTokens.Cherry800
+import com.adevinta.spark.tokens.PaletteTokens.Cherry900
 import com.adevinta.spark.tokens.PaletteTokens.Clementin100
 import com.adevinta.spark.tokens.PaletteTokens.Clementin300
 import com.adevinta.spark.tokens.PaletteTokens.Clementin400
@@ -89,20 +97,31 @@ import com.adevinta.spark.tokens.PaletteTokens.Clementin50
 import com.adevinta.spark.tokens.PaletteTokens.Clementin500
 import com.adevinta.spark.tokens.PaletteTokens.Clementin600
 import com.adevinta.spark.tokens.PaletteTokens.Clementin700
+import com.adevinta.spark.tokens.PaletteTokens.Clementin900
+import com.adevinta.spark.tokens.PaletteTokens.DarkBold
+import com.adevinta.spark.tokens.PaletteTokens.DarkLight
+import com.adevinta.spark.tokens.PaletteTokens.DarkMedium
+import com.adevinta.spark.tokens.PaletteTokens.DarkMid
+import com.adevinta.spark.tokens.PaletteTokens.DarkRegular
+import com.adevinta.spark.tokens.PaletteTokens.DarkSemiBold
+import com.adevinta.spark.tokens.PaletteTokens.LightLight
+import com.adevinta.spark.tokens.PaletteTokens.LightMid
 import com.adevinta.spark.tokens.PaletteTokens.NightShade100
 import com.adevinta.spark.tokens.PaletteTokens.NightShade300
 import com.adevinta.spark.tokens.PaletteTokens.NightShade400
 import com.adevinta.spark.tokens.PaletteTokens.NightShade50
-import com.adevinta.spark.tokens.PaletteTokens.NightShade600
+import com.adevinta.spark.tokens.PaletteTokens.NightShade500
 import com.adevinta.spark.tokens.PaletteTokens.NightShade700
 import com.adevinta.spark.tokens.PaletteTokens.NightShade800
 import com.adevinta.spark.tokens.PaletteTokens.NightShade900
 import com.adevinta.spark.tokens.PaletteTokens.Plum100
 import com.adevinta.spark.tokens.PaletteTokens.Plum200
 import com.adevinta.spark.tokens.PaletteTokens.Plum300
+import com.adevinta.spark.tokens.PaletteTokens.Plum50
 import com.adevinta.spark.tokens.PaletteTokens.Plum500
 import com.adevinta.spark.tokens.PaletteTokens.Plum700
 import com.adevinta.spark.tokens.PaletteTokens.Plum800
+import com.adevinta.spark.tokens.PaletteTokens.Plum900
 import kotlin.math.ln
 import kotlin.reflect.KProperty0
 
@@ -129,23 +148,23 @@ public fun lightSparkColors(
     onSupportContainer: Color = Blueberry900,
     supportVariant: Color = Blueberry700,
     onSupportVariant: Color = Color.White,
-    success: Color = Avocado600,
+    success: Color = Avocado700,
     onSuccess: Color = Color.White,
     successContainer: Color = Avocado100,
     onSuccessContainer: Color = Avocado700,
     alert: Color = Banana500,
     onAlert: Color = NightShade900,
     alertContainer: Color = Banana100,
-    onAlertContainer: Color = Banana700,
-    error: Color = Cherry500,
+    onAlertContainer: Color = Banana800,
+    error: Color = Cherry600,
     onError: Color = Color.White,
     errorContainer: Color = Cherry100,
     onErrorContainer: Color = Cherry700,
-    info: Color = Blueberry500,
+    info: Color = Blueberry700,
     onInfo: Color = Color.White,
     infoContainer: Color = Blueberry200,
     onInfoContainer: Color = Blueberry700,
-    neutral: Color = NightShade600,
+    neutral: Color = NightShade700,
     onNeutral: Color = Color.White,
     neutralContainer: Color = NightShade100,
     onNeutralContainer: Color = NightShade700,
@@ -229,58 +248,58 @@ public fun lightSparkColors(
 
 public fun darkSparkColors(
     accent: Color = Plum200,
-    onAccent: Color = NightShade900,
+    onAccent: Color = Plum900,
     accentContainer: Color = Plum700,
-    onAccentContainer: Color = Color.White,
+    onAccentContainer: Color = Plum50,
     accentVariant: Color = Plum300,
-    onAccentVariant: Color = NightShade900,
-    basic: Color = Blueberry100,
-    onBasic: Color = NightShade900,
+    onAccentVariant: Color = Plum900,
+    basic: Color = Blueberry200,
+    onBasic: Color = Blueberry900,
     basicContainer: Color = Blueberry800,
     onBasicContainer: Color = Blueberry50,
     main: Color = Clementin400,
-    onMain: Color = NightShade900,
+    onMain: Color = Clementin900,
     mainContainer: Color = Clementin700,
     onMainContainer: Color = Clementin50,
     mainVariant: Color = Clementin300,
-    onMainVariant: Color = NightShade900,
-    support: Color = Blueberry100,
+    onMainVariant: Color = Clementin900,
+    support: Color = Blueberry200,
     onSupport: Color = Blueberry900,
     supportContainer: Color = Blueberry800,
     onSupportContainer: Color = Blueberry50,
-    supportVariant: Color = Blueberry50,
+    supportVariant: Color = Blueberry100,
     onSupportVariant: Color = Blueberry900,
-    success: Color = Avocado400,
-    onSuccess: Color = NightShade900,
-    successContainer: Color = Avocado800,
+    success: Color = Avocado300,
+    onSuccess: Color = Avocado900,
+    successContainer: Color = Avocado700,
     onSuccessContainer: Color = Avocado50,
-    alert: Color = Banana400,
-    onAlert: Color = NightShade900,
+    alert: Color = Banana300,
+    onAlert: Color = Banana900,
     alertContainer: Color = Banana800,
     onAlertContainer: Color = Banana50,
-    error: Color = Cherry400,
-    onError: Color = NightShade900,
-    errorContainer: Color = Cherry800,
+    error: Color = Cherry300,
+    onError: Color = Cherry900,
+    errorContainer: Color = Cherry700,
     onErrorContainer: Color = Cherry50,
-    info: Color = Blueberry200,
-    onInfo: Color = NightShade900,
-    infoContainer: Color = Blueberry800,
+    info: Color = Blueberry300,
+    onInfo: Color = Blueberry900,
+    infoContainer: Color = Blueberry700,
     onInfoContainer: Color = Blueberry50,
     neutral: Color = NightShade300,
     onNeutral: Color = NightShade900,
-    neutralContainer: Color = NightShade800,
+    neutralContainer: Color = NightShade700,
     onNeutralContainer: Color = NightShade50,
-    background: Color = Blueberry900,
-    onBackground: Color = Color.White,
-    backgroundVariant: Color = NightShade900,
-    onBackgroundVariant: Color = Color.White,
-    surface: Color = Blueberry900,
-    onSurface: Color = Color.White,
+    background: Color = NightShade900,
+    onBackground: Color = NightShade50,
+    backgroundVariant: Color = Color.Black,
+    onBackgroundVariant: Color = NightShade50,
+    surface: Color = NightShade900,
+    onSurface: Color = NightShade50,
     surfaceInverse: Color = NightShade50,
-    onSurfaceInverse: Color = NightShade700,
-    surfaceTint: Color = Clementin400,
-    outline: Color = NightShade600,
-    outlineHigh: Color = NightShade50,
+    onSurfaceInverse: Color = NightShade800,
+    surfaceTint: Color = Color.White,
+    outline: Color = NightShade500,
+    outlineHigh: Color = NightShade100,
     scrim: Color = Color.Black,
     dimContent1: Float = .72f,
     dimContent2: Float = .56f,
@@ -342,6 +361,244 @@ public fun darkSparkColors(
     outline = outline,
     outlineHigh = outlineHigh,
     scrim = scrim,
+    dimContent1 = dimContent1,
+    dimContent2 = dimContent2,
+    dimContent3 = dimContent3,
+    dimContent4 = dimContent4,
+    dimContent5 = dimContent5,
+)
+
+public fun lightHighContrastSparkColors(
+    accent: Color = DarkRegular,
+    onAccent: Color = DarkLight,
+    accentContainer: Color = DarkMedium,
+    onAccentContainer: Color = DarkBold,
+    accentVariant: Color = DarkMedium,
+    onAccentVariant: Color = DarkLight,
+    basic: Color = DarkRegular,
+    onBasic: Color = DarkLight,
+    basicContainer: Color = DarkMedium,
+    onBasicContainer: Color = DarkBold,
+    main: Color = DarkRegular,
+    onMain: Color = DarkLight,
+    mainContainer: Color = DarkMedium,
+    onMainContainer: Color = DarkBold,
+    mainVariant: Color = DarkRegular,
+    onMainVariant: Color = DarkLight,
+    support: Color = DarkRegular,
+    onSupport: Color = DarkLight,
+    supportContainer: Color = DarkMedium,
+    onSupportContainer: Color = DarkBold,
+    supportVariant: Color = DarkRegular,
+    onSupportVariant: Color = DarkLight,
+    success: Color = DarkRegular,
+    onSuccess: Color = DarkLight,
+    successContainer: Color = DarkMedium,
+    onSuccessContainer: Color = DarkBold,
+    alert: Color = DarkRegular,
+    onAlert: Color = DarkLight,
+    alertContainer: Color = DarkMedium,
+    onAlertContainer: Color = DarkBold,
+    error: Color = DarkRegular,
+    onError: Color = DarkLight,
+    errorContainer: Color = DarkMedium,
+    onErrorContainer: Color = DarkBold,
+    info: Color = DarkRegular,
+    onInfo: Color = DarkLight,
+    infoContainer: Color = DarkMedium,
+    onInfoContainer: Color = DarkBold,
+    neutral: Color = DarkRegular,
+    onNeutral: Color = DarkLight,
+    neutralContainer: Color = DarkMedium,
+    onNeutralContainer: Color = DarkBold,
+    background: Color = DarkLight,
+    onBackground: Color = DarkBold,
+    backgroundVariant: Color = DarkMedium,
+    onBackgroundVariant: Color = DarkBold,
+    surface: Color = DarkLight,
+    onSurface: Color = DarkBold,
+    surfaceInverse: Color = DarkBold,
+    onSurfaceInverse: Color = DarkLight,
+    outline: Color = DarkMid,
+    outlineHigh: Color = Color.Black,
+    scrim: Color = Color.Black,
+    dimContent1: Float = .72f,
+    dimContent2: Float = .56f,
+    dimContent3: Float = .40f,
+    dimContent4: Float = .16f,
+    dimContent5: Float = .08f,
+): SparkColors = lightSparkColors(
+    accent = accent,
+    onAccent = onAccent,
+    accentContainer = accentContainer,
+    onAccentContainer = onAccentContainer,
+    accentVariant = accentVariant,
+    onAccentVariant = onAccentVariant,
+    basic = basic,
+    onBasic = onBasic,
+    basicContainer = basicContainer,
+    onBasicContainer = onBasicContainer,
+    main = main,
+    onMain = onMain,
+    mainContainer = mainContainer,
+    onMainContainer = onMainContainer,
+    mainVariant = mainVariant,
+    onMainVariant = onMainVariant,
+    support = support,
+    onSupport = onSupport,
+    supportContainer = supportContainer,
+    onSupportContainer = onSupportContainer,
+    supportVariant = supportVariant,
+    onSupportVariant = onSupportVariant,
+    success = success,
+    onSuccess = onSuccess,
+    successContainer = successContainer,
+    onSuccessContainer = onSuccessContainer,
+    alert = alert,
+    onAlert = onAlert,
+    alertContainer = alertContainer,
+    onAlertContainer = onAlertContainer,
+    error = error,
+    onError = onError,
+    errorContainer = errorContainer,
+    onErrorContainer = onErrorContainer,
+    info = info,
+    onInfo = onInfo,
+    infoContainer = infoContainer,
+    onInfoContainer = onInfoContainer,
+    neutral = neutral,
+    onNeutral = onNeutral,
+    neutralContainer = neutralContainer,
+    onNeutralContainer = onNeutralContainer,
+    background = background,
+    onBackground = onBackground,
+    backgroundVariant = backgroundVariant,
+    onBackgroundVariant = onBackgroundVariant,
+    surface = surface,
+    onSurface = onSurface,
+    surfaceInverse = surfaceInverse,
+    onSurfaceInverse = onSurfaceInverse,
+    outline = outline,
+    outlineHigh = outlineHigh,
+    scrim = scrim,
+    dimContent1 = dimContent1,
+    dimContent2 = dimContent2,
+    dimContent3 = dimContent3,
+    dimContent4 = dimContent4,
+    dimContent5 = dimContent5,
+)
+
+public fun darkHighContrastSparkColors(
+    accent: Color = LightGray,
+    onAccent: Color = DarkBold,
+    accentContainer: Color = LightMid,
+    onAccentContainer: Color = LightLight,
+    accentVariant: Color = DarkMedium,
+    onAccentVariant: Color = DarkBold,
+    basic: Color = LightGray,
+    onBasic: Color = DarkBold,
+    basicContainer: Color = LightMid,
+    onBasicContainer: Color = LightLight,
+    main: Color = LightGray,
+    onMain: Color = DarkBold,
+    mainContainer: Color = LightMid,
+    onMainContainer: Color = LightLight,
+    mainVariant: Color = LightGray,
+    onMainVariant: Color = DarkBold,
+    support: Color = DarkMedium,
+    onSupport: Color = DarkBold,
+    supportContainer: Color = LightMid,
+    onSupportContainer: Color = LightLight,
+    supportVariant: Color = LightGray,
+    onSupportVariant: Color = DarkBold,
+    success: Color = LightGray,
+    onSuccess: Color = DarkBold,
+    successContainer: Color = LightMid,
+    onSuccessContainer: Color = LightLight,
+    alert: Color = LightGray,
+    onAlert: Color = DarkBold,
+    alertContainer: Color = LightMid,
+    onAlertContainer: Color = LightLight,
+    error: Color = LightGray,
+    onError: Color = DarkBold,
+    errorContainer: Color = LightMid,
+    onErrorContainer: Color = LightLight,
+    info: Color = LightGray,
+    onInfo: Color = DarkBold,
+    infoContainer: Color = LightMid,
+    onInfoContainer: Color = LightLight,
+    neutral: Color = LightGray,
+    onNeutral: Color = DarkBold,
+    neutralContainer: Color = LightMid,
+    onNeutralContainer: Color = LightLight,
+    background: Color = DarkSemiBold,
+    onBackground: Color = LightLight,
+    backgroundVariant: Color = Color(0xff3c3c3c),
+    onBackgroundVariant: Color = LightLight,
+    surface: Color = DarkSemiBold,
+    onSurface: Color = LightLight,
+    surfaceInverse: Color = LightLight,
+    onSurfaceInverse: Color = DarkBold,
+    outline: Color = Color(0xffc1c1c1),
+    outlineHigh: Color = LightLight,
+    dimContent1: Float = .72f,
+    dimContent2: Float = .56f,
+    dimContent3: Float = .40f,
+    dimContent4: Float = .16f,
+    dimContent5: Float = .08f,
+): SparkColors = darkSparkColors(
+    accent = accent,
+    onAccent = onAccent,
+    accentContainer = accentContainer,
+    onAccentContainer = onAccentContainer,
+    accentVariant = accentVariant,
+    onAccentVariant = onAccentVariant,
+    basic = basic,
+    onBasic = onBasic,
+    basicContainer = basicContainer,
+    onBasicContainer = onBasicContainer,
+    main = main,
+    onMain = onMain,
+    mainContainer = mainContainer,
+    onMainContainer = onMainContainer,
+    mainVariant = mainVariant,
+    onMainVariant = onMainVariant,
+    support = support,
+    onSupport = onSupport,
+    supportContainer = supportContainer,
+    onSupportContainer = onSupportContainer,
+    supportVariant = supportVariant,
+    onSupportVariant = onSupportVariant,
+    success = success,
+    onSuccess = onSuccess,
+    successContainer = successContainer,
+    onSuccessContainer = onSuccessContainer,
+    alert = alert,
+    onAlert = onAlert,
+    alertContainer = alertContainer,
+    onAlertContainer = onAlertContainer,
+    error = error,
+    onError = onError,
+    errorContainer = errorContainer,
+    onErrorContainer = onErrorContainer,
+    info = info,
+    onInfo = onInfo,
+    infoContainer = infoContainer,
+    onInfoContainer = onInfoContainer,
+    neutral = neutral,
+    onNeutral = onNeutral,
+    neutralContainer = neutralContainer,
+    onNeutralContainer = onNeutralContainer,
+    background = background,
+    onBackground = onBackground,
+    backgroundVariant = backgroundVariant,
+    onBackgroundVariant = onBackgroundVariant,
+    surface = surface,
+    onSurface = onSurface,
+    surfaceInverse = surfaceInverse,
+    onSurfaceInverse = onSurfaceInverse,
+    outline = outline,
+    outlineHigh = outlineHigh,
     dimContent1 = dimContent1,
     dimContent2 = dimContent2,
     dimContent3 = dimContent3,
@@ -1209,6 +1466,39 @@ public fun SparkColors.surfaceColorAtElevation(
 }
 
 /**
+ * Contrast level is an api available in the [UiModeManager] starting Android 34
+ */
+public val isContrastLevelAvailable: Boolean = Build.VERSION.SDK_INT >= 34
+
+/**
+ * Retrieve the contrast level of the device. This value can be used to adjust the colors of the theme.
+ *
+ * It is available on Android 34 and above. On lower versions, the fallback value will be returned.
+ *
+ * The contrast level is a float value between -1.0 and 1.0. The default value is 0.0.
+ * A value of -1.0 means that the contrast is set to the minimum value, and a value of 1.0 means that the contrast is
+ * set to the maximum value.
+ *
+ * @param context The context to use to retrieve the UiModeManager.
+ * @param fallback The fallback value to return if the contrast level is not available.
+ * @return The contrast level of the device or the fallback if not available.
+ *
+ * @see isContrastLevelAvailable
+ * @see UiModeManager.getContrast
+ */
+@ExperimentalSparkApi
+@FloatRange(from = -1.0, to = 1.0)
+public fun contrastLevel(
+    context: Context,
+    fallback: () -> Float = { 0f },
+): Float = if (isContrastLevelAvailable) {
+    val uiModeManager = context.getSystemService<UiModeManager>()
+    uiModeManager?.contrast?.takeIf { isContrastLevelAvailable } ?: fallback()
+} else {
+    fallback()
+}
+
+/**
  * CompositionLocal used to pass [SparkColors] down the tree.
  *
  * Setting the value here is typically done as part of [SparkTheme], which will
@@ -1291,6 +1581,12 @@ public fun debugColors(
 @Preview(
     group = "Tokens",
     name = "Colors",
+    device = "spec:width=1280dp,height=800dp,dpi=240",
+)
+@Preview(
+    group = "Tokens",
+    name = "Colors Dark",
+    uiMode = UI_MODE_NIGHT_YES or UI_MODE_TYPE_NORMAL,
     device = "spec:width=1280dp,height=800dp,dpi=240",
 )
 @Composable

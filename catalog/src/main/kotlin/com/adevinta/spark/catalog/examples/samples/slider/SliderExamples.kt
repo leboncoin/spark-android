@@ -35,11 +35,14 @@ import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.slider.RangeSlider
 import com.adevinta.spark.components.slider.Slider
 import com.adevinta.spark.components.slider.SliderIntent
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 private const val SlidersExampleSourceUrl = "$SampleSourceUrl/SliderExamples.kt"
 
-public val SlidersExamples: List<Example> = listOf(
+public val SlidersExamples: ImmutableList<Example> = persistentListOf(
     Example(
+        id = "steps",
         name = "Slider with Steps",
         description = "Slider intent error, with steps",
         sourceUrl = SlidersExampleSourceUrl,
@@ -62,6 +65,7 @@ public val SlidersExamples: List<Example> = listOf(
         }
     },
     Example(
+        id = "no-steps",
         name = "Slider with No Steps",
         description = "Slider intent Basic, with no steps",
         sourceUrl = SlidersExampleSourceUrl,
@@ -83,6 +87,7 @@ public val SlidersExamples: List<Example> = listOf(
         }
     },
     Example(
+        id = "range-steps",
         name = "Range Slider with Steps",
         description = "Range Slider intent accent, with steps",
         sourceUrl = SlidersExampleSourceUrl,
@@ -105,6 +110,7 @@ public val SlidersExamples: List<Example> = listOf(
         }
     },
     Example(
+        id = "range-no-steps",
         name = "Range Slider with no Steps",
         description = "Range Slider intent Success, with no steps",
         sourceUrl = SlidersExampleSourceUrl,

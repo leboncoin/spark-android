@@ -34,10 +34,14 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.text.input.InputTransformation
+import androidx.compose.foundation.text.input.TextFieldLineLimits
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.ProvideTextStyle
@@ -87,12 +91,11 @@ internal fun SparkDecorationBox(
     readOnly: Boolean,
     placeholder: @Composable (() -> Unit)? = null,
     supportingText: @Composable (() -> Unit)? = null,
-    counter: @Composable (() -> Unit)? = null,
     leadingIcon: @Composable (AddonScope.() -> Unit)? = null,
     trailingIcon: @Composable (AddonScope.() -> Unit)? = null,
     singleLine: Boolean = false,
     enabled: Boolean = true,
-    state: TextFieldState? = null,
+    state: FormFieldStatus? = null,
     border: @Composable (() -> Unit)? = null,
 ) {
     val transformedText = remember(value, visualTransformation) {
@@ -167,26 +170,9 @@ internal fun SparkDecorationBox(
                 null
             }
 
-        val decoratedCounter: @Composable (() -> Unit)? = counter?.let {
-            @Composable {
-                Box {
-                    Decoration(
-                        contentColor = colors.supportingTextColor(
-                            enabled = enabled,
-                            state = state,
-                            interactionSource = interactionSource,
-                        ).value,
-                        typography = SparkTheme.typography.caption,
-                        content = counter,
-                    )
-                }
-            }
-        }
-
         // Developers need to handle invalid input manually. But since we don't provide error
         // message slot API, we can set the default error message in case developers forget about
         // it.
-        // TODO-@soulcramer (01-30-2023): We should provide a semantic which tell the user the error state
         val decorationBoxModifier = Modifier
 
         val leadingIconColor = colors.leadingIconColor(enabled, interactionSource).value
@@ -232,10 +218,169 @@ internal fun SparkDecorationBox(
             textField = innerTextField,
             placeholder = decoratedPlaceholder,
             label = decoratedLabel,
-            counter = decoratedCounter,
             leading = decoratedLeading,
             trailing = decoratedTrailing,
             singleLine = singleLine,
+            animationProgress = labelProgress,
+            onLabelMeasured = {
+                val labelWidth = it.width * labelProgress
+                val labelHeight = it.height * labelProgress
+                if (labelSize.value.width != labelWidth ||
+                    labelSize.value.height != labelHeight
+                ) {
+                    labelSize.value = Size(labelWidth, labelHeight)
+                }
+            },
+            container = borderContainerWithId,
+            supporting = decoratedSupporting,
+            paddingValues = contentPadding,
+            modifier = decorationBoxModifier,
+        )
+    }
+}
+
+/**
+ * Implementation of the [TextField]
+ */
+@Composable
+internal fun SparkDecorationBox(
+    state: TextFieldState,
+    innerTextField: @Composable () -> Unit,
+    label: @Composable (() -> Unit)?,
+    interactionSource: InteractionSource,
+    colors: DefaultSparkTextFieldColors,
+    readOnly: Boolean,
+    inputTransformation: InputTransformation? = null,
+    placeholder: @Composable (() -> Unit)? = null,
+    supportingText: @Composable (() -> Unit)? = null,
+    leadingIcon: @Composable (AddonScope.() -> Unit)? = null,
+    trailingIcon: @Composable (AddonScope.() -> Unit)? = null,
+    lineLimits: TextFieldLineLimits = TextFieldLineLimits.Default,
+    enabled: Boolean = true,
+    status: FormFieldStatus? = null,
+    border: @Composable (() -> Unit)? = null,
+) {
+    val transformedText = state.text
+
+    val contentPadding = OutlinedTextFieldDefaults.contentPadding(
+        top = VerticalContentPadding,
+        bottom = VerticalContentPadding,
+        start = if (leadingIcon != null) 8.dp else 16.dp,
+        end = if (trailingIcon != null) 8.dp else 16.dp,
+    )
+
+    val isFocused = interactionSource.collectIsFocusedAsState().value
+    val inputState = when {
+        isFocused && !readOnly -> InputPhase.Focused
+        transformedText.isEmpty() -> InputPhase.UnfocusedEmpty
+        else -> InputPhase.UnfocusedNotEmpty
+    }
+
+    val labelColor: @Composable (InputPhase) -> Color = {
+        colors.labelColor(enabled, interactionSource).value
+    }
+
+    val typography = SparkTheme.typography
+    val bodyLarge = typography.body1
+    val bodySmall = typography.body2
+    val shouldOverrideTextStyleColor =
+        (bodyLarge.color == Color.Unspecified && bodySmall.color != Color.Unspecified) ||
+            (bodyLarge.color != Color.Unspecified && bodySmall.color == Color.Unspecified)
+
+    TextFieldTransitionScope.Transition(
+        inputState = inputState,
+        focusedTextStyleColor = with(SparkTheme.typography.body2.color) {
+            if (shouldOverrideTextStyleColor) this.takeOrElse { labelColor(inputState) } else this
+        },
+        unfocusedTextStyleColor = with(SparkTheme.typography.body1.color) {
+            if (shouldOverrideTextStyleColor) this.takeOrElse { labelColor(inputState) } else this
+        },
+        contentColor = labelColor,
+        showLabel = label != null,
+    ) { labelProgress, labelTextStyleColor, labelContentColor, placeholderAlphaProgress ->
+
+        val decoratedLabel: @Composable (() -> Unit)? = label?.let {
+            @Composable {
+                val labelTextStyle = lerp(
+                    SparkTheme.typography.body1,
+                    SparkTheme.typography.body2,
+                    labelProgress,
+                ).let {
+                    if (shouldOverrideTextStyleColor) it.copy(color = labelTextStyleColor) else it
+                }
+                Decoration(labelContentColor, labelTextStyle, it)
+            }
+        }
+
+        // Transparent components interfere with Talkback (b/261061240), so if any components below
+        // have alpha == 0, we set the component to null instead.
+
+        val decoratedPlaceholder: @Composable ((Modifier) -> Unit)? =
+            if (placeholder != null && transformedText.isEmpty() && placeholderAlphaProgress > 0f) {
+                @Composable { modifier ->
+                    Box(modifier.alpha(placeholderAlphaProgress)) {
+                        Decoration(
+                            contentColor = colors.placeholderColor(enabled).value,
+                            typography = SparkTheme.typography.body1,
+                            content = placeholder,
+                        )
+                    }
+                }
+            } else {
+                null
+            }
+
+        // Developers need to handle invalid input manually. But since we don't provide error
+        // message slot API, we can set the default error message in case developers forget about
+        // it.
+        val decorationBoxModifier = Modifier
+
+        val leadingIconColor = colors.leadingIconColor(enabled, interactionSource).value
+        val decoratedLeading: @Composable (() -> Unit)? = leadingIcon?.let {
+            @Composable {
+                Decoration(contentColor = leadingIconColor, content = { AddonScopeInstance.it() })
+            }
+        }
+
+        val trailingIconColor = colors.trailingIconColor(enabled, interactionSource).value
+        val decoratedTrailing: @Composable (() -> Unit)? = trailingIcon?.let {
+            @Composable {
+                Decoration(contentColor = trailingIconColor, content = { AddonScopeInstance.it() })
+            }
+        }
+
+        // Outlined cutout
+        val labelSize = remember { mutableStateOf(Size.Zero) }
+        val borderContainerWithId: @Composable () -> Unit = {
+            Box(
+                Modifier
+                    .layoutId(ContainerId)
+                    .outlineCutout(labelSize::value, 16.dp),
+                propagateMinConstraints = true,
+            ) {
+                border?.invoke()
+            }
+        }
+
+        val supportingTextColor =
+            colors.supportingTextColor(enabled, status, interactionSource).value
+        val decoratedSupporting: @Composable (() -> Unit)? = supportingText?.let {
+            @Composable {
+                Decoration(
+                    contentColor = supportingTextColor,
+                    typography = SparkTheme.typography.caption,
+                    content = it,
+                )
+            }
+        }
+
+        SparkTextFieldLayout(
+            textField = innerTextField,
+            placeholder = decoratedPlaceholder,
+            label = decoratedLabel,
+            leading = decoratedLeading,
+            trailing = decoratedTrailing,
+            singleLine = lineLimits == TextFieldLineLimits.SingleLine,
             animationProgress = labelProgress,
             onLabelMeasured = {
                 val labelWidth = it.width * labelProgress
@@ -283,7 +428,6 @@ internal fun SparkTextFieldLayout(
     textField: @Composable () -> Unit,
     placeholder: @Composable ((Modifier) -> Unit)?,
     label: @Composable (() -> Unit)?,
-    counter: @Composable (() -> Unit)?,
     leading: @Composable (() -> Unit)?,
     trailing: @Composable (() -> Unit)?,
     singleLine: Boolean,
@@ -384,20 +528,11 @@ internal fun SparkTextFieldLayout(
                 val helperModifier = Modifier
                     .layoutId(SupportingId)
                     .heightIn(min = MinSupportingTextLineHeight)
+                    .fillMaxWidth()
                     .wrapContentHeight()
                     .paddingFromBaseline(top = 16.dp)
                 Box(modifier = helperModifier) {
                     supporting()
-                }
-            }
-            if (counter != null) {
-                val helperModifier = Modifier
-                    .layoutId(CounterId)
-                    .heightIn(min = MinSupportingTextLineHeight)
-                    .wrapContentHeight()
-                    .paddingFromBaseline(top = 16.dp)
-                Box(modifier = helperModifier) {
-                    counter()
                 }
             }
         },
@@ -544,7 +679,6 @@ internal const val LabelId = "Label"
 internal const val LeadingId = "Leading"
 internal const val TrailingId = "Trailing"
 internal const val SupportingId = "Supporting"
-internal const val CounterId = "Counter"
 
 internal val ZeroConstraints = Constraints(0, 0, 0, 0)
 

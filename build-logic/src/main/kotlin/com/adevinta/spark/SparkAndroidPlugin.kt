@@ -43,8 +43,13 @@ public class SparkAndroidPlugin : Plugin<Project> {
                     }
                 }
                 lint {
+                    checkDependencies = true
                     warningsAsErrors = true
                     sarifReport = true
+                    informational += "AndroidGradlePluginVersion"
+                    informational += "GradleDependency"
+                    informational += "NewerVersionAvailable"
+                    informational += "OldTargetApi"
                     lintConfig = file("lint.xml").takeIf(File::exists)
                 }
             }

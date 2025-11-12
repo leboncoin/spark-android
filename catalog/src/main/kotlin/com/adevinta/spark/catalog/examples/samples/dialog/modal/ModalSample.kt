@@ -64,6 +64,7 @@ import kotlinx.coroutines.launch
 internal fun ModalSample(
     paddingValues: PaddingValues = ModalDefault.DialogPadding,
     withButtons: Boolean = true,
+    withContent: Boolean = true,
 ) {
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -85,6 +86,7 @@ internal fun ModalSample(
             ModalScaffold(
                 onClose = { showDialog = false },
                 contentPadding = paddingValues,
+                inEdgeToEdge = true,
                 mainButton = if (withButtons) {
                     { MainButton(it, coroutineScope, snackbarHostState) }
                 } else {
@@ -118,12 +120,14 @@ internal fun ModalSample(
                         .padding(innerPadding)
                         .verticalScroll(rememberScrollState()),
                 ) {
-                    Text(text = exampleContent)
-                    TextField(
-                        value = "",
-                        onValueChange = {},
-                        modifier = Modifier.focusRequester(focusRequester),
-                    )
+                    if (withContent) {
+                        Text(text = exampleContent)
+                        TextField(
+                            value = "",
+                            onValueChange = {},
+                            modifier = Modifier.focusRequester(focusRequester),
+                        )
+                    }
                 }
             }
         }

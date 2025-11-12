@@ -31,12 +31,15 @@ import com.adevinta.spark.components.progressbar.Progressbar
 import com.adevinta.spark.components.progressbar.ProgressbarIndeterminate
 import com.adevinta.spark.components.progressbar.ProgressbarIntent
 import com.adevinta.spark.components.spacer.VerticalSpacer
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 private const val ProgressbarExampleDescription = "Progressbar examples"
 private const val ProgressbarExampleSourceUrl = "$SampleSourceUrl/ProgressbarSamples.kt"
 
-public val ProgressbarExamples: List<Example> = listOf(
+public val ProgressbarExamples: ImmutableList<Example> = persistentListOf(
     Example(
+        id = "determinate",
         name = "Progressbar",
         description = ProgressbarExampleDescription,
         sourceUrl = ProgressbarExampleSourceUrl,
@@ -55,6 +58,7 @@ public val ProgressbarExamples: List<Example> = listOf(
         }
     },
     Example(
+        id = "indeterminate",
         name = "ProgressbarIndeterminate",
         description = ProgressbarExampleDescription,
         sourceUrl = ProgressbarExampleSourceUrl,

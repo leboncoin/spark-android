@@ -53,6 +53,7 @@ import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.tokens.highlight
 
 public val RatingsConfigurator: Configurator = Configurator(
+    id = "rating",
     name = "Rating Display",
     description = "Rating Display configuration",
     sourceUrl = "$SampleSourceUrl/RatingDisplaySample.kt",

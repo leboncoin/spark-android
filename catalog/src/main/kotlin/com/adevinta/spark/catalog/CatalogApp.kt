@@ -23,10 +23,10 @@ package com.adevinta.spark.catalog
 
 import android.graphics.RenderEffect
 import android.graphics.RuntimeShader
+import android.net.Uri
 import android.os.Build
 import androidx.activity.ComponentActivity
-import androidx.activity.SystemBarStyle
-import androidx.activity.enableEdgeToEdge
+import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -38,6 +38,7 @@ import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.requiredHeightIn
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -48,7 +49,6 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -62,6 +62,11 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.test.DarkMode
+import androidx.compose.ui.test.DeviceConfigurationOverride
+import androidx.compose.ui.test.FontScale
+import androidx.compose.ui.test.LayoutDirection
+import androidx.compose.ui.test.then
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkFeatureFlag
@@ -72,19 +77,15 @@ import com.adevinta.spark.catalog.icons.IconDemoScreen
 import com.adevinta.spark.catalog.model.Component
 import com.adevinta.spark.catalog.tabbar.CatalogTabBar
 import com.adevinta.spark.catalog.tabbar.CatalogTabs
-import com.adevinta.spark.catalog.themes.BrandMode
 import com.adevinta.spark.catalog.themes.ColorMode
-import com.adevinta.spark.catalog.themes.FontScaleMode
+import com.adevinta.spark.catalog.themes.FontScaleMode.System
 import com.adevinta.spark.catalog.themes.TextDirection
 import com.adevinta.spark.catalog.themes.Theme
 import com.adevinta.spark.catalog.themes.ThemeMode
 import com.adevinta.spark.catalog.themes.ThemePicker
 import com.adevinta.spark.catalog.themes.UserMode
 import com.adevinta.spark.catalog.themes.themeprovider.ThemeProvider
-import com.adevinta.spark.catalog.themes.themeprovider.kleinanzeigen.KleinanzeigenTheme
 import com.adevinta.spark.catalog.themes.themeprovider.leboncoin.LeboncoinTheme
-import com.adevinta.spark.catalog.themes.themeprovider.milanuncios.MilanunciosTheme
-import com.adevinta.spark.catalog.themes.themeprovider.subito.SubitoTheme
 import com.adevinta.spark.catalog.ui.BackdropScaffold
 import com.adevinta.spark.catalog.ui.BackdropScaffoldDefaults
 import com.adevinta.spark.catalog.ui.BackdropValue
@@ -92,23 +93,21 @@ import com.adevinta.spark.catalog.ui.rememberBackdropScaffoldState
 import com.adevinta.spark.catalog.ui.shaders.colorblindness.ColorBlindNessType
 import com.adevinta.spark.catalog.ui.shaders.colorblindness.shader
 import com.adevinta.spark.tokens.asSparkColors
-import com.google.accompanist.testharness.TestHarness
+import com.adevinta.spark.tokens.contrastLevel
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.launch
 
 @Composable
 internal fun ComponentActivity.CatalogApp(
     theme: Theme,
     onThemeChange: (theme: Theme) -> Unit,
-    components: List<Component>,
+    components: ImmutableList<Component>,
 ) {
-    val themeProvider: ThemeProvider = when (theme.brandMode) {
-        BrandMode.Leboncoin -> LeboncoinTheme
-        BrandMode.Subito -> SubitoTheme
-        BrandMode.Kleinanzeigen -> KleinanzeigenTheme
-        BrandMode.Milanuncios -> MilanunciosTheme
-    }
+    val themeProvider: ThemeProvider = LeboncoinTheme
 
     val useDark = (theme.themeMode == ThemeMode.System && isSystemInDarkTheme()) || theme.themeMode == ThemeMode.Dark
+    val contrastLevel = contrastLevel(LocalContext.current)
 
     val colors = if (theme.colorMode == ColorMode.Dynamic && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
         if (useDark) {
@@ -117,8 +116,13 @@ internal fun ComponentActivity.CatalogApp(
             dynamicLightColorScheme(LocalContext.current)
         }.asSparkColors(useDark = true)
     } else {
-        themeProvider.colors(useDarkColors = useDark, isPro = theme.userMode == UserMode.Pro)
+        themeProvider.colors(
+            useDarkColors = useDark,
+            isPro = theme.userMode == UserMode.Pro,
+            contrastLevel = contrastLevel,
+        )
     }
+
     val shapes = themeProvider.shapes()
     val typography = themeProvider.typography()
 
@@ -127,9 +131,9 @@ internal fun ComponentActivity.CatalogApp(
         shapes = shapes,
         typography = typography,
         sparkFeatureFlag = SparkFeatureFlag(
-            useLegacyStyle = theme.useLegacyTheme,
             useSparkTokensHighlighter = theme.highlightSparkTokens,
             useSparkComponentsHighlighter = theme.highlightSparkComponents,
+            isContainingActivityEdgeToEdge = true,
         ),
     ) {
         val layoutDirection = when (theme.textDirection) {
@@ -142,19 +146,19 @@ internal fun ComponentActivity.CatalogApp(
         // This is the same parameters as the default enableEdgeToEdge call, but we manually
         // resolve whether or not to show dark theme using uiState, since it can be different
         // than the configuration's dark theme value based on the user preference.
-        DisposableEffect(useDark) {
-            enableEdgeToEdge(
-                statusBarStyle = SystemBarStyle.auto(
-                    android.graphics.Color.TRANSPARENT,
-                    android.graphics.Color.TRANSPARENT,
-                ) { useDark },
-                navigationBarStyle = SystemBarStyle.auto(
-                    lightScrim,
-                    darkScrim,
-                ) { useDark },
-            )
-            onDispose {}
-        }
+//        DisposableEffect(useDark) {
+//            enableEdgeToEdge(
+//                statusBarStyle = SystemBarStyle.auto(
+//                    android.graphics.Color.TRANSPARENT,
+//                    android.graphics.Color.TRANSPARENT,
+//                ) { useDark },
+//                navigationBarStyle = SystemBarStyle.auto(
+//                    lightScrim,
+//                    darkScrim,
+//                ) { useDark },
+//            )
+//            onDispose {}
+//        }
         // Shader for colorblindness demo
         val runtimeShader = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             RuntimeShader(shader)
@@ -171,15 +175,12 @@ internal fun ComponentActivity.CatalogApp(
             )
         }
 
-        @Suppress("DEPRECATION")
-        TestHarness(
-            darkMode = useDark,
-            layoutDirection = layoutDirection,
-            fontScale = if (theme.fontScaleMode == FontScaleMode.System) {
-                LocalDensity.current.fontScale
-            } else {
-                theme.fontScale
-            },
+        DeviceConfigurationOverride(
+            override = DeviceConfigurationOverride.DarkMode(useDark)
+                then DeviceConfigurationOverride.LayoutDirection(layoutDirection)
+                then DeviceConfigurationOverride.FontScale(
+                    theme.takeUnless { it.fontScaleMode == System }?.fontScale ?: LocalDensity.current.fontScale,
+                ),
         ) {
             Box(
                 modifier = Modifier
@@ -206,8 +207,11 @@ internal fun ComponentActivity.CatalogApp(
             ) {
                 val coroutineScope = rememberCoroutineScope()
                 val homeScreenValues = CatalogHomeScreen.entries
+                val intent = LocalActivity.current?.intent
+                val initialPage = getInitialScreen(intent?.data)
+
                 val pagerState = rememberPagerState(
-                    initialPage = CatalogHomeScreen.Examples.ordinal,
+                    initialPage = initialPage.ordinal,
                     pageCount = { homeScreenValues.size },
                 )
 
@@ -216,12 +220,21 @@ internal fun ComponentActivity.CatalogApp(
                     frontLayerScrimColor = Color.Unspecified,
                     headerHeight = BackdropScaffoldDefaults.HeaderHeight +
                         WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding(),
-                    peekHeight = BackdropScaffoldDefaults.PeekHeight + WindowInsets.statusBars.asPaddingValues()
-                        .calculateTopPadding(),
+                    peekHeight = BackdropScaffoldDefaults.PeekHeight +
+                        WindowInsets.statusBars.asPaddingValues()
+                            .calculateTopPadding() -
+                        4.dp,
                     backLayerBackgroundColor = SparkTheme.colors.mainContainer,
                     appBar = {
                         HomeTabBar(
-                            modifier = Modifier.statusBarsPadding(),
+                            modifier = Modifier
+                                .requiredHeightIn(
+                                    min =
+                                    BackdropScaffoldDefaults.PeekHeight +
+                                        WindowInsets.statusBars.asPaddingValues()
+                                            .calculateTopPadding(),
+                                )
+                                .statusBarsPadding(),
                             tabSelected = homeScreenValues[pagerState.currentPage],
                             onTabSelected = {
                                 coroutineScope.launch {
@@ -254,20 +267,35 @@ internal fun ComponentActivity.CatalogApp(
                         HorizontalPager(
                             state = pagerState,
                             flingBehavior = PagerDefaults.flingBehavior(state = pagerState),
+                            beyondViewportPageCount = 1,
+                            key = {
+                                when (it) {
+                                    0 -> CatalogHomeScreen.Examples
+                                    1 -> CatalogHomeScreen.Configurator
+                                    2 -> CatalogHomeScreen.Icons
+                                    else -> CatalogHomeScreen.Examples
+                                }.ordinal
+                            },
                         ) {
                             when (homeScreenValues[it]) {
                                 CatalogHomeScreen.Examples -> ComponentsScreen(
                                     components = components,
+                                    pagerState = pagerState,
                                     contentPadding = innerPadding,
+                                    navigationMode = theme.navigationMode,
                                 )
 
                                 CatalogHomeScreen.Configurator -> ConfiguratorComponentsScreen(
                                     components = components,
+                                    pagerState = pagerState,
                                     contentPadding = innerPadding,
+                                    navigationMode = theme.navigationMode,
                                 )
 
                                 CatalogHomeScreen.Icons -> IconDemoScreen(
                                     contentPadding = innerPadding,
+                                    pagerState = pagerState,
+                                    navigationMode = theme.navigationMode,
                                 )
                             }
                         }
@@ -278,6 +306,8 @@ internal fun ComponentActivity.CatalogApp(
     }
 }
 
+private fun isContrastAvailable(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE
+
 @Composable
 private fun HomeTabBar(
     tabSelected: CatalogHomeScreen,
@@ -287,7 +317,7 @@ private fun HomeTabBar(
     val catalogScreens by remember { mutableStateOf(CatalogHomeScreen.entries) }
     val catalogScreensName by remember {
         derivedStateOf {
-            catalogScreens.map { it.name }
+            catalogScreens.map { it.name }.toImmutableList()
         }
     }
     CatalogTabBar(
@@ -304,16 +334,20 @@ private fun HomeTabBar(
     }
 }
 
+@Composable
+private fun getInitialScreen(uri: Uri?): CatalogHomeScreen {
+    val initialScreen = uri?.pathSegments?.let { segments ->
+        when {
+            "examples" in segments -> CatalogHomeScreen.Examples
+            "configurator" in segments -> CatalogHomeScreen.Configurator
+            "icons" in segments -> CatalogHomeScreen.Icons
+            else -> null
+        }
+    }
+
+    return initialScreen ?: CatalogHomeScreen.Examples
+}
+
 public enum class CatalogHomeScreen { Examples, Configurator, Icons }
 
-/**
- * The default light scrim, as defined by androidx and the platform:
- * https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:activity/activity/src/main/java/androidx/activity/EdgeToEdge.kt;l=35-38;drc=27e7d52e8604a080133e8b842db10c89b4482598
- */
-private val lightScrim = android.graphics.Color.argb(0xe6, 0xFF, 0xFF, 0xFF)
-
-/**
- * The default dark scrim, as defined by androidx and the platform:
- * https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:activity/activity/src/main/java/androidx/activity/EdgeToEdge.kt;l=40-44;drc=27e7d52e8604a080133e8b842db10c89b4482598
- */
-private val darkScrim = android.graphics.Color.argb(0x80, 0x1b, 0x1b, 0x1b)
+internal const val AppBasePath = "spark://"

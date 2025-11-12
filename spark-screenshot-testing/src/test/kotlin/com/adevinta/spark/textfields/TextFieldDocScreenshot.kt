@@ -48,7 +48,7 @@ import com.adevinta.spark.icons.LikeFill
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshotNightMode
-import com.android.ide.common.rendering.api.SessionParams.RenderingMode.SHRINK
+import com.android.ide.common.rendering.api.SessionParams.RenderingMode.H_SCROLL
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Rule
 import org.junit.Test
@@ -58,7 +58,7 @@ internal class TextFieldDocScreenshot {
     @get:Rule
     val paparazzi = paparazziRule(
         deviceConfig = DefaultTestDevices.Tablet,
-        renderingMode = SHRINK,
+        renderingMode = H_SCROLL,
     )
 
     @Test
@@ -137,6 +137,7 @@ internal class TextFieldDocScreenshot {
     private fun Textfields(
         state: TextFieldState?,
         stateMessage: String?,
+        enabled: Boolean = true,
     ) {
         Column(
             modifier = Modifier.padding(8.dp),
@@ -155,7 +156,7 @@ internal class TextFieldDocScreenshot {
             TextField(
                 value = "Input",
                 onValueChange = {},
-                enabled = true,
+                enabled = enabled,
                 state = state,
                 stateMessage = stateMessage,
                 required = true,
@@ -171,7 +172,7 @@ internal class TextFieldDocScreenshot {
             TextField(
                 value = "",
                 onValueChange = {},
-                enabled = true,
+                enabled = enabled,
                 state = state,
                 stateMessage = stateMessage,
                 required = true,
@@ -191,7 +192,7 @@ internal class TextFieldDocScreenshot {
             TextField(
                 value = "",
                 onValueChange = {},
-                enabled = true,
+                enabled = enabled,
                 state = state,
                 stateMessage = stateMessage,
                 required = true,
