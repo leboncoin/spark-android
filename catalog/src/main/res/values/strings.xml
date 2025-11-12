@@ -127,7 +127,6 @@
 
     <string name="icons_screen_search_helper">Search Spark Icon</string>
     <string name="icon_picker_title">Select Icon</string>
-    <string name="icon_picker_select">Select</string>
     <string name="icon_picker_clear">Clear</string>
     <string name="icon_picker_no_icon_selected">No icon selected</string>
 
@@ -136,7 +135,7 @@
     <string name="spark_text_link_short_example_"><annotation color="neutral" typography="display2">Learn Kotlin Programming </annotation><annotation color="success" typography="display3"><u><b>https://kotlinlang.org</b></u></annotation></string>
 
     <!--region Divider-->
-    <string name="component_divider_description">The Divider component provides a thin, unobtrusive line that separates and distinguishes sections of content to reinforce visual hierarchy. A few common uses are:
+    <string name="component_divider_description">The Divider component provides a thin, unobtrusive line that separates and distinguishes sections of content to reinforce visual hierarchy.A few common uses are:
         \nSeparating sections on a page.
         \nSeparating items in a list.
         \nCreating a visual contrast between 2 sides of a page.</string>
