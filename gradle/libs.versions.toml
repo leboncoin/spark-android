@@ -69,6 +69,7 @@ coil-bom = "io.coil-kt.coil3:coil-bom:3.3.0"
 coil-compose = { module = "io.coil-kt.coil3:coil-compose" }
 
 constraintsExplorer = "com.zachklipp:constraints-explorer:1.1.0"
+colorPicker = "com.github.skydoves:colorpicker-compose:1.1.2"
 
 # https://developer.android.com/topic/libraries/architecture/datastore
 androidx-datastore = "androidx.datastore:datastore:1.1.7"
