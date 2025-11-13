@@ -1,1 +1,2 @@
 commitizen ==3.7.0
+linkchecker==10.5.0
