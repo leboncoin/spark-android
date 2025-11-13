@@ -22,21 +22,29 @@
 package com.adevinta.spark.catalog.configurator.samples.gauge
 
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.Saver
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.catalog.model.Configurator
 import com.adevinta.spark.catalog.ui.ButtonGroup
+import com.adevinta.spark.catalog.ui.ColorSelector
 import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.gauge.GaugeSize
-import com.adevinta.spark.components.gauge.GaugeType
+import com.adevinta.spark.components.gauge.GaugeTypeNormal
+import com.adevinta.spark.components.gauge.GaugeTypeShort
 import com.adevinta.spark.components.gauge.SegmentedGauge
+import com.adevinta.spark.components.gauge.SegmentedGaugeShort
+import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.components.toggles.SwitchLabelled
 
 public val GaugesConfigurator: Configurator = Configurator(
     id = "gauge",
@@ -47,16 +55,30 @@ public val GaugesConfigurator: Configurator = Configurator(
     GaugeSample()
 }
 
+private val ColorSaver = Saver<Color, Long>(
+    save = { it.value.toLong() },
+    restore = { Color(it.toULong()) },
+)
+
 @Composable
 private fun ColumnScope.GaugeSample() {
-    var size by remember { mutableStateOf(GaugeSize.Medium) }
-    var type by remember { mutableStateOf(GaugeType.NoData) }
-//    var type by remember { mutableStateOf(GaugeSegment.Five) }
-
+    var size by rememberSaveable { mutableStateOf(GaugeSize.Medium) }
+    var type: SegmentedGaugeType by rememberSaveable { mutableStateOf(SegmentedGaugeType.Medium) }
+    var selectedColor by rememberSaveable(stateSaver = ColorSaver) { mutableStateOf(Color.Unspecified) }
+    var showIndicator by rememberSaveable { mutableStateOf(true) }
     SegmentedGauge(
         size = size,
-        type = type,
-        color = Color.Unspecified,
+        type = type.normalType,
+        color = selectedColor,
+        showIndicator = showIndicator,
+    )
+
+
+    SegmentedGaugeShort(
+        size = size,
+        type = type.shortType,
+        color = selectedColor,
+        showIndicator = showIndicator,
     )
 
     ButtonGroup(
@@ -64,11 +86,21 @@ private fun ColumnScope.GaugeSample() {
         selectedOption = size,
         onOptionSelect = { size = it },
     )
-//    ButtonGroup(
-//        title = "Sizes",
-//        selectedOption = size,
-//        onOptionSelect = { size = it },
-//    )
+
+    SwitchLabelled(
+        checked = showIndicator,
+        onCheckedChange = { showIndicator = it },
+    ) {
+        Text(text = "Show the indicator", modifier = Modifier.fillMaxWidth())
+    }
+
+    ColorSelector(
+        title = "Color",
+        selectedColor = selectedColor,
+        onColorSelected = {
+            selectedColor = it ?: Color.Unspecified
+        },
+    )
 
     DropdownEnum(
         title = "Types",
@@ -77,9 +109,16 @@ private fun ColumnScope.GaugeSample() {
     )
 }
 
-private enum class GaugeSegment {
-    Three,
-    Five;
+private enum class SegmentedGaugeType(
+    val normalType: GaugeTypeNormal?,
+    val shortType: GaugeTypeShort?,
+) {
+    VeryHigh(GaugeTypeNormal.VeryHigh, GaugeTypeShort.VeryHigh),
+    High(GaugeTypeNormal.High, GaugeTypeShort.VeryHigh),
+    Medium(GaugeTypeNormal.Medium, GaugeTypeShort.Low),
+    Low(GaugeTypeNormal.Low, GaugeTypeShort.Low),
+    VeryLow(GaugeTypeNormal.VeryLow, GaugeTypeShort.VeryLow),
+    NoData(null, null),
 }
 
 @Preview
