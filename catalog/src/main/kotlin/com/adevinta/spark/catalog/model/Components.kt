@@ -351,6 +351,7 @@ private val Rating = Component(
 private val SegmentedGauge = Component(
     id = "gauge",
     name = "Segmented Gauge",
+    illustration = R.drawable.gauge,
     description = R.string.component_segmentedgauge_description,
     guidelinesUrl = "$ComponentGuidelinesUrl/p/43dea8-segmentedgauge",
     docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.gauge/index.html",
