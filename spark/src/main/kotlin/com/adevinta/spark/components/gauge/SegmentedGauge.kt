@@ -23,8 +23,9 @@
 package com.adevinta.spark.components.gauge
 
 import androidx.compose.animation.animateColor
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Transition
-import androidx.compose.animation.core.animateDp
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateIntOffset
 import androidx.compose.animation.core.spring
@@ -68,6 +69,7 @@ private fun SparkSegmentedGauge(
     size: GaugeSize,
     type: GaugeType?,
     color: Color,
+    showIndicator: Boolean,
     modifier: Modifier = Modifier,
     testTag: String? = null,
 ) {
@@ -118,7 +120,7 @@ private fun SparkSegmentedGauge(
         }
         Indicator(
             size = size.indicatorSize.dp,
-            type = type,
+            type = type.takeIf { showIndicator },
             offset = { indicatorOffset },
             customColor = color,
             transition = transition,
@@ -143,34 +145,34 @@ private data class GaugeAnimationState(
 
 @Composable
 private fun Indicator(
-    modifier: Modifier = Modifier,
     type: GaugeType?,
     customColor: Color,
     size: Dp,
     offset: () -> IntOffset,
     transition: Transition<GaugeAnimationState>,
+    modifier: Modifier = Modifier,
     testTag: String? = null,
 ) {
     val animatedIndicatorOffset by transition.animateIntOffset(
         transitionSpec = { GaugeDefaults.IndicatorAnimationSpec },
         label = "indicator offset",
-    ) { offset() }
+    ) { it.indicatorOffset }
 
     val indicatorColor by transition.animateColor(
         transitionSpec = { spring() },
         label = "indicator color",
     ) {
         when {
-            type == null -> SparkTheme.colors.surface
+            it.type == null -> SparkTheme.colors.surface
             customColor != Color.Unspecified -> customColor
-            else -> type.color
+            else -> it.type.color
         }
     }
     val indicatorAlpha by transition.animateFloat(
         transitionSpec = { spring() },
         label = "indicator color",
     ) {
-        if (type == null) 0f else 1f
+        if (it.type == null) 0f else 1f
     }
 
     Spacer(
@@ -201,34 +203,31 @@ private fun Cell(
     modifier: Modifier = Modifier,
     testTag: String? = null,
 ) {
-    val animatedColor by transition.animateColor(
-        transitionSpec = { spring() },
+    val animatedColor by animateColorAsState(
+        animationSpec = spring(),
         label = "cell color $segmentIndex",
-    ) {
-        when {
+        targetValue = when {
             type == null -> SparkTheme.colors.surface
             customColor != Color.Unspecified -> customColor
             else -> type.color
-        }
-    }
+        },
+    )
 
-    val animatedBorderColor by transition.animateColor(
-        transitionSpec = { spring() },
+    val animatedBorderColor by animateColorAsState(
+        animationSpec = spring(),
         label = "cell border color $segmentIndex",
-    ) {
-        if (type == null) {
+        targetValue = if (type == null) {
             SparkTheme.colors.outline
         } else {
             SparkTheme.colors.outline.transparent
-        }
-    }
+        },
+    )
 
-    val animatedBorderSize by transition.animateDp(
-        transitionSpec = { spring() },
+    val animatedBorderSize by animateDpAsState(
+        animationSpec = spring(),
         label = "cell border size $segmentIndex",
-    ) {
-        if (type == null) 1.dp else 0.dp
-    }
+        targetValue = if (type == null) 1.dp else 0.dp,
+    )
 
     Spacer(
         modifier = Modifier
@@ -261,6 +260,7 @@ public fun SegmentedGaugeShort(
     size: GaugeSize = GaugeDefaults.Size,
     type: GaugeTypeShort? = null,
     color: Color = GaugeDefaults.Color,
+    showIndicator: Boolean = true,
     testTag: String? = null,
 ) {
     SparkSegmentedGauge(
@@ -269,6 +269,7 @@ public fun SegmentedGaugeShort(
         type = type,
         color = color,
         segments = GaugeSegments.Short,
+        showIndicator = showIndicator,
         testTag = testTag,
     )
 }
@@ -295,6 +296,7 @@ public fun SegmentedGauge(
     size: GaugeSize = GaugeDefaults.Size,
     type: GaugeTypeNormal? = null,
     color: Color = GaugeDefaults.Color,
+    showIndicator: Boolean = true,
     testTag: String? = null,
 ) {
     SparkSegmentedGauge(
@@ -303,6 +305,7 @@ public fun SegmentedGauge(
         type = type,
         color = color,
         segments = GaugeSegments.Normal,
+        showIndicator = showIndicator,
         testTag = testTag,
     )
 }
