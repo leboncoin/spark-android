@@ -92,12 +92,12 @@ private fun FiveSegmentTypesExample() {
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Text("Five-Segment Gauge - All Types")
-        SegmentedGauge(type = GaugeTypeNormal.VeryHigh)
-        SegmentedGauge(type = GaugeTypeNormal.High)
-        SegmentedGauge(type = GaugeTypeNormal.Medium)
-        SegmentedGauge(type = GaugeTypeNormal.Low)
-        SegmentedGauge(type = GaugeTypeNormal.VeryLow)
-        SegmentedGauge(type = null) // No indicator
+        SegmentedGauge(type = GaugeTypeNormal.VeryHigh) { Text("VeryHigh") }
+        SegmentedGauge(type = GaugeTypeNormal.High) { Text("High") }
+        SegmentedGauge(type = GaugeTypeNormal.Medium) { Text("Medium") }
+        SegmentedGauge(type = GaugeTypeNormal.Low) { Text("Low") }
+        SegmentedGauge(type = GaugeTypeNormal.VeryLow) { Text("VeryLow") }
+        SegmentedGauge(type = null) { Text("No data") } // No indicator
     }
 }
 
@@ -108,10 +108,10 @@ private fun ThreeSegmentTypesExample() {
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Text("Three-Segment Gauge - All Types")
-        SegmentedGaugeShort(type = GaugeTypeShort.VeryHigh)
-        SegmentedGaugeShort(type = GaugeTypeShort.Low)
-        SegmentedGaugeShort(type = GaugeTypeShort.VeryLow)
-        SegmentedGaugeShort(type = null) // No indicator
+        SegmentedGaugeShort(type = GaugeTypeShort.VeryHigh) { Text("VeryHigh") }
+        SegmentedGaugeShort(type = GaugeTypeShort.Low) { Text("Low") }
+        SegmentedGaugeShort(type = GaugeTypeShort.VeryLow) { Text("VeryLow") }
+        SegmentedGaugeShort(type = null) { Text("No data") } // No indicator
     }
 }
 
@@ -123,20 +123,15 @@ private fun SizesExample() {
     ) {
         Text("Gauge Sizes")
 
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text("Small Size")
-            Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                SegmentedGauge(size = GaugeSize.Small, type = GaugeTypeNormal.Medium)
-                SegmentedGaugeShort(size = GaugeSize.Small, type = GaugeTypeShort.Low)
-            }
+        Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+            SegmentedGauge(size = GaugeSize.Small, type = GaugeTypeNormal.Medium) { Text("Small Medium") }
+            SegmentedGaugeShort(size = GaugeSize.Small, type = GaugeTypeShort.Low) { Text("Small Low") }
         }
 
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text("Medium Size")
-            Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                SegmentedGauge(size = GaugeSize.Medium, type = GaugeTypeNormal.Medium)
-                SegmentedGaugeShort(size = GaugeSize.Medium, type = GaugeTypeShort.Low)
-            }
+        Text("Medium Size")
+        Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+            SegmentedGauge(size = GaugeSize.Medium, type = GaugeTypeNormal.Medium) { Text("Medium Medium") }
+            SegmentedGaugeShort(size = GaugeSize.Medium, type = GaugeTypeShort.Low) { Text("Medium Low") }
         }
     }
 }
@@ -148,12 +143,10 @@ private fun CustomColorsExample() {
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Text("Custom Colors")
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            SegmentedGauge(type = GaugeTypeNormal.High, color = Color.Red)
-            SegmentedGauge(type = GaugeTypeNormal.Medium, color = Color.Blue)
-            SegmentedGauge(type = GaugeTypeNormal.Low, color = Color.Green)
-            SegmentedGaugeShort(type = GaugeTypeShort.Low, color = Color.Magenta)
-        }
+        SegmentedGauge(type = GaugeTypeNormal.High, customColor = Color.Red) { Text("High cutom red") }
+        SegmentedGauge(type = GaugeTypeNormal.Medium, customColor = Color.Blue) { Text("Medium custom blue") }
+        SegmentedGauge(type = GaugeTypeNormal.Low, customColor = Color.Green) { Text("Low custom green") }
+        SegmentedGaugeShort(type = GaugeTypeShort.Low, customColor = Color.Magenta) { Text("Low custom magenta") }
     }
 }
 
@@ -164,29 +157,8 @@ private fun PriceLevelExample() {
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         Text("Price Level Indicators")
-
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
-        ) {
-            Text("Fair Price:")
-            SegmentedGauge(type = GaugeTypeNormal.Medium)
-        }
-
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
-        ) {
-            Text("Overpriced:")
-            SegmentedGauge(type = GaugeTypeNormal.Low)
-        }
-
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
-        ) {
-            Text("Great Deal:")
-            SegmentedGauge(type = GaugeTypeNormal.VeryHigh)
-        }
+        SegmentedGauge(type = GaugeTypeNormal.Medium) { Text("Fair Price") }
+        SegmentedGauge(type = GaugeTypeNormal.Low) { Text("Overpriced") }
+        SegmentedGauge(type = GaugeTypeNormal.VeryHigh) { Text("Great Deal") }
     }
 }

@@ -19,7 +19,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 package com.adevinta.spark.components.gauge
 
 import androidx.compose.animation.animateColor
@@ -35,6 +34,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.FlowRowScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.offset
@@ -42,6 +43,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -52,6 +54,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
@@ -59,8 +62,10 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.transparent
 import com.adevinta.spark.tools.modifiers.ifNotNull
+import com.adevinta.spark.tools.modifiers.invisibleSemantic
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
 @Composable
@@ -72,6 +77,7 @@ private fun SparkSegmentedGauge(
     showIndicator: Boolean,
     modifier: Modifier = Modifier,
     testTag: String? = null,
+    description: @Composable FlowRowScope.() -> Unit,
 ) {
     val (cellWidth, indicatorSize, spacingSize) = with(LocalDensity.current) {
         listOf(size.width.dp.roundToPx(), size.indicatorSize.dp.roundToPx(), GaugeDefaults.SegmentSpacing.roundToPx())
@@ -99,33 +105,44 @@ private fun SparkSegmentedGauge(
         ),
         label = "gauge",
     )
-
-    Box(
-        modifier = modifier.sparkUsageOverlay(),
-        contentAlignment = Alignment.CenterStart,
+    FlowRow(
+        modifier = modifier
+            .sparkUsageOverlay()
+            .semantics(mergeDescendants = true) {},
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        itemVerticalAlignment = Alignment.CenterVertically,
     ) {
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(GaugeDefaults.SegmentSpacing),
+        Box(
+            modifier = Modifier.invisibleSemantic(),
+            contentAlignment = Alignment.CenterStart,
         ) {
-            repeat(segments.count) { segmentIndex ->
-                Cell(
-                    size = size,
-                    type = type?.takeIf { it.index >= segmentIndex },
-                    customColor = color,
-                    segmentIndex = segmentIndex,
-                    transition = transition,
-                    testTag = testTag?.let { "${it}_cell" },
-                )
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(GaugeDefaults.SegmentSpacing),
+            ) {
+                repeat(segments.count) { segmentIndex ->
+                    Cell(
+                        size = size,
+                        type = type?.takeIf { it.index >= segmentIndex },
+                        customColor = color,
+                        segmentIndex = segmentIndex,
+                        transition = transition,
+                        testTag = testTag?.let { "${it}_cell" },
+                    )
+                }
             }
+            Indicator(
+                size = size.indicatorSize.dp,
+                type = type,
+                offset = { indicatorOffset },
+                visible = showIndicator,
+                customColor = color,
+                transition = transition,
+                testTag = testTag?.let { "${it}_indicator" },
+            )
         }
-        Indicator(
-            size = size.indicatorSize.dp,
-            type = type.takeIf { showIndicator },
-            offset = { indicatorOffset },
-            customColor = color,
-            transition = transition,
-            testTag = testTag?.let { "${it}_indicator" },
-        )
+        ProvideTextStyle(SparkTheme.typography.body2) {
+            description()
+        }
     }
 }
 
@@ -148,6 +165,7 @@ private fun Indicator(
     type: GaugeType?,
     customColor: Color,
     size: Dp,
+    visible: Boolean,
     offset: () -> IntOffset,
     transition: Transition<GaugeAnimationState>,
     modifier: Modifier = Modifier,
@@ -163,7 +181,7 @@ private fun Indicator(
         label = "indicator color",
     ) {
         when {
-            it.type == null -> SparkTheme.colors.surface
+            it.type == null || !visible -> SparkTheme.colors.surface
             customColor != Color.Unspecified -> customColor
             else -> it.type.color
         }
@@ -172,7 +190,7 @@ private fun Indicator(
         transitionSpec = { spring() },
         label = "indicator color",
     ) {
-        if (it.type == null) 0f else 1f
+        if (it.type == null || !visible) 0f else 1f
     }
 
     Spacer(
@@ -247,9 +265,11 @@ private fun Cell(
  * @param size Size of the gauge; typically [GaugeSize.Small] or [GaugeSize.Medium].
  * @param type Optional gauge type that determines which segments are filled and the semantic color.
  * When `null`, the gauge renders unfilled segments (neutral state).
- * @param color Optional color override for filled segments. When `Color.Unspecified`, the color from [type] is used.
- * @param testTag Optional test tag used for UI testing. When provided the implementation
- * exposes tags "<testTag>_cell" for cells and "<testTag>_indicator" for the marker.
+ * @param customColor Optional color override for filled segments. When [Color.Unspecified], the semantic color
+ * from [type] is used.
+ * @param showIndicator toggle the visibility of the indicator.
+ * @param description Description of the gauge. if not enough space is available horizontally it'll be placed bellow
+ * the gauge.
  *
  * @see SegmentedGauge
  */
@@ -259,18 +279,19 @@ public fun SegmentedGaugeShort(
     modifier: Modifier = Modifier,
     size: GaugeSize = GaugeDefaults.Size,
     type: GaugeTypeShort? = null,
-    color: Color = GaugeDefaults.Color,
+    customColor: Color = GaugeDefaults.Color,
     showIndicator: Boolean = true,
-    testTag: String? = null,
+    description: @Composable FlowRowScope.() -> Unit,
 ) {
     SparkSegmentedGauge(
         modifier = modifier,
         size = size,
         type = type,
-        color = color,
+        color = customColor,
         segments = GaugeSegments.Short,
         showIndicator = showIndicator,
-        testTag = testTag,
+        description = description,
+        testTag = null,
     )
 }
 
@@ -282,10 +303,12 @@ public fun SegmentedGaugeShort(
  * @param size Size of the gauge; typically [GaugeSize.Small] or [GaugeSize.Medium].
  * @param type Optional gauge type that determines which segments are filled and the semantic color.
  * When `null`, the gauge renders unfilled segments (neutral state).
- * @param color Optional color override for filled segments. When [Color.Unspecified], the semantic color
+ * @param customColor Optional color override for filled segments. When [Color.Unspecified], the semantic color
  * from [type] is used.
- * @param testTag Optional test tag used for UI testing. When provided the implementation
- * exposes tags "<testTag>_cell" for cells and "<testTag>_indicator" for the marker.
+ * @param showIndicator toggle the visibility of the indicator.
+ * @param description Description of the gauge. if not enough space is available horizontally it'll be placed bellow
+ * the gauge.
+ *
  * @see SegmentedGaugeShort
  *
  */
@@ -295,18 +318,19 @@ public fun SegmentedGauge(
     modifier: Modifier = Modifier,
     size: GaugeSize = GaugeDefaults.Size,
     type: GaugeTypeNormal? = null,
-    color: Color = GaugeDefaults.Color,
+    customColor: Color = GaugeDefaults.Color,
     showIndicator: Boolean = true,
-    testTag: String? = null,
+    description: @Composable FlowRowScope.() -> Unit,
 ) {
     SparkSegmentedGauge(
         modifier = modifier,
         size = size,
         type = type,
-        color = color,
+        color = customColor,
         segments = GaugeSegments.Normal,
         showIndicator = showIndicator,
-        testTag = testTag,
+        description = description,
+        testTag = null,
     )
 }
 
@@ -314,14 +338,17 @@ public fun SegmentedGauge(
 @Composable
 private fun PreviewSegmentedGauge() {
     PreviewTheme {
-        SegmentedGauge(type = GaugeTypeNormal.VeryHigh, color = SparkTheme.colors.accent)
-        SegmentedGauge(type = null, color = SparkTheme.colors.accentContainer)
-        SegmentedGauge(type = GaugeTypeNormal.VeryHigh)
-        SegmentedGauge(type = GaugeTypeNormal.High)
-        SegmentedGauge(type = GaugeTypeNormal.Medium)
-        SegmentedGauge(type = GaugeTypeNormal.Low)
-        SegmentedGauge(type = GaugeTypeNormal.VeryLow)
-        SegmentedGauge(type = null)
+        SegmentedGauge(
+            type = GaugeTypeNormal.VeryHigh,
+            customColor = SparkTheme.colors.accent,
+        ) { Text("VeryHigh custom color") }
+        SegmentedGauge(type = null, customColor = SparkTheme.colors.accentContainer) { Text("No data custom color") }
+        SegmentedGauge(type = GaugeTypeNormal.VeryHigh) { Text("VeryHigh") }
+        SegmentedGauge(type = GaugeTypeNormal.High) { Text("High") }
+        SegmentedGauge(type = GaugeTypeNormal.Medium) { Text("Medium") }
+        SegmentedGauge(type = GaugeTypeNormal.Low) { Text("Low") }
+        SegmentedGauge(type = GaugeTypeNormal.VeryLow) { Text("VeryLow") }
+        SegmentedGauge(type = null) { Text("No data") }
     }
 }
 
@@ -329,9 +356,9 @@ private fun PreviewSegmentedGauge() {
 @Composable
 private fun PreviewSegmentedGaugeShort() {
     PreviewTheme {
-        SegmentedGaugeShort(type = GaugeTypeShort.VeryHigh)
-        SegmentedGaugeShort(type = GaugeTypeShort.Low)
-        SegmentedGaugeShort(type = GaugeTypeShort.VeryLow)
-        SegmentedGaugeShort(type = null)
+        SegmentedGaugeShort(type = GaugeTypeShort.VeryHigh) { Text("VeryHigh") }
+        SegmentedGaugeShort(type = GaugeTypeShort.Low) { Text("Low") }
+        SegmentedGaugeShort(type = GaugeTypeShort.VeryLow) { Text("VeryLow") }
+        SegmentedGaugeShort(type = null) { Text("No data") }
     }
 }

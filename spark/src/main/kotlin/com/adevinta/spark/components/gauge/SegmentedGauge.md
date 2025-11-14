@@ -31,8 +31,9 @@ fun SegmentedGauge(
     modifier: Modifier = Modifier,
     size: GaugeSize = GaugeDefaults.Size,
     type: GaugeTypeFive? = null,
-    color: Color = GaugeDefaults.Color,
-    testTag: String? = null,
+    customColor: Color = GaugeDefaults.Color,
+    showIndicator: Boolean = true,
+    description: @Composable FlowRowScope.() -> Unit,
 )
 ```
 
@@ -44,8 +45,9 @@ fun SegmentedGaugeShort(
     modifier: Modifier = Modifier,
     size: GaugeSize = GaugeDefaults.Size,
     type: GaugeTypeThree? = null,
-    color: Color = GaugeDefaults.Color,
-    testTag: String? = null,
+    customColor: Color = GaugeDefaults.Color,
+    showIndicator: Boolean = true,
+    description: @Composable FlowRowScope.() -> Unit,
 )
 ```
 
@@ -88,22 +90,22 @@ When semantic colors don't fit your use case, you can provide custom colors:
 
 ```kotlin
 // Five-segment gauge for quality rating
-SegmentedGauge(type = GaugeTypeFive.VeryHigh)
+SegmentedGauge(type = GaugeTypeFive.VeryHigh) { Text("Very high quality") }
 
 // Three-segment gauge for potential indicator
-SegmentedGaugeShort(type = GaugeTypeThree.Low)
+SegmentedGaugeShort(type = GaugeTypeThree.Low) { Text("Low potential") }
 
 // Custom colored gauge
 SegmentedGauge(
     type = GaugeTypeFive.Medium,
     color = Color.Blue
-)
+) { Text("Medium custom color") }
 
 // Different sizes
 SegmentedGauge(
     size = GaugeSize.Small,
     type = GaugeTypeFive.High
-)
+) { Text("Small gauge") }
 ```
 
 ### Contact Purchase Score
@@ -124,7 +126,7 @@ fun ContactPurchaseScore(score: Int) {
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Text("Purchase Potential:")
-        SegmentedGaugeShort(type = gaugeType)
+        SegmentedGaugeShort(type = gaugeType) { Text("Potential of $score") 
     }
 }
 ```
@@ -148,7 +150,7 @@ fun PricingPositionIndicator(position: PricingPosition) {
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Text("Price Position:")
-        SegmentedGauge(type = gaugeType)
+        SegmentedGauge(type = gaugeType) { Text("position.description") }
     }
 }
 ```
@@ -170,7 +172,7 @@ fun OccupancyRateIndicator(rate: OccupancyRate) {
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Text("Occupancy:")
-        SegmentedGaugeShort(type = gaugeType)
+        SegmentedGaugeShort(type = gaugeType) { Text("rate.description") }
     }
 }
 ```
@@ -190,7 +192,7 @@ fun ProductComparison(products: List<Product>) {
                 SegmentedGauge(
                     size = GaugeSize.Small,
                     type = product.qualityGaugeType
-                )
+                ) { Text(product.description) }
             }
         }
     }
@@ -205,35 +207,3 @@ The SegmentedGauge component provides semantic color coding that conveys meaning
 - **Text Labels**: Always pair color with textual labels
 - **Focus Support**: Component can receive focus for screen reader accessibility
 - **Color Contrast**: Ensure sufficient contrast ratios are maintained
-
-```kotlin
-@Composable
-fun AccessibleQualityIndicator(quality: QualityLevel) {
-    val gaugeType = when (quality) {
-        QualityLevel.VERY_GOOD -> GaugeTypeFive.VeryHigh
-        QualityLevel.GOOD -> GaugeTypeFive.High
-        QualityLevel.NEUTRAL -> GaugeTypeFive.Medium
-        QualityLevel.LOW -> GaugeTypeFive.Low
-        QualityLevel.VERY_LOW -> GaugeTypeFive.VeryLow
-    }
-
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        Text("${quality.displayName} quality")
-        SegmentedGauge(type = gaugeType)
-    }
-}
-```
-
-## Implementation Notes
-
-- The indicator animates smoothly when the gauge type changes
-- Null type displays segments without an indicator (neutral state)
-- Custom colors override the default semantic colors
-- The component uses alpha transparency for smooth indicator transitions
-- Border styling changes based on whether an indicator is present
-- Designed for read-only data visualization, not user interaction
-- Non-clickable and does not change on hover
-- Full-rounded shapes for both segments and markers
