@@ -88,10 +88,10 @@ class SegmentedGaugeScreenshot {
 
             // Custom colors
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                SegmentedGauge(type = GaugeTypeNormal.High, color = Color.Red)
-                SegmentedGauge(type = GaugeTypeNormal.Medium, color = Color.Blue)
-                SegmentedGauge(type = GaugeTypeNormal.Low, color = Color.Green)
-                SegmentedGaugeShort(type = GaugeTypeShort.Low, color = Color.Magenta)
+                SegmentedGauge(type = GaugeTypeNormal.High, customColor = Color.Red)
+                SegmentedGauge(type = GaugeTypeNormal.Medium, customColor = Color.Blue)
+                SegmentedGauge(type = GaugeTypeNormal.Low, customColor = Color.Green)
+                SegmentedGaugeShort(type = GaugeTypeShort.Low, customColor = Color.Magenta)
             }
         }
     }

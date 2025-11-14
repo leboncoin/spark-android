@@ -19,7 +19,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 package com.adevinta.spark.components.gauge
 
 /**
@@ -31,11 +30,7 @@ package com.adevinta.spark.components.gauge
  * @property height The height of each segment in density-independent pixels.
  * @property indicatorSize The size of the indicator in density-independent pixels.
  */
-public enum class GaugeSize(
-    internal val width: Int,
-    internal val height: Int,
-    internal val indicatorSize: Int,
-) {
+public enum class GaugeSize(internal val width: Int, internal val height: Int, internal val indicatorSize: Int) {
     /**
      * Medium size gauge with larger segments and indicator.
      */
@@ -44,5 +39,5 @@ public enum class GaugeSize(
     /**
      * Small size gauge with compact segments and indicator.
      */
-    Small(width = 24, height = 8, indicatorSize = 12);
+    Small(width = 24, height = 8, indicatorSize = 12),
 }
