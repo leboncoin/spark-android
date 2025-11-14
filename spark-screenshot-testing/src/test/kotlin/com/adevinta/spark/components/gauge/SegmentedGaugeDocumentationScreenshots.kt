@@ -50,7 +50,6 @@ class SegmentedGaugeDocumentationScreenshots {
     @Test
     fun segmentedGauge_five_segment_types() = paparazzi.sparkSnapshotNightMode {
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-
             Column(
                 modifier = Modifier.padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -73,7 +72,6 @@ class SegmentedGaugeDocumentationScreenshots {
             }
         }
     }
-
 
     @Test
     fun segmentedGauge_sizes() = paparazzi.sparkSnapshotNightMode {
@@ -99,9 +97,9 @@ class SegmentedGaugeDocumentationScreenshots {
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                SegmentedGauge(type = GaugeTypeNormal.High, color = SparkTheme.colors.accent)
-                SegmentedGauge(type = GaugeTypeNormal.Medium, color = Color(0xFF2196F3)) // Blue
-                SegmentedGauge(type = GaugeTypeNormal.Low, color = Color(0xFF4CAF50)) // Green
+                SegmentedGauge(type = GaugeTypeNormal.High, customColor = SparkTheme.colors.accent)
+                SegmentedGauge(type = GaugeTypeNormal.Medium, customColor = Color(0xFF2196F3)) // Blue
+                SegmentedGauge(type = GaugeTypeNormal.Low, customColor = Color(0xFF4CAF50)) // Green
             }
         }
     }

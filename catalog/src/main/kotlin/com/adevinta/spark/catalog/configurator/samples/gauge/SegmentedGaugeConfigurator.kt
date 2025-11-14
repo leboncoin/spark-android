@@ -23,6 +23,7 @@ package com.adevinta.spark.catalog.configurator.samples.gauge
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -44,6 +45,7 @@ import com.adevinta.spark.components.gauge.GaugeTypeShort
 import com.adevinta.spark.components.gauge.SegmentedGauge
 import com.adevinta.spark.components.gauge.SegmentedGaugeShort
 import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.SwitchLabelled
 
 public val GaugesConfigurator: Configurator = Configurator(
@@ -66,20 +68,20 @@ private fun ColumnScope.GaugeSample() {
     var type: SegmentedGaugeType by rememberSaveable { mutableStateOf(SegmentedGaugeType.Medium) }
     var selectedColor by rememberSaveable(stateSaver = ColorSaver) { mutableStateOf(Color.Unspecified) }
     var showIndicator by rememberSaveable { mutableStateOf(true) }
+    val text = rememberTextFieldState("Description")
     SegmentedGauge(
         size = size,
         type = type.normalType,
-        color = selectedColor,
+        customColor = selectedColor,
         showIndicator = showIndicator,
-    )
-
+    ) { Text(text = text.text.toString()) }
 
     SegmentedGaugeShort(
         size = size,
         type = type.shortType,
-        color = selectedColor,
+        customColor = selectedColor,
         showIndicator = showIndicator,
-    )
+    ) { Text(text = text.text.toString()) }
 
     ButtonGroup(
         title = "Sizes",
@@ -107,12 +109,17 @@ private fun ColumnScope.GaugeSample() {
         selectedOption = type,
         onOptionSelect = { type = it },
     )
+
+    TextField(
+        modifier = Modifier.fillMaxWidth(),
+        state = text,
+        label = "Description",
+        helper = "The description displayed either on the end side or the bottom side of the gauge depending on " +
+            "the available size",
+    )
 }
 
-private enum class SegmentedGaugeType(
-    val normalType: GaugeTypeNormal?,
-    val shortType: GaugeTypeShort?,
-) {
+private enum class SegmentedGaugeType(val normalType: GaugeTypeNormal?, val shortType: GaugeTypeShort?) {
     VeryHigh(GaugeTypeNormal.VeryHigh, GaugeTypeShort.VeryHigh),
     High(GaugeTypeNormal.High, GaugeTypeShort.VeryHigh),
     Medium(GaugeTypeNormal.Medium, GaugeTypeShort.Low),
