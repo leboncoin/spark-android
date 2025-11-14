@@ -32,6 +32,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.DefaultTestDevices
 import com.adevinta.spark.ExperimentalSparkApi
+import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshotNightMode
 import com.android.ide.common.rendering.api.SessionParams.RenderingMode.SHRINK
@@ -55,43 +56,43 @@ class SegmentedGaugeScreenshot {
             // Five-segment gauge - All types
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    SegmentedGauge(type = GaugeTypeNormal.VeryHigh)
-                    SegmentedGauge(type = GaugeTypeNormal.High)
-                    SegmentedGauge(type = GaugeTypeNormal.Medium)
-                    SegmentedGauge(type = GaugeTypeNormal.Low)
-                    SegmentedGauge(type = GaugeTypeNormal.VeryLow)
+                    SegmentedGauge(type = GaugeTypeNormal.VeryHigh) { Text("VeryHigh") }
+                    SegmentedGauge(type = GaugeTypeNormal.High) { Text("High") }
+                    SegmentedGauge(type = GaugeTypeNormal.Medium) { Text("Medium") }
+                    SegmentedGauge(type = GaugeTypeNormal.Low) { Text("Low") }
+                    SegmentedGauge(type = GaugeTypeNormal.VeryLow) { Text("VeryLow") }
                 }
-                SegmentedGauge(type = null) // No indicator
+                SegmentedGauge(type = null) { Text("No data") } // No indicator
             }
 
             // Three-segment gauge - All types
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    SegmentedGaugeShort(type = GaugeTypeShort.VeryHigh)
-                    SegmentedGaugeShort(type = GaugeTypeShort.Low)
-                    SegmentedGaugeShort(type = GaugeTypeShort.VeryLow)
+                    SegmentedGaugeShort(type = GaugeTypeShort.VeryHigh) { Text("VeryHigh") }
+                    SegmentedGaugeShort(type = GaugeTypeShort.Low) { Text("Low") }
+                    SegmentedGaugeShort(type = GaugeTypeShort.VeryLow) { Text("VeryLow") }
                 }
-                SegmentedGaugeShort(type = null) // No indicator
+                SegmentedGaugeShort(type = null) { Text("No data") } // No indicator
             }
 
             // Different sizes
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                    SegmentedGauge(size = GaugeSize.Small, type = GaugeTypeNormal.Medium)
-                    SegmentedGauge(size = GaugeSize.Medium, type = GaugeTypeNormal.Medium)
+                    SegmentedGauge(size = GaugeSize.Small, type = GaugeTypeNormal.Medium) { Text("Small gauge") }
+                    SegmentedGauge(size = GaugeSize.Medium, type = GaugeTypeNormal.Medium) { Text("Medium gauge") }
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                    SegmentedGaugeShort(size = GaugeSize.Small, type = GaugeTypeShort.Low)
-                    SegmentedGaugeShort(size = GaugeSize.Medium, type = GaugeTypeShort.Low)
+                    SegmentedGaugeShort(size = GaugeSize.Small, type = GaugeTypeShort.Low) { Text("Small gauge") }
+                    SegmentedGaugeShort(size = GaugeSize.Medium, type = GaugeTypeShort.Low) { Text("Medium gauge") }
                 }
             }
 
             // Custom colors
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                SegmentedGauge(type = GaugeTypeNormal.High, customColor = Color.Red)
-                SegmentedGauge(type = GaugeTypeNormal.Medium, customColor = Color.Blue)
-                SegmentedGauge(type = GaugeTypeNormal.Low, customColor = Color.Green)
-                SegmentedGaugeShort(type = GaugeTypeShort.Low, customColor = Color.Magenta)
+                SegmentedGauge(type = GaugeTypeNormal.High, customColor = Color.Red) { Text("Custom color") }
+                SegmentedGauge(type = GaugeTypeNormal.Medium, customColor = Color.Blue) { Text("Custom color") }
+                SegmentedGauge(type = GaugeTypeNormal.Low, customColor = Color.Green) { Text("Custom color") }
+                SegmentedGaugeShort(type = GaugeTypeShort.Low, customColor = Color.Magenta) { Text("Custom color") }
             }
         }
     }
