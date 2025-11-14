@@ -297,7 +297,7 @@ public fun SegmentedGaugeShort(
 
 /**
  * A five-segment read-only gauge used to represent qualitative levels (for example: Very low →
- * Very high)..
+ * Very high).
  *
  * @param modifier Modifier applied to the gauge.
  * @param size Size of the gauge; typically [GaugeSize.Small] or [GaugeSize.Medium].
