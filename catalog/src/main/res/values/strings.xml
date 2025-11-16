@@ -162,4 +162,13 @@
     <!--region Color Selector Test-->
     <string name="component_color_selector_test_description">Test component for the ColorSelector functionality.</string>
     <!--endregion-->
+    <!-- Category names -->
+    <string name="category_foundation">Foundation</string>
+    <string name="category_actions">Actions</string>
+    <string name="category_datainputs">Data Inputs</string>
+    <string name="category_indicators">Indicators</string>
+    <string name="category_layout">Layout</string>
+    <string name="category_navigation">Navigation</string>
+    <string name="category_overlays">Overlays</string>
+    <string name="category_visualassets">Visual Assets</string>
 </resources>

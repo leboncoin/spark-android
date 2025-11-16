@@ -54,6 +54,7 @@ import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.examples.ExamplesSharedElementKey
 import com.adevinta.spark.catalog.examples.ExamplesSharedElementType
+import com.adevinta.spark.catalog.model.Category
 import com.adevinta.spark.catalog.model.Component
 import com.adevinta.spark.catalog.ui.animations.LocalAnimatedVisibilityScope
 import com.adevinta.spark.catalog.ui.animations.LocalSharedTransitionScope
@@ -263,6 +264,7 @@ private fun ComponentItemPreview() {
             component = Component(
                 id = "colors",
                 name = "Tokens",
+                category = Category.Foundation,
                 description = R.string.component_tokens_description,
                 guidelinesUrl = "https://www.google.com/#q=constituto",
                 docsUrl = "https://www.google.com/#q=dictas",
@@ -277,6 +279,7 @@ private fun ComponentItemPreview() {
             component = Component(
                 id = "colors-bis",
                 name = "Tokens",
+                category = Category.Foundation,
                 description = R.string.component_tokens_description,
                 illustration = R.drawable.illu_component_tokens,
                 tintIcon = false,
