@@ -87,6 +87,7 @@ internal fun SparkBadgedBox(
                 badgePlaceable.width >= MediumBadgeWithContentOffset.roundToPx() -> MediumBadgeWithContentOffset
 
             hasContent -> SmallBadgeWithContentOffset
+
             else -> BadgeWithNoContentOffset
         }.roundToPx()
 

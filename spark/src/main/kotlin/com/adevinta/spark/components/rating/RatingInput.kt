@@ -151,6 +151,7 @@ public fun RatingInput(
         repeat(5) { starRatingIndex ->
             val starRating = when {
                 remainingValue == 0 -> 0
+
                 else -> {
                     remainingValue -= 1
                     1

@@ -161,6 +161,7 @@ private fun SnackbarAction(
             Modifier
                 .fillMaxWidth(0.8f)
                 .wrapContentWidth(Alignment.End)
+
         else -> Modifier
     }
     BaseSparkButton(

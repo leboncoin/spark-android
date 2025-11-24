@@ -162,7 +162,9 @@ internal class ImageScreenshot {
                 )
 
                 ImageState.Empty -> AsyncImagePainter.State.Empty
+
                 ImageState.Loading -> AsyncImagePainter.State.Loading(painter)
+
                 ImageState.Success -> AsyncImagePainter.State.Success(
                     painter = painter,
                     result = SuccessResult(drawable.asImage(), request, DataSource.DISK),

@@ -237,6 +237,7 @@ public fun Chip(
             leadingIcon = leadingIcon,
             trailingIcon = when {
                 trailingIcon != null -> trailingIcon
+
                 onClose != null -> {
                     { CloseIconButton(onClose, enabled, onCloseLabel) }
                 }
@@ -306,6 +307,7 @@ public fun ChipSelectable(
             leadingIcon = leadingIcon,
             trailingIcon = when {
                 trailingIcon != null -> trailingIcon
+
                 onClose != null -> {
                     { CloseIconButton(onClose, enabled, onCloseLabel) }
                 }

@@ -808,7 +808,9 @@ private fun computeTarget(
     val bounds = findBounds(offset, anchors)
     return when (bounds.size) {
         0 -> lastValue
+
         1 -> bounds[0]
+
         else -> {
             val lower = bounds[0]
             val upper = bounds[1]
