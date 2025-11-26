@@ -2,6 +2,52 @@
 
 <!-- Don't forget to update links at the end of this page! -->
 
+## [Unreleased]
+
+## [1.6.0]
+
+_2025-11-12_
+
+### Spark
+
+- ✨ Add `TagHighlight` component for highlighting new features
+- ✨ Add `highlight` extension on the `CornerShape` type
+
+> [!NOTE]
+> This component is experimental and marked with `@ExperimentalSparkApi`. It provides two variants:
+`TagHighlight` for card integration and `TagHighlightBadge` for positioning near highlighted
+> elements. Both include localized "New!" labels and should be used with an End-of-Life Remote Config
+> to prevent indefinite production presence.
+
+### Catalog
+
+- 🎨 Update the Pro Theme colors to reflect the current one used in production
+- ✨ Add new icon picker component to select any icon available in components configurator when available in the api
+- ✨ Add Badge component examples
+- ✨ Add AlertDialog component examples
+- ✨ Add Placeholder/skeletons component examples
+- ✨ Add new modal example demonstrating modal with no content to showcase Bottom App Bar behavior
+- 💄 Update Backdrop component to use `background` color instead of `surface` for front layer
+- 💄Add new vignettes illustrations to represent the components when browsing them in the app
+
+## [1.6.0-alpha01]
+
+_2025-10-30_
+
+### Spark
+
+- ✨ Add TagHighlight component for highlighting new features
+
+> [!NOTE]
+> This component is experimental and marked with `@ExperimentalSparkApi`. It provides two variants:
+`TagHighlight` for card integration and `TagHighlightBadge` for positioning near highlighted
+> elements. Both include localized "New!" labels and should be used with an End-of-Life Remote Config
+> to prevent indefinite production presence.
+
+### Catalog
+
+- 💄Add new vignettes illustrations to represent the components when browsing them in the app
+
 ## [1.5.1]
 
 _2025-11-26_
@@ -94,7 +140,8 @@ _2025-10-03_
 - ⬇️ Revert "chore(deps): bump androidx.core:core-ktx from 1.16.0 to 1.17.0 (#1662)" because the version 1.17.0 require consumers to upgrade their compile sdk version to api 36 but this breaks the unit test for modules where a roboeletric & paparazzi test is present.
 
 #### Scaffold
-- `Scaffold` now correctly applies `containerColor` for its content's background.  
+
+- `Scaffold` now correctly applies `containerColor` for its content's background.
 
 ## [1.5.0-alpha01]
 
@@ -922,7 +969,11 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.5.1...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.6.0...HEAD
+
+[1.6.0]: https://github.com/leboncoin/spark-android/releases/tag/1.6.0
+
+[1.6.0-alpha01]: https://github.com/leboncoin/spark-android/releases/tag/1.6.0-alpha01
 
 [1.5.1]: https://github.com/leboncoin/spark-android/releases/tag/1.5.1
 

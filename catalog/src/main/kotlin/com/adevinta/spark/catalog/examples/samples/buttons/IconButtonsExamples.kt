@@ -38,10 +38,12 @@ import com.adevinta.spark.components.iconbuttons.IconButtonTinted
 import com.adevinta.spark.icons.SparkAnimatedIcons
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.bellShake
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 private const val IconButtonsExampleDescription = "Icon Button examples"
 private const val IconButtonsExampleSourceUrl = "$SampleSourceUrl/IconButtonSamples.kt"
-public val IconButtonsExamples: List<Example> = listOf(
+public val IconButtonsExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "filled",
         name = "Filled Icon Button",

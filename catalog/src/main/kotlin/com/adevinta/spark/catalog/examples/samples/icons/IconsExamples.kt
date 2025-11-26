@@ -73,6 +73,8 @@ import com.adevinta.spark.icons.searchIcon
 import com.adevinta.spark.tokens.disabled
 import com.adevinta.spark.tokens.highlight
 import com.adevinta.spark.tokens.ripple
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlin.math.roundToInt
 
 private const val IconsExampleSourceUrl = "$SampleSourceUrl/IconsSamples.kt"
@@ -107,7 +109,7 @@ private val navigationIconItems = listOf(
     ),
 )
 
-public val IconsExamples: List<Example> = listOf(
+public val IconsExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "navigation-bar",
         name = "Animated Navigation bar",

@@ -71,6 +71,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.offset
 import androidx.compose.ui.util.fastCoerceIn
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.catalog.ui.BackdropScaffoldState.Companion.Saver
 import com.adevinta.spark.catalog.ui.BackdropValue.Concealed
 import com.adevinta.spark.catalog.ui.BackdropValue.Revealed
 import com.adevinta.spark.components.bottomsheet.layout.SwipeableDefaults
@@ -337,7 +338,7 @@ public fun BackdropScaffold(
     backLayerContentColor: Color = contentColorFor(backLayerBackgroundColor),
     frontLayerShape: Shape = BackdropScaffoldDefaults.frontLayerShape,
     frontLayerElevation: Dp = BackdropScaffoldDefaults.FrontLayerElevation,
-    frontLayerBackgroundColor: Color = SparkTheme.colors.surface,
+    frontLayerBackgroundColor: Color = SparkTheme.colors.background,
     frontLayerContentColor: Color = contentColorFor(frontLayerBackgroundColor),
     frontLayerScrimColor: Color = BackdropScaffoldDefaults.frontLayerScrimColor,
     snackbarHost: @Composable (SnackbarHostState) -> Unit = { SnackbarHost(it) },

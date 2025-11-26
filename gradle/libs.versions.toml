@@ -1,12 +1,12 @@
 [versions]
 accompanist = "0.36.0"
-agp = "8.13.0"
+agp = "8.13.1"
 androidx-activity = "1.11.0"
 androidx-appCompat = "1.7.1"
 compileSdk = "36"
 dokka = "1.9.20"
-kotlin = "2.2.20"
-lint = "31.13.0"
+kotlin = "2.2.21"
+lint = "31.13.1"
 minCompileSdk = "24"
 targetSdk = "36"
 
@@ -48,7 +48,7 @@ androidx-compose-ui-util = { module = "androidx.compose.ui:ui-util" }
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.1"
 androidx-constraintlayout-compose = "androidx.constraintlayout:constraintlayout-compose:1.1.1"
 
-androidx-core = "androidx.core:core-ktx:1.16.0"
+androidx-core = "androidx.core:core-ktx:1.17.0"
 
 androidx-graphics-shapes = "androidx.graphics:graphics-shapes:1.1.0"
 
@@ -62,13 +62,14 @@ androidx-savedstate = "androidx.savedstate:savedstate-ktx:1.3.3"
 androidx-test-runner = "androidx.test:runner:1.7.0"
 androidx-test-truth = "androidx.test.ext:truth:1.7.0"
 
-androidx-window = "androidx.window:window:1.4.0"
+androidx-window = "androidx.window:window:1.5.0"
 
 # https://coil-kt.github.io/coil/
 coil-bom = "io.coil-kt.coil3:coil-bom:3.3.0"
 coil-compose = { module = "io.coil-kt.coil3:coil-compose" }
 
 constraintsExplorer = "com.zachklipp:constraints-explorer:1.1.0"
+colorPicker = "com.github.skydoves:colorpicker-compose:1.1.2"
 
 # https://developer.android.com/topic/libraries/architecture/datastore
 androidx-datastore = "androidx.datastore:datastore:1.1.7"
@@ -105,7 +106,7 @@ robolectric = "org.robolectric:robolectric:4.16"
 slack-lint-compose = "com.slack.lint.compose:compose-lint-checks:1.4.2"
 
 # https://github.com/google/TestParameterInjector
-testParameterInjector = "com.google.testparameterinjector:test-parameter-injector:1.19"
+testParameterInjector = "com.google.testparameterinjector:test-parameter-injector:1.20"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -118,9 +119,9 @@ dependencyGuard = "com.dropbox.dependency-guard:0.5.0"
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-nmcp = "com.gradleup.nmcp:1.2.0"
+nmcp = "com.gradleup.nmcp:1.3.0"
 paparazzi = "app.cash.paparazzi:2.0.0-alpha02"
-spotless = "com.diffplug.spotless:8.0.0"
+spotless = "com.diffplug.spotless:8.1.0"
 
 
 # Plugins defined by this project

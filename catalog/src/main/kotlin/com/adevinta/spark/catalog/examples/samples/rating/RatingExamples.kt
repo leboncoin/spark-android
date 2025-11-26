@@ -42,9 +42,11 @@ import com.adevinta.spark.components.rating.RatingSimpleLarge
 import com.adevinta.spark.components.rating.RatingStar
 import com.adevinta.spark.components.rating.RatingStarState
 import com.adevinta.spark.components.text.Text
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import java.util.Locale
 
-public val RatingExamples: List<Example> = listOf(
+public val RatingExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "display",
         name = "Rating Display",

@@ -41,8 +41,10 @@ import com.adevinta.spark.components.stepper.StepperForm
 import com.adevinta.spark.components.stepper.stepperSemantics
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.FormFieldStatus
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
-public val StepperExamples: List<Example> = listOf(
+public val StepperExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "default",
         name = "Base Stepper Example",

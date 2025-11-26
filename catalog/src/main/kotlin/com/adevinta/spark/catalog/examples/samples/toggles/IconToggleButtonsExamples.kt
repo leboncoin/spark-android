@@ -36,10 +36,12 @@ import com.adevinta.spark.components.iconbuttons.toggle.IconToggleButtonTinted
 import com.adevinta.spark.icons.LikeFill
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 private const val IconToggleButtonsExampleDescription = "Icon Toggle Button examples"
 private const val IconToggleButtonsExampleSourceUrl = "$SampleSourceUrl/IconToggleButtonSamples.kt"
-public val IconToggleButtonsExamples: List<Example> = listOf(
+public val IconToggleButtonsExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "filled",
         name = "Filled Icon Toggle Button",

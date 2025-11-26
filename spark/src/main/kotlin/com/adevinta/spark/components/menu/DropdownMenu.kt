@@ -51,6 +51,7 @@ import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
@@ -281,12 +282,15 @@ public fun ExposedDropdownMenuBoxScope.MultipleChoiceExposedDropdownMenu(
 }
 
 /** Scope for the children of a [DropdownMenu] */
+@Immutable
 public interface DropdownMenuItemColumnScope : ColumnScope
 
 /** Scope for the children of a [SingleChoiceComboBox] */
+@Immutable
 public interface SingleChoiceDropdownItemColumnScope : DropdownMenuItemColumnScope
 
 /** Scope for the children of a [MultiChoiceComboBox] */
+@Immutable
 public interface MultiChoiceDropdownItemColumnScope : DropdownMenuItemColumnScope
 
 private class DropdownMenuItemWrapper(scope: ColumnScope) :

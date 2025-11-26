@@ -59,9 +59,9 @@ androidx.constraintlayout:constraintlayout-compose-android:1.1.1
 androidx.constraintlayout:constraintlayout-compose:1.1.1
 androidx.constraintlayout:constraintlayout-core:1.1.1
 androidx.constraintlayout:constraintlayout:2.2.1
-androidx.core:core-ktx:1.16.0
+androidx.core:core-ktx:1.17.0
 androidx.core:core-viewtree:1.0.0
-androidx.core:core:1.16.0
+androidx.core:core:1.17.0
 androidx.cursoradapter:cursoradapter:1.0.0
 androidx.customview:customview-poolingcontainer:1.0.0
 androidx.customview:customview:1.0.0
@@ -104,9 +104,9 @@ androidx.vectordrawable:vectordrawable-animated:1.1.0
 androidx.vectordrawable:vectordrawable:1.1.0
 androidx.versionedparcelable:versionedparcelable:1.1.1
 androidx.viewpager:viewpager:1.0.0
-androidx.window:window-core-android:1.4.0
-androidx.window:window-core:1.4.0
-androidx.window:window:1.4.0
+androidx.window:window-core-android:1.5.0
+androidx.window:window-core:1.5.0
+androidx.window:window:1.5.0
 com.google.accompanist:accompanist-drawablepainter:0.37.3
 com.google.guava:listenablefuture:1.0
 com.squareup.okio:okio-jvm:3.15.0
@@ -138,9 +138,9 @@ org.jetbrains.compose.ui:ui-text:1.8.2
 org.jetbrains.compose.ui:ui-unit:1.8.2
 org.jetbrains.compose.ui:ui-util:1.8.2
 org.jetbrains.compose.ui:ui:1.8.2
-org.jetbrains.kotlin:kotlin-bom:2.2.20
-org.jetbrains.kotlin:kotlin-stdlib-common:2.2.20
-org.jetbrains.kotlin:kotlin-stdlib:2.2.20
+org.jetbrains.kotlin:kotlin-bom:2.2.21
+org.jetbrains.kotlin:kotlin-stdlib-common:2.2.21
+org.jetbrains.kotlin:kotlin-stdlib:2.2.21
 org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.4.0
 org.jetbrains.kotlinx:kotlinx-collections-immutable:0.4.0
 org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2

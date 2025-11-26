@@ -33,3 +33,21 @@ FlowRow(
     TagOutlined(text = "Tag 6", intent = TagIntent.Main)
 }
 ````
+
+### Tag "Highlight"
+
+The Highlight tag allows you to temporarily highlight new features of the product. It draws users attention to new features or important updates.
+
+| Light                                                                                                    | Dark                                                                                                                                    |
+|----------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| ![TagHighlight Light](../../images/images/com.adevinta.spark.tags_TagsScreenshot_tagHighlight_light.png) | ![TagHighlight Dark](../../images/images/com.adevinta.spark.tags_TagsScreenshot_tagHighlight_dark.png)      |
+
+**Important Usage Guidelines:**
+
+- Use this component exceptionally to avoid visual overload
+- Always prioritize the elements being highlighted
+- Implement with an End-of-Life Remote Config to prevent indefinite production presence
+
+```kotlin
+TagHighlight()
+```
