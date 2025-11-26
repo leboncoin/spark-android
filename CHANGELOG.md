@@ -2,6 +2,14 @@
 
 <!-- Don't forget to update links at the end of this page! -->
 
+## [1.5.1]
+
+_2025-11-26_
+
+### Spark
+
+- 🐛 Fixed the `Image` Composable to ensure it does not download images twice. 
+
 ## [1.5.0]
 
 _2025-10-29_
@@ -914,7 +922,9 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.5.0...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.5.1...HEAD
+
+[1.5.1]: https://github.com/leboncoin/spark-android/releases/tag/1.5.1
 
 [1.5.0]: https://github.com/leboncoin/spark-android/releases/tag/1.5.0
 
