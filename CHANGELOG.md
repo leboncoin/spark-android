@@ -922,7 +922,7 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.5.0...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.5.1...HEAD
 
 [1.5.1]: https://github.com/leboncoin/spark-android/releases/tag/1.5.1
 
