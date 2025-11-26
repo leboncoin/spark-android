@@ -55,7 +55,6 @@ import coil3.asImage
 import coil3.compose.AsyncImagePainter
 import coil3.compose.SubcomposeAsyncImage
 import coil3.compose.SubcomposeAsyncImageContent
-import coil3.compose.rememberAsyncImagePainter
 import coil3.decode.DataSource
 import coil3.request.ErrorResult
 import coil3.request.ImageRequest
@@ -109,11 +108,6 @@ public fun SparkImage(
     val emptyStateIcon = remember(emptyIcon) {
         movableContentOf(emptyIcon)
     }
-    val painter = rememberAsyncImagePainter(
-        model = model,
-        transform = transform,
-        onState = { onState?.invoke(it.asImageState()) },
-    )
     val exceptionHandler = LocalSparkExceptionHandler.current
     SubcomposeAsyncImage(
         modifier = modifier

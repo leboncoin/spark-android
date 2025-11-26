@@ -48,6 +48,14 @@ _2025-10-30_
 
 - 💄Add new vignettes illustrations to represent the components when browsing them in the app
 
+## [1.5.1]
+
+_2025-11-26_
+
+### Spark
+
+- 🐛 Fixed the `Image` Composable to ensure it does not download images twice. 
+
 ## [1.5.0]
 
 _2025-10-29_
@@ -966,6 +974,8 @@ _2023-03-29_
 [1.6.0]: https://github.com/leboncoin/spark-android/releases/tag/1.6.0
 
 [1.6.0-alpha01]: https://github.com/leboncoin/spark-android/releases/tag/1.6.0-alpha01
+
+[1.5.1]: https://github.com/leboncoin/spark-android/releases/tag/1.5.1
 
 [1.5.0]: https://github.com/leboncoin/spark-android/releases/tag/1.5.0
 
