@@ -113,6 +113,7 @@
     <string name="component_animation_description">Les animations fournissent un retour visuel et améliorent l’expérience utilisateur par le mouvement. L’animation de pulsation crée un effet pulsant qui attire l’attention sur les éléments interactifs.</string>
     <string name="component_badge_description">Les badges sont des indicateurs visuels pour les valeurs numériques telles que les totaux et les scores, ou pour mettre en évidence les informations de statut.</string>
     <string name="component_placeholder_description">Les squelettes fournissent un retour visuel pendant les états de chargement, affichant une interface utilisateur qui imite la structure du contenu réel évitant les sauts de pages une fois les élements chargés</string>
+    <string name="component_segmentedgauge_description">La Jauge Segmenté est un indicateur visuel non interactif composée de cellules coloré. Elle affiche un niveau ou une valeur sur une echelle (par ex. de “bas” à “haut” )</string>
 
     <string name="configurator_component_screen_title">Configurations des composants</string>
     <string name="configurator_component_screen_description">Le configurateur permet de visualiser un composant dans tous les états possibles disponibles en personnalisant chaque propriété pour chaque composant.</string>
