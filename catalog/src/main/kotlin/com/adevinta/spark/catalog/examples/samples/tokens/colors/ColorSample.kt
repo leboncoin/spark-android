@@ -129,8 +129,12 @@ private fun KProperty1<SparkColors, Color>.asColorProperty(): KProperty1<SparkCo
     object : KProperty1<SparkColors, Color> by this {
         @Suppress("USELESS_IS_CHECK")
         override fun get(receiver: SparkColors): Color = when (val any: Any = this@asColorProperty.get(receiver)) {
-            is Color -> any // in debug builds
-            is Long -> Color(any.toULong()) // in release builds
+            // in debug builds
+            is Color -> any
+
+            // in release builds
+            is Long -> Color(any.toULong())
+
             else -> error("Unexpected type: ${any::class}")
         }
     }

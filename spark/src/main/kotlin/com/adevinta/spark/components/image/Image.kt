@@ -140,6 +140,7 @@ public fun SparkImage(
         val input by painter.input.collectAsStateWithLifecycle()
         when (state) {
             AsyncImagePainter.State.Empty -> emptyStateIcon()
+
             is AsyncImagePainter.State.Loading -> loadingPlaceholder()
 
             is AsyncImagePainter.State.Error -> {
