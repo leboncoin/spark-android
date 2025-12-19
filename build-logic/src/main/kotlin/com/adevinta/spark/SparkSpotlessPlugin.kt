@@ -37,6 +37,7 @@ internal class SparkSpotlessPlugin : Plugin<Project> {
                 val licenseHeader = rootProject.file("spotless/spotless.kt")
                 format("misc") {
                     target("**/*.md", "**/.gitignore")
+                    targetExclude("**/dependencies/*.txt")
                     endWithNewline()
                 }
                 kotlin {
