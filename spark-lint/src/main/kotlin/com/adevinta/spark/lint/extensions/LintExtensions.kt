@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Adevinta
+ * Copyright (c) 2025 Adevinta
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,26 +19,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.adevinta.spark.lint
 
-import com.android.tools.lint.client.api.IssueRegistry
-import com.android.tools.lint.client.api.Vendor
-import com.android.tools.lint.detector.api.CURRENT_API
-import com.android.tools.lint.detector.api.Issue
+package com.adevinta.spark.lint.extensions
 
-public class LintIssueRegistry : IssueRegistry() {
+import com.android.tools.lint.detector.api.Detector
+import com.android.tools.lint.detector.api.Implementation
+import com.android.tools.lint.detector.api.Scope.Companion.JAVA_FILE_SCOPE
+import com.android.tools.lint.detector.api.Scope.JAVA_FILE
+import com.android.tools.lint.detector.api.Scope.TEST_SOURCES
+import com.android.tools.lint.detector.api.SourceCodeScanner
+import java.util.EnumSet
 
-    override val vendor: Vendor = Vendor(
-        vendorName = "spark",
-        identifier = "com.adevinta.spark:spark-lints",
+internal inline fun <reified T> sourceImplementation(
+    shouldRunOnTestSources: Boolean = true,
+): Implementation where T : Detector, T : SourceCodeScanner =
+    if (!shouldRunOnTestSources) Implementation(T::class.java, JAVA_FILE_SCOPE)
+    // https://groups.google.com/g/lint-dev/c/ULQMzW1ZlP0/m/1dG4Vj3-AQAJ
+    else Implementation(
+        T::class.java,
+        EnumSet.of(JAVA_FILE, TEST_SOURCES),
+        EnumSet.of(JAVA_FILE),
+        EnumSet.of(TEST_SOURCES),
     )
-
-    override val api: Int = CURRENT_API
-    override val issues: List<Issue> = listOf(
-        MaterialComposableUsageDetector.ISSUE,
-        StringResourceAnnotationDetector.EMPTY_ANNOTATION_VARIABLE_ISSUE,
-        StringResourceAnnotationDetector.UNKNOWN_ANNOTATION_ATTRIBUTE_NAME_ISSUE,
-        StringResourceAnnotationDetector.UNSUPPORTED_ANNOTATION_ATTRIBUTE_VALUE_ISSUE,
-        WrongConditionalModifierUsageDetector.ISSUE,
-    )
-}
