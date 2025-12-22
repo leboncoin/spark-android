@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.catalog.tabbar
 
+import android.annotation.SuppressLint
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
@@ -91,6 +92,7 @@ private fun AppIcon() {
     )
 }
 
+@SuppressLint("MaterialComposableUsageDetector")
 @Composable
 internal fun CatalogTabs(
     modifier: Modifier = Modifier,
@@ -121,6 +123,7 @@ internal fun CatalogTabs(
     }
 }
 
+@SuppressLint("MaterialComposableUsageDetector")
 @Composable
 private fun CatalogTab(
     selected: Boolean,
