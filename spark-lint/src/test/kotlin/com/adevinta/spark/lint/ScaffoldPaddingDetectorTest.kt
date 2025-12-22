@@ -111,25 +111,25 @@ class ScaffoldPaddingDetectorTest : LintDetectorTest() {
             .run()
             .expect(
                 """
-src/test/foo/test.kt:10: Error: Content padding parameter it is not used [UnusedMaterialScaffoldPaddingParameter]
+src/test/foo/test.kt:10: Error: Content padding parameter it is not used [UnusedSparkScaffoldPaddingParameter]
                     Scaffold { /**/ }
                              ~~~~~~~~
-src/test/foo/test.kt:11: Error: Content padding parameter it is not used [UnusedMaterialScaffoldPaddingParameter]
+src/test/foo/test.kt:11: Error: Content padding parameter it is not used [UnusedSparkScaffoldPaddingParameter]
                     Scaffold(Modifier) { /**/ }
                                        ~~~~~~~~
-src/test/foo/test.kt:12: Error: Content padding parameter it is not used [UnusedMaterialScaffoldPaddingParameter]
+src/test/foo/test.kt:12: Error: Content padding parameter it is not used [UnusedSparkScaffoldPaddingParameter]
                     Scaffold(Modifier, topBar = {}, bottomBar = {}) { /**/ }
                                                                     ~~~~~~~~
-src/test/foo/test.kt:13: Error: Content padding parameter it is not used [UnusedMaterialScaffoldPaddingParameter]
+src/test/foo/test.kt:13: Error: Content padding parameter it is not used [UnusedSparkScaffoldPaddingParameter]
                     Scaffold(Modifier, topBar = {}, bottomBar = {}, content = { /**/ })
                                                                               ~~~~~~~~
-src/test/foo/test.kt:14: Error: Content padding parameter _ is not used [UnusedMaterialScaffoldPaddingParameter]
+src/test/foo/test.kt:14: Error: Content padding parameter _ is not used [UnusedSparkScaffoldPaddingParameter]
                     Scaffold(Modifier, topBar = {}, bottomBar = {}) { _ -> /**/ }
                                                                       ~
-src/test/foo/test.kt:15: Error: Content padding parameter innerPadding is not used [UnusedMaterialScaffoldPaddingParameter]
+src/test/foo/test.kt:15: Error: Content padding parameter innerPadding is not used [UnusedSparkScaffoldPaddingParameter]
                     Scaffold(Modifier, topBar = {}, bottomBar = {}) { innerPadding -> /**/ }
                                                                       ~~~~~~~~~~~~
-6 errors, 0 warnings
+6 errors
             """,
             )
     }
@@ -179,13 +179,13 @@ src/test/foo/test.kt:15: Error: Content padding parameter innerPadding is not us
             .run()
             .expect(
                 """
-src/test/foo/test.kt:12: Error: Content padding parameter it is not used [UnusedMaterialScaffoldPaddingParameter]
+src/test/foo/test.kt:12: Error: Content padding parameter it is not used [UnusedSparkScaffoldPaddingParameter]
                     Scaffold {
                              ^
-src/test/foo/test.kt:21: Error: Content padding parameter innerPadding is not used [UnusedMaterialScaffoldPaddingParameter]
+src/test/foo/test.kt:21: Error: Content padding parameter innerPadding is not used [UnusedSparkScaffoldPaddingParameter]
                     Scaffold(Modifier, topBar = {}, bottomBar = {}) { innerPadding ->
                                                                       ~~~~~~~~~~~~
-2 errors, 0 warnings
+2 errors
             """,
             )
     }
