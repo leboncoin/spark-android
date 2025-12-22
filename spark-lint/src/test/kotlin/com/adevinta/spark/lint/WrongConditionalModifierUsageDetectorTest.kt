@@ -46,7 +46,7 @@ class WrongConditionalModifierUsageDetectorTest : LintDetectorTest() {
                 fun fillMaxWidth(): Modifier = this
                 fun clickable(onClick: () -> Unit): Modifier = this
             }
-            
+
             interface Modifier {
                 companion object : Modifier
             }
@@ -56,9 +56,9 @@ class WrongConditionalModifierUsageDetectorTest : LintDetectorTest() {
     private val modifierExtensionsStub = kotlin(
         """
             package com.adevinta.spark.tools.modifiers
-            
+
             import androidx.compose.ui.Modifier
-    
+
             inline fun Modifier.ifTrue(value: Boolean, chain: Modifier.() -> Modifier): Modifier {}
             inline fun Modifier.ifFalse(value: Boolean, chain: Modifier.() -> Modifier): Modifier {}
             inline fun <T : Any> Modifier.ifNotNull(value: T?, chain: Modifier.(T) -> Modifier): Modifier {}
@@ -75,15 +75,15 @@ class WrongConditionalModifierUsageDetectorTest : LintDetectorTest() {
                 kotlin(
                     """
                     package fr.leboncoin
-    
+
                     import androidx.compose.ui.Modifier
                     import com.adevinta.spark.tools.modifiers.ifTrue
                     import com.adevinta.spark.tools.modifiers.ifFalse
                     import com.adevinta.spark.tools.modifiers.ifNotNull
                     import com.adevinta.spark.tools.modifiers.ifNull
-    
+
                     fun correctUsage() {
-                        
+
                         Modifier
                             .ifTrue { background(42) }
                             .ifTrue { this.background(42) }
@@ -157,7 +157,7 @@ class WrongConditionalModifierUsageDetectorTest : LintDetectorTest() {
                 import com.adevinta.spark.tools.modifiers.ifTrue
 
                 fun incorrectUsage() {
-                    Modifier.ifTrue { 
+                    Modifier.ifTrue {
                         Modifier.background(42).padding(10)
                     }
                 }

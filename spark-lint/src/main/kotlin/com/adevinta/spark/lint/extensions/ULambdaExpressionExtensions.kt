@@ -26,7 +26,6 @@ import com.adevinta.spark.lint.utils.UnreferencedParameter
 import org.jetbrains.kotlin.psi.KtLambdaExpression
 import org.jetbrains.uast.ULambdaExpression
 
-
 internal fun ULambdaExpression.findUnreferencedParameters(): List<UnreferencedParameter> {
     val lambdaExpression = sourcePsi as? KtLambdaExpression ?: return emptyList()
     return LambdaParameterVisitor(lambdaExpression).findUnreferencedParameters()

@@ -28,7 +28,6 @@ import org.jetbrains.kotlin.psi.KtSimpleNameExpression
 import org.jetbrains.kotlin.psi.psiUtil.collectDescendantsOfType
 import org.jetbrains.kotlin.psi.psiUtil.isAncestor
 
-
 internal class UnreferencedParameter(val name: String, public val parameter: KtParameter?)
 private const val LAMBDA_IMPLICIT_PARAMETER_NAME = "it"
 

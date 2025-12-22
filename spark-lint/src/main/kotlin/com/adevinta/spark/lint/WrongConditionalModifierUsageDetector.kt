@@ -39,7 +39,9 @@ import kotlin.collections.lastOrNull
 import kotlin.jvm.java
 import kotlin.text.endsWith
 
-public class WrongConditionalModifierUsageDetector : Detector(), SourceCodeScanner {
+public class WrongConditionalModifierUsageDetector :
+    Detector(),
+    SourceCodeScanner {
 
     internal companion object {
         val ISSUE = Issue.create(
@@ -50,12 +52,12 @@ public class WrongConditionalModifierUsageDetector : Detector(), SourceCodeScann
                 'ifNotNull', or 'ifNull' on Modifier, you should not use the static reference \
                 to 'Modifier' inside the lambda. Instead, use the implicit 'this' receiver \
                 or omit it, as it's already an extension on Modifier. \
-                
+
                 Incorrect:
                 ```
                 Modifier.ifTrue(condition) { Modifier.background(Color.Red) }
                 ```
-                
+
                 Correct:
                 ```
                 Modifier..ifTrue(condition) { background(Color.Red) }
@@ -64,11 +66,16 @@ public class WrongConditionalModifierUsageDetector : Detector(), SourceCodeScann
             category = CORRECTNESS,
             priority = 6,
             severity = ERROR,
-            implementation = sourceImplementation<WrongConditionalModifierUsageDetector>(shouldRunOnTestSources = false),
+            implementation = sourceImplementation<WrongConditionalModifierUsageDetector>(
+                shouldRunOnTestSources = false,
+            ),
         )
 
         private val CONDITIONAL_MODIFIERS = setOf(
-            "ifTrue", "ifFalse", "ifNotNull", "ifNull",
+            "ifTrue",
+            "ifFalse",
+            "ifNotNull",
+            "ifNull",
         )
     }
 
@@ -86,8 +93,8 @@ public class WrongConditionalModifierUsageDetector : Detector(), SourceCodeScann
         issue = ISSUE,
         scope = node,
         location = getLocation(node),
-        message = "Do not use the static `Modifier` reference in the lambda of `${methodName}`. " +
-                "Use the implicit 'this' receiver instead",
+        message = "Do not use the static `Modifier` reference in the lambda of `$methodName`. " +
+            "Use the implicit 'this' receiver instead",
         quickfixData = quickFix(),
     )
 
@@ -103,7 +110,11 @@ public class WrongConditionalModifierUsageDetector : Detector(), SourceCodeScann
             lambdaArg.accept(
                 object : AbstractUastVisitor() {
                     override fun visitQualifiedReferenceExpression(node: UQualifiedReferenceExpression): Boolean {
-                        if (node.receiver.findSelector().asRenderString() != "Modifier") return super.visitQualifiedReferenceExpression(node)
+                        if (node.receiver.findSelector()
+                                .asRenderString() != "Modifier"
+                        ) {
+                            return super.visitQualifiedReferenceExpression(node)
+                        }
 
                         context.reportIssue(node, methodName)
                         return true

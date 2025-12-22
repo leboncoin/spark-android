@@ -40,7 +40,10 @@ import kotlin.collections.firstOrNull
 import kotlin.collections.orEmpty
 import kotlin.let
 
-public class ScaffoldPaddingDetector : Detector(), SourceCodeScanner {
+public class ScaffoldPaddingDetector :
+    Detector(),
+    SourceCodeScanner {
+
     override fun getApplicableMethodNames(): List<String> = listOf("Scaffold")
 
     override fun visitMethodCall(context: JavaContext, node: UCallExpression, method: PsiMethod) {
@@ -54,7 +57,8 @@ public class ScaffoldPaddingDetector : Detector(), SourceCodeScanner {
                 .filterIsInstance<ULambdaExpression>()
                 .firstOrNull() ?: return
 
-        val contentPaddingParameter = contentArgument.findUnreferencedParameters().firstOrNull() ?: return
+        val contentPaddingParameter =
+            contentArgument.findUnreferencedParameters().firstOrNull() ?: return
 
         val location = contentPaddingParameter.parameter
             ?.let { context.getLocation(it) }
@@ -74,9 +78,9 @@ public class ScaffoldPaddingDetector : Detector(), SourceCodeScanner {
                 id = "UnusedSparkScaffoldPaddingParameter",
                 briefDescription = "Unused `Scaffold`'s `content` padding",
                 explanation = "The `content` lambda in `Scaffold` has a padding parameter " +
-                        "which will include any inner padding for the content due to app bars. If this " +
-                        "parameter is ignored, then content may be obscured by the app bars resulting in " +
-                        "visual issues or elements that can't be interacted with.",
+                    "which will include any inner padding for the content due to app bars. If this " +
+                    "parameter is ignored, then content may be obscured by the app bars resulting in " +
+                    "visual issues or elements that can't be interacted with.",
                 category = Category.CORRECTNESS,
                 priority = 3,
                 severity = Severity.ERROR,

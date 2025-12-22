@@ -30,9 +30,11 @@ internal val KtLambdaExpression.hasImplicitItParameter: Boolean
         return when {
             // There is already a parameter specified explicitly
             functionLiteral.hasParameterSpecification() -> false
+
             // There are either no parameters, or more than 1 parameter required for `it`
             // to be allowed
             (toUElement() as? ULambdaExpression)?.valueParameters?.size != 1 -> false
+
             else -> true
         }
     }

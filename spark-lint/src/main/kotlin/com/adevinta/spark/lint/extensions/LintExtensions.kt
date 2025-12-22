@@ -19,7 +19,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 package com.adevinta.spark.lint.extensions
 
 import com.android.tools.lint.detector.api.Detector
@@ -33,11 +32,14 @@ import java.util.EnumSet
 internal inline fun <reified T> sourceImplementation(
     shouldRunOnTestSources: Boolean = true,
 ): Implementation where T : Detector, T : SourceCodeScanner =
-    if (!shouldRunOnTestSources) Implementation(T::class.java, JAVA_FILE_SCOPE)
-    // https://groups.google.com/g/lint-dev/c/ULQMzW1ZlP0/m/1dG4Vj3-AQAJ
-    else Implementation(
-        T::class.java,
-        EnumSet.of(JAVA_FILE, TEST_SOURCES),
-        EnumSet.of(JAVA_FILE),
-        EnumSet.of(TEST_SOURCES),
-    )
+    if (!shouldRunOnTestSources) {
+        Implementation(T::class.java, JAVA_FILE_SCOPE)
+    } // https://groups.google.com/g/lint-dev/c/ULQMzW1ZlP0/m/1dG4Vj3-AQAJ
+    else {
+        Implementation(
+            T::class.java,
+            EnumSet.of(JAVA_FILE, TEST_SOURCES),
+            EnumSet.of(JAVA_FILE),
+            EnumSet.of(TEST_SOURCES),
+        )
+    }
