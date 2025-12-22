@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Adevinta
+ * Copyright (c) 2026 Adevinta
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,27 +19,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.adevinta.spark.lint
+package com.adevinta.spark.lint.extensions
 
-import com.android.tools.lint.client.api.IssueRegistry
-import com.android.tools.lint.client.api.Vendor
-import com.android.tools.lint.detector.api.CURRENT_API
-import com.android.tools.lint.detector.api.Issue
+import org.jetbrains.kotlin.psi.KtLambdaExpression
+import org.jetbrains.uast.ULambdaExpression
+import org.jetbrains.uast.toUElement
 
-public class LintIssueRegistry : IssueRegistry() {
-
-    override val vendor: Vendor = Vendor(
-        vendorName = "spark",
-        identifier = "com.adevinta.spark:spark-lints",
-    )
-
-    override val api: Int = CURRENT_API
-    override val issues: List<Issue> = listOf(
-        MaterialComposableUsageDetector.ISSUE,
-        StringResourceAnnotationDetector.EMPTY_ANNOTATION_VARIABLE_ISSUE,
-        StringResourceAnnotationDetector.UNKNOWN_ANNOTATION_ATTRIBUTE_NAME_ISSUE,
-        StringResourceAnnotationDetector.UNSUPPORTED_ANNOTATION_ATTRIBUTE_VALUE_ISSUE,
-        ScaffoldPaddingDetector.ISSUE,
-        WrongConditionalModifierUsageDetector.ISSUE,
-    )
-}
+internal val KtLambdaExpression.hasImplicitItParameter: Boolean
+    get() {
+        return when {
+            // There is already a parameter specified explicitly
+            functionLiteral.hasParameterSpecification() -> false
+            // There are either no parameters, or more than 1 parameter required for `it`
+            // to be allowed
+            (toUElement() as? ULambdaExpression)?.valueParameters?.size != 1 -> false
+            else -> true
+        }
+    }
