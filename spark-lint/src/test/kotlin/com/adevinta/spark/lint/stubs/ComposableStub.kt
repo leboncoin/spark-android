@@ -46,4 +46,11 @@ internal val Composables: Array<TestFile> = arrayOf(
     interface Modifier
         """.trimIndent(),
     ),
+    kotlin(
+        """
+    package androidx.compose.ui.graphics
+
+    class Color
+        """.trimIndent(),
+    ),
 )
