@@ -90,13 +90,6 @@ public fun ConfiguratorComponentScreen(
     val scrollState = rememberScrollState()
     TrackScrollJank(scrollableState = scrollState, stateName = "configurator-component:screen")
     val snackbarHostState = remember { SnackbarHostState() }
-    val boundsTransform = BoundsTransform { initialBounds, targetBounds ->
-        keyframes {
-            durationMillis = 300
-            initialBounds at 0 using ArcMode.ArcBelow using FastOutSlowInEasing
-            targetBounds at 300
-        }
-    }
     with(LocalSharedTransitionScope.current) {
         Scaffold(
             modifier = Modifier.sharedBounds(
@@ -109,16 +102,16 @@ public fun ConfiguratorComponentScreen(
                 ),
                 animatedVisibilityScope = LocalAnimatedVisibilityScope.current,
                 resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
-//                boundsTransform = boundsTransform,
                 placeHolderSize = SharedTransitionScope.PlaceHolderSize.animatedSize,
             ),
             snackbarHost = { SnackbarHost(snackbarHostState) },
-        ) {
+        ) { paddingValues ->
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .verticalScroll(scrollState)
                     .windowInsetsPadding(WindowInsets.navigationBars)
+                    .padding(paddingValues)
                     .padding(horizontal = Layout.bodyMargin)
                     .skipToLookaheadSize()
                     .imePadding(),
