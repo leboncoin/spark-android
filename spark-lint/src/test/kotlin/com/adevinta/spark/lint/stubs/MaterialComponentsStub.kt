@@ -30,48 +30,161 @@ internal val MaterialComponentsStub = kotlin(
     import androidx.compose.runtime.Composable
 
     @Composable
+    fun AlertDialog() {}
+    @Composable
+    fun AssistChip() {}
+    @Composable
+    fun Badge() {}
+    @Composable
+    fun BadgedBox() {}
+    @Composable
+    fun BottomAppBar() {}
+    @Composable
+    fun BottomSheetScaffold() {}
+    @Composable
+    fun ModalBottomSheet() {}
+    @Composable
     fun Button() {}
-
     @Composable
-    fun OutlinedButton() {}
-
+    fun Card() {}
     @Composable
-    fun ElevatedButton() {}
-
+    fun CenterAlignedTopAppBar() {}
     @Composable
-    fun FilledTonalButton() {}
-
-    @Composable
-    fun TextButton() {}
-
-    @Composable
-    fun OutlinedTextField() {}
-
-    @Composable
-    fun FilledTextField() {}
-
-    @Composable
-    fun CheckBox() {}
-
-    @Composable
-    fun TriStateCheckbox() {}
-
-    @Composable
-    fun RadioButton() {}
-
-    @Composable
-    fun Switch() {}
-
-    @Composable
-    fun Snackbar() {}
-
-    @Composable
-    fun LinearProgressIndicator() {}
-
+    fun Checkbox() {}
     @Composable
     fun CircularProgressIndicator() {}
-
+    @Composable
+    fun contentColorFor() {}
+    @Composable
+    fun DismissibleDrawerSheet() {}
+    @Composable
+    fun DismissibleNavigationDrawer() {}
+    @Composable
+    fun Divider() {}
+    @Composable
+    fun DropdownMenu() {}
+    @Composable
+    fun DropdownMenuItem() {}
+    @Composable
+    fun ElevatedAssistChip() {}
+    @Composable
+    fun ElevatedButton() {}
+    @Composable
+    fun ElevatedCard() {}
+    @Composable
+    fun ElevatedFilterChip() {}
+    @Composable
+    fun ExtendedFloatingActionButton() {}
+    @Composable
+    fun FilledIconButton() {}
+    @Composable
+    fun FilledIconToggleButton() {}
+    @Composable
+    fun FilledTonalButton() {}
+    @Composable
+    fun FilledTonalIconButton() {}
+    @Composable
+    fun FilledTonalIconToggleButton() {}
+    @Composable
+    fun FilterChip() {}
+    @Composable
+    fun FloatingActionButton() {}
+    @Composable
+    fun Icon() {}
+    @Composable
+    fun IconButton() {}
+    @Composable
+    fun IconToggleButton() {}
+    @Composable
+    fun InputChip() {}
+    @Composable
+    fun LargeFloatingActionButton() {}
+    @Composable
+    fun LargeTopAppBar() {}
+    @Composable
+    fun LeadingIconTab() {}
+    @Composable
+    fun LinearProgressIndicator() {}
+    @Composable
+    fun ListItem() {}
     @Composable
     fun MaterialTheme() {}
+    @Composable
+    fun MediumTopAppBar() {}
+    @Composable
+    fun ModalDrawerSheet() {}
+    @Composable
+    fun ModalNavigationDrawer() {}
+    @Composable
+    fun NavigationBar() {}
+    @Composable
+    fun NavigationBarItem() {}
+    @Composable
+    fun NavigationDrawerItem() {}
+    @Composable
+    fun NavigationRail() {}
+    @Composable
+    fun NavigationRailItem() {}
+    @Composable
+    fun OutlinedButton() {}
+    @Composable
+    fun OutlinedCard() {}
+    @Composable
+    fun OutlinedIconButton() {}
+    @Composable
+    fun OutlinedIconToggleButton() {}
+    @Composable
+    fun OutlinedTextField() {}
+    @Composable
+    fun PermanentDrawerSheet() {}
+    @Composable
+    fun PlainTooltip() {}
+    @Composable
+    fun RadioButton() {}
+    @Composable
+    fun RangeSlider() {}
+    @Composable
+    fun rememberDrawerState() {}
+    @Composable
+    fun rememberTopAppBarState() {}
+    @Composable
+    fun Scaffold() {}
+    @Composable
+    fun ScrollableTabRow() {}
+    @Composable
+    fun Slider() {}
+    @Composable
+    fun SmallFloatingActionButton() {}
+    @Composable
+    fun Snackbar() {}
+    @Composable
+    fun SnackbarHost() {}
+    @Composable
+    fun SnackbarHostState() {}
+    @Composable
+    fun Surface() {}
+    @Composable
+    fun Switch() {}
+    @Composable
+    fun Tab() {}
+    @Composable
+    fun TabRow() {}
+    @Composable
+    fun Text() {}
+    @Composable
+    fun TextButton() {}
+    @Composable
+    fun TooltipBox() {}
+    @Composable
+    fun TopAppBar() {}
+    @Composable
+    fun TriStateCheckbox() {}
+    @Composable
+    fun ripple() {}
+    @Composable
+    fun HorizontalDivider() {}
+    @Composable
+    fun VerticalDivider() {}
+
     """.trimIndent(),
 )

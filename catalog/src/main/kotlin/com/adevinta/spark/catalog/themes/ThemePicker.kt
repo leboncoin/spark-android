@@ -138,13 +138,14 @@ public fun ThemePicker(
                         style = SparkTheme.typography.body2.highlight,
                     )
 
-                    androidx.compose.material3.Slider(
+                    Slider(
                         modifier = Modifier
                             .fillMaxWidth()
                             .systemGestureExclusion(),
                         value = contrastLevel - 1f,
                         valueRange = 0f..1f,
                         steps = 9,
+                        enabled = false,
                         onValueChange = { },
                     )
                 }
