@@ -81,7 +81,7 @@ public fun Component(
 ) {
     val ltr = LocalLayoutDirection.current
     val animatedVisibilityScope = LocalAnimatedVisibilityScope.current
-    val boundsTransform = BoundsTransform { initialBounds, targetBounds ->
+    BoundsTransform { initialBounds, targetBounds ->
         keyframes {
             durationMillis = 500
             initialBounds at 0 using ArcMode.ArcBelow using FastOutSlowInEasing
@@ -115,7 +115,7 @@ public fun Component(
                     resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
                     animatedVisibilityScope = animatedVisibilityScope,
                     clipInOverlayDuringTransition = OverlayClip(RoundedCornerShape(cardRadius)),
-                    placeHolderSize = SharedTransitionScope.PlaceHolderSize.animatedSize,
+                    placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
                 ),
         ) {
             with(animatedVisibilityScope) {
@@ -149,7 +149,7 @@ public fun Component(
                                             ),
                                         ),
                                         animatedVisibilityScope = animatedVisibilityScope,
-                                        resizeMode = SharedTransitionScope.ResizeMode.ScaleToBounds(),
+                                        resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
                                     ),
                                 )
                                 Text(
@@ -222,7 +222,7 @@ public fun Component(
                                             spring(dampingRatio = .8f, stiffness = 380f)
                                         },
                                         resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
-                                        placeHolderSize = SharedTransitionScope.PlaceHolderSize.animatedSize,
+                                        placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
                                         animatedVisibilityScope = animatedVisibilityScope,
                                     )
                                     .animateEnterExit(

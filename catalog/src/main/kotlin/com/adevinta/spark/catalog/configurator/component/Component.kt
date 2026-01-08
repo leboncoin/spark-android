@@ -21,13 +21,9 @@
  */
 package com.adevinta.spark.catalog.configurator.component
 
-import androidx.compose.animation.BoundsTransform
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
-import androidx.compose.animation.core.ArcMode
 import androidx.compose.animation.core.ExperimentalAnimationSpecApi
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.keyframes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -102,7 +98,7 @@ public fun ConfiguratorComponentScreen(
                 ),
                 animatedVisibilityScope = LocalAnimatedVisibilityScope.current,
                 resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
-                placeHolderSize = SharedTransitionScope.PlaceHolderSize.animatedSize,
+                placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
             ),
             snackbarHost = { SnackbarHost(snackbarHostState) },
         ) { paddingValues ->

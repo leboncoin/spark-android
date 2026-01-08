@@ -186,7 +186,7 @@ public fun ExposedDropdownMenuBoxScope.ExposedDropdownMenu(
         containerColor = SparkTheme.colors.surface,
         tonalElevation = ElevationTokens.Level0,
         shadowElevation = ElevationTokens.Level2,
-        matchTextFieldWidth = matchTextFieldWidth,
+        matchAnchorWidth = matchTextFieldWidth,
         border = null,
         content = {
             val scope = remember { DropdownMenuItemWrapper(this) }
@@ -230,7 +230,7 @@ public fun ExposedDropdownMenuBoxScope.SingleChoiceExposedDropdownMenu(
         containerColor = SparkTheme.colors.surface,
         tonalElevation = ElevationTokens.Level0,
         shadowElevation = ElevationTokens.Level2,
-        matchTextFieldWidth = matchTextFieldWidth,
+        matchAnchorWidth = matchTextFieldWidth,
         border = null,
         content = {
             val scope = remember { SingleChoiceDropdownItemWrapper(this) }
@@ -272,7 +272,7 @@ public fun ExposedDropdownMenuBoxScope.MultipleChoiceExposedDropdownMenu(
         containerColor = SparkTheme.colors.surface,
         tonalElevation = ElevationTokens.Level2,
         shadowElevation = ElevationTokens.Level2,
-        matchTextFieldWidth = matchTextFieldWidth,
+        matchAnchorWidth = matchTextFieldWidth,
         border = null,
         content = {
             val scope = remember { MultiChoiceDropdownItemWrapper(this) }
