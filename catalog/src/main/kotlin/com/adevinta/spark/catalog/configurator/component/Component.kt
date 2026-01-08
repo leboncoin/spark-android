@@ -90,7 +90,7 @@ public fun ConfiguratorComponentScreen(
     val scrollState = rememberScrollState()
     TrackScrollJank(scrollableState = scrollState, stateName = "configurator-component:screen")
     val snackbarHostState = remember { SnackbarHostState() }
-    val boundsTransform = BoundsTransform { initialBounds, targetBounds ->
+    BoundsTransform { initialBounds, targetBounds ->
         keyframes {
             durationMillis = 300
             initialBounds at 0 using ArcMode.ArcBelow using FastOutSlowInEasing
@@ -110,7 +110,7 @@ public fun ConfiguratorComponentScreen(
                 animatedVisibilityScope = LocalAnimatedVisibilityScope.current,
                 resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
 //                boundsTransform = boundsTransform,
-                placeHolderSize = SharedTransitionScope.PlaceHolderSize.animatedSize,
+                placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
             ),
             snackbarHost = { SnackbarHost(snackbarHostState) },
         ) {

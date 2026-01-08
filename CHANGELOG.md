@@ -4,6 +4,19 @@
 
 ## [Unreleased]
 
+## [1.6.1]
+
+_2026-01-08_
+
+### Spark
+
+- 🐛 Fixed the `Image` Composable to ensure it does not download images twice
+
+#### ⬆️ Dependency Updates
+
+- ⬆️ Bump `androidx.compose:compose-bom` from 2025.09.00 to 2025.12.01
+- 🔧 Pin `androidx.compose.material3:material3` to version 1.3.2 (not using BOM version)
+
 ## [1.6.0]
 
 _2025-11-12_
@@ -961,7 +974,9 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.6.0...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.6.1...HEAD
+
+[1.6.1]: https://github.com/leboncoin/spark-android/releases/tag/1.6.1
 
 [1.6.0]: https://github.com/leboncoin/spark-android/releases/tag/1.6.0
 
