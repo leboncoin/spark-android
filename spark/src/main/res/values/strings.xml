@@ -82,4 +82,14 @@
     <!--region Tag-->
     <string name="spark_tag_highlight_new_label">New!</string>
     <!--endregion-->
+
+    <!--region FileUpload-->
+    <string name="spark_groupSeparator">,</string>
+    <string name="spark_decimalSymbol">.</string>
+    <string name="spark_byte_symbol">B</string>
+    <string name="spark_kilobyte_symbol">kB</string>
+    <string name="spark_megabyte_symbol">MB</string>
+    <string name="spark_gigabyte_symbol">GB</string>
+    <string name="spark_terabyte_symbol">TB</string>
+    <!--endregion-->
 </resources>
