@@ -30,7 +30,9 @@ import com.adevinta.spark.catalog.configurator.samples.buttons.ButtonsConfigurat
 import com.adevinta.spark.catalog.configurator.samples.buttons.IconButtonsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.buttons.IconToggleButtonsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.chips.ChipsConfigurator
+import com.adevinta.spark.catalog.configurator.samples.colorselector.ColorSelectorTestConfigurator
 import com.adevinta.spark.catalog.configurator.samples.divider.DividerConfigurator
+import com.adevinta.spark.catalog.configurator.samples.gauge.GaugesConfigurator
 import com.adevinta.spark.catalog.configurator.samples.image.ImageConfigurator
 import com.adevinta.spark.catalog.configurator.samples.modal.ModalConfigurator
 import com.adevinta.spark.catalog.configurator.samples.popover.PopoverConfigurator
@@ -58,6 +60,7 @@ import com.adevinta.spark.catalog.examples.samples.chips.ChipsExamples
 import com.adevinta.spark.catalog.examples.samples.combobox.ComboBoxExample
 import com.adevinta.spark.catalog.examples.samples.dialog.DialogsExamples
 import com.adevinta.spark.catalog.examples.samples.divider.DividerExamples
+import com.adevinta.spark.catalog.examples.samples.gauge.SegmentedGaugeExamples
 import com.adevinta.spark.catalog.examples.samples.icons.IconsExamples
 import com.adevinta.spark.catalog.examples.samples.placeholder.PlaceholderExamples
 import com.adevinta.spark.catalog.examples.samples.popover.PopoverExamples
@@ -345,6 +348,18 @@ private val Rating = Component(
     configurators = listOf(RatingsConfigurator),
 )
 
+private val SegmentedGauge = Component(
+    id = "gauge",
+    name = "Segmented Gauge",
+    illustration = R.drawable.gauge,
+    description = R.string.component_segmentedgauge_description,
+    guidelinesUrl = "$ComponentGuidelinesUrl/p/43dea8-segmentedgauge",
+    docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.gauge/index.html",
+    sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/gauge/SegmentedGauge.kt",
+    examples = SegmentedGaugeExamples,
+    configurators = listOf(GaugesConfigurator),
+)
+
 private val Skeletons = Component(
     id = "skeleton",
     name = "Skeletons",
@@ -456,6 +471,18 @@ private val TextLinks = Component(
     configurators = listOf(TextLinksConfigurator),
 )
 
+private val ColorSelectorTest = Component(
+    id = "color-selector-test",
+    name = "Color Selector Test",
+    illustration = R.drawable.button, // Using button icon as placeholder
+    description = R.string.component_color_selector_test_description,
+    guidelinesUrl = "#", // Placeholder
+    docsUrl = "#", // Placeholder
+    sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/catalog/ui/ColorSelector.kt",
+    examples = emptyList(), // No examples for test component
+    configurators = listOf(ColorSelectorTestConfigurator),
+)
+
 /** Components for the catalog, ordered alphabetically by name. */
 public val Components: List<Component> = listOf(
     Animations,
@@ -463,6 +490,7 @@ public val Components: List<Component> = listOf(
     Badges,
     BottomSheets,
     Buttons,
+    ColorSelectorTest,
     ComboBox,
     Checkboxes,
     Chips,
@@ -478,6 +506,7 @@ public val Components: List<Component> = listOf(
     ProgressTracker,
     RadioButtons,
     Rating,
+    SegmentedGauge,
     Skeletons,
     Sliders,
     Snackbars,

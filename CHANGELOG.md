@@ -4,13 +4,74 @@
 
 ## [Unreleased]
 
+## [1.7.0-alpha01]
+
+_2026-01-08_
+
+### Spark
+
+#### 🆕 SegmentedGauge Component
+
+- ✨ Add `SegmentedGauge` and `SegmentedGaugeShort` composables for level indication
+- Support for different sizes (Small, Medium) and custom colors
+
+> [!NOTE]
+> This component is experimental and marked with `@ExperimentalSparkApi`. Feedbacks are welcomed.
+
+- 📝 Fix wordings in the documentation
+- ⚙️ Migrate lint rules that were present in the lbc app into spark
+
 ### Catalog
 
+- ✨ Add color selector component for component configurators
+- 🚀 Compress vignettes to reduce app weight and improve vignette loading speed
+
+## [1.6.2]
+
+_2026-01-08_
+
+### Spark
+
+- 🔧 Migrated `bodyWidth()` modifier to use `bodyMaxWidth` based on window size class breakpoints, centering content horizontally with a max width of 840dp for expanded & large screens and 1040dp for extra large screens.
+
+## [1.6.1]
+
+_2026-01-08_
+
+### Spark
+
+- 🐛 Fixed the `Image` Composable to ensure it does not download images twice
+
+#### ⬆️ Dependency Updates
+
+- ⬆️ Bump `androidx.compose:compose-bom` from 2025.09.00 to 2025.12.01
+- 🔧 Pin `androidx.compose.material3:material3` to version 1.3.2 (not using BOM version)
+
+## [1.6.0]
+
+_2025-11-12_
+
+### Spark
+
+- ✨ Add `TagHighlight` component for highlighting new features
+- ✨ Add `highlight` extension on the `CornerShape` type
+
+> [!NOTE]
+> This component is experimental and marked with `@ExperimentalSparkApi`. It provides two variants:
+`TagHighlight` for card integration and `TagHighlightBadge` for positioning near highlighted
+> elements. Both include localized "New!" labels and should be used with an End-of-Life Remote Config
+> to prevent indefinite production presence.
+
+### Catalog
+
+- 🎨 Update the Pro Theme colors to reflect the current one used in production
+- ✨ Add new icon picker component to select any icon available in components configurator when available in the api
 - ✨ Add Badge component examples
 - ✨ Add AlertDialog component examples
 - ✨ Add Placeholder/skeletons component examples
 - ✨ Add new modal example demonstrating modal with no content to showcase Bottom App Bar behavior
 - 💄 Update Backdrop component to use `background` color instead of `surface` for front layer
+- 💄Add new vignettes illustrations to represent the components when browsing them in the app
 
 ## [1.6.0-alpha01]
 
@@ -25,9 +86,18 @@ _2025-10-30_
 `TagHighlight` for card integration and `TagHighlightBadge` for positioning near highlighted
 > elements. Both include localized "New!" labels and should be used with an End-of-Life Remote Config
 > to prevent indefinite production presence.
+
 ### Catalog
 
 - 💄Add new vignettes illustrations to represent the components when browsing them in the app
+
+## [1.5.1]
+
+_2025-11-26_
+
+### Spark
+
+- 🐛 Fixed the `Image` Composable to ensure it does not download images twice.
 
 ## [1.5.0]
 
@@ -942,9 +1012,19 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.6.0-alpha01...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.7.0-alpha01...HEAD
+
+[1.7.0-alpha01]: https://github.com/leboncoin/spark-android/releases/tag/1.7.0-alpha01
+
+[1.6.2]: https://github.com/leboncoin/spark-android/releases/tag/1.6.2
+
+[1.6.1]: https://github.com/leboncoin/spark-android/releases/tag/1.6.1
+
+[1.6.0]: https://github.com/leboncoin/spark-android/releases/tag/1.6.0
 
 [1.6.0-alpha01]: https://github.com/leboncoin/spark-android/releases/tag/1.6.0-alpha01
+
+[1.5.1]: https://github.com/leboncoin/spark-android/releases/tag/1.5.1
 
 [1.5.0]: https://github.com/leboncoin/spark-android/releases/tag/1.5.0
 

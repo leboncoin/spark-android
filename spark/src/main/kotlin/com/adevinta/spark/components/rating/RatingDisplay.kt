@@ -61,6 +61,7 @@ public fun RatingDisplay(
         repeat(5) {
             val starRating = when {
                 remainingValue == 0f -> 0f
+
                 remainingValue >= 1 -> {
                     remainingValue -= 1
                     1f

@@ -121,9 +121,10 @@ public fun IconPickerDialog(
                     modifier = modifier,
                 )
             }
-        } else null,
+        } else {
+            null
+        },
     ) { paddingValues ->
-
 
         val state = rememberLazyGridState()
         TrackScrollJank(scrollableState = state, stateName = "icon-picker:grid")

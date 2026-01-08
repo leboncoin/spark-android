@@ -78,6 +78,7 @@ dependencies {
     implementation(libs.kotlinx.collections.immutable)
 
     implementation(libs.accompanist.drawablepainter)
+    implementation(libs.colorPicker)
 
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.ui)

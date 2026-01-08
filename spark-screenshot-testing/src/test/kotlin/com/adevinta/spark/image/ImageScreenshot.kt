@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.image
 
+import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
@@ -98,6 +99,7 @@ internal class ImageScreenshot {
         }
     }
 
+    @SuppressLint("LocalContextGetResourceValueCall")
     @OptIn(InternalSparkApi::class)
     @Composable
     private fun ImageStates() {
@@ -162,7 +164,9 @@ internal class ImageScreenshot {
                 )
 
                 ImageState.Empty -> AsyncImagePainter.State.Empty
+
                 ImageState.Loading -> AsyncImagePainter.State.Loading(painter)
+
                 ImageState.Success -> AsyncImagePainter.State.Success(
                     painter = painter,
                     result = SuccessResult(drawable.asImage(), request, DataSource.DISK),
@@ -183,6 +187,7 @@ internal class ImageScreenshot {
         }
     }
 
+    @SuppressLint("LocalContextGetResourceValueCall")
     @OptIn(ExperimentalLayoutApi::class)
     @Composable
     private fun ContentScaleShowcase() {
