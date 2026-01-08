@@ -29,6 +29,9 @@ import com.adevinta.spark.SparkTheme
 
 /**
  * Common interface for all gauge types.
+ *
+ * @see GaugeTypeNormal
+ * @see GaugeTypeShort
  */
 @Immutable
 public sealed interface GaugeType {

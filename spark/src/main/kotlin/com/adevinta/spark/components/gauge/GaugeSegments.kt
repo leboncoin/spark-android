@@ -24,8 +24,7 @@ package com.adevinta.spark.components.gauge
 import androidx.compose.runtime.Stable
 
 /**
- * Defines the available segment counts for the SegmentedGauge component.
- * Using a sealed interface allows for extensibility and type safety.
+ * Defines the number of segments for the SegmentedGauge component.
  */
 @Stable
 internal sealed interface GaugeSegments {
