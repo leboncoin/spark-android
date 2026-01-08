@@ -98,7 +98,9 @@ class SegmentedGaugeDocumentationScreenshots {
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                SegmentedGauge(type = GaugeTypeNormal.High, customColor = SparkTheme.colors.accent) { Text("Custom color") }
+                SegmentedGauge(type = GaugeTypeNormal.High, customColor = SparkTheme.colors.accent) {
+                    Text("Custom color")
+                }
                 SegmentedGauge(type = GaugeTypeNormal.Medium, customColor = Color(0xFF2196F3)) { Text("Custom color") }
                 SegmentedGauge(type = GaugeTypeNormal.Low, customColor = Color(0xFF4CAF50)) { Text("Custom color") }
             }
