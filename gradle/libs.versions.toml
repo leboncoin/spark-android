@@ -56,7 +56,7 @@ androidx-graphics-shapes = "androidx.graphics:graphics-shapes:1.1.0"
 androidx-lifecycle-viewmodel = "androidx.lifecycle:lifecycle-viewmodel:2.10.0"
 androidx-metrics =  "androidx.metrics:metrics-performance:1.0.0"
 
-androidx-navigation-compose = "androidx.navigation:navigation-compose:2.9.5"
+androidx-navigation-compose = "androidx.navigation:navigation-compose:2.9.6"
 
 androidx-savedstate = "androidx.savedstate:savedstate-ktx:1.4.0"
 
