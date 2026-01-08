@@ -172,7 +172,7 @@ public fun ComponentItem(
                     boundsTransform = boundsTransform,
                     resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
                     clipInOverlayDuringTransition = OverlayClip(RoundedCornerShape(cardRadius)),
-                    placeHolderSize = SharedTransitionScope.PlaceHolderSize.animatedSize,
+                    placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
                 ),
             shape = SparkTheme.shapes.extraLarge,
             colors = CardDefaults.elevatedCardColors(containerColor = SparkTheme.colors.surface),
@@ -219,7 +219,7 @@ public fun ComponentItem(
                                 ),
                             ),
                             animatedVisibilityScope = animatedVisibilityScope,
-                            resizeMode = SharedTransitionScope.ResizeMode.ScaleToBounds(),
+                            resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
                         ),
                     style = SparkTheme.typography.body2,
                 )
