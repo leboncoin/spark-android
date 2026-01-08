@@ -82,7 +82,7 @@ public fun Example(example: Example) {
                     spring(dampingRatio = .8f, stiffness = 380f)
                 },
                 resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
-                placeHolderSize = SharedTransitionScope.PlaceHolderSize.animatedSize,
+                placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
                 animatedVisibilityScope = LocalAnimatedVisibilityScope.current,
             ),
             snackbarHost = { SnackbarHost(snackbarHostState) },
