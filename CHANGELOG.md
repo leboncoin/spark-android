@@ -4,6 +4,14 @@
 
 ## [Unreleased]
 
+## [1.6.2]
+
+_2026-01-08_
+
+### Spark
+
+- 🔧 Migrated `bodyWidth()` modifier to use `bodyMaxWidth` based on window size class breakpoints, centering content horizontally with a max width of 840dp for expanded & large screens and 1040dp for extra large screens.
+
 ## [1.6.1]
 
 _2026-01-08_
@@ -67,7 +75,7 @@ _2025-11-26_
 
 ### Spark
 
-- 🐛 Fixed the `Image` Composable to ensure it does not download images twice. 
+- 🐛 Fixed the `Image` Composable to ensure it does not download images twice.
 
 ## [1.5.0]
 
@@ -982,7 +990,9 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.6.1...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.6.2...HEAD
+
+[1.6.2]: https://github.com/leboncoin/spark-android/releases/tag/1.6.2
 
 [1.6.1]: https://github.com/leboncoin/spark-android/releases/tag/1.6.1
 

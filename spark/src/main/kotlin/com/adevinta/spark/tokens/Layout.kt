@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.tokens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -33,8 +34,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
@@ -44,8 +47,11 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.isFinite
 import androidx.window.core.layout.WindowSizeClass
 import androidx.window.core.layout.WindowSizeClass.Companion.WIDTH_DP_EXPANDED_LOWER_BOUND
+import androidx.window.core.layout.WindowSizeClass.Companion.WIDTH_DP_EXTRA_LARGE_LOWER_BOUND
+import androidx.window.core.layout.WindowSizeClass.Companion.WIDTH_DP_LARGE_LOWER_BOUND
 import androidx.window.core.layout.WindowSizeClass.Companion.WIDTH_DP_MEDIUM_LOWER_BOUND
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
@@ -76,21 +82,35 @@ public object Layout {
     public val columns: Int
         @Composable get() =
             when {
-                windowSize.isWidthAtLeastBreakpoint(WindowSizeClass.WIDTH_DP_EXPANDED_LOWER_BOUND) -> 12
-                windowSize.isWidthAtLeastBreakpoint(WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND) -> 8
+                windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_EXPANDED_LOWER_BOUND) -> 12
+                windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_MEDIUM_LOWER_BOUND) -> 8
                 else -> 4
             }
+
+    public val bodyMaxWidth: Dp
+        @Composable get() = when {
+            windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_EXTRA_LARGE_LOWER_BOUND) -> 1040.dp
+            windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_LARGE_LOWER_BOUND) -> 840.dp
+            windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_EXPANDED_LOWER_BOUND) -> 840.dp
+            windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_MEDIUM_LOWER_BOUND) -> Dp.Infinity
+            else -> Dp.Infinity
+        }
 }
 
 /**
- * Support wide screen by making the content width max 840dp, centered horizontally.
+ * Support wide screen by making the content width max based on window size class, centered horizontally.
  */
-@Suppress("ComposeModifierComposed") // WindowInsets.systemBars is internally a LocalComposition but we
-// can't access it to use it in the Node API.
+@SuppressLint("UnnecessaryComposedModifier") // False positive since we use composable properties
+@Suppress("ComposeModifierComposed") // bodyMaxWidth uses window size class which requires composition
 public fun Modifier.bodyWidth(): Modifier = fillMaxWidth()
+    .wrapContentWidth(align = Alignment.CenterHorizontally)
+    .composed {
+        val bodyMaxWidth = Layout.bodyMaxWidth
+        if (bodyMaxWidth.isFinite) widthIn(max = bodyMaxWidth) else this
+    }
     .composed {
         windowInsetsPadding(
-            WindowInsets.safeDrawing
+            WindowInsets.systemBars
                 .only(WindowInsetsSides.Horizontal),
         )
     }
