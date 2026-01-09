@@ -19,7 +19,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 package com.adevinta.spark.components.fileupload
 
 import androidx.compose.runtime.Composable
@@ -46,7 +45,7 @@ internal class BookmarkManager(val exceptionHandler: SparkExceptionHandler) {
             bookmarkFile.write(bookmark.bytes)
         } catch (e: Exception) {
             // Handle exceptions, e.g., log the error
-            exceptionHandler.handleException(RuntimeException("Error clearing bookmark: ${e.message}"))
+            exceptionHandler.handleException(RuntimeException("Error saving bookmark: ${e.message}"))
         }
     }
 
@@ -82,8 +81,6 @@ internal class BookmarkManager(val exceptionHandler: SparkExceptionHandler) {
         }
     }
 }
-
-
 
 @Composable
 internal fun rememberBookmark(

@@ -21,35 +21,46 @@
  */
 package com.adevinta.spark.catalog.configurator.samples.fileupload
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.mutableStateSetOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.model.Configurator
 import com.adevinta.spark.catalog.ui.ButtonGroup
+import com.adevinta.spark.catalog.ui.animations.AnimatedNullableVisibility
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
-import com.adevinta.spark.components.fileupload.FileUploadButton
+import com.adevinta.spark.components.card.Card
+import com.adevinta.spark.components.fileupload.FileUploadDefaultPreview
+import com.adevinta.spark.components.fileupload.FileUploadMultipleButton
+import com.adevinta.spark.components.fileupload.FileUploadSingleButton
+import com.adevinta.spark.components.fileupload.FileUploadType
+import com.adevinta.spark.components.fileupload.ImageSource
+import com.adevinta.spark.components.fileupload.PreviewFile
 import com.adevinta.spark.components.fileupload.UploadedFile
+import com.adevinta.spark.components.slider.Slider
 import com.adevinta.spark.components.stepper.StepperForm
 import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.SwitchLabelled
-import io.github.vinceglb.filekit.dialogs.FileKitMode
-import io.github.vinceglb.filekit.dialogs.FileKitMode.MultipleWithState
-import io.github.vinceglb.filekit.dialogs.FileKitPickerState
-import io.github.vinceglb.filekit.dialogs.FileKitType
-import io.github.vinceglb.filekit.dialogs.compose.rememberFilePickerLauncher
-import io.github.vinceglb.filekit.mimeType
-import io.github.vinceglb.filekit.name
 import io.github.vinceglb.filekit.path
-import io.github.vinceglb.filekit.size
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 
 public val FileUploadConfigurator: Configurator = Configurator(
@@ -64,94 +75,77 @@ public val FileUploadConfigurator: Configurator = Configurator(
 @Composable
 private fun ColumnScope.FileUploadSample() {
     var enabled by remember { mutableStateOf(true) }
-    val files = remember { mutableStateSetOf<UploadedFile>() }
+    var singleFile by remember { mutableStateOf<UploadedFile?>(null) }
+    var multipleFiles by remember { mutableStateOf<ImmutableList<UploadedFile>>(persistentListOf()) }
     var pickerType by remember { mutableStateOf(FileUploadPickerType.File) }
+    var imageSource by remember { mutableStateOf(ImageSource.Gallery) }
     var maxFiles: Int by remember { mutableIntStateOf(0) }
 
-    val selectedType = pickerType.toKitType()
+    // Track file states separately
+    var fileStates by remember {
+        mutableStateOf<Map<String, FileState>>(emptyMap())
+    }
 
-    val singleLauncher = rememberFilePickerLauncher(
-        type = selectedType,
-        title = "Select file",
-    ) { pickedFile ->
-        if (pickedFile == null) return@rememberFilePickerLauncher
-        val newFile = UploadedFile(
-            path = pickedFile.path,
-            name = pickedFile.name,
-            sizeBytes = pickedFile.size(),
-            mimeType = pickedFile.mimeType()?.primaryType,
+    val selectedType = pickerType.toFileUploadType(imageSource)
+
+    // Helper function to apply states to a file
+    fun UploadedFile.applyState(): UploadedFile {
+        val state = fileStates[file.path]
+        return copy(
+            enabled = state?.enabled ?: this.enabled,
+            progress = state?.progress?.let { { it / 100f } } ?: this.progress,
+            errorMessage = state?.errorMessage ?: this.errorMessage,
         )
-        files.clear()
-        files.add(newFile)
-    }
-    val multipleLauncher = rememberFilePickerLauncher(
-        type = selectedType,
-        mode = MultipleWithState(maxFiles.takeIf { it > 0 }),
-        title = "Select file",
-    ) { state ->
-        when (state) {
-            is FileKitPickerState.Started -> {
-                // Show loading indicator
-                files.clear()
-            }
-
-            is FileKitPickerState.Progress -> {
-                // Update progress for: state.processed
-                println("Processing: ${state.processed.size} / ${state.total}")
-                // Handle selected file: state.result
-                val newFiles = state.processed.map { file ->
-                    UploadedFile(
-                        path = file.path,
-                        name = file.name,
-                        sizeBytes = file.size(),
-                        mimeType = file.mimeType()?.primaryType,
-                    )
-                }
-                files.addAll(newFiles)
-            }
-
-            is FileKitPickerState.Completed -> {
-                // Handle selected file: state.result
-                val newFiles = state.result.map { file ->
-                    UploadedFile(
-                        path = file.path,
-                        name = file.name,
-                        sizeBytes = file.size(),
-                        mimeType = file.mimeType()?.primaryType,
-                    )
-                }
-                files.addAll(newFiles)
-            }
-
-            is FileKitPickerState.Cancelled -> {
-                // Handle cancellation
-                println("Selection cancelled")
-            }
-        }
     }
 
-    FileUploadButton(
-        files = files.toImmutableList(),
-        onClick = {
-            if (enabled) singleLauncher.launch()
-        },
-        onClearFile = { file -> files.remove(file) },
-        modifier = Modifier.fillMaxWidth(),
-        enabled = enabled,
-        mode = FileKitMode.Single,
+    FileUploadSingleButton(
+        onResult = { file -> singleFile = file },
         label = "Select single file",
+        modifier = Modifier.fillMaxWidth(),
+        type = selectedType,
+        enabled = enabled,
     )
 
-    FileUploadButton(
-        files = files.toImmutableList(),
-        onClick = {
-            if (enabled) multipleLauncher.launch()
+    // Display preview for single file
+    AnimatedNullableVisibility(
+        value = singleFile,
+
+    ) { file ->
+        val fileWithState = file.applyState()
+        PreviewFile(
+            file = fileWithState,
+            onClear = { singleFile = null },
+            progress = fileWithState.progress,
+            errorMessage = fileWithState.errorMessage,
+            enabled = fileWithState.enabled,
+        )
+    }
+
+    Spacer(modifier = Modifier.height(16.dp))
+
+    FileUploadMultipleButton(
+        onResult = { files ->
+            multipleFiles = files
         },
-        onClearFile = { file -> files.remove(file) },
-        modifier = Modifier.fillMaxWidth(),
-        enabled = enabled,
-        mode = FileKitMode.MultipleWithState(maxItems = maxFiles),
         label = "Select multiple file",
+        modifier = Modifier.fillMaxWidth(),
+        type = selectedType,
+        maxFiles = maxFiles.takeIf { it > 0 },
+        enabled = enabled,
+    )
+
+    // Display preview for multiple files with applied states
+    val filesWithStates = multipleFiles.map { it.applyState() }.toImmutableList()
+    FileUploadDefaultPreview(
+        modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
+        files = filesWithStates,
+        onClearFile = { file ->
+            // Find original file by path since we're comparing files with applied states
+            val originalFile = multipleFiles.find { it.file.path == file.file.path }
+            if (originalFile != null) {
+                multipleFiles = multipleFiles.filterNot { it == originalFile }.toImmutableList()
+            }
+        },
     )
 
     SwitchLabelled(
@@ -171,9 +165,8 @@ private fun ColumnScope.FileUploadSample() {
             maxFiles = it
         },
         flexible = true,
-        label = "Label",
-        helper = "Using 0 will be considered as not limiting the amount of files selectable, however not that " +
-                "if putting any other value the extreme maximum can only be 50",
+        label = "Max files",
+        helper = "Maximum number of files that can be selected. Use 0 for no limit (maximum 50 files allowed).",
     )
 
     ButtonGroup(
@@ -181,8 +174,205 @@ private fun ColumnScope.FileUploadSample() {
         selectedOption = pickerType,
         onOptionSelect = { pickerType = it },
     )
+
+    // Show ImageSource selector only when Image type is selected
+    if (pickerType != FileUploadPickerType.File) {
+        ButtonGroup(
+            title = "Image source",
+            selectedOption = imageSource,
+            onOptionSelect = { imageSource = it },
+        )
+    }
+
+    // File state controls
+    val allFiles = remember(singleFile, multipleFiles) {
+        buildList<UploadedFile> {
+            singleFile?.let { add(it) }
+            addAll(multipleFiles)
+        }
+    }
+
+    if (allFiles.isNotEmpty()) {
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = "File state controls",
+            modifier = Modifier.fillMaxWidth(),
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+
+        allFiles.forEach { file ->
+            val filePath = file.file.path
+            val currentState = fileStates[filePath] ?: FileState()
+            val fileWithState = file.applyState()
+
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                FileStateControls(
+                    file = fileWithState,
+                    fileName = file.name,
+                    state = currentState,
+                    onStateChange = { newState ->
+                        fileStates = fileStates + (filePath to newState)
+                    },
+                )
+            }
+            Spacer(modifier = Modifier.height(12.dp))
+        }
+    }
 }
 
+private data class FileState(
+    val enabled: Boolean = true,
+    val progress: Int? = null, // 0-100
+    val errorMessage: String? = null,
+)
+
+@Composable
+private fun ColumnScope.FileStateControls(
+    file: UploadedFile,
+    fileName: String,
+    state: FileState,
+    onStateChange: (FileState) -> Unit,
+) {
+    var errorMessageText by remember(state.errorMessage) {
+        mutableStateOf(state.errorMessage ?: "")
+    }
+    var progressValue by remember(state.progress) {
+        mutableIntStateOf(state.progress ?: 0)
+    }
+
+    Column(
+        modifier = Modifier.padding(16.dp),
+    ) {
+        // File name as heading
+        Text(
+            text = fileName,
+            style = SparkTheme.typography.headline2,
+            modifier = Modifier.fillMaxWidth(),
+        )
+        Spacer(modifier = Modifier.height(12.dp))
+
+        // Preview and controls side by side
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            // Live preview
+            Column(
+                modifier = Modifier.weight(1f),
+            ) {
+                Text(
+                    text = "Preview",
+                    style = SparkTheme.typography.body2,
+                    modifier = Modifier.padding(bottom = 8.dp),
+                )
+                PreviewFile(
+                    file = file,
+                    onClear = { /* No-op in configurator */ },
+                    progress = file.progress,
+                    errorMessage = file.errorMessage,
+                    enabled = file.enabled,
+                )
+            }
+
+            // Controls
+            Column(
+                modifier = Modifier.weight(1f),
+            ) {
+                Text(
+                    text = "Controls",
+                    style = SparkTheme.typography.body2,
+                    modifier = Modifier.padding(bottom = 8.dp),
+                )
+
+                SwitchLabelled(
+                    checked = state.enabled,
+                    onCheckedChange = { enabled ->
+                        onStateChange(state.copy(enabled = enabled))
+                    },
+                ) {
+                    Text(
+                        text = "Enabled",
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                }
+
+                SwitchLabelled(
+                    checked = state.progress != null,
+                    enabled = state.enabled,
+                    onCheckedChange = { hasProgress ->
+                        onStateChange(
+                            state.copy(
+                                progress = if (hasProgress) progressValue else null,
+                                errorMessage = if (hasProgress) null else state.errorMessage,
+                            ),
+                        )
+                    },
+                ) {
+                    Text(
+                        text = "Show loading (progress)",
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                }
+
+                if (state.progress != null) {
+                    Text(
+                        text = "Progress: $progressValue%",
+                        style = SparkTheme.typography.body2,
+                        modifier = Modifier.padding(top = 4.dp, bottom = 4.dp),
+                    )
+                    Slider(
+                        value = progressValue.toFloat(),
+                        onValueChange = { newValue ->
+                            val intValue = newValue.toInt()
+                            progressValue = intValue
+                            onStateChange(state.copy(progress = intValue))
+                        },
+                        valueRange = 0f..100f,
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                }
+
+                SwitchLabelled(
+                    checked = state.errorMessage != null,
+                    enabled = state.enabled,
+                    onCheckedChange = { hasError ->
+                        onStateChange(
+                            state.copy(
+                                errorMessage = if (hasError) {
+                                    errorMessageText.takeIf { it.isNotBlank() }
+                                        ?: "Error message"
+                                } else {
+                                    null
+                                },
+                                progress = if (hasError) null else state.progress,
+                            ),
+                        )
+                    },
+                ) {
+                    Text(
+                        text = "Show error",
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                }
+
+                if (state.errorMessage != null) {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    TextField(
+                        value = errorMessageText,
+                        onValueChange = { newText ->
+                            errorMessageText = newText
+                            onStateChange(state.copy(errorMessage = newText.takeIf { it.isNotBlank() }))
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        placeholder = "Error message",
+                    )
+                }
+            }
+        }
+    }
+}
 
 private enum class FileUploadPickerType {
     File,
@@ -191,16 +381,16 @@ private enum class FileUploadPickerType {
     ImageAndVideo,
 }
 
-private fun FileUploadPickerType.toKitType(): FileKitType = when (this) {
-    FileUploadPickerType.File -> FileKitType.File()
-    FileUploadPickerType.Image -> FileKitType.Image
-    FileUploadPickerType.Video -> FileKitType.Video
-    FileUploadPickerType.ImageAndVideo -> FileKitType.ImageAndVideo
-}
+private fun FileUploadPickerType.toFileUploadType(imageSource: ImageSource = ImageSource.Gallery): FileUploadType =
+    when (this) {
+        FileUploadPickerType.File -> FileUploadType.File()
+        FileUploadPickerType.Image -> FileUploadType.Image(source = imageSource)
+        FileUploadPickerType.Video -> FileUploadType.Video(source = imageSource)
+        FileUploadPickerType.ImageAndVideo -> FileUploadType.ImageAndVideo(source = imageSource)
+    }
 
 @Preview
 @Composable
 private fun FileUploadSamplePreview() {
     PreviewTheme { FileUploadSample() }
 }
-

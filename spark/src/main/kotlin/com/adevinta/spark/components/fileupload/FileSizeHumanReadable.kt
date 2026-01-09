@@ -19,7 +19,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 package com.adevinta.spark.components.fileupload
 
 import android.content.Context
@@ -29,7 +28,7 @@ import kotlin.math.roundToLong
 
 internal fun Double.formatNumber(
     context: Context,
-    decimals: Int
+    decimals: Int,
 ): String {
     val groupSeparator = context.getString(R.string.spark_groupSeparator).formatWithSpaceIfNeeded()
     val decimalSymbol = context.getString(R.string.spark_decimalSymbol)
@@ -58,23 +57,34 @@ internal fun Double.formatNumber(
 /**
  * Returns the given [bytes] size in human-readable format.
  */
-internal fun formatFileSize(context: Context, bytes: Long, decimals: Int): String {
-    return when {
-        bytes < 1024 -> {
-            "$bytes ${context.getString(R.string.spark_byte_symbol)}"
-        }
-        bytes < 1_048_576 -> {
-            "${(bytes / 1_024.0).formatNumber(context, decimals)} ${context.getString(R.string.spark_kilobyte_symbol)}"
-        }
-        bytes < 1.07374182E9 -> {
-            "${(bytes / 1_048_576.0).formatNumber(context, decimals)} ${context.getString(R.string.spark_megabyte_symbol)}"
-        }
-        bytes < 1.09951163E12 -> {
-            "${(bytes / 1.07374182E9).formatNumber(context, decimals)} ${context.getString(R.string.spark_gigabyte_symbol)}"
-        }
-        else -> {
-            "${(bytes / 1.09951163E12).formatNumber(context, decimals)} ${context.getString(R.string.spark_terabyte_symbol)}"
-        }
+internal fun formatFileSize(context: Context, bytes: Long, decimals: Int): String = when {
+    bytes < 1024 -> {
+        "$bytes ${context.getString(R.string.spark_byte_symbol)}"
+    }
+
+    bytes < 1_048_576 -> {
+        "${(bytes / 1_024.0).formatNumber(context, decimals)} ${context.getString(R.string.spark_kilobyte_symbol)}"
+    }
+
+    bytes < 1.07374182E9 -> {
+        "${(bytes / 1_048_576.0).formatNumber(
+            context,
+            decimals,
+        )} ${context.getString(R.string.spark_megabyte_symbol)}"
+    }
+
+    bytes < 1.09951163E12 -> {
+        "${(bytes / 1.07374182E9).formatNumber(
+            context,
+            decimals,
+        )} ${context.getString(R.string.spark_gigabyte_symbol)}"
+    }
+
+    else -> {
+        "${(bytes / 1.09951163E12).formatNumber(
+            context,
+            decimals,
+        )} ${context.getString(R.string.spark_terabyte_symbol)}"
     }
 }
 
@@ -94,6 +104,4 @@ private fun Double.formatWithDecimals(decimals: Int): String {
 /**
  * Workaround for Libres returning an empty string if it contains only a space.
  */
-private fun String.formatWithSpaceIfNeeded(): String {
-    return ifEmpty { " " }
-}
+private fun String.formatWithSpaceIfNeeded(): String = ifEmpty { " " }

@@ -21,24 +21,14 @@
  */
 package com.adevinta.spark.components.fileupload
 
-import androidx.compose.foundation.layout.Arrangement.spacedBy
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.buttons.ButtonIntent
+import com.adevinta.spark.icons.CameraVideo
 import com.adevinta.spark.icons.CvOutline
 import com.adevinta.spark.icons.FilePdfOutline
 import com.adevinta.spark.icons.ImageOutline
@@ -46,15 +36,12 @@ import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.dialogs.FileKitDialogSettings
-import io.github.vinceglb.filekit.dialogs.FileKitMode
 import io.github.vinceglb.filekit.dialogs.FileKitType
-import io.github.vinceglb.filekit.dialogs.compose.rememberCameraPickerLauncher
-import io.github.vinceglb.filekit.dialogs.compose.rememberFilePickerLauncher
 import io.github.vinceglb.filekit.mimeType
 import io.github.vinceglb.filekit.mimeType.MimeType
 import io.github.vinceglb.filekit.name
 import io.github.vinceglb.filekit.size
-import kotlinx.coroutines.launch
+import kotlinx.collections.immutable.ImmutableList
 
 /**
  * Model representing a file selected by the user through a file picker.
@@ -79,7 +66,7 @@ public data class UploadedFile(
  * Defaults for the FileUpload components.
  *
  * This object centralises default text, icon mapping and layout behaviour to keep the
- * public API of [FileUploadButton] small and consistent with other Spark components.
+ * public API of file upload components small and consistent with other Spark components.
  */
 public object FileUploadDefaults {
 
@@ -90,21 +77,32 @@ public object FileUploadDefaults {
      * intentionally simple. Consumers can override the icon used in the preview item if
      * they need more control.
      */
-    public fun iconFor(file: UploadedFile): SparkIcon {
-        val mimeType = file.mimeType?.primaryType.orEmpty()
-        val lowerName = file.name.lowercase()
+    public fun iconFor(
+        mimeType: MimeType?,
+        name: String,
+    ): SparkIcon {
+        val mimeType = mimeType?.primaryType.orEmpty()
+        val lowerName = name.lowercase()
 
         return when {
             mimeType.startsWith("image/") ||
-                    lowerName.endsWith(".png") ||
-                    lowerName.endsWith(".jpg") ||
-                    lowerName.endsWith(".jpeg") ||
-                    lowerName.endsWith(".webp") -> {
+                lowerName.endsWith(".png") ||
+                lowerName.endsWith(".jpg") ||
+                lowerName.endsWith(".jpeg") ||
+                lowerName.endsWith(".webp") -> {
                 SparkIcons.ImageOutline
             }
 
             mimeType == "application/pdf" || lowerName.endsWith(".pdf") -> {
                 SparkIcons.FilePdfOutline
+            }
+
+            mimeType.startsWith("video/") ||
+                lowerName.endsWith(".mp4") ||
+                lowerName.endsWith(".mov") ||
+                lowerName.endsWith(".avi") ||
+                lowerName.endsWith(".mkv") -> {
+                SparkIcons.CameraVideo
             }
 
             else -> SparkIcons.CvOutline
@@ -113,15 +111,28 @@ public object FileUploadDefaults {
 }
 
 /**
- * High level file upload component composed of a button and an optional list of file previews.
+ * High level file upload component for single file selection.
  *
- * This component is agnostic of the underlying file picker library. Consumers are expected to
- * trigger their file picker in [onClick] and update [files] when new files are selected.
+ * This component provides a button to trigger file selection. To display selected files,
+ * manage state yourself and use [PreviewFile] or [FileUploadDefaultPreview].
+ *
+ * @param onResult Callback invoked when a file is selected or cleared (null)
+ * @param label Text label for the default button
+ * @param modifier Modifier to be applied to the button
+ * @param type Type of files to select (image, video, file, etc.)
+ * @param camera Deprecated: use [FileUploadType.Image] with [ImageSource.Camera] instead
+ * @param title Optional title for the file picker dialog
+ * @param directory Optional directory to open the picker in
+ * @param dialogSettings Optional settings for the file picker dialog
+ * @param enabled Whether the button is enabled
+ * @param buttonContent Composable lambda for custom button. Receives onClick callback.
+ *                      Defaults to a filled button with the label.
+ *
+ * @sample com.adevinta.spark.components.fileupload.FileUploadSamples
  */
 @Composable
-public fun <PickerResult, ConsumedResult> FileUploadSingleButton(
+public fun FileUploadSingleButton(
     onResult: (UploadedFile?) -> Unit,
-    mode: FileKitMode<PickerResult, ConsumedResult>,
     label: String,
     modifier: Modifier = Modifier,
     type: FileUploadType = FileUploadType.File(),
@@ -139,181 +150,152 @@ public fun <PickerResult, ConsumedResult> FileUploadSingleButton(
             enabled = enabled,
         )
     },
-    preview: (@Composable ColumnScope.(UploadedFile?) -> Unit)?
-    = { file ->
-        file?.let {
-            FileUploadPreviewList {
-                PreviewFile(
-                    file = file,
-                    onClear = { onClearFile(file) },
-                    enabled = file.enabled,
-                )
-            }
-        }
-    },
 ) {
-    val bookmarkManager = rememberBookmark()
-    val coroutineScope = rememberCoroutineScope()
-    var userPickedFile by remember { mutableStateOf<PlatformFile?>(null) }
-    var userPickedUploadFile by remember { mutableStateOf<UploadedFile?>(null) }
+    // Handle deprecated camera parameter for backward compatibility
+    val actualType = if (camera && type is FileUploadType.Image) {
+        FileUploadType.Image(source = ImageSource.Camera)
+    } else {
+        type
+    }
 
-    val filePicker = rememberFilePickerLauncher(
-        type = type.toFileKitType(),
+    val pattern = rememberFileUploadPattern(
+        type = actualType,
+        mode = FileUploadMode.Single,
         title = title,
-    ) { pickedFile ->
-        if (pickedFile == null) return@rememberFilePickerLauncher
-        userPickedFile = pickedFile
-        val newFile = UploadedFile(
-            file = pickedFile,
-        )
-        onResult(newFile)
-        userPickedUploadFile = newFile
-        coroutineScope.launch {
-            bookmarkManager.save(pickedFile)
-        }
-    }
-    val cameraPicker = rememberCameraPickerLauncher() { newPhoto ->
-        userPickedFile = newPhoto
-        val newFile = UploadedFile(
-            file = newPhoto,
-        )
-        onResult(newFile)
-        userPickedUploadFile = newFile
-        coroutineScope.launch {
-            bookmarkManager.save(newPhoto)
-        }
-    }
+        directory = directory,
+        dialogSettings = dialogSettings,
+        onFilesSelected = { files -> onResult(files.firstOrNull()) },
+    )
 
-
-    // Load the file when the screen is first composed
-    LaunchedEffect(Unit) {
-        userPickedFile = bookmarkManager.load()
-    }
-
-    Column(
+    FileUploadPattern(
+        pattern = pattern,
         modifier = modifier,
-    ) {
-        buttonContent({ filePicker.launch() })
-        preview?.invoke(this@Column, userPickedUploadFile)
-    }
+        content = buttonContent,
+    )
 }
 
-///**
-// * High level file upload component composed of a button and an optional list of file previews.
-// *
-// * This component is agnostic of the underlying file picker library. Consumers are expected to
-// * trigger their file picker in [onClick] and update [files] when new files are selected.
-// */
-//@Composable
-//public fun <PickerResult, ConsumedResult> FileUploadMultipleButton(
-//    onResult: (UploadedFile?) -> Unit,
-//    mode: FileKitMode<PickerResult, ConsumedResult>,
-//    label: String,
-//    modifier: Modifier = Modifier,
-//    type: FileKitType = FileKitType.File(),
-//    title: String? = null,
-//    directory: PlatformFile? = null,
-//    dialogSettings: FileKitDialogSettings = FileKitDialogSettings.createDefault(),
-//    enabled: Boolean = true,
-//    buttonContent: @Composable (onClick: () -> Unit) -> Unit = { onClick ->
-//        ButtonFilled(
-//            modifier = Modifier.fillMaxWidth(),
-//            onClick = onClick,
-//            text = label,
-//            intent = ButtonIntent.Basic,
-//            enabled = enabled,
-//        )
-//    },
-//    preview: (
-//    @Composable ColumnScope.(List<UploadedFile>) -> Unit)? = { files ->
-//        if (files.isNotEmpty()) {
-//            Spacer(modifier = Modifier.height(8.dp))
-//            FileUploadPreviewList(
-//                files = files,
-//                onClearFile = onClearFile,
-//                mode = mode,
-//            )
-//        }
-//    },
-//) {
-//    val bookmarkManager = rememberBookmark()
-//    val coroutineScope = rememberCoroutineScope()
-//    var userPickedFile by remember { mutableStateOf<PlatformFile?>(null) }
-//    var userPickedUploadFile by remember { mutableStateOf<PlatformFile?>(null) }
-//
-//    val picker = rememberFilePickerLauncher(
-//        type = type,
-//        title = title,
-//    ) { pickedFile ->
-//        if (pickedFile == null) return@rememberFilePickerLauncher
-//        val newFile = UploadedFile(
-//            path = pickedFile.path,
-//            name = pickedFile.name,
-//            sizeBytes = pickedFile.size(),
-//            mimeType = pickedFile.mimeType()?.primaryType,
-//        )
-//        onResult(newFile)
-//        coroutineScope.launch {
-//            coroutineScope.launch {
-//                bookmarkManager.save(dir)
-//            }
-//        }
-//    }
-//
-//
-//    // Load the file when the screen is first composed
-//    LaunchedEffect(Unit) {
-//        userPickedFile = bookmarkManager.load()
-//    }
-//
-//    Column(
-//        modifier = modifier,
-//    ) {
-//        buttonContent({ picker.launch() })
-//        ButtonFilled(
-//            modifier = Modifier.fillMaxWidth(),
-//            onClick = { picker.launch() },
-//            text = label,
-//            intent = ButtonIntent.Basic,
-//            enabled = enabled,
-//        )
-//        preview?.let { it.invoke(this@Column, userPickedFile) }
-//    }
-//}
+/**
+ * High level file upload component for multiple file selection.
+ *
+ * This component provides a button to trigger multiple file selection. To display selected files,
+ * manage state yourself and use [PreviewFile] or [FileUploadDefaultPreview].
+ *
+ * @param onResult Callback invoked when files are selected
+ * @param label Text label for the default button
+ * @param modifier Modifier to be applied to the button
+ * @param type Type of files to select (image, video, file, etc.)
+ * @param maxFiles Maximum number of files that can be selected. If null, no limit.
+ * @param title Optional title for the file picker dialog
+ * @param directory Optional directory to open the picker in
+ * @param dialogSettings Optional settings for the file picker dialog
+ * @param enabled Whether the button is enabled
+ * @param buttonContent Composable lambda for custom button. Receives onClick callback.
+ *                      Defaults to a filled button with the label.
+ *
+ * @sample com.adevinta.spark.components.fileupload.FileUploadSamples
+ */
+@Composable
+public fun FileUploadMultipleButton(
+    onResult: (ImmutableList<UploadedFile>) -> Unit,
+    label: String,
+    modifier: Modifier = Modifier,
+    type: FileUploadType = FileUploadType.File(),
+    maxFiles: Int? = null,
+    title: String? = null,
+    directory: PlatformFile? = null,
+    dialogSettings: FileKitDialogSettings = FileKitDialogSettings.createDefault(),
+    enabled: Boolean = true,
+    buttonContent: @Composable (onClick: () -> Unit) -> Unit = { onClick ->
+        ButtonFilled(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = onClick,
+            text = label,
+            intent = ButtonIntent.Basic,
+            enabled = enabled,
+        )
+    },
+) {
+    val pattern = rememberFileUploadPattern(
+        type = type,
+        mode = FileUploadMode.Multiple(maxFiles),
+        title = title,
+        directory = directory,
+        dialogSettings = dialogSettings,
+        onFilesSelected = onResult,
+    )
 
+    FileUploadPattern(
+        pattern = pattern,
+        modifier = modifier,
+        content = buttonContent,
+    )
+}
+
+/**
+ * Source selection for image/video picker.
+ */
+@Stable
+public enum class ImageSource {
+    /** Only camera picker */
+    Camera,
+
+    /** Only (system) gallery picker */
+    Gallery,
+}
+
+/**
+ * Type of files that can be selected for upload.
+ */
 @Stable
 public sealed interface FileUploadType {
-    public data class Image(val camera: Boolean = false) : FileUploadType
-    public data object Video : FileUploadType
-    public data object ImageAndVideo : FileUploadType
-    public data class File(
-        val extensions: Set<String>? = null,
-    ) : FileUploadType {
+    /**
+     * Image files only.
+     *
+     * @param source How to select images: camera, gallery, or both (with dialog)
+     */
+    public data class Image(override val source: ImageSource = ImageSource.Gallery) : HasMultipleSource
+
+    /** Video files only */
+    public data class Video(override val source: ImageSource = ImageSource.Gallery) : HasMultipleSource
+
+    /** Both image and video files */
+    public data class ImageAndVideo(override val source: ImageSource = ImageSource.Gallery) : HasMultipleSource
+
+    public sealed interface HasMultipleSource : FileUploadType {
+        public val source: ImageSource
+    }
+
+    /**
+     * Generic file selection with optional extension filter.
+     *
+     * @param extensions Optional set of file extensions to filter (e.g., setOf("pdf", "doc"))
+     */
+    public data class File(val extensions: Set<String>? = null) : FileUploadType {
         public constructor(vararg extensions: String) : this(extensions.toSet())
         public constructor(extensions: List<String>) : this(extensions.toSet())
         public constructor(extension: String) : this(setOf(extension))
     }
-
-    internal fun toFileKitType(): FileKitType {
-        return when (this) {
-            is Image -> FileKitType.Image
-            is Video -> FileKitType.Video
-            is ImageAndVideo -> FileKitType.ImageAndVideo
-            is File -> FileKitType.File(extensions)
-        }
-    }
 }
 
-@Composable
-private fun FileUploadPreviewList(
-    items: @Composable ColumnScope.() -> Unit,
-) {
-    Column(
-        verticalArrangement = spacedBy(8.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        items()
-    }
+/**
+ * Mode for file upload: single file or multiple files.
+ */
+@Stable
+public sealed interface FileUploadMode {
+    /** Single file selection mode */
+    public data object Single : FileUploadMode
+
+    /**
+     * Multiple file selection mode.
+     *
+     * @param maxFiles Maximum number of files that can be selected. If null, max to 50.
+     */
+    public data class Multiple(val maxFiles: Int? = null) : FileUploadMode
 }
 
-
+internal fun FileUploadType.toFileKitType(): FileKitType = when (this) {
+    is FileUploadType.Image -> FileKitType.Image
+    is FileUploadType.Video -> FileKitType.Video
+    is FileUploadType.ImageAndVideo -> FileKitType.ImageAndVideo
+    is FileUploadType.File -> FileKitType.File(extensions)
+}
