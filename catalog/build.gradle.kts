@@ -97,6 +97,7 @@ dependencies {
 
     implementation(libs.androidx.datastore)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.androidx.datastore.preferences.core)
 
     coreLibraryDesugaring(libs.desugarJdkLibs)
 

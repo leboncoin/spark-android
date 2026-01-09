@@ -5,10 +5,12 @@ androidx-activity = "1.12.2"
 androidx-appCompat = "1.7.1"
 compileSdk = "36"
 dokka = "1.9.20"
+filekit = "0.12.0"
 kotlin = "2.2.21"
 lint = "31.13.2"
 minCompileSdk = "24"
 targetSdk = "36"
+datastorePreferencesCore = "1.2.0"
 
 [libraries]
 accompanist-drawablepainter = { module = "com.google.accompanist:accompanist-drawablepainter", version.ref = "accompanist" }
@@ -82,6 +84,9 @@ desugarJdkLibs = "com.android.tools:desugar_jdk_libs:2.1.5"
 dokka-android-documentation-plugin = { module = "org.jetbrains.dokka:android-documentation-plugin", version.ref = "dokka" }
 dokka-base = { module = "org.jetbrains.dokka:dokka-base", version.ref = "dokka" }
 
+filekit = { module = "io.github.vinceglb:filekit-core", version.ref = "filekit"}
+filekit-dialogs = { module = "io.github.vinceglb:filekit-dialogs-compose", version.ref = "filekit"}
+
 junit = "junit:junit:4.13.2"
 
 kotlin-bom = { module = "org.jetbrains.kotlin:kotlin-bom", version.ref = "kotlin" }
@@ -108,6 +113,7 @@ slack-lint-compose = "com.slack.lint.compose:compose-lint-checks:1.4.2"
 
 # https://github.com/google/TestParameterInjector
 testParameterInjector = "com.google.testparameterinjector:test-parameter-injector:1.20"
+androidx-datastore-preferences-core = { group = "androidx.datastore", name = "datastore-preferences-core", version.ref = "datastorePreferencesCore" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

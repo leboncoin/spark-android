@@ -100,6 +100,7 @@ public fun ConfiguratorComponentScreen(
                 resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
                 placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
             ),
+            contentWindowInsets = WindowInsets(),
             snackbarHost = { SnackbarHost(snackbarHostState) },
         ) { paddingValues ->
             Column(

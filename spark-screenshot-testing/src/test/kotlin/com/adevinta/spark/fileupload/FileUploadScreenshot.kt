@@ -28,8 +28,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.DefaultTestDevices
-import com.adevinta.spark.components.fileupload.FileUploadButton
-import com.adevinta.spark.components.fileupload.UploadedFile
+import com.adevinta.spark.components.fileupload.FileUploadMultipleButton
+import com.adevinta.spark.components.fileupload.FileUploadSingleButton
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshot
 import org.junit.Rule
@@ -57,45 +57,17 @@ internal class FileUploadScreenshot {
 
     @Composable
     private fun SingleFileSample() {
-        val files = listOf(
-            UploadedFile(
-                path = "1",
-                name = "Ticket.pdf",
-                sizeBytes = 256_000,
-                mimeType = "application/pdf",
-            ),
-        )
-        FileUploadButton(
-            files = files,
-            onClick = {},
-            onClearFile = {},
+        FileUploadSingleButton(
+            onResult = {},
             label = "Upload ticket",
         )
     }
 
     @Composable
     private fun MultipleFilesSample() {
-        val files = listOf(
-            UploadedFile(
-                path = "1",
-                name = "Photo-1.jpg",
-                sizeBytes = 512_000,
-                mimeType = "image/jpeg",
-            ),
-            UploadedFile(
-                path = "2",
-                name = "Terms-and-conditions-long-name-document.pdf",
-                sizeBytes = 3_072_000,
-                mimeType = "application/pdf",
-            ),
-        )
-        FileUploadButton(
-            files = files,
-            onClick = {},
-            onClearFile = {},
-            multiple = true,
+        FileUploadMultipleButton(
+            onResult = {},
             label = "Upload documents",
         )
     }
 }
-
