@@ -26,6 +26,7 @@ plugins {
     alias(libs.plugins.spark.compose)
     id("kotlin-parcelize")
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.baselineprofile)
 }
 
 android {
@@ -59,6 +60,13 @@ android {
     buildTypes.named("release") {
         signingConfig = if (keystore != null) release else debug
     }
+
+    buildTypes.create("benchmark") {
+        initWith(buildTypes.getByName("release"))
+        matchingFallbacks += listOf("release")
+        isDebuggable = false
+        signingConfig = signingConfigs.getByName("debug")
+    }
 }
 
 kotlin {
@@ -87,6 +95,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material.iconsExtended)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.runtime.tracing)
     implementation(libs.androidx.graphics.shapes)
     implementation(libs.androidx.metrics)
 
@@ -103,4 +112,6 @@ dependencies {
     coreLibraryDesugaring(libs.desugarJdkLibs)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
+
+    baselineProfile(project(":catalog:baselineprofile"))
 }
