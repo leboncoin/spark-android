@@ -35,6 +35,7 @@ plugins {
 
     alias(libs.plugins.spark.root)
     alias(libs.plugins.spark.dokka)
+    alias(libs.plugins.baselineprofile) apply false
 }
 
 allprojects {

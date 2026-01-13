@@ -3,12 +3,17 @@ accompanist = "0.36.0"
 agp = "8.13.2"
 androidx-activity = "1.12.2"
 androidx-appCompat = "1.7.1"
+androidx-benchmark = "1.4.1"
+androidx-tracing = "1.0.0"
 compileSdk = "36"
 dokka = "1.9.20"
 kotlin = "2.3.0"
 lint = "31.13.2"
 minCompileSdk = "24"
 targetSdk = "36"
+espressoCore = "3.7.0"
+uiautomator = "2.3.0"
+profileinstaller = "1.4.1"
 
 [libraries]
 accompanist-drawablepainter = { module = "com.google.accompanist:accompanist-drawablepainter", version.ref = "accompanist" }
@@ -37,6 +42,7 @@ androidx-compose-material3-windowSizeClass = { module = "androidx.compose.materi
 androidx-compose-material3-adaptive = { module = "androidx.compose.material3.adaptive:adaptive"}
 androidx-compose-runtime = { module = "androidx.compose.runtime:runtime" }
 androidx-compose-runtime-livedata = { module = "androidx.compose.runtime:runtime-livedata" }
+androidx-compose-runtime-tracing = { module = "androidx.compose.runtime:runtime-tracing" }
 androidx-compose-ui = { module = "androidx.compose.ui:ui" }
 androidx-compose-ui-test = { module = "androidx.compose.ui:ui-test" }
 androidx-compose-ui-testJUnit = { module = "androidx.compose.ui:ui-test-junit4" }
@@ -59,8 +65,12 @@ androidx-metrics =  "androidx.metrics:metrics-performance:1.0.0"
 androidx-navigation-compose = "androidx.navigation:navigation-compose:2.9.6"
 
 androidx-savedstate = "androidx.savedstate:savedstate-ktx:1.4.0"
+androidx-tracing-perfetto = { module = "androidx.tracing:tracing-perfetto", version.ref = "androidx-tracing" }
+androidx-tracing-perfetto-binary = { module = "androidx.tracing:tracing-perfetto-binary", version.ref = "androidx-tracing" }
 
 androidx-test-runner = "androidx.test:runner:1.7.0"
+androidx-benchmark-macro-junit4 = { module = "androidx.benchmark:benchmark-macro-junit4", version.ref = "androidx-benchmark" }
+androidx-test-junit = "androidx.test.ext:junit:1.3.0"
 androidx-test-truth = "androidx.test.ext:truth:1.7.0"
 
 androidx-window = "androidx.window:window:1.5.1"
@@ -108,6 +118,9 @@ slack-lint-compose = "com.slack.lint.compose:compose-lint-checks:1.4.2"
 
 # https://github.com/google/TestParameterInjector
 testParameterInjector = "com.google.testparameterinjector:test-parameter-injector:1.20"
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "uiautomator" }
+androidx-profileinstaller = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "profileinstaller" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -115,6 +128,7 @@ android-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 android-lint = { id = "com.android.lint", version.ref = "agp" }
 android-test = { id = "com.android.test", version.ref = "agp" }
+baselineprofile = { id = "androidx.baselineprofile", version.ref = "androidx-benchmark"}
 compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 dependencyGuard = "com.dropbox.dependency-guard:0.5.0"
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
