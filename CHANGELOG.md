@@ -4,6 +4,29 @@
 
 ## [Unreleased]
 
+## [1.7.0]
+
+_2026-01-14_
+
+### Spark
+
+#### 🆕 SegmentedGauge Component
+
+- ✨ Add `SegmentedGauge` and `SegmentedGaugeShort` composables for level indication
+- Support for different sizes (Small, Medium) and custom colors
+
+> [!NOTE]
+> This component is experimental and marked with `@ExperimentalSparkApi`. Feedbacks are welcomed.
+
+- 💄 Add intent surface for the filled tag as it was missing
+- 📝 Fix wordings in the documentation
+- ⚙️ Migrate lint rules that were present in the lbc app into spark
+
+### Catalog
+
+- ✨ Add color selector component for component configurators
+- 🚀 Compress vignettes to reduce app weight and improve vignette loading speed
+
 ## [1.7.0-alpha01]
 
 _2026-01-08_
@@ -1012,7 +1035,9 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.7.0-alpha01...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.7.0...HEAD
+
+[1.7.0]: https://github.com/leboncoin/spark-android/releases/tag/1.7.0
 
 [1.7.0-alpha01]: https://github.com/leboncoin/spark-android/releases/tag/1.7.0-alpha01
 
