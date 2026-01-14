@@ -28,7 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.DefaultTestDevices
-import com.adevinta.spark.components.fileupload.FileUploadMultipleButton
+import com.adevinta.spark.components.fileupload.FileUploadButton
 import com.adevinta.spark.components.fileupload.FileUploadSingleButton
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshot
@@ -65,7 +65,7 @@ internal class FileUploadScreenshot {
 
     @Composable
     private fun MultipleFilesSample() {
-        FileUploadMultipleButton(
+        FileUploadButton(
             onResult = {},
             label = "Upload documents",
         )

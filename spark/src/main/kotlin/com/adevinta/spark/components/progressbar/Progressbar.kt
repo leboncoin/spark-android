@@ -106,7 +106,7 @@ public fun Progressbar(
 public fun ProgressbarIndeterminate(
     modifier: Modifier = Modifier,
     intent: ProgressbarIntent = ProgressbarIntent.Basic,
-    isRounded: Boolean = false,
+    isRounded: Boolean = true,
 ) {
     SparkProgressbar(
         progress = { 0f },

@@ -26,6 +26,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.onClick
+import androidx.compose.ui.semantics.semantics
 import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.buttons.ButtonIntent
 import com.adevinta.spark.icons.CameraVideo
@@ -34,9 +36,12 @@ import com.adevinta.spark.icons.FilePdfOutline
 import com.adevinta.spark.icons.ImageOutline
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.tools.modifiers.ifNotNull
+import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.dialogs.FileKitDialogSettings
 import io.github.vinceglb.filekit.dialogs.FileKitType
+import io.github.vinceglb.filekit.dialogs.openFileWithDefaultApplication
 import io.github.vinceglb.filekit.mimeType
 import io.github.vinceglb.filekit.mimeType.MimeType
 import io.github.vinceglb.filekit.name
@@ -108,6 +113,24 @@ public object FileUploadDefaults {
             else -> SparkIcons.CvOutline
         }
     }
+
+    /**
+     * Opens a file with the system's default application for that file type.
+     *
+     * This function uses FileKit's `openFileWithDefaultApplication` to open the file.
+     * For example, a PDF file will open in the default PDF viewer, an image will open
+     * in the default image viewer, etc.
+     *
+     * Note that Android, if you're opening files from custom locations (e.g., `FileKit.filesDir` or
+     * `FileKit.cacheDir`), you may need to configure FileProvider in your app's
+     * AndroidManifest.xml. See [FileKit documentation](https://filekit.mintlify.app/dialogs/open-file)
+     * for details.
+     *
+     * @param file The uploaded file to open
+     */
+    public fun openFile(file: UploadedFile) {
+        FileKit.openFileWithDefaultApplication(file.file)
+    }
 }
 
 /**
@@ -125,8 +148,9 @@ public object FileUploadDefaults {
  * @param directory Optional directory to open the picker in
  * @param dialogSettings Optional settings for the file picker dialog
  * @param enabled Whether the button is enabled
+ * @param onClickLabel If provided, it'll be spoken in place of the default "double tap to activate".
  * @param buttonContent Composable lambda for custom button. Receives onClick callback.
- *                      Defaults to a filled button with the label.
+ * Defaults to a filled button with the label.
  *
  * @sample com.adevinta.spark.components.fileupload.FileUploadSamples
  */
@@ -141,9 +165,14 @@ public fun FileUploadSingleButton(
     directory: PlatformFile? = null,
     dialogSettings: FileKitDialogSettings = FileKitDialogSettings.createDefault(),
     enabled: Boolean = true,
+    onClickLabel: String? = null,
     buttonContent: @Composable (onClick: () -> Unit) -> Unit = { onClick ->
         ButtonFilled(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .ifNotNull(onClickLabel) {
+                    semantics { onClick(label = onClickLabel, action = null) }
+                },
             onClick = onClick,
             text = label,
             intent = ButtonIntent.Basic,
@@ -189,13 +218,14 @@ public fun FileUploadSingleButton(
  * @param directory Optional directory to open the picker in
  * @param dialogSettings Optional settings for the file picker dialog
  * @param enabled Whether the button is enabled
+ * @param onClickLabel If provided, it'll be spoken in place of the default "double tap to activate".
  * @param buttonContent Composable lambda for custom button. Receives onClick callback.
- *                      Defaults to a filled button with the label.
+ * Defaults to a filled button with the label.
  *
  * @sample com.adevinta.spark.components.fileupload.FileUploadSamples
  */
 @Composable
-public fun FileUploadMultipleButton(
+public fun FileUploadButton(
     onResult: (ImmutableList<UploadedFile>) -> Unit,
     label: String,
     modifier: Modifier = Modifier,
@@ -205,9 +235,14 @@ public fun FileUploadMultipleButton(
     directory: PlatformFile? = null,
     dialogSettings: FileKitDialogSettings = FileKitDialogSettings.createDefault(),
     enabled: Boolean = true,
+    onClickLabel: String? = null,
     buttonContent: @Composable (onClick: () -> Unit) -> Unit = { onClick ->
         ButtonFilled(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .ifNotNull(onClickLabel) {
+                    semantics { onClick(label = onClickLabel, action = null) }
+                },
             onClick = onClick,
             text = label,
             intent = ButtonIntent.Basic,

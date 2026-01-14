@@ -4,8 +4,8 @@ File upload components allow users to select, upload, and preview files such as 
 
 ## Components
 
+- `FileUploadButton`: High-level component for multiple file selection with a button trigger and optional file previews. This is the default component for file uploads.
 - `FileUploadSingleButton`: High-level component for single file selection with a button trigger and optional file preview.
-- `FileUploadMultipleButton`: High-level component for multiple file selection with a button trigger and optional file previews.
 - `FileUploadPattern`: Reusable pattern wrapper that can integrate file upload functionality into any component.
 - `PreviewFile`: Visual representation of a single uploaded file, showing icon, name, size and a clear button.
 
@@ -27,7 +27,7 @@ FileUploadSingleButton(
 // Multiple file upload with max limit
 var selectedFiles by remember { mutableStateOf<List<UploadedFile>>(emptyList()) }
 
-FileUploadMultipleButton(
+FileUploadButton(
     onResult = { files -> selectedFiles = files },
     label = "Select files",
     maxFiles = 5, // Optional: limit to 5 files
@@ -142,7 +142,7 @@ FileUploadSingleButton(
     }
 )
 
-FileUploadMultipleButton(
+FileUploadButton(
     onResult = { /* handle */ },
     label = "Upload multiple",
     preview = { files ->
@@ -162,10 +162,70 @@ FileUploadMultipleButton(
 For multiple file selection, you can optionally limit the maximum number of files:
 
 ```kotlin
-FileUploadMultipleButton(
+FileUploadButton(
     onResult = { files -> /* handle */ },
     label = "Select up to 5 files",
     maxFiles = 5, // Limit to 5 files
+)
+```
+
+## Opening Files
+
+You can open files with the system's default application using `FileUploadDefaults.openFile()`:
+
+```kotlin
+PreviewFile(
+    file = uploadedFile,
+    onClear = { /* remove file */ },
+    onClick = {
+        // Open file with default application
+        FileUploadDefaults.openFile(uploadedFile)
+    }
+)
+```
+
+Note: On Android, if opening files from custom locations (e.g., `FileKit.filesDir` or `FileKit.cacheDir`), you may need to configure FileProvider in your app's AndroidManifest.xml. See [FileKit documentation](https://filekit.mintlify.app/dialogs/open-file) for details.
+
+## PreviewFile Customization
+
+The `PreviewFile` component supports several customization options:
+
+```kotlin
+PreviewFile(
+    file = uploadedFile,
+    onClear = { /* remove file */ },
+    onClick = { /* handle file click */ }, // Optional: makes the preview clickable
+    clearIcon = SparkIcons.DeleteOutline, // Optional: customize the clear button icon
+    clearContentDescription = "Remove file", // Optional: customize accessibility label
+    progress = { 0.5f }, // Optional: determinate progress (0.0 to 1.0)
+    isLoading = false, // Optional: indeterminate loading state
+)
+```
+
+### Loading States
+
+The `PreviewFile` component supports two types of loading indicators:
+
+1. **Determinate Progress**: Use the `progress` parameter to show a progress bar with a specific value (0.0 to 1.0)
+2. **Indeterminate Loading**: Use the `isLoading` parameter to show an indeterminate progress bar when the exact progress is unknown
+
+When either `progress` or `isLoading` is active, the clear button is automatically disabled.
+
+## Button Semantics
+
+You can add accessibility labels to the file upload buttons:
+
+```kotlin
+FileUploadButton(
+    onResult = { files -> /* handle */ },
+    label = "Select files",
+    onClickLabel = "Open file picker to select multiple files", // Optional: accessibility label
+)
+
+FileUploadSingleButton(
+    onResult = { file -> /* handle */ },
+    label = "Select file",
+    onClickLabel = "Open file picker to select a single file", // Optional: accessibility label
 )
 ```
 

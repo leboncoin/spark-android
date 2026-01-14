@@ -34,6 +34,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Surface
 import androidx.compose.material3.minimumInteractiveComponentSize
@@ -46,6 +47,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -56,13 +58,16 @@ import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.progressbar.Progressbar
+import com.adevinta.spark.components.progressbar.ProgressbarIndeterminate
 import com.adevinta.spark.components.spacer.HorizontalSpacer
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.Close
+import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.WarningOutline
 import com.adevinta.spark.tokens.EmphasizeDim1
 import com.adevinta.spark.tokens.ripple
+import com.adevinta.spark.tools.modifiers.ifNotNull
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.mimeType.MimeType
 import java.io.File
@@ -83,6 +88,9 @@ import java.io.File
  * @param errorMessage Optional error message to display
  * @param enabled Whether the clear button is enabled
  * @param clearContentDescription Content description for the clear button. If null, defaults to "Remove ${file.name}"
+ * @param onClick Optional callback invoked when the file preview is clicked. If null, the preview is not clickable.
+ * @param clearIcon Icon to use for the clear button. Defaults to [SparkIcons.Close].
+ * @param isLoading Whether to show an indeterminate loading indicator. When true, shows an indeterminate progress bar.
  */
 @Composable
 public fun PreviewFile(
@@ -93,6 +101,9 @@ public fun PreviewFile(
     errorMessage: String? = null,
     enabled: Boolean = true,
     clearContentDescription: String? = null,
+    onClick: (() -> Unit)? = null,
+    clearIcon: SparkIcon = SparkIcons.Close,
+    isLoading: Boolean = false,
 ) {
     val hasError = errorMessage != null
     val borderColor by animateColorAsState(
@@ -101,14 +112,24 @@ public fun PreviewFile(
     val borderSize by animateDpAsState(if (hasError) 2.dp else 1.dp)
     val opacity by animateFloatAsState(if (enabled) 1f else SparkTheme.colors.dim3)
 
-    // Disable clear button if progress is active (during loading)
-    val isClearEnabled = enabled && progress == null
+    // Disable clear button if progress or loading is active
+    val isClearEnabled = enabled && progress == null && !isLoading
 
     Surface(
         modifier = modifier
             .fillMaxWidth()
             .graphicsLayer {
                 alpha = opacity
+            }
+            .ifNotNull(onClick) {
+                clickable(
+                    onClick = it,
+                    enabled = enabled,
+                    role = Role.Button,
+                )
+            }
+            .semantics(mergeDescendants = true) {
+                errorMessage?.let { error(it) }
             },
         color = SparkTheme.colors.surface,
         border = BorderStroke(borderSize, borderColor),
@@ -124,7 +145,8 @@ public fun PreviewFile(
                 HorizontalSpacer(8.dp)
 
                 Column(
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier
+                        .weight(1f),
                 ) {
                     PreviewFileTexts(
                         file = file,
@@ -133,16 +155,29 @@ public fun PreviewFile(
 
                     // Show progress bar during upload
                     AnimatedVisibility(
-                        visible = progress != null,
+                        visible = progress != null || isLoading,
                     ) {
-                        Progressbar(
-                            modifier = Modifier
-                                .fillMaxWidth(1f)
-                                .padding(top = 8.dp),
-                            progress = progress
-                                ?: { 100f }, // backup to 100 otherwise we would crash since the progress
-                            // is still in use for the time we hide it
-                        )
+                        if (isLoading) {
+                            ProgressbarIndeterminate(
+                                modifier = Modifier
+                                    .fillMaxWidth(1f)
+                                    .padding(top = 8.dp),
+                            )
+                        } else {
+                            val animatedProgress by
+                            animateFloatAsState(
+                                // backup to 100 otherwise we would crash since the progress
+                                // is still in use for the time we hide it
+                                targetValue = progress?.invoke() ?: 100f,
+                                animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec,
+                            )
+                            Progressbar(
+                                modifier = Modifier
+                                    .fillMaxWidth(1f)
+                                    .padding(top = 8.dp),
+                                progress = { animatedProgress },
+                            )
+                        }
                     }
 
                     // Show error message if present
@@ -158,6 +193,7 @@ public fun PreviewFile(
                     onClear = onClear,
                     enabled = isClearEnabled,
                     contentDescription = clearContentDescription ?: "Remove ${file.name}",
+                    clearIcon = clearIcon,
                 )
             }
         }
@@ -169,6 +205,7 @@ private fun PreviewFileClearButton(
     onClear: () -> Unit,
     enabled: Boolean,
     contentDescription: String,
+    clearIcon: SparkIcon,
 ) {
     Box(
         modifier = Modifier
@@ -191,8 +228,8 @@ private fun PreviewFileClearButton(
         contentAlignment = Alignment.Center,
     ) {
         Icon(
-            sparkIcon = SparkIcons.Close,
-            contentDescription = contentDescription,
+            sparkIcon = clearIcon,
+            contentDescription = null,
             modifier = Modifier.size(16.dp),
         )
     }

@@ -40,14 +40,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.catalog.icons.IconPickerItem
 import com.adevinta.spark.catalog.model.Configurator
 import com.adevinta.spark.catalog.ui.ButtonGroup
 import com.adevinta.spark.catalog.ui.animations.AnimatedNullableVisibility
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.card.Card
+import com.adevinta.spark.components.fileupload.FileUploadButton
 import com.adevinta.spark.components.fileupload.FileUploadDefaultPreview
-import com.adevinta.spark.components.fileupload.FileUploadMultipleButton
+import com.adevinta.spark.components.fileupload.FileUploadDefaults
 import com.adevinta.spark.components.fileupload.FileUploadSingleButton
 import com.adevinta.spark.components.fileupload.FileUploadType
 import com.adevinta.spark.components.fileupload.ImageSource
@@ -58,6 +60,9 @@ import com.adevinta.spark.components.stepper.StepperForm
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.SwitchLabelled
+import com.adevinta.spark.icons.Close
+import com.adevinta.spark.icons.SparkIcon
+import com.adevinta.spark.icons.SparkIcons
 import io.github.vinceglb.filekit.path
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -80,6 +85,7 @@ private fun ColumnScope.FileUploadSample() {
     var pickerType by remember { mutableStateOf(FileUploadPickerType.File) }
     var imageSource by remember { mutableStateOf(ImageSource.Gallery) }
     var maxFiles: Int by remember { mutableIntStateOf(0) }
+    var clearIcon by remember { mutableStateOf<SparkIcon>(SparkIcons.Close) }
 
     // Track file states separately
     var fileStates by remember {
@@ -98,6 +104,12 @@ private fun ColumnScope.FileUploadSample() {
         )
     }
 
+    // Helper function to get isLoading state for a file
+    fun UploadedFile.getIsLoading(): Boolean {
+        val state = fileStates[file.path]
+        return state?.isLoading ?: false
+    }
+
     FileUploadSingleButton(
         onResult = { file -> singleFile = file },
         label = "Select single file",
@@ -109,7 +121,6 @@ private fun ColumnScope.FileUploadSample() {
     // Display preview for single file
     AnimatedNullableVisibility(
         value = singleFile,
-
     ) { file ->
         val fileWithState = file.applyState()
         PreviewFile(
@@ -118,12 +129,17 @@ private fun ColumnScope.FileUploadSample() {
             progress = fileWithState.progress,
             errorMessage = fileWithState.errorMessage,
             enabled = fileWithState.enabled,
+            onClick = {
+                FileUploadDefaults.openFile(fileWithState)
+            },
+            clearIcon = clearIcon,
+            isLoading = file.getIsLoading(),
         )
     }
 
     Spacer(modifier = Modifier.height(16.dp))
 
-    FileUploadMultipleButton(
+    FileUploadButton(
         onResult = { files ->
             multipleFiles = files
         },
@@ -146,6 +162,11 @@ private fun ColumnScope.FileUploadSample() {
                 multipleFiles = multipleFiles.filterNot { it == originalFile }.toImmutableList()
             }
         },
+        onClick = { file ->
+            FileUploadDefaults.openFile(file)
+        },
+        clearIcon = clearIcon,
+        isLoading = { file -> file.getIsLoading() },
     )
 
     SwitchLabelled(
@@ -183,6 +204,13 @@ private fun ColumnScope.FileUploadSample() {
             onOptionSelect = { imageSource = it },
         )
     }
+
+    // Clear icon selector
+    IconPickerItem(
+        label = "Clear icon",
+        selectedIcon = clearIcon,
+        onIconSelected = { icon -> if (icon != null) clearIcon = icon },
+    )
 
     // File state controls
     val allFiles = remember(singleFile, multipleFiles) {
@@ -226,6 +254,7 @@ private data class FileState(
     val enabled: Boolean = true,
     val progress: Int? = null, // 0-100
     val errorMessage: String? = null,
+    val isLoading: Boolean = false,
 )
 
 @Composable
@@ -258,24 +287,6 @@ private fun ColumnScope.FileStateControls(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            // Live preview
-            Column(
-                modifier = Modifier.weight(1f),
-            ) {
-                Text(
-                    text = "Preview",
-                    style = SparkTheme.typography.body2,
-                    modifier = Modifier.padding(bottom = 8.dp),
-                )
-                PreviewFile(
-                    file = file,
-                    onClear = { /* No-op in configurator */ },
-                    progress = file.progress,
-                    errorMessage = file.errorMessage,
-                    enabled = file.enabled,
-                )
-            }
-
             // Controls
             Column(
                 modifier = Modifier.weight(1f),
@@ -300,12 +311,13 @@ private fun ColumnScope.FileStateControls(
 
                 SwitchLabelled(
                     checked = state.progress != null,
-                    enabled = state.enabled,
+                    enabled = state.enabled && !state.isLoading,
                     onCheckedChange = { hasProgress ->
                         onStateChange(
                             state.copy(
                                 progress = if (hasProgress) progressValue else null,
                                 errorMessage = if (hasProgress) null else state.errorMessage,
+                                isLoading = if (hasProgress) false else state.isLoading,
                             ),
                         )
                     },
@@ -330,6 +342,24 @@ private fun ColumnScope.FileStateControls(
                             onStateChange(state.copy(progress = intValue))
                         },
                         valueRange = 0f..100f,
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                }
+
+                SwitchLabelled(
+                    checked = state.isLoading,
+                    enabled = state.enabled && state.progress == null,
+                    onCheckedChange = { isLoading ->
+                        onStateChange(
+                            state.copy(
+                                isLoading = isLoading,
+                                errorMessage = if (isLoading) null else state.errorMessage,
+                            ),
+                        )
+                    },
+                ) {
+                    Text(
+                        text = "Show indeterminate loading",
                         modifier = Modifier.fillMaxWidth(),
                     )
                 }

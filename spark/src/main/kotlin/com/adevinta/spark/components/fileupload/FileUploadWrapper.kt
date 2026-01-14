@@ -29,6 +29,9 @@ import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.adevinta.spark.icons.Close
+import com.adevinta.spark.icons.SparkIcon
+import com.adevinta.spark.icons.SparkIcons
 import io.github.vinceglb.filekit.path
 import kotlinx.collections.immutable.ImmutableList
 
@@ -68,12 +71,18 @@ public fun FileUploadPattern(
  * @param files List of uploaded files to display
  * @param onClearFile Callback invoked when a file should be removed
  * @param modifier Modifier to be applied to the preview container
+ * @param onClick Optional callback invoked when a file preview is clicked. Receives the clicked file.
+ * @param clearIcon Icon to use for the clear button. Defaults to [SparkIcons.Close].
+ * @param isLoading Optional function that determines if a file is in indeterminate loading state. Receives the file and returns true if loading.
  */
 @Composable
 public fun FileUploadDefaultPreview(
     files: ImmutableList<UploadedFile>,
     onClearFile: (UploadedFile) -> Unit,
     modifier: Modifier = Modifier,
+    onClick: ((UploadedFile) -> Unit)? = null,
+    clearIcon: SparkIcon = SparkIcons.Close,
+    isLoading: ((UploadedFile) -> Boolean)? = null,
 ) {
     AnimatedVisibility(files.isNotEmpty()) {
         Column(
@@ -90,6 +99,9 @@ public fun FileUploadDefaultPreview(
                         progress = file.progress,
                         errorMessage = file.errorMessage,
                         enabled = file.enabled,
+                        onClick = onClick?.let { { it(file) } },
+                        clearIcon = clearIcon,
+                        isLoading = isLoading?.invoke(file) ?: false,
                     )
                 }
             }
