@@ -29,6 +29,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,6 +42,8 @@ import com.adevinta.spark.catalog.ui.ButtonGroup
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.menu.DropdownMenuItem
+import com.adevinta.spark.components.snackbars.SnackbarHostState
+import com.adevinta.spark.components.snackbars.SnackbarIntent
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.tags.TagFilled
 import com.adevinta.spark.components.tags.TagIntent
@@ -50,6 +53,7 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.Dropdown
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.icons.SparkIcon
+import kotlinx.coroutines.launch
 
 public val TagsConfigurator: Configurator = Configurator(
     id = "tag",
@@ -57,16 +61,17 @@ public val TagsConfigurator: Configurator = Configurator(
     description = "Tag configuration",
     sourceUrl = "$SampleSourceUrl/TagSamples.kt",
 ) {
-    TagSample()
+    TagSample(it)
 }
 
 @Suppress("DEPRECATION")
 @Composable
-private fun ColumnScope.TagSample() {
+private fun ColumnScope.TagSample(snackbarHostState: SnackbarHostState) {
     var icon: SparkIcon? by remember { mutableStateOf(null) }
     var style by remember { mutableStateOf(TagStyle.Filled) }
     var intent by remember { mutableStateOf(TagIntent.Main) }
     var tagText by remember { mutableStateOf("Filled Tag") }
+    val coroutineScope = rememberCoroutineScope()
 
     ConfigedTag(
         modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -85,7 +90,20 @@ private fun ColumnScope.TagSample() {
     ButtonGroup(
         title = "Style",
         selectedOption = style,
-        onOptionSelect = { style = it },
+        onOptionSelect = { newStyle ->
+            // Check if current intent is invalid for new style
+            if (intent == TagIntent.Surface && newStyle != TagStyle.Filled) {
+                coroutineScope.launch {
+                    snackbarHostState.showSnackbar(
+                        message = "Tag Intent Surface can only be used with TagFilled",
+                        intent = SnackbarIntent.Error,
+                    )
+                }
+                // Reset intent to a valid one
+                intent = TagIntent.Main
+            }
+            style = newStyle
+        },
     )
 
     val intents = TagIntent.entries
@@ -102,12 +120,23 @@ private fun ColumnScope.TagSample() {
             expanded = false
         },
         dropdownContent = {
-            intents.forEach {
+            intents.forEach { newIntent ->
                 DropdownMenuItem(
-                    text = { Text(it.name) },
+                    text = { Text(newIntent.name) },
                     onClick = {
-                        intent = it
-                        expanded = false
+                        // Check if the selected intent is invalid for current style
+                        if (newIntent == TagIntent.Surface && style != TagStyle.Filled) {
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar(
+                                    message = "Tag Intent Surface can only be used with TagFilled",
+                                    intent = SnackbarIntent.Error,
+                                )
+                            }
+                            expanded = false
+                        } else {
+                            intent = newIntent
+                            expanded = false
+                        }
                     },
                 )
             }
@@ -126,7 +155,7 @@ private fun ColumnScope.TagSample() {
 @Preview
 @Composable
 private fun TagSamplePreview() {
-    PreviewTheme { TagSample() }
+    PreviewTheme { TagSample(SnackbarHostState()) }
 }
 
 @Composable
@@ -144,24 +173,27 @@ private fun ConfigedTag(
         Box(
             modifier = Modifier.padding(8.dp),
         ) {
-            when (style) {
-                TagStyle.Filled -> TagFilled(
-                    text = tagText,
-                    intent = intent,
-                    leadingIcon = icon,
-                )
+            // Only render if the combination is valid
+            if (intent != TagIntent.Surface || style == TagStyle.Filled) {
+                when (style) {
+                    TagStyle.Filled -> TagFilled(
+                        text = tagText,
+                        intent = intent,
+                        leadingIcon = icon,
+                    )
 
-                TagStyle.Outlined -> TagOutlined(
-                    text = tagText,
-                    intent = intent,
-                    leadingIcon = icon,
-                )
+                    TagStyle.Outlined -> TagOutlined(
+                        text = tagText,
+                        intent = intent,
+                        leadingIcon = icon,
+                    )
 
-                TagStyle.Tinted -> TagTinted(
-                    text = tagText,
-                    intent = intent,
-                    leadingIcon = icon,
-                )
+                    TagStyle.Tinted -> TagTinted(
+                        text = tagText,
+                        intent = intent,
+                        leadingIcon = icon,
+                    )
+                }
             }
         }
     }
