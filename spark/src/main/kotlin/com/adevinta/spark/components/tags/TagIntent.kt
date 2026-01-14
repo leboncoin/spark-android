@@ -100,6 +100,14 @@ public enum class TagIntent {
         @Composable
         override fun colors(): IntentColor = IntentColors.Neutral.colors()
     },
+
+    /**
+     * To display on a image or visually heavy surface, can only be used with [TagFilled].
+     */
+    Surface {
+        @Composable
+        override fun colors(): IntentColor = IntentColors.Surface.colors()
+    },
     ;
 
     @Composable
