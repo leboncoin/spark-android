@@ -7,6 +7,7 @@ File upload components allow users to select, upload, and preview files such as 
 - `FileUploadButton`: High-level component for multiple file selection with a button trigger and optional file previews. This is the default component for file uploads.
 - `FileUploadSingleButton`: High-level component for single file selection with a button trigger and optional file preview.
 - `FileUploadPattern`: Reusable pattern wrapper that can integrate file upload functionality into any component.
+- `FileUploadDefaultPreview`: Default preview implementation that displays uploaded files in a list with progress bars, error states, and clear buttons.
 - `PreviewFile`: Visual representation of a single uploaded file, showing icon, name, size and a clear button.
 
 ## Pattern API
@@ -25,7 +26,7 @@ FileUploadSingleButton(
 )
 
 // Multiple file upload with max limit
-var selectedFiles by remember { mutableStateOf<List<UploadedFile>>(emptyList()) }
+var selectedFiles by remember { mutableStateOf<ImmutableList<UploadedFile>>(persistentListOf()) }
 
 FileUploadButton(
     onResult = { files -> selectedFiles = files },
@@ -71,7 +72,30 @@ TextField(
         }
     }
 )
+
+## Default Preview
+
+The `FileUploadDefaultPreview` component provides a standard implementation for displaying uploaded files:
+
+```kotlin
+FileUploadButton(
+    onResult = { files -> selectedFiles = files },
+    label = "Select files",
+)
+
+FileUploadDefaultPreview(
+    files = selectedFiles,
+    onClearFile = { file -> selectedFiles = selectedFiles.remove(file) },
+    onClick = { file -> /* handle file click */ }
+)
 ```
+
+The default preview automatically:
+- Shows each file with its icon, name, and size
+- Displays progress bars during upload
+- Shows error messages with appropriate styling
+- Provides clear buttons for removing files
+- Supports clickable previews for opening files
 
 ## File Types
 
@@ -194,11 +218,14 @@ The `PreviewFile` component supports several customization options:
 PreviewFile(
     file = uploadedFile,
     onClear = { /* remove file */ },
-    onClick = { /* handle file click */ }, // Optional: makes the preview clickable
-    clearIcon = SparkIcons.DeleteOutline, // Optional: customize the clear button icon
-    clearContentDescription = "Remove file", // Optional: customize accessibility label
+    modifier = Modifier, // Optional: modifier for the component
     progress = { 0.5f }, // Optional: determinate progress (0.0 to 1.0)
     isLoading = false, // Optional: indeterminate loading state
+    errorMessage = null, // Optional: error message to display
+    enabled = true, // Optional: whether the component is enabled
+    clearContentDescription = "Remove ${uploadedFile.name}", // Optional: accessibility label
+    onClick = { /* handle file click */ }, // Optional: makes the preview clickable
+    clearIcon = SparkIcons.Close, // Optional: customize the clear button icon
 )
 ```
 
@@ -235,38 +262,22 @@ For advanced use cases, you can use the pattern state directly:
 
 ```kotlin
 val pattern = rememberFileUploadPattern(
+    onFilesSelect = { files -> /* handle selected files */ },
     type = FileUploadType.File(),
     mode = FileUploadMode.Multiple(maxFiles = 10),
-    onFilesSelected = { files -> /* handle */ }
+    title = "Select files", // Optional: dialog title
+    directory = null, // Optional: initial directory
+    dialogSettings = FileKitDialogSettings.createDefault(), // Optional: dialog settings
 )
-
-// Access selected files
-val files = pattern.selectedFiles
 
 // Launch specific pickers
 pattern.launchFilePicker()      // File/gallery picker
 pattern.launchCameraPicker()   // Camera picker
 pattern.launchGalleryPicker()  // Gallery picker
 pattern.launchPicker()          // Smart launcher (handles source selection)
+
+// Query pattern configuration
+val isSingleMode = pattern.isSingleMode
+val maxFiles = pattern.maxFiles
 ```
 
-## Migration from Old API
-
-If you were using the old `FileUploadSingleButton` with the `camera` parameter:
-
-```kotlin
-// Old API (deprecated)
-FileUploadSingleButton(
-    onResult = { /* handle */ },
-    mode = FileKitMode.Single,
-    label = "Upload",
-    camera = true
-)
-
-// New API
-FileUploadSingleButton(
-    onResult = { /* handle */ },
-    label = "Upload",
-    type = FileUploadType.Image(source = ImageSource.Camera)
-)
-```

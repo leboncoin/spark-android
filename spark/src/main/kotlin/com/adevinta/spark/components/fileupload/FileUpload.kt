@@ -30,6 +30,8 @@ import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
 import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.buttons.ButtonIntent
+import com.adevinta.spark.components.buttons.ButtonSize
+import com.adevinta.spark.components.buttons.IconSide
 import com.adevinta.spark.icons.CameraVideo
 import com.adevinta.spark.icons.CvOutline
 import com.adevinta.spark.icons.FilePdfOutline
@@ -37,6 +39,7 @@ import com.adevinta.spark.icons.ImageOutline
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tools.modifiers.ifNotNull
+import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.dialogs.FileKitDialogSettings
@@ -47,19 +50,32 @@ import io.github.vinceglb.filekit.mimeType.MimeType
 import io.github.vinceglb.filekit.name
 import io.github.vinceglb.filekit.size
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.serialization.Serializable
 
 /**
- * Model representing a file selected by the user through a file picker.
+ * Represents a file that has been selected or uploaded within the Spark file upload components.
  *
- * This model is intentionally simple and UI-focused. It is FileKit-agnostic so that
- * consumers can adapt their own file picking solutions by mapping their domain model
- * into [UploadedFile].
+ * This class wraps the underlying [PlatformFile] and provides additional state such as
+ * upload progress, error messages, and UI interaction states to represented the uploaded state of this
+ * specific selected file.
+ *
+ * @property file The underlying platform-specific file reference. System file information are contained here.
+ * @property enabled Whether interaction with this file in the UI (e.g., removal) is enabled.
+ * @property progress A lambda returning the upload progress as a float between 0.0 and 1.0.
+ * If null, no progress indicator is shown.
+ * @property isLoading Whether the upload is in indeterminate loading state.
+ * @property errorMessage An optional error message to display if the upload failed.
+ * @property name The display name of the file (e.g., "document.pdf").
+ * @property sizeBytes The size of the file in bytes.
+ * @property mimeType The detected [MimeType] of the file, if available.
  */
 @Immutable
+@Serializable
 public data class UploadedFile(
     val file: PlatformFile,
     val enabled: Boolean = true,
     val progress: (() -> Float)? = null,
+    val isLoading: Boolean = false,
     val errorMessage: String? = null,
 ) {
     public val name: String = file.name
@@ -159,6 +175,9 @@ public fun FileUploadSingleButton(
     onResult: (UploadedFile?) -> Unit,
     label: String,
     modifier: Modifier = Modifier,
+    size: ButtonSize= ButtonSize.Medium,
+    icon: SparkIcon? = null,
+    iconSide: IconSide = IconSide.START,
     type: FileUploadType = FileUploadType.File(),
     camera: Boolean = false,
     title: String? = null,
@@ -193,12 +212,12 @@ public fun FileUploadSingleButton(
         title = title,
         directory = directory,
         dialogSettings = dialogSettings,
-        onFilesSelected = { files -> onResult(files.firstOrNull()) },
+        onFilesSelect = { files -> onResult(files.firstOrNull()) },
     )
 
     FileUploadPattern(
         pattern = pattern,
-        modifier = modifier,
+        modifier = modifier.sparkUsageOverlay(),
         content = buttonContent,
     )
 }
@@ -229,6 +248,9 @@ public fun FileUploadButton(
     onResult: (ImmutableList<UploadedFile>) -> Unit,
     label: String,
     modifier: Modifier = Modifier,
+    size: ButtonSize= ButtonSize.Medium,
+    icon: SparkIcon? = null,
+    iconSide: IconSide = IconSide.START,
     type: FileUploadType = FileUploadType.File(),
     maxFiles: Int? = null,
     title: String? = null,
@@ -256,12 +278,12 @@ public fun FileUploadButton(
         title = title,
         directory = directory,
         dialogSettings = dialogSettings,
-        onFilesSelected = onResult,
+        onFilesSelect = onResult,
     )
 
     FileUploadPattern(
         pattern = pattern,
-        modifier = modifier,
+        modifier = modifier.sparkUsageOverlay(),
         content = buttonContent,
     )
 }
@@ -286,14 +308,22 @@ public sealed interface FileUploadType {
     /**
      * Image files only.
      *
-     * @param source How to select images: camera, gallery, or both (with dialog)
+     * @param source How to select images: camera, gallery
      */
     public data class Image(override val source: ImageSource = ImageSource.Gallery) : HasMultipleSource
 
-    /** Video files only */
+    /**
+     * Video files only
+     *
+     * @param source How to select images: camera, gallery
+     */
     public data class Video(override val source: ImageSource = ImageSource.Gallery) : HasMultipleSource
 
-    /** Both image and video files */
+    /**
+     * Both image and video files
+     *
+     * @param source How to select images: camera, gallery
+     */
     public data class ImageAndVideo(override val source: ImageSource = ImageSource.Gallery) : HasMultipleSource
 
     public sealed interface HasMultipleSource : FileUploadType {
@@ -303,7 +333,10 @@ public sealed interface FileUploadType {
     /**
      * Generic file selection with optional extension filter.
      *
-     * @param extensions Optional set of file extensions to filter (e.g., setOf("pdf", "doc"))
+     * @param extensions Optional set of file extensions to filter (e.g., setOf("pdf", "doc")), you can get a sample
+     * of available extensions in [FileExtensionStandard].
+     *
+     * @see FileExtensionStandard
      */
     public data class File(val extensions: Set<String>? = null) : FileUploadType {
         public constructor(vararg extensions: String) : this(extensions.toSet())

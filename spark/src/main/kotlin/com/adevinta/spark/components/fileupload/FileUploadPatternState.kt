@@ -23,10 +23,8 @@ package com.adevinta.spark.components.fileupload
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.dialogs.FileKitDialogSettings
 import io.github.vinceglb.filekit.dialogs.FileKitMode
@@ -37,18 +35,43 @@ import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 
 /**
+ * High-level wrapper composable that integrates file upload pattern with any component.
+ *
+ * This composable allows you to wrap any component (button, surface, image, etc.) with file upload
+ * functionality. The pattern handles all file picking logic while you control the UI trigger.
+ *
+ * For displaying selected files, use [PreviewFile] or [FileUploadDefaultPreview] separately.
+ *
+ * @param pattern The [FileUploadPatternState] from [rememberFileUploadPattern]
+ * @param modifier Modifier to be applied to the container
+ * @param content Composable lambda that receives an onClick function to trigger file selection.
+ *                This can be any component that accepts an onClick callback.
+ *
+ * @sample com.adevinta.spark.components.fileupload.FileUploadWrapperSamples
+ */
+@Composable
+public fun FileUploadPattern(
+    pattern: FileUploadPatternState,
+    modifier: Modifier = Modifier,
+    content: @Composable (onClick: () -> Unit) -> Unit,
+) {
+    content(pattern.launchPicker)
+}
+
+/**
  * State holder for file upload pattern that manages file picking logic.
  *
- * This state provides launchers for different picker types and tracks selected files.
- * It handles bookmark persistence internally and supports both single and multiple file modes.
+ * This state provides launchers for different picker types.
+ * It abstracts the complexity of handling different selection modes (single vs. multiple)
+ * and source types like camera or system file picker.
  *
- * @property launchFilePicker Function to launch the file/gallery picker
- * @property launchCameraPicker Function to launch the camera picker
- * @property launchGalleryPicker Function to launch the gallery picker (same as launchFilePicker for images)
- * @property launchPicker Main launcher function that handles source selection based on [FileUploadType]
- * @property selectedFiles Currently selected files
- * @property isSingleMode Whether this pattern is in single file mode
- * @property maxFiles Maximum number of files allowed (null means no limit), only relevant for multiple mode
+ * @property launchFilePicker Function to launch the file picker.
+ * @property launchCameraPicker Function to launch the camera picker.
+ * @property launchGalleryPicker Function to launch the gallery picker (using the system file picker
+ * filtered for images).
+ * @property launchPicker Main launcher function that handles source selection based on [FileUploadType].
+ * @property isSingleMode Whether this pattern is in single file mode.
+ * @property maxFiles Maximum number of files allowed (null means no limit), only relevant for multiple mode.
  */
 @Stable
 public class FileUploadPatternState internal constructor(
@@ -61,31 +84,32 @@ public class FileUploadPatternState internal constructor(
 )
 
 /**
- * Creates and remembers a [FileUploadPatternState] for handling file uploads.
+ * Creates and remembers a [FileUploadPatternState] to manage file upload logic within a Composable.
  *
- * This function sets up the file picker launchers and manages the selected files state.
- * It handles bookmark persistence and supports both single and multiple file selection modes.
+ * This function initializes the necessary launchers for picking files from the system or capturing
+ * media via the camera. It abstracts the complexity of handling different selection modes
+ * (single vs. multiple) and source types.
  *
- * @param type Type of files to select (image, video, file, etc.)
- * @param mode Selection mode: single file or multiple files with optional max limit
- * @param title Optional title for the file picker dialog
- * @param directory Optional directory to open the picker in
- * @param dialogSettings Optional settings for the file picker dialog
- * @param onFilesSelected Callback invoked when files are selected
- * @return [FileUploadPatternState] that can be used to launch pickers and access selected files
+ * @param onFilesSelect Callback invoked when files are successfully selected or captured.
+ * Returns an empty list if the selection is cancelled or an error occurs.
+ * @param type The category of files to be selected (e.g., Image, Video, or generic File).
+ * This also determines the available sources like Camera or Gallery.
+ * @param mode The selection strategy: [FileUploadMode.Single] for one file or
+ * [FileUploadMode.Multiple] for several files with an optional limit.
+ * @param title An optional title displayed in the file picker system dialog.
+ * @param directory An optional initial directory for the file picker to open in.
+ * @param dialogSettings Specific configuration for the picker dialog, primarily for desktop platforms.
+ * @return A [FileUploadPatternState] used to trigger the pickers and query the current selection configuration.
  */
 @Composable
 public fun rememberFileUploadPattern(
-    onFilesSelected: (ImmutableList<UploadedFile>) -> Unit,
+    onFilesSelect: (ImmutableList<UploadedFile>) -> Unit,
     type: FileUploadType = FileUploadType.File(),
     mode: FileUploadMode = FileUploadMode.Single,
     title: String? = null,
     directory: PlatformFile? = null,
     dialogSettings: FileKitDialogSettings = FileKitDialogSettings.createDefault(),
 ): FileUploadPatternState {
-    // Use key to ensure each instance has independent state
-    var selectedFiles by remember { mutableStateOf<ImmutableList<UploadedFile>>(persistentListOf()) }
-
     val isSingleMode = mode is FileUploadMode.Single
     val maxFiles = if (mode is FileUploadMode.Multiple) mode.maxFiles else null
 
@@ -100,8 +124,7 @@ public fun rememberFileUploadPattern(
         ) { pickedFile ->
             if (pickedFile == null) return@rememberFilePickerLauncher
             val newFile = UploadedFile(file = pickedFile)
-            selectedFiles = persistentListOf(newFile)
-            onFilesSelected(selectedFiles)
+            onFilesSelect(persistentListOf(newFile))
         }
     } else {
         rememberFilePickerLauncher(
@@ -114,8 +137,7 @@ public fun rememberFileUploadPattern(
             val newFiles = result?.map { file ->
                 UploadedFile(file = file)
             }.orEmpty().toImmutableList()
-            selectedFiles = newFiles
-            onFilesSelected(selectedFiles)
+            onFilesSelect(newFiles)
         }
     }
 
@@ -124,16 +146,9 @@ public fun rememberFileUploadPattern(
         if (newPhoto == null) return@rememberCameraPickerLauncher
 
         val newFile = UploadedFile(file = newPhoto)
-        val updatedFiles = if (isSingleMode) {
-            listOf(newFile)
-        } else {
-            selectedFiles + newFile
-        }.toImmutableList()
-        selectedFiles = updatedFiles
-        onFilesSelected(updatedFiles)
+        onFilesSelect(persistentListOf(newFile))
     }
 
-    // Determine which picker to launch based on type and source
     val launchPicker: () -> Unit = {
         when (type) {
             is FileUploadType.HasMultipleSource -> when (type.source) {
@@ -145,17 +160,11 @@ public fun rememberFileUploadPattern(
         }
     }
 
-    val launchFilePicker: () -> Unit = { filePicker.launch() }
-    val launchCameraPicker: () -> Unit = { cameraPicker.launch() }
-    val launchGalleryPicker: () -> Unit = { filePicker.launch() }
-
-    // Create state object that updates when selectedFiles changes
-    // The functions are recreated each time to ensure they capture current state
-    return remember(selectedFiles.size, isSingleMode, maxFiles) {
+    return remember( isSingleMode, maxFiles, type) {
         FileUploadPatternState(
-            launchFilePicker = launchFilePicker,
-            launchCameraPicker = launchCameraPicker,
-            launchGalleryPicker = launchGalleryPicker,
+            launchFilePicker = { filePicker.launch() },
+            launchCameraPicker = { cameraPicker.launch() },
+            launchGalleryPicker = { filePicker.launch() },
             launchPicker = launchPicker,
             isSingleMode = isSingleMode,
             maxFiles = maxFiles,

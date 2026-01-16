@@ -30,10 +30,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,6 +45,7 @@ import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.icons.IconPickerItem
 import com.adevinta.spark.catalog.model.Configurator
 import com.adevinta.spark.catalog.ui.ButtonGroup
+import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.ui.animations.AnimatedNullableVisibility
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
@@ -56,6 +59,7 @@ import com.adevinta.spark.components.fileupload.ImageSource
 import com.adevinta.spark.components.fileupload.PreviewFile
 import com.adevinta.spark.components.fileupload.UploadedFile
 import com.adevinta.spark.components.slider.Slider
+import com.adevinta.spark.components.spacer.VerticalSpacer
 import com.adevinta.spark.components.stepper.StepperForm
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.TextField
@@ -79,12 +83,13 @@ public val FileUploadConfigurator: Configurator = Configurator(
 
 @Composable
 private fun ColumnScope.FileUploadSample() {
-    var enabled by remember { mutableStateOf(true) }
+    var enabled by rememberSaveable { mutableStateOf(true) }
     var singleFile by remember { mutableStateOf<UploadedFile?>(null) }
     var multipleFiles by remember { mutableStateOf<ImmutableList<UploadedFile>>(persistentListOf()) }
-    var pickerType by remember { mutableStateOf(FileUploadPickerType.File) }
-    var imageSource by remember { mutableStateOf(ImageSource.Gallery) }
-    var maxFiles: Int by remember { mutableIntStateOf(0) }
+    var pickerType by rememberSaveable { mutableStateOf(FileUploadPickerType.File) }
+    var imageSource by rememberSaveable { mutableStateOf(ImageSource.Gallery) }
+    var fileExtension by rememberSaveable { mutableStateOf(ClassicFileExtension.All) }
+    var maxFiles: Int by rememberSaveable { mutableIntStateOf(0) }
     var clearIcon by remember { mutableStateOf<SparkIcon>(SparkIcons.Close) }
 
     // Track file states separately
@@ -92,13 +97,15 @@ private fun ColumnScope.FileUploadSample() {
         mutableStateOf<Map<String, FileState>>(emptyMap())
     }
 
-    val selectedType = pickerType.toFileUploadType(imageSource)
+    val selectedType by remember { derivedStateOf { pickerType.toFileUploadType(imageSource, fileExtension) } }
 
     // Helper function to apply states to a file
-    fun UploadedFile.applyState(): UploadedFile {
+    fun UploadedFile.applyState(globalEnabled: Boolean = true): UploadedFile {
         val state = fileStates[file.path]
+        // If global enabled is false, override individual file enabled state
+        val finalEnabled = if (!globalEnabled) false else (state?.enabled ?: this.enabled)
         return copy(
-            enabled = state?.enabled ?: this.enabled,
+            enabled = finalEnabled,
             progress = state?.progress?.let { { it / 100f } } ?: this.progress,
             errorMessage = state?.errorMessage ?: this.errorMessage,
         )
@@ -122,7 +129,7 @@ private fun ColumnScope.FileUploadSample() {
     AnimatedNullableVisibility(
         value = singleFile,
     ) { file ->
-        val fileWithState = file.applyState()
+        val fileWithState = file.applyState(globalEnabled = enabled)
         PreviewFile(
             file = fileWithState,
             onClear = { singleFile = null },
@@ -141,7 +148,7 @@ private fun ColumnScope.FileUploadSample() {
 
     FileUploadButton(
         onResult = { files ->
-            multipleFiles = files
+            multipleFiles = if (maxFiles > 0) files.take(maxFiles).toImmutableList() else files
         },
         label = "Select multiple file",
         modifier = Modifier.fillMaxWidth(),
@@ -151,7 +158,11 @@ private fun ColumnScope.FileUploadSample() {
     )
 
     // Display preview for multiple files with applied states
-    val filesWithStates = multipleFiles.map { it.applyState() }.toImmutableList()
+    val filesWithStates by remember {
+        derivedStateOf {
+            multipleFiles.map { it.applyState(globalEnabled = enabled) }.toImmutableList()
+        }
+    }
     FileUploadDefaultPreview(
         modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
         files = filesWithStates,
@@ -196,6 +207,15 @@ private fun ColumnScope.FileUploadSample() {
         onOptionSelect = { pickerType = it },
     )
 
+    // Show file extension selector only when File type is selected
+    if (pickerType == FileUploadPickerType.File) {
+        DropdownEnum(
+            title = "File extension filter",
+            selectedOption = fileExtension,
+            onOptionSelect = { fileExtension = it },
+        )
+    }
+
     // Show ImageSource selector only when Image type is selected
     if (pickerType != FileUploadPickerType.File) {
         ButtonGroup(
@@ -221,12 +241,12 @@ private fun ColumnScope.FileUploadSample() {
     }
 
     if (allFiles.isNotEmpty()) {
-        Spacer(modifier = Modifier.height(16.dp))
+        VerticalSpacer(16.dp)
         Text(
             text = "File state controls",
             modifier = Modifier.fillMaxWidth(),
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        VerticalSpacer(8.dp)
 
         allFiles.forEach { file ->
             val filePath = file.file.path
@@ -245,7 +265,7 @@ private fun ColumnScope.FileUploadSample() {
                     },
                 )
             }
-            Spacer(modifier = Modifier.height(12.dp))
+            VerticalSpacer(12.dp)
         }
     }
 }
@@ -264,10 +284,10 @@ private fun ColumnScope.FileStateControls(
     state: FileState,
     onStateChange: (FileState) -> Unit,
 ) {
-    var errorMessageText by remember(state.errorMessage) {
+    var errorMessageText by rememberSaveable(state.errorMessage) {
         mutableStateOf(state.errorMessage ?: "")
     }
-    var progressValue by remember(state.progress) {
+    var progressValue by rememberSaveable(state.progress) {
         mutableIntStateOf(state.progress ?: 0)
     }
 
@@ -280,17 +300,13 @@ private fun ColumnScope.FileStateControls(
             style = SparkTheme.typography.headline2,
             modifier = Modifier.fillMaxWidth(),
         )
-        Spacer(modifier = Modifier.height(12.dp))
+        VerticalSpacer(12.dp)
 
-        // Preview and controls side by side
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            // Controls
-            Column(
-                modifier = Modifier.weight(1f),
-            ) {
+            Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = "Controls",
                     style = SparkTheme.typography.body2,
@@ -411,9 +427,12 @@ private enum class FileUploadPickerType {
     ImageAndVideo,
 }
 
-private fun FileUploadPickerType.toFileUploadType(imageSource: ImageSource = ImageSource.Gallery): FileUploadType =
+private fun FileUploadPickerType.toFileUploadType(
+    imageSource: ImageSource = ImageSource.Gallery,
+    fileExtension: ClassicFileExtension = ClassicFileExtension.All,
+): FileUploadType =
     when (this) {
-        FileUploadPickerType.File -> FileUploadType.File()
+        FileUploadPickerType.File -> FileUploadType.File(extensions = fileExtension.extensions.takeIf { it.isNotEmpty() })
         FileUploadPickerType.Image -> FileUploadType.Image(source = imageSource)
         FileUploadPickerType.Video -> FileUploadType.Video(source = imageSource)
         FileUploadPickerType.ImageAndVideo -> FileUploadType.ImageAndVideo(source = imageSource)

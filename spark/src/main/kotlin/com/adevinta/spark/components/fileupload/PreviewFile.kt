@@ -43,6 +43,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.Role
@@ -76,21 +77,23 @@ import java.io.File
  * Visual representation of a single uploaded file.
  *
  * Layout:
- * - Icon representing the file type.
- * - Filename as primary text.
+ * - Icon representing the file type or error state.
+ * - Filename as primary text (with middle ellipsis if needed).
  * - File size as secondary text.
+ * - Progress indicator (optional, linear or indeterminate).
+ * - Error message (optional).
  * - Clear button at the end to remove the file.
  *
- * @param file The uploaded file to display
- * @param onClear Callback invoked when the clear button is clicked
- * @param modifier Modifier to be applied to the component
- * @param progress Optional progress indicator (0.0 to 1.0)
- * @param errorMessage Optional error message to display
- * @param enabled Whether the clear button is enabled
- * @param clearContentDescription Content description for the clear button. If null, defaults to "Remove ${file.name}"
+ * @param file The uploaded file to display.
+ * @param onClear Callback invoked when the clear button is clicked.
+ * @param modifier Modifier to be applied to the component.
+ * @param progress Optional progress indicator lambda (returning 0.0 to 1.0).
+ * @param isLoading Whether to show an indeterminate loading indicator. Takes precedence over [progress].
+ * @param errorMessage Optional error message to display. If provided, the component switches to an error state.
+ * @param enabled Whether the component is enabled. If false, interactions are disabled and the UI is dimmed.
+ * @param clearContentDescription Content description for the clear button. If null, defaults to "Remove ${file.name}".
  * @param onClick Optional callback invoked when the file preview is clicked. If null, the preview is not clickable.
  * @param clearIcon Icon to use for the clear button. Defaults to [SparkIcons.Close].
- * @param isLoading Whether to show an indeterminate loading indicator. When true, shows an indeterminate progress bar.
  */
 @Composable
 public fun PreviewFile(
@@ -98,12 +101,12 @@ public fun PreviewFile(
     onClear: () -> Unit,
     modifier: Modifier = Modifier,
     progress: (() -> Float)? = null,
+    isLoading: Boolean = false,
     errorMessage: String? = null,
     enabled: Boolean = true,
     clearContentDescription: String? = null,
     onClick: (() -> Unit)? = null,
     clearIcon: SparkIcon = SparkIcons.Close,
-    isLoading: Boolean = false,
 ) {
     val hasError = errorMessage != null
     val borderColor by animateColorAsState(
@@ -145,8 +148,7 @@ public fun PreviewFile(
                 HorizontalSpacer(8.dp)
 
                 Column(
-                    modifier = Modifier
-                        .weight(1f),
+                    modifier = Modifier.weight(1f),
                 ) {
                     PreviewFileTexts(
                         file = file,
@@ -253,17 +255,20 @@ private fun PreviewFileIcon(
         if (error) SparkTheme.colors.error else SparkTheme.colors.onSurface,
     )
 
-    Surface(
-        color = containerColor,
-        shape = SparkTheme.shapes.small,
-        modifier = Modifier.size(36.dp),
+    Box(
+        modifier = Modifier
+            .size(36.dp)
+            .clip(SparkTheme.shapes.small)
+            .drawBehind {
+                drawRect(containerColor)
+            },
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             sparkIcon = icon,
             contentDescription = null,
             modifier = Modifier
-                .size(24.dp)
-                .padding(6.dp),
+                .size(24.dp),
             tint = contentColor,
         )
     }
