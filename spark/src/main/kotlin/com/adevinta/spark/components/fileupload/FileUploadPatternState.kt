@@ -25,6 +25,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import com.adevinta.spark.ExperimentalSparkApi
+import com.adevinta.spark.PreviewTheme
+import com.adevinta.spark.components.chips.ChipDashed
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.dialogs.FileKitDialogSettings
 import io.github.vinceglb.filekit.dialogs.FileKitMode
@@ -49,6 +53,7 @@ import kotlinx.collections.immutable.toImmutableList
  *
  * @sample com.adevinta.spark.components.fileupload.FileUploadWrapperSamples
  */
+@ExperimentalSparkApi
 @Composable
 public fun FileUploadPattern(
     pattern: FileUploadPatternState,
@@ -101,6 +106,7 @@ public class FileUploadPatternState internal constructor(
  * @param dialogSettings Specific configuration for the picker dialog, primarily for desktop platforms.
  * @return A [FileUploadPatternState] used to trigger the pickers and query the current selection configuration.
  */
+@ExperimentalSparkApi
 @Composable
 public fun rememberFileUploadPattern(
     onFilesSelect: (ImmutableList<UploadedFile>) -> Unit,
@@ -169,5 +175,25 @@ public fun rememberFileUploadPattern(
             isSingleMode = isSingleMode,
             maxFiles = maxFiles,
         )
+    }
+}
+
+@ExperimentalSparkApi
+@Preview
+@Composable
+private fun FileUploadPatternPreview() {
+    PreviewTheme {
+        val pattern = rememberFileUploadPattern(
+            onFilesSelect = {},
+        )
+        // Use Chip as this is not a prebuild FileUpload component
+        FileUploadPattern(
+            pattern = pattern,
+        ) { onClick ->
+            ChipDashed(
+                onClick = onClick,
+                text = "Upload File",
+            )
+        }
     }
 }

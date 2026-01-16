@@ -50,10 +50,10 @@ import com.adevinta.spark.catalog.ui.animations.AnimatedNullableVisibility
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.card.Card
-import com.adevinta.spark.components.fileupload.FileUploadButton
+import com.adevinta.spark.components.fileupload.FileExtensionStandard
+import com.adevinta.spark.components.fileupload.FileUpload
 import com.adevinta.spark.components.fileupload.FileUploadDefaultPreview
 import com.adevinta.spark.components.fileupload.FileUploadDefaults
-import com.adevinta.spark.components.fileupload.FileUploadSingleButton
 import com.adevinta.spark.components.fileupload.FileUploadType
 import com.adevinta.spark.components.fileupload.ImageSource
 import com.adevinta.spark.components.fileupload.PreviewFile
@@ -88,7 +88,7 @@ private fun ColumnScope.FileUploadSample() {
     var multipleFiles by remember { mutableStateOf<ImmutableList<UploadedFile>>(persistentListOf()) }
     var pickerType by rememberSaveable { mutableStateOf(FileUploadPickerType.File) }
     var imageSource by rememberSaveable { mutableStateOf(ImageSource.Gallery) }
-    var fileExtension by rememberSaveable { mutableStateOf(ClassicFileExtension.All) }
+    var fileExtension by rememberSaveable { mutableStateOf(FileExtensionStandard.All) }
     var maxFiles: Int by rememberSaveable { mutableIntStateOf(0) }
     var clearIcon by remember { mutableStateOf<SparkIcon>(SparkIcons.Close) }
 
@@ -117,7 +117,7 @@ private fun ColumnScope.FileUploadSample() {
         return state?.isLoading ?: false
     }
 
-    FileUploadSingleButton(
+    FileUpload.ButtonSingleSelect(
         onResult = { file -> singleFile = file },
         label = "Select single file",
         modifier = Modifier.fillMaxWidth(),
@@ -146,9 +146,13 @@ private fun ColumnScope.FileUploadSample() {
 
     Spacer(modifier = Modifier.height(16.dp))
 
-    FileUploadButton(
+    FileUpload.Button(
         onResult = { files ->
-            multipleFiles = if (maxFiles > 0) files.take(maxFiles).toImmutableList() else files
+            multipleFiles = multipleFiles
+                .plus(files)
+                .let {
+                    if (maxFiles > 0) it.take(maxFiles) else it
+                }.toImmutableList()
         },
         label = "Select multiple file",
         modifier = Modifier.fillMaxWidth(),
@@ -177,7 +181,6 @@ private fun ColumnScope.FileUploadSample() {
             FileUploadDefaults.openFile(file)
         },
         clearIcon = clearIcon,
-        isLoading = { file -> file.getIsLoading() },
     )
 
     SwitchLabelled(
@@ -234,7 +237,7 @@ private fun ColumnScope.FileUploadSample() {
 
     // File state controls
     val allFiles = remember(singleFile, multipleFiles) {
-        buildList<UploadedFile> {
+        buildList {
             singleFile?.let { add(it) }
             addAll(multipleFiles)
         }
@@ -429,7 +432,7 @@ private enum class FileUploadPickerType {
 
 private fun FileUploadPickerType.toFileUploadType(
     imageSource: ImageSource = ImageSource.Gallery,
-    fileExtension: ClassicFileExtension = ClassicFileExtension.All,
+    fileExtension: FileExtensionStandard = FileExtensionStandard.All,
 ): FileUploadType =
     when (this) {
         FileUploadPickerType.File -> FileUploadType.File(extensions = fileExtension.extensions.takeIf { it.isNotEmpty() })

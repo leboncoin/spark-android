@@ -4,8 +4,8 @@ File upload components allow users to select, upload, and preview files such as 
 
 ## Components
 
-- `FileUploadButton`: High-level component for multiple file selection with a button trigger and optional file previews. This is the default component for file uploads.
-- `FileUploadSingleButton`: High-level component for single file selection with a button trigger and optional file preview.
+- `FileUpload.Button`: High-level component for multiple file selection with a button trigger and optional file previews. This is the default component for file uploads.
+- `FileUpload.ButtonSingleSelect`: High-level component for single file selection with a button trigger and optional file preview.
 - `FileUploadPattern`: Reusable pattern wrapper that can integrate file upload functionality into any component.
 - `FileUploadDefaultPreview`: Default preview implementation that displays uploaded files in a list with progress bars, error states, and clear buttons.
 - `PreviewFile`: Visual representation of a single uploaded file, showing icon, name, size and a clear button.
@@ -20,7 +20,7 @@ The file upload functionality is built on a reusable pattern that can be integra
 // Single file upload
 var selectedFile by remember { mutableStateOf<UploadedFile?>(null) }
 
-FileUploadSingleButton(
+FileUpload.ButtonSingleSelect(
     onResult = { file -> selectedFile = file },
     label = "Select file",
 )
@@ -28,7 +28,7 @@ FileUploadSingleButton(
 // Multiple file upload with max limit
 var selectedFiles by remember { mutableStateOf<ImmutableList<UploadedFile>>(persistentListOf()) }
 
-FileUploadButton(
+FileUpload.Button(
     onResult = { files -> selectedFiles = files },
     label = "Select files",
     maxFiles = 5, // Optional: limit to 5 files
@@ -41,9 +41,9 @@ The `FileUploadPattern` can wrap any component to add file upload functionality:
 
 ```kotlin
 val pattern = rememberFileUploadPattern(
-    type = FileUploadType.Image(ImageSource.Both),
+    type = FileUploadType.Image(ImageSource.Gallery),
     mode = FileUploadMode.Single,
-    onFilesSelected = { files -> /* handle files */ }
+    onFilesSelect = { files -> /* handle files */ }
 )
 
 // With a Button
@@ -72,13 +72,14 @@ TextField(
         }
     }
 )
+```
 
 ## Default Preview
 
 The `FileUploadDefaultPreview` component provides a standard implementation for displaying uploaded files:
 
 ```kotlin
-FileUploadButton(
+FileUpload.Button(
     onResult = { files -> selectedFiles = files },
     label = "Select files",
 )
@@ -91,6 +92,7 @@ FileUploadDefaultPreview(
 ```
 
 The default preview automatically:
+
 - Shows each file with its icon, name, and size
 - Displays progress bars during upload
 - Shows error messages with appropriate styling
@@ -102,45 +104,36 @@ The default preview automatically:
 You can specify what type of files to select:
 
 ```kotlin
-// Images only (with camera/gallery selection)
-FileUploadSingleButton(
-    onResult = { /* handle */ },
-    label = "Select image",
-    type = FileUploadType.Image(
-        source = ImageSource.Both // Shows dialog to choose camera or gallery
-    )
-)
-
 // Images only (camera only)
-FileUploadSingleButton(
+FileUpload.ButtonSingleSelect(
     onResult = { /* handle */ },
     label = "Take photo",
     type = FileUploadType.Image(source = ImageSource.Camera)
 )
 
 // Images only (gallery only)
-FileUploadSingleButton(
+FileUpload.ButtonSingleSelect(
     onResult = { /* handle */ },
     label = "Choose from gallery",
     type = FileUploadType.Image(source = ImageSource.Gallery)
 )
 
 // Videos only
-FileUploadSingleButton(
+FileUpload.ButtonSingleSelect(
     onResult = { /* handle */ },
     label = "Select video",
     type = FileUploadType.Video
 )
 
 // Images and videos
-FileUploadSingleButton(
+FileUpload.ButtonSingleSelect(
     onResult = { /* handle */ },
     label = "Select media",
     type = FileUploadType.ImageAndVideo
 )
 
 // Generic files with extension filter
-FileUploadSingleButton(
+FileUpload.ButtonSingleSelect(
     onResult = { /* handle */ },
     label = "Select PDF",
     type = FileUploadType.File(extensions = setOf("pdf"))
@@ -149,36 +142,50 @@ FileUploadSingleButton(
 
 ## Custom Preview
 
-You can customize how selected files are displayed:
+You can customize how selected files are displayed by managing state yourself and using `PreviewFile` or `FileUploadDefaultPreview`:
 
 ```kotlin
-FileUploadSingleButton(
-    onResult = { /* handle */ },
+var selectedFile by remember { mutableStateOf<UploadedFile?>(null) }
+
+FileUpload.ButtonSingleSelect(
+    onResult = { file -> selectedFile = file },
     label = "Upload",
-    preview = { file ->
-        file?.let {
-            // Custom preview layout
-            Row {
-                Icon(SparkIcons.Check)
-                Text(it.name)
-            }
-        }
-    }
 )
 
-FileUploadButton(
-    onResult = { /* handle */ },
-    label = "Upload multiple",
-    preview = { files ->
-        // Custom preview for multiple files
-        files.forEach { file ->
-            PreviewFile(
-                file = file,
-                onClear = { /* remove file */ }
-            )
-        }
+// Custom preview for single file
+selectedFile?.let { file ->
+    Row {
+        Icon(SparkIcons.Check)
+        Text(file.name)
     }
+}
+
+// Or use PreviewFile
+selectedFile?.let { file ->
+    PreviewFile(
+        file = file,
+        onClear = { selectedFile = null }
+    )
+}
+```
+
+For multiple files:
+
+```kotlin
+var selectedFiles by remember { mutableStateOf<ImmutableList<UploadedFile>>(persistentListOf()) }
+
+FileUpload.Button(
+    onResult = { files -> selectedFiles = files },
+    label = "Upload multiple",
 )
+
+// Custom preview for multiple files
+selectedFiles.forEach { file ->
+    PreviewFile(
+        file = file,
+        onClear = { selectedFiles = selectedFiles.remove(file) }
+    )
+}
 ```
 
 ## Multiple File Selection
@@ -186,7 +193,7 @@ FileUploadButton(
 For multiple file selection, you can optionally limit the maximum number of files:
 
 ```kotlin
-FileUploadButton(
+FileUpload.Button(
     onResult = { files -> /* handle */ },
     label = "Select up to 5 files",
     maxFiles = 5, // Limit to 5 files
@@ -243,13 +250,13 @@ When either `progress` or `isLoading` is active, the clear button is automatical
 You can add accessibility labels to the file upload buttons:
 
 ```kotlin
-FileUploadButton(
+FileUpload.Button(
     onResult = { files -> /* handle */ },
     label = "Select files",
     onClickLabel = "Open file picker to select multiple files", // Optional: accessibility label
 )
 
-FileUploadSingleButton(
+FileUpload.ButtonSingleSelect(
     onResult = { file -> /* handle */ },
     label = "Select file",
     onClickLabel = "Open file picker to select a single file", // Optional: accessibility label
@@ -280,4 +287,3 @@ pattern.launchPicker()          // Smart launcher (handles source selection)
 val isSingleMode = pattern.isSingleMode
 val maxFiles = pattern.maxFiles
 ```
-

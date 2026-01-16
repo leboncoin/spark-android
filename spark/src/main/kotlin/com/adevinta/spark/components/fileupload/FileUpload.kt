@@ -39,7 +39,6 @@ import com.adevinta.spark.icons.ImageOutline
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tools.modifiers.ifNotNull
-import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.dialogs.FileKitDialogSettings
@@ -51,6 +50,142 @@ import io.github.vinceglb.filekit.name
 import io.github.vinceglb.filekit.size
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.serialization.Serializable
+
+
+public object FileUpload {
+
+    /**
+     * High level file upload component for multiple file selection.
+     *
+     * This component provides a button to trigger multiple file selection. To display selected files,
+     * manage state yourself and use [PreviewFile] or [FileUploadDefaultPreview].
+     *
+     * @param onResult Callback invoked when files are selected
+     * @param label Text label for the default button
+     * @param modifier Modifier to be applied to the button
+     * @param type Type of files to select (image, video, file, etc.)
+     * @param maxFiles Maximum number of files that can be selected. If null, no limit.
+     * @param title Optional title for the file picker dialog
+     * @param directory Optional directory to open the picker in
+     * @param dialogSettings Optional settings for the file picker dialog
+     * @param enabled Whether the button is enabled
+     * @param onClickLabel If provided, it'll be spoken in place of the default "double tap to activate".
+     * @param buttonContent Composable lambda for custom button. Receives onClick callback.
+     * Defaults to a filled button with the label.
+     *
+     * @sample com.adevinta.spark.components.fileupload.FileUploadSamples
+     */
+    @Composable
+    public fun Button(
+        onResult: (ImmutableList<UploadedFile>) -> Unit,
+        label: String,
+        modifier: Modifier = Modifier,
+        size: ButtonSize = ButtonSize.Medium,
+        icon: SparkIcon? = null,
+        iconSide: IconSide = IconSide.START,
+        type: FileUploadType = FileUploadType.File(),
+        maxFiles: Int? = null,
+        title: String? = null,
+        directory: PlatformFile? = null,
+        dialogSettings: FileKitDialogSettings = FileKitDialogSettings.createDefault(),
+        enabled: Boolean = true,
+        onClickLabel: String? = null,
+        buttonContent: @Composable (onClick: () -> Unit) -> Unit = { onClick ->
+            ButtonFilled(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .ifNotNull(onClickLabel) {
+                        semantics { onClick(label = onClickLabel, action = null) }
+                    },
+                onClick = onClick,
+                text = label,
+                intent = ButtonIntent.Basic,
+                enabled = enabled,
+            )
+        },
+    ) {
+        FileUploadButton(
+            onResult = onResult,
+            label = label,
+            modifier = modifier,
+            size = size,
+            icon = icon,
+            iconSide = iconSide,
+            type = type,
+            title = title,
+            directory = directory,
+            dialogSettings = dialogSettings,
+            enabled = enabled,
+            onClickLabel = onClickLabel,
+            buttonContent = buttonContent,
+        )
+    }
+
+    /**
+     * High level file upload component for single file selection.
+     *
+     * This component provides a button to trigger file selection. To display selected files,
+     * manage state yourself and use [PreviewFile] or [FileUploadDefaultPreview].
+     *
+     * @param onResult Callback invoked when a file is selected or cleared (null)
+     * @param label Text label for the default button
+     * @param modifier Modifier to be applied to the button
+     * @param type Type of files to select (image, video, file, etc.)
+     * @param title Optional title for the file picker dialog
+     * @param directory Optional directory to open the picker in
+     * @param dialogSettings Optional settings for the file picker dialog
+     * @param enabled Whether the button is enabled
+     * @param onClickLabel If provided, it'll be spoken in place of the default "double tap to activate".
+     * @param buttonContent Composable lambda for custom button. Receives onClick callback.
+     * Defaults to a filled button with the label.
+     *
+     * @sample com.adevinta.spark.components.fileupload.FileUploadSamples
+     */
+    @Composable
+    public fun ButtonSingleSelect(
+        onResult: (UploadedFile?) -> Unit,
+        label: String,
+        modifier: Modifier = Modifier,
+        size: ButtonSize = ButtonSize.Medium,
+        icon: SparkIcon? = null,
+        iconSide: IconSide = IconSide.START,
+        type: FileUploadType = FileUploadType.File(),
+        title: String? = null,
+        directory: PlatformFile? = null,
+        dialogSettings: FileKitDialogSettings = FileKitDialogSettings.createDefault(),
+        enabled: Boolean = true,
+        onClickLabel: String? = null,
+        buttonContent: @Composable (onClick: () -> Unit) -> Unit = { onClick ->
+            ButtonFilled(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .ifNotNull(onClickLabel) {
+                        semantics { onClick(label = onClickLabel, action = null) }
+                    },
+                onClick = onClick,
+                text = label,
+                intent = ButtonIntent.Basic,
+                enabled = enabled,
+            )
+        },
+    ) {
+        FileUploadSingleButton(
+            onResult = onResult,
+            label = label,
+            modifier = modifier,
+            size = size,
+            icon = icon,
+            iconSide = iconSide,
+            type = type,
+            title = title,
+            directory = directory,
+            dialogSettings = dialogSettings,
+            enabled = enabled,
+            onClickLabel = onClickLabel,
+            buttonContent = buttonContent,
+        )
+    }
+}
 
 /**
  * Represents a file that has been selected or uploaded within the Spark file upload components.
@@ -107,10 +242,10 @@ public object FileUploadDefaults {
 
         return when {
             mimeType.startsWith("image/") ||
-                lowerName.endsWith(".png") ||
-                lowerName.endsWith(".jpg") ||
-                lowerName.endsWith(".jpeg") ||
-                lowerName.endsWith(".webp") -> {
+                    lowerName.endsWith(".png") ||
+                    lowerName.endsWith(".jpg") ||
+                    lowerName.endsWith(".jpeg") ||
+                    lowerName.endsWith(".webp") -> {
                 SparkIcons.ImageOutline
             }
 
@@ -119,10 +254,10 @@ public object FileUploadDefaults {
             }
 
             mimeType.startsWith("video/") ||
-                lowerName.endsWith(".mp4") ||
-                lowerName.endsWith(".mov") ||
-                lowerName.endsWith(".avi") ||
-                lowerName.endsWith(".mkv") -> {
+                    lowerName.endsWith(".mp4") ||
+                    lowerName.endsWith(".mov") ||
+                    lowerName.endsWith(".avi") ||
+                    lowerName.endsWith(".mkv") -> {
                 SparkIcons.CameraVideo
             }
 
@@ -149,144 +284,7 @@ public object FileUploadDefaults {
     }
 }
 
-/**
- * High level file upload component for single file selection.
- *
- * This component provides a button to trigger file selection. To display selected files,
- * manage state yourself and use [PreviewFile] or [FileUploadDefaultPreview].
- *
- * @param onResult Callback invoked when a file is selected or cleared (null)
- * @param label Text label for the default button
- * @param modifier Modifier to be applied to the button
- * @param type Type of files to select (image, video, file, etc.)
- * @param camera Deprecated: use [FileUploadType.Image] with [ImageSource.Camera] instead
- * @param title Optional title for the file picker dialog
- * @param directory Optional directory to open the picker in
- * @param dialogSettings Optional settings for the file picker dialog
- * @param enabled Whether the button is enabled
- * @param onClickLabel If provided, it'll be spoken in place of the default "double tap to activate".
- * @param buttonContent Composable lambda for custom button. Receives onClick callback.
- * Defaults to a filled button with the label.
- *
- * @sample com.adevinta.spark.components.fileupload.FileUploadSamples
- */
-@Composable
-public fun FileUploadSingleButton(
-    onResult: (UploadedFile?) -> Unit,
-    label: String,
-    modifier: Modifier = Modifier,
-    size: ButtonSize= ButtonSize.Medium,
-    icon: SparkIcon? = null,
-    iconSide: IconSide = IconSide.START,
-    type: FileUploadType = FileUploadType.File(),
-    camera: Boolean = false,
-    title: String? = null,
-    directory: PlatformFile? = null,
-    dialogSettings: FileKitDialogSettings = FileKitDialogSettings.createDefault(),
-    enabled: Boolean = true,
-    onClickLabel: String? = null,
-    buttonContent: @Composable (onClick: () -> Unit) -> Unit = { onClick ->
-        ButtonFilled(
-            modifier = Modifier
-                .fillMaxWidth()
-                .ifNotNull(onClickLabel) {
-                    semantics { onClick(label = onClickLabel, action = null) }
-                },
-            onClick = onClick,
-            text = label,
-            intent = ButtonIntent.Basic,
-            enabled = enabled,
-        )
-    },
-) {
-    // Handle deprecated camera parameter for backward compatibility
-    val actualType = if (camera && type is FileUploadType.Image) {
-        FileUploadType.Image(source = ImageSource.Camera)
-    } else {
-        type
-    }
 
-    val pattern = rememberFileUploadPattern(
-        type = actualType,
-        mode = FileUploadMode.Single,
-        title = title,
-        directory = directory,
-        dialogSettings = dialogSettings,
-        onFilesSelect = { files -> onResult(files.firstOrNull()) },
-    )
-
-    FileUploadPattern(
-        pattern = pattern,
-        modifier = modifier.sparkUsageOverlay(),
-        content = buttonContent,
-    )
-}
-
-/**
- * High level file upload component for multiple file selection.
- *
- * This component provides a button to trigger multiple file selection. To display selected files,
- * manage state yourself and use [PreviewFile] or [FileUploadDefaultPreview].
- *
- * @param onResult Callback invoked when files are selected
- * @param label Text label for the default button
- * @param modifier Modifier to be applied to the button
- * @param type Type of files to select (image, video, file, etc.)
- * @param maxFiles Maximum number of files that can be selected. If null, no limit.
- * @param title Optional title for the file picker dialog
- * @param directory Optional directory to open the picker in
- * @param dialogSettings Optional settings for the file picker dialog
- * @param enabled Whether the button is enabled
- * @param onClickLabel If provided, it'll be spoken in place of the default "double tap to activate".
- * @param buttonContent Composable lambda for custom button. Receives onClick callback.
- * Defaults to a filled button with the label.
- *
- * @sample com.adevinta.spark.components.fileupload.FileUploadSamples
- */
-@Composable
-public fun FileUploadButton(
-    onResult: (ImmutableList<UploadedFile>) -> Unit,
-    label: String,
-    modifier: Modifier = Modifier,
-    size: ButtonSize= ButtonSize.Medium,
-    icon: SparkIcon? = null,
-    iconSide: IconSide = IconSide.START,
-    type: FileUploadType = FileUploadType.File(),
-    maxFiles: Int? = null,
-    title: String? = null,
-    directory: PlatformFile? = null,
-    dialogSettings: FileKitDialogSettings = FileKitDialogSettings.createDefault(),
-    enabled: Boolean = true,
-    onClickLabel: String? = null,
-    buttonContent: @Composable (onClick: () -> Unit) -> Unit = { onClick ->
-        ButtonFilled(
-            modifier = Modifier
-                .fillMaxWidth()
-                .ifNotNull(onClickLabel) {
-                    semantics { onClick(label = onClickLabel, action = null) }
-                },
-            onClick = onClick,
-            text = label,
-            intent = ButtonIntent.Basic,
-            enabled = enabled,
-        )
-    },
-) {
-    val pattern = rememberFileUploadPattern(
-        type = type,
-        mode = FileUploadMode.Multiple(maxFiles),
-        title = title,
-        directory = directory,
-        dialogSettings = dialogSettings,
-        onFilesSelect = onResult,
-    )
-
-    FileUploadPattern(
-        pattern = pattern,
-        modifier = modifier.sparkUsageOverlay(),
-        content = buttonContent,
-    )
-}
 
 /**
  * Source selection for image/video picker.
