@@ -21,22 +21,28 @@
  */
 package com.adevinta.spark.catalog.ui.shaders.colorblindness
 
+import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.systemGestureExclusion
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.Slider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.ui.ButtonGroup
 import com.adevinta.spark.catalog.util.PreviewTheme
-import com.adevinta.spark.components.slider.Slider
+import com.adevinta.spark.tokens.dim2
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.highlight
 import org.intellij.lang.annotations.Language
@@ -70,6 +76,7 @@ half4 main(float2 coord) {
 }
 """
 
+@SuppressLint("MaterialComposableHasSparkReplacement")
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 public fun ColumnScope.ColorBlindSetting(
@@ -85,7 +92,7 @@ public fun ColumnScope.ColorBlindSetting(
     }
 
     Text(
-        text = "Severity: $severityLabel",
+        text = stringResource(id = R.string.color_blindness_severity_label, severityLabel),
         style = SparkTheme.typography.body2.highlight,
         modifier = Modifier.padding(bottom = 8.dp),
     )
@@ -97,18 +104,39 @@ public fun ColumnScope.ColorBlindSetting(
         onValueChange = onSeverityChange,
     )
 
-    ButtonGroup(
-        title = "Color blindness type",
-        selectedOption = colorBlindNessType,
-        onOptionSelect = onTypeChange,
-    )
+    Column {
+        val colorBlindOptions = ColorBlindNessType.entries.map { it.displayName }
+        ButtonGroup(
+            title = stringResource(id = R.string.color_blindness_type_title),
+            selectedOption = colorBlindNessType.displayName,
+            onOptionSelect = { displayName ->
+                val selectedType = ColorBlindNessType.entries.first { it.displayName == displayName }
+                onTypeChange(selectedType)
+            },
+            options = colorBlindOptions,
+        )
+
+        // Helper text explaining the selected color blindness type
+        val helperTextResId = when (colorBlindNessType) {
+            ColorBlindNessType.Deuteranomaly -> R.string.color_blindness_deuteranomaly_description
+            ColorBlindNessType.Protanomaly -> R.string.color_blindness_protanomaly_description
+            ColorBlindNessType.Tritanomaly -> R.string.color_blindness_tritanomaly_description
+            ColorBlindNessType.None -> R.string.color_blindness_none_description
+        }
+        com.adevinta.spark.components.text.Text(
+            text = stringResource(id = helperTextResId),
+            style = SparkTheme.typography.caption,
+            color = LocalContentColor.current.dim2,
+            modifier = Modifier.padding(top = 4.dp),
+        )
+    }
 }
 
-public enum class ColorBlindNessType {
-    Deuteranomaly,
-    Protanomaly,
-    Tritanomaly,
-    None,
+public enum class ColorBlindNessType(public val displayName: String) {
+    Deuteranomaly("Deute."),
+    Protanomaly("Protan."),
+    Tritanomaly("Tritan."),
+    None("None"),
 }
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)

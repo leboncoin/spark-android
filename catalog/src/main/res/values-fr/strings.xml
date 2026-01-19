@@ -160,4 +160,13 @@
     <!--region Color Selector Test-->
     <string name="component_color_selector_test_description">Composant de test pour la fonctionnalité ColorSelector.</string>
     <!--endregion-->
+
+    <!--region Color Blindness-->
+    <string name="color_blindness_type_title">Type de daltonisme</string>
+    <string name="color_blindness_severity_label">Sévérité : %d</string>
+    <string name="color_blindness_deuteranomaly_description">Deutéranomalie : sensibilité réduite à la lumière verte, rendant difficile la distinction entre les couleurs rouge et verte.</string>
+    <string name="color_blindness_protanomaly_description">Protanomalie : sensibilité réduite à la lumière rouge, rendant difficile la distinction entre les couleurs rouge et verte.</string>
+    <string name="color_blindness_tritanomaly_description">Tritanomalie : sensibilité réduite à la lumière bleue, rendant difficile la distinction entre les couleurs bleue et jaune.</string>
+    <string name="color_blindness_none_description">Aucune simulation de daltonisme appliquée.</string>
+    <!--endregion-->
 </resources>

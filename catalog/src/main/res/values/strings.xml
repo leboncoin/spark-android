@@ -166,4 +166,13 @@
     <!--region Color Selector Test-->
     <string name="component_color_selector_test_description">Test component for the ColorSelector functionality.</string>
     <!--endregion-->
+
+    <!--region Color Blindness-->
+    <string name="color_blindness_type_title">Color blindness type</string>
+    <string name="color_blindness_severity_label">Severity: %d</string>
+    <string name="color_blindness_deuteranomaly_description">Deuteranomaly: Reduced sensitivity to green light, making it difficult to distinguish between red and green colors.</string>
+    <string name="color_blindness_protanomaly_description">Protanomaly: Reduced sensitivity to red light, making it difficult to distinguish between red and green colors.</string>
+    <string name="color_blindness_tritanomaly_description">Tritanomaly: Reduced sensitivity to blue light, making it difficult to distinguish between blue and yellow colors.</string>
+    <string name="color_blindness_none_description">No color blindness simulation applied.</string>
+    <!--endregion-->
 </resources>
