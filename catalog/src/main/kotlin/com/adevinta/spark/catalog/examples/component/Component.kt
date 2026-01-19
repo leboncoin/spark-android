@@ -40,19 +40,27 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Code
+import androidx.compose.material.icons.rounded.Palette
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -65,8 +73,17 @@ import com.adevinta.spark.catalog.model.Component
 import com.adevinta.spark.catalog.ui.animations.LocalAnimatedVisibilityScope
 import com.adevinta.spark.catalog.ui.animations.LocalSharedTransitionScope
 import com.adevinta.spark.catalog.util.TrackScrollJank
-import com.adevinta.spark.components.image.Image
+import com.adevinta.spark.catalog.util.openUrl
+import com.adevinta.spark.components.divider.DividerIntent
+import com.adevinta.spark.components.divider.HorizontalDivider
+import com.adevinta.spark.components.iconbuttons.IconButtonGhost
+import com.adevinta.spark.components.icons.Icon
+import com.adevinta.spark.components.menu.DropdownMenu
+import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.icons.Computer
+import com.adevinta.spark.icons.Link
+import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.Layout
 import soup.compose.material.motion.animation.materialElevationScaleIn
 import soup.compose.material.motion.animation.materialFadeThroughIn
@@ -152,41 +169,20 @@ public fun Component(
                                         resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
                                     ),
                                 )
-                                Text(
-                                    text = stringResource(id = R.string.description),
-                                    style = SparkTheme.typography.body1,
-                                    modifier = Modifier
-                                        .renderInSharedTransitionScopeOverlay(
-                                            renderInOverlay = { false },
-                                            zIndexInOverlay = 1f,
-                                        )
-                                        .animateEnterExit(
-                                            enter = materialFadeThroughIn(),
-                                            exit = materialFadeThroughOut(),
-                                        ),
+                            }
+                            Box {
+                                var expanded by remember { mutableStateOf(false) }
+                                IconButtonGhost(
+                                    icon = SparkIcons.Link,
+                                    onClick = { expanded = true },
+                                    contentDescription = stringResource(R.string.component_menu_links),
+                                )
+                                ComponentQuickActionsMenu(
+                                    component = component,
+                                    expanded = expanded,
+                                    onDismissRequest = { expanded = false },
                                 )
                             }
-                            Image(
-                                modifier = Modifier
-                                    .width(64.dp)
-                                    .aspectRatio(1f)
-                                    .sharedElement(
-                                        rememberSharedContentState(
-                                            ExamplesSharedElementKey(
-                                                exampleId = component.id,
-                                                origin = origin,
-                                                type = ExamplesSharedElementType.Illustration,
-                                            ),
-                                        ),
-                                        boundsTransform = { initialBounds, targetBounds ->
-                                            spring(dampingRatio = .8f, stiffness = 380f)
-                                        },
-                                        animatedVisibilityScope = animatedVisibilityScope,
-                                    ),
-                                model = component.illustration,
-                                contentScale = ContentScale.Fit,
-                                contentDescription = null,
-                            )
                         }
 
                         Spacer(modifier = Modifier.height(ComponentPadding))
@@ -198,9 +194,10 @@ public fun Component(
                         Spacer(modifier = Modifier.height(ComponentDescriptionPadding))
                     }
                     item {
+                        HorizontalDivider(modifier = Modifier.fillMaxWidth(), intent = DividerIntent.Outline)
                         Text(
-                            text = stringResource(id = R.string.examples),
-                            style = SparkTheme.typography.body1,
+                            text = stringResource(id = R.string.examples) + " ${component.examples.size}",
+                            style = SparkTheme.typography.headline2,
                         )
                         Spacer(modifier = Modifier.height(ComponentPadding))
                     }
@@ -227,25 +224,124 @@ public fun Component(
                                     )
                                     .animateEnterExit(
                                         enter = materialFadeThroughIn() +
-                                            slideInVertically(
-                                                tween(durationMillis = 500, delayMillis = (index - 1) * 50),
-                                            ) { it } +
-                                            materialElevationScaleIn(),
+                                                slideInVertically(
+                                                    tween(durationMillis = 500, delayMillis = (index - 1) * 50),
+                                                ) { it } +
+                                                materialElevationScaleIn(),
                                         exit = materialFadeThroughOut(),
                                     ),
                             )
                         }
                     } else {
                         item {
-                            Text(
-                                text = stringResource(id = R.string.no_examples),
-                                style = SparkTheme.typography.body2,
+                            EmptyExamplesState(
+                                component = component,
+                                modifier = Modifier.animateEnterExit(
+                                    enter = materialFadeThroughIn(),
+                                    exit = materialFadeThroughOut(),
+                                ),
                             )
                             Spacer(modifier = Modifier.height(ComponentPadding))
                         }
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun ComponentQuickActionsMenu(
+    component: Component,
+    expanded: Boolean,
+    onDismissRequest: () -> Unit,
+) {
+    val context = LocalContext.current
+
+    DropdownMenu(
+        expanded = expanded,
+        onDismissRequest = onDismissRequest,
+    ) {
+        DropdownMenuItem(
+            text = { Text(stringResource(R.string.component_menu_guidlines)) },
+            onClick = {
+                context.openUrl(component.guidelinesUrl)
+                onDismissRequest()
+            },
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Rounded.Palette,
+                    contentDescription = null,
+                )
+            },
+        )
+        DropdownMenuItem(
+            text = { Text(stringResource(R.string.component_menu_dev_docs)) },
+            onClick = {
+                context.openUrl(component.docsUrl)
+                onDismissRequest()
+            },
+            leadingIcon = {
+                Icon(
+                    sparkIcon = SparkIcons.Computer,
+                    contentDescription = null,
+                )
+            },
+        )
+        DropdownMenuItem(
+            text = { Text(stringResource(R.string.component_menu_source)) },
+            onClick = {
+                context.openUrl(component.sourceUrl)
+                onDismissRequest()
+            },
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Rounded.Code,
+                    contentDescription = null,
+                )
+            },
+        )
+    }
+}
+
+@Composable
+private fun EmptyExamplesState(
+    component: Component,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(vertical = 32.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        Icon(
+            sparkIcon = SparkIcons.Computer,
+            contentDescription = null,
+            modifier = Modifier.size(64.dp),
+            tint = SparkTheme.colors.onSurface.copy(alpha = 0.38f),
+        )
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Text(
+                text = stringResource(R.string.no_examples_title),
+                style = SparkTheme.typography.subhead,
+            )
+            Text(
+                text = stringResource(R.string.no_examples_description),
+                style = SparkTheme.typography.body2,
+            )
+        }
+        if (component.configurators.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = stringResource(R.string.no_examples_configurator_hint),
+                style = SparkTheme.typography.body2,
+                color = SparkTheme.colors.main,
+            )
         }
     }
 }
