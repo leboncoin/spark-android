@@ -40,6 +40,9 @@
     <string name="theme_picker_theme_title" description="Spark theme. [CHAR_LIMIT=NONE]">Theme</string>
     <string name="theme_picker_text_direction_title" description="Simulate system text direction to be either LTR or RTL. [CHAR_LIMIT=NONE]">Text direction</string>
     <string name="theme_picker_font_scale_title" description="Simulate a11y font scaling. [CHAR_LIMIT=NONE]">Font scale</string>
+    <string name="theme_picker_section_theme_settings">Theme Settings</string>
+    <string name="theme_picker_section_accessibility">Accessibility</string>
+    <string name="theme_picker_section_developer_options">Developer Options</string>
     <string name="examples_component_screen_title">Components examples</string>
     <string name="examples_component_screen_description">These are the examples that can be found in the samples in the javadoc or the README.md files. They show usages of the components with the default params in different scenarios that should represent real use cases.</string>
     <string name="component_button_description">Buttons help people initiate actions, like sending an email, sharing a document,or liking a post.</string>

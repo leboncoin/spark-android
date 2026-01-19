@@ -55,6 +55,7 @@ import com.adevinta.spark.catalog.ui.ButtonGroup
 import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.ui.shaders.colorblindness.ColorBlindSetting
 import com.adevinta.spark.catalog.util.PreviewTheme
+import com.adevinta.spark.components.divider.HorizontalDivider
 import com.adevinta.spark.components.slider.Slider
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.toggles.SwitchLabelled
@@ -84,9 +85,13 @@ public fun ThemePicker(
                 ),
             )
             .asPaddingValues(),
-        verticalArrangement = spacedBy(ThemePickerPadding),
+        verticalArrangement = spacedBy(ItemSpacing),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        // Theme Settings Section
+        item {
+            SectionHeader(title = stringResource(id = R.string.theme_picker_section_theme_settings))
+        }
         item {
             val themeModes = ThemeMode.entries
             val themeModesLabel = themeModes.map { it.name }
@@ -99,7 +104,7 @@ public fun ThemePicker(
         }
         item {
             Column(
-                verticalArrangement = spacedBy(8.dp),
+                verticalArrangement = spacedBy(RelatedItemSpacing),
             ) {
                 val colorModes = ColorMode.entries
                 val colorModesLabel = colorModes.map { it.name }
@@ -125,45 +130,19 @@ public fun ThemePicker(
             }
         }
 
-        val isContrastAvailable = Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE
-        if (isContrastAvailable) {
-            item {
-                Column {
-                    val contrastLevel = 1 + (uiModeManager?.contrast ?: 0f)
-                    val level = remember { NumberFormat.getInstance().format(contrastLevel - 1) }
-                    Text(
-                        text = "Contrast level: $level",
-                        modifier = Modifier.padding(bottom = 8.dp),
-                        style = SparkTheme.typography.body2.highlight,
-                    )
-
-                    @SuppressLint("MaterialComposableHasSparkReplacement")
-                    MaterialSlider(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .systemGestureExclusion(),
-                        value = contrastLevel - 1f,
-                        valueRange = 0f..1f,
-                        steps = 9,
-                        enabled = false,
-                        onValueChange = { },
-                    )
-                }
-            }
-        }
-
+        // Accessibility Section
         item {
-            val textDirections = TextDirection.entries
-            val textDirectionsLabel = textDirections.map { it.name }
-            ButtonGroup(
-                title = stringResource(id = R.string.theme_picker_text_direction_title),
-                selectedOption = theme.textDirection.name,
-                onOptionSelect = { onThemeChange(theme.copy(textDirection = TextDirection.valueOf(it))) },
-                options = textDirectionsLabel,
+            HorizontalDivider(
+                modifier = Modifier.padding(vertical = SectionDividerPadding),
             )
         }
         item {
-            Column {
+            SectionHeader(title = stringResource(id = R.string.theme_picker_section_accessibility))
+        }
+        item {
+            Column(
+                verticalArrangement = spacedBy(RelatedItemSpacing),
+            ) {
                 val fontScaleModes = FontScaleMode.entries
                 val fontModesLabel = fontScaleModes.map { it.name }
                 ButtonGroup(
@@ -187,6 +166,16 @@ public fun ThemePicker(
                 }
             }
         }
+        item {
+            val textDirections = TextDirection.entries
+            val textDirectionsLabel = textDirections.map { it.name }
+            ButtonGroup(
+                title = stringResource(id = R.string.theme_picker_text_direction_title),
+                selectedOption = theme.textDirection.name,
+                onOptionSelect = { onThemeChange(theme.copy(textDirection = TextDirection.valueOf(it))) },
+                options = textDirectionsLabel,
+            )
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             item {
                 Column {
@@ -201,14 +190,46 @@ public fun ThemePicker(
                 }
             }
         }
+        val isContrastAvailable = Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE
+        if (isContrastAvailable) {
+            item {
+                Column {
+                    val contrastLevel = 1 + (uiModeManager?.contrast ?: 0f)
+                    val level = remember { NumberFormat.getInstance().format(contrastLevel - 1) }
+                    Text(
+                        text = "Contrast level: $level",
+                        modifier = Modifier.padding(bottom = SliderLabelSpacing),
+                        style = SparkTheme.typography.body2.highlight,
+                    )
+
+                    androidx.compose.material3.Slider(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .systemGestureExclusion(),
+                        value = contrastLevel - 1f,
+                        valueRange = 0f..1f,
+                        steps = 9,
+                        onValueChange = { },
+                    )
+                }
+            }
+        }
+
+        // Developer Options Section
+        item {
+            HorizontalDivider(
+                modifier = Modifier.padding(vertical = SectionDividerPadding),
+            )
+        }
+        item {
+            SectionHeader(title = stringResource(id = R.string.theme_picker_section_developer_options))
+        }
         item {
             DropdownEnum(
                 title = stringResource(id = R.string.themepicker_navigation_label),
                 selectedOption = theme.navigationMode,
                 onOptionSelect = { onThemeChange(theme.copy(navigationMode = it)) },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = ThemePickerPadding),
+                modifier = Modifier.fillMaxWidth(),
             )
         }
         item {
@@ -253,6 +274,32 @@ public fun ThemePicker(
     }
 }
 
+
+@Preview
+@Composable
+private fun ThemePickerPreview() {
+    PreviewTheme {
+        ThemePicker(
+            theme = Theme(),
+            onThemeChange = {},
+        )
+    }
+}
+
+@Composable
+private fun SectionHeader(
+    title: String,
+    modifier: Modifier = Modifier,
+) {
+    Text(
+        text = title,
+        style = SparkTheme.typography.headline2,
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(bottom = SectionHeaderBottomPadding),
+    )
+}
+
 @Composable
 private fun FontScaleItem(
     modifier: Modifier = Modifier,
@@ -263,7 +310,10 @@ private fun FontScaleItem(
     onValueChange: (textScale: Float) -> Unit,
     onValueChangeFinished: () -> Unit,
 ) {
-    Column(modifier = modifier) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = spacedBy(SliderLabelSpacing),
+    ) {
         Slider(
             enabled = enabled,
             value = fontScale,
@@ -279,15 +329,10 @@ private fun FontScaleItem(
     }
 }
 
-@Preview
-@Composable
-private fun ThemePickerPreview() {
-    PreviewTheme {
-        ThemePicker(
-            theme = Theme(),
-            onThemeChange = {},
-        )
-    }
-}
 
 private val ThemePickerPadding = 16.dp
+private val ItemSpacing = 12.dp
+private val RelatedItemSpacing = 8.dp
+private val SectionDividerPadding = 20.dp
+private val SectionHeaderBottomPadding = 12.dp
+private val SliderLabelSpacing = 8.dp

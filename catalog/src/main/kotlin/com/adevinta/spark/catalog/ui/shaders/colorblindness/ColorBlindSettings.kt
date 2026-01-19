@@ -42,8 +42,8 @@ import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.ui.ButtonGroup
 import com.adevinta.spark.catalog.util.PreviewTheme
-import com.adevinta.spark.tokens.dim2
 import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.tokens.dim1
 import com.adevinta.spark.tokens.highlight
 import org.intellij.lang.annotations.Language
 import kotlin.math.roundToInt
@@ -126,7 +126,7 @@ public fun ColumnScope.ColorBlindSetting(
         com.adevinta.spark.components.text.Text(
             text = stringResource(id = helperTextResId),
             style = SparkTheme.typography.caption,
-            color = LocalContentColor.current.dim2,
+            color = LocalContentColor.current.dim1,
             modifier = Modifier.padding(top = 4.dp),
         )
     }

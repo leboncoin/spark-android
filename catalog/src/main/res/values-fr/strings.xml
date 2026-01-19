@@ -39,6 +39,9 @@
     <string name="theme_picker_theme_title" description="Thème de marque Spark. [CHAR_LIMIT=NONE]">Thème</string>
     <string name="theme_picker_text_direction_title" description="Simuler la direction du texte du système en LTR ou RTL. [CHAR_LIMIT=NONE]">Sens du texte</string>
     <string name="theme_picker_font_scale_title" description="Simuler la mise à l’échelle de la police a11y. [CHAR_LIMIT=NONE]">Échelle de la police</string>
+    <string name="theme_picker_section_theme_settings">Paramètres du thème</string>
+    <string name="theme_picker_section_accessibility">Accessibilité</string>
+    <string name="theme_picker_section_developer_options">Options développeur</string>
     <string name="examples_component_screen_title">Exemples de composants</string>
     <string name="examples_component_screen_description">Voici les exemples que l’on peut trouver dans les échantillons de la javadoc ou dans les fichiers README.md. Ils montrent l’utilisation des composants avec les paramètres par défaut dans différents scénarios qui devraient représenter des cas d’utilisation réels.</string>
     <string name="component_button_description">Les boutons aident les utilisateurs à exécuter des actions, comme envoyer un e-mail, partager un document ou aimer une publication.</string>
