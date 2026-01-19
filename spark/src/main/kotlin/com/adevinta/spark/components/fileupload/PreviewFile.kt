@@ -69,6 +69,7 @@ import com.adevinta.spark.icons.WarningOutline
 import com.adevinta.spark.tokens.EmphasizeDim1
 import com.adevinta.spark.tokens.ripple
 import com.adevinta.spark.tools.modifiers.ifNotNull
+import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.mimeType.MimeType
 import java.io.File
@@ -120,6 +121,7 @@ public fun PreviewFile(
 
     Surface(
         modifier = modifier
+            .sparkUsageOverlay()
             .fillMaxWidth()
             .graphicsLayer {
                 alpha = opacity

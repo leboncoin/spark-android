@@ -63,6 +63,7 @@ import com.adevinta.spark.catalog.examples.samples.chips.ChipsExamples
 import com.adevinta.spark.catalog.examples.samples.combobox.ComboBoxExample
 import com.adevinta.spark.catalog.examples.samples.dialog.DialogsExamples
 import com.adevinta.spark.catalog.examples.samples.divider.DividerExamples
+import com.adevinta.spark.catalog.examples.samples.fileupload.FileUploadExamples
 import com.adevinta.spark.catalog.examples.samples.gauge.SegmentedGaugeExamples
 import com.adevinta.spark.catalog.examples.samples.icons.IconsExamples
 import com.adevinta.spark.catalog.examples.samples.placeholder.PlaceholderExamples
@@ -299,7 +300,7 @@ private val FileUpload = Component(
     guidelinesUrl = "$ComponentGuidelinesUrl/p/096e9f-image",
     docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.fileupload/index.html",
     sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/fileupload/FileUpload.kt",
-    examples = emptyList(),
+    examples = FileUploadExamples,
     configurators = listOf(FileUploadConfigurator),
 )
 
