@@ -111,17 +111,14 @@ public fun ThemePicker(
                     visible = theme.colorMode == ColorMode.Baseline,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                 ) {
-                    SwitchLabelled(
-                        checked = theme.userMode == UserMode.Pro,
-                        onCheckedChange = { checked ->
-                            onThemeChange(theme.copy(userMode = if (checked) UserMode.Pro else UserMode.Part))
-                        },
-                    ) {
-                        Text(
-                            text = stringResource(id = R.string.pro),
-                            modifier = Modifier.fillMaxWidth(),
-                        )
-                    }
+                    val userModes = UserMode.entries
+                    val userModesLabel = userModes.map { it.name }
+                    ButtonGroup(
+                        title = stringResource(id = R.string.theme_picker_theme_title),
+                        selectedOption = theme.userMode.name,
+                        onOptionSelect = { onThemeChange(theme.copy(userMode = UserMode.valueOf(it))) },
+                        options = userModesLabel,
+                    )
                 }
             }
         }
