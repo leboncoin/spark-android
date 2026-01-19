@@ -21,8 +21,9 @@
  */
 package com.adevinta.spark.catalog.themes
 
-import android.annotation.SuppressLint
 import android.app.UiModeManager
+import androidx.compose.material3.LocalContentColor
+import com.adevinta.spark.tokens.dim1
 import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement.spacedBy
@@ -62,13 +63,12 @@ import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.tokens.Layout
 import com.adevinta.spark.tokens.highlight
 import java.text.NumberFormat
-import androidx.compose.material3.Slider as MaterialSlider
 
 @Composable
 public fun ThemePicker(
-    modifier: Modifier = Modifier,
     theme: Theme,
     onThemeChange: (theme: Theme) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val uiModeManager = LocalContext.current.getSystemService<UiModeManager>()
 
@@ -89,68 +89,98 @@ public fun ThemePicker(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         // Theme Settings Section
-        item {
+        item(
+            key = "theme_settings_header",
+            contentType = ThemePickerContentType.SectionHeader,
+        ) {
             SectionHeader(title = stringResource(id = R.string.theme_picker_section_theme_settings))
         }
-        item {
-            val themeModes = ThemeMode.entries
-            val themeModesLabel = themeModes.map { it.name }
-            ButtonGroup(
-                title = stringResource(id = R.string.theme_picker_mode_title),
-                selectedOption = theme.themeMode.name,
-                onOptionSelect = { onThemeChange(theme.copy(themeMode = ThemeMode.valueOf(it))) },
-                options = themeModesLabel,
-            )
+        item(
+            key = "mode",
+            contentType = ThemePickerContentType.ButtonGroup,
+        ) {
+            Column {
+                val themeModes = ThemeMode.entries
+                val themeModesLabel = themeModes.map { it.name }
+                ButtonGroup(
+                    title = stringResource(id = R.string.theme_picker_mode_title),
+                    selectedOption = theme.themeMode.name,
+                    onOptionSelect = { onThemeChange(theme.copy(themeMode = ThemeMode.valueOf(it))) },
+                    options = themeModesLabel,
+                )
+                HelperText(text = stringResource(id = R.string.theme_picker_mode_helper))
+            }
         }
-        item {
+        item(
+            key = "theme_pro",
+            contentType = ThemePickerContentType.SwitchGroup,
+        ) {
             Column(
                 verticalArrangement = spacedBy(RelatedItemSpacing),
             ) {
-                val colorModes = ColorMode.entries
-                val colorModesLabel = colorModes.map { it.name }
-                ButtonGroup(
-                    title = stringResource(id = R.string.theme_picker_theme_title),
-                    selectedOption = theme.colorMode.name,
-                    onOptionSelect = { onThemeChange(theme.copy(colorMode = ColorMode.valueOf(it))) },
-                    options = colorModesLabel,
-                )
+                Column {
+                    val colorModes = ColorMode.entries
+                    val colorModesLabel = colorModes.map { it.name }
+                    ButtonGroup(
+                        title = stringResource(id = R.string.theme_picker_theme_title),
+                        selectedOption = theme.colorMode.name,
+                        onOptionSelect = { onThemeChange(theme.copy(colorMode = ColorMode.valueOf(it))) },
+                        options = colorModesLabel,
+                    )
+                    HelperText(text = stringResource(id = R.string.theme_picker_theme_helper))
+                }
                 AnimatedVisibility(
                     visible = theme.colorMode == ColorMode.Baseline,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                 ) {
-                    val userModes = UserMode.entries
-                    val userModesLabel = userModes.map { it.name }
-                    ButtonGroup(
-                        title = stringResource(id = R.string.theme_picker_theme_title),
-                        selectedOption = theme.userMode.name,
-                        onOptionSelect = { onThemeChange(theme.copy(userMode = UserMode.valueOf(it))) },
-                        options = userModesLabel,
-                    )
+                    Column {
+                        val userModes = UserMode.entries
+                        val userModesLabel = userModes.map { it.name }
+                        ButtonGroup(
+                            title = stringResource(id = R.string.theme_picker_theme_title),
+                            selectedOption = theme.userMode.name,
+                            onOptionSelect = { onThemeChange(theme.copy(userMode = UserMode.valueOf(it))) },
+                            options = userModesLabel,
+                        )
+                        HelperText(text = stringResource(id = R.string.theme_picker_pro_theme_helper))
+                    }
                 }
             }
         }
 
         // Accessibility Section
-        item {
+        item(
+            key = "accessibility_divider",
+            contentType = ThemePickerContentType.Divider,
+        ) {
             HorizontalDivider(
                 modifier = Modifier.padding(vertical = SectionDividerPadding),
             )
         }
-        item {
+        item(
+            key = "accessibility_header",
+            contentType = ThemePickerContentType.SectionHeader,
+        ) {
             SectionHeader(title = stringResource(id = R.string.theme_picker_section_accessibility))
         }
-        item {
+        item(
+            key = "font_scale",
+            contentType = ThemePickerContentType.ButtonGroup,
+        ) {
             Column(
                 verticalArrangement = spacedBy(RelatedItemSpacing),
             ) {
-                val fontScaleModes = FontScaleMode.entries
-                val fontModesLabel = fontScaleModes.map { it.name }
-                ButtonGroup(
-                    title = stringResource(id = R.string.theme_picker_font_scale_title),
-                    selectedOption = theme.fontScaleMode.name,
-                    onOptionSelect = { onThemeChange(theme.copy(fontScaleMode = FontScaleMode.valueOf(it))) },
-                    options = fontModesLabel,
-                )
+                Column {
+                    val fontScaleModes = FontScaleMode.entries
+                    val fontModesLabel = fontScaleModes.map { it.name }
+                    ButtonGroup(
+                        title = stringResource(id = R.string.theme_picker_font_scale_title),
+                        selectedOption = theme.fontScaleMode.name,
+                        onOptionSelect = { onThemeChange(theme.copy(fontScaleMode = FontScaleMode.valueOf(it))) },
+                        options = fontModesLabel,
+                    )
+                    HelperText(text = stringResource(id = R.string.theme_picker_font_scale_helper))
+                }
                 var fontScale by remember { mutableFloatStateOf(theme.fontScale) }
                 AnimatedVisibility(
                     visible = theme.fontScaleMode == FontScaleMode.Custom,
@@ -166,18 +196,27 @@ public fun ThemePicker(
                 }
             }
         }
-        item {
-            val textDirections = TextDirection.entries
-            val textDirectionsLabel = textDirections.map { it.name }
-            ButtonGroup(
-                title = stringResource(id = R.string.theme_picker_text_direction_title),
-                selectedOption = theme.textDirection.name,
-                onOptionSelect = { onThemeChange(theme.copy(textDirection = TextDirection.valueOf(it))) },
-                options = textDirectionsLabel,
-            )
+        item(
+            key = "text_direction",
+            contentType = ThemePickerContentType.ButtonGroup,
+        ) {
+            Column {
+                val textDirections = TextDirection.entries
+                val textDirectionsLabel = textDirections.map { it.name }
+                ButtonGroup(
+                    title = stringResource(id = R.string.theme_picker_text_direction_title),
+                    selectedOption = theme.textDirection.name,
+                    onOptionSelect = { onThemeChange(theme.copy(textDirection = TextDirection.valueOf(it))) },
+                    options = textDirectionsLabel,
+                )
+                HelperText(text = stringResource(id = R.string.theme_picker_text_direction_helper))
+            }
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            item {
+            item(
+                key = "color_blindness",
+                contentType = ThemePickerContentType.ColorBlindSetting,
+            ) {
                 Column {
                     ColorBlindSetting(
                         colorBlindNessType = theme.colorBlindNessType,
@@ -192,7 +231,10 @@ public fun ThemePicker(
         }
         val isContrastAvailable = Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE
         if (isContrastAvailable) {
-            item {
+            item(
+                key = "contrast",
+                contentType = ThemePickerContentType.ContrastSlider,
+            ) {
                 Column {
                     val contrastLevel = 1 + (uiModeManager?.contrast ?: 0f)
                     val level = remember { NumberFormat.getInstance().format(contrastLevel - 1) }
@@ -211,28 +253,47 @@ public fun ThemePicker(
                         steps = 9,
                         onValueChange = { },
                     )
+                    HelperText(text = stringResource(id = R.string.theme_picker_contrast_helper))
                 }
             }
         }
 
         // Developer Options Section
-        item {
+        item(
+            key = "developer_divider",
+            contentType = ThemePickerContentType.Divider,
+        ) {
             HorizontalDivider(
                 modifier = Modifier.padding(vertical = SectionDividerPadding),
             )
         }
-        item {
-            SectionHeader(title = stringResource(id = R.string.theme_picker_section_developer_options))
+        item(
+            key = "developer_options_header",
+            contentType = ThemePickerContentType.SectionHeader,
+        ) {
+            Column {
+                SectionHeader(title = stringResource(id = R.string.theme_picker_section_developer_options))
+                HelperText(text = stringResource(id = R.string.theme_picker_developer_options_helper))
+            }
         }
-        item {
-            DropdownEnum(
-                title = stringResource(id = R.string.themepicker_navigation_label),
-                selectedOption = theme.navigationMode,
-                onOptionSelect = { onThemeChange(theme.copy(navigationMode = it)) },
-                modifier = Modifier.fillMaxWidth(),
-            )
+        item(
+            key = "navigation",
+            contentType = ThemePickerContentType.DropdownGroup,
+        ) {
+            Column {
+                DropdownEnum(
+                    title = stringResource(id = R.string.themepicker_navigation_label),
+                    selectedOption = theme.navigationMode,
+                    onOptionSelect = { onThemeChange(theme.copy(navigationMode = it)) },
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                HelperText(text = stringResource(id = R.string.theme_picker_navigation_helper))
+            }
         }
-        item {
+        item(
+            key = "legacy_theme",
+            contentType = ThemePickerContentType.SwitchGroup,
+        ) {
             SwitchLabelled(
                 checked = theme.useLegacyTheme,
                 onCheckedChange = { checked ->
@@ -245,7 +306,10 @@ public fun ThemePicker(
                 )
             }
         }
-        item {
+        item(
+            key = "highlight_components",
+            contentType = ThemePickerContentType.SwitchGroup,
+        ) {
             SwitchLabelled(
                 checked = theme.highlightSparkComponents,
                 onCheckedChange = { checked ->
@@ -258,7 +322,10 @@ public fun ThemePicker(
                 )
             }
         }
-        item {
+        item(
+            key = "highlight_tokens",
+            contentType = ThemePickerContentType.SwitchGroup,
+        ) {
             SwitchLabelled(
                 checked = theme.highlightSparkTokens,
                 onCheckedChange = { checked ->
@@ -275,17 +342,6 @@ public fun ThemePicker(
 }
 
 
-@Preview
-@Composable
-private fun ThemePickerPreview() {
-    PreviewTheme {
-        ThemePicker(
-            theme = Theme(),
-            onThemeChange = {},
-        )
-    }
-}
-
 @Composable
 private fun SectionHeader(
     title: String,
@@ -297,6 +353,21 @@ private fun SectionHeader(
         modifier = modifier
             .fillMaxWidth()
             .padding(bottom = SectionHeaderBottomPadding),
+    )
+}
+
+@Composable
+private fun HelperText(
+    text: String,
+    modifier: Modifier = Modifier,
+) {
+    Text(
+        text = text,
+        style = SparkTheme.typography.caption,
+        color = LocalContentColor.current.dim1,
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(top = HelperTextTopPadding),
     )
 }
 
@@ -329,6 +400,15 @@ private fun FontScaleItem(
     }
 }
 
+private enum class ThemePickerContentType {
+    SectionHeader,
+    Divider,
+    ButtonGroup,
+    SwitchGroup,
+    ColorBlindSetting,
+    ContrastSlider,
+    DropdownGroup,
+}
 
 private val ThemePickerPadding = 16.dp
 private val ItemSpacing = 12.dp
@@ -336,3 +416,15 @@ private val RelatedItemSpacing = 8.dp
 private val SectionDividerPadding = 20.dp
 private val SectionHeaderBottomPadding = 12.dp
 private val SliderLabelSpacing = 8.dp
+private val HelperTextTopPadding = 4.dp
+
+@Preview
+@Composable
+private fun ThemePickerPreview() {
+    PreviewTheme {
+        ThemePicker(
+            theme = Theme(),
+            onThemeChange = {},
+        )
+    }
+}

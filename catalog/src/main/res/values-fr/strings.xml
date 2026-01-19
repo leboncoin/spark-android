@@ -42,6 +42,14 @@
     <string name="theme_picker_section_theme_settings">Paramètres du thème</string>
     <string name="theme_picker_section_accessibility">Accessibilité</string>
     <string name="theme_picker_section_developer_options">Options développeur</string>
+    <string name="theme_picker_mode_helper">Le mode Système suit le paramètre de thème de votre appareil. Les modes Clair et Sombre remplacent le paramètre système.</string>
+    <string name="theme_picker_theme_helper">Le thème dynamique utilise les couleurs du fond d’écran de votre appareil (Android 12+). Le thème de base utilise la palette de couleurs par défaut de Spark.</string>
+    <string name="theme_picker_pro_theme_helper">Le thème Pro fournit des variantes de couleurs supplémentaires pour les cas d’utilisation professionnels.</string>
+    <string name="theme_picker_font_scale_helper">Simule la mise à l’échelle de la police d’accessibilité pour tester comment les composants s’adaptent aux tailles de texte plus grandes.</string>
+    <string name="theme_picker_text_direction_helper">LTR (de gauche à droite) est utilisé pour des langues comme l’anglais. RTL (de droite à gauche) est utilisé pour des langues comme l’arabe et l’hébreu.</string>
+    <string name="theme_picker_contrast_helper">Niveau de contraste système (lecture seule). Ajustez dans les paramètres d’accessibilité de l’appareil.</string>
+    <string name="theme_picker_navigation_helper">Contrôle le style d’animation lors de la navigation entre les écrans dans l’application du catalogue.</string>
+    <string name="theme_picker_developer_options_helper">Ces options sont destinées au débogage et au développement.</string>
     <string name="examples_component_screen_title">Exemples de composants</string>
     <string name="examples_component_screen_description">Voici les exemples que l’on peut trouver dans les échantillons de la javadoc ou dans les fichiers README.md. Ils montrent l’utilisation des composants avec les paramètres par défaut dans différents scénarios qui devraient représenter des cas d’utilisation réels.</string>
     <string name="component_button_description">Les boutons aident les utilisateurs à exécuter des actions, comme envoyer un e-mail, partager un document ou aimer une publication.</string>
