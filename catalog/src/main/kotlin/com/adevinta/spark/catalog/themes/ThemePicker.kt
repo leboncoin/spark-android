@@ -26,8 +26,15 @@ import androidx.compose.material3.LocalContentColor
 import com.adevinta.spark.tokens.dim1
 import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.VisibilityThreshold
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.add
@@ -36,6 +43,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.systemGestureExclusion
 import androidx.compose.runtime.Composable
@@ -48,6 +56,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.core.content.getSystemService
 import com.adevinta.spark.SparkTheme
@@ -57,11 +66,19 @@ import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.ui.shaders.colorblindness.ColorBlindSetting
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.components.divider.HorizontalDivider
+import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.slider.Slider
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.toggles.SwitchLabelled
+import com.adevinta.spark.icons.SparkAnimatedIcons
+import com.adevinta.spark.icons.collapseExpand
 import com.adevinta.spark.tokens.Layout
 import com.adevinta.spark.tokens.highlight
+import com.composeunstyled.TextField
+import com.composeunstyled.UnstyledDisclosure
+import com.composeunstyled.UnstyledDisclosureHeading
+import com.composeunstyled.UnstyledDisclosurePanel
+import com.composeunstyled.rememberDisclosureState
 import java.text.NumberFormat
 
 @Composable
@@ -268,74 +285,90 @@ public fun ThemePicker(
             )
         }
         item(
-            key = "developer_options_header",
+            key = "developer_options",
             contentType = ThemePickerContentType.SectionHeader,
         ) {
-            Column {
-                SectionHeader(title = stringResource(id = R.string.theme_picker_section_developer_options))
-                HelperText(text = stringResource(id = R.string.theme_picker_developer_options_helper))
-            }
-        }
-        item(
-            key = "navigation",
-            contentType = ThemePickerContentType.DropdownGroup,
-        ) {
-            Column {
-                DropdownEnum(
-                    title = stringResource(id = R.string.themepicker_navigation_label),
-                    selectedOption = theme.navigationMode,
-                    onOptionSelect = { onThemeChange(theme.copy(navigationMode = it)) },
+            val disclosureState = rememberDisclosureState(initiallyExpanded = false)
+            UnstyledDisclosure(state = disclosureState) {
+                UnstyledDisclosureHeading(
                     modifier = Modifier.fillMaxWidth(),
-                )
-                HelperText(text = stringResource(id = R.string.theme_picker_navigation_helper))
-            }
-        }
-        item(
-            key = "legacy_theme",
-            contentType = ThemePickerContentType.SwitchGroup,
-        ) {
-            SwitchLabelled(
-                checked = theme.useLegacyTheme,
-                onCheckedChange = { checked ->
-                    onThemeChange(theme.copy(useLegacyTheme = checked))
-                },
-            ) {
-                Text(
-                    text = "Use LegacyTheme",
-                    modifier = Modifier.fillMaxWidth(),
-                )
-            }
-        }
-        item(
-            key = "highlight_components",
-            contentType = ThemePickerContentType.SwitchGroup,
-        ) {
-            SwitchLabelled(
-                checked = theme.highlightSparkComponents,
-                onCheckedChange = { checked ->
-                    onThemeChange(theme.copy(highlightSparkComponents = checked))
-                },
-            ) {
-                Text(
-                    text = "Highlight Spark Components",
-                    modifier = Modifier.fillMaxWidth(),
-                )
-            }
-        }
-        item(
-            key = "highlight_tokens",
-            contentType = ThemePickerContentType.SwitchGroup,
-        ) {
-            SwitchLabelled(
-                checked = theme.highlightSparkTokens,
-                onCheckedChange = { checked ->
-                    onThemeChange(theme.copy(highlightSparkTokens = checked))
-                },
-            ) {
-                Text(
-                    text = "Highlight Spark Tokens",
-                    modifier = Modifier.fillMaxWidth(),
-                )
+                    shape = SparkTheme.shapes.small,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                    contentPadding = PaddingValues(top = 12.dp, bottom = 12.dp, end = 16.dp),
+
+                    ) {
+                    Text(
+                        text = stringResource(id = R.string.theme_picker_section_developer_options),
+                        style = SparkTheme.typography.headline2,
+                    )
+                    Icon(
+                        sparkIcon = SparkAnimatedIcons.collapseExpand(),
+                        contentDescription = null,
+                        modifier = Modifier.size(16.dp),
+                        atEnd = disclosureState.expanded,
+                    )
+                }
+                UnstyledDisclosurePanel(
+                    enter = expandVertically(
+                        spring(
+                            stiffness = Spring.StiffnessMediumLow,
+                            visibilityThreshold = IntSize.VisibilityThreshold,
+                        ),
+                    ),
+                    exit = shrinkVertically(),
+
+                    ) {
+                    Column(
+                        verticalArrangement = spacedBy(ItemSpacing),
+                        modifier = Modifier.padding(top = ItemSpacing),
+                    ) {
+                        HelperText(text = stringResource(id = R.string.theme_picker_developer_options_helper))
+
+                        Column {
+                            DropdownEnum(
+                                title = stringResource(id = R.string.themepicker_navigation_label),
+                                selectedOption = theme.navigationMode,
+                                onOptionSelect = { onThemeChange(theme.copy(navigationMode = it)) },
+                                modifier = Modifier.fillMaxWidth(),
+                            )
+                            HelperText(text = stringResource(id = R.string.theme_picker_navigation_helper))
+                        }
+                        SwitchLabelled(
+                            checked = theme.useLegacyTheme,
+                            onCheckedChange = { checked ->
+                                onThemeChange(theme.copy(useLegacyTheme = checked))
+                            },
+                        ) {
+                            Text(
+                                text = "Use LegacyTheme",
+                                modifier = Modifier.fillMaxWidth(),
+                            )
+                        }
+                        SwitchLabelled(
+                            checked = theme.highlightSparkComponents,
+                            onCheckedChange = { checked ->
+                                onThemeChange(theme.copy(highlightSparkComponents = checked))
+                            },
+                        ) {
+                            Text(
+                                text = "Highlight Spark Components",
+                                modifier = Modifier.fillMaxWidth(),
+                            )
+                        }
+                        SwitchLabelled(
+                            checked = theme.highlightSparkTokens,
+                            onCheckedChange = { checked ->
+                                onThemeChange(theme.copy(highlightSparkTokens = checked))
+                            },
+                        ) {
+                            Text(
+                                text = "Highlight Spark Tokens",
+                                modifier = Modifier.fillMaxWidth(),
+                            )
+                        }
+                    }
+                }
             }
         }
     }
@@ -369,17 +402,18 @@ private fun HelperText(
             .fillMaxWidth()
             .padding(top = HelperTextTopPadding),
     )
+    TextField(state=) { }
 }
 
 @Composable
 private fun FontScaleItem(
-    modifier: Modifier = Modifier,
     enabled: Boolean,
     fontScale: Float,
-    fontScaleMin: Float = MinFontScale,
-    fontScaleMax: Float = MaxFontScale,
     onValueChange: (textScale: Float) -> Unit,
     onValueChangeFinished: () -> Unit,
+    modifier: Modifier = Modifier,
+    fontScaleMin: Float = MinFontScale,
+    fontScaleMax: Float = MaxFontScale,
 ) {
     Column(
         modifier = modifier,
