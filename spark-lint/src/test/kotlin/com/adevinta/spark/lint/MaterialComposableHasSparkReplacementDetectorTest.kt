@@ -354,7 +354,7 @@ public class MaterialComposableHasSparkReplacementDetectorTest : LintDetectorTes
                     TagOutlined()
                     TagTinted()
                 }
-                """
+                """,
             ).indented(),
             *Composables,
             * SparkComponentsStubs,
