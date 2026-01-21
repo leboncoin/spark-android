@@ -37,7 +37,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.systemGestureExclusion
-import androidx.compose.material3.Slider as MaterialSlider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -62,6 +61,7 @@ import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.tokens.Layout
 import com.adevinta.spark.tokens.highlight
 import java.text.NumberFormat
+import androidx.compose.material3.Slider as MaterialSlider
 
 @Composable
 public fun ThemePicker(
