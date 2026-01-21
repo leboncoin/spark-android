@@ -21,7 +21,7 @@
  */
 package com.adevinta.spark.lint
 
-import com.adevinta.spark.lint.MaterialComposableUsageDetector.Companion.ISSUE
+import com.adevinta.spark.lint.MaterialComposableHasSparkReplacementDetector.Companion.ISSUE
 import com.adevinta.spark.lint.stubs.CoilComponentsStub
 import com.adevinta.spark.lint.stubs.Composables
 import com.adevinta.spark.lint.stubs.FoundationStub
@@ -35,9 +35,9 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
 @RunWith(JUnit4::class)
-public class MaterialComposableUsageDetectorTest : LintDetectorTest() {
+public class MaterialComposableHasSparkReplacementDetectorTest : LintDetectorTest() {
 
-    override fun getDetector(): Detector = MaterialComposableUsageDetector()
+    override fun getDetector(): Detector = MaterialComposableHasSparkReplacementDetector()
     override fun getIssues(): List<Issue> = listOf(ISSUE)
 
     private fun Issue.explanation(replacement: Pair<String, String>) =
