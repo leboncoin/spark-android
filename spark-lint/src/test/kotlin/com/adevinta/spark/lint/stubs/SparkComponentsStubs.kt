@@ -44,6 +44,9 @@ internal val SparkComponentsStubs = arrayOf(
 
     @Composable
     fun ButtonContrast() {}
+
+    @Composable
+    fun FloatingActionButton() {}
         """.trimIndent(),
     ),
     kotlin(
@@ -70,7 +73,7 @@ internal val SparkComponentsStubs = arrayOf(
     import androidx.compose.runtime.Composable
 
     @Composable
-    fun CheckBox() {}
+    fun Checkbox() {}
 
     @Composable
     fun RadioButton() {}
@@ -98,6 +101,8 @@ internal val SparkComponentsStubs = arrayOf(
 
     @Composable
     fun SnackbarHost() {}
+
+    class SnackbarHostState
         """.trimIndent(),
     ),
     kotlin(
@@ -134,6 +139,12 @@ internal val SparkComponentsStubs = arrayOf(
 
     @Composable
     fun UserAvatar() {}
+
+    @Composable
+    fun AsyncImage() {}
+
+    @Composable
+    fun SubcomposeAsyncImage() {}
         """.trimIndent(),
     ),
     kotlin(
@@ -148,25 +159,25 @@ internal val SparkComponentsStubs = arrayOf(
     fun IconButton() {}
 
     @Composable
-    fun FilledIconButton() {}
+    fun IconButtonFilled() {}
 
     @Composable
-    fun FilledTonalIconButton() {}
+    fun IconButtonTinted() {}
 
     @Composable
-    fun OutlinedIconButton() {}
+    fun IconButtonOutlined() {}
 
     @Composable
     fun IconToggleButton() {}
 
     @Composable
-    fun FilledIconToggleButton() {}
+    fun IconToggleButtonFilled() {}
 
     @Composable
-    fun FilledTonalIconToggleButton() {}
+    fun IconToggleButtonTinted() {}
 
     @Composable
-    fun OutlinedIconToggleButton() {}
+    fun IconToggleButtonOutlined() {}
         """.trimIndent(),
     ),
     kotlin(
@@ -237,6 +248,210 @@ internal val SparkComponentsStubs = arrayOf(
         modifier: Modifier = Modifier,
         content: @Composable () -> Unit
     ) {}
+        """.trimIndent(),
+    ),
+    kotlin(
+        """
+    package com.adevinta.spark.components.dialog
+    import androidx.compose.runtime.Composable
+
+    @Composable
+    fun AlertDialog() {}
+        """.trimIndent(),
+    ),
+    kotlin(
+        """
+    package com.adevinta.spark.components.chips
+    import androidx.compose.runtime.Composable
+
+    @Composable
+    fun Chip() {}
+        """.trimIndent(),
+    ),
+    kotlin(
+        """
+    package com.adevinta.spark.components.badge
+    import androidx.compose.runtime.Composable
+
+    @Composable
+    fun Badge() {}
+
+    @Composable
+    fun BadgedBox() {}
+        """.trimIndent(),
+    ),
+    kotlin(
+        """
+    package com.adevinta.spark.components.appbar
+    import androidx.compose.runtime.Composable
+
+    @Composable
+    fun BottomAppBar() {}
+
+    @Composable
+    fun TopAppBar() {}
+
+    @Composable
+    fun NavigationBar() {}
+
+    @Composable
+    fun NavigationBarItem() {}
+
+    @Composable
+    fun rememberTopAppBarState() {}
+        """.trimIndent(),
+    ),
+    kotlin(
+        """
+    package com.adevinta.spark.components.bottomsheet.scaffold
+    import androidx.compose.runtime.Composable
+
+    @Composable
+    fun BottomSheetScaffold() {}
+        """.trimIndent(),
+    ),
+    kotlin(
+        """
+    package com.adevinta.spark.components.bottomsheet
+    import androidx.compose.runtime.Composable
+
+    @Composable
+    fun BottomSheet() {}
+        """.trimIndent(),
+    ),
+    kotlin(
+        """
+    package com.adevinta.spark.components.card
+    import androidx.compose.runtime.Composable
+
+    @Composable
+    fun Card() {}
+        """.trimIndent(),
+    ),
+    kotlin(
+        """
+    package com.adevinta.spark.tokens
+    import androidx.compose.runtime.Composable
+    import androidx.compose.ui.graphics.Color
+
+    @Composable
+    fun contentColorFor(color: Color = Color.Unspecified): Color = Color.Unspecified
+
+    @Composable
+    fun ripple() {}
+        """.trimIndent(),
+    ),
+    kotlin(
+        """
+    package com.adevinta.spark.components.drawer
+    import androidx.compose.runtime.Composable
+
+    @Composable
+    fun DismissibleDrawerSheet() {}
+
+    @Composable
+    fun DismissibleNavigationDrawer() {}
+
+    @Composable
+    fun ModalDrawerSheet() {}
+
+    @Composable
+    fun ModalNavigationDrawer() {}
+
+    fun rememberDrawerState() {}
+        """.trimIndent(),
+    ),
+    kotlin(
+        """
+    package com.adevinta.spark.components.menu
+    import androidx.compose.runtime.Composable
+
+    @Composable
+    fun DropdownMenu() {}
+
+    @Composable
+    fun DropdownMenuItem() {}
+        """.trimIndent(),
+    ),
+    kotlin(
+        """
+    package com.adevinta.spark.components.tab
+    import androidx.compose.runtime.Composable
+
+    @Composable
+    fun Tab() {}
+
+    @Composable
+    fun TabGroup() {}
+        """.trimIndent(),
+    ),
+    kotlin(
+        """
+    package com.adevinta.spark.components.list
+    import androidx.compose.runtime.Composable
+
+    @Composable
+    fun ListItem() {}
+        """.trimIndent(),
+    ),
+    kotlin(
+        """
+    package com.adevinta.spark.components.navigation
+    import androidx.compose.runtime.Composable
+
+    @Composable
+    fun NavigationDrawerItem() {}
+
+    @Composable
+    fun NavigationRail() {}
+
+    @Composable
+    fun NavigationRailItem() {}
+
+    @Composable
+    fun PermanentDrawerSheet() {}
+        """.trimIndent(),
+    ),
+    kotlin(
+        """
+    package com.adevinta.spark.components.popover
+    import androidx.compose.runtime.Composable
+
+    @Composable
+    fun PlainTooltip() {}
+
+    @Composable
+    fun TooltipBox() {}
+        """.trimIndent(),
+    ),
+    kotlin(
+        """
+    package com.adevinta.spark.components.slider
+    import androidx.compose.runtime.Composable
+
+    @Composable
+    fun RangeSlider() {}
+
+    @Composable
+    fun Slider() {}
+        """.trimIndent(),
+    ),
+    kotlin(
+        """
+    package com.adevinta.spark.components.scaffold
+    import androidx.compose.runtime.Composable
+
+    @Composable
+    fun Scaffold() {}
+        """.trimIndent(),
+    ),
+    kotlin(
+        """
+    package com.adevinta.spark.components.surface
+    import androidx.compose.runtime.Composable
+
+    @Composable
+    fun Surface() {}
         """.trimIndent(),
     ),
 )
