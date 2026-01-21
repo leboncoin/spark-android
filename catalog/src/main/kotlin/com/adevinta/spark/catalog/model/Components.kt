@@ -40,6 +40,7 @@ import com.adevinta.spark.catalog.configurator.samples.progressbar.ProgressbarCo
 import com.adevinta.spark.catalog.configurator.samples.progresstracker.ProgressTrackerConfigurator
 import com.adevinta.spark.catalog.configurator.samples.rating.RatingsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.slider.SlidersConfigurator
+import com.adevinta.spark.catalog.configurator.samples.segmentedcontrol.SegmentedControlConfigurator
 import com.adevinta.spark.catalog.configurator.samples.snackbar.SnackbarConfigurator
 import com.adevinta.spark.catalog.configurator.samples.stepper.StepperConfigurators
 import com.adevinta.spark.catalog.configurator.samples.tabs.TabsConfigurator
@@ -69,6 +70,7 @@ import com.adevinta.spark.catalog.examples.samples.popover.PopoverExamples
 import com.adevinta.spark.catalog.examples.samples.progressbar.ProgressbarExamples
 import com.adevinta.spark.catalog.examples.samples.progresstracker.ProgressTrackerExamples
 import com.adevinta.spark.catalog.examples.samples.rating.RatingExamples
+import com.adevinta.spark.catalog.examples.samples.segmentedcontrol.SegmentedControlExamples
 import com.adevinta.spark.catalog.examples.samples.slider.SlidersExamples
 import com.adevinta.spark.catalog.examples.samples.snackbar.SnackbarExamples
 import com.adevinta.spark.catalog.examples.samples.stepper.StepperExamples
@@ -367,6 +369,17 @@ private val SegmentedGauge = Component(
     configurators = listOf(GaugesConfigurator),
 )
 
+private val SegmentedControl = Component(
+    id = "segmented-control",
+    name = "Segmented Control",
+    description = R.string.component_segmentedcontrol_description,
+    guidelinesUrl = "$ComponentGuidelinesUrl/p/segmented-control",
+    docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.segmentedcontrol/index.html",
+    sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/segmentedcontrol/SegmentedControl.kt",
+    examples = SegmentedControlExamples,
+    configurators = listOf(SegmentedControlConfigurator),
+)
+
 private val Skeletons = Component(
     id = "skeleton",
     name = "Skeletons",
@@ -513,6 +526,7 @@ public val Components: List<Component> = listOf(
     ProgressTracker,
     RadioButtons,
     Rating,
+    SegmentedControl,
     SegmentedGauge,
     Skeletons,
     Sliders,

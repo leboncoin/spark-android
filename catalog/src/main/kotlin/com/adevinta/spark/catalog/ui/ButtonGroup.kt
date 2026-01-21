@@ -29,7 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
-import com.adevinta.spark.catalog.themes.SegmentedButton
+import com.adevinta.spark.components.segmentedcontrol.SegmentedControl
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.highlight
 import kotlin.enums.enumEntries
@@ -57,16 +57,24 @@ internal inline fun <reified T : Enum<T>> ButtonGroup(
     crossinline onOptionSelect: (T) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val options = enumEntries<T>().map { it.name }
+    val selectedIndex = options.indexOf(selectedOption.name)
+
     ButtonGroupLayout(
         title = title,
         modifier = modifier,
     ) {
-        SegmentedButton(
-            options = enumEntries<T>().map { it.name },
-            selectedOption = selectedOption.name,
-            onOptionSelect = { onOptionSelect(enumValueOf<T>(it)) },
+        SegmentedControl.Horizontal(
+            selectedIndex = selectedIndex,
+            onSegmentSelected = { index ->
+                onOptionSelect(enumValueOf<T>(options[index]))
+            },
             modifier = Modifier.fillMaxWidth(),
-        )
+        ) {
+            options.forEach { option ->
+                SingleLine(option)
+            }
+        }
     }
 }
 
@@ -78,15 +86,22 @@ internal fun ButtonGroup(
     options: List<String>,
     modifier: Modifier = Modifier,
 ) {
+    val selectedIndex = options.indexOf(selectedOption)
+
     ButtonGroupLayout(
         title = title,
         modifier = modifier,
     ) {
-        SegmentedButton(
-            options = options,
-            selectedOption = selectedOption,
-            onOptionSelect = onOptionSelect,
+        SegmentedControl.Horizontal(
+            selectedIndex = selectedIndex,
+            onSegmentSelected = { index ->
+                onOptionSelect(options[index])
+            },
             modifier = Modifier.fillMaxWidth(),
-        )
+        ) {
+            options.forEach { option ->
+                SingleLine(option)
+            }
+        }
     }
 }

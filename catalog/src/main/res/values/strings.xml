@@ -125,6 +125,7 @@
     <string name="component_slider_description">A slider is an interactive component that allows users to set values by moving a handle within a defined range.</string>
 
     <string name="component_segmentedgauge_description">The Segmented Gauge is a non-interactive visual indicator made up of colored segments. It shows a level or value along a scale (e.g., from “low” to “high”).</string>
+    <string name="component_segmentedcontrol_description">The Segmented Control allows users to select a single option from a small set of choices, while maintaining an immediate overview of the available alternatives.</string>
 
     <string name="configurator_component_screen_title">Components configurations</string>
     <string name="configurator_component_screen_description">The Configurator allows to visualise a component in every possible state available by customising every property for each component.</string>
