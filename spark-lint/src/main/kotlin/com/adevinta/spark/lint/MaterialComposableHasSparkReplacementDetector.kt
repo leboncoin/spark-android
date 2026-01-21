@@ -42,7 +42,7 @@ import java.util.EnumSet
 /**
  * Checks if a Composable has a Spark replacement.
  */
-public class MaterialComposableUsageDetector :
+public class MaterialComposableHasSparkReplacementDetector :
     Detector(),
     SourceCodeScanner {
 
@@ -80,7 +80,7 @@ public class MaterialComposableUsageDetector :
             priority = 8,
             severity = ERROR,
             implementation = Implementation(
-                MaterialComposableUsageDetector::class.java,
+                MaterialComposableHasSparkReplacementDetector::class.java,
                 EnumSet.of(JAVA_FILE, TEST_SOURCES),
             ),
         )
