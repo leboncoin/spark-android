@@ -354,8 +354,8 @@ public class MaterialComposableUsageDetectorTest : LintDetectorTest() {
                     TagOutlined()
                     TagTinted()
                 }
-                """.trimIndent(),
-            ),
+                """
+            ).indented(),
             *Composables,
             * SparkComponentsStubs,
         )
