@@ -90,7 +90,7 @@ private fun AppIcon() {
     )
 }
 
-@SuppressLint("MaterialComposableUsageDetector")
+@SuppressLint("MaterialComposableHasSparkReplacement")
 @Composable
 internal fun CatalogTabs(
     modifier: Modifier = Modifier,
@@ -121,7 +121,7 @@ internal fun CatalogTabs(
     }
 }
 
-@SuppressLint("MaterialComposableUsageDetector")
+@SuppressLint("MaterialComposableHasSparkReplacement")
 @Composable
 private fun CatalogTab(
     selected: Boolean,

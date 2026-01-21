@@ -143,238 +143,238 @@ public class MaterialComposableHasSparkReplacementDetectorTest : LintDetectorTes
             .run()
             .expect(
                 """
-               src/foo/test.kt:9: Error: Composable AlertDialog has a Spark replacement that should be used instead: AlertDialog [MaterialComposableUsageDetector]
+               src/foo/test.kt:9: Error: Composable AlertDialog has a Spark replacement that should be used instead: AlertDialog [MaterialComposableHasSparkReplacement]
                                AlertDialog()
                                ~~~~~~~~~~~
-               src/foo/test.kt:10: Error: Composable AssistChip has a Spark replacement that should be used instead: Chip [MaterialComposableUsageDetector]
+               src/foo/test.kt:10: Error: Composable AssistChip has a Spark replacement that should be used instead: Chip [MaterialComposableHasSparkReplacement]
                                AssistChip()
                                ~~~~~~~~~~
-               src/foo/test.kt:11: Error: Composable Badge has a Spark replacement that should be used instead: Badge [MaterialComposableUsageDetector]
+               src/foo/test.kt:11: Error: Composable Badge has a Spark replacement that should be used instead: Badge [MaterialComposableHasSparkReplacement]
                                Badge()
                                ~~~~~
-               src/foo/test.kt:12: Error: Composable BadgedBox has a Spark replacement that should be used instead: BadgedBox [MaterialComposableUsageDetector]
+               src/foo/test.kt:12: Error: Composable BadgedBox has a Spark replacement that should be used instead: BadgedBox [MaterialComposableHasSparkReplacement]
                                BadgedBox()
                                ~~~~~~~~~
-               src/foo/test.kt:13: Error: Composable BottomAppBar has a Spark replacement that should be used instead: BottomAppBar [MaterialComposableUsageDetector]
+               src/foo/test.kt:13: Error: Composable BottomAppBar has a Spark replacement that should be used instead: BottomAppBar [MaterialComposableHasSparkReplacement]
                                BottomAppBar()
                                ~~~~~~~~~~~~
-               src/foo/test.kt:14: Error: Composable BottomSheetScaffold has a Spark replacement that should be used instead: BottomSheetScaffold [MaterialComposableUsageDetector]
+               src/foo/test.kt:14: Error: Composable BottomSheetScaffold has a Spark replacement that should be used instead: BottomSheetScaffold [MaterialComposableHasSparkReplacement]
                                BottomSheetScaffold()
                                ~~~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:15: Error: Composable ModalBottomSheet has a Spark replacement that should be used instead: BottomSheet [MaterialComposableUsageDetector]
+               src/foo/test.kt:15: Error: Composable ModalBottomSheet has a Spark replacement that should be used instead: BottomSheet [MaterialComposableHasSparkReplacement]
                                ModalBottomSheet()
                                ~~~~~~~~~~~~~~~~
-               src/foo/test.kt:16: Error: Composable Button has a Spark replacement that should be used instead: ButtonFilled [MaterialComposableUsageDetector]
+               src/foo/test.kt:16: Error: Composable Button has a Spark replacement that should be used instead: ButtonFilled [MaterialComposableHasSparkReplacement]
                                Button()
                                ~~~~~~
-               src/foo/test.kt:17: Error: Composable Card has a Spark replacement that should be used instead: Card [MaterialComposableUsageDetector]
+               src/foo/test.kt:17: Error: Composable Card has a Spark replacement that should be used instead: Card [MaterialComposableHasSparkReplacement]
                                Card()
                                ~~~~
-               src/foo/test.kt:18: Error: Composable CenterAlignedTopAppBar has a Spark replacement that should be used instead: TopAppBar [MaterialComposableUsageDetector]
+               src/foo/test.kt:18: Error: Composable CenterAlignedTopAppBar has a Spark replacement that should be used instead: TopAppBar [MaterialComposableHasSparkReplacement]
                                CenterAlignedTopAppBar()
                                ~~~~~~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:19: Error: Composable Checkbox has a Spark replacement that should be used instead: Checkbox [MaterialComposableUsageDetector]
+               src/foo/test.kt:19: Error: Composable Checkbox has a Spark replacement that should be used instead: Checkbox [MaterialComposableHasSparkReplacement]
                                Checkbox()
                                ~~~~~~~~
-               src/foo/test.kt:20: Error: Composable CircularProgressIndicator has a Spark replacement that should be used instead: CircularProgressIndicator [MaterialComposableUsageDetector]
+               src/foo/test.kt:20: Error: Composable CircularProgressIndicator has a Spark replacement that should be used instead: CircularProgressIndicator [MaterialComposableHasSparkReplacement]
                                CircularProgressIndicator()
                                ~~~~~~~~~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:21: Error: Composable contentColorFor has a Spark replacement that should be used instead: contentColorFor [MaterialComposableUsageDetector]
+               src/foo/test.kt:21: Error: Composable contentColorFor has a Spark replacement that should be used instead: contentColorFor [MaterialComposableHasSparkReplacement]
                                contentColorFor()
                                ~~~~~~~~~~~~~~~
-               src/foo/test.kt:22: Error: Composable DismissibleDrawerSheet has a Spark replacement that should be used instead: DismissibleDrawerSheet [MaterialComposableUsageDetector]
+               src/foo/test.kt:22: Error: Composable DismissibleDrawerSheet has a Spark replacement that should be used instead: DismissibleDrawerSheet [MaterialComposableHasSparkReplacement]
                                DismissibleDrawerSheet()
                                ~~~~~~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:23: Error: Composable DismissibleNavigationDrawer has a Spark replacement that should be used instead: DismissibleNavigationDrawer [MaterialComposableUsageDetector]
+               src/foo/test.kt:23: Error: Composable DismissibleNavigationDrawer has a Spark replacement that should be used instead: DismissibleNavigationDrawer [MaterialComposableHasSparkReplacement]
                                DismissibleNavigationDrawer()
                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:24: Error: Composable Divider has a Spark replacement that should be used instead: HorizontalDivider [MaterialComposableUsageDetector]
+               src/foo/test.kt:24: Error: Composable Divider has a Spark replacement that should be used instead: HorizontalDivider [MaterialComposableHasSparkReplacement]
                                Divider()
                                ~~~~~~~
-               src/foo/test.kt:25: Error: Composable DropdownMenu has a Spark replacement that should be used instead: DropdownMenu [MaterialComposableUsageDetector]
+               src/foo/test.kt:25: Error: Composable DropdownMenu has a Spark replacement that should be used instead: DropdownMenu [MaterialComposableHasSparkReplacement]
                                DropdownMenu()
                                ~~~~~~~~~~~~
-               src/foo/test.kt:26: Error: Composable DropdownMenuItem has a Spark replacement that should be used instead: DropdownMenuItem [MaterialComposableUsageDetector]
+               src/foo/test.kt:26: Error: Composable DropdownMenuItem has a Spark replacement that should be used instead: DropdownMenuItem [MaterialComposableHasSparkReplacement]
                                DropdownMenuItem()
                                ~~~~~~~~~~~~~~~~
-               src/foo/test.kt:27: Error: Composable ElevatedAssistChip has a Spark replacement that should be used instead: Chip [MaterialComposableUsageDetector]
+               src/foo/test.kt:27: Error: Composable ElevatedAssistChip has a Spark replacement that should be used instead: Chip [MaterialComposableHasSparkReplacement]
                                ElevatedAssistChip()
                                ~~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:28: Error: Composable ElevatedButton has a Spark replacement that should be used instead: ButtonFilled [MaterialComposableUsageDetector]
+               src/foo/test.kt:28: Error: Composable ElevatedButton has a Spark replacement that should be used instead: ButtonFilled [MaterialComposableHasSparkReplacement]
                                ElevatedButton()
                                ~~~~~~~~~~~~~~
-               src/foo/test.kt:29: Error: Composable ElevatedCard has a Spark replacement that should be used instead: Card [MaterialComposableUsageDetector]
+               src/foo/test.kt:29: Error: Composable ElevatedCard has a Spark replacement that should be used instead: Card [MaterialComposableHasSparkReplacement]
                                ElevatedCard()
                                ~~~~~~~~~~~~
-               src/foo/test.kt:30: Error: Composable ElevatedFilterChip has a Spark replacement that should be used instead: Chip [MaterialComposableUsageDetector]
+               src/foo/test.kt:30: Error: Composable ElevatedFilterChip has a Spark replacement that should be used instead: Chip [MaterialComposableHasSparkReplacement]
                                ElevatedFilterChip()
                                ~~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:31: Error: Composable ExtendedFloatingActionButton has a Spark replacement that should be used instead: FloatingActionButton [MaterialComposableUsageDetector]
+               src/foo/test.kt:31: Error: Composable ExtendedFloatingActionButton has a Spark replacement that should be used instead: FloatingActionButton [MaterialComposableHasSparkReplacement]
                                ExtendedFloatingActionButton()
                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:32: Error: Composable FilledIconButton has a Spark replacement that should be used instead: IconButtonFilled [MaterialComposableUsageDetector]
+               src/foo/test.kt:32: Error: Composable FilledIconButton has a Spark replacement that should be used instead: IconButtonFilled [MaterialComposableHasSparkReplacement]
                                FilledIconButton()
                                ~~~~~~~~~~~~~~~~
-               src/foo/test.kt:33: Error: Composable FilledIconToggleButton has a Spark replacement that should be used instead: IconToggleButtonFilled [MaterialComposableUsageDetector]
+               src/foo/test.kt:33: Error: Composable FilledIconToggleButton has a Spark replacement that should be used instead: IconToggleButtonFilled [MaterialComposableHasSparkReplacement]
                                FilledIconToggleButton()
                                ~~~~~~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:34: Error: Composable FilledTonalButton has a Spark replacement that should be used instead: ButtonTinted [MaterialComposableUsageDetector]
+               src/foo/test.kt:34: Error: Composable FilledTonalButton has a Spark replacement that should be used instead: ButtonTinted [MaterialComposableHasSparkReplacement]
                                FilledTonalButton()
                                ~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:35: Error: Composable FilledTonalIconButton has a Spark replacement that should be used instead: IconButtonTinted [MaterialComposableUsageDetector]
+               src/foo/test.kt:35: Error: Composable FilledTonalIconButton has a Spark replacement that should be used instead: IconButtonTinted [MaterialComposableHasSparkReplacement]
                                FilledTonalIconButton()
                                ~~~~~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:36: Error: Composable FilledTonalIconToggleButton has a Spark replacement that should be used instead: IconToggleButtonTinted [MaterialComposableUsageDetector]
+               src/foo/test.kt:36: Error: Composable FilledTonalIconToggleButton has a Spark replacement that should be used instead: IconToggleButtonTinted [MaterialComposableHasSparkReplacement]
                                FilledTonalIconToggleButton()
                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:37: Error: Composable FilterChip has a Spark replacement that should be used instead: Chip [MaterialComposableUsageDetector]
+               src/foo/test.kt:37: Error: Composable FilterChip has a Spark replacement that should be used instead: Chip [MaterialComposableHasSparkReplacement]
                                FilterChip()
                                ~~~~~~~~~~
-               src/foo/test.kt:38: Error: Composable FloatingActionButton has a Spark replacement that should be used instead: FloatingActionButton [MaterialComposableUsageDetector]
+               src/foo/test.kt:38: Error: Composable FloatingActionButton has a Spark replacement that should be used instead: FloatingActionButton [MaterialComposableHasSparkReplacement]
                                FloatingActionButton()
                                ~~~~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:39: Error: Composable Icon has a Spark replacement that should be used instead: Icon [MaterialComposableUsageDetector]
+               src/foo/test.kt:39: Error: Composable Icon has a Spark replacement that should be used instead: Icon [MaterialComposableHasSparkReplacement]
                                Icon()
                                ~~~~
-               src/foo/test.kt:40: Error: Composable IconButton has a Spark replacement that should be used instead: IconButton [MaterialComposableUsageDetector]
+               src/foo/test.kt:40: Error: Composable IconButton has a Spark replacement that should be used instead: IconButton [MaterialComposableHasSparkReplacement]
                                IconButton()
                                ~~~~~~~~~~
-               src/foo/test.kt:41: Error: Composable IconToggleButton has a Spark replacement that should be used instead: IconToggleButton [MaterialComposableUsageDetector]
+               src/foo/test.kt:41: Error: Composable IconToggleButton has a Spark replacement that should be used instead: IconToggleButton [MaterialComposableHasSparkReplacement]
                                IconToggleButton()
                                ~~~~~~~~~~~~~~~~
-               src/foo/test.kt:42: Error: Composable InputChip has a Spark replacement that should be used instead: Chip [MaterialComposableUsageDetector]
+               src/foo/test.kt:42: Error: Composable InputChip has a Spark replacement that should be used instead: Chip [MaterialComposableHasSparkReplacement]
                                InputChip()
                                ~~~~~~~~~
-               src/foo/test.kt:43: Error: Composable LargeFloatingActionButton has a Spark replacement that should be used instead: FloatingActionButton [MaterialComposableUsageDetector]
+               src/foo/test.kt:43: Error: Composable LargeFloatingActionButton has a Spark replacement that should be used instead: FloatingActionButton [MaterialComposableHasSparkReplacement]
                                LargeFloatingActionButton()
                                ~~~~~~~~~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:44: Error: Composable LargeTopAppBar has a Spark replacement that should be used instead: TopAppBar [MaterialComposableUsageDetector]
+               src/foo/test.kt:44: Error: Composable LargeTopAppBar has a Spark replacement that should be used instead: TopAppBar [MaterialComposableHasSparkReplacement]
                                LargeTopAppBar()
                                ~~~~~~~~~~~~~~
-               src/foo/test.kt:45: Error: Composable LeadingIconTab has a Spark replacement that should be used instead: Tab [MaterialComposableUsageDetector]
+               src/foo/test.kt:45: Error: Composable LeadingIconTab has a Spark replacement that should be used instead: Tab [MaterialComposableHasSparkReplacement]
                                LeadingIconTab()
                                ~~~~~~~~~~~~~~
-               src/foo/test.kt:46: Error: Composable LinearProgressIndicator has a Spark replacement that should be used instead: LinearProgressIndicator [MaterialComposableUsageDetector]
+               src/foo/test.kt:46: Error: Composable LinearProgressIndicator has a Spark replacement that should be used instead: LinearProgressIndicator [MaterialComposableHasSparkReplacement]
                                LinearProgressIndicator()
                                ~~~~~~~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:47: Error: Composable ListItem has a Spark replacement that should be used instead: ListItem [MaterialComposableUsageDetector]
+               src/foo/test.kt:47: Error: Composable ListItem has a Spark replacement that should be used instead: ListItem [MaterialComposableHasSparkReplacement]
                                ListItem()
                                ~~~~~~~~
-               src/foo/test.kt:48: Error: Composable MaterialTheme has a Spark replacement that should be used instead: SparkTheme [MaterialComposableUsageDetector]
+               src/foo/test.kt:48: Error: Composable MaterialTheme has a Spark replacement that should be used instead: SparkTheme [MaterialComposableHasSparkReplacement]
                                MaterialTheme()
                                ~~~~~~~~~~~~~
-               src/foo/test.kt:49: Error: Composable MediumTopAppBar has a Spark replacement that should be used instead: TopAppBar [MaterialComposableUsageDetector]
+               src/foo/test.kt:49: Error: Composable MediumTopAppBar has a Spark replacement that should be used instead: TopAppBar [MaterialComposableHasSparkReplacement]
                                MediumTopAppBar()
                                ~~~~~~~~~~~~~~~
-               src/foo/test.kt:50: Error: Composable ModalDrawerSheet has a Spark replacement that should be used instead: ModalDrawerSheet [MaterialComposableUsageDetector]
+               src/foo/test.kt:50: Error: Composable ModalDrawerSheet has a Spark replacement that should be used instead: ModalDrawerSheet [MaterialComposableHasSparkReplacement]
                                ModalDrawerSheet()
                                ~~~~~~~~~~~~~~~~
-               src/foo/test.kt:51: Error: Composable ModalNavigationDrawer has a Spark replacement that should be used instead: ModalNavigationDrawer [MaterialComposableUsageDetector]
+               src/foo/test.kt:51: Error: Composable ModalNavigationDrawer has a Spark replacement that should be used instead: ModalNavigationDrawer [MaterialComposableHasSparkReplacement]
                                ModalNavigationDrawer()
                                ~~~~~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:52: Error: Composable NavigationBar has a Spark replacement that should be used instead: NavigationBar [MaterialComposableUsageDetector]
+               src/foo/test.kt:52: Error: Composable NavigationBar has a Spark replacement that should be used instead: NavigationBar [MaterialComposableHasSparkReplacement]
                                NavigationBar()
                                ~~~~~~~~~~~~~
-               src/foo/test.kt:53: Error: Composable NavigationBarItem has a Spark replacement that should be used instead: NavigationBarItem [MaterialComposableUsageDetector]
+               src/foo/test.kt:53: Error: Composable NavigationBarItem has a Spark replacement that should be used instead: NavigationBarItem [MaterialComposableHasSparkReplacement]
                                NavigationBarItem()
                                ~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:54: Error: Composable NavigationDrawerItem has a Spark replacement that should be used instead: NavigationDrawerItem [MaterialComposableUsageDetector]
+               src/foo/test.kt:54: Error: Composable NavigationDrawerItem has a Spark replacement that should be used instead: NavigationDrawerItem [MaterialComposableHasSparkReplacement]
                                NavigationDrawerItem()
                                ~~~~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:55: Error: Composable NavigationRail has a Spark replacement that should be used instead: NavigationRail [MaterialComposableUsageDetector]
+               src/foo/test.kt:55: Error: Composable NavigationRail has a Spark replacement that should be used instead: NavigationRail [MaterialComposableHasSparkReplacement]
                                NavigationRail()
                                ~~~~~~~~~~~~~~
-               src/foo/test.kt:56: Error: Composable NavigationRailItem has a Spark replacement that should be used instead: NavigationRailItem [MaterialComposableUsageDetector]
+               src/foo/test.kt:56: Error: Composable NavigationRailItem has a Spark replacement that should be used instead: NavigationRailItem [MaterialComposableHasSparkReplacement]
                                NavigationRailItem()
                                ~~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:57: Error: Composable OutlinedButton has a Spark replacement that should be used instead: ButtonOutlined [MaterialComposableUsageDetector]
+               src/foo/test.kt:57: Error: Composable OutlinedButton has a Spark replacement that should be used instead: ButtonOutlined [MaterialComposableHasSparkReplacement]
                                OutlinedButton()
                                ~~~~~~~~~~~~~~
-               src/foo/test.kt:58: Error: Composable OutlinedCard has a Spark replacement that should be used instead: Card [MaterialComposableUsageDetector]
+               src/foo/test.kt:58: Error: Composable OutlinedCard has a Spark replacement that should be used instead: Card [MaterialComposableHasSparkReplacement]
                                OutlinedCard()
                                ~~~~~~~~~~~~
-               src/foo/test.kt:59: Error: Composable OutlinedIconButton has a Spark replacement that should be used instead: IconButtonOutlined [MaterialComposableUsageDetector]
+               src/foo/test.kt:59: Error: Composable OutlinedIconButton has a Spark replacement that should be used instead: IconButtonOutlined [MaterialComposableHasSparkReplacement]
                                OutlinedIconButton()
                                ~~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:60: Error: Composable OutlinedIconToggleButton has a Spark replacement that should be used instead: IconToggleButtonOutlined [MaterialComposableUsageDetector]
+               src/foo/test.kt:60: Error: Composable OutlinedIconToggleButton has a Spark replacement that should be used instead: IconToggleButtonOutlined [MaterialComposableHasSparkReplacement]
                                OutlinedIconToggleButton()
                                ~~~~~~~~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:61: Error: Composable OutlinedTextField has a Spark replacement that should be used instead: TextField [MaterialComposableUsageDetector]
+               src/foo/test.kt:61: Error: Composable OutlinedTextField has a Spark replacement that should be used instead: TextField [MaterialComposableHasSparkReplacement]
                                OutlinedTextField()
                                ~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:62: Error: Composable PermanentDrawerSheet has a Spark replacement that should be used instead: PermanentDrawerSheet [MaterialComposableUsageDetector]
+               src/foo/test.kt:62: Error: Composable PermanentDrawerSheet has a Spark replacement that should be used instead: PermanentDrawerSheet [MaterialComposableHasSparkReplacement]
                                PermanentDrawerSheet()
                                ~~~~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:63: Error: Composable PlainTooltip has a Spark replacement that should be used instead: PlainTooltip [MaterialComposableUsageDetector]
+               src/foo/test.kt:63: Error: Composable PlainTooltip has a Spark replacement that should be used instead: PlainTooltip [MaterialComposableHasSparkReplacement]
                                PlainTooltip()
                                ~~~~~~~~~~~~
-               src/foo/test.kt:64: Error: Composable RadioButton has a Spark replacement that should be used instead: RadioButton [MaterialComposableUsageDetector]
+               src/foo/test.kt:64: Error: Composable RadioButton has a Spark replacement that should be used instead: RadioButton [MaterialComposableHasSparkReplacement]
                                RadioButton()
                                ~~~~~~~~~~~
-               src/foo/test.kt:65: Error: Composable RangeSlider has a Spark replacement that should be used instead: RangeSlider [MaterialComposableUsageDetector]
+               src/foo/test.kt:65: Error: Composable RangeSlider has a Spark replacement that should be used instead: RangeSlider [MaterialComposableHasSparkReplacement]
                                RangeSlider()
                                ~~~~~~~~~~~
-               src/foo/test.kt:66: Error: Composable rememberDrawerState has a Spark replacement that should be used instead: rememberDrawerState [MaterialComposableUsageDetector]
+               src/foo/test.kt:66: Error: Composable rememberDrawerState has a Spark replacement that should be used instead: rememberDrawerState [MaterialComposableHasSparkReplacement]
                                rememberDrawerState()
                                ~~~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:67: Error: Composable rememberTopAppBarState has a Spark replacement that should be used instead: rememberTopAppBarState [MaterialComposableUsageDetector]
+               src/foo/test.kt:67: Error: Composable rememberTopAppBarState has a Spark replacement that should be used instead: rememberTopAppBarState [MaterialComposableHasSparkReplacement]
                                rememberTopAppBarState()
                                ~~~~~~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:68: Error: Composable Scaffold has a Spark replacement that should be used instead: Scaffold [MaterialComposableUsageDetector]
+               src/foo/test.kt:68: Error: Composable Scaffold has a Spark replacement that should be used instead: Scaffold [MaterialComposableHasSparkReplacement]
                                Scaffold()
                                ~~~~~~~~
-               src/foo/test.kt:69: Error: Composable ScrollableTabRow has a Spark replacement that should be used instead: TabGroup [MaterialComposableUsageDetector]
+               src/foo/test.kt:69: Error: Composable ScrollableTabRow has a Spark replacement that should be used instead: TabGroup [MaterialComposableHasSparkReplacement]
                                ScrollableTabRow()
                                ~~~~~~~~~~~~~~~~
-               src/foo/test.kt:70: Error: Composable Slider has a Spark replacement that should be used instead: Slider [MaterialComposableUsageDetector]
+               src/foo/test.kt:70: Error: Composable Slider has a Spark replacement that should be used instead: Slider [MaterialComposableHasSparkReplacement]
                                Slider()
                                ~~~~~~
-               src/foo/test.kt:71: Error: Composable SmallFloatingActionButton has a Spark replacement that should be used instead: FloatingActionButton [MaterialComposableUsageDetector]
+               src/foo/test.kt:71: Error: Composable SmallFloatingActionButton has a Spark replacement that should be used instead: FloatingActionButton [MaterialComposableHasSparkReplacement]
                                SmallFloatingActionButton()
                                ~~~~~~~~~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:72: Error: Composable Snackbar has a Spark replacement that should be used instead: Snackbar [MaterialComposableUsageDetector]
+               src/foo/test.kt:72: Error: Composable Snackbar has a Spark replacement that should be used instead: Snackbar [MaterialComposableHasSparkReplacement]
                                Snackbar()
                                ~~~~~~~~
-               src/foo/test.kt:73: Error: Composable SnackbarHost has a Spark replacement that should be used instead: SnackbarHost [MaterialComposableUsageDetector]
+               src/foo/test.kt:73: Error: Composable SnackbarHost has a Spark replacement that should be used instead: SnackbarHost [MaterialComposableHasSparkReplacement]
                                SnackbarHost()
                                ~~~~~~~~~~~~
-               src/foo/test.kt:74: Error: Composable SnackbarHostState has a Spark replacement that should be used instead: SnackbarHostState [MaterialComposableUsageDetector]
+               src/foo/test.kt:74: Error: Composable SnackbarHostState has a Spark replacement that should be used instead: SnackbarHostState [MaterialComposableHasSparkReplacement]
                                SnackbarHostState()
                                ~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:75: Error: Composable Surface has a Spark replacement that should be used instead: Surface [MaterialComposableUsageDetector]
+               src/foo/test.kt:75: Error: Composable Surface has a Spark replacement that should be used instead: Surface [MaterialComposableHasSparkReplacement]
                                Surface()
                                ~~~~~~~
-               src/foo/test.kt:76: Error: Composable Switch has a Spark replacement that should be used instead: Switch [MaterialComposableUsageDetector]
+               src/foo/test.kt:76: Error: Composable Switch has a Spark replacement that should be used instead: Switch [MaterialComposableHasSparkReplacement]
                                Switch()
                                ~~~~~~
-               src/foo/test.kt:77: Error: Composable Tab has a Spark replacement that should be used instead: Tab [MaterialComposableUsageDetector]
+               src/foo/test.kt:77: Error: Composable Tab has a Spark replacement that should be used instead: Tab [MaterialComposableHasSparkReplacement]
                                Tab()
                                ~~~
-               src/foo/test.kt:78: Error: Composable TabRow has a Spark replacement that should be used instead: TabGroup [MaterialComposableUsageDetector]
+               src/foo/test.kt:78: Error: Composable TabRow has a Spark replacement that should be used instead: TabGroup [MaterialComposableHasSparkReplacement]
                                TabRow()
                                ~~~~~~
-               src/foo/test.kt:79: Error: Composable Text has a Spark replacement that should be used instead: Text [MaterialComposableUsageDetector]
+               src/foo/test.kt:79: Error: Composable Text has a Spark replacement that should be used instead: Text [MaterialComposableHasSparkReplacement]
                                Text()
                                ~~~~
-               src/foo/test.kt:80: Error: Composable TextButton has a Spark replacement that should be used instead: ButtonGhost [MaterialComposableUsageDetector]
+               src/foo/test.kt:80: Error: Composable TextButton has a Spark replacement that should be used instead: ButtonGhost [MaterialComposableHasSparkReplacement]
                                TextButton()
                                ~~~~~~~~~~
-               src/foo/test.kt:81: Error: Composable TooltipBox has a Spark replacement that should be used instead: TooltipBox [MaterialComposableUsageDetector]
+               src/foo/test.kt:81: Error: Composable TooltipBox has a Spark replacement that should be used instead: TooltipBox [MaterialComposableHasSparkReplacement]
                                TooltipBox()
                                ~~~~~~~~~~
-               src/foo/test.kt:82: Error: Composable TopAppBar has a Spark replacement that should be used instead: TopAppBar [MaterialComposableUsageDetector]
+               src/foo/test.kt:82: Error: Composable TopAppBar has a Spark replacement that should be used instead: TopAppBar [MaterialComposableHasSparkReplacement]
                                TopAppBar()
                                ~~~~~~~~~
-               src/foo/test.kt:83: Error: Composable TriStateCheckbox has a Spark replacement that should be used instead: Checkbox [MaterialComposableUsageDetector]
+               src/foo/test.kt:83: Error: Composable TriStateCheckbox has a Spark replacement that should be used instead: Checkbox [MaterialComposableHasSparkReplacement]
                                TriStateCheckbox()
                                ~~~~~~~~~~~~~~~~
-               src/foo/test.kt:84: Error: Composable ripple has a Spark replacement that should be used instead: ripple [MaterialComposableUsageDetector]
+               src/foo/test.kt:84: Error: Composable ripple has a Spark replacement that should be used instead: ripple [MaterialComposableHasSparkReplacement]
                                ripple()
                                ~~~~~~
-               src/foo/test.kt:85: Error: Composable HorizontalDivider has a Spark replacement that should be used instead: HorizontalDivider [MaterialComposableUsageDetector]
+               src/foo/test.kt:85: Error: Composable HorizontalDivider has a Spark replacement that should be used instead: HorizontalDivider [MaterialComposableHasSparkReplacement]
                                HorizontalDivider()
                                ~~~~~~~~~~~~~~~~~
-               src/foo/test.kt:86: Error: Composable VerticalDivider has a Spark replacement that should be used instead: VerticalDivider [MaterialComposableUsageDetector]
+               src/foo/test.kt:86: Error: Composable VerticalDivider has a Spark replacement that should be used instead: VerticalDivider [MaterialComposableHasSparkReplacement]
                                VerticalDivider()
                                ~~~~~~~~~~~~~~~
                78 errors
