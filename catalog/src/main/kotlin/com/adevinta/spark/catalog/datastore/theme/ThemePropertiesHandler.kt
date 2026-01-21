@@ -27,17 +27,10 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
-import androidx.datastore.preferences.core.PreferenceDataStoreFactory
-import androidx.datastore.preferences.core.Preferences
 import com.adevinta.spark.catalog.themes.Theme
-import io.github.vinceglb.filekit.FileKit
-import io.github.vinceglb.filekit.databasesDir
-import io.github.vinceglb.filekit.path
-import io.github.vinceglb.filekit.resolve
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
-import okio.Path.Companion.toPath
 import java.io.IOException
 
 internal class ThemePropertiesHandler(context: Context) {
@@ -69,11 +62,6 @@ internal class ThemePropertiesHandler(context: Context) {
         )
     }
 }
-
-public fun createDataStore(fileName: String = "theme_properties.pb"): DataStore<Preferences> =
-    PreferenceDataStoreFactory.createWithPath {
-        FileKit.databasesDir.resolve(fileName).path.toPath()
-    }
 
 @Composable
 internal fun Flow<Theme>.collectAsStateWithDefault(context: Context): State<Theme> = collectAsState(
