@@ -1128,6 +1128,18 @@ public fun SparkColors.asMaterial3Colors(): ColorScheme = ColorScheme(
     surfaceContainerHighest = surface,
     surfaceContainerLow = surface,
     surfaceContainerLowest = surface,
+    primaryFixed = main,
+    primaryFixedDim = mainContainer,
+    onPrimaryFixed = onMain,
+    onPrimaryFixedVariant = onMainContainer,
+    secondaryFixed = support,
+    secondaryFixedDim = supportContainer,
+    onSecondaryFixed = onSupport,
+    onSecondaryFixedVariant = onSupportContainer,
+    tertiaryFixed = support,
+    tertiaryFixedDim = supportContainer,
+    onTertiaryFixed = onSupport,
+    onTertiaryFixedVariant = onSupportContainer,
 )
 
 /**

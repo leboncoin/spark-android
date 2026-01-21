@@ -112,7 +112,7 @@ internal fun IconExampleScreen(
                         sharedTransitionScope.rememberSharedContentState(key = "icon-$name"),
                         animatedVisibilityScope = animatedContentScope,
                         boundsTransform = boundsTransform,
-                        placeHolderSize = SharedTransitionScope.PlaceHolderSize.animatedSize,
+                        placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
                     ),
                 atEnd = atEnd,
             )

@@ -30,6 +30,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.RichTooltipColors
+import androidx.compose.material3.TooltipAnchorPosition
 import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.TooltipState
 import androidx.compose.material3.rememberTooltipState
@@ -89,7 +90,9 @@ import kotlinx.coroutines.launch
 public fun Popover(
     popover: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    positionProvider: PopupPositionProvider = TooltipDefaults.rememberRichTooltipPositionProvider(),
+    positionProvider: PopupPositionProvider = TooltipDefaults.rememberTooltipPositionProvider(
+        positioning = TooltipAnchorPosition.Above,
+    ),
     intent: PopoverIntent = PopoverIntent.Surface,
     isDismissButtonEnabled: Boolean = false,
     popoverState: TooltipState = rememberTooltipState(isPersistent = true),

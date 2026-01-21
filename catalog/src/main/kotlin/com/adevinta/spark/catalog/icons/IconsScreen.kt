@@ -235,7 +235,7 @@ public fun IconsScreen(
                                     sharedTransitionScope.rememberSharedContentState(key = "icon-$iconName"),
                                     animatedVisibilityScope = animatedContentScope,
                                     boundsTransform = boundsTransform,
-                                    placeHolderSize = SharedTransitionScope.PlaceHolderSize.animatedSize,
+                                    placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
                                 )
                                 .size(40.dp),
                         )

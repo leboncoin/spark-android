@@ -21,13 +21,9 @@
  */
 package com.adevinta.spark.catalog.configurator.component
 
-import androidx.compose.animation.BoundsTransform
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
-import androidx.compose.animation.core.ArcMode
 import androidx.compose.animation.core.ExperimentalAnimationSpecApi
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.keyframes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -90,13 +86,6 @@ public fun ConfiguratorComponentScreen(
     val scrollState = rememberScrollState()
     TrackScrollJank(scrollableState = scrollState, stateName = "configurator-component:screen")
     val snackbarHostState = remember { SnackbarHostState() }
-    val boundsTransform = BoundsTransform { initialBounds, targetBounds ->
-        keyframes {
-            durationMillis = 300
-            initialBounds at 0 using ArcMode.ArcBelow using FastOutSlowInEasing
-            targetBounds at 300
-        }
-    }
     with(LocalSharedTransitionScope.current) {
         Scaffold(
             modifier = Modifier.sharedBounds(
@@ -109,16 +98,16 @@ public fun ConfiguratorComponentScreen(
                 ),
                 animatedVisibilityScope = LocalAnimatedVisibilityScope.current,
                 resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
-//                boundsTransform = boundsTransform,
-                placeHolderSize = SharedTransitionScope.PlaceHolderSize.animatedSize,
+                placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
             ),
             snackbarHost = { SnackbarHost(snackbarHostState) },
-        ) {
+        ) { paddingValues ->
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .verticalScroll(scrollState)
                     .windowInsetsPadding(WindowInsets.navigationBars)
+                    .padding(paddingValues)
                     .padding(horizontal = Layout.bodyMargin)
                     .skipToLookaheadSize()
                     .imePadding(),

@@ -42,7 +42,7 @@ import java.util.EnumSet
 /**
  * Checks if a Composable has a Spark replacement.
  */
-public class MaterialComposableUsageDetector :
+public class MaterialComposableHasSparkReplacementDetector :
     Detector(),
     SourceCodeScanner {
 
@@ -73,14 +73,14 @@ public class MaterialComposableUsageDetector :
 
     internal companion object {
         val ISSUE = Issue.create(
-            id = "MaterialComposableUsageDetector",
+            id = "MaterialComposableHasSparkReplacement",
             briefDescription = "A Spark replacement is available for this Composable",
             explanation = "Material or any other third party Composable should be replaced with a Spark Composable.",
             category = CORRECTNESS,
             priority = 8,
             severity = ERROR,
             implementation = Implementation(
-                MaterialComposableUsageDetector::class.java,
+                MaterialComposableHasSparkReplacementDetector::class.java,
                 EnumSet.of(JAVA_FILE, TEST_SOURCES),
             ),
         )
