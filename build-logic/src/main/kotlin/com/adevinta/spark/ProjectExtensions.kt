@@ -46,7 +46,7 @@ internal val Project.isAndroid: Boolean get() = pluginManager.hasPlugin("com.and
 internal val Project.isJavaPlatform: Boolean get() = pluginManager.hasPlugin("org.gradle.java-platform")
 
 internal fun Project.android(
-    configure: CommonExtension<*, *, *, *, *, *>.() -> Unit,
+    configure: CommonExtension.() -> Unit,
 ) = when {
     isAndroidApplication -> androidApplication(configure)
     isAndroidLibrary -> androidLibrary(configure)
@@ -67,9 +67,9 @@ internal fun Project.androidTest(
 ) = configure<TestExtension>(configure)
 
 internal fun Project.configureAndroid(
-    configure: CommonExtension<*, *, *, *, *, *>.() -> Unit,
+    configure: CommonExtension.() -> Unit,
 ) = android {
-    compileOptions {
+    compileOptions.apply {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
