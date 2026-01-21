@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.catalog.themes
 
+import android.annotation.SuppressLint
 import android.app.UiModeManager
 import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
@@ -36,6 +37,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.systemGestureExclusion
+import androidx.compose.material3.Slider as MaterialSlider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -138,7 +140,8 @@ public fun ThemePicker(
                         style = SparkTheme.typography.body2.highlight,
                     )
 
-                    Slider(
+                    @SuppressLint("MaterialComposableHasSparkReplacement")
+                    MaterialSlider(
                         modifier = Modifier
                             .fillMaxWidth()
                             .systemGestureExclusion(),
