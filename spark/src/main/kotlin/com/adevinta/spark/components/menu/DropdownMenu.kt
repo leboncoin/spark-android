@@ -51,6 +51,7 @@ import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
@@ -185,7 +186,7 @@ public fun ExposedDropdownMenuBoxScope.ExposedDropdownMenu(
         containerColor = SparkTheme.colors.surface,
         tonalElevation = ElevationTokens.Level0,
         shadowElevation = ElevationTokens.Level2,
-        matchTextFieldWidth = matchTextFieldWidth,
+        matchAnchorWidth = matchTextFieldWidth,
         border = null,
         content = {
             val scope = remember { DropdownMenuItemWrapper(this) }
@@ -229,7 +230,7 @@ public fun ExposedDropdownMenuBoxScope.SingleChoiceExposedDropdownMenu(
         containerColor = SparkTheme.colors.surface,
         tonalElevation = ElevationTokens.Level0,
         shadowElevation = ElevationTokens.Level2,
-        matchTextFieldWidth = matchTextFieldWidth,
+        matchAnchorWidth = matchTextFieldWidth,
         border = null,
         content = {
             val scope = remember { SingleChoiceDropdownItemWrapper(this) }
@@ -271,7 +272,7 @@ public fun ExposedDropdownMenuBoxScope.MultipleChoiceExposedDropdownMenu(
         containerColor = SparkTheme.colors.surface,
         tonalElevation = ElevationTokens.Level2,
         shadowElevation = ElevationTokens.Level2,
-        matchTextFieldWidth = matchTextFieldWidth,
+        matchAnchorWidth = matchTextFieldWidth,
         border = null,
         content = {
             val scope = remember { MultiChoiceDropdownItemWrapper(this) }
@@ -281,12 +282,15 @@ public fun ExposedDropdownMenuBoxScope.MultipleChoiceExposedDropdownMenu(
 }
 
 /** Scope for the children of a [DropdownMenu] */
+@Immutable
 public interface DropdownMenuItemColumnScope : ColumnScope
 
 /** Scope for the children of a [SingleChoiceComboBox] */
+@Immutable
 public interface SingleChoiceDropdownItemColumnScope : DropdownMenuItemColumnScope
 
 /** Scope for the children of a [MultiChoiceComboBox] */
+@Immutable
 public interface MultiChoiceDropdownItemColumnScope : DropdownMenuItemColumnScope
 
 private class DropdownMenuItemWrapper(scope: ColumnScope) :

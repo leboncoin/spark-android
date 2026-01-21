@@ -134,9 +134,9 @@ public class StringResourceAnnotationDetector : ResourceXmlDetector() {
             id = "UnknownAnnotationAttributeNameDetector",
             briefDescription = "Unknown annotation name",
             explanation = """
-                This annotation attribute name is not supported and won't be parsed.
+                This annotation attribute name is not supported and won't be parsed. \
                 Supported names are ${ATTRIBUTE_HANDLERS.keys}.
-            """.trimIndent(),
+            """,
             category = CORRECTNESS,
             priority = 5,
             severity = WARNING,
@@ -147,7 +147,7 @@ public class StringResourceAnnotationDetector : ResourceXmlDetector() {
         )
 
         val UNSUPPORTED_ANNOTATION_ATTRIBUTE_VALUE_ISSUE = Issue.create(
-            id = "UnsupportedAnnotationAttributeValueDetector",
+            id = "UnsupportedAnnotationAttributeValue",
             briefDescription = "Unsupported annotation value",
             explanation = "This annotation attribute value is not supported and won't be parsed",
             category = CORRECTNESS,
@@ -164,9 +164,9 @@ public class StringResourceAnnotationDetector : ResourceXmlDetector() {
             briefDescription = "Empty annotation variable",
             explanation =
             """
-                Empty annotation variable will prevent the variable from being injected.
+                Empty annotation variable will prevent the variable from being injected. \
                 Some content (like a space character) needs to be added.
-            """.trimIndent(),
+            """,
             category = CORRECTNESS,
             priority = 8,
             severity = ERROR,

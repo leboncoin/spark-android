@@ -1,12 +1,12 @@
 [versions]
 accompanist = "0.36.0"
-agp = "8.13.0"
-androidx-activity = "1.11.0"
+agp = "8.13.2"
+androidx-activity = "1.12.2"
 androidx-appCompat = "1.7.1"
 compileSdk = "36"
 dokka = "1.9.20"
-kotlin = "2.2.20"
-lint = "31.13.0"
+kotlin = "2.3.0"
+lint = "31.13.2"
 minCompileSdk = "24"
 targetSdk = "36"
 
@@ -25,12 +25,14 @@ androidx-activity-compose = { module = "androidx.activity:activity-compose", ver
 androidx-appCompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appCompat" }
 androidx-appCompat-resources = { module = "androidx.appcompat:appcompat-resources", version.ref = "androidx-appCompat" }
 
+androidx-compose-animation-core = { module = "androidx.compose.animation:animation-core" }
 androidx-compose-animation-graphics = { module = "androidx.compose.animation:animation-graphics" }
-androidx-compose-bom = "androidx.compose:compose-bom:2025.09.00"
+androidx-compose-bom = "androidx.compose:compose-bom:2025.12.01"
 androidx-compose-foundation = { module = "androidx.compose.foundation:foundation" }
 androidx-compose-foundation-layout = { module = "androidx.compose.foundation:foundation-layout" }
 androidx-compose-material-iconsExtended = { module = "androidx.compose.material:material-icons-extended" }
-androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
+# Pinned to 1.3.2 instead of using BOM version as we are not ready to upgrade Material 3 yet
+androidx-compose-material3 = "androidx.compose.material3:material3:1.4.0"
 androidx-compose-material3-windowSizeClass = { module = "androidx.compose.material3:material3-window-size-class"}
 androidx-compose-material3-adaptive = { module = "androidx.compose.material3.adaptive:adaptive"}
 androidx-compose-runtime = { module = "androidx.compose.runtime:runtime" }
@@ -47,30 +49,31 @@ androidx-compose-ui-util = { module = "androidx.compose.ui:ui-util" }
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.1"
 androidx-constraintlayout-compose = "androidx.constraintlayout:constraintlayout-compose:1.1.1"
 
-androidx-core = "androidx.core:core-ktx:1.16.0"
+androidx-core = "androidx.core:core-ktx:1.17.0"
 
-androidx-graphics-shapes = "androidx.graphics:graphics-shapes:1.0.1"
+androidx-graphics-shapes = "androidx.graphics:graphics-shapes:1.1.0"
 
-androidx-lifecycle-viewmodel = "androidx.lifecycle:lifecycle-viewmodel:2.9.4"
+androidx-lifecycle-viewmodel = "androidx.lifecycle:lifecycle-viewmodel:2.10.0"
 androidx-metrics =  "androidx.metrics:metrics-performance:1.0.0"
 
-androidx-navigation-compose = "androidx.navigation:navigation-compose:2.9.5"
+androidx-navigation-compose = "androidx.navigation:navigation-compose:2.9.6"
 
-androidx-savedstate = "androidx.savedstate:savedstate-ktx:1.3.3"
+androidx-savedstate = "androidx.savedstate:savedstate-ktx:1.4.0"
 
 androidx-test-runner = "androidx.test:runner:1.7.0"
 androidx-test-truth = "androidx.test.ext:truth:1.7.0"
 
-androidx-window = "androidx.window:window:1.4.0"
+androidx-window = "androidx.window:window:1.5.1"
 
 # https://coil-kt.github.io/coil/
 coil-bom = "io.coil-kt.coil3:coil-bom:3.3.0"
 coil-compose = { module = "io.coil-kt.coil3:coil-compose" }
 
 constraintsExplorer = "com.zachklipp:constraints-explorer:1.1.0"
+colorPicker = "com.github.skydoves:colorpicker-compose:1.1.3"
 
 # https://developer.android.com/topic/libraries/architecture/datastore
-androidx-datastore = "androidx.datastore:datastore:1.1.7"
+androidx-datastore = "androidx.datastore:datastore:1.2.0"
 
 # Docs: https://developer.android.com/studio/write/java8-support#library-desugaring
 # Changelog: https://github.com/google/desugar_jdk_libs/blob/master/CHANGELOG.md
@@ -89,7 +92,7 @@ kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test" }
 kotlinx-collections-immutable = "org.jetbrains.kotlinx:kotlinx-collections-immutable:0.4.0"
 kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0"
 
-ktlint-bom = "com.pinterest.ktlint:ktlint-bom:1.7.1"
+ktlint-bom = "com.pinterest.ktlint:ktlint-bom:1.8.0"
 
 lint = { module = "com.android.tools.lint:lint", version.ref = "lint" }
 lint-api = { module = "com.android.tools.lint:lint-api", version.ref = "lint" }
@@ -99,12 +102,12 @@ lint-tests = { module = "com.android.tools.lint:lint-tests", version.ref = "lint
 material-motion = "io.github.fornewid:material-motion-compose-core:2.0.1"
 
 # https://github.com/robolectric/robolectric
-robolectric = "org.robolectric:robolectric:4.16"
+robolectric = "org.robolectric:robolectric:4.16.1"
 
 slack-lint-compose = "com.slack.lint.compose:compose-lint-checks:1.4.2"
 
 # https://github.com/google/TestParameterInjector
-testParameterInjector = "com.google.testparameterinjector:test-parameter-injector:1.19"
+testParameterInjector = "com.google.testparameterinjector:test-parameter-injector:1.20"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -117,9 +120,9 @@ dependencyGuard = "com.dropbox.dependency-guard:0.5.0"
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-nmcp = "com.gradleup.nmcp:1.2.0"
+nmcp = "com.gradleup.nmcp:1.3.0"
 paparazzi = "app.cash.paparazzi:2.0.0-alpha02"
-spotless = "com.diffplug.spotless:8.0.0"
+spotless = "com.diffplug.spotless:8.1.0"
 
 
 # Plugins defined by this project

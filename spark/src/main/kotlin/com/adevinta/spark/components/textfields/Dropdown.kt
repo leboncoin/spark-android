@@ -38,8 +38,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.MenuAnchorType
+import androidx.compose.material3.TooltipAnchorPosition
 import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.TooltipState
 import androidx.compose.runtime.Composable
@@ -83,10 +84,10 @@ import com.adevinta.spark.components.popover.PlainTooltip
 import com.adevinta.spark.components.popover.TooltipBox
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.CollapseExpand
 import com.adevinta.spark.icons.DeleteOutline
 import com.adevinta.spark.icons.SparkAnimatedIcons
 import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.collapseExpand
 import com.adevinta.spark.tokens.SparkTypography
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 import kotlinx.collections.immutable.ImmutableList
@@ -181,7 +182,7 @@ public fun SelectTextField(
         TextField(
             value = value,
             onValueChange = onValueChange,
-            modifier = modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable),
+            modifier = modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable),
             enabled = enabled,
             readOnly = readOnly,
             required = required,
@@ -297,7 +298,7 @@ public fun SelectTextField(
         TextField(
             value = value,
             onValueChange = onValueChange,
-            modifier = modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable),
+            modifier = modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable),
             enabled = enabled,
             readOnly = readOnly,
             required = required,
@@ -398,7 +399,7 @@ public fun Dropdown(
         TextField(
             value = value,
             onValueChange = { },
-            modifier = modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable),
+            modifier = modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable),
             enabled = enabled,
             readOnly = true,
             required = required,
@@ -495,7 +496,7 @@ public fun SingleChoiceDropdown(
         TextField(
             value = value,
             onValueChange = { },
-            modifier = modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable),
+            modifier = modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable),
             enabled = enabled,
             readOnly = true,
             required = required,
@@ -595,7 +596,7 @@ public fun MultiChoiceDropdown(
             TextField(
                 value = value,
                 onValueChange = { },
-                modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable, enabled),
+                modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable, enabled),
                 enabled = enabled,
                 readOnly = true,
                 required = required,
@@ -851,7 +852,7 @@ public fun SparkSelectTrailingIcon(
             modifier = modifier,
         ) {
             Icon(
-                sparkIcon = SparkAnimatedIcons.CollapseExpand,
+                sparkIcon = SparkAnimatedIcons.collapseExpand(),
                 size = IconSize.Medium,
                 contentDescription = null,
                 atEnd = expanded,
@@ -859,7 +860,7 @@ public fun SparkSelectTrailingIcon(
         }
     } else {
         Icon(
-            sparkIcon = SparkAnimatedIcons.CollapseExpand,
+            sparkIcon = SparkAnimatedIcons.collapseExpand(),
             size = IconSize.Medium,
             contentDescription = null,
             atEnd = expanded,
@@ -876,7 +877,9 @@ private fun SelectTextFieldTapPreview() {
         val tooltipState = remember { TooltipState() }
         val coroutineScope = rememberCoroutineScope()
         TooltipBox(
-            positionProvider = TooltipDefaults.rememberPlainTooltipPositionProvider(),
+            positionProvider = TooltipDefaults.rememberTooltipPositionProvider(
+                positioning = TooltipAnchorPosition.Above,
+            ),
             tooltip = {
                 PlainTooltip {
                     Text("Tapped")

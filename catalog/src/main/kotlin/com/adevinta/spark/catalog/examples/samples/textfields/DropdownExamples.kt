@@ -51,7 +51,7 @@ private val DropdownStubData = persistentListOf(
     DropdownExampleGroup("Novelties", persistentListOf("A Picture of Dorian Gray", "1984", "Pride and Prejudice")),
 )
 
-public val DropdownsExamples: List<Example> = listOf(
+public val DropdownsExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "single-select",
         name = "Single selection",

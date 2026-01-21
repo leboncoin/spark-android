@@ -922,8 +922,10 @@ private fun TopAppBarLayout(
             titlePlaceable.placeRelative(
                 x = when (titleHorizontalArrangement) {
                     Arrangement.Center -> (constraints.maxWidth - titlePlaceable.width) / 2
+
                     Arrangement.End ->
                         constraints.maxWidth - titlePlaceable.width - actionIconsPlaceable.width
+
                     // Arrangement.Start.
                     // An TopAppBarTitleInset will make sure the title is offset in case the
                     // navigation icon is missing.
@@ -931,6 +933,7 @@ private fun TopAppBarLayout(
                 },
                 y = when (titleVerticalArrangement) {
                     Arrangement.Center -> (layoutHeight - titlePlaceable.height) / 2
+
                     // Apply bottom padding from the title's baseline only when the Arrangement is
                     // "Bottom".
                     Arrangement.Bottom ->
@@ -944,6 +947,7 @@ private fun TopAppBarLayout(
                                     titleBottomPadding - titlePlaceable.height + titleBaseline,
                                 )
                         }
+
                     // Arrangement.Top
                     else -> 0
                 },

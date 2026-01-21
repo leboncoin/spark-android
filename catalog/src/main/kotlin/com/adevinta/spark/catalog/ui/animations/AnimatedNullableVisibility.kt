@@ -43,8 +43,6 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -58,6 +56,8 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.components.buttons.ButtonFilled
+import com.adevinta.spark.components.card.Card
+import com.adevinta.spark.components.text.Text
 
 /**
  * Animated visibility composable that shows/hides content based on a nullable value.

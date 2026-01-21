@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.catalog.tabbar
 
+import android.annotation.SuppressLint
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
@@ -33,10 +34,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.LocalContentColor
-import androidx.compose.material3.ScrollableTabRow
+import androidx.compose.material3.SecondaryScrollableTabRow
 import androidx.compose.material3.Tab
-import androidx.compose.material3.TabPosition
-import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -57,6 +56,8 @@ import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.components.image.Illustration
 import com.adevinta.spark.components.text.Text
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 public fun CatalogTabBar(
@@ -89,22 +90,23 @@ private fun AppIcon() {
     )
 }
 
+@SuppressLint("MaterialComposableHasSparkReplacement")
 @Composable
 internal fun CatalogTabs(
     modifier: Modifier = Modifier,
-    titles: List<String>,
+    titles: ImmutableList<String>,
     tabSelected: CatalogHomeScreen,
     onTabSelected: (CatalogHomeScreen) -> Unit,
 ) {
-    ScrollableTabRow(
+    SecondaryScrollableTabRow(
         selectedTabIndex = tabSelected.ordinal,
         modifier = modifier,
         containerColor = Color.Transparent,
         contentColor = LocalContentColor.current,
-        indicator = { tabPositions: List<TabPosition> ->
+        indicator = {
             Box(
                 Modifier
-                    .tabIndicatorOffset(tabPositions[tabSelected.ordinal])
+                    .tabIndicatorOffset(tabSelected.ordinal)
                     .fillMaxSize()
                     .padding(horizontal = 4.dp)
                     .border(BorderStroke(2.dp, LocalContentColor.current), SparkTheme.shapes.full),
@@ -119,6 +121,7 @@ internal fun CatalogTabs(
     }
 }
 
+@SuppressLint("MaterialComposableHasSparkReplacement")
 @Composable
 private fun CatalogTab(
     selected: Boolean,
@@ -157,7 +160,7 @@ private fun CatalogTabBarPreview() {
         ) { tabBarModifier ->
             CatalogTabs(
                 modifier = tabBarModifier,
-                titles = CatalogHomeScreen.entries.map { it.name },
+                titles = CatalogHomeScreen.entries.map { it.name }.toImmutableList(),
                 tabSelected = CatalogHomeScreen.Examples,
                 onTabSelected = { },
             )

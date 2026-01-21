@@ -21,14 +21,13 @@
  */
 package com.adevinta.spark.components.progress.tracker
 
-/**
- * BadgeIntent is used to define the intent of the badge.
- */
-
 import androidx.compose.runtime.Composable
 import com.adevinta.spark.components.IntentColor
 import com.adevinta.spark.components.IntentColors
 
+/**
+ * ProgressTrackerIntent is used to define the intent of the progress tracker.
+ */
 public enum class ProgressTrackerIntent {
     /**
      * Used to match default color of such UI controls as toggles, Slider, etc.

@@ -191,15 +191,20 @@ public fun Icon(
  * @param sparkIcon the icon to draw.
  * @param atEnd Whether the animated vector should be rendered at the end of all its animations.
  */
+@Suppress("DEPRECATION")
 @OptIn(ExperimentalAnimationGraphicsApi::class)
 @Composable
 public fun rememberSparkIconPainter(sparkIcon: SparkIcon, atEnd: Boolean = false): Painter = when (sparkIcon) {
     is SparkIcon.Vector -> rememberVectorPainter(sparkIcon.imageVector)
+
     is SparkIcon.DrawableRes -> rememberDrawablePainter(getDrawable(LocalContext.current, sparkIcon.drawableId))
+
     is SparkIcon.AnimatedDrawableRes -> {
         val icon = AnimatedImageVector.animatedVectorResource(sparkIcon.drawableId)
         rememberAnimatedVectorPainter(icon, atEnd)
     }
+
+    is SparkIcon.AnimatedPainter -> sparkIcon.painterProvider(atEnd)
 }
 
 @PreviewLightDark

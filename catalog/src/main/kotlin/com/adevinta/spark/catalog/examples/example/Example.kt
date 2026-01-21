@@ -78,17 +78,19 @@ public fun Example(example: Example) {
                         type = ExamplesSharedElementType.Background,
                     ),
                 ),
-                boundsTransform = { initialBounds, targetBounds ->
+                boundsTransform = { _, _ ->
                     spring(dampingRatio = .8f, stiffness = 380f)
                 },
                 resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
-                placeHolderSize = SharedTransitionScope.PlaceHolderSize.animatedSize,
+                placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
                 animatedVisibilityScope = LocalAnimatedVisibilityScope.current,
             ),
             snackbarHost = { SnackbarHost(snackbarHostState) },
-        ) {
+        ) { paddingValues ->
             Column(
-                modifier = commonModifier.verticalScroll(scrollState),
+                modifier = commonModifier
+                    .verticalScroll(scrollState)
+                    .padding(paddingValues),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 with(example) {

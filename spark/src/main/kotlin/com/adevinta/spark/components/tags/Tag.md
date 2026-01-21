@@ -33,3 +33,29 @@ FlowRow(
     TagOutlined(text = "Tag 6", intent = TagIntent.Main)
 }
 ````
+
+### Tag Intent "Surface"
+
+The Surface intent is designed to display tags on images or visually heavy surfaces. **Important:** The Surface intent can only be used with `TagFilled`. Using it with `TagOutlined` or `TagTinted` will result in an error.
+
+```kotlin
+TagFilled(text = "Featured", intent = TagIntent.Surface)
+```
+
+### Tag "Highlight"
+
+The Highlight tag allows you to temporarily highlight new features of the product. It draws users attention to new features or important updates.
+
+| Light                                                                                                    | Dark                                                                                                                                    |
+|----------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| ![TagHighlight Light](../../images/images/com.adevinta.spark.tags_TagsScreenshot_tagHighlight_light.png) | ![TagHighlight Dark](../../images/images/com.adevinta.spark.tags_TagsScreenshot_tagHighlight_dark.png)      |
+
+**Important Usage Guidelines:**
+
+- Use this component exceptionally to avoid visual overload
+- Always prioritize the elements being highlighted
+- Implement with an End-of-Life Remote Config to prevent indefinite production presence
+
+```kotlin
+TagHighlight()
+```

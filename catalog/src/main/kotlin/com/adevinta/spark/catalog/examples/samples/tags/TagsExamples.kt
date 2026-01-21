@@ -30,18 +30,22 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.tags.TagFilled
+import com.adevinta.spark.components.tags.TagHighlight
+import com.adevinta.spark.components.tags.TagHighlightBadge
 import com.adevinta.spark.components.tags.TagIntent
 import com.adevinta.spark.components.tags.TagOutlined
 import com.adevinta.spark.components.tags.TagTinted
 import com.adevinta.spark.icons.Booster
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 private const val TagsExampleDescription = "Tags examples"
 private const val TagsExampleSourceUrl = "$SampleSourceUrl/TagSamples.kt"
 
 @OptIn(ExperimentalLayoutApi::class)
-public val TagsExamples: List<Example> = listOf(
+public val TagsExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "filled",
         name = "Filled Tag",
@@ -89,6 +93,21 @@ public val TagsExamples: List<Example> = listOf(
                 )
             },
         )
+    },
+    Example(
+        id = "highlight",
+        name = "Tag \"Highlight\"",
+        description = "The Highlight tag allows you to temporarily highlight new features of the product. It draws " +
+            "users' attention to new features or important updates.",
+        sourceUrl = TagsExampleSourceUrl,
+    ) {
+        FlowRow(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            TagHighlight()
+            TagHighlightBadge()
+        }
     },
     Example(
         id = "layout",

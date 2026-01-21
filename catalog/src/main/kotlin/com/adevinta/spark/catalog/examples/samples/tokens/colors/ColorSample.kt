@@ -28,6 +28,10 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,6 +46,8 @@ import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.Order
 import com.adevinta.spark.tokens.SparkColors
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlin.reflect.KProperty1
 import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.full.findAnnotation
@@ -50,7 +56,7 @@ import kotlin.reflect.full.starProjectedType
 
 @Composable
 internal fun ColorSample() {
-    val tokensColorsGroups = rememberColorTokens(SparkTheme.colors)
+    val tokensColorsGroups by rememberColorTokens(SparkTheme.colors)
 
     tokensColorsGroups.forEach { tokens ->
         Row {
@@ -89,22 +95,31 @@ private fun RowScope.ColorItem(color: KProperty1<SparkColors, Color>) {
  * Avoid computing these tokens on each recomposition but do it only when colors changes.
  */
 @Composable
-private fun rememberColorTokens(colors: SparkColors): List<List<KProperty1<SparkColors, Color>>> = remember(colors) {
-    colors::class.declaredMemberProperties
-        .filterNot { field -> field.hasAnnotation<Deprecated>() }
-        // Remove dims and any non color tokens
-        .filter { it.returnType == Color::class.starProjectedType }
-        // Cast the type otherwise we get a star type instead of Long
-        .map { it.cast<KProperty1<SparkColors, Color>>() }
-        // Convert property to always return a Color type
-        .map { it.asColorProperty() }
-        // Remove content colors
-        .filterNot { it.name.startsWith("on") }
-        // Use the same order than the one in the specs
-        .sortedBy { it.findAnnotation<Order>()?.value ?: Int.MAX_VALUE }
-        // Group by token name like "main", "mainContainer" or "mainVariant"
-        .groupBy { it.name.takeWhile { char -> !char.isUpperCase() } }
-        .values.toList()
+private fun rememberColorTokens(colors: SparkColors): State<List<List<KProperty1<SparkColors, Color>>>> {
+    val result = remember(colors) { mutableStateOf<List<List<KProperty1<SparkColors, Color>>>>(emptyList()) }
+
+    LaunchedEffect(colors) {
+        val tokens = withContext(Dispatchers.Default) {
+            colors::class.declaredMemberProperties
+                .filterNot { field -> field.hasAnnotation<Deprecated>() }
+                // Remove dims and any non color tokens
+                .filter { it.returnType == Color::class.starProjectedType }
+                // Cast the type otherwise we get a star type instead of Long
+                .map { it.cast<KProperty1<SparkColors, Color>>() }
+                // Convert property to always return a Color type
+                .map { it.asColorProperty() }
+                // Remove content colors
+                .filterNot { it.name.startsWith("on") }
+                // Use the same order than the one in the specs
+                .sortedBy { it.findAnnotation<Order>()?.value ?: Int.MAX_VALUE }
+                // Group by token name like "main", "mainContainer" or "mainVariant"
+                .groupBy { it.name.takeWhile { char -> !char.isUpperCase() } }
+                .values.toList()
+        }
+        result.value = tokens
+    }
+
+    return result
 }
 
 /**
@@ -114,8 +129,12 @@ private fun KProperty1<SparkColors, Color>.asColorProperty(): KProperty1<SparkCo
     object : KProperty1<SparkColors, Color> by this {
         @Suppress("USELESS_IS_CHECK")
         override fun get(receiver: SparkColors): Color = when (val any: Any = this@asColorProperty.get(receiver)) {
-            is Color -> any // in debug builds
-            is Long -> Color(any.toULong()) // in release builds
+            // in debug builds
+            is Color -> any
+
+            // in release builds
+            is Long -> Color(any.toULong())
+
             else -> error("Unexpected type: ${any::class}")
         }
     }

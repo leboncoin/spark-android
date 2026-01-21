@@ -112,6 +112,8 @@ internal fun ComponentsListScreen(
             .consumeWindowInsets(contentPadding),
         columns = GridCells.Fixed(columns),
         state = state,
+        verticalArrangement = Arrangement.spacedBy(Layout.gutter),
+        horizontalArrangement = Arrangement.spacedBy(Layout.gutter),
         contentPadding = PaddingValues(
             start = Layout.bodyMargin /
                 2 +

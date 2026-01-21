@@ -35,9 +35,11 @@ public class LintIssueRegistry : IssueRegistry() {
 
     override val api: Int = CURRENT_API
     override val issues: List<Issue> = listOf(
-        MaterialComposableUsageDetector.ISSUE,
+        MaterialComposableHasSparkReplacementDetector.ISSUE,
         StringResourceAnnotationDetector.EMPTY_ANNOTATION_VARIABLE_ISSUE,
         StringResourceAnnotationDetector.UNKNOWN_ANNOTATION_ATTRIBUTE_NAME_ISSUE,
         StringResourceAnnotationDetector.UNSUPPORTED_ANNOTATION_ATTRIBUTE_VALUE_ISSUE,
+        ScaffoldPaddingDetector.ISSUE,
+        WrongConditionalModifierUsageDetector.ISSUE,
     )
 }
