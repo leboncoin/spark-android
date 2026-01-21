@@ -1,0 +1,37 @@
+public final class com/adevinta/spark/lint/LintIssueRegistry : com/android/tools/lint/client/api/IssueRegistry {
+	public fun <init> ()V
+	public fun getApi ()I
+	public fun getIssues ()Ljava/util/List;
+	public fun getVendor ()Lcom/android/tools/lint/client/api/Vendor;
+}
+
+public final class com/adevinta/spark/lint/MaterialComposableHasSparkReplacementDetector : com/android/tools/lint/detector/api/Detector, com/android/tools/lint/detector/api/SourceCodeScanner {
+	public fun <init> ()V
+	public fun getApplicableMethodNames ()Ljava/util/List;
+	public fun visitMethodCall (Lcom/android/tools/lint/detector/api/JavaContext;Lorg/jetbrains/uast/UCallExpression;Lcom/intellij/psi/PsiMethod;)V
+}
+
+public final class com/adevinta/spark/lint/ScaffoldPaddingDetector : com/android/tools/lint/detector/api/Detector, com/android/tools/lint/detector/api/SourceCodeScanner {
+	public static final field Companion Lcom/adevinta/spark/lint/ScaffoldPaddingDetector$Companion;
+	public fun <init> ()V
+	public fun getApplicableMethodNames ()Ljava/util/List;
+	public fun visitMethodCall (Lcom/android/tools/lint/detector/api/JavaContext;Lorg/jetbrains/uast/UCallExpression;Lcom/intellij/psi/PsiMethod;)V
+}
+
+public final class com/adevinta/spark/lint/ScaffoldPaddingDetector$Companion {
+	public final fun getISSUE ()Lcom/android/tools/lint/detector/api/Issue;
+}
+
+public final class com/adevinta/spark/lint/StringResourceAnnotationDetector : com/android/tools/lint/detector/api/ResourceXmlDetector {
+	public fun <init> ()V
+	public fun appliesTo (Lcom/android/resources/ResourceFolderType;)Z
+	public fun getApplicableElements ()Ljava/util/Collection;
+	public fun visitElement (Lcom/android/tools/lint/detector/api/XmlContext;Lorg/w3c/dom/Element;)V
+}
+
+public final class com/adevinta/spark/lint/WrongConditionalModifierUsageDetector : com/android/tools/lint/detector/api/Detector, com/android/tools/lint/detector/api/SourceCodeScanner {
+	public fun <init> ()V
+	public fun createUastHandler (Lcom/android/tools/lint/detector/api/JavaContext;)Lcom/android/tools/lint/client/api/UElementHandler;
+	public fun getApplicableUastTypes ()Ljava/util/List;
+}
+

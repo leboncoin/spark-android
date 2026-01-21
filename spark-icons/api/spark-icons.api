@@ -1,21 +1,46 @@
+public final class com/adevinta/spark/icons/AnimatedIconMetadata {
+	public static final field $stable I
+	public fun <init> (Ljava/lang/String;Lkotlin/jvm/functions/Function0;Ljava/lang/String;Z)V
+	public synthetic fun <init> (Ljava/lang/String;Lkotlin/jvm/functions/Function0;Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lkotlin/jvm/functions/Function0;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Z
+	public final fun copy (Ljava/lang/String;Lkotlin/jvm/functions/Function0;Ljava/lang/String;Z)Lcom/adevinta/spark/icons/AnimatedIconMetadata;
+	public static synthetic fun copy$default (Lcom/adevinta/spark/icons/AnimatedIconMetadata;Ljava/lang/String;Lkotlin/jvm/functions/Function0;Ljava/lang/String;ZILjava/lang/Object;)Lcom/adevinta/spark/icons/AnimatedIconMetadata;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAnimateAtEnd ()Z
+	public final fun getIconProvider ()Lkotlin/jvm/functions/Function0;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getNavigationLabel ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/adevinta/spark/icons/ComposableSingletons$SparkAnimatedIconsKt {
+	public static final field INSTANCE Lcom/adevinta/spark/icons/ComposableSingletons$SparkAnimatedIconsKt;
+	public fun <init> ()V
+	public final fun getLambda$976446938$spark_icons_release ()Lkotlin/jvm/functions/Function2;
+}
+
 public final class com/adevinta/spark/icons/SparkAnimatedIcons {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/adevinta/spark/icons/SparkAnimatedIcons;
 }
 
 public final class com/adevinta/spark/icons/SparkAnimatedIconsKt {
-	public static final fun getAccountToFill (Lcom/adevinta/spark/icons/SparkAnimatedIcons;)Lcom/adevinta/spark/icons/SparkIcon$AnimatedDrawableRes;
-	public static final fun getAccountToFillAlt (Lcom/adevinta/spark/icons/SparkAnimatedIcons;)Lcom/adevinta/spark/icons/SparkIcon$AnimatedDrawableRes;
-	public static final fun getAddToFill (Lcom/adevinta/spark/icons/SparkAnimatedIcons;)Lcom/adevinta/spark/icons/SparkIcon$AnimatedDrawableRes;
-	public static final fun getBellShake (Lcom/adevinta/spark/icons/SparkAnimatedIcons;)Lcom/adevinta/spark/icons/SparkIcon$AnimatedDrawableRes;
-	public static final fun getCollapseExpand (Lcom/adevinta/spark/icons/SparkAnimatedIcons;)Lcom/adevinta/spark/icons/SparkIcon$AnimatedDrawableRes;
-	public static final fun getLikeToFill (Lcom/adevinta/spark/icons/SparkAnimatedIcons;)Lcom/adevinta/spark/icons/SparkIcon$AnimatedDrawableRes;
-	public static final fun getMessageToOutline (Lcom/adevinta/spark/icons/SparkAnimatedIcons;)Lcom/adevinta/spark/icons/SparkIcon$AnimatedDrawableRes;
-	public static final fun getSearchToOutline (Lcom/adevinta/spark/icons/SparkAnimatedIcons;)Lcom/adevinta/spark/icons/SparkIcon$AnimatedDrawableRes;
+	public static final fun accountIcon (Lcom/adevinta/spark/icons/SparkAnimatedIcons;)Lcom/adevinta/spark/icons/SparkIcon$AnimatedPainter;
+	public static final fun addButton (Lcom/adevinta/spark/icons/SparkAnimatedIcons;)Lcom/adevinta/spark/icons/SparkIcon$AnimatedPainter;
+	public static final fun bellShake (Lcom/adevinta/spark/icons/SparkAnimatedIcons;)Lcom/adevinta/spark/icons/SparkIcon$AnimatedPainter;
+	public static final fun collapseExpand (Lcom/adevinta/spark/icons/SparkAnimatedIcons;)Lcom/adevinta/spark/icons/SparkIcon$AnimatedPainter;
+	public static final fun getAllAnimatedIcons ()Ljava/util/Set;
+	public static final fun getAllAnimatedIconsMetadata ()Ljava/util/List;
+	public static final fun likeHeart (Lcom/adevinta/spark/icons/SparkAnimatedIcons;)Lcom/adevinta/spark/icons/SparkIcon$AnimatedPainter;
+	public static final fun messageIcon (Lcom/adevinta/spark/icons/SparkAnimatedIcons;)Lcom/adevinta/spark/icons/SparkIcon$AnimatedPainter;
+	public static final fun searchIcon (Lcom/adevinta/spark/icons/SparkAnimatedIcons;)Lcom/adevinta/spark/icons/SparkIcon$AnimatedPainter;
 }
 
-public abstract class com/adevinta/spark/icons/SparkIcon {
-	public static final field $stable I
+public abstract interface class com/adevinta/spark/icons/SparkIcon {
 }
 
 public final class com/adevinta/spark/icons/SparkIcon$AnimatedDrawableRes : com/adevinta/spark/icons/SparkIcon {
@@ -26,6 +51,18 @@ public final class com/adevinta/spark/icons/SparkIcon$AnimatedDrawableRes : com/
 	public static synthetic fun copy$default (Lcom/adevinta/spark/icons/SparkIcon$AnimatedDrawableRes;IILjava/lang/Object;)Lcom/adevinta/spark/icons/SparkIcon$AnimatedDrawableRes;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getDrawableId ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/adevinta/spark/icons/SparkIcon$AnimatedPainter : com/adevinta/spark/icons/SparkIcon {
+	public static final field $stable I
+	public fun <init> (Lkotlin/jvm/functions/Function3;)V
+	public final fun component1 ()Lkotlin/jvm/functions/Function3;
+	public final fun copy (Lkotlin/jvm/functions/Function3;)Lcom/adevinta/spark/icons/SparkIcon$AnimatedPainter;
+	public static synthetic fun copy$default (Lcom/adevinta/spark/icons/SparkIcon$AnimatedPainter;Lkotlin/jvm/functions/Function3;ILjava/lang/Object;)Lcom/adevinta/spark/icons/SparkIcon$AnimatedPainter;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getPainterProvider ()Lkotlin/jvm/functions/Function3;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }

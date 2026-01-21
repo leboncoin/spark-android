@@ -15,10 +15,10 @@ public final class com/adevinta/spark/SparkFeatureFlag {
 	public final fun copy (ZZZ)Lcom/adevinta/spark/SparkFeatureFlag;
 	public static synthetic fun copy$default (Lcom/adevinta/spark/SparkFeatureFlag;ZZZILjava/lang/Object;)Lcom/adevinta/spark/SparkFeatureFlag;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getUseLegacyStyle ()Z
 	public final fun getUseSparkComponentsHighlighter ()Z
 	public final fun getUseSparkTokensHighlighter ()Z
 	public fun hashCode ()I
+	public final fun isContainingActivityEdgeToEdge ()Z
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -37,21 +37,93 @@ public final class com/adevinta/spark/SparkThemeKt {
 	public static final fun getLocalSparkExceptionHandler ()Landroidx/compose/runtime/ProvidableCompositionLocal;
 }
 
+public final class com/adevinta/spark/animation/ComposableSingletons$PulseKt {
+	public static final field INSTANCE Lcom/adevinta/spark/animation/ComposableSingletons$PulseKt;
+	public fun <init> ()V
+	public final fun getLambda$-104393634$spark_release ()Lkotlin/jvm/functions/Function3;
+}
+
+public final class com/adevinta/spark/animation/ComposableSingletons$ShakeKt {
+	public static final field INSTANCE Lcom/adevinta/spark/animation/ComposableSingletons$ShakeKt;
+	public fun <init> ()V
+	public final fun getLambda$-779367042$spark_release ()Lkotlin/jvm/functions/Function3;
+}
+
+public final class com/adevinta/spark/animation/PulseKt {
+	public static final fun pulse (Landroidx/compose/ui/Modifier;Landroidx/compose/ui/graphics/Brush;ZFFLandroidx/compose/ui/graphics/Shape;Landroidx/compose/animation/core/DurationBasedAnimationSpec;Landroidx/compose/runtime/Composer;II)Landroidx/compose/ui/Modifier;
+	public static final fun pulse-3f6hBDE (Landroidx/compose/ui/Modifier;ZFFJLandroidx/compose/ui/graphics/Shape;Landroidx/compose/animation/core/DurationBasedAnimationSpec;Landroidx/compose/runtime/Composer;II)Landroidx/compose/ui/Modifier;
+}
+
+public final class com/adevinta/spark/animation/ShakeConfig {
+	public static final field $stable I
+	public fun <init> (IFFFFFFFFJ)V
+	public synthetic fun <init> (IFFFFFFFFJILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component10 ()J
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()F
+	public final fun component5 ()F
+	public final fun component6 ()F
+	public final fun component7 ()F
+	public final fun component8 ()F
+	public final fun component9 ()F
+	public final fun copy (IFFFFFFFFJ)Lcom/adevinta/spark/animation/ShakeConfig;
+	public static synthetic fun copy$default (Lcom/adevinta/spark/animation/ShakeConfig;IFFFFFFFFJILjava/lang/Object;)Lcom/adevinta/spark/animation/ShakeConfig;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getIntensity ()F
+	public final fun getIterations ()I
+	public final fun getRotate ()F
+	public final fun getRotateX ()F
+	public final fun getRotateY ()F
+	public final fun getScaleX ()F
+	public final fun getScaleY ()F
+	public final fun getTranslateX ()F
+	public final fun getTranslateY ()F
+	public final fun getTrigger ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/adevinta/spark/animation/ShakeController {
+	public static final field $stable I
+	public fun <init> ()V
+	public final fun getShakeConfig ()Lcom/adevinta/spark/animation/ShakeConfig;
+	public final fun shake (Lcom/adevinta/spark/animation/ShakeConfig;)V
+}
+
+public final class com/adevinta/spark/animation/ShakeKt {
+	public static final fun rememberShakeController (Landroidx/compose/runtime/Composer;I)Lcom/adevinta/spark/animation/ShakeController;
+	public static final fun shake (Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/animation/ShakeController;)Landroidx/compose/ui/Modifier;
+}
+
 public final class com/adevinta/spark/components/appbar/BottomAppBarKt {
-	public static final fun BottomAppBar-1oL4kX8 (Landroidx/compose/ui/Modifier;JJFLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/WindowInsets;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
-	public static final fun BottomAppBar-Snr_uVM (Lkotlin/jvm/functions/Function3;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;JJFLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/WindowInsets;Landroidx/compose/runtime/Composer;II)V
+	public static final fun BottomAppBar-e-3WI5M (Landroidx/compose/ui/Modifier;JJFLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/WindowInsets;Landroidx/compose/material3/BottomAppBarScrollBehavior;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
+	public static final fun BottomAppBar-qhFBPw4 (Lkotlin/jvm/functions/Function3;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;JJFLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/layout/WindowInsets;Lcom/adevinta/spark/components/appbar/SparkBottomAppBarScrollBehavior;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/adevinta/spark/components/appbar/BottomAppBarSparkDefaults {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/adevinta/spark/components/appbar/BottomAppBarSparkDefaults;
+	public final fun bottomAppBarScrollBehavior (Landroidx/compose/material3/BottomAppBarState;Lkotlin/jvm/functions/Function0;Landroidx/compose/animation/core/AnimationSpec;Landroidx/compose/animation/core/DecayAnimationSpec;Landroidx/compose/runtime/Composer;II)Lcom/adevinta/spark/components/appbar/SparkBottomAppBarScrollBehavior;
 }
 
 public final class com/adevinta/spark/components/appbar/ComposableSingletons$BottomAppBarKt {
 	public static final field INSTANCE Lcom/adevinta/spark/components/appbar/ComposableSingletons$BottomAppBarKt;
 	public fun <init> ()V
+	public final fun getLambda$-1222129866$spark_release ()Lkotlin/jvm/functions/Function3;
 	public final fun getLambda$-1731836893$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$-2041282953$spark_release ()Lkotlin/jvm/functions/Function3;
 	public final fun getLambda$-286278342$spark_release ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$-738485175$spark_release ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$2133428422$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-351648040$spark_release ()Lkotlin/jvm/functions/Function4;
+	public final fun getLambda$-906102559$spark_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$1346762727$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$1454028618$spark_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$1569002378$spark_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$30974919$spark_release ()Lkotlin/jvm/functions/Function3;
 	public final fun getLambda$665358929$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$789664974$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$972460254$spark_release ()Lkotlin/jvm/functions/Function3;
 }
 
 public final class com/adevinta/spark/components/appbar/ComposableSingletons$NavigationBarKt {
@@ -65,42 +137,56 @@ public final class com/adevinta/spark/components/appbar/ComposableSingletons$Top
 	public fun <init> ()V
 	public final fun getLambda$-1071790919$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$-1146079829$spark_release ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$-1237939212$spark_release ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$-1461965811$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-1181170198$spark_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-1532660547$spark_release ()Lkotlin/jvm/functions/Function3;
 	public final fun getLambda$-1574086012$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$-1677586370$spark_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-1723089908$spark_release ()Lkotlin/jvm/functions/Function3;
 	public final fun getLambda$-1995271646$spark_release ()Lkotlin/jvm/functions/Function3;
 	public final fun getLambda$-2010780368$spark_release ()Lkotlin/jvm/functions/Function3;
 	public final fun getLambda$-29533333$spark_release ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$-41095519$spark_release ()Lkotlin/jvm/functions/Function3;
 	public final fun getLambda$-568388082$spark_release ()Lkotlin/jvm/functions/Function3;
 	public final fun getLambda$-608823667$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$-773843402$spark_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$-870932309$spark_release ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$-951643299$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-822286136$spark_release ()Lkotlin/jvm/functions/Function3;
 	public final fun getLambda$-986623741$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$1000661247$spark_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$1210753400$spark_release ()Lkotlin/jvm/functions/Function3;
 	public final fun getLambda$1240809689$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$130014029$spark_release ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$1562913106$spark_release ()Lkotlin/jvm/functions/Function3;
 	public final fun getLambda$1695939018$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$1729016490$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$1737208858$spark_release ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$1822220607$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$1834514602$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$1961910125$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$1962137375$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$199311649$spark_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$2027166230$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$270919191$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$458627232$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$55168651$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$727792610$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$799623726$spark_release ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$976581759$spark_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$875451231$spark_release ()Lkotlin/jvm/functions/Function2;
 }
 
 public final class com/adevinta/spark/components/appbar/NavigationBarKt {
 	public static final fun NavigationBar-942rkJo (Landroidx/compose/ui/Modifier;Landroidx/compose/foundation/layout/WindowInsets;FLkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
 	public static final fun NavigationBarItem (Landroidx/compose/foundation/layout/RowScope;ZLkotlin/jvm/functions/Function0;Lcom/adevinta/spark/icons/SparkIcon;Landroidx/compose/ui/Modifier;ZLkotlin/jvm/functions/Function2;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/adevinta/spark/components/appbar/SparkBottomAppBarScrollBehavior : androidx/compose/material3/BottomAppBarScrollBehavior {
+	public static final field $stable I
+	public fun <init> (Landroidx/compose/material3/BottomAppBarState;Landroidx/compose/animation/core/AnimationSpec;Landroidx/compose/animation/core/DecayAnimationSpec;Lkotlin/jvm/functions/Function0;)V
+	public synthetic fun <init> (Landroidx/compose/material3/BottomAppBarState;Landroidx/compose/animation/core/AnimationSpec;Landroidx/compose/animation/core/DecayAnimationSpec;Lkotlin/jvm/functions/Function0;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getCanScroll ()Lkotlin/jvm/functions/Function0;
+	public fun getFlingAnimationSpec ()Landroidx/compose/animation/core/DecayAnimationSpec;
+	public fun getNestedScrollConnection ()Landroidx/compose/ui/input/nestedscroll/NestedScrollConnection;
+	public final fun getOverlappedFraction ()F
+	public fun getSnapAnimationSpec ()Landroidx/compose/animation/core/AnimationSpec;
+	public fun getState ()Landroidx/compose/material3/BottomAppBarState;
+	public fun isPinned ()Z
+	public fun setNestedScrollConnection (Landroidx/compose/ui/input/nestedscroll/NestedScrollConnection;)V
 }
 
 public final class com/adevinta/spark/components/appbar/TopAppBarColors {
@@ -110,10 +196,10 @@ public final class com/adevinta/spark/components/appbar/TopAppBarColors {
 }
 
 public final class com/adevinta/spark/components/appbar/TopAppBarKt {
-	public static final fun CenterAlignedTopAppBar (Lkotlin/jvm/functions/Function2;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Landroidx/compose/foundation/layout/WindowInsets;Landroidx/compose/material3/TopAppBarScrollBehavior;Landroidx/compose/runtime/Composer;II)V
-	public static final fun LargeTopAppBar (Lkotlin/jvm/functions/Function2;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Landroidx/compose/foundation/layout/WindowInsets;Landroidx/compose/material3/TopAppBarScrollBehavior;Landroidx/compose/runtime/Composer;II)V
-	public static final fun MediumTopAppBar (Lkotlin/jvm/functions/Function2;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Landroidx/compose/foundation/layout/WindowInsets;Landroidx/compose/material3/TopAppBarScrollBehavior;Landroidx/compose/runtime/Composer;II)V
-	public static final fun TopAppBar (Lkotlin/jvm/functions/Function2;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Landroidx/compose/foundation/layout/WindowInsets;Landroidx/compose/material3/TopAppBarScrollBehavior;Landroidx/compose/runtime/Composer;II)V
+	public static final fun CenterAlignedTopAppBar (Lkotlin/jvm/functions/Function2;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Landroidx/compose/foundation/layout/WindowInsets;Lcom/adevinta/spark/components/appbar/TopAppBarColors;Landroidx/compose/material3/TopAppBarScrollBehavior;Landroidx/compose/runtime/Composer;II)V
+	public static final fun LargeTopAppBar (Lkotlin/jvm/functions/Function2;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Landroidx/compose/foundation/layout/WindowInsets;Lcom/adevinta/spark/components/appbar/TopAppBarColors;Landroidx/compose/material3/TopAppBarScrollBehavior;Landroidx/compose/runtime/Composer;II)V
+	public static final fun MediumTopAppBar (Lkotlin/jvm/functions/Function2;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Landroidx/compose/foundation/layout/WindowInsets;Lcom/adevinta/spark/components/appbar/TopAppBarColors;Landroidx/compose/material3/TopAppBarScrollBehavior;Landroidx/compose/runtime/Composer;II)V
+	public static final fun TopAppBar (Lkotlin/jvm/functions/Function2;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Landroidx/compose/foundation/layout/WindowInsets;Lcom/adevinta/spark/components/appbar/TopAppBarColors;Landroidx/compose/material3/TopAppBarScrollBehavior;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/adevinta/spark/components/appbar/TopAppBarSparkDefaults {
@@ -436,7 +522,6 @@ public final class com/adevinta/spark/components/buttons/IconSide : java/lang/En
 public final class com/adevinta/spark/components/buttons/SparkButtonDefaults {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/adevinta/spark/components/buttons/SparkButtonDefaults;
-	public final fun getIconDefaultSize ()Lcom/adevinta/spark/components/icons/IconSize;
 }
 
 public final class com/adevinta/spark/components/buttons/SparkButtonTags {
@@ -719,6 +804,136 @@ public final class com/adevinta/spark/components/drawer/SparkDrawerDefaults {
 	public static final field INSTANCE Lcom/adevinta/spark/components/drawer/SparkDrawerDefaults;
 	public final fun getModalDrawerElevation-D9Ej5fM ()F
 	public final fun getWindowInsets (Landroidx/compose/runtime/Composer;I)Landroidx/compose/foundation/layout/WindowInsets;
+}
+
+public final class com/adevinta/spark/components/gauge/ComposableSingletons$SegmentedGaugeKt {
+	public static final field INSTANCE Lcom/adevinta/spark/components/gauge/ComposableSingletons$SegmentedGaugeKt;
+	public fun <init> ()V
+	public final fun getLambda$-1023506369$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-106602782$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-1329140898$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-1419977214$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-1634775427$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-1781857285$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-211634278$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-412237311$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-717871840$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-961182007$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$1845728121$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$199031747$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$239977811$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$31935418$spark_release ()Lkotlin/jvm/functions/Function3;
+}
+
+public final class com/adevinta/spark/components/gauge/GaugeDefaults {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/adevinta/spark/components/gauge/GaugeDefaults;
+	public final fun getColor-0d7_KjU ()J
+	public final fun getSize ()Lcom/adevinta/spark/components/gauge/GaugeSize;
+}
+
+public final class com/adevinta/spark/components/gauge/GaugeSize : java/lang/Enum {
+	public static final field Medium Lcom/adevinta/spark/components/gauge/GaugeSize;
+	public static final field Small Lcom/adevinta/spark/components/gauge/GaugeSize;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/adevinta/spark/components/gauge/GaugeSize;
+	public static fun values ()[Lcom/adevinta/spark/components/gauge/GaugeSize;
+}
+
+public abstract interface class com/adevinta/spark/components/gauge/GaugeType {
+	public abstract fun getColor (Landroidx/compose/runtime/Composer;I)J
+	public abstract fun getIndex ()I
+}
+
+public abstract interface class com/adevinta/spark/components/gauge/GaugeTypeNormal : com/adevinta/spark/components/gauge/GaugeType {
+}
+
+public final class com/adevinta/spark/components/gauge/GaugeTypeNormal$High : com/adevinta/spark/components/gauge/GaugeTypeNormal {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/adevinta/spark/components/gauge/GaugeTypeNormal$High;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getColor (Landroidx/compose/runtime/Composer;I)J
+	public fun getIndex ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/adevinta/spark/components/gauge/GaugeTypeNormal$Low : com/adevinta/spark/components/gauge/GaugeTypeNormal {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/adevinta/spark/components/gauge/GaugeTypeNormal$Low;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getColor (Landroidx/compose/runtime/Composer;I)J
+	public fun getIndex ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/adevinta/spark/components/gauge/GaugeTypeNormal$Medium : com/adevinta/spark/components/gauge/GaugeTypeNormal {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/adevinta/spark/components/gauge/GaugeTypeNormal$Medium;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getColor (Landroidx/compose/runtime/Composer;I)J
+	public fun getIndex ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/adevinta/spark/components/gauge/GaugeTypeNormal$VeryHigh : com/adevinta/spark/components/gauge/GaugeTypeNormal {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/adevinta/spark/components/gauge/GaugeTypeNormal$VeryHigh;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getColor (Landroidx/compose/runtime/Composer;I)J
+	public fun getIndex ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/adevinta/spark/components/gauge/GaugeTypeNormal$VeryLow : com/adevinta/spark/components/gauge/GaugeTypeNormal {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/adevinta/spark/components/gauge/GaugeTypeNormal$VeryLow;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getColor (Landroidx/compose/runtime/Composer;I)J
+	public fun getIndex ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/adevinta/spark/components/gauge/GaugeTypeShort : com/adevinta/spark/components/gauge/GaugeType {
+}
+
+public final class com/adevinta/spark/components/gauge/GaugeTypeShort$Low : com/adevinta/spark/components/gauge/GaugeTypeShort {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/adevinta/spark/components/gauge/GaugeTypeShort$Low;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getColor (Landroidx/compose/runtime/Composer;I)J
+	public fun getIndex ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/adevinta/spark/components/gauge/GaugeTypeShort$VeryHigh : com/adevinta/spark/components/gauge/GaugeTypeShort {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/adevinta/spark/components/gauge/GaugeTypeShort$VeryHigh;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getColor (Landroidx/compose/runtime/Composer;I)J
+	public fun getIndex ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/adevinta/spark/components/gauge/GaugeTypeShort$VeryLow : com/adevinta/spark/components/gauge/GaugeTypeShort {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/adevinta/spark/components/gauge/GaugeTypeShort$VeryLow;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getColor (Landroidx/compose/runtime/Composer;I)J
+	public fun getIndex ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/adevinta/spark/components/gauge/SegmentedGaugeKt {
+	public static final fun SegmentedGauge-fWhpE4E (Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/gauge/GaugeSize;Lcom/adevinta/spark/components/gauge/GaugeTypeNormal;JZLkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
+	public static final fun SegmentedGaugeShort-fWhpE4E (Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/gauge/GaugeSize;Lcom/adevinta/spark/components/gauge/GaugeTypeShort;JZLkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/adevinta/spark/components/iconbuttons/ComposableSingletons$IconButtonContrastKt {
@@ -1266,11 +1481,11 @@ public abstract class com/adevinta/spark/components/popover/PopoverIntent : java
 }
 
 public final class com/adevinta/spark/components/popover/PopoverKt {
-	public static final fun Popover (Lkotlin/jvm/functions/Function2;Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/popover/PopoverIntent;ZLandroidx/compose/material3/TooltipState;ZZLkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
+	public static final fun Popover (Lkotlin/jvm/functions/Function2;Landroidx/compose/ui/Modifier;Landroidx/compose/ui/window/PopupPositionProvider;Lcom/adevinta/spark/components/popover/PopoverIntent;ZLandroidx/compose/material3/TooltipState;ZZLkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/adevinta/spark/components/popover/TooltipKt {
-	public static final fun PlainTooltip-7QI4Sbk (Landroidx/compose/material3/TooltipScope;Landroidx/compose/ui/Modifier;JLandroidx/compose/ui/graphics/Shape;JJFFLkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
+	public static final fun PlainTooltip-gv3ox5I (Landroidx/compose/material3/TooltipScope;Landroidx/compose/ui/Modifier;Landroidx/compose/ui/graphics/Shape;FLandroidx/compose/ui/graphics/Shape;JJFFLkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
 	public static final fun TooltipBox (Landroidx/compose/ui/window/PopupPositionProvider;Lkotlin/jvm/functions/Function3;Landroidx/compose/material3/TooltipState;Landroidx/compose/ui/Modifier;ZZLkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
 }
 
@@ -1350,7 +1565,7 @@ public final class com/adevinta/spark/components/progress/tracker/ComposableSing
 	public static final field INSTANCE Lcom/adevinta/spark/components/progress/tracker/ComposableSingletons$ProgressTrackerKt;
 	public fun <init> ()V
 	public final fun getLambda$-1170270835$spark_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$-163920271$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-1301338831$spark_release ()Lkotlin/jvm/functions/Function3;
 	public final fun getLambda$-1823155789$spark_release ()Lkotlin/jvm/functions/Function3;
 	public final fun getLambda$-941686442$spark_release ()Lkotlin/jvm/functions/Function3;
 	public final fun getLambda$1229905624$spark_release ()Lkotlin/jvm/functions/Function3;
@@ -1368,13 +1583,18 @@ public final class com/adevinta/spark/components/progress/tracker/ProgressSizes 
 
 public final class com/adevinta/spark/components/progress/tracker/ProgressStep {
 	public static final field $stable I
-	public fun <init> (Ljava/lang/CharSequence;Z)V
+	public fun <init> (Ljava/lang/CharSequence;ZLcom/adevinta/spark/icons/SparkIcon;Lcom/adevinta/spark/icons/SparkIcon;)V
+	public synthetic fun <init> (Ljava/lang/CharSequence;ZLcom/adevinta/spark/icons/SparkIcon;Lcom/adevinta/spark/icons/SparkIcon;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/CharSequence;
 	public final fun component2 ()Z
-	public final fun copy (Ljava/lang/CharSequence;Z)Lcom/adevinta/spark/components/progress/tracker/ProgressStep;
-	public static synthetic fun copy$default (Lcom/adevinta/spark/components/progress/tracker/ProgressStep;Ljava/lang/CharSequence;ZILjava/lang/Object;)Lcom/adevinta/spark/components/progress/tracker/ProgressStep;
+	public final fun component3 ()Lcom/adevinta/spark/icons/SparkIcon;
+	public final fun component4 ()Lcom/adevinta/spark/icons/SparkIcon;
+	public final fun copy (Ljava/lang/CharSequence;ZLcom/adevinta/spark/icons/SparkIcon;Lcom/adevinta/spark/icons/SparkIcon;)Lcom/adevinta/spark/components/progress/tracker/ProgressStep;
+	public static synthetic fun copy$default (Lcom/adevinta/spark/components/progress/tracker/ProgressStep;Ljava/lang/CharSequence;ZLcom/adevinta/spark/icons/SparkIcon;Lcom/adevinta/spark/icons/SparkIcon;ILjava/lang/Object;)Lcom/adevinta/spark/components/progress/tracker/ProgressStep;
 	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDoneIcon ()Lcom/adevinta/spark/icons/SparkIcon;
 	public final fun getEnabled ()Z
+	public final fun getIcon ()Lcom/adevinta/spark/icons/SparkIcon;
 	public final fun getLabel ()Ljava/lang/CharSequence;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -1389,15 +1609,9 @@ public final class com/adevinta/spark/components/progress/tracker/ProgressStyles
 }
 
 public abstract class com/adevinta/spark/components/progress/tracker/ProgressTrackerIntent : java/lang/Enum {
-	public static final field Accent Lcom/adevinta/spark/components/progress/tracker/ProgressTrackerIntent;
-	public static final field Alert Lcom/adevinta/spark/components/progress/tracker/ProgressTrackerIntent;
 	public static final field Basic Lcom/adevinta/spark/components/progress/tracker/ProgressTrackerIntent;
-	public static final field Danger Lcom/adevinta/spark/components/progress/tracker/ProgressTrackerIntent;
-	public static final field Info Lcom/adevinta/spark/components/progress/tracker/ProgressTrackerIntent;
-	public static final field Main Lcom/adevinta/spark/components/progress/tracker/ProgressTrackerIntent;
 	public static final field Neutral Lcom/adevinta/spark/components/progress/tracker/ProgressTrackerIntent;
 	public static final field Success Lcom/adevinta/spark/components/progress/tracker/ProgressTrackerIntent;
-	public static final field Support Lcom/adevinta/spark/components/progress/tracker/ProgressTrackerIntent;
 	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/adevinta/spark/components/progress/tracker/ProgressTrackerIntent;
@@ -1405,8 +1619,8 @@ public abstract class com/adevinta/spark/components/progress/tracker/ProgressTra
 }
 
 public final class com/adevinta/spark/components/progress/tracker/ProgressTrackerKt {
-	public static final fun ProgressTrackerColumn (Lkotlinx/collections/immutable/ImmutableList;Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/progress/tracker/ProgressTrackerIntent;Lcom/adevinta/spark/components/progress/tracker/ProgressStyles;Lcom/adevinta/spark/components/progress/tracker/ProgressSizes;ZLkotlin/jvm/functions/Function1;ILandroidx/compose/runtime/Composer;II)V
-	public static final fun ProgressTrackerRow (Lkotlinx/collections/immutable/ImmutableList;Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/progress/tracker/ProgressTrackerIntent;Lcom/adevinta/spark/components/progress/tracker/ProgressStyles;Lcom/adevinta/spark/components/progress/tracker/ProgressSizes;ZLkotlin/jvm/functions/Function1;ILandroidx/compose/runtime/Composer;II)V
+	public static final fun ProgressTrackerColumn (Lkotlinx/collections/immutable/ImmutableList;Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/progress/tracker/ProgressTrackerIntent;Lcom/adevinta/spark/components/progress/tracker/ProgressStyles;Lcom/adevinta/spark/components/progress/tracker/ProgressSizes;ZZLkotlin/jvm/functions/Function1;Ljava/lang/Integer;Landroidx/compose/runtime/Composer;II)V
+	public static final fun ProgressTrackerRow (Lkotlinx/collections/immutable/ImmutableList;Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/progress/tracker/ProgressTrackerIntent;Lcom/adevinta/spark/components/progress/tracker/ProgressStyles;Lcom/adevinta/spark/components/progress/tracker/ProgressSizes;ZZLkotlin/jvm/functions/Function1;Ljava/lang/Integer;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/adevinta/spark/components/progressbar/ComposableSingletons$ProgressbarKt {
@@ -1471,12 +1685,24 @@ public final class com/adevinta/spark/components/rating/RatingDefault {
 	public final fun getStarSize-D9Ej5fM ()F
 }
 
+public final class com/adevinta/spark/components/rating/RatingDefaults {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/adevinta/spark/components/rating/RatingDefaults;
+	public static final field InputMax I
+	public static final field InputMin I
+	public static final field Steps I
+	public final fun getInputFloatRange ()Lkotlin/ranges/ClosedFloatingPointRange;
+	public final fun getInputIntRange ()Lkotlin/ranges/ClosedRange;
+	public final fun getStarSize-D9Ej5fM ()F
+	public final fun getTouchTargetSize-D9Ej5fM ()F
+}
+
 public final class com/adevinta/spark/components/rating/RatingDisplayKt {
 	public static final fun RatingDisplay-6a0pyJM (FLandroidx/compose/ui/Modifier;FLandroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/adevinta/spark/components/rating/RatingInputKt {
-	public static final fun RatingInput (ILkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;ZLandroidx/compose/runtime/Composer;II)V
+	public static final fun RatingInput (ILkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;ZLkotlin/jvm/functions/Function1;ZLjava/lang/String;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/adevinta/spark/components/rating/RatingLabelSide : java/lang/Enum {
@@ -1769,6 +1995,15 @@ public final class com/adevinta/spark/components/tags/ComposableSingletons$TagFi
 	public final fun getLambda$-843388619$spark_release ()Lkotlin/jvm/functions/Function3;
 }
 
+public final class com/adevinta/spark/components/tags/ComposableSingletons$TagHighlightKt {
+	public static final field INSTANCE Lcom/adevinta/spark/components/tags/ComposableSingletons$TagHighlightKt;
+	public fun <init> ()V
+	public final fun getLambda$-860321823$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$1406605491$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$1512299181$spark_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$989814168$spark_release ()Lkotlin/jvm/functions/Function3;
+}
+
 public final class com/adevinta/spark/components/tags/ComposableSingletons$TagKt {
 	public static final field INSTANCE Lcom/adevinta/spark/components/tags/ComposableSingletons$TagKt;
 	public fun <init> ()V
@@ -1818,6 +2053,11 @@ public final class com/adevinta/spark/components/tags/TagFilledKt {
 	public static final fun TagFilled-jM_yU8I (Ljava/lang/String;Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/tags/TagIntent;Lcom/adevinta/spark/icons/SparkIcon;Landroidx/compose/ui/graphics/Color;ZLandroidx/compose/runtime/Composer;II)V
 }
 
+public final class com/adevinta/spark/components/tags/TagHighlightKt {
+	public static final fun TagHighlight (Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+	public static final fun TagHighlightBadge (Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+}
+
 public abstract class com/adevinta/spark/components/tags/TagIntent : java/lang/Enum {
 	public static final field Accent Lcom/adevinta/spark/components/tags/TagIntent;
 	public static final field Alert Lcom/adevinta/spark/components/tags/TagIntent;
@@ -1828,6 +2068,7 @@ public abstract class com/adevinta/spark/components/tags/TagIntent : java/lang/E
 	public static final field Neutral Lcom/adevinta/spark/components/tags/TagIntent;
 	public static final field Success Lcom/adevinta/spark/components/tags/TagIntent;
 	public static final field Support Lcom/adevinta/spark/components/tags/TagIntent;
+	public static final field Surface Lcom/adevinta/spark/components/tags/TagIntent;
 	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/adevinta/spark/components/tags/TagIntent;
@@ -1875,9 +2116,9 @@ public abstract class com/adevinta/spark/components/textfields/AddonScope {
 }
 
 public final class com/adevinta/spark/components/textfields/ComboBoxKt {
-	public static final fun MultiChoiceComboBox (Landroidx/compose/foundation/text/input/TextFieldState;ZLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;ZZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function3;Lcom/adevinta/spark/components/textfields/TextFieldState;Ljava/lang/String;Landroidx/compose/foundation/text/input/InputTransformation;Landroidx/compose/foundation/text/KeyboardOptions;Landroidx/compose/foundation/text/input/KeyboardActionHandler;Landroidx/compose/foundation/text/input/TextFieldLineLimits;Lkotlin/jvm/functions/Function2;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/foundation/text/input/OutputTransformation;Landroidx/compose/foundation/ScrollState;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;IIII)V
-	public static final fun MultiChoiceComboBox (Landroidx/compose/foundation/text/input/TextFieldState;ZLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Lkotlinx/collections/immutable/ImmutableList;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;ZZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function3;Lcom/adevinta/spark/components/textfields/TextFieldState;Ljava/lang/String;Landroidx/compose/foundation/text/input/InputTransformation;Landroidx/compose/foundation/text/KeyboardOptions;Landroidx/compose/foundation/text/input/KeyboardActionHandler;Landroidx/compose/foundation/text/input/TextFieldLineLimits;Lkotlin/jvm/functions/Function2;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/foundation/text/input/OutputTransformation;Landroidx/compose/foundation/ScrollState;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;IIII)V
-	public static final fun SingleChoiceComboBox (Landroidx/compose/foundation/text/input/TextFieldState;ZLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;ZZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function3;Lcom/adevinta/spark/components/textfields/TextFieldState;Ljava/lang/String;Landroidx/compose/foundation/text/input/InputTransformation;Landroidx/compose/foundation/text/KeyboardOptions;Landroidx/compose/foundation/text/input/KeyboardActionHandler;Landroidx/compose/foundation/text/input/TextFieldLineLimits;Lkotlin/jvm/functions/Function2;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/foundation/text/input/OutputTransformation;Landroidx/compose/foundation/ScrollState;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;IIII)V
+	public static final fun MultiChoiceComboBox (Landroidx/compose/foundation/text/input/TextFieldState;ZLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;ZZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Lcom/adevinta/spark/components/textfields/TextFieldState;Ljava/lang/String;Landroidx/compose/foundation/text/input/InputTransformation;Landroidx/compose/foundation/text/KeyboardOptions;Landroidx/compose/foundation/text/input/KeyboardActionHandler;Landroidx/compose/foundation/text/input/TextFieldLineLimits;Lkotlin/jvm/functions/Function2;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/foundation/text/input/OutputTransformation;Landroidx/compose/foundation/ScrollState;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;IIII)V
+	public static final fun MultiChoiceComboBox (Landroidx/compose/foundation/text/input/TextFieldState;ZLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Lkotlinx/collections/immutable/ImmutableList;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;ZZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Lcom/adevinta/spark/components/textfields/TextFieldState;Ljava/lang/String;Landroidx/compose/foundation/text/input/InputTransformation;Landroidx/compose/foundation/text/KeyboardOptions;Landroidx/compose/foundation/text/input/KeyboardActionHandler;Landroidx/compose/foundation/text/input/TextFieldLineLimits;Lkotlin/jvm/functions/Function2;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/foundation/text/input/OutputTransformation;Landroidx/compose/foundation/ScrollState;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;IIII)V
+	public static final fun SingleChoiceComboBox (Landroidx/compose/foundation/text/input/TextFieldState;ZLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;ZZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Lcom/adevinta/spark/components/textfields/TextFieldState;Ljava/lang/String;Landroidx/compose/foundation/text/input/InputTransformation;Landroidx/compose/foundation/text/KeyboardOptions;Landroidx/compose/foundation/text/input/KeyboardActionHandler;Landroidx/compose/foundation/text/input/TextFieldLineLimits;Lkotlin/jvm/functions/Function2;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/foundation/text/input/OutputTransformation;Landroidx/compose/foundation/ScrollState;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;IIII)V
 }
 
 public final class com/adevinta/spark/components/textfields/ComposableSingletons$AddonScopeKt {
@@ -1901,7 +2142,7 @@ public final class com/adevinta/spark/components/textfields/ComposableSingletons
 	public static final field INSTANCE Lcom/adevinta/spark/components/textfields/ComposableSingletons$ComboBoxKt;
 	public fun <init> ()V
 	public final fun getLambda$-2072270534$spark_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$1819367699$spark_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-724140781$spark_release ()Lkotlin/jvm/functions/Function2;
 }
 
 public final class com/adevinta/spark/components/textfields/ComposableSingletons$DropdownKt {
@@ -1909,7 +2150,7 @@ public final class com/adevinta/spark/components/textfields/ComposableSingletons
 	public fun <init> ()V
 	public final fun getLambda$-1768227951$spark_release ()Lkotlin/jvm/functions/Function3;
 	public final fun getLambda$-2010570007$spark_release ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$-389983751$spark_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-2047092008$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$-820458362$spark_release ()Lkotlin/jvm/functions/Function3;
 	public final fun getLambda$471122481$spark_release ()Lkotlin/jvm/functions/Function2;
 }
@@ -2000,32 +2241,32 @@ public abstract class com/adevinta/spark/components/textfields/TextFieldState : 
 }
 
 public final class com/adevinta/spark/components/toggles/CheckBoxKt {
-	public static final fun Checkbox (Landroidx/compose/ui/state/ToggleableState;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;ZLcom/adevinta/spark/components/toggles/ToggleIntent;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
-	public static final fun CheckboxLabelled (Landroidx/compose/ui/state/ToggleableState;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Lcom/adevinta/spark/components/toggles/ContentSide;Lcom/adevinta/spark/components/toggles/ToggleIntent;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
+	public static final fun Checkbox (Landroidx/compose/ui/state/ToggleableState;Lcom/adevinta/spark/components/toggles/ToggleIntent;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+	public static final fun Checkbox (Landroidx/compose/ui/state/ToggleableState;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;ZZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+	public static final fun CheckboxLabelled (Landroidx/compose/ui/state/ToggleableState;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;ZZLandroidx/compose/foundation/interaction/MutableInteractionSource;Lcom/adevinta/spark/components/toggles/ContentSide;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
+	public static final fun CheckboxLabelled (Landroidx/compose/ui/state/ToggleableState;Lkotlin/jvm/functions/Function0;Lcom/adevinta/spark/components/toggles/ToggleIntent;Landroidx/compose/ui/Modifier;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Lcom/adevinta/spark/components/toggles/ContentSide;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/adevinta/spark/components/toggles/ComposableSingletons$CheckBoxKt {
 	public static final field INSTANCE Lcom/adevinta/spark/components/toggles/ComposableSingletons$CheckBoxKt;
 	public fun <init> ()V
-	public final fun getLambda$-1006368640$spark_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$-1591158135$spark_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$-304434047$spark_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$-726313092$spark_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$1099435139$spark_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$1801369732$spark_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$397500546$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-104379831$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-1159774961$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-1328918736$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-1498062511$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-1667206286$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-990631186$spark_release ()Lkotlin/jvm/functions/Function3;
 	public final fun getLambda$463722771$spark_release ()Lkotlin/jvm/functions/Function3;
 }
 
 public final class com/adevinta/spark/components/toggles/ComposableSingletons$RadioButtonKt {
 	public static final field INSTANCE Lcom/adevinta/spark/components/toggles/ComposableSingletons$RadioButtonKt;
 	public fun <init> ()V
-	public final fun getLambda$-2103041274$spark_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$-234536078$spark_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$1173189872$spark_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$1263673657$spark_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$469326897$spark_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$592098799$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-1503828183$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-422019896$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-6149855$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$1199907281$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$1709330826$spark_release ()Lkotlin/jvm/functions/Function3;
 }
 
 public final class com/adevinta/spark/components/toggles/ComposableSingletons$SparkToggleLabelledContainerKt {
@@ -2046,9 +2287,10 @@ public final class com/adevinta/spark/components/toggles/ComposableSingletons$Sp
 public final class com/adevinta/spark/components/toggles/ComposableSingletons$SwitchKt {
 	public static final field INSTANCE Lcom/adevinta/spark/components/toggles/ComposableSingletons$SwitchKt;
 	public fun <init> ()V
-	public final fun getLambda$-1183705924$spark_release ()Lkotlin/jvm/functions/Function3;
 	public final fun getLambda$-76124078$spark_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$1438045019$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$638470490$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$676727699$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$96290003$spark_release ()Lkotlin/jvm/functions/Function3;
 }
 
 public final class com/adevinta/spark/components/toggles/ContentSide : java/lang/Enum {
@@ -2060,8 +2302,10 @@ public final class com/adevinta/spark/components/toggles/ContentSide : java/lang
 }
 
 public final class com/adevinta/spark/components/toggles/RadioButtonKt {
-	public static final fun RadioButton (ZLkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/toggles/ToggleIntent;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
-	public static final fun RadioButtonLabelled (ZLkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/toggles/ToggleIntent;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Lcom/adevinta/spark/components/toggles/ContentSide;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
+	public static final fun RadioButton (ZLkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;ZZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+	public static final fun RadioButton (ZLkotlin/jvm/functions/Function0;Lcom/adevinta/spark/components/toggles/ToggleIntent;Landroidx/compose/ui/Modifier;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+	public static final fun RadioButtonLabelled (ZLcom/adevinta/spark/components/toggles/ToggleIntent;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Lcom/adevinta/spark/components/toggles/ContentSide;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
+	public static final fun RadioButtonLabelled (ZLkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;ZZLandroidx/compose/foundation/interaction/MutableInteractionSource;Lcom/adevinta/spark/components/toggles/ContentSide;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/adevinta/spark/components/toggles/SwitchDefaults {
@@ -2087,8 +2331,10 @@ public final class com/adevinta/spark/components/toggles/SwitchIcons {
 }
 
 public final class com/adevinta/spark/components/toggles/SwitchKt {
-	public static final fun Switch (ZLkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;ZLcom/adevinta/spark/components/toggles/ToggleIntent;Lcom/adevinta/spark/components/toggles/SwitchIcons;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
-	public static final fun SwitchLabelled (ZLkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;ZLcom/adevinta/spark/components/toggles/ToggleIntent;Lcom/adevinta/spark/components/toggles/SwitchIcons;Landroidx/compose/foundation/interaction/MutableInteractionSource;Lcom/adevinta/spark/components/toggles/ContentSide;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
+	public static final fun Switch (ZLkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;ZLcom/adevinta/spark/components/toggles/SwitchIcons;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+	public static final fun Switch (ZLkotlin/jvm/functions/Function1;Lcom/adevinta/spark/components/toggles/ToggleIntent;Landroidx/compose/ui/Modifier;ZLcom/adevinta/spark/components/toggles/SwitchIcons;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
+	public static final fun SwitchLabelled (ZLkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;ZLcom/adevinta/spark/components/toggles/SwitchIcons;Landroidx/compose/foundation/interaction/MutableInteractionSource;Lcom/adevinta/spark/components/toggles/ContentSide;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
+	public static final fun SwitchLabelled (ZLkotlin/jvm/functions/Function1;Lcom/adevinta/spark/components/toggles/ToggleIntent;Landroidx/compose/ui/Modifier;ZLcom/adevinta/spark/components/toggles/SwitchIcons;Landroidx/compose/foundation/interaction/MutableInteractionSource;Lcom/adevinta/spark/components/toggles/ContentSide;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
 }
 
 public abstract class com/adevinta/spark/components/toggles/ToggleIntent : java/lang/Enum {
@@ -2230,6 +2476,7 @@ public final class com/adevinta/spark/tokens/Layout {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/adevinta/spark/tokens/Layout;
 	public final fun getBodyMargin (Landroidx/compose/runtime/Composer;I)F
+	public final fun getBodyMaxWidth (Landroidx/compose/runtime/Composer;I)F
 	public final fun getColumns (Landroidx/compose/runtime/Composer;I)I
 	public final fun getGutter (Landroidx/compose/runtime/Composer;I)F
 	public final fun getWindowSize (Landroidx/compose/runtime/Composer;I)Landroidx/window/core/layout/WindowSizeClass;
@@ -2252,6 +2499,7 @@ public final class com/adevinta/spark/tokens/RippleKt {
 
 public final class com/adevinta/spark/tokens/ShapeKt {
 	public static final fun asMaterial3Shapes (Lcom/adevinta/spark/tokens/SparkShapes;)Landroidx/compose/material3/Shapes;
+	public static final fun getHighlight (Landroidx/compose/foundation/shape/CornerBasedShape;)Landroidx/compose/foundation/shape/CornerBasedShape;
 	public static final fun sparkShapes (Landroidx/compose/foundation/shape/CornerBasedShape;Landroidx/compose/foundation/shape/CornerBasedShape;Landroidx/compose/foundation/shape/CornerBasedShape;Landroidx/compose/foundation/shape/CornerBasedShape;Landroidx/compose/foundation/shape/CornerBasedShape;Landroidx/compose/foundation/shape/CornerBasedShape;Landroidx/compose/foundation/shape/CornerBasedShape;)Lcom/adevinta/spark/tokens/SparkShapes;
 	public static synthetic fun sparkShapes$default (Landroidx/compose/foundation/shape/CornerBasedShape;Landroidx/compose/foundation/shape/CornerBasedShape;Landroidx/compose/foundation/shape/CornerBasedShape;Landroidx/compose/foundation/shape/CornerBasedShape;Landroidx/compose/foundation/shape/CornerBasedShape;Landroidx/compose/foundation/shape/CornerBasedShape;Landroidx/compose/foundation/shape/CornerBasedShape;ILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkShapes;
 }
