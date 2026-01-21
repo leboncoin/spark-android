@@ -1,4 +1,4 @@
-# File upload
+# Package com.adevinta.spark.components.fileupload
 
 File upload components allow users to select, upload, and preview files such as images or documents.
 

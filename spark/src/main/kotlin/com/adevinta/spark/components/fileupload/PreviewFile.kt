@@ -169,12 +169,12 @@ public fun PreviewFile(
                             )
                         } else {
                             val animatedProgress by
-                            animateFloatAsState(
-                                // backup to 100 otherwise we would crash since the progress
-                                // is still in use for the time we hide it
-                                targetValue = progress?.invoke() ?: 100f,
-                                animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec,
-                            )
+                                animateFloatAsState(
+                                    // backup to 100 otherwise we would crash since the progress
+                                    // is still in use for the time we hide it
+                                    targetValue = progress?.invoke() ?: 100f,
+                                    animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec,
+                                )
                             Progressbar(
                                 modifier = Modifier
                                     .fillMaxWidth(1f)

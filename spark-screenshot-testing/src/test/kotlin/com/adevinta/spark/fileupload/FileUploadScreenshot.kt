@@ -28,10 +28,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.DefaultTestDevices
-import com.adevinta.spark.components.fileupload.FileUploadButton
-import com.adevinta.spark.components.fileupload.FileUploadSingleButton
+import com.adevinta.spark.components.fileupload.FileUpload
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshot
+import io.github.vinceglb.filekit.FileKit
+import io.github.vinceglb.filekit.manualFileKitCoreInitialization
 import org.junit.Rule
 import org.junit.Test
 
@@ -44,6 +45,7 @@ internal class FileUploadScreenshot {
 
     @Test
     fun singleAndMultiple() {
+        FileKit.manualFileKitCoreInitialization(paparazzi.context)
         paparazzi.sparkSnapshot {
             Column(
                 modifier = Modifier.padding(16.dp),
@@ -57,7 +59,7 @@ internal class FileUploadScreenshot {
 
     @Composable
     private fun SingleFileSample() {
-        FileUploadSingleButton(
+        FileUpload.ButtonSingleSelect(
             onResult = {},
             label = "Upload ticket",
         )
@@ -65,7 +67,7 @@ internal class FileUploadScreenshot {
 
     @Composable
     private fun MultipleFilesSample() {
-        FileUploadButton(
+        FileUpload.Button(
             onResult = {},
             label = "Upload documents",
         )

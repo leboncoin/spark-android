@@ -166,7 +166,7 @@ public fun rememberFileUploadPattern(
         }
     }
 
-    return remember( isSingleMode, maxFiles, type) {
+    return remember(isSingleMode, maxFiles, type) {
         FileUploadPatternState(
             launchFilePicker = { filePicker.launch() },
             launchCameraPicker = { cameraPicker.launch() },

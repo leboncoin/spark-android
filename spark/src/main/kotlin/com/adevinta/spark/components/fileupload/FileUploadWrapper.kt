@@ -35,7 +35,6 @@ import com.adevinta.spark.icons.SparkIcons
 import io.github.vinceglb.filekit.path
 import kotlinx.collections.immutable.ImmutableList
 
-
 /**
  * Default preview implementation that displays uploaded files in a list.
  *

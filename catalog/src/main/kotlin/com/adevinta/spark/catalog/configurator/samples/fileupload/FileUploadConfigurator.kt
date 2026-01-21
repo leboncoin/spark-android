@@ -435,9 +435,16 @@ private fun FileUploadPickerType.toFileUploadType(
     fileExtension: FileExtensionStandard = FileExtensionStandard.All,
 ): FileUploadType =
     when (this) {
-        FileUploadPickerType.File -> FileUploadType.File(extensions = fileExtension.extensions.takeIf { it.isNotEmpty() })
+        FileUploadPickerType.File -> FileUploadType.File(
+            extensions = fileExtension.extensions.takeIf {
+                it.isNotEmpty()
+            },
+        )
+
         FileUploadPickerType.Image -> FileUploadType.Image(source = imageSource)
+
         FileUploadPickerType.Video -> FileUploadType.Video(source = imageSource)
+
         FileUploadPickerType.ImageAndVideo -> FileUploadType.ImageAndVideo(source = imageSource)
     }
 

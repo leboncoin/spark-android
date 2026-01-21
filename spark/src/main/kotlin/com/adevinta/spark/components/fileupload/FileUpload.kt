@@ -51,7 +51,6 @@ import io.github.vinceglb.filekit.size
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.serialization.Serializable
 
-
 public object FileUpload {
 
     /**
@@ -242,10 +241,10 @@ public object FileUploadDefaults {
 
         return when {
             mimeType.startsWith("image/") ||
-                    lowerName.endsWith(".png") ||
-                    lowerName.endsWith(".jpg") ||
-                    lowerName.endsWith(".jpeg") ||
-                    lowerName.endsWith(".webp") -> {
+                lowerName.endsWith(".png") ||
+                lowerName.endsWith(".jpg") ||
+                lowerName.endsWith(".jpeg") ||
+                lowerName.endsWith(".webp") -> {
                 SparkIcons.ImageOutline
             }
 
@@ -254,10 +253,10 @@ public object FileUploadDefaults {
             }
 
             mimeType.startsWith("video/") ||
-                    lowerName.endsWith(".mp4") ||
-                    lowerName.endsWith(".mov") ||
-                    lowerName.endsWith(".avi") ||
-                    lowerName.endsWith(".mkv") -> {
+                lowerName.endsWith(".mp4") ||
+                lowerName.endsWith(".mov") ||
+                lowerName.endsWith(".avi") ||
+                lowerName.endsWith(".mkv") -> {
                 SparkIcons.CameraVideo
             }
 
@@ -283,8 +282,6 @@ public object FileUploadDefaults {
         FileKit.openFileWithDefaultApplication(file.file)
     }
 }
-
-
 
 /**
  * Source selection for image/video picker.
