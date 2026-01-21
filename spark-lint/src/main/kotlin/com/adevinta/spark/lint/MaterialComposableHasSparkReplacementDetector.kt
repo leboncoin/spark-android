@@ -71,7 +71,7 @@ public class MaterialComposableHasSparkReplacementDetector :
         .independent(true)
         .build()
 
-    internal companion object Companion {
+    internal companion object {
         val ISSUE = Issue.create(
             id = "MaterialComposableHasSparkReplacement",
             briefDescription = "A Spark replacement is available for this Composable",
