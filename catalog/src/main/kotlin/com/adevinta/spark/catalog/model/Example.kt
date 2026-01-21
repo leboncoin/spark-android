@@ -32,7 +32,5 @@ public data class Example(
     val name: String,
     val description: String,
     val sourceUrl: String,
-    val content:
-    @Composable()
-    ColumnScope.(SnackbarHostState) -> Unit,
+    val content: @Composable ColumnScope.(SnackbarHostState) -> Unit,
 )
