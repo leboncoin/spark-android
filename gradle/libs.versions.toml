@@ -11,7 +11,6 @@ lint = "31.13.2"
 material3 = "1.4.0"
 minCompileSdk = "24"
 targetSdk = "36"
-datastorePreferencesCore = "1.2.0"
 
 [libraries]
 accompanist-drawablepainter = { module = "com.google.accompanist:accompanist-drawablepainter", version.ref = "accompanist" }
@@ -114,7 +113,6 @@ slack-lint-compose = "com.slack.lint.compose:compose-lint-checks:1.4.2"
 
 # https://github.com/google/TestParameterInjector
 testParameterInjector = "com.google.testparameterinjector:test-parameter-injector:1.20"
-androidx-datastore-preferences-core = { group = "androidx.datastore", name = "datastore-preferences-core", version.ref = "datastorePreferencesCore" }
 
 unstyled = "com.composables:composeunstyled:1.49.6"
 

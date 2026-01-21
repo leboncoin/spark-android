@@ -12,7 +12,7 @@ File upload components allow users to select, upload, and preview files such as 
 
 ## Pattern API
 
-The file upload functionality is built on a reusable pattern that can be integrated into any component. The pattern handles all file picking logic while allowing you to customize the UI trigger and preview display.
+The file upload functionality is built on a reusable pattern that can be integrated into any component and aim to allow developers to make their iwn file upload components. The pattern handles all file picking logic while allowing you to customize the UI trigger and preview display.
 
 ### Basic Usage
 
@@ -225,14 +225,14 @@ The `PreviewFile` component supports several customization options:
 PreviewFile(
     file = uploadedFile,
     onClear = { /* remove file */ },
-    modifier = Modifier, // Optional: modifier for the component
-    progress = { 0.5f }, // Optional: determinate progress (0.0 to 1.0)
-    isLoading = false, // Optional: indeterminate loading state
-    errorMessage = null, // Optional: error message to display
-    enabled = true, // Optional: whether the component is enabled
-    clearContentDescription = "Remove ${uploadedFile.name}", // Optional: accessibility label
-    onClick = { /* handle file click */ }, // Optional: makes the preview clickable
-    clearIcon = SparkIcons.Close, // Optional: customize the clear button icon
+    modifier = Modifier, // modifier for the component
+    progress = { 0.5f }, // determinate progress (0.0 to 1.0)
+    isLoading = false, // indeterminate loading state
+    errorMessage = null, // error message to display
+    enabled = true, // whether the component is enabled
+    clearContentDescription = "Remove ${uploadedFile.name}", // accessibility label for the clear/remove file button
+    onClick = { /* handle file click */ }, // makes the preview clickable, use null to make the preview read only
+    clearIcon = SparkIcons.Close, // customize the clear/remove button icon
 )
 ```
 
@@ -253,37 +253,12 @@ You can add accessibility labels to the file upload buttons:
 FileUpload.Button(
     onResult = { files -> /* handle */ },
     label = "Select files",
-    onClickLabel = "Open file picker to select multiple files", // Optional: accessibility label
+    onClickLabel = "Open file picker to select multiple files",
 )
 
 FileUpload.ButtonSingleSelect(
     onResult = { file -> /* handle */ },
     label = "Select file",
-    onClickLabel = "Open file picker to select a single file", // Optional: accessibility label
+    onClickLabel = "Open file picker to select a single file",
 )
-```
-
-## Low-Level Pattern API
-
-For advanced use cases, you can use the pattern state directly:
-
-```kotlin
-val pattern = rememberFileUploadPattern(
-    onFilesSelect = { files -> /* handle selected files */ },
-    type = FileUploadType.File(),
-    mode = FileUploadMode.Multiple(maxFiles = 10),
-    title = "Select files", // Optional: dialog title
-    directory = null, // Optional: initial directory
-    dialogSettings = FileKitDialogSettings.createDefault(), // Optional: dialog settings
-)
-
-// Launch specific pickers
-pattern.launchFilePicker()      // File/gallery picker
-pattern.launchCameraPicker()   // Camera picker
-pattern.launchGalleryPicker()  // Gallery picker
-pattern.launchPicker()          // Smart launcher (handles source selection)
-
-// Query pattern configuration
-val isSingleMode = pattern.isSingleMode
-val maxFiles = pattern.maxFiles
 ```

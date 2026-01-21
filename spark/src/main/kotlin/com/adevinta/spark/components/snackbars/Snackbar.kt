@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.snackbars
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -84,7 +83,6 @@ internal fun SparkSnackbar(
     MaterialSnackBar(
         modifier = modifier
             .padding(16.dp)
-            .border(2.dp, contentColor, SparkTheme.shapes.small)
             .sparkUsageOverlay(),
         shape = SparkTheme.shapes.small,
         actionOnNewLine = actionOnNewLine,
