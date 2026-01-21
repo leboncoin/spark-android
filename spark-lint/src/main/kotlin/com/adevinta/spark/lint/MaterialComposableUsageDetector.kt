@@ -73,7 +73,7 @@ public class MaterialComposableUsageDetector :
 
     internal companion object {
         val ISSUE = Issue.create(
-            id = "MaterialComposableUsageDetector",
+            id = "MaterialComposableHasSparkReplacement",
             briefDescription = "A Spark replacement is available for this Composable",
             explanation = "Material or any other third party Composable should be replaced with a Spark Composable.",
             category = CORRECTNESS,
