@@ -109,6 +109,8 @@ slack-lint-compose = "com.slack.lint.compose:compose-lint-checks:1.4.2"
 # https://github.com/google/TestParameterInjector
 testParameterInjector = "com.google.testparameterinjector:test-parameter-injector:1.20"
 
+unstyled = "com.composables:composeunstyled:1.49.6"
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

@@ -79,6 +79,7 @@ dependencies {
 
     implementation(libs.accompanist.drawablepainter)
     implementation(libs.colorPicker)
+    implementation(libs.unstyled)
 
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.ui)
