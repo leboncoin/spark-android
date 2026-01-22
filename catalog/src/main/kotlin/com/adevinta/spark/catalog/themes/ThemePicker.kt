@@ -21,9 +21,8 @@
  */
 package com.adevinta.spark.catalog.themes
 
+import android.annotation.SuppressLint
 import android.app.UiModeManager
-import androidx.compose.material3.LocalContentColor
-import com.adevinta.spark.tokens.dim1
 import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
@@ -46,6 +45,7 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.systemGestureExclusion
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -73,14 +73,15 @@ import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.icons.SparkAnimatedIcons
 import com.adevinta.spark.icons.collapseExpand
 import com.adevinta.spark.tokens.Layout
+import com.adevinta.spark.tokens.dim1
 import com.adevinta.spark.tokens.highlight
-import com.composeunstyled.TextField
 import com.composeunstyled.UnstyledDisclosure
 import com.composeunstyled.UnstyledDisclosureHeading
 import com.composeunstyled.UnstyledDisclosurePanel
 import com.composeunstyled.rememberDisclosureState
 import java.text.NumberFormat
 
+@SuppressLint("MaterialComposableHasSparkReplacement")
 @Composable
 public fun ThemePicker(
     theme: Theme,
