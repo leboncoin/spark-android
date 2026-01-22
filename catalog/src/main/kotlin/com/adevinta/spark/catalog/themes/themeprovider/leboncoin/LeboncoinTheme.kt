@@ -53,15 +53,19 @@ public object LeboncoinTheme : ThemeProvider {
     override fun typography(): SparkTypography = LeboncoinTypo
 
     @Composable
-    private fun basicTheme(useDarkColors: Boolean, isPro: Boolean, isRebranding: Boolean): SparkColors = if (useDarkColors) {
+    private fun basicTheme(
+        useDarkColors: Boolean,
+        isPro: Boolean,
+        isRebranding: Boolean,
+    ): SparkColors = if (useDarkColors) {
         when {
-            isRebranding-> LeboncoinColorRebrandingDark
+            isRebranding -> LeboncoinColorRebrandingDark
             isPro -> LeboncoinColorProDark
             else -> darkSparkColors()
         }
     } else {
         when {
-            isRebranding-> LeboncoinColorRebrandingLight
+            isRebranding -> LeboncoinColorRebrandingLight
             isPro -> LeboncoinColorProLight
             else -> lightSparkColors()
         }
