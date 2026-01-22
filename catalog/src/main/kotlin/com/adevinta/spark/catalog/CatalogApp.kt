@@ -119,6 +119,7 @@ internal fun ComponentActivity.CatalogApp(
         themeProvider.colors(
             useDarkColors = useDark,
             isPro = theme.userMode == UserMode.Pro,
+            isRebranding = theme.userMode == UserMode.Rebranding,
             contrastLevel = contrastLevel,
         )
     }

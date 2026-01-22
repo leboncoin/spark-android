@@ -32,6 +32,7 @@ public interface ThemeProvider {
     public fun colors(
         useDarkColors: Boolean,
         isPro: Boolean,
+        isRebranding: Boolean,
         @FloatRange(from = -1.0, to = 1.0) contrastLevel: Float,
     ): SparkColors
 
