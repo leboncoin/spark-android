@@ -27,7 +27,6 @@
     <string name="example_tokens_elevation_label">Valeur d’élévation : %d</string>
     <string name="themepicker_navigation_label">Animation de la navigation</string>
 
-    <string name="description">Description</string>
     <string name="examples">Exemples</string>
     <string name="no_examples">Pas d’exemples</string>
     <string name="no_examples_title">Aucun exemple disponible</string>
