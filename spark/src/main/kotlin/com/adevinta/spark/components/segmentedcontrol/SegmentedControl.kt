@@ -32,9 +32,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.selectable
@@ -53,6 +53,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
@@ -65,6 +66,7 @@ import com.adevinta.spark.components.segmentedcontrol.SegmentedControl.Horizonta
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControl.Vertical
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.SparkIcon
+import com.adevinta.spark.tokens.dim1
 import com.adevinta.spark.tokens.highlight
 
 /**
@@ -107,7 +109,6 @@ public object SegmentedControl {
         linkText: String? = null,
         onLinkClick: (() -> Unit)? = null,
         role: Role = Role.RadioButton,
-        customSelectedColors: List<Color>? = null,
         enabled: Boolean = true,
         content: @Composable SegmentedControlScope.() -> Unit,
     ) {
@@ -118,8 +119,8 @@ public object SegmentedControl {
             title = title,
             linkText = linkText,
             onLinkClick = onLinkClick,
-            customSelectedColors = customSelectedColors,
             enabled = enabled,
+            role = role,
             isHorizontal = true,
             maxSegments = SegmentedControlDefaults.MaxHorizontalSegments,
             content = content,
@@ -136,7 +137,6 @@ public object SegmentedControl {
      * @param title Optional title displayed above the control
      * @param linkText Optional link text displayed next to the title
      * @param onLinkClick Callback invoked when the link is clicked
-     * @param customSelectedColors Optional list of colors for value scales (e.g., energy ratings)
      * @param enabled Whether the control is enabled
      * @param content Lambda that provides [SegmentedControlScope] to add segments
      */
@@ -148,12 +148,10 @@ public object SegmentedControl {
         title: String? = null,
         linkText: String? = null,
         onLinkClick: (() -> Unit)? = null,
-        customSelectedColors: List<Color>? = null,
         role: Role = Role.RadioButton,
         enabled: Boolean = true,
         content: @Composable SegmentedControlScope.() -> Unit,
     ) {
-        androidx.compose.material3.SingleChoiceSegmentedButtonRowScope
         SegmentedControlImpl(
             selectedIndex = selectedIndex,
             onSegmentSelect = onSegmentSelect,
@@ -161,8 +159,8 @@ public object SegmentedControl {
             title = title,
             linkText = linkText,
             onLinkClick = onLinkClick,
-            customSelectedColors = customSelectedColors,
             enabled = enabled,
+            role = role,
             isHorizontal = false,
             maxSegments = SegmentedControlDefaults.MaxVerticalSegments,
             content = content,
@@ -321,7 +319,6 @@ private fun SegmentedControlImpl(
     title: String?,
     linkText: String?,
     onLinkClick: (() -> Unit)?,
-    customSelectedColors: List<Color>?,
     role: Role,
     enabled: Boolean,
     isHorizontal: Boolean,
@@ -383,7 +380,6 @@ private fun SegmentedControlImpl(
             segmentContents = segmentContents,
             selectedIndex = selectedIndex,
             onSegmentSelect = onSegmentSelect,
-            customSelectedColors = customSelectedColors,
             role = role,
             enabled = enabled,
             isHorizontal = isHorizontal,
@@ -397,67 +393,42 @@ private fun SegmentedControlImpl(
 @Composable
 private fun SegmentedControlContent(
     segments: List<SegmentData>,
-    segmentContents: List<@Composable () -> Unit>,
     selectedIndex: Int,
     onSegmentSelect: (Int) -> Unit,
-    customSelectedColors: List<Color>?,
     role: Role,
     enabled: Boolean,
     isHorizontal: Boolean,
+    segmentContents: List<@Composable () -> Unit>,
 ) {
     val backgroundProgress by animateFloatAsState(
         label = "Background Position Progress",
         animationSpec = spring(
             stiffness = Spring.StiffnessMediumLow,
+            dampingRatio = Spring.DampingRatioLowBouncy,
         ),
         targetValue = selectedIndex.toFloat(),
     )
 
     // Determine background color
-    val selectedSegment = segments[selectedIndex]
-    val backgroundColor = when {
-        selectedSegment.customBackgroundColor != null -> selectedSegment.customBackgroundColor
-        customSelectedColors != null && selectedIndex < customSelectedColors.size ->
-            customSelectedColors[selectedIndex]
+    segments[selectedIndex]
 
-        else -> SparkTheme.colors.mainVariant
-    }
-
-    val backgroundColorState by animateColorAsState(
-        label = "Background Color",
-        targetValue = backgroundColor,
-    )
-
-    // Animate corner radius
-    val startCornerRadius by animateIntAsState(
-        label = "Start Corner Radius",
-        targetValue = if (selectedIndex == 0) {
-            SegmentedControlDefaults.FullCornerRadiusPercent
-        } else {
-            SegmentedControlDefaults.MediumCornerRadiusPercent
-        },
-    )
-    val endCornerRadius by animateIntAsState(
-        label = "End Corner Radius",
-        targetValue = if (selectedIndex == segments.lastIndex) {
-            SegmentedControlDefaults.FullCornerRadiusPercent
-        } else {
-            SegmentedControlDefaults.MediumCornerRadiusPercent
-        },
+    val cornerRadiusPercent by animateIntAsState(
+        label = "Segmented control corner radius",
+        targetValue = if (isHorizontal) 100 else 50,
     )
 
     Layout(
         modifier = Modifier
             .sizeIn(
                 minWidth = SegmentedControlDefaults.MinTouchTargetSize,
-                minHeight = SegmentedControlDefaults.MinTouchTargetSize,
+                minHeight = 52.dp,
             )
-            .clip(SparkTheme.shapes.full)
+            .clip(RoundedCornerShape(cornerRadiusPercent))
             .selectableGroup()
             .border(
                 width = SegmentedControlDefaults.BorderWidth,
-                color = SparkTheme.colors.outlineHigh,
-                shape = SparkTheme.shapes.full,
+                color = SparkTheme.colors.outline,
+                shape = RoundedCornerShape(cornerRadiusPercent),
             ),
         content = {
             // Segments
@@ -466,43 +437,23 @@ private fun SegmentedControlContent(
                 val textColor by animateColorAsState(
                     label = "Text Color",
                     targetValue = if (selected) {
-                        SparkTheme.colors.onMainVariant
+                        SparkTheme.colors.onMainContainer
                     } else {
-                        LocalContentColor.current
+                        SparkTheme.colors.onSurface.dim1
                     },
                 )
 
-                val segmentShape = RoundedCornerShape(
-                    topStartPercent = if (index == 0) {
-                        SegmentedControlDefaults.FullCornerRadiusPercent
-                    } else {
-                        SegmentedControlDefaults.MediumCornerRadiusPercent
-                    },
-                    bottomStartPercent = if (index == 0) {
-                        SegmentedControlDefaults.FullCornerRadiusPercent
-                    } else {
-                        SegmentedControlDefaults.MediumCornerRadiusPercent
-                    },
-                    topEndPercent = if (index == segments.lastIndex) {
-                        SegmentedControlDefaults.FullCornerRadiusPercent
-                    } else {
-                        SegmentedControlDefaults.MediumCornerRadiusPercent
-                    },
-                    bottomEndPercent = if (index == segments.lastIndex) {
-                        SegmentedControlDefaults.FullCornerRadiusPercent
-                    } else {
-                        SegmentedControlDefaults.MediumCornerRadiusPercent
-                    },
-                )
+                val segmentShape = SparkTheme.shapes.full
 
                 Box(
                     modifier = Modifier
                         .layoutId(SegmentedControlLayoutId.Segment)
+                        .padding(4.dp)
                         .clip(segmentShape)
-                        .selectable(selected = selected, enabled = enabled) {
+                        .selectable(selected = selected, role = role, enabled = enabled) {
                             onSegmentSelect(index)
                         }
-                        .semantics { role = Role.RadioButton },
+                        .semantics { this.role = Role.RadioButton },
                     contentAlignment = Alignment.Center,
                 ) {
                     CompositionLocalProvider(LocalContentColor provides textColor) {
@@ -515,15 +466,10 @@ private fun SegmentedControlContent(
             Box(
                 modifier = Modifier
                     .layoutId(SegmentedControlLayoutId.Background)
-                    .clip(
-                        RoundedCornerShape(
-                            topStartPercent = startCornerRadius,
-                            bottomStartPercent = startCornerRadius,
-                            topEndPercent = endCornerRadius,
-                            bottomEndPercent = endCornerRadius,
-                        ),
-                    )
-                    .background(backgroundColorState),
+                    .padding(4.dp)
+                    .clip(SparkTheme.shapes.full)
+                    .border(1.dp, SparkTheme.colors.support, SparkTheme.shapes.full)
+                    .background(SparkTheme.colors.mainContainer, SparkTheme.shapes.full),
             )
 
             // Dividers
@@ -532,19 +478,13 @@ private fun SegmentedControlContent(
                 // Divider at index i is between segment i and i+1
                 // So if segment 1 is selected, hide divider 0 (left) and divider 1 (right)
                 val isHidden = dividerIndex == selectedIndex - 1 || dividerIndex == selectedIndex
-                val dividerAlpha by animateFloatAsState(
-                    label = "Divider Alpha",
-                    targetValue = if (isHidden) 0f else 1f,
-                )
 
                 Box(
                     modifier = Modifier
                         .layoutId(SegmentedControlLayoutId.Divider)
                         .width(SegmentedControlDefaults.DividerWidth)
-                        .fillMaxHeight()
-                        .background(
-                            SparkTheme.colors.outlineHigh.copy(alpha = dividerAlpha),
-                        ),
+                        .requiredHeight(24.dp)
+                        .background(SparkTheme.colors.outline),
                 )
             }
         },
@@ -610,7 +550,7 @@ private fun SegmentedControlContent(
         } else {
             // Vertical layout: multi-row (typically 2 rows of 4)
             val segmentsPerRow = (segmentCount + 1) / 2 // Round up
-            val dividerWidth = SegmentedControlDefaults.DividerWidth.roundToInt()
+            val dividerWidth = SegmentedControlDefaults.DividerWidth.roundToPx()
             val availableWidth = constraints.maxWidth - (dividerWidth * (segmentsPerRow - 1))
             val segmentWidth = availableWidth / segmentsPerRow
             val segmentConstraints = Constraints.fixed(

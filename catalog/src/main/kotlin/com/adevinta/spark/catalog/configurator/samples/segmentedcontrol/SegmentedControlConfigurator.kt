@@ -33,7 +33,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
@@ -46,7 +45,7 @@ import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.SwitchLabelled
-import com.adevinta.spark.icons.ShoppingBagOutline
+import com.adevinta.spark.icons.ShoppingCartOutline
 import com.adevinta.spark.icons.SparkIcons
 
 public val SegmentedControlConfigurator: Configurator = Configurator(
@@ -77,7 +76,7 @@ private fun ColumnScope.SegmentedControlSample(snackbarHostState: com.adevinta.s
         onSegmentSelected = { selectedIndex = it },
         title = if (showTitle) title else null,
         linkText = if (showLink) linkText else null,
-        onLinkClick = if (showLink) { } else null,
+        onLinkClick = if (showLink) { {} } else null,
         enabled = enabled,
     )
 
@@ -184,7 +183,7 @@ private fun ConfigedSegmentedControl(
                 LayoutType.Horizontal -> {
                     SegmentedControl.Horizontal(
                         selectedIndex = selectedIndex,
-                        onSegmentSelected = onSegmentSelected,
+                        onSegmentSelect = onSegmentSelected,
                         title = title,
                         linkText = linkText,
                         onLinkClick = onLinkClick,
@@ -194,8 +193,8 @@ private fun ConfigedSegmentedControl(
                             when (index % 4) {
                                 0 -> SingleLine("Option ${index + 1}")
                                 1 -> TwoLine("Title ${index + 1}", "Subtitle")
-                                2 -> Icon(SparkIcons.ShoppingBagOutline)
-                                3 -> IconText(SparkIcons.ShoppingBagOutline, "Item ${index + 1}")
+                                2 -> Icon(SparkIcons.ShoppingCartOutline)
+                                3 -> IconText(SparkIcons.ShoppingCartOutline, "Item ${index + 1}")
                             }
                         }
                     }
@@ -204,7 +203,7 @@ private fun ConfigedSegmentedControl(
                 LayoutType.Vertical -> {
                     SegmentedControl.Vertical(
                         selectedIndex = selectedIndex,
-                        onSegmentSelected = onSegmentSelected,
+                        onSegmentSelect = onSegmentSelected,
                         title = title,
                         linkText = linkText,
                         onLinkClick = onLinkClick,
@@ -214,8 +213,8 @@ private fun ConfigedSegmentedControl(
                             when (index % 4) {
                                 0 -> SingleLine("Option ${index + 1}")
                                 1 -> TwoLine("Title ${index + 1}", "Subtitle")
-                                2 -> Icon(SparkIcons.ShoppingBagOutline)
-                                3 -> IconText(SparkIcons.ShoppingBagOutline, "Item ${index + 1}")
+                                2 -> Icon(SparkIcons.ShoppingCartOutline)
+                                3 -> IconText(SparkIcons.ShoppingCartOutline, "Item ${index + 1}")
                             }
                         }
                     }
