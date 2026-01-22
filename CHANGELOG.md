@@ -1044,7 +1044,9 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.7.0...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.8.0-alpha01...HEAD
+
+[1.8.0-alpha01]: https://github.com/leboncoin/spark-android/compare/1.8.0-alpha01
 
 [1.7.0]: https://github.com/leboncoin/spark-android/releases/tag/1.7.0
 
