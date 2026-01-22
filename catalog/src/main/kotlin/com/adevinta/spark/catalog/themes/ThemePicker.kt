@@ -141,7 +141,9 @@ public fun ThemePicker(
                     ButtonGroup(
                         title = stringResource(id = R.string.theme_picker_theme_title),
                         selectedOption = theme.colorMode.name,
-                        onOptionSelect = { onThemeChange(theme.copy(colorMode = ColorMode.valueOf(it))) },
+                        onOptionSelect = {
+                            onThemeChange(theme.copy(colorMode = ColorMode.valueOf(it)))
+                        },
                         options = colorModesLabel,
                     )
                     HelperText(text = stringResource(id = R.string.theme_picker_theme_helper))
@@ -193,7 +195,9 @@ public fun ThemePicker(
                     ButtonGroup(
                         title = stringResource(id = R.string.theme_picker_font_scale_title),
                         selectedOption = theme.fontScaleMode.name,
-                        onOptionSelect = { onThemeChange(theme.copy(fontScaleMode = FontScaleMode.valueOf(it))) },
+                        onOptionSelect = {
+                            onThemeChange(theme.copy(fontScaleMode = FontScaleMode.valueOf(it)))
+                        },
                         options = fontModesLabel,
                     )
                     HelperText(text = stringResource(id = R.string.theme_picker_font_scale_helper))
@@ -223,7 +227,9 @@ public fun ThemePicker(
                 ButtonGroup(
                     title = stringResource(id = R.string.theme_picker_text_direction_title),
                     selectedOption = theme.textDirection.name,
-                    onOptionSelect = { onThemeChange(theme.copy(textDirection = TextDirection.valueOf(it))) },
+                    onOptionSelect = {
+                        onThemeChange(theme.copy(textDirection = TextDirection.valueOf(it)))
+                    },
                     options = textDirectionsLabel,
                 )
                 HelperText(text = stringResource(id = R.string.theme_picker_text_direction_helper))
@@ -297,7 +303,7 @@ public fun ThemePicker(
                     verticalAlignment = Alignment.CenterVertically,
                     contentPadding = PaddingValues(top = 12.dp, bottom = 12.dp, end = 16.dp),
 
-                    ) {
+                ) {
                     Text(
                         text = stringResource(id = R.string.theme_picker_section_developer_options),
                         style = SparkTheme.typography.headline2,
@@ -318,7 +324,7 @@ public fun ThemePicker(
                     ),
                     exit = shrinkVertically(),
 
-                    ) {
+                ) {
                     Column(
                         verticalArrangement = spacedBy(ItemSpacing),
                         modifier = Modifier.padding(top = ItemSpacing),
@@ -374,7 +380,6 @@ public fun ThemePicker(
     }
 }
 
-
 @Composable
 private fun SectionHeader(
     title: String,
@@ -402,7 +407,6 @@ private fun HelperText(
             .fillMaxWidth()
             .padding(top = HelperTextTopPadding),
     )
-    TextField(state=) { }
 }
 
 @Composable
