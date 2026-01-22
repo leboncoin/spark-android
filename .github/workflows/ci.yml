@@ -118,14 +118,14 @@ jobs:
       - uses: ./.github/actions/setup-gradle-properties
       - name: 🕵️ Lint
         id: lint
-        run: ./gradlew :spark:lintRelease :spark-screenshot-testing:lintRelease :catalog:lintRelease --continue
+        run: ./gradlew :spark:lintRelease :spark-screenshot-testing:lintRelease :catalog:lintRelease :spark-lint:lint --continue
       - name: 📦 Archive Lint reports
         if: ${{ always() && contains(fromJSON('["success", "failure"]'), steps.lint.outcome) }}
         uses: ./.github/actions/archive-lint-reports
         with:
-          html: '**/build/reports/lint-results-*.html'
-          sarif: '**/build/reports/lint-results-*.sarif'
-          xml: '**/build/reports/lint-results-*.xml'
+          html: '**/build/reports/lint-results*.html'
+          sarif: '**/build/reports/lint-results*.sarif'
+          xml: '**/build/reports/lint-results*.xml'
 
       - name: Analyze SARIF report for spark module
         if: ${{ always() && hashFiles('spark/**/*.sarif') != '' }}

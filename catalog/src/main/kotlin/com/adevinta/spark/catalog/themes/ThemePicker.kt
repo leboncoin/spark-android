@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.catalog.themes
 
+import android.annotation.SuppressLint
 import android.app.UiModeManager
 import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
@@ -60,6 +61,7 @@ import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.tokens.Layout
 import com.adevinta.spark.tokens.highlight
 import java.text.NumberFormat
+import androidx.compose.material3.Slider as MaterialSlider
 
 @Composable
 public fun ThemePicker(
@@ -138,13 +140,15 @@ public fun ThemePicker(
                         style = SparkTheme.typography.body2.highlight,
                     )
 
-                    androidx.compose.material3.Slider(
+                    @SuppressLint("MaterialComposableHasSparkReplacement")
+                    MaterialSlider(
                         modifier = Modifier
                             .fillMaxWidth()
                             .systemGestureExclusion(),
                         value = contrastLevel - 1f,
                         valueRange = 0f..1f,
                         steps = 9,
+                        enabled = false,
                         onValueChange = { },
                     )
                 }
