@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.fileupload
 
+import android.R.attr.enabled
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
@@ -101,23 +102,23 @@ public fun PreviewFile(
     file: UploadedFile,
     onClear: () -> Unit,
     modifier: Modifier = Modifier,
-    progress: (() -> Float)? = null,
-    isLoading: Boolean = false,
-    errorMessage: String? = null,
-    enabled: Boolean = true,
     clearContentDescription: String? = null,
     onClick: (() -> Unit)? = null,
     clearIcon: SparkIcon = SparkIcons.Close,
 ) {
-    val hasError = errorMessage != null
+    val hasError = file.errorMessage != null
     val borderColor by animateColorAsState(
         if (hasError) SparkTheme.colors.error else SparkTheme.colors.outline,
     )
     val borderSize by animateDpAsState(if (hasError) 2.dp else 1.dp)
-    val opacity by animateFloatAsState(if (enabled) 1f else SparkTheme.colors.dim3)
+    val opacity by animateFloatAsState(if (file.enabled) 1f else SparkTheme.colors.dim3)
+
+    val progress = file.progress
+    val isLoading = file.isLoading
+    val errorMessage = file.errorMessage
 
     // Disable clear button if progress or loading is active
-    val isClearEnabled = enabled && progress == null && !isLoading
+    val isClearEnabled = file.enabled && progress == null && !isLoading
 
     Surface(
         modifier = modifier
@@ -129,7 +130,7 @@ public fun PreviewFile(
             .ifNotNull(onClick) {
                 clickable(
                     onClick = it,
-                    enabled = enabled,
+                    enabled = file.enabled,
                     role = Role.Button,
                 )
             }
@@ -315,19 +316,11 @@ private fun PreviewPreviewFile(
         PreviewFile(
             file = state.file,
             onClear = {},
-            progress = state.progress,
-            errorMessage = state.errorMessage,
-            enabled = state.enabled,
         )
     }
 }
 
-private data class PreviewFileState(
-    val file: UploadedFile,
-    val progress: (() -> Float)? = null,
-    val errorMessage: String? = null,
-    val enabled: Boolean = true,
-)
+private data class PreviewFileState(val file: UploadedFile, val enabled: Boolean = true)
 
 private class PreviewFileParameterProvider : PreviewParameterProvider<PreviewFileState> {
     override val values: Sequence<PreviewFileState> = sequenceOf(
@@ -339,14 +332,14 @@ private class PreviewFileParameterProvider : PreviewParameterProvider<PreviewFil
         PreviewFileState(
             file = UploadedFile(
                 file = PlatformFile(file = File("document.pdf")),
+                progress = { 0.4f },
             ),
-            progress = { 0.4f },
         ),
         PreviewFileState(
             file = UploadedFile(
                 file = PlatformFile(file = File("video.mp4")),
+                errorMessage = "File too large",
             ),
-            errorMessage = "File too large",
         ),
         PreviewFileState(
             file = UploadedFile(

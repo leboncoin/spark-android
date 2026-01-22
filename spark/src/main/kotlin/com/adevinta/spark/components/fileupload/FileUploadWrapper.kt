@@ -72,12 +72,8 @@ public fun FileUploadDefaultPreview(
                     PreviewFile(
                         file = file,
                         onClear = { onClearFile(file) },
-                        progress = file.progress,
-                        errorMessage = file.errorMessage,
-                        enabled = file.enabled,
                         onClick = onClick?.let { { it(file) } },
                         clearIcon = clearIcon,
-                        isLoading = file.isLoading,
                     )
                 }
             }

@@ -92,29 +92,13 @@ private fun ColumnScope.FileUploadSample() {
     var maxFiles: Int by rememberSaveable { mutableIntStateOf(0) }
     var clearIcon by remember { mutableStateOf<SparkIcon>(SparkIcons.Close) }
 
-    // Track file states separately
-    var fileStates by remember {
-        mutableStateOf<Map<String, FileState>>(emptyMap())
-    }
-
     val selectedType by remember { derivedStateOf { pickerType.toFileUploadType(imageSource, fileExtension) } }
 
-    // Helper function to apply states to a file
-    fun UploadedFile.applyState(globalEnabled: Boolean = true): UploadedFile {
-        val state = fileStates[file.path]
-        // If global enabled is false, override individual file enabled state
-        val finalEnabled = if (!globalEnabled) false else (state?.enabled ?: this.enabled)
-        return copy(
-            enabled = finalEnabled,
-            progress = state?.progress?.let { { it / 100f } } ?: this.progress,
-            errorMessage = state?.errorMessage ?: this.errorMessage,
-        )
-    }
-
-    // Helper function to get isLoading state for a file
-    fun UploadedFile.getIsLoading(): Boolean {
-        val state = fileStates[file.path]
-        return state?.isLoading ?: false
+    // Helper function to apply global enabled state to a file
+    fun UploadedFile.applyGlobalEnabled(globalEnabled: Boolean): UploadedFile = if (!globalEnabled) {
+        copy(enabled = false)
+    } else {
+        this
     }
 
     FileUpload.ButtonSingleSelect(
@@ -129,18 +113,14 @@ private fun ColumnScope.FileUploadSample() {
     AnimatedNullableVisibility(
         value = singleFile,
     ) { file ->
-        val fileWithState = file.applyState(globalEnabled = enabled)
+        val fileWithState = file.applyGlobalEnabled(enabled)
         PreviewFile(
             file = fileWithState,
             onClear = { singleFile = null },
-            progress = fileWithState.progress,
-            errorMessage = fileWithState.errorMessage,
-            enabled = fileWithState.enabled,
             onClick = {
                 FileUploadDefaults.openFile(fileWithState)
             },
             clearIcon = clearIcon,
-            isLoading = file.getIsLoading(),
         )
     }
 
@@ -164,7 +144,7 @@ private fun ColumnScope.FileUploadSample() {
     // Display preview for multiple files with applied states
     val filesWithStates by remember {
         derivedStateOf {
-            multipleFiles.map { it.applyState(globalEnabled = enabled) }.toImmutableList()
+            multipleFiles.map { it.applyGlobalEnabled(enabled) }.toImmutableList()
         }
     }
     FileUploadDefaultPreview(
@@ -252,19 +232,21 @@ private fun ColumnScope.FileUploadSample() {
         VerticalSpacer(8.dp)
 
         allFiles.forEach { file ->
-            val filePath = file.file.path
-            val currentState = fileStates[filePath] ?: FileState()
-            val fileWithState = file.applyState()
-
             Card(
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 FileStateControls(
-                    file = fileWithState,
+                    file = file,
                     fileName = file.name,
-                    state = currentState,
-                    onStateChange = { newState ->
-                        fileStates = fileStates + (filePath to newState)
+                    onFileChange = { updatedFile ->
+                        // Update the file in the appropriate state
+                        if (singleFile?.file?.path == file.file.path) {
+                            singleFile = updatedFile
+                        } else {
+                            multipleFiles = multipleFiles.map { f ->
+                                if (f.file.path == file.file.path) updatedFile else f
+                            }.toImmutableList()
+                        }
                     },
                 )
             }
@@ -273,25 +255,19 @@ private fun ColumnScope.FileUploadSample() {
     }
 }
 
-private data class FileState(
-    val enabled: Boolean = true,
-    val progress: Int? = null, // 0-100
-    val errorMessage: String? = null,
-    val isLoading: Boolean = false,
-)
-
 @Composable
 private fun ColumnScope.FileStateControls(
     file: UploadedFile,
     fileName: String,
-    state: FileState,
-    onStateChange: (FileState) -> Unit,
+    onFileChange: (UploadedFile) -> Unit,
 ) {
-    var errorMessageText by rememberSaveable(state.errorMessage) {
-        mutableStateOf(state.errorMessage ?: "")
+    val filePath = file.file.path
+    val initialProgress = file.progress?.invoke()?.let { (it * 100).toInt() } ?: 0
+    var errorMessageText by remember(filePath, file.errorMessage) {
+        mutableStateOf(file.errorMessage ?: "")
     }
-    var progressValue by rememberSaveable(state.progress) {
-        mutableIntStateOf(state.progress ?: 0)
+    var progressValue by remember(filePath, initialProgress) {
+        mutableIntStateOf(initialProgress)
     }
 
     Column(
@@ -317,9 +293,9 @@ private fun ColumnScope.FileStateControls(
                 )
 
                 SwitchLabelled(
-                    checked = state.enabled,
+                    checked = file.enabled,
                     onCheckedChange = { enabled ->
-                        onStateChange(state.copy(enabled = enabled))
+                        onFileChange(file.copy(enabled = enabled))
                     },
                 ) {
                     Text(
@@ -329,14 +305,18 @@ private fun ColumnScope.FileStateControls(
                 }
 
                 SwitchLabelled(
-                    checked = state.progress != null,
-                    enabled = state.enabled && !state.isLoading,
+                    checked = file.progress != null,
+                    enabled = file.enabled && !file.isLoading,
                     onCheckedChange = { hasProgress ->
-                        onStateChange(
-                            state.copy(
-                                progress = if (hasProgress) progressValue else null,
-                                errorMessage = if (hasProgress) null else state.errorMessage,
-                                isLoading = if (hasProgress) false else state.isLoading,
+                        onFileChange(
+                            file.copy(
+                                progress = if (hasProgress) {
+                                    { progressValue / 100f }
+                                } else {
+                                    null
+                                },
+                                errorMessage = if (hasProgress) null else file.errorMessage,
+                                isLoading = if (hasProgress) false else file.isLoading,
                             ),
                         )
                     },
@@ -347,7 +327,7 @@ private fun ColumnScope.FileStateControls(
                     )
                 }
 
-                if (state.progress != null) {
+                if (file.progress != null) {
                     Text(
                         text = "Progress: $progressValue%",
                         style = SparkTheme.typography.body2,
@@ -358,7 +338,9 @@ private fun ColumnScope.FileStateControls(
                         onValueChange = { newValue ->
                             val intValue = newValue.toInt()
                             progressValue = intValue
-                            onStateChange(state.copy(progress = intValue))
+                        },
+                        onValueChangeFinished = {
+                            onFileChange(file.copy(progress = { progressValue / 100f }))
                         },
                         valueRange = 0f..100f,
                         modifier = Modifier.fillMaxWidth(),
@@ -366,13 +348,13 @@ private fun ColumnScope.FileStateControls(
                 }
 
                 SwitchLabelled(
-                    checked = state.isLoading,
-                    enabled = state.enabled && state.progress == null,
+                    checked = file.isLoading,
+                    enabled = file.enabled && file.progress == null,
                     onCheckedChange = { isLoading ->
-                        onStateChange(
-                            state.copy(
+                        onFileChange(
+                            file.copy(
                                 isLoading = isLoading,
-                                errorMessage = if (isLoading) null else state.errorMessage,
+                                errorMessage = if (isLoading) null else file.errorMessage,
                             ),
                         )
                     },
@@ -384,18 +366,18 @@ private fun ColumnScope.FileStateControls(
                 }
 
                 SwitchLabelled(
-                    checked = state.errorMessage != null,
-                    enabled = state.enabled,
+                    checked = file.errorMessage != null,
+                    enabled = file.enabled,
                     onCheckedChange = { hasError ->
-                        onStateChange(
-                            state.copy(
+                        onFileChange(
+                            file.copy(
                                 errorMessage = if (hasError) {
                                     errorMessageText.takeIf { it.isNotBlank() }
                                         ?: "Error message"
                                 } else {
                                     null
                                 },
-                                progress = if (hasError) null else state.progress,
+                                progress = if (hasError) null else file.progress,
                             ),
                         )
                     },
@@ -406,13 +388,13 @@ private fun ColumnScope.FileStateControls(
                     )
                 }
 
-                if (state.errorMessage != null) {
+                if (file.errorMessage != null) {
                     Spacer(modifier = Modifier.height(8.dp))
                     TextField(
                         value = errorMessageText,
                         onValueChange = { newText ->
                             errorMessageText = newText
-                            onStateChange(state.copy(errorMessage = newText.takeIf { it.isNotBlank() }))
+                            onFileChange(file.copy(errorMessage = newText.takeIf { it.isNotBlank() }))
                         },
                         modifier = Modifier.fillMaxWidth(),
                         placeholder = "Error message",
