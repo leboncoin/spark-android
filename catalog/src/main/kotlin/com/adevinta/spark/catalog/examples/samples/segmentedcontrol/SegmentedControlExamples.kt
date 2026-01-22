@@ -36,7 +36,7 @@ import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControl
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.ShoppingBagOutline
+import com.adevinta.spark.icons.ShoppingCartOutline
 import com.adevinta.spark.icons.SparkIcons
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -104,7 +104,7 @@ private fun HorizontalBasicExample() {
         var selectedIndex1 by remember { mutableIntStateOf(0) }
         SegmentedControl.Horizontal(
             selectedIndex = selectedIndex1,
-            onSegmentSelected = { selectedIndex1 = it },
+            onSegmentSelect = { selectedIndex1 = it },
         ) {
             SingleLine("Day")
             SingleLine("Week")
@@ -114,7 +114,7 @@ private fun HorizontalBasicExample() {
         var selectedIndex2 by remember { mutableIntStateOf(1) }
         SegmentedControl.Horizontal(
             selectedIndex = selectedIndex2,
-            onSegmentSelected = { selectedIndex2 = it },
+            onSegmentSelect = { selectedIndex2 = it },
         ) {
             SingleLine("Option 1")
             SingleLine("Option 2")
@@ -125,7 +125,7 @@ private fun HorizontalBasicExample() {
         var selectedIndex3 by remember { mutableIntStateOf(2) }
         SegmentedControl.Horizontal(
             selectedIndex = selectedIndex3,
-            onSegmentSelected = { selectedIndex3 = it },
+            onSegmentSelect = { selectedIndex3 = it },
         ) {
             SingleLine("All")
             SingleLine("Active")
@@ -145,7 +145,7 @@ private fun VerticalBasicExample() {
         var selectedIndex1 by remember { mutableIntStateOf(0) }
         SegmentedControl.Vertical(
             selectedIndex = selectedIndex1,
-            onSegmentSelected = { selectedIndex1 = it },
+            onSegmentSelect = { selectedIndex1 = it },
         ) {
             SingleLine("Option 1")
             SingleLine("Option 2")
@@ -158,7 +158,7 @@ private fun VerticalBasicExample() {
         var selectedIndex2 by remember { mutableIntStateOf(4) }
         SegmentedControl.Vertical(
             selectedIndex = selectedIndex2,
-            onSegmentSelected = { selectedIndex2 = it },
+            onSegmentSelect = { selectedIndex2 = it },
         ) {
             SingleLine("1")
             SingleLine("2")
@@ -182,19 +182,19 @@ private fun ContentTypesExample() {
         var selectedIndex1 by remember { mutableIntStateOf(0) }
         SegmentedControl.Horizontal(
             selectedIndex = selectedIndex1,
-            onSegmentSelected = { selectedIndex1 = it },
+            onSegmentSelect = { selectedIndex1 = it },
         ) {
             SingleLine("Text")
             TwoLine("Title", "Subtitle")
-            Icon(SparkIcons.ShoppingBagOutline)
-            IconText(SparkIcons.ShoppingBagOutline, "Cart")
+            Icon(SparkIcons.ShoppingCartOutline)
+            IconText(SparkIcons.ShoppingCartOutline, "Cart")
         }
 
         Text("Numbers")
         var selectedIndex2 by remember { mutableIntStateOf(0) }
         SegmentedControl.Horizontal(
             selectedIndex = selectedIndex2,
-            onSegmentSelected = { selectedIndex2 = it },
+            onSegmentSelect = { selectedIndex2 = it },
         ) {
             Number(1)
             Number(2)
@@ -206,7 +206,7 @@ private fun ContentTypesExample() {
         var selectedIndex3 by remember { mutableIntStateOf(0) }
         SegmentedControl.Horizontal(
             selectedIndex = selectedIndex3,
-            onSegmentSelected = { selectedIndex3 = it },
+            onSegmentSelect = { selectedIndex3 = it },
         ) {
             SingleLine("Standard")
             Custom(selectedBackgroundColor = Color(0xFF4CAF50)) {
@@ -228,7 +228,7 @@ private fun WithTitleAndLinkExample() {
         var selectedIndex by remember { mutableIntStateOf(1) }
         SegmentedControl.Horizontal(
             selectedIndex = selectedIndex,
-            onSegmentSelected = { selectedIndex = it },
+            onSegmentSelect = { selectedIndex = it },
             title = "Filter",
             linkText = "Learn more",
             onLinkClick = { },
@@ -241,7 +241,7 @@ private fun WithTitleAndLinkExample() {
         var selectedIndex2 by remember { mutableIntStateOf(0) }
         SegmentedControl.Horizontal(
             selectedIndex = selectedIndex2,
-            onSegmentSelected = { selectedIndex2 = it },
+            onSegmentSelect = { selectedIndex2 = it },
             title = "View Mode",
         ) {
             SingleLine("List")
@@ -258,7 +258,7 @@ private fun CustomColorsExample() {
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Text("Energy Rating Scale")
-        val energyColors = listOf(
+        listOf(
             Color(0xFF4CAF50), // A - Green
             Color(0xFF8BC34A), // B - Light Green
             Color(0xFFCDDC39), // C - Yellow Green
@@ -271,8 +271,7 @@ private fun CustomColorsExample() {
         var selectedIndex by remember { mutableIntStateOf(3) }
         SegmentedControl.Vertical(
             selectedIndex = selectedIndex,
-            onSegmentSelected = { selectedIndex = it },
-            customSelectedColors = energyColors,
+            onSegmentSelect = { selectedIndex = it },
         ) {
             SingleLine("A")
             SingleLine("B")
@@ -295,7 +294,7 @@ private fun FilterExample() {
         var selectedIndex by remember { mutableIntStateOf(0) }
         SegmentedControl.Horizontal(
             selectedIndex = selectedIndex,
-            onSegmentSelected = { selectedIndex = it },
+            onSegmentSelect = { selectedIndex = it },
             title = "Show",
         ) {
             SingleLine("All")
@@ -307,11 +306,11 @@ private fun FilterExample() {
         var selectedSortIndex by remember { mutableIntStateOf(1) }
         SegmentedControl.Horizontal(
             selectedIndex = selectedSortIndex,
-            onSegmentSelected = { selectedSortIndex = it },
+            onSegmentSelect = { selectedSortIndex = it },
         ) {
-            IconText(SparkIcons.ShoppingBagOutline, "Price")
-            IconText(SparkIcons.ShoppingBagOutline, "Date")
-            IconText(SparkIcons.ShoppingBagOutline, "Rating")
+            IconText(SparkIcons.ShoppingCartOutline, "Price")
+            IconText(SparkIcons.ShoppingCartOutline, "Date")
+            IconText(SparkIcons.ShoppingCartOutline, "Rating")
         }
     }
 }
