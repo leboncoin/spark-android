@@ -66,7 +66,7 @@ internal inline fun <reified T : Enum<T>> ButtonGroup(
     ) {
         SegmentedControl.Horizontal(
             selectedIndex = selectedIndex,
-            onSegmentSelected = { index ->
+            onSegmentSelect = { index ->
                 onOptionSelect(enumValueOf<T>(options[index]))
             },
             modifier = Modifier.fillMaxWidth(),
@@ -94,7 +94,7 @@ internal fun ButtonGroup(
     ) {
         SegmentedControl.Horizontal(
             selectedIndex = selectedIndex,
-            onSegmentSelected = { index ->
+            onSegmentSelect = { index ->
                 onOptionSelect(options[index])
             },
             modifier = Modifier.fillMaxWidth(),
