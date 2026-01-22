@@ -28,7 +28,6 @@
     <string name="themepicker_navigation_label">Animation de la navigation</string>
 
     <string name="examples">Exemples</string>
-    <string name="no_examples">Pas d’exemples</string>
     <string name="no_examples_title">Aucun exemple disponible</string>
     <string name="no_examples_description">Ce composant n’a pas encore d’exemples.</string>
     <string name="no_examples_configurator_hint">Essayez l’onglet Configurateur pour explorer ce composant</string>

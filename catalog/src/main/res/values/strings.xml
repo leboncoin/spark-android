@@ -29,7 +29,6 @@
     <string name="themepicker_navigation_label">Navigation Motion</string>
 
     <string name="examples">Examples</string>
-    <string name="no_examples">No examples</string>
     <string name="no_examples_title">No examples available</string>
     <string name="no_examples_description">This component doesn’t have any examples yet.</string>
     <string name="no_examples_configurator_hint">Try the Configurator tab to explore this component</string>
