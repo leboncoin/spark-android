@@ -4,6 +4,15 @@
 
 ## [Unreleased]
 
+## [1.8.0-alpha01]
+_2026-01-22_
+
+### Spark
+- Apply the MaterialComposableHasSparkReplacement in spark modules
+
+### CI
+- Run lint task on the `:spark-lint` module
+
 ## [1.7.0]
 
 _2026-01-14_
