@@ -32,12 +32,12 @@ import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -62,12 +62,12 @@ import com.adevinta.spark.catalog.util.drawForegroundGradientScrim
 import com.adevinta.spark.components.badge.Badge
 import com.adevinta.spark.components.badge.BadgeIntent
 import com.adevinta.spark.components.badge.BadgeStyle
-import com.adevinta.spark.components.card.CardDefaults
-import com.adevinta.spark.components.card.ElevatedCard
+import com.adevinta.spark.components.card.Card
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.image.Image
 import com.adevinta.spark.components.menu.DropdownMenu
 import com.adevinta.spark.components.menu.DropdownMenuItem
+import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.WheelOutline
 import com.adevinta.spark.tokens.applyTonalElevation
@@ -155,7 +155,7 @@ public fun ComponentItem(
                     EnterExitState.PostExit -> 12.dp
                 }
             }
-        ElevatedCard(
+        Card.Elevated(
             onClick = onClick,
             modifier = modifier
                 .semantics(mergeDescendants = true) {}
@@ -174,8 +174,8 @@ public fun ComponentItem(
                     clipInOverlayDuringTransition = OverlayClip(RoundedCornerShape(cardRadius)),
                     placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
                 ),
+            contentPadding = PaddingValues.Zero,
             shape = SparkTheme.shapes.extraLarge,
-            colors = CardDefaults.elevatedCardColors(containerColor = SparkTheme.colors.surface),
         ) {
             Box {
                 Box(

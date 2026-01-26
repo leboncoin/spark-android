@@ -197,7 +197,7 @@ private fun PreviewAnimatedNullableVisibility() {
 
     PreviewTheme {
         // Basic AnimatedNullableVisibility example
-        Card(
+        Card.Flat(
             modifier = Modifier.fillMaxWidth(),
         ) {
             Column(
@@ -246,7 +246,7 @@ private fun PreviewAnimatedNullableVisibility() {
         }
 
         // ColumnScope AnimatedNullableVisibility example
-        Card(
+        Card.Flat(
             modifier = Modifier.fillMaxWidth(),
         ) {
             Column(
@@ -295,7 +295,7 @@ private fun PreviewAnimatedNullableVisibility() {
         }
 
         // RowScope AnimatedNullableVisibility example
-        Card(
+        Card.Flat(
             modifier = Modifier.fillMaxWidth(),
         ) {
             Column(
@@ -363,7 +363,7 @@ private fun PreviewRegularAnimatedVisibility() {
     var status by remember { mutableStateOf<String?>(null) }
 
     PreviewTheme {
-        Card(
+        Card.Flat(
             modifier = Modifier.fillMaxWidth(),
         ) {
             Column(
@@ -418,7 +418,7 @@ private fun PreviewRegularAnimatedVisibility() {
         }
 
         // Column AnimatedVisibility example
-        Card(
+        Card.Flat(
             modifier = Modifier.fillMaxWidth(),
         ) {
             Column(
@@ -471,7 +471,7 @@ private fun PreviewRegularAnimatedVisibility() {
         }
 
         // Row AnimatedVisibility example
-        Card(
+        Card.Flat(
             modifier = Modifier.fillMaxWidth(),
         ) {
             Column(

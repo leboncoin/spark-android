@@ -29,6 +29,7 @@ import com.adevinta.spark.catalog.configurator.samples.bottomsheet.BottomSheetCo
 import com.adevinta.spark.catalog.configurator.samples.buttons.ButtonsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.buttons.IconButtonsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.buttons.IconToggleButtonsConfigurator
+import com.adevinta.spark.catalog.configurator.samples.card.CardConfigurator
 import com.adevinta.spark.catalog.configurator.samples.chips.ChipsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.colorselector.ColorSelectorTestConfigurator
 import com.adevinta.spark.catalog.configurator.samples.divider.DividerConfigurator
@@ -56,6 +57,7 @@ import com.adevinta.spark.catalog.examples.samples.badge.BadgeExamples
 import com.adevinta.spark.catalog.examples.samples.bottomsheet.BottomSheetExamples
 import com.adevinta.spark.catalog.examples.samples.buttons.ButtonsExamples
 import com.adevinta.spark.catalog.examples.samples.buttons.IconButtonsExamples
+import com.adevinta.spark.catalog.examples.samples.card.CardExamples
 import com.adevinta.spark.catalog.examples.samples.chips.ChipsExamples
 import com.adevinta.spark.catalog.examples.samples.combobox.ComboBoxExample
 import com.adevinta.spark.catalog.examples.samples.dialog.DialogsExamples
@@ -183,6 +185,18 @@ private val Chips = Component(
     sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/chips/Chips.kt",
     examples = ChipsExamples,
     configurators = listOf(ChipsConfigurator),
+)
+
+private val Cards = Component(
+    id = "cards",
+    name = "Cards",
+    illustration = R.drawable.vignette_background,
+    description = R.string.component_card_description,
+    guidelinesUrl = "$ComponentGuidelinesUrl/p/cards",
+    docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.card/index.html",
+    sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/card/Card.kt",
+    examples = CardExamples,
+    configurators = listOf(CardConfigurator),
 )
 
 private val Dialogs = Component(
@@ -490,6 +504,7 @@ public val Components: List<Component> = listOf(
     Badges,
     BottomSheets,
     Buttons,
+    Cards,
     ColorSelectorTest,
     ComboBox,
     Checkboxes,

@@ -23,34 +23,32 @@ package com.adevinta.spark.catalog.examples.example
 
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.ui.animations.LocalSharedTransitionScope
-import com.adevinta.spark.components.card.CardDefaults
-import com.adevinta.spark.components.card.ElevatedCard
+import com.adevinta.spark.components.card.Card
+import com.adevinta.spark.components.text.Text
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
 @Composable
 public fun ExampleItem(
     example: Example,
-    modifier: Modifier = Modifier,
     onClick: (exampleId: String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    ElevatedCard(
+    Card.Elevated(
         onClick = { onClick(example.id) },
+        contentPadding = PaddingValues.Zero,
         modifier = modifier.fillMaxWidth(),
-        colors = CardDefaults.elevatedCardColors(
-            containerColor = SparkTheme.colors.surface,
-        ),
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(

@@ -46,7 +46,7 @@ import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.buttons.ButtonIntent
 import com.adevinta.spark.components.buttons.ButtonTinted
-import com.adevinta.spark.components.card.ElevatedCard
+import com.adevinta.spark.components.card.Card
 import com.adevinta.spark.components.progress.tracker.ProgressSizes
 import com.adevinta.spark.components.progress.tracker.ProgressStep
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerColumn
@@ -186,7 +186,7 @@ private fun ColumnScope.ProgressTrackerSample() {
     }
 
     items.forEachIndexed { index, progressStep ->
-        ElevatedCard {
+        Card.Elevated {
             Row(
                 modifier = Modifier
                     .padding(16.dp),
