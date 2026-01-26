@@ -142,12 +142,12 @@ public object CardDefaults {
      */
     @Composable
     public fun elevatedCardElevation(
-        defaultElevation: Dp = ElevationTokens.Level1,
-        pressedElevation: Dp = ElevationTokens.Level1,
-        focusedElevation: Dp = ElevationTokens.Level1,
-        hoveredElevation: Dp = ElevationTokens.Level2,
+        defaultElevation: Dp = ElevationTokens.Level2,
+        pressedElevation: Dp = ElevationTokens.Level3,
+        focusedElevation: Dp = ElevationTokens.Level3,
+        hoveredElevation: Dp = ElevationTokens.Level3,
         draggedElevation: Dp = ElevationTokens.Level4,
-        disabledElevation: Dp = ElevationTokens.Level1,
+        disabledElevation: Dp = ElevationTokens.Level2,
     ): CardElevation = CardElevation(
         defaultElevation = defaultElevation,
         pressedElevation = pressedElevation,
