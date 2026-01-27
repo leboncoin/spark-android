@@ -21,11 +21,11 @@
  */
 package com.adevinta.spark.catalog.configurator.samples.card
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -44,47 +44,45 @@ import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.card.Card
+import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.SwitchLabelled
 
-public val CardConfigurator: Configurator = Configurator(
-    id = "card",
-    name = "Card",
-    description = "Card configuration",
+public val CardHighlightedConfigurator: Configurator = Configurator(
+    id = "card-highlighted",
+    name = "Card Highlighted",
+    description = "Highlighted card variants configuration",
     sourceUrl = "$SampleSourceUrl/CardSamples.kt",
 ) {
-    CardSample()
+    CardHighlightedSample()
 }
 
 @Composable
-private fun ColumnScope.CardSample() {
-    var variant by rememberSaveable { mutableStateOf(CardVariant.Flat) }
+private fun ColumnScope.CardHighlightedSample() {
+    var variant by rememberSaveable { mutableStateOf(HighlightedCardVariant.HighlightFlat) }
     var isInteractive by rememberSaveable { mutableStateOf(false) }
-    var isEnabled by rememberSaveable { mutableStateOf(true) }
     var contentPadding by rememberSaveable { mutableStateOf(CardPaddingOption.Medium) }
     var cardText by rememberSaveable { mutableStateOf("Card content") }
     var cardTitle by rememberSaveable { mutableStateOf("Card Title") }
-    val defaultColor = SparkTheme.colors.surface
-    val defaultBorderColor = SparkTheme.colors.outline
+    var headingText by rememberSaveable { mutableStateOf("Heading") }
+    var hasHeading by rememberSaveable { mutableStateOf(true) }
+    val defaultColor = SparkTheme.colors.main
     var selectedColor by rememberSaveable(stateSaver = ColorSaver) {
         mutableStateOf(defaultColor)
     }
-    var borderColor by rememberSaveable(stateSaver = ColorSaver) {
-        mutableStateOf(defaultBorderColor)
-    }
     var shapeOption by rememberSaveable { mutableStateOf(CardShape.Medium) }
 
-    ConfiguredCard(
+    ConfiguredHighlightedCard(
         modifier = Modifier.fillMaxWidth(),
         variant = variant,
         isInteractive = isInteractive,
-        isEnabled = isEnabled,
         contentPadding = contentPadding.paddingValues,
         cardTitle = cardTitle,
         cardText = cardText,
-        cardColor = selectedColor,
-        borderColor = borderColor,
+        headingText = headingText,
+        hasHeading = hasHeading,
+        headingColor = selectedColor,
         shapeOption = shapeOption,
     )
 
@@ -105,11 +103,11 @@ private fun ColumnScope.CardSample() {
     }
 
     SwitchLabelled(
-        checked = isEnabled,
-        onCheckedChange = { isEnabled = it },
+        checked = hasHeading,
+        onCheckedChange = { hasHeading = it },
     ) {
         Text(
-            text = "Enabled",
+            text = "Show Heading",
             modifier = Modifier.fillMaxWidth(),
         )
     }
@@ -128,24 +126,21 @@ private fun ColumnScope.CardSample() {
     )
 
     ColorSelector(
-        title = "Card Color",
+        title = "Heading Color",
         selectedColor = selectedColor,
         onColorSelected = {
             selectedColor = it ?: defaultColor
         },
     )
 
-    AnimatedVisibility(
-        variant == CardVariant.Outlined
-    ) {
-        ColorSelector(
-            title = "Border Color",
-            selectedColor = borderColor,
-            onColorSelected = {
-                borderColor = it ?: defaultBorderColor
-            },
-        )
-    }
+    TextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = headingText,
+        onValueChange = { headingText = it },
+        label = "Heading Text",
+        placeholder = "Enter heading text",
+        enabled = hasHeading,
+    )
 
     TextField(
         modifier = Modifier.fillMaxWidth(),
@@ -170,91 +165,107 @@ private val ColorSaver = Saver<Color, Long>(
 )
 
 @Composable
-private fun ConfiguredCard(
-    variant: CardVariant,
+private fun ConfiguredHighlightedCard(
+    variant: HighlightedCardVariant,
     isInteractive: Boolean,
-    isEnabled: Boolean,
     contentPadding: PaddingValues,
     cardTitle: String,
     cardText: String,
-    cardColor: Color,
-    borderColor: Color,
+    headingText: String,
+    hasHeading: Boolean,
+    headingColor: Color,
     shapeOption: CardShape,
     modifier: Modifier = Modifier,
 ) {
     val shape = shapeOption.shape
-    val onClick: (() -> Unit)? = if (isInteractive && isEnabled) {
+    val onClick: (() -> Unit)? = if (isInteractive) {
         { /* Handle click */ }
     } else {
         null
     }
 
     when (variant) {
-        CardVariant.Flat -> {
-            if (onClick != null) {
-                Card.Flat(
-                    modifier = modifier,
-                    onClick = onClick,
-                    shape = shape,
-                    colors = cardColor,
-                    contentPadding = contentPadding,
-                ) {
-                    CardContent(cardTitle = cardTitle, cardText = cardText)
-                }
-            } else {
-                Card.Flat(
-                    modifier = modifier,
-                    shape = shape,
-                    colors = cardColor,
-                    contentPadding = contentPadding,
-                ) {
-                    CardContent(cardTitle = cardTitle, cardText = cardText)
+        HighlightedCardVariant.HighlightFlat -> {
+            Surface(
+                color = SparkTheme.colors.backgroundVariant,
+                modifier = modifier,
+            ) {
+                if (onClick != null) {
+                    Card.HighlightFlat(
+                        modifier = Modifier.fillMaxWidth(),
+                        onClick = onClick,
+                        shape = shape,
+                        colors = headingColor,
+                        contentPadding = contentPadding,
+                        heading = {
+                            if (hasHeading) {
+                                Text(
+                                    text = headingText,
+                                    style = SparkTheme.typography.caption,
+                                    modifier = Modifier.padding(start = 16.dp)
+                                )
+                            }
+                        },
+                    ) {
+                        CardContent(cardTitle = cardTitle, cardText = cardText)
+                    }
+                } else {
+                    Card.HighlightFlat(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = shape,
+                        colors = headingColor,
+                        contentPadding = contentPadding,
+                        heading = {
+                            if (hasHeading) {
+                                Text(
+                                    text = headingText,
+                                    style = SparkTheme.typography.caption,
+                                    modifier = Modifier.padding(start = 16.dp)
+                                )
+                            }
+                        },
+                    ) {
+                        CardContent(cardTitle = cardTitle, cardText = cardText)
+                    }
                 }
             }
         }
 
-        CardVariant.Elevated -> {
+        HighlightedCardVariant.HighlightElevated -> {
             if (onClick != null) {
-                Card.Elevated(
+                Card.HighlightElevated(
                     modifier = modifier,
                     onClick = onClick,
                     shape = shape,
-                    colors = cardColor,
+                    colors = headingColor,
                     contentPadding = contentPadding,
+                    heading = {
+                        if (hasHeading) {
+                            Text(
+                                text = headingText,
+                                style = SparkTheme.typography.caption,
+                                modifier = Modifier.padding(start = 16.dp)
+                            )
+                        }
+                    },
                 ) {
                     CardContent(cardTitle = cardTitle, cardText = cardText)
                 }
             } else {
-                Card.Elevated(
+                Card.HighlightElevated(
                     modifier = modifier,
                     shape = shape,
-                    colors = cardColor,
+                    colors = headingColor,
                     contentPadding = contentPadding,
-                ) {
-                    CardContent(cardTitle = cardTitle, cardText = cardText)
-                }
-            }
-        }
-
-        CardVariant.Outlined -> {
-            if (onClick != null) {
-                Card.Outlined(
-                    modifier = modifier,
-                    onClick = onClick,
-                    shape = shape,
-                    colors = cardColor,
-                    borderColor = borderColor,
-                    contentPadding = contentPadding,
-                ) {
-                    CardContent(cardTitle = cardTitle, cardText = cardText)
-                }
-            } else {
-                Card.Outlined(
-                    modifier = modifier,
-                    shape = shape,
-                    colors = cardColor,
-                    borderColor = borderColor,
-                    contentPadding = contentPadding,
+                    heading = {
+                        if (hasHeading) {
+                            Text(
+                                text = headingText,
+                                style = SparkTheme.typography.caption,
+                                modifier = Modifier.padding(start = 16.dp)
+                            )
+                        }
+                    },
                 ) {
                     CardContent(cardTitle = cardTitle, cardText = cardText)
                 }
@@ -283,14 +294,17 @@ private fun CardContent(
     }
 }
 
-private enum class CardVariant {
-    Flat,
-    Elevated,
-    Outlined,
+private enum class HighlightedCardVariant {
+    HighlightFlat,
+    HighlightElevated,
 }
+
+
+
+
 
 @Preview
 @Composable
-private fun CardSamplePreview() {
-    PreviewTheme { CardSample() }
+private fun CardHighlightedSamplePreview() {
+    PreviewTheme { CardHighlightedSample() }
 }

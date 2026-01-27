@@ -74,7 +74,7 @@ public val DropdownsExamples: ImmutableList<Example> = persistentListOf(
         id = "custom-item",
         name = "Custom Item",
         description = "The Dropdown takes a slot for the menu content, you can use a different item than " +
-            "DropdownItem if you need a different layout than the classic one.",
+                "DropdownItem if you need a different layout than the classic one.",
         sourceUrl = DropdownsExampleSourceUrl,
     ) {
         CustomItemsDropdown()

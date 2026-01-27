@@ -396,7 +396,7 @@ private fun SparkDropdownMenuItem(
  */
 @Deprecated(
     message = "DropdownMenuItem is now scoped and can't be used as a Standalone component, migrate to " +
-        "the variant that has DropdownMenuItemColumnScope as a receiver",
+            "the variant that has DropdownMenuItemColumnScope as a receiver",
     replaceWith = ReplaceWith(
         "DropdownMenuItemColumnScope.DropdownMenuItem(text, onClick, modifier, leadingIcon, trailingIcon, enabled, contentPadding, interactionSource)",
     ),
