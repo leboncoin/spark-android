@@ -23,16 +23,24 @@ package com.adevinta.spark.components.card
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CornerBasedShape
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
@@ -42,6 +50,9 @@ import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.tokens.dim2
+import com.adevinta.spark.tokens.dim4
+import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
 @Composable
 internal fun SparkCard(
@@ -67,36 +78,46 @@ internal fun SparkCard(
 @Composable
 internal fun SparkCard(
     modifier: Modifier = Modifier,
-    shape: Shape = SparkTheme.shapes.medium,
+    shape: Shape = SparkTheme.shapes.large,
     colors: Color = SparkTheme.colors.surface,
     borderColor: Color = SparkTheme.colors.outline,
+    headingColor: Color = SparkTheme.colors.main,
     elevation: CardElevation = CardDefaults.cardElevation(),
-    contentPadding: PaddingValues = PaddingValues(16.dp),
+    heading: @Composable (() -> Unit)? = null,
+    contentPadding: PaddingValues = CardDefaults.paddingValues(heading != null),
     content: @Composable ColumnScope.() -> Unit,
 ) {
     val border = if (borderColor != Color.Unspecified) {
         BorderStroke(1.dp, borderColor)
     } else null
     Surface(
-        modifier = modifier,
+        modifier = modifier.sparkUsageOverlay(),
         shape = shape,
         color = colors,
         elevation = elevation.tonalElevation(enabled = true, interactionSource = null).value,
         border = border,
     ) {
-        Column(modifier = Modifier.padding(contentPadding), content = content)
+        Column {
+            if (heading != null) {
+                CardHeading(heading, headingColor, shape)
+            }
+            Column(modifier = Modifier.padding(contentPadding), content = content)
+        }
     }
 }
+
 
 @Composable
 internal fun SparkCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    shape: Shape = SparkTheme.shapes.medium,
+    shape: Shape = SparkTheme.shapes.large,
     color: Color = SparkTheme.colors.surface,
     borderColor: Color = SparkTheme.colors.outline,
+    headingColor: Color = SparkTheme.colors.main,
     elevation: CardElevation = CardDefaults.cardElevation(),
-    contentPadding: PaddingValues = PaddingValues(16.dp),
+    heading: @Composable (() -> Unit)? = null,
+    contentPadding: PaddingValues = CardDefaults.paddingValues(heading != null),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable ColumnScope.() -> Unit,
 ) {
@@ -107,14 +128,44 @@ internal fun SparkCard(
     } else null
     Surface(
         onClick = onClick,
-        modifier = modifier,
+        modifier = modifier.sparkUsageOverlay(),
         shape = shape,
         color = animatedBackgroundColor,
         interactionSource = interactionSource,
         elevation = elevation.tonalElevation(enabled = true, interactionSource = null).value,
         border = border,
     ) {
-        Column(modifier = Modifier.padding(contentPadding), content = content)
+        Column {
+            if (heading != null) {
+                CardHeading(heading = heading, headingColor = headingColor, shape = shape)
+            }
+            Column(modifier = Modifier.padding(contentPadding), content = content)
+        }
+    }
+}
+
+@Composable
+private fun CardHeading(
+    heading: @Composable (() -> Unit),
+    headingColor: Color,
+    shape: Shape,
+) {
+    val cornerSize = if(shape is CornerBasedShape) shape.topStart else CornerSize(16.dp)
+    Box(
+        modifier = Modifier
+            .height(16.dp)
+            .fillMaxWidth()
+            .clip(CardHighlightShape(cornerSize))
+            .background(
+                brush = Brush.horizontalGradient(
+                    colors = listOf(
+                        headingColor.dim4,
+                        headingColor.dim2,
+                    ),
+                ),
+            ),
+    ) {
+        heading()
     }
 }
 
@@ -313,8 +364,93 @@ public object Card {
         )
     }
 
-//    ElevatedHighlight
-//    OutlinedHighlight
+    @Composable
+    public fun HighlightElevated(
+        modifier: Modifier = Modifier,
+        shape: Shape = SparkTheme.shapes.medium,
+        colors: Color = SparkTheme.colors.main,
+        contentPadding: PaddingValues = CardDefaults.paddingValues(true),
+        heading: @Composable (() -> Unit) = { },
+        content: @Composable ColumnScope.() -> Unit,
+    ) {
+        SparkCard(
+            modifier = modifier,
+            shape = shape,
+            headingColor = colors,
+            borderColor = Color.Unspecified,
+            elevation = CardDefaults.elevatedCardElevation(),
+            contentPadding = contentPadding,
+            heading = heading,
+            content = content,
+        )
+    }
+
+    @Composable
+    public fun HighlightElevated(
+        onClick: () -> Unit,
+        modifier: Modifier = Modifier,
+        shape: Shape = SparkTheme.shapes.medium,
+        colors: Color = SparkTheme.colors.main,
+        contentPadding: PaddingValues = CardDefaults.paddingValues(true),
+        heading: @Composable (() -> Unit) = { },
+        content: @Composable ColumnScope.() -> Unit,
+    ) {
+        SparkCard(
+            onClick = onClick,
+            modifier = modifier,
+            shape = shape,
+            headingColor = colors,
+            borderColor = Color.Unspecified,
+            elevation = CardDefaults.elevatedCardElevation(),
+            contentPadding = contentPadding,
+            heading = heading,
+            content = content,
+        )
+    }
+
+    @Composable
+    public fun HighlightFlat(
+        modifier: Modifier = Modifier,
+        shape: Shape = SparkTheme.shapes.medium,
+        colors: Color = SparkTheme.colors.main,
+        contentPadding: PaddingValues = CardDefaults.paddingValues(true),
+        heading: @Composable (() -> Unit) = { },
+        content: @Composable ColumnScope.() -> Unit,
+    ) {
+        SparkCard(
+            modifier = modifier,
+            shape = shape,
+            headingColor = colors,
+            borderColor = Color.Unspecified,
+            elevation = CardDefaults.cardElevation(),
+            contentPadding = contentPadding,
+            heading = heading,
+            content = content,
+        )
+    }
+
+    @Composable
+    public fun HighlightFlat(
+        onClick: () -> Unit,
+        modifier: Modifier = Modifier,
+        shape: Shape = SparkTheme.shapes.medium,
+        colors: Color = SparkTheme.colors.main,
+        contentPadding: PaddingValues = CardDefaults.paddingValues(true),
+        heading: @Composable (() -> Unit) = { },
+        content: @Composable ColumnScope.() -> Unit,
+    ) {
+        SparkCard(
+            onClick = onClick,
+            modifier = modifier,
+            shape = shape,
+            headingColor = colors,
+            borderColor = Color.Unspecified,
+            elevation = CardDefaults.cardElevation(),
+            contentPadding = contentPadding,
+            heading = heading,
+            content = content,
+        )
+    }
 }
 
 /**
@@ -576,7 +712,7 @@ public fun ElevatedCard(
 @Preview
 @Composable
 internal fun PreviewCard() {
-    PreviewTheme {
+    PreviewTheme(color = { SparkTheme.colors.backgroundVariant }) {
         Card.Flat {
             Text(
                 text = "Card preview",
@@ -598,7 +734,7 @@ internal fun PreviewCard() {
 @Preview
 @Composable
 internal fun PreviewInteractiveCard() {
-    PreviewTheme {
+    PreviewTheme(color = { SparkTheme.colors.backgroundVariant }) {
 
         Card.Flat(
             onClick = {},
@@ -616,6 +752,26 @@ internal fun PreviewInteractiveCard() {
             )
         }
         Card.Elevated(
+            onClick = {},
+        ) {
+            Text(
+                text = "Card preview",
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+internal fun PreviewHighlightCard() {
+    PreviewTheme(color = { SparkTheme.colors.backgroundVariant }) {
+        Card.HighlightFlat {
+            Text(
+                text = "Card preview",
+            )
+        }
+
+        Card.HighlightElevated(
             onClick = {},
         ) {
             Text(

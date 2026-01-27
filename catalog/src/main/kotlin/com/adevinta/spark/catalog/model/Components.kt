@@ -30,6 +30,7 @@ import com.adevinta.spark.catalog.configurator.samples.buttons.ButtonsConfigurat
 import com.adevinta.spark.catalog.configurator.samples.buttons.IconButtonsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.buttons.IconToggleButtonsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.card.CardConfigurator
+import com.adevinta.spark.catalog.configurator.samples.card.CardHighlightedConfigurator
 import com.adevinta.spark.catalog.configurator.samples.chips.ChipsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.colorselector.ColorSelectorTestConfigurator
 import com.adevinta.spark.catalog.configurator.samples.divider.DividerConfigurator
@@ -196,7 +197,7 @@ private val Cards = Component(
     docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.card/index.html",
     sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/card/Card.kt",
     examples = CardExamples,
-    configurators = listOf(CardConfigurator),
+    configurators = listOf(CardConfigurator, CardHighlightedConfigurator),
 )
 
 private val Dialogs = Component(

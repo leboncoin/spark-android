@@ -390,7 +390,7 @@ private fun SparkDropdownMenuItem(
  */
 @Deprecated(
     message = "DropdownMenuItem is now scoped and can't be used as a Standalone component, migrate to " +
-        "the variant that has DropdownMenuItemColumnScope as a receiver",
+            "the variant that has DropdownMenuItemColumnScope as a receiver",
     replaceWith = ReplaceWith(
         "DropdownMenuItemColumnScope.DropdownMenuItem(text, onClick, modifier, leadingIcon, trailingIcon, enabled, contentPadding, interactionSource)",
     ),
@@ -696,17 +696,16 @@ public fun DropdownMenuItemColumnScope.NoContentItem(
  */
 @Composable
 @ExperimentalSparkApi
-public fun DropdownMenuGroupItem(
+public fun <T : DropdownMenuItemColumnScope> T.DropdownMenuGroupItem(
     title: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    content: @Composable DropdownMenuItemColumnScope.() -> Unit,
+    content: @Composable T.() -> Unit,
 ) {
     Column(modifier = modifier.sparkUsageOverlay()) {
         SectionHeadline {
             title()
         }
-        val scope = remember { DropdownMenuItemWrapper(this) }
-        scope.content()
+        this@DropdownMenuGroupItem.content()
     }
 }
 
@@ -792,9 +791,33 @@ private fun DropdownMenuGroupItemPreview() {
         padding = PaddingValues(0.dp),
         contentPadding = 0.dp,
     ) {
-        DropdownMenuGroupItem(
-            title = { Text("Logiciel") },
-        ) {
+        with(DropdownMenuItemWrapper(this)) {
+            DropdownMenuGroupItem(
+                title = { Text("Logiciel") },
+            ) {
+                SparkDropdownMenuItem(
+                    text = { Text("Edit") },
+                    leadingIcon = {
+                        Icon(
+                            SparkIcons.PenFill,
+                            contentDescription = null,
+                        )
+                    },
+                )
+                SparkDropdownMenuItem(
+                    text = { Text("Save") },
+                )
+                SparkDropdownMenuItem(
+                    text = { Text("Settings") },
+                    enabled = false,
+                    leadingIcon = {
+                        Icon(
+                            SparkIcons.WheelOutline,
+                            contentDescription = null,
+                        )
+                    },
+                )
+            }
             SparkDropdownMenuItem(
                 text = { Text("Edit") },
                 leadingIcon = {
@@ -807,28 +830,6 @@ private fun DropdownMenuGroupItemPreview() {
             SparkDropdownMenuItem(
                 text = { Text("Save") },
             )
-            SparkDropdownMenuItem(
-                text = { Text("Settings") },
-                enabled = false,
-                leadingIcon = {
-                    Icon(
-                        SparkIcons.WheelOutline,
-                        contentDescription = null,
-                    )
-                },
-            )
         }
-        SparkDropdownMenuItem(
-            text = { Text("Edit") },
-            leadingIcon = {
-                Icon(
-                    SparkIcons.PenFill,
-                    contentDescription = null,
-                )
-            },
-        )
-        SparkDropdownMenuItem(
-            text = { Text("Save") },
-        )
     }
 }
