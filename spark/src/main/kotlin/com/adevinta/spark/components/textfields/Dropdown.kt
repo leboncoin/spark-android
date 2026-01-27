@@ -76,6 +76,7 @@ import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconButton
 import com.adevinta.spark.components.icons.IconSize
 import com.adevinta.spark.components.menu.DropdownMenu
+import com.adevinta.spark.components.menu.DropdownMenuItemColumnScope
 import com.adevinta.spark.components.menu.MultiChoiceDropdownItemColumnScope
 import com.adevinta.spark.components.menu.MultipleChoiceExposedDropdownMenu
 import com.adevinta.spark.components.menu.SingleChoiceDropdownItemColumnScope
@@ -387,7 +388,7 @@ public fun Dropdown(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     properties: PopupProperties = PopupProperties(focusable = true, dismissOnClickOutside = true),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    dropdownContent: @Composable ColumnScope.() -> Unit,
+    dropdownContent: @Composable DropdownMenuItemColumnScope.() -> Unit,
 ) {
     ExposedDropdownMenuBox(
         expanded = expanded,
@@ -583,7 +584,7 @@ public fun MultiChoiceDropdown(
     dropdownContent: @Composable MultiChoiceDropdownItemColumnScope.() -> Unit,
 ) {
     Column(
-        modifier = modifier.height(IntrinsicSize.Min),
+//        modifier = modifier.height(IntrinsicSize.Min),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         ExposedDropdownMenuBox(
@@ -596,7 +597,7 @@ public fun MultiChoiceDropdown(
             TextField(
                 value = value,
                 onValueChange = { },
-                modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable, enabled),
+                modifier = modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable, enabled),
                 enabled = enabled,
                 readOnly = true,
                 required = required,
