@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.catalog.configurator.samples.fileupload
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -191,7 +192,7 @@ private fun ColumnScope.FileUploadSample() {
     )
 
     // Show file extension selector only when File type is selected
-    if (pickerType == FileUploadPickerType.File) {
+    AnimatedVisibility(pickerType == FileUploadPickerType.File) {
         DropdownEnum(
             title = "File extension filter",
             selectedOption = fileExtension,
@@ -200,7 +201,9 @@ private fun ColumnScope.FileUploadSample() {
     }
 
     // Show ImageSource selector only when Image type is selected
-    if (pickerType != FileUploadPickerType.File) {
+    val selectedTypeHasMultipleSource =
+        pickerType.toFileUploadType(imageSource) is FileUploadType.HasMultipleSource
+    AnimatedVisibility(selectedTypeHasMultipleSource) {
         ButtonGroup(
             title = "Image source",
             selectedOption = imageSource,
@@ -425,7 +428,7 @@ private fun FileUploadPickerType.toFileUploadType(
 
         FileUploadPickerType.Image -> FileUploadType.Image(source = imageSource)
 
-        FileUploadPickerType.Video -> FileUploadType.Video(source = imageSource)
+        FileUploadPickerType.Video -> FileUploadType.Video
 
         FileUploadPickerType.ImageAndVideo -> FileUploadType.ImageAndVideo(source = imageSource)
     }

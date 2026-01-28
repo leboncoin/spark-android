@@ -111,6 +111,7 @@ public object FileUpload {
             icon = icon,
             iconSide = iconSide,
             type = type,
+            maxFiles = maxFiles,
             title = title,
             directory = directory,
             dialogSettings = dialogSettings,
@@ -190,7 +191,7 @@ public object FileUpload {
  * Represents a file that has been selected or uploaded within the Spark file upload components.
  *
  * This class wraps the underlying [PlatformFile] and provides additional state such as
- * upload progress, error messages, and UI interaction states to represented the uploaded state of this
+ * upload progress, error messages, and UI interaction states to represent the uploaded state of this
  * specific selected file.
  *
  * @property file The underlying platform-specific file reference. System file information are contained here.
@@ -301,6 +302,18 @@ public enum class ImageSource {
 @Stable
 public sealed interface FileUploadType {
     /**
+     * Interface for file types that can be sourced from different locations (e.g., Camera or Gallery).
+     *
+     * This is used by types like [FileUploadType.Image] and [FileUploadType.ImageAndVideo] to
+     * specify where the media should be captured or selected from.
+     *
+     * @property source The origin from which the media should be retrieved.
+     */
+    public sealed interface HasMultipleSource : FileUploadType {
+        public val source: ImageSource
+    }
+
+    /**
      * Image files only.
      *
      * @param source How to select images: camera, gallery
@@ -309,10 +322,8 @@ public sealed interface FileUploadType {
 
     /**
      * Video files only
-     *
-     * @param source How to select images: camera, gallery
      */
-    public data class Video(override val source: ImageSource = ImageSource.Gallery) : HasMultipleSource
+    public data object Video : FileUploadType
 
     /**
      * Both image and video files
@@ -320,10 +331,6 @@ public sealed interface FileUploadType {
      * @param source How to select images: camera, gallery
      */
     public data class ImageAndVideo(override val source: ImageSource = ImageSource.Gallery) : HasMultipleSource
-
-    public sealed interface HasMultipleSource : FileUploadType {
-        public val source: ImageSource
-    }
 
     /**
      * Generic file selection with optional extension filter.

@@ -30,6 +30,7 @@ import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.chips.ChipDashed
 import io.github.vinceglb.filekit.PlatformFile
+import io.github.vinceglb.filekit.dialogs.FileKitCameraType
 import io.github.vinceglb.filekit.dialogs.FileKitDialogSettings
 import io.github.vinceglb.filekit.dialogs.FileKitMode
 import io.github.vinceglb.filekit.dialogs.compose.rememberCameraPickerLauncher
@@ -120,10 +121,11 @@ public fun rememberFileUploadPattern(
     val maxFiles = if (mode is FileUploadMode.Multiple) mode.maxFiles else null
 
     // File picker launcher (for gallery/file selection)
+    val fileKitType = type.toFileKitType()
     val filePicker = if (isSingleMode) {
         // Single mode: callback receives PlatformFile? directly
         rememberFilePickerLauncher(
-            type = type.toFileKitType(),
+            type = fileKitType,
             title = title,
             directory = directory,
             dialogSettings = dialogSettings,
@@ -134,7 +136,7 @@ public fun rememberFileUploadPattern(
         }
     } else {
         rememberFilePickerLauncher(
-            type = type.toFileKitType(),
+            type = fileKitType,
             mode = FileKitMode.Multiple(maxItems = maxFiles),
             title = title,
             directory = directory,
@@ -158,11 +160,11 @@ public fun rememberFileUploadPattern(
     val launchPicker: () -> Unit = {
         when (type) {
             is FileUploadType.HasMultipleSource -> when (type.source) {
-                ImageSource.Camera -> cameraPicker.launch()
+                ImageSource.Camera -> cameraPicker.launch(type = FileKitCameraType.Photo)
                 ImageSource.Gallery -> filePicker.launch()
             }
 
-            is FileUploadType.File -> filePicker.launch()
+            else -> filePicker.launch()
         }
     }
 
