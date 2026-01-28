@@ -82,17 +82,17 @@ import java.io.File
  * - Icon representing the file type or error state.
  * - Filename as primary text (with middle ellipsis if needed).
  * - File size as secondary text.
- * - Progress indicator (optional, linear or indeterminate).
- * - Error message (optional).
+ * - Progress indicator (optional, linear or indeterminate) - shown when [UploadedFile.progress] or [UploadedFile.isLoading] is set.
+ * - Error message (optional) - shown when [UploadedFile.errorMessage] is set.
  * - Clear button at the end to remove the file.
  *
- * @param file The uploaded file to display.
+ * The component automatically displays progress, loading states, and error messages based on the [file]'s properties.
+ * Progress and loading states disable the clear button automatically.
+ *
+ * @param file The uploaded file to display. The file's [UploadedFile.progress], [UploadedFile.isLoading],
+ * [UploadedFile.errorMessage], and [UploadedFile.enabled] properties control the component's visual state.
  * @param onClear Callback invoked when the clear button is clicked.
  * @param modifier Modifier to be applied to the component.
- * @param progress Optional progress indicator lambda (returning 0.0 to 1.0).
- * @param isLoading Whether to show an indeterminate loading indicator. Takes precedence over [progress].
- * @param errorMessage Optional error message to display. If provided, the component switches to an error state.
- * @param enabled Whether the component is enabled. If false, interactions are disabled and the UI is dimmed.
  * @param clearContentDescription Content description for the clear button. If null, defaults to "Remove ${file.name}".
  * @param onClick Optional callback invoked when the file preview is clicked. If null, the preview is not clickable.
  * @param clearIcon Icon to use for the clear button. Defaults to [SparkIcons.Close].
