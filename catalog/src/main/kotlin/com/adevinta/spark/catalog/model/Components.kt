@@ -32,6 +32,7 @@ import com.adevinta.spark.catalog.configurator.samples.buttons.IconToggleButtons
 import com.adevinta.spark.catalog.configurator.samples.chips.ChipsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.colorselector.ColorSelectorTestConfigurator
 import com.adevinta.spark.catalog.configurator.samples.divider.DividerConfigurator
+import com.adevinta.spark.catalog.configurator.samples.fileupload.FileUploadConfigurator
 import com.adevinta.spark.catalog.configurator.samples.gauge.GaugesConfigurator
 import com.adevinta.spark.catalog.configurator.samples.image.ImageConfigurator
 import com.adevinta.spark.catalog.configurator.samples.modal.ModalConfigurator
@@ -62,6 +63,7 @@ import com.adevinta.spark.catalog.examples.samples.chips.ChipsExamples
 import com.adevinta.spark.catalog.examples.samples.combobox.ComboBoxExample
 import com.adevinta.spark.catalog.examples.samples.dialog.DialogsExamples
 import com.adevinta.spark.catalog.examples.samples.divider.DividerExamples
+import com.adevinta.spark.catalog.examples.samples.fileupload.FileUploadExamples
 import com.adevinta.spark.catalog.examples.samples.gauge.SegmentedGaugeExamples
 import com.adevinta.spark.catalog.examples.samples.icons.IconsExamples
 import com.adevinta.spark.catalog.examples.samples.placeholder.PlaceholderExamples
@@ -290,6 +292,18 @@ private val Image = Component(
     configurators = listOf(ImageConfigurator),
 )
 
+private val FileUpload = Component(
+    id = "fileupload",
+    name = "File upload",
+    illustration = R.drawable.fileupload,
+    description = R.string.component_image_description,
+    guidelinesUrl = "$ComponentGuidelinesUrl/p/096e9f-image",
+    docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.fileupload/index.html",
+    sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/fileupload/FileUpload.kt",
+    examples = FileUploadExamples,
+    configurators = listOf(FileUploadConfigurator),
+)
+
 private val Popovers = Component(
     id = "popovers",
     name = "Popovers",
@@ -508,6 +522,7 @@ public val Components: List<Component> = listOf(
     IconButtons,
     IconToggleButtons,
     Image,
+    FileUpload,
     Popovers,
     Progressbars,
     ProgressTracker,

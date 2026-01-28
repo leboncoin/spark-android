@@ -5,6 +5,30 @@
 ## [Unreleased]
 
 
+## [1.8.0-alpha03]
+
+_2026-01-28_
+
+### Spark
+
+#### 🆕 FileUpload Component
+
+- ✨ Add `FileUpload.Button` and `FileUpload.ButtonSingleSelect` composables for selecting files through a button trigger. Supports single or multiple file selection with images, videos, and generic files (with optional extension filtering). For images, you can choose between camera or gallery selection. Use `FileUploadList` or `PreviewFile` to display selected files with progress indicators, error states, and remove actions. The `FileUploadPattern` allows you to integrate file upload functionality into any custom component.
+
+```kotlin
+// Single file selection
+var selectedFile by remember { mutableStateOf<UploadedFile?>(null) }
+
+FileUpload.ButtonSingleSelect(
+    onResult = { file -> selectedFile = file },
+    label = "Select file",
+    type = FileUploadType.Image(ImageSource.Gallery)
+)
+```
+
+> [!NOTE]
+> This component is experimental and marked with `@ExperimentalSparkApi`. Feedbacks are welcomed.
+
 ## [1.8.0-alpha02]
 
 _2026-01-22_
@@ -1061,7 +1085,9 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.8.0-alpha02...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.8.0-alpha03...HEAD
+
+[1.8.0-alpha03]: https://github.com/leboncoin/spark-android/releases/tag/1.8.0-alpha03
 
 [1.8.0-alpha02]: https://github.com/leboncoin/spark-android/releases/tag/1.8.0-alpha02
 
