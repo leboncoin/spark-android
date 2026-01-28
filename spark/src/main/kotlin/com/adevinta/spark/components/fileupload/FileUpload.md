@@ -7,7 +7,7 @@ File upload components allow users to select, upload, and preview files such as 
 - `FileUpload.Button`: High-level component for multiple file selection with a button trigger and optional file previews. This is the default component for file uploads.
 - `FileUpload.ButtonSingleSelect`: High-level component for single file selection with a button trigger and optional file preview.
 - `FileUploadPattern`: Reusable pattern wrapper that can integrate file upload functionality into any component.
-- `FileUploadDefaultPreview`: Default preview implementation that displays uploaded files in a list with progress bars, error states, and clear buttons.
+- `FileUploadList`: Default preview implementation that displays uploaded files in a list with progress bars, error states, and clear buttons.
 - `PreviewFile`: Visual representation of a single uploaded file, showing icon, name, size and a clear button.
 
 ## Pattern API
@@ -76,7 +76,7 @@ TextField(
 
 ## Default Preview
 
-The `FileUploadDefaultPreview` component provides a standard implementation for displaying uploaded files:
+The `FileUploadList` component provides a standard implementation for displaying uploaded files:
 
 ```kotlin
 FileUpload.Button(
@@ -84,7 +84,7 @@ FileUpload.Button(
     label = "Select files",
 )
 
-FileUploadDefaultPreview(
+FileUploadList(
     files = selectedFiles,
     onClearFile = { file -> selectedFiles = selectedFiles.remove(file) },
     onClick = { file -> /* handle file click */ }
@@ -142,7 +142,7 @@ FileUpload.ButtonSingleSelect(
 
 ## Custom Preview
 
-You can customize how selected files are displayed by managing state yourself and using `PreviewFile` or `FileUploadDefaultPreview`:
+You can customize how selected files are displayed by managing state yourself and using `PreviewFile` or `FileUploadList`:
 
 ```kotlin
 var selectedFile by remember { mutableStateOf<UploadedFile?>(null) }
