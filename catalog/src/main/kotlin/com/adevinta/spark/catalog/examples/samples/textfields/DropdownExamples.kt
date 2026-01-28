@@ -38,6 +38,8 @@ import com.adevinta.spark.components.tags.TagFilled
 import com.adevinta.spark.components.tags.TagIntent
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.Dropdown
+import com.adevinta.spark.components.textfields.MultiChoiceDropdown
+import com.adevinta.spark.components.textfields.SingleChoiceDropdown
 import com.adevinta.spark.tokens.highlight
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -87,7 +89,7 @@ private fun SingleSelectDropdown() {
 
     var singleSelected by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
-    Dropdown(
+    SingleChoiceDropdown(
         modifier = Modifier.fillMaxWidth(),
         value = singleSelected,
         label = "Book",
@@ -142,8 +144,8 @@ private fun MultiSelectDropdown() {
         }
     }
     var expanded by remember { mutableStateOf(false) }
-    Dropdown(
-        modifier = Modifier.fillMaxWidth(),
+    MultiChoiceDropdown(
+        modifier = Modifier,
         value = multiSelectedValues,
         label = "Book",
         placeholder = "Pick a Book",
@@ -166,6 +168,7 @@ private fun MultiSelectDropdown() {
                         // each items but we're simplifying things since it's an example here.
                         val isSelected = book in selectedItems
                         DropdownMenuItem(
+                            checked = isSelected,
                             text = {
                                 Text(
                                     text = book,
@@ -176,7 +179,7 @@ private fun MultiSelectDropdown() {
                                     },
                                 )
                             },
-                            onClick = {
+                            onCheckedChange = {
                                 selectedItems = if (book in selectedItems) {
                                     selectedItems - book
                                 } else {

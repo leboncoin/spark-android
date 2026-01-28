@@ -22,6 +22,14 @@ _2026-01-22_
 ### CI
 - Run lint task on the `:spark-lint` module
 
+## [1.7.1]
+
+_2026-01-28_
+
+### Spark
+
+- 🐛 `Dropdown` Fix layout used in MultiChoice made the dropdown smaller than intended
+
 ## [1.7.0]
 
 _2026-01-14_
@@ -1055,9 +1063,11 @@ _2023-03-29_
 
 [Unreleased]: https://github.com/leboncoin/spark-android/compare/1.8.0-alpha02...HEAD
 
-[1.8.0-alpha02]: https://github.com/leboncoin/spark-android/compare/1.8.0-alpha02
+[1.8.0-alpha02]: https://github.com/leboncoin/spark-android/releases/tag/1.8.0-alpha02
 
-[1.8.0-alpha01]: https://github.com/leboncoin/spark-android/compare/1.8.0-alpha01
+[1.8.0-alpha01]: https://github.com/leboncoin/spark-android/releases/tag/1.8.0-alpha01
+
+[1.7.1]: https://github.com/leboncoin/spark-android/releases/tag/1.7.1
 
 [1.7.0]: https://github.com/leboncoin/spark-android/releases/tag/1.7.0
 

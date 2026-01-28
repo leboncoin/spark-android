@@ -46,7 +46,9 @@ import com.adevinta.spark.catalog.configurator.samples.tabs.TabsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.tags.TagsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.text.TextLinksConfigurator
 import com.adevinta.spark.catalog.configurator.samples.textfields.ComboBoxConfigurators
-import com.adevinta.spark.catalog.configurator.samples.textfields.DropdownsConfigurator
+import com.adevinta.spark.catalog.configurator.samples.textfields.MultiChoiceDropdownConfigurator
+import com.adevinta.spark.catalog.configurator.samples.textfields.MultiChoiceDropdownWithSelectedConfigurator
+import com.adevinta.spark.catalog.configurator.samples.textfields.SingleChoiceDropdownConfigurator
 import com.adevinta.spark.catalog.configurator.samples.textfields.TextFieldsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.toggles.CheckboxConfigurator
 import com.adevinta.spark.catalog.configurator.samples.toggles.RadioButtonConfigurator
@@ -83,6 +85,7 @@ import com.adevinta.spark.catalog.examples.samples.tokens.TokensExamples
 import com.adevinta.spark.catalog.util.ComponentGuidelinesUrl
 import com.adevinta.spark.catalog.util.PackageSummaryUrl
 import com.adevinta.spark.catalog.util.SparkSourceUrl
+import kotlinx.collections.immutable.persistentListOf
 
 public data class Component(
     val id: String,
@@ -218,7 +221,11 @@ private val Dropdowns = Component(
     docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.dropdown/index.html",
     sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/textfields/Dropdown.kt",
     examples = DropdownsExamples,
-    configurators = listOf(DropdownsConfigurator),
+    configurators = persistentListOf(
+        SingleChoiceDropdownConfigurator,
+        MultiChoiceDropdownConfigurator,
+        MultiChoiceDropdownWithSelectedConfigurator,
+    ),
 )
 
 private val Animations = Component(
