@@ -46,7 +46,6 @@ import com.adevinta.spark.catalog.configurator.samples.tabs.TabsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.tags.TagsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.text.TextLinksConfigurator
 import com.adevinta.spark.catalog.configurator.samples.textfields.ComboBoxConfigurators
-import com.adevinta.spark.catalog.configurator.samples.textfields.DropdownsConfigurators
 import com.adevinta.spark.catalog.configurator.samples.textfields.MultiChoiceDropdownConfigurator
 import com.adevinta.spark.catalog.configurator.samples.textfields.MultiChoiceDropdownWithSelectedConfigurator
 import com.adevinta.spark.catalog.configurator.samples.textfields.SingleChoiceDropdownConfigurator

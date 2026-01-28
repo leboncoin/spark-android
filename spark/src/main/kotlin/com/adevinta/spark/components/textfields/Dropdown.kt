@@ -584,7 +584,6 @@ public fun MultiChoiceDropdown(
     dropdownContent: @Composable MultiChoiceDropdownItemColumnScope.() -> Unit,
 ) {
     Column(
-//        modifier = modifier.height(IntrinsicSize.Min),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         ExposedDropdownMenuBox(

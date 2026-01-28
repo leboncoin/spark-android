@@ -285,15 +285,15 @@ public fun ExposedDropdownMenuBoxScope.MultipleChoiceExposedDropdownMenu(
 
 /** Scope for the children of a [DropdownMenu] */
 @Immutable
-public interface DropdownMenuItemColumnScope : ColumnScope
+public sealed interface DropdownMenuItemColumnScope : ColumnScope
 
 /** Scope for the children of a [SingleChoiceComboBox] */
 @Immutable
-public interface SingleChoiceDropdownItemColumnScope : DropdownMenuItemColumnScope
+public sealed interface SingleChoiceDropdownItemColumnScope : DropdownMenuItemColumnScope
 
 /** Scope for the children of a [MultiChoiceComboBox] */
 @Immutable
-public interface MultiChoiceDropdownItemColumnScope : DropdownMenuItemColumnScope
+public sealed interface MultiChoiceDropdownItemColumnScope : DropdownMenuItemColumnScope
 
 // Needed to be able to test Group Item in screenshots
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
