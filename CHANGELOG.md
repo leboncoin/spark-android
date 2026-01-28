@@ -5,6 +5,23 @@
 ## [Unreleased]
 
 
+## [1.8.0-alpha03]
+
+_2026-01-28_
+
+### Spark
+
+#### 🆕 FileUpload Component
+
+- ✨ Add `FileUpload.Button` and `FileUpload.ButtonSingleSelect` composables for file selection with support for images, videos, and generic files
+- ✨ Add `FileUploadPattern` reusable pattern that can integrate file upload functionality into any custom component
+- ✨ Add `FileUploadDefaultPreview` and `PreviewFile` components for displaying selected files with progress indicators, error states, and file management actions
+- ✨ Support for camera and gallery selection for images, with optional file extension filtering for generic files
+- ✨ Support for upload progress tracking and error handling in file previews
+
+> [!NOTE]
+> This component is experimental and marked with `@ExperimentalSparkApi`. Feedbacks are welcomed.
+
 ## [1.8.0-alpha02]
 
 _2026-01-22_
@@ -1061,7 +1078,9 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.8.0-alpha02...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.8.0-alpha03...HEAD
+
+[1.8.0-alpha03]: https://github.com/leboncoin/spark-android/releases/tag/1.8.0-alpha03
 
 [1.8.0-alpha02]: https://github.com/leboncoin/spark-android/releases/tag/1.8.0-alpha02
 

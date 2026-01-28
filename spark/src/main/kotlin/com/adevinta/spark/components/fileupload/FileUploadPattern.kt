@@ -45,7 +45,7 @@ import kotlinx.collections.immutable.toImmutableList
  * This composable allows you to wrap any component (button, surface, image, etc.) with file upload
  * functionality. The pattern handles all file picking logic while you control the UI trigger.
  *
- * For displaying selected files, use [PreviewFile] or [FileUploadDefaultPreview] separately.
+ * For displaying selected files, use [PreviewFile] or [FileUploadList] separately.
  *
  * @param pattern The [FileUploadPatternState] from [rememberFileUploadPattern]
  * @param modifier Modifier to be applied to the container
@@ -180,7 +180,6 @@ public fun rememberFileUploadPattern(
     }
 }
 
-@ExperimentalSparkApi
 @Preview
 @Composable
 private fun FileUploadPatternPreview() {

@@ -28,6 +28,7 @@ import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
+import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.buttons.ButtonIntent
 import com.adevinta.spark.components.buttons.ButtonSize
@@ -57,7 +58,7 @@ public object FileUpload {
      * High level file upload component for multiple file selection.
      *
      * This component provides a button to trigger multiple file selection. To display selected files,
-     * manage state yourself and use [PreviewFile] or [FileUploadDefaultPreview].
+     * manage state yourself and use [PreviewFile] or [FileUploadList].
      *
      * @param onResult Callback invoked when files are selected
      * @param label Text label for the default button
@@ -78,6 +79,7 @@ public object FileUpload {
      *
      * @sample com.adevinta.spark.components.fileupload.FileUploadSamples
      */
+    @ExperimentalSparkApi
     @Composable
     public fun Button(
         onResult: (ImmutableList<UploadedFile>) -> Unit,
@@ -129,7 +131,7 @@ public object FileUpload {
      * High level file upload component for single file selection.
      *
      * This component provides a button to trigger file selection. To display selected files,
-     * manage state yourself and use [PreviewFile] or [FileUploadDefaultPreview].
+     * manage state yourself and use [PreviewFile] or [FileUploadList].
      *
      * @param onResult Callback invoked when a file is selected or cleared (null)
      * @param label Text label for the default button
@@ -149,6 +151,7 @@ public object FileUpload {
      *
      * @sample com.adevinta.spark.components.fileupload.FileUploadSamples
      */
+    @ExperimentalSparkApi
     @Composable
     public fun ButtonSingleSelect(
         onResult: (UploadedFile?) -> Unit,

@@ -40,7 +40,7 @@ import com.adevinta.spark.components.buttons.ButtonSize
 import com.adevinta.spark.components.buttons.ButtonTinted
 import com.adevinta.spark.components.buttons.IconSide
 import com.adevinta.spark.components.fileupload.FileUpload
-import com.adevinta.spark.components.fileupload.FileUploadDefaultPreview
+import com.adevinta.spark.components.fileupload.FileUploadList
 import com.adevinta.spark.components.fileupload.FileUploadDefaults
 import com.adevinta.spark.components.fileupload.PreviewFile
 import com.adevinta.spark.components.fileupload.UploadedFile
@@ -238,7 +238,7 @@ private fun MultipleFilesConcatenatedExample() {
         VerticalSpacer(16.dp)
 
         if (selectedFiles.isNotEmpty()) {
-            FileUploadDefaultPreview(
+            FileUploadList(
                 files = selectedFiles.toImmutableList(),
                 onClearFile = { file ->
                     selectedFiles = selectedFiles.filterNot { it == file }.toImmutableSet()
@@ -270,7 +270,7 @@ private fun MultipleFilesReplacedExample() {
         VerticalSpacer(16.dp)
 
         if (selectedFiles.isNotEmpty()) {
-            FileUploadDefaultPreview(
+            FileUploadList(
                 files = selectedFiles,
                 onClearFile = { file ->
                     selectedFiles = selectedFiles.filterNot { it == file }.toImmutableList()

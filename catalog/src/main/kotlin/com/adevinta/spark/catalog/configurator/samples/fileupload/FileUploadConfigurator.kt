@@ -53,7 +53,7 @@ import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.card.Card
 import com.adevinta.spark.components.fileupload.FileExtensionStandard
 import com.adevinta.spark.components.fileupload.FileUpload
-import com.adevinta.spark.components.fileupload.FileUploadDefaultPreview
+import com.adevinta.spark.components.fileupload.FileUploadList
 import com.adevinta.spark.components.fileupload.FileUploadDefaults
 import com.adevinta.spark.components.fileupload.FileUploadType
 import com.adevinta.spark.components.fileupload.ImageSource
@@ -148,7 +148,7 @@ private fun ColumnScope.FileUploadSample() {
             multipleFiles.map { it.applyGlobalEnabled(enabled) }.toImmutableList()
         }
     }
-    FileUploadDefaultPreview(
+    FileUploadList(
         modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
         files = filesWithStates,
         onClearFile = { file ->

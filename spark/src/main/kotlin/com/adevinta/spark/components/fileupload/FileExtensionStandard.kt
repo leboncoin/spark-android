@@ -21,6 +21,8 @@
  */
 package com.adevinta.spark.components.fileupload
 
+import com.adevinta.spark.ExperimentalSparkApi
+
 /**
  * Represents the set of file extensions to be used when selecting the [FileUploadType.File] within a
  * file upload component.
@@ -28,6 +30,7 @@ package com.adevinta.spark.components.fileupload
  *
  * @see FileUploadType.File
  */
+@ExperimentalSparkApi
 public enum class FileExtensionStandard(public val extensions: Set<String>) {
     All(emptySet()),
     PDF(setOf("pdf")),

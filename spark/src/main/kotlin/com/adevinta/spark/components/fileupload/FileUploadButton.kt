@@ -41,7 +41,7 @@ import kotlinx.collections.immutable.ImmutableList
  * High level file upload component for single file selection.
  *
  * This component provides a button to trigger file selection. To display selected files,
- * manage state yourself and use [PreviewFile] or [FileUploadDefaultPreview].
+ * manage state yourself and use [PreviewFile] or [FileUploadList].
  *
  * @param onResult Callback invoked when a file is selected or cleared (null)
  * @param label Text label for the default button
@@ -105,7 +105,7 @@ internal fun FileUploadSingleButton(
  * High level file upload component for multiple file selection.
  *
  * This component provides a button to trigger multiple file selection. To display selected files,
- * manage state yourself and use [PreviewFile] or [FileUploadDefaultPreview].
+ * manage state yourself and use [PreviewFile] or [FileUploadList].
  *
  * @param onResult Callback invoked when files are selected
  * @param label Text label for the default button
