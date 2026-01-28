@@ -30,6 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.DefaultTestDevices
+import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.components.fileupload.FileUpload
 import com.adevinta.spark.components.fileupload.PreviewFile
 import com.adevinta.spark.components.fileupload.UploadedFile
@@ -43,6 +44,7 @@ import org.junit.Rule
 import org.junit.Test
 import java.io.File
 
+@OptIn(ExperimentalSparkApi::class)
 internal class FileUploadScreenshot {
 
     @get:Rule
