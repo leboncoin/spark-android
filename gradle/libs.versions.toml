@@ -124,7 +124,7 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 nmcp = "com.gradleup.nmcp:1.4.4"
 paparazzi = "app.cash.paparazzi:2.0.0-alpha04"
-spotless = "com.diffplug.spotless:8.2.0"
+spotless = "com.diffplug.spotless:8.2.1"
 
 
 # Plugins defined by this project
