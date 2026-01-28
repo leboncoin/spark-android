@@ -24,7 +24,9 @@ package com.adevinta.spark.catalog.examples.samples.fileupload
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -33,19 +35,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SparkSampleSourceUrl
+import com.adevinta.spark.components.buttons.ButtonOutlined
+import com.adevinta.spark.components.buttons.ButtonSize
+import com.adevinta.spark.components.buttons.ButtonTinted
+import com.adevinta.spark.components.buttons.IconSide
 import com.adevinta.spark.components.fileupload.FileUpload
 import com.adevinta.spark.components.fileupload.FileUploadDefaultPreview
 import com.adevinta.spark.components.fileupload.FileUploadDefaults
 import com.adevinta.spark.components.fileupload.PreviewFile
 import com.adevinta.spark.components.fileupload.UploadedFile
 import com.adevinta.spark.components.spacer.VerticalSpacer
+import com.adevinta.spark.icons.ImageOutline
+import com.adevinta.spark.icons.SparkIcons
 import io.github.vinceglb.filekit.PlatformFile
+import io.github.vinceglb.filekit.path
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableSet
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.persistentSetOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableSet
+import kotlinx.coroutines.delay
 import java.io.File
 
 private const val FileUploadExampleSourceUrl = "$SparkSampleSourceUrl/fileupload/FileUploadExamples.kt"
@@ -82,6 +92,30 @@ public val FileUploadExamples: ImmutableList<Example> = persistentListOf(
         sourceUrl = FileUploadExampleSourceUrl,
     ) {
         MultipleFilesReplacedExample()
+    },
+    Example(
+        id = "button-customization",
+        name = "Button Customization",
+        description = "Demonstrates button customization with different sizes, icons, and icon positions",
+        sourceUrl = FileUploadExampleSourceUrl,
+    ) {
+        ButtonCustomizationExample()
+    },
+    Example(
+        id = "custom-button-content",
+        name = "Custom Button Content",
+        description = "Shows how to use custom button components instead of the default button",
+        sourceUrl = FileUploadExampleSourceUrl,
+    ) {
+        CustomButtonContentExample()
+    },
+    Example(
+        id = "upload-progress-error",
+        name = "Upload Progress & Error Handling",
+        description = "Demonstrates handling upload progress, loading states, and error scenarios",
+        sourceUrl = FileUploadExampleSourceUrl,
+    ) {
+        UploadProgressErrorExample()
     },
 )
 
@@ -244,6 +278,194 @@ private fun MultipleFilesReplacedExample() {
                 onClick = { file ->
                     FileUploadDefaults.openFile(file)
                 },
+            )
+        }
+    }
+}
+
+@Composable
+private fun ButtonCustomizationExample() {
+    var selectedFile1 by rememberSaveable { mutableStateOf<UploadedFile?>(null) }
+    var selectedFile2 by rememberSaveable { mutableStateOf<UploadedFile?>(null) }
+    var selectedFile3 by rememberSaveable { mutableStateOf<UploadedFile?>(null) }
+
+    Column(modifier = Modifier.fillMaxWidth()) {
+        // Medium button with icon at end
+        FileUpload.ButtonSingleSelect(
+            onResult = { file -> selectedFile2 = file },
+            label = "Medium with icon at end",
+            modifier = Modifier.fillMaxWidth(),
+            size = ButtonSize.Medium,
+            icon = SparkIcons.ImageOutline,
+            iconSide = IconSide.END,
+        )
+
+        VerticalSpacer(16.dp)
+
+        // Large button with icon at start
+        FileUpload.ButtonSingleSelect(
+            onResult = { file -> selectedFile3 = file },
+            label = "Large with icon",
+            modifier = Modifier.fillMaxWidth(),
+            size = ButtonSize.Large,
+            icon = SparkIcons.ImageOutline,
+            iconSide = IconSide.START,
+        )
+
+        VerticalSpacer(16.dp)
+
+        selectedFile1?.let { file ->
+            PreviewFile(
+                file = file,
+                onClear = { selectedFile1 = null },
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
+
+        selectedFile2?.let { file ->
+            VerticalSpacer(8.dp)
+            PreviewFile(
+                file = file,
+                onClear = { selectedFile2 = null },
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
+
+        selectedFile3?.let { file ->
+            VerticalSpacer(8.dp)
+            PreviewFile(
+                file = file,
+                onClear = { selectedFile3 = null },
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
+    }
+}
+
+@Composable
+private fun CustomButtonContentExample() {
+    var selectedFile1 by rememberSaveable { mutableStateOf<UploadedFile?>(null) }
+    var selectedFile2 by rememberSaveable { mutableStateOf<UploadedFile?>(null) }
+
+    Column(modifier = Modifier.fillMaxWidth()) {
+        // Using ButtonTinted as custom button content
+        FileUpload.ButtonSingleSelect(
+            onResult = { file -> selectedFile1 = file },
+            label = "Select file",
+            modifier = Modifier.fillMaxWidth(),
+            buttonContent = { onClick ->
+                ButtonTinted(
+                    onClick = onClick,
+                    text = "Upload with Tinted Button",
+                    icon = SparkIcons.ImageOutline,
+                    iconSide = IconSide.START,
+                )
+            },
+        )
+
+        VerticalSpacer(16.dp)
+
+        // Using ButtonOutlined as custom button content
+        FileUpload.ButtonSingleSelect(
+            onResult = { file -> selectedFile2 = file },
+            label = "Select file",
+            modifier = Modifier.fillMaxWidth(),
+            buttonContent = { onClick ->
+                ButtonOutlined(
+                    onClick = onClick,
+                    text = "Upload with Outlined Button",
+                    icon = SparkIcons.ImageOutline,
+                    iconSide = IconSide.END,
+                )
+            },
+        )
+
+        VerticalSpacer(16.dp)
+
+        selectedFile1?.let { file ->
+            PreviewFile(
+                file = file,
+                onClear = { selectedFile1 = null },
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
+
+        selectedFile2?.let { file ->
+            VerticalSpacer(8.dp)
+            PreviewFile(
+                file = file,
+                onClear = { selectedFile2 = null },
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
+    }
+}
+
+@Composable
+private fun UploadProgressErrorExample() {
+    var uploadedFile by rememberSaveable { mutableStateOf<UploadedFile?>(null) }
+    var uploadProgress by rememberSaveable { mutableFloatStateOf(0f) }
+    var uploadError by rememberSaveable { mutableStateOf<String?>(null) }
+
+    // Simulate upload progress when a new file is selected
+    LaunchedEffect(uploadedFile?.file?.path) {
+        val file = uploadedFile ?: return@LaunchedEffect
+        // Only start upload simulation if file doesn't already have progress/error state
+        if (file.progress == null && !file.isLoading && file.errorMessage == null) {
+            uploadProgress = 0f
+            uploadError = null
+
+            // Simulate upload progress
+            for (i in 0..100 step 10) {
+                delay(150)
+                uploadProgress = i / 100f
+                uploadedFile = file.copy(
+                    progress = { uploadProgress },
+                    isLoading = false,
+                    errorMessage = null,
+                )
+            }
+
+            // Simulate error at 80% progress (for demonstration purposes)
+            delay(200)
+            uploadedFile = file.copy(
+                progress = null,
+                isLoading = false,
+                errorMessage = "Upload failed: Network error. Please try again.",
+            )
+        }
+    }
+
+    Column(modifier = Modifier.fillMaxWidth()) {
+        FileUpload.ButtonSingleSelect(
+            onResult = { file ->
+                if (file != null) {
+                    // Reset state when new file is selected
+                    uploadedFile = file
+                    uploadError = null
+                    uploadProgress = 0f
+                } else {
+                    uploadedFile = null
+                    uploadError = null
+                }
+            },
+            label = "Select file to upload",
+            modifier = Modifier.fillMaxWidth(),
+            icon = SparkIcons.ImageOutline,
+            iconSide = IconSide.START,
+        )
+
+        VerticalSpacer(16.dp)
+
+        uploadedFile?.let { file ->
+            PreviewFile(
+                file = file,
+                onClear = {
+                    uploadedFile = null
+                    uploadProgress = 0f
+                    uploadError = null
+                },
+                modifier = Modifier.fillMaxWidth(),
             )
         }
     }
