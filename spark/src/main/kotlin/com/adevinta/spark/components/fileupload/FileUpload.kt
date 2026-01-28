@@ -62,6 +62,10 @@ public object FileUpload {
      * @param onResult Callback invoked when files are selected
      * @param label Text label for the default button
      * @param modifier Modifier to be applied to the button
+     * @param size The size of the button. Only applies when using the default [buttonContent].
+     * @param icon The optional icon to be displayed at the start or the end of the button container. Only applies when using the default [buttonContent].
+     * @param iconSide If an icon is added, you can configure the side where is should be displayed, at the start
+     * or end of the button. Only applies when using the default [buttonContent].
      * @param type Type of files to select (image, video, file, etc.)
      * @param maxFiles Maximum number of files that can be selected. If null, no limit.
      * @param title Optional title for the file picker dialog
@@ -130,6 +134,10 @@ public object FileUpload {
      * @param onResult Callback invoked when a file is selected or cleared (null)
      * @param label Text label for the default button
      * @param modifier Modifier to be applied to the button
+     * @param size The size of the button. Only applies when using the default [buttonContent].
+     * @param icon The optional icon to be displayed at the start or the end of the button container. Only applies when using the default [buttonContent].
+     * @param iconSide If an icon is added, you can configure the side where is should be displayed, at the start
+     * or end of the button. Only applies when using the default [buttonContent].
      * @param type Type of files to select (image, video, file, etc.)
      * @param title Optional title for the file picker dialog
      * @param directory Optional directory to open the picker in
