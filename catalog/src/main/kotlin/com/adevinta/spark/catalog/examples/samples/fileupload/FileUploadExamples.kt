@@ -40,8 +40,8 @@ import com.adevinta.spark.components.buttons.ButtonSize
 import com.adevinta.spark.components.buttons.ButtonTinted
 import com.adevinta.spark.components.buttons.IconSide
 import com.adevinta.spark.components.fileupload.FileUpload
-import com.adevinta.spark.components.fileupload.FileUploadList
 import com.adevinta.spark.components.fileupload.FileUploadDefaults
+import com.adevinta.spark.components.fileupload.FileUploadList
 import com.adevinta.spark.components.fileupload.PreviewFile
 import com.adevinta.spark.components.fileupload.UploadedFile
 import com.adevinta.spark.components.spacer.VerticalSpacer
