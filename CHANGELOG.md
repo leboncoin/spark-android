@@ -4,6 +4,14 @@
 
 ## [Unreleased]
 
+## [1.7.1]
+
+_2026-01-28_
+
+### Spark
+
+- 🐛 `Dropdown` Fix layout used in MultiChoice made the dropdown smaller than intended
+
 ## [1.7.0]
 
 _2026-01-14_
@@ -1035,7 +1043,9 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.7.0...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.7.1...HEAD
+
+[1.7.1]: https://github.com/leboncoin/spark-android/releases/tag/1.7.1
 
 [1.7.0]: https://github.com/leboncoin/spark-android/releases/tag/1.7.0
 
