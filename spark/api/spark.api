@@ -806,6 +806,182 @@ public final class com/adevinta/spark/components/drawer/SparkDrawerDefaults {
 	public final fun getWindowInsets (Landroidx/compose/runtime/Composer;I)Landroidx/compose/foundation/layout/WindowInsets;
 }
 
+public final class com/adevinta/spark/components/fileupload/ComposableSingletons$FileUploadPatternKt {
+	public static final field INSTANCE Lcom/adevinta/spark/components/fileupload/ComposableSingletons$FileUploadPatternKt;
+	public fun <init> ()V
+	public final fun getLambda$-465084295$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$969223201$spark_release ()Lkotlin/jvm/functions/Function3;
+}
+
+public final class com/adevinta/spark/components/fileupload/FileExtensionStandard : java/lang/Enum {
+	public static final field All Lcom/adevinta/spark/components/fileupload/FileExtensionStandard;
+	public static final field Archive Lcom/adevinta/spark/components/fileupload/FileExtensionStandard;
+	public static final field Document Lcom/adevinta/spark/components/fileupload/FileExtensionStandard;
+	public static final field Image Lcom/adevinta/spark/components/fileupload/FileExtensionStandard;
+	public static final field PDF Lcom/adevinta/spark/components/fileupload/FileExtensionStandard;
+	public static final field Presentation Lcom/adevinta/spark/components/fileupload/FileExtensionStandard;
+	public static final field Spreadsheet Lcom/adevinta/spark/components/fileupload/FileExtensionStandard;
+	public static final field Text Lcom/adevinta/spark/components/fileupload/FileExtensionStandard;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getExtensions ()Ljava/util/Set;
+	public static fun valueOf (Ljava/lang/String;)Lcom/adevinta/spark/components/fileupload/FileExtensionStandard;
+	public static fun values ()[Lcom/adevinta/spark/components/fileupload/FileExtensionStandard;
+}
+
+public final class com/adevinta/spark/components/fileupload/FileUpload {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/adevinta/spark/components/fileupload/FileUpload;
+	public final fun Button (Lkotlin/jvm/functions/Function1;Ljava/lang/String;Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/buttons/ButtonSize;Lcom/adevinta/spark/icons/SparkIcon;Lcom/adevinta/spark/components/buttons/IconSide;Lcom/adevinta/spark/components/fileupload/FileUploadType;Ljava/lang/Integer;Ljava/lang/String;Lio/github/vinceglb/filekit/PlatformFile;Lio/github/vinceglb/filekit/dialogs/FileKitDialogSettings;ZLjava/lang/String;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;III)V
+	public final fun ButtonSingleSelect (Lkotlin/jvm/functions/Function1;Ljava/lang/String;Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/buttons/ButtonSize;Lcom/adevinta/spark/icons/SparkIcon;Lcom/adevinta/spark/components/buttons/IconSide;Lcom/adevinta/spark/components/fileupload/FileUploadType;Ljava/lang/String;Lio/github/vinceglb/filekit/PlatformFile;Lio/github/vinceglb/filekit/dialogs/FileKitDialogSettings;ZLjava/lang/String;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;III)V
+}
+
+public final class com/adevinta/spark/components/fileupload/FileUploadDefaults {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/adevinta/spark/components/fileupload/FileUploadDefaults;
+	public final fun iconFor (Lio/github/vinceglb/filekit/mimeType/MimeType;Ljava/lang/String;)Lcom/adevinta/spark/icons/SparkIcon;
+	public final fun openFile (Lcom/adevinta/spark/components/fileupload/UploadedFile;)V
+}
+
+public final class com/adevinta/spark/components/fileupload/FileUploadListKt {
+	public static final fun FileUploadList (Lkotlinx/collections/immutable/ImmutableList;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function1;Lcom/adevinta/spark/icons/SparkIcon;Landroidx/compose/runtime/Composer;II)V
+}
+
+public abstract interface class com/adevinta/spark/components/fileupload/FileUploadMode {
+}
+
+public final class com/adevinta/spark/components/fileupload/FileUploadMode$Multiple : com/adevinta/spark/components/fileupload/FileUploadMode {
+	public static final field $stable I
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/Integer;)V
+	public synthetic fun <init> (Ljava/lang/Integer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/Integer;
+	public final fun copy (Ljava/lang/Integer;)Lcom/adevinta/spark/components/fileupload/FileUploadMode$Multiple;
+	public static synthetic fun copy$default (Lcom/adevinta/spark/components/fileupload/FileUploadMode$Multiple;Ljava/lang/Integer;ILjava/lang/Object;)Lcom/adevinta/spark/components/fileupload/FileUploadMode$Multiple;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMaxFiles ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/adevinta/spark/components/fileupload/FileUploadMode$Single : com/adevinta/spark/components/fileupload/FileUploadMode {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/adevinta/spark/components/fileupload/FileUploadMode$Single;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/adevinta/spark/components/fileupload/FileUploadPatternKt {
+	public static final fun FileUploadPattern (Lcom/adevinta/spark/components/fileupload/FileUploadPatternState;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
+	public static final fun rememberFileUploadPattern (Lkotlin/jvm/functions/Function1;Lcom/adevinta/spark/components/fileupload/FileUploadType;Lcom/adevinta/spark/components/fileupload/FileUploadMode;Ljava/lang/String;Lio/github/vinceglb/filekit/PlatformFile;Lio/github/vinceglb/filekit/dialogs/FileKitDialogSettings;Landroidx/compose/runtime/Composer;II)Lcom/adevinta/spark/components/fileupload/FileUploadPatternState;
+}
+
+public final class com/adevinta/spark/components/fileupload/FileUploadPatternState {
+	public static final field $stable I
+	public final fun getLaunchCameraPicker ()Lkotlin/jvm/functions/Function0;
+	public final fun getLaunchFilePicker ()Lkotlin/jvm/functions/Function0;
+	public final fun getLaunchGalleryPicker ()Lkotlin/jvm/functions/Function0;
+	public final fun getLaunchPicker ()Lkotlin/jvm/functions/Function0;
+	public final fun getMaxFiles ()Ljava/lang/Integer;
+	public final fun isSingleMode ()Z
+}
+
+public abstract interface class com/adevinta/spark/components/fileupload/FileUploadType {
+}
+
+public final class com/adevinta/spark/components/fileupload/FileUploadType$File : com/adevinta/spark/components/fileupload/FileUploadType {
+	public static final field $stable I
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;)V
+	public fun <init> (Ljava/util/List;)V
+	public fun <init> (Ljava/util/Set;)V
+	public synthetic fun <init> (Ljava/util/Set;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> ([Ljava/lang/String;)V
+	public final fun component1 ()Ljava/util/Set;
+	public final fun copy (Ljava/util/Set;)Lcom/adevinta/spark/components/fileupload/FileUploadType$File;
+	public static synthetic fun copy$default (Lcom/adevinta/spark/components/fileupload/FileUploadType$File;Ljava/util/Set;ILjava/lang/Object;)Lcom/adevinta/spark/components/fileupload/FileUploadType$File;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getExtensions ()Ljava/util/Set;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/adevinta/spark/components/fileupload/FileUploadType$HasMultipleSource : com/adevinta/spark/components/fileupload/FileUploadType {
+	public abstract fun getSource ()Lcom/adevinta/spark/components/fileupload/ImageSource;
+}
+
+public final class com/adevinta/spark/components/fileupload/FileUploadType$Image : com/adevinta/spark/components/fileupload/FileUploadType$HasMultipleSource {
+	public static final field $stable I
+	public fun <init> ()V
+	public fun <init> (Lcom/adevinta/spark/components/fileupload/ImageSource;)V
+	public synthetic fun <init> (Lcom/adevinta/spark/components/fileupload/ImageSource;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/adevinta/spark/components/fileupload/ImageSource;
+	public final fun copy (Lcom/adevinta/spark/components/fileupload/ImageSource;)Lcom/adevinta/spark/components/fileupload/FileUploadType$Image;
+	public static synthetic fun copy$default (Lcom/adevinta/spark/components/fileupload/FileUploadType$Image;Lcom/adevinta/spark/components/fileupload/ImageSource;ILjava/lang/Object;)Lcom/adevinta/spark/components/fileupload/FileUploadType$Image;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getSource ()Lcom/adevinta/spark/components/fileupload/ImageSource;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/adevinta/spark/components/fileupload/FileUploadType$ImageAndVideo : com/adevinta/spark/components/fileupload/FileUploadType$HasMultipleSource {
+	public static final field $stable I
+	public fun <init> ()V
+	public fun <init> (Lcom/adevinta/spark/components/fileupload/ImageSource;)V
+	public synthetic fun <init> (Lcom/adevinta/spark/components/fileupload/ImageSource;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/adevinta/spark/components/fileupload/ImageSource;
+	public final fun copy (Lcom/adevinta/spark/components/fileupload/ImageSource;)Lcom/adevinta/spark/components/fileupload/FileUploadType$ImageAndVideo;
+	public static synthetic fun copy$default (Lcom/adevinta/spark/components/fileupload/FileUploadType$ImageAndVideo;Lcom/adevinta/spark/components/fileupload/ImageSource;ILjava/lang/Object;)Lcom/adevinta/spark/components/fileupload/FileUploadType$ImageAndVideo;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getSource ()Lcom/adevinta/spark/components/fileupload/ImageSource;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/adevinta/spark/components/fileupload/FileUploadType$Video : com/adevinta/spark/components/fileupload/FileUploadType {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/adevinta/spark/components/fileupload/FileUploadType$Video;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/adevinta/spark/components/fileupload/ImageSource : java/lang/Enum {
+	public static final field Camera Lcom/adevinta/spark/components/fileupload/ImageSource;
+	public static final field Gallery Lcom/adevinta/spark/components/fileupload/ImageSource;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/adevinta/spark/components/fileupload/ImageSource;
+	public static fun values ()[Lcom/adevinta/spark/components/fileupload/ImageSource;
+}
+
+public final class com/adevinta/spark/components/fileupload/PreviewFileKt {
+	public static final fun PreviewFile (Lcom/adevinta/spark/components/fileupload/UploadedFile;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Ljava/lang/String;Lkotlin/jvm/functions/Function0;Lcom/adevinta/spark/icons/SparkIcon;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/adevinta/spark/components/fileupload/UploadedFile {
+	public static final field $stable I
+	public fun <init> (Lio/github/vinceglb/filekit/PlatformFile;ZLkotlin/jvm/functions/Function0;ZLjava/lang/String;)V
+	public synthetic fun <init> (Lio/github/vinceglb/filekit/PlatformFile;ZLkotlin/jvm/functions/Function0;ZLjava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lio/github/vinceglb/filekit/PlatformFile;
+	public final fun component2 ()Z
+	public final fun component3 ()Lkotlin/jvm/functions/Function0;
+	public final fun component4 ()Z
+	public final fun component5 ()Ljava/lang/String;
+	public final fun copy (Lio/github/vinceglb/filekit/PlatformFile;ZLkotlin/jvm/functions/Function0;ZLjava/lang/String;)Lcom/adevinta/spark/components/fileupload/UploadedFile;
+	public static synthetic fun copy$default (Lcom/adevinta/spark/components/fileupload/UploadedFile;Lio/github/vinceglb/filekit/PlatformFile;ZLkotlin/jvm/functions/Function0;ZLjava/lang/String;ILjava/lang/Object;)Lcom/adevinta/spark/components/fileupload/UploadedFile;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEnabled ()Z
+	public final fun getErrorMessage ()Ljava/lang/String;
+	public final fun getFile ()Lio/github/vinceglb/filekit/PlatformFile;
+	public final fun getMimeType ()Lio/github/vinceglb/filekit/mimeType/MimeType;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getProgress ()Lkotlin/jvm/functions/Function0;
+	public final fun getSizeBytes ()J
+	public fun hashCode ()I
+	public final fun isLoading ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class com/adevinta/spark/components/gauge/ComposableSingletons$SegmentedGaugeKt {
 	public static final field INSTANCE Lcom/adevinta/spark/components/gauge/ComposableSingletons$SegmentedGaugeKt;
 	public fun <init> ()V
@@ -1299,40 +1475,49 @@ public final class com/adevinta/spark/components/list/ListItemKt {
 public final class com/adevinta/spark/components/menu/ComposableSingletons$DropdownMenuKt {
 	public static final field INSTANCE Lcom/adevinta/spark/components/menu/ComposableSingletons$DropdownMenuKt;
 	public fun <init> ()V
+	public final fun getLambda$-1050131274$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$-1379944394$spark_release ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$-150633108$spark_release ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$-158632082$spark_release ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$-1804514759$spark_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$-1814244986$spark_release ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$-1917541180$spark_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-1419998796$spark_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-1822325896$spark_release ()Lkotlin/jvm/functions/Function3;
 	public final fun getLambda$-2025482125$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$-2082540233$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$-46095766$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$-471113631$spark_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-543782333$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$-677348555$spark_release ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$-683434484$spark_release ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$-786348395$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$-832826656$spark_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-934166728$spark_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$1123316767$spark_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$1286922373$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$1374213373$spark_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$1557190733$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$1566889332$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$1595418386$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$1651061992$spark_release ()Lkotlin/jvm/functions/Function3;
 	public final fun getLambda$1846553019$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$190226708$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$25247284$spark_release ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$532991877$spark_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$49142155$spark_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$709726660$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$864293493$spark_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$892822547$spark_release ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$916943594$spark_release ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda$934548302$spark_release ()Lkotlin/jvm/functions/Function2;
 }
 
 public abstract interface class com/adevinta/spark/components/menu/DropdownMenuItemColumnScope : androidx/compose/foundation/layout/ColumnScope {
 }
 
+public final class com/adevinta/spark/components/menu/DropdownMenuItemWrapper : androidx/compose/foundation/layout/ColumnScope, com/adevinta/spark/components/menu/DropdownMenuItemColumnScope {
+	public static final field $stable I
+	public fun <init> (Landroidx/compose/foundation/layout/ColumnScope;)V
+	public fun align (Landroidx/compose/ui/Modifier;Landroidx/compose/ui/Alignment$Horizontal;)Landroidx/compose/ui/Modifier;
+	public fun alignBy (Landroidx/compose/ui/Modifier;Landroidx/compose/ui/layout/VerticalAlignmentLine;)Landroidx/compose/ui/Modifier;
+	public fun alignBy (Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function1;)Landroidx/compose/ui/Modifier;
+	public fun weight (Landroidx/compose/ui/Modifier;FZ)Landroidx/compose/ui/Modifier;
+}
+
 public final class com/adevinta/spark/components/menu/DropdownMenuKt {
 	public static final fun DropdownMenu-4kj-_NE (ZLkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;JLandroidx/compose/ui/window/PopupProperties;Landroidx/compose/foundation/ScrollState;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
-	public static final fun DropdownMenuGroupItem (Lkotlin/jvm/functions/Function2;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
+	public static final fun DropdownMenuGroupItem (Lcom/adevinta/spark/components/menu/DropdownMenuItemColumnScope;Lkotlin/jvm/functions/Function2;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
 	public static final fun DropdownMenuItem (Lcom/adevinta/spark/components/menu/DropdownMenuItemColumnScope;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;ZLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 	public static final fun DropdownMenuItem (Lcom/adevinta/spark/components/menu/MultiChoiceDropdownItemColumnScope;Lkotlin/jvm/functions/Function2;ZLkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;ZLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
 	public static final fun DropdownMenuItem (Lcom/adevinta/spark/components/menu/SingleChoiceDropdownItemColumnScope;Lkotlin/jvm/functions/Function2;ZLkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;ZLandroidx/compose/foundation/layout/PaddingValues;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;II)V
@@ -2382,10 +2567,10 @@ public final class com/adevinta/spark/tokens/ColorKt {
 	public static final fun contentColorFor-ek8zF_U (JLandroidx/compose/runtime/Composer;I)J
 	public static final fun contrastLevel (Landroid/content/Context;Lkotlin/jvm/functions/Function0;)F
 	public static synthetic fun contrastLevel$default (Landroid/content/Context;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)F
-	public static final fun darkHighContrastSparkColors-4fkBu9s (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFF)Lcom/adevinta/spark/tokens/SparkColors;
-	public static synthetic fun darkHighContrastSparkColors-4fkBu9s$default (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFFIILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkColors;
-	public static final fun darkSparkColors-mLTL5Eg (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFF)Lcom/adevinta/spark/tokens/SparkColors;
-	public static synthetic fun darkSparkColors-mLTL5Eg$default (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFFIILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkColors;
+	public static final fun darkHighContrastSparkColors-mLTL5Eg (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFF)Lcom/adevinta/spark/tokens/SparkColors;
+	public static synthetic fun darkHighContrastSparkColors-mLTL5Eg$default (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFFIILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkColors;
+	public static final fun darkSparkColors-JYuAR6k (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFF)Lcom/adevinta/spark/tokens/SparkColors;
+	public static synthetic fun darkSparkColors-JYuAR6k$default (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFFIILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkColors;
 	public static final fun debugColors--OWjLjI (JJ)Lcom/adevinta/spark/tokens/SparkColors;
 	public static synthetic fun debugColors--OWjLjI$default (JJILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkColors;
 	public static final fun getDim1 (JLandroidx/compose/runtime/Composer;I)J
@@ -2396,10 +2581,10 @@ public final class com/adevinta/spark/tokens/ColorKt {
 	public static final fun getDisabled (JLandroidx/compose/runtime/Composer;I)J
 	public static final fun getTransparent (JLandroidx/compose/runtime/Composer;I)J
 	public static final fun isContrastLevelAvailable ()Z
-	public static final fun lightHighContrastSparkColors-Cq0LDCk (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFF)Lcom/adevinta/spark/tokens/SparkColors;
-	public static synthetic fun lightHighContrastSparkColors-Cq0LDCk$default (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFFIILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkColors;
-	public static final fun lightSparkColors-Cq0LDCk (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFF)Lcom/adevinta/spark/tokens/SparkColors;
-	public static synthetic fun lightSparkColors-Cq0LDCk$default (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFFIILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkColors;
+	public static final fun lightHighContrastSparkColors-OU6A2v0 (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFF)Lcom/adevinta/spark/tokens/SparkColors;
+	public static synthetic fun lightHighContrastSparkColors-OU6A2v0$default (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFFIILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkColors;
+	public static final fun lightSparkColors-OU6A2v0 (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFF)Lcom/adevinta/spark/tokens/SparkColors;
+	public static synthetic fun lightSparkColors-OU6A2v0$default (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFFIILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkColors;
 	public static final fun surfaceColorAtElevation-3ABfNKs (Lcom/adevinta/spark/tokens/SparkColors;F)J
 }
 
@@ -2506,9 +2691,9 @@ public final class com/adevinta/spark/tokens/ShapeKt {
 
 public final class com/adevinta/spark/tokens/SparkColors {
 	public static final field $stable I
-	public synthetic fun <init> (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFFLkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun copy-mLTL5Eg (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFF)Lcom/adevinta/spark/tokens/SparkColors;
-	public static synthetic fun copy-mLTL5Eg$default (Lcom/adevinta/spark/tokens/SparkColors;JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFFIILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkColors;
+	public synthetic fun <init> (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFFLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun copy-JYuAR6k (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFF)Lcom/adevinta/spark/tokens/SparkColors;
+	public static synthetic fun copy-JYuAR6k$default (Lcom/adevinta/spark/tokens/SparkColors;JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFFIILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkColors;
 	public final fun getAccent-0d7_KjU ()J
 	public final fun getAccentContainer-0d7_KjU ()J
 	public final fun getAccentVariant-0d7_KjU ()J
@@ -2556,6 +2741,7 @@ public final class com/adevinta/spark/tokens/SparkColors {
 	public final fun getOnSupportContainer-0d7_KjU ()J
 	public final fun getOnSupportVariant-0d7_KjU ()J
 	public final fun getOnSurface-0d7_KjU ()J
+	public final fun getOnSurfaceDark-0d7_KjU ()J
 	public final fun getOnSurfaceInverse-0d7_KjU ()J
 	public final fun getOutline-0d7_KjU ()J
 	public final fun getOutlineHigh-0d7_KjU ()J
@@ -2566,6 +2752,7 @@ public final class com/adevinta/spark/tokens/SparkColors {
 	public final fun getSupportContainer-0d7_KjU ()J
 	public final fun getSupportVariant-0d7_KjU ()J
 	public final fun getSurface-0d7_KjU ()J
+	public final fun getSurfaceDark-0d7_KjU ()J
 	public final fun getSurfaceInverse-0d7_KjU ()J
 	public fun toString ()Ljava/lang/String;
 }

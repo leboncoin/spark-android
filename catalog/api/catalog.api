@@ -164,6 +164,22 @@ public final class com/adevinta/spark/catalog/configurator/samples/divider/Diviv
 	public static final fun getDividerConfigurator ()Lcom/adevinta/spark/catalog/model/Configurator;
 }
 
+public final class com/adevinta/spark/catalog/configurator/samples/fileupload/ComposableSingletons$FileUploadConfiguratorKt {
+	public static final field INSTANCE Lcom/adevinta/spark/catalog/configurator/samples/fileupload/ComposableSingletons$FileUploadConfiguratorKt;
+	public fun <init> ()V
+	public final fun getLambda$-1639256973$catalog_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-481686236$catalog_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$1184187459$catalog_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$1620696380$catalog_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$2147407365$catalog_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$323738676$catalog_release ()Lkotlin/jvm/functions/Function4;
+	public final fun getLambda$476643292$catalog_release ()Lkotlin/jvm/functions/Function3;
+}
+
+public final class com/adevinta/spark/catalog/configurator/samples/fileupload/FileUploadConfiguratorKt {
+	public static final fun getFileUploadConfigurator ()Lcom/adevinta/spark/catalog/model/Configurator;
+}
+
 public final class com/adevinta/spark/catalog/configurator/samples/gauge/ComposableSingletons$SegmentedGaugeConfiguratorKt {
 	public static final field INSTANCE Lcom/adevinta/spark/catalog/configurator/samples/gauge/ComposableSingletons$SegmentedGaugeConfiguratorKt;
 	public fun <init> ()V
@@ -360,15 +376,35 @@ public final class com/adevinta/spark/catalog/configurator/samples/textfields/Co
 	public final fun getLambda$918156394$catalog_release ()Lkotlin/jvm/functions/Function3;
 }
 
-public final class com/adevinta/spark/catalog/configurator/samples/textfields/ComposableSingletons$DropdownsConfiguratorKt {
-	public static final field INSTANCE Lcom/adevinta/spark/catalog/configurator/samples/textfields/ComposableSingletons$DropdownsConfiguratorKt;
+public final class com/adevinta/spark/catalog/configurator/samples/textfields/ComposableSingletons$MultiChoiceDropdownConfiguratorKt {
+	public static final field INSTANCE Lcom/adevinta/spark/catalog/configurator/samples/textfields/ComposableSingletons$MultiChoiceDropdownConfiguratorKt;
 	public fun <init> ()V
-	public final fun getLambda$-212281641$catalog_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$-385663138$catalog_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$-991045625$catalog_release ()Lkotlin/jvm/functions/Function4;
-	public final fun getLambda$332590933$catalog_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$551735919$catalog_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$60154646$catalog_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-1330207407$catalog_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-1937065176$catalog_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-623059339$catalog_release ()Lkotlin/jvm/functions/Function4;
+	public final fun getLambda$1175930377$catalog_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$2017592946$catalog_release ()Lkotlin/jvm/functions/Function3;
+}
+
+public final class com/adevinta/spark/catalog/configurator/samples/textfields/ComposableSingletons$MultiChoiceDropdownWithSelectedConfiguratorKt {
+	public static final field INSTANCE Lcom/adevinta/spark/catalog/configurator/samples/textfields/ComposableSingletons$MultiChoiceDropdownWithSelectedConfiguratorKt;
+	public fun <init> ()V
+	public final fun getLambda$-1151537329$catalog_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-1454424720$catalog_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$1284060019$catalog_release ()Lkotlin/jvm/functions/Function4;
+	public final fun getLambda$1670703111$catalog_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$183326920$catalog_release ()Lkotlin/jvm/functions/Function3;
+}
+
+public final class com/adevinta/spark/catalog/configurator/samples/textfields/ComposableSingletons$SingleChoiceDropdownConfiguratorKt {
+	public static final field INSTANCE Lcom/adevinta/spark/catalog/configurator/samples/textfields/ComposableSingletons$SingleChoiceDropdownConfiguratorKt;
+	public fun <init> ()V
+	public final fun getLambda$-1169002640$catalog_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-676952437$catalog_release ()Lkotlin/jvm/functions/Function4;
+	public final fun getLambda$1126063226$catalog_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$1431697755$catalog_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$1737332284$catalog_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$353455123$catalog_release ()Lkotlin/jvm/functions/Function3;
 }
 
 public final class com/adevinta/spark/catalog/configurator/samples/textfields/ComposableSingletons$TextFieldsConfiguratorKt {
@@ -381,8 +417,16 @@ public final class com/adevinta/spark/catalog/configurator/samples/textfields/Co
 	public final fun getLambda$86424068$catalog_release ()Lkotlin/jvm/functions/Function3;
 }
 
-public final class com/adevinta/spark/catalog/configurator/samples/textfields/DropdownsConfiguratorKt {
-	public static final fun getDropdownsConfigurator ()Lcom/adevinta/spark/catalog/model/Configurator;
+public final class com/adevinta/spark/catalog/configurator/samples/textfields/MultiChoiceDropdownConfiguratorKt {
+	public static final fun getMultiChoiceDropdownConfigurator ()Lcom/adevinta/spark/catalog/model/Configurator;
+}
+
+public final class com/adevinta/spark/catalog/configurator/samples/textfields/MultiChoiceDropdownWithSelectedConfiguratorKt {
+	public static final fun getMultiChoiceDropdownWithSelectedConfigurator ()Lcom/adevinta/spark/catalog/model/Configurator;
+}
+
+public final class com/adevinta/spark/catalog/configurator/samples/textfields/SingleChoiceDropdownConfiguratorKt {
+	public static final fun getSingleChoiceDropdownConfigurator ()Lcom/adevinta/spark/catalog/model/Configurator;
 }
 
 public final class com/adevinta/spark/catalog/configurator/samples/textfields/TextFieldsConfiguratorKt {
@@ -521,8 +565,12 @@ public final class com/adevinta/spark/catalog/examples/component/ComposableSingl
 public final class com/adevinta/spark/catalog/examples/component/ComposableSingletons$ComponentKt {
 	public static final field INSTANCE Lcom/adevinta/spark/catalog/examples/component/ComposableSingletons$ComponentKt;
 	public fun <init> ()V
-	public final fun getLambda$-652694186$catalog_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$-903623453$catalog_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-1147261673$catalog_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-1309686625$catalog_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-858415564$catalog_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-882416896$catalog_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$1393517180$catalog_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$1820786909$catalog_release ()Lkotlin/jvm/functions/Function2;
 }
 
 public final class com/adevinta/spark/catalog/examples/example/ExampleItemKt {
@@ -751,6 +799,24 @@ public final class com/adevinta/spark/catalog/examples/samples/divider/DividerEx
 	public static final fun getDividerExamples ()Lkotlinx/collections/immutable/ImmutableList;
 }
 
+public final class com/adevinta/spark/catalog/examples/samples/fileupload/ComposableSingletons$FileUploadExamplesKt {
+	public static final field INSTANCE Lcom/adevinta/spark/catalog/examples/samples/fileupload/ComposableSingletons$FileUploadExamplesKt;
+	public fun <init> ()V
+	public final fun getLambda$-1833844212$catalog_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-1944495908$catalog_release ()Lkotlin/jvm/functions/Function4;
+	public final fun getLambda$-47516450$catalog_release ()Lkotlin/jvm/functions/Function4;
+	public final fun getLambda$-494997799$catalog_release ()Lkotlin/jvm/functions/Function4;
+	public final fun getLambda$-996006179$catalog_release ()Lkotlin/jvm/functions/Function4;
+	public final fun getLambda$1401981659$catalog_release ()Lkotlin/jvm/functions/Function4;
+	public final fun getLambda$1966737717$catalog_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$453491930$catalog_release ()Lkotlin/jvm/functions/Function4;
+	public final fun getLambda$900973279$catalog_release ()Lkotlin/jvm/functions/Function4;
+}
+
+public final class com/adevinta/spark/catalog/examples/samples/fileupload/FileUploadExamplesKt {
+	public static final fun getFileUploadExamples ()Lkotlinx/collections/immutable/ImmutableList;
+}
+
 public final class com/adevinta/spark/catalog/examples/samples/gauge/ComposableSingletons$SegmentedGaugeExamplesKt {
 	public static final field INSTANCE Lcom/adevinta/spark/catalog/examples/samples/gauge/ComposableSingletons$SegmentedGaugeExamplesKt;
 	public fun <init> ()V
@@ -943,8 +1009,8 @@ public final class com/adevinta/spark/catalog/examples/samples/text/ComposableSi
 	public static final field INSTANCE Lcom/adevinta/spark/catalog/examples/samples/text/ComposableSingletons$DropdownExamplesKt;
 	public fun <init> ()V
 	public final fun getLambda$-1048567995$catalog_release ()Lkotlin/jvm/functions/Function4;
-	public final fun getLambda$-234980162$catalog_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$1307860004$catalog_release ()Lkotlin/jvm/functions/Function4;
+	public final fun getLambda$465452001$catalog_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$889971302$catalog_release ()Lkotlin/jvm/functions/Function4;
 }
 
@@ -969,9 +1035,9 @@ public final class com/adevinta/spark/catalog/examples/samples/textfields/Compos
 	public static final field INSTANCE Lcom/adevinta/spark/catalog/examples/samples/textfields/ComposableSingletons$DropdownExamplesKt;
 	public fun <init> ()V
 	public final fun getLambda$-657061076$catalog_release ()Lkotlin/jvm/functions/Function4;
-	public final fun getLambda$-684938779$catalog_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda$1220207819$catalog_release ()Lkotlin/jvm/functions/Function4;
 	public final fun getLambda$1760637325$catalog_release ()Lkotlin/jvm/functions/Function4;
+	public final fun getLambda$2002469576$catalog_release ()Lkotlin/jvm/functions/Function2;
 }
 
 public final class com/adevinta/spark/catalog/examples/samples/textfields/ComposableSingletons$TextFieldsExampleSourceUrlKt {
@@ -1239,11 +1305,14 @@ public final class com/adevinta/spark/catalog/themes/ComposableSingletons$Segmen
 public final class com/adevinta/spark/catalog/themes/ComposableSingletons$ThemePickerKt {
 	public static final field INSTANCE Lcom/adevinta/spark/catalog/themes/ComposableSingletons$ThemePickerKt;
 	public fun <init> ()V
-	public final fun getLambda$-1367214781$catalog_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$-1616493182$catalog_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$-1865771583$catalog_release ()Lkotlin/jvm/functions/Function3;
 	public final fun getLambda$-2045731809$catalog_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$374598795$catalog_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-402432979$catalog_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-651711380$catalog_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$1212839163$catalog_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$1915989875$catalog_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$1969346770$catalog_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$345402224$catalog_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$499193370$catalog_release ()Lkotlin/jvm/functions/Function3;
 }
 
 public final class com/adevinta/spark/catalog/themes/FontScaleMode : java/lang/Enum {
@@ -1332,19 +1401,20 @@ public final class com/adevinta/spark/catalog/themes/ThemeMode : java/lang/Enum 
 }
 
 public final class com/adevinta/spark/catalog/themes/ThemePickerKt {
-	public static final fun ThemePicker (Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/catalog/themes/Theme;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;II)V
+	public static final fun ThemePicker (Lcom/adevinta/spark/catalog/themes/Theme;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/adevinta/spark/catalog/themes/UserMode : java/lang/Enum {
 	public static final field Part Lcom/adevinta/spark/catalog/themes/UserMode;
 	public static final field Pro Lcom/adevinta/spark/catalog/themes/UserMode;
+	public static final field Rebranding Lcom/adevinta/spark/catalog/themes/UserMode;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/adevinta/spark/catalog/themes/UserMode;
 	public static fun values ()[Lcom/adevinta/spark/catalog/themes/UserMode;
 }
 
 public abstract interface class com/adevinta/spark/catalog/themes/themeprovider/ThemeProvider {
-	public abstract fun colors (ZZFLandroidx/compose/runtime/Composer;I)Lcom/adevinta/spark/tokens/SparkColors;
+	public abstract fun colors (ZZZFLandroidx/compose/runtime/Composer;I)Lcom/adevinta/spark/tokens/SparkColors;
 	public abstract fun shapes (Landroidx/compose/runtime/Composer;I)Lcom/adevinta/spark/tokens/SparkShapes;
 	public abstract fun typography (Landroidx/compose/runtime/Composer;I)Lcom/adevinta/spark/tokens/SparkTypography;
 }
@@ -1352,7 +1422,7 @@ public abstract interface class com/adevinta/spark/catalog/themes/themeprovider/
 public final class com/adevinta/spark/catalog/themes/themeprovider/leboncoin/LeboncoinTheme : com/adevinta/spark/catalog/themes/themeprovider/ThemeProvider {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/adevinta/spark/catalog/themes/themeprovider/leboncoin/LeboncoinTheme;
-	public fun colors (ZZFLandroidx/compose/runtime/Composer;I)Lcom/adevinta/spark/tokens/SparkColors;
+	public fun colors (ZZZFLandroidx/compose/runtime/Composer;I)Lcom/adevinta/spark/tokens/SparkColors;
 	public fun shapes (Landroidx/compose/runtime/Composer;I)Lcom/adevinta/spark/tokens/SparkShapes;
 	public fun typography (Landroidx/compose/runtime/Composer;I)Lcom/adevinta/spark/tokens/SparkTypography;
 }
@@ -1502,6 +1572,7 @@ public final class com/adevinta/spark/catalog/ui/shaders/colorblindness/ColorBli
 	public static final field None Lcom/adevinta/spark/catalog/ui/shaders/colorblindness/ColorBlindNessType;
 	public static final field Protanomaly Lcom/adevinta/spark/catalog/ui/shaders/colorblindness/ColorBlindNessType;
 	public static final field Tritanomaly Lcom/adevinta/spark/catalog/ui/shaders/colorblindness/ColorBlindNessType;
+	public final fun getDisplayName ()Ljava/lang/String;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/adevinta/spark/catalog/ui/shaders/colorblindness/ColorBlindNessType;
 	public static fun values ()[Lcom/adevinta/spark/catalog/ui/shaders/colorblindness/ColorBlindNessType;
