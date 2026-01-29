@@ -55,7 +55,7 @@ public fun ExampleItem(
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
                 text = example.name,
-                style = SparkTheme.typography.display3,
+                style = SparkTheme.typography.display2,
             )
             Spacer(modifier = Modifier.height(8.dp))
             with(LocalSharedTransitionScope.current) {
