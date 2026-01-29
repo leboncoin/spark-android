@@ -38,6 +38,8 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinBaseExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
+import org.jetbrains.kotlin.gradle.dsl.abi.AbiValidationExtension
+import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
 
 internal val Project.isAndroidApplication: Boolean get() = pluginManager.hasPlugin("com.android.application")
 internal val Project.isAndroidLibrary: Boolean get() = pluginManager.hasPlugin("com.android.library")
@@ -97,6 +99,10 @@ internal inline fun <reified T : KotlinBaseExtension> Project.configureKotlin(
         }.apply {
             jvmTarget = JvmTarget.JVM_11
             allWarningsAsErrors = true
+        }
+        configure<AbiValidationExtension> {
+            @OptIn(ExperimentalAbiValidation::class)
+            enabled = true
         }
         explicitApi()
         configure()
