@@ -12,7 +12,7 @@ permissions:
 jobs:
   baseline:
     runs-on: ubuntu-latest
-    if: github.actor == 'dependabot[bot]' && startsWith(github.head_ref, 'dependabot/gradle/')
+    if: github.event.pull_request.user.login == 'dependabot[bot]' && startsWith(github.head_ref, 'dependabot/gradle/')
     steps:
       - uses: actions/checkout@v6
         with:
