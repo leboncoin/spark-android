@@ -24,20 +24,31 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en-GB">
     <string name="app_name">Spark</string>
 
-    <string name="pro">Use the pro theme</string>
-
     <string name="scale" translatable="false">%.1f</string>
     <string name="example_tokens_elevation_label">Elevation value: %d</string>
     <string name="themepicker_navigation_label">Navigation Motion</string>
 
-    <string name="description">Description</string>
     <string name="examples">Examples</string>
-    <string name="no_examples">No examples</string>
+    <string name="no_examples_title">No examples available</string>
+    <string name="no_examples_description">This component doesn’t have any examples yet.</string>
+    <string name="no_examples_configurator_hint">Try the Configurator tab to explore this component</string>
+    <string name="component_menu_links">Component links</string>
 
     <string name="theme_picker_mode_title">Mode</string>
     <string name="theme_picker_theme_title" description="Spark theme. [CHAR_LIMIT=NONE]">Theme</string>
     <string name="theme_picker_text_direction_title" description="Simulate system text direction to be either LTR or RTL. [CHAR_LIMIT=NONE]">Text direction</string>
     <string name="theme_picker_font_scale_title" description="Simulate a11y font scaling. [CHAR_LIMIT=NONE]">Font scale</string>
+    <string name="theme_picker_section_theme_settings">Theme Settings</string>
+    <string name="theme_picker_section_accessibility">Accessibility</string>
+    <string name="theme_picker_section_developer_options">Developer Options</string>
+    <string name="theme_picker_mode_helper">System mode follows your device’s theme setting. Light and Dark modes override the system setting.</string>
+    <string name="theme_picker_theme_helper">Dynamic theme uses colors from your device’s wallpaper (Android 12+). Baseline uses Spark’s default color palette.</string>
+    <string name="theme_picker_pro_theme_helper">Pro theme provides additional color variants for professional use cases.</string>
+    <string name="theme_picker_font_scale_helper">Simulates accessibility font scaling to test how components adapt to larger text sizes.</string>
+    <string name="theme_picker_text_direction_helper">LTR (Left-to-Right) is used for languages like English. RTL (Right-to-Left) is used for languages like Arabic and Hebrew.</string>
+    <string name="theme_picker_contrast_helper">System contrast level (read-only). Adjust in device accessibility settings.</string>
+    <string name="theme_picker_navigation_helper">Controls the animation style when navigating between screens in the catalog app.</string>
+    <string name="theme_picker_developer_options_helper">These options are for debugging and development purposes.</string>
     <string name="examples_component_screen_title">Components examples</string>
     <string name="examples_component_screen_description">These are the examples that can be found in the samples in the javadoc or the README.md files. They show usages of the components with the default params in different scenarios that should represent real use cases.</string>
     <string name="component_button_description">Buttons help people initiate actions, like sending an email, sharing a document,or liking a post.</string>
@@ -163,5 +174,14 @@
 
     <!--region Color Selector Test-->
     <string name="component_color_selector_test_description">Test component for the ColorSelector functionality.</string>
+    <!--endregion-->
+
+    <!--region Color Blindness-->
+    <string name="color_blindness_type_title">Color blindness type</string>
+    <string name="color_blindness_severity_label">Severity: %d</string>
+    <string name="color_blindness_deuteranomaly_description">Deuteranomaly: Reduced sensitivity to green light, making it difficult to distinguish between red and green colors.</string>
+    <string name="color_blindness_protanomaly_description">Protanomaly: Reduced sensitivity to red light, making it difficult to distinguish between red and green colors.</string>
+    <string name="color_blindness_tritanomaly_description">Tritanomaly: Reduced sensitivity to blue light, making it difficult to distinguish between blue and yellow colors.</string>
+    <string name="color_blindness_none_description">No color blindness simulation applied.</string>
     <!--endregion-->
 </resources>

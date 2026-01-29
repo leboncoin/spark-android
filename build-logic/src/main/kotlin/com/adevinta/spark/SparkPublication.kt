@@ -23,8 +23,6 @@ package com.adevinta.spark
 
 import com.android.build.api.dsl.LibraryExtension
 import nmcp.NmcpAggregationExtension
-import nmcp.NmcpAggregationPlugin
-import nmcp.NmcpPlugin
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
@@ -43,7 +41,7 @@ import kotlin.time.toJavaDuration
 internal object SparkPublication {
 
     fun configureRootProject(project: Project) = with(project) {
-        apply<NmcpAggregationPlugin>()
+        apply(plugin = "com.gradleup.nmcp.aggregation")
         configure<NmcpAggregationExtension> {
             centralPortal {
                 username = System.getenv("CENTRAL_PORTAL_USERNAME")
@@ -62,7 +60,7 @@ internal object SparkPublication {
     fun configureSubproject(project: Project) = with(project) {
         apply(plugin = "org.gradle.maven-publish")
         apply(plugin = "org.gradle.signing")
-        apply<NmcpPlugin>()
+        apply(plugin = "com.gradleup.nmcp")
 
         configureRepository()
         registerPublication()

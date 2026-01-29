@@ -30,9 +30,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.DefaultTestDevices
 import com.adevinta.spark.ExperimentalSparkApi
+import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.menu.DropdownMenuGroupItem
 import com.adevinta.spark.components.menu.DropdownMenuItem
+import com.adevinta.spark.components.menu.DropdownMenuItemWrapper
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.MultiChoiceDropdown
 import com.adevinta.spark.components.textfields.SingleChoiceDropdown
@@ -41,7 +43,7 @@ import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.ValidFill
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshot
-import com.android.ide.common.rendering.api.SessionParams.RenderingMode.SHRINK
+import com.android.ide.common.rendering.api.SessionParams
 import org.junit.Rule
 import org.junit.Test
 
@@ -51,7 +53,7 @@ internal class DropdownScreenshot {
     @get:Rule
     val paparazzi = paparazziRule(
         deviceConfig = DefaultTestDevices.Phone,
-        renderingMode = SHRINK,
+        renderingMode = SessionParams.RenderingMode.SHRINK,
     )
 
     @OptIn(ExperimentalLayoutApi::class)
@@ -106,22 +108,26 @@ internal class DropdownScreenshot {
         }
     }
 
-    @OptIn(ExperimentalLayoutApi::class)
+    @OptIn(ExperimentalLayoutApi::class, InternalSparkApi::class)
     @Test
     fun groups() {
         paparazzi.sparkSnapshot {
             FlowColumn(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                DropdownMenuGroupItem(
-                    title = { Text("Software") },
-                ) {
-                    DropdownMenuItems(enabled = true)
+                with(DropdownMenuItemWrapper(this)) {
+                    DropdownMenuGroupItem(
+                        title = { Text("Software") },
+                    ) {
+                        DropdownMenuItems(enabled = true)
+                    }
                 }
-                DropdownMenuGroupItem(
-                    title = { Text("Player") },
-                ) {
-                    DropdownMenuItems(enabled = false)
+                with(DropdownMenuItemWrapper(this)) {
+                    DropdownMenuGroupItem(
+                        title = { Text("Player") },
+                    ) {
+                        DropdownMenuItems(enabled = false)
+                    }
                 }
             }
         }

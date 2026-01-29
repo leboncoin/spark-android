@@ -4,14 +4,55 @@
 
 ## [Unreleased]
 
+
+## [1.8.0-alpha03]
+
+_2026-01-28_
+
+### Spark
+
+#### 🆕 FileUpload Component
+
+- ✨ Add `FileUpload.Button` and `FileUpload.ButtonSingleSelect` composables for selecting files through a button trigger. Supports single or multiple file selection with images, videos, and generic files (with optional extension filtering). For images, you can choose between camera or gallery selection. Use `FileUploadList` or `PreviewFile` to display selected files with progress indicators, error states, and remove actions. The `FileUploadPattern` allows you to integrate file upload functionality into any custom component.
+
+```kotlin
+// Single file selection
+var selectedFile by remember { mutableStateOf<UploadedFile?>(null) }
+
+FileUpload.ButtonSingleSelect(
+    onResult = { file -> selectedFile = file },
+    label = "Select file",
+    type = FileUploadType.Image(ImageSource.Gallery)
+)
+```
+
+> [!NOTE]
+> This component is experimental and marked with `@ExperimentalSparkApi`. Feedbacks are welcomed.
+
+## [1.8.0-alpha02]
+
+_2026-01-22_
+
+### Spark
+- Add new SurfaceDark color token to be used when we need a surface/background to remain dark in light and darkmode like the footer in the website or the drawer in dashboard pro
+
 ## [1.8.0-alpha01]
 _2026-01-22_
 
 ### Spark
 - Apply the MaterialComposableHasSparkReplacement in spark modules
+- Add new SurfaceDark color token to be used when we need a surface/background to remain dark in light and darkmode like the footer in the website or the drawer in dashboard pro
 
 ### CI
 - Run lint task on the `:spark-lint` module
+
+## [1.7.1]
+
+_2026-01-28_
+
+### Spark
+
+- 🐛 `Dropdown` Fix layout used in MultiChoice made the dropdown smaller than intended
 
 ## [1.7.0]
 
@@ -1044,7 +1085,15 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.7.0...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.8.0-alpha03...HEAD
+
+[1.8.0-alpha03]: https://github.com/leboncoin/spark-android/releases/tag/1.8.0-alpha03
+
+[1.8.0-alpha02]: https://github.com/leboncoin/spark-android/releases/tag/1.8.0-alpha02
+
+[1.8.0-alpha01]: https://github.com/leboncoin/spark-android/releases/tag/1.8.0-alpha01
+
+[1.7.1]: https://github.com/leboncoin/spark-android/releases/tag/1.7.1
 
 [1.7.0]: https://github.com/leboncoin/spark-android/releases/tag/1.7.0
 
