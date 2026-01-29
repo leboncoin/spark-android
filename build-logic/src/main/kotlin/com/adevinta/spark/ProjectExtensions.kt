@@ -33,6 +33,7 @@ import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.findByType
 import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
@@ -48,7 +49,7 @@ internal val Project.isAndroid: Boolean get() = pluginManager.hasPlugin("com.and
 internal val Project.isJavaPlatform: Boolean get() = pluginManager.hasPlugin("org.gradle.java-platform")
 
 internal fun Project.android(
-    configure: CommonExtension<*, *, *, *, *, *>.() -> Unit,
+    configure: CommonExtension.() -> Unit,
 ) = when {
     isAndroidApplication -> androidApplication(configure)
     isAndroidLibrary -> androidLibrary(configure)
@@ -69,9 +70,9 @@ internal fun Project.androidTest(
 ) = configure<TestExtension>(configure)
 
 internal fun Project.configureAndroid(
-    configure: CommonExtension<*, *, *, *, *, *>.() -> Unit,
+    configure: CommonExtension.() -> Unit,
 ) = android {
-    compileOptions {
+    compileOptions.apply {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
@@ -92,17 +93,19 @@ internal inline fun <reified T : KotlinBaseExtension> Project.configureKotlin(
         targetCompatibility = JavaVersion.VERSION_11
     }
     configure<T> {
-        when (this) {
-            is KotlinAndroidProjectExtension -> compilerOptions
-            is KotlinJvmProjectExtension -> compilerOptions
-            else -> TODO("Unsupported project extension $this ${T::class}")
-        }.apply {
-            jvmTarget = JvmTarget.JVM_11
-            allWarningsAsErrors = true
+        val kotlin = when (this) {
+            is KotlinAndroidProjectExtension -> this
+            is KotlinJvmProjectExtension -> this
+            else -> TODO("Unsupported project extension $path ${T::class}")
         }
-        configure<AbiValidationExtension> {
+        // https://youtrack.jetbrains.com/issue/KT-83410
+        kotlin.extensions.findByType<AbiValidationExtension>()?.apply {
             @OptIn(ExperimentalAbiValidation::class)
             enabled = true
+        }
+        kotlin.compilerOptions {
+            jvmTarget = JvmTarget.JVM_11
+            allWarningsAsErrors = true
         }
         explicitApi()
         configure()
