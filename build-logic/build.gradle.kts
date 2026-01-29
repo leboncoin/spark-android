@@ -100,8 +100,8 @@ val ktlint = extensions.getByType<VersionCatalogsExtension>()
 spotless {
     val licenseHeader = rootProject.file("./../spotless/spotless.kt")
     format("misc") {
-        target("**/*.md", "**/.gitignore")
-        targetExclude("**/dependencies/*.txt")
+        target("*.md", "src/**/*.md", ".gitignore")
+        targetExclude("dependencies/*.txt")
         endWithNewline()
     }
     kotlin {
