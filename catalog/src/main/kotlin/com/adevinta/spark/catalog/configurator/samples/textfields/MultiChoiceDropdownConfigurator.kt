@@ -21,17 +21,17 @@
  */
 package com.adevinta.spark.catalog.configurator.samples.textfields
 
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
+import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.catalog.model.Configurator
 import com.adevinta.spark.catalog.ui.ButtonGroup
 import com.adevinta.spark.catalog.util.PreviewTheme
@@ -40,39 +40,76 @@ import com.adevinta.spark.components.menu.DropdownMenuGroupItem
 import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.AddonScope
-import com.adevinta.spark.components.textfields.Dropdown
+import com.adevinta.spark.components.textfields.MultiChoiceDropdown
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.textfields.TextFieldState
 import com.adevinta.spark.components.toggles.SwitchLabelled
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
 
-public val DropdownsConfigurator: Configurator = Configurator(
-    id = "dropdown",
-    name = "Dropdowns",
-    description = "Dropdowns configuration",
-    sourceUrl = "$SampleSourceUrl/DropdownSamples.kt",
+@OptIn(ExperimentalSparkApi::class)
+public val MultiChoiceDropdownConfigurator: Configurator = Configurator(
+    id = "multi-choice-dropdown",
+    name = "MultiChoiceDropdown",
+    description = "MultiChoiceDropdown configuration",
+    sourceUrl = "$SampleSourceUrl/MultiChoiceDropdownConfigurator.kt",
 ) {
-    DropdownSample()
+    MultiChoiceDropdownSample()
 }
 
 @Composable
-private fun ColumnScope.DropdownSample() {
-    var isEnabled by remember { mutableStateOf(true) }
-    var hideOnSelect by remember { mutableStateOf(true) }
-    var expanded by remember { mutableStateOf(false) }
-    var isRequired by remember { mutableStateOf(true) }
+private fun ColumnScope.MultiChoiceDropdownSample() {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    var isEnabled by rememberSaveable { mutableStateOf(true) }
+    var isRequired by rememberSaveable { mutableStateOf(true) }
     var state: TextFieldState? by remember { mutableStateOf(null) }
-    var labelText by remember { mutableStateOf("Label") }
-    var valueText by remember { mutableStateOf("") }
-    var placeHolderText by remember { mutableStateOf("Placeholder") }
-    var helperText by remember { mutableStateOf("Helper message") }
-    var stateMessageText by remember { mutableStateOf("State Message") }
-    var addonText: String? by remember { mutableStateOf(null) }
+    var labelText by rememberSaveable { mutableStateOf("Label") }
+    var valueText by rememberSaveable { mutableStateOf("") }
+    var placeHolderText by rememberSaveable { mutableStateOf("Placeholder") }
+    var helperText by rememberSaveable { mutableStateOf("Helper message") }
+    var stateMessageText by rememberSaveable { mutableStateOf("State Message") }
+    var addonText: String? by rememberSaveable { mutableStateOf(null) }
+    var selectedBooks by remember { mutableStateOf(setOf<String>()) }
 
     val leadingContent: (@Composable AddonScope.() -> Unit)? = addonText?.let {
         @Composable {
             Text(it)
+        }
+    }
+
+    MultiChoiceDropdown(
+        value = valueText,
+        expanded = expanded,
+        onExpandedChange = { expanded = it },
+        onDismissRequest = { expanded = false },
+        modifier = Modifier.fillMaxWidth(),
+        enabled = isEnabled,
+        required = isRequired,
+        label = labelText,
+        placeholder = placeHolderText,
+        helper = helperText,
+        leadingContent = leadingContent,
+        state = state,
+        stateMessage = stateMessageText,
+    ) {
+        DropdownStubData.forEach { (groupName, books) ->
+            DropdownMenuGroupItem(
+                title = {
+                    Text(groupName)
+                },
+            ) {
+                books.forEach { book ->
+                    DropdownMenuItem(
+                        text = { Text(book) },
+                        onCheckedChange = { checked ->
+                            selectedBooks = if (checked) {
+                                selectedBooks + book
+                            } else {
+                                selectedBooks - book
+                            }
+                        },
+                        checked = book in selectedBooks,
+                    )
+                }
+            }
         }
     }
 
@@ -86,51 +123,6 @@ private fun ColumnScope.DropdownSample() {
         )
     }
 
-    Dropdown(
-        value = valueText,
-        expanded = expanded,
-        onExpandedChange = { expanded = !expanded },
-        onDismissRequest = { expanded = false },
-        modifier = Modifier.fillMaxWidth(),
-        enabled = isEnabled,
-        required = isRequired,
-        label = labelText,
-        placeholder = placeHolderText,
-        helper = helperText,
-        leadingContent = leadingContent,
-        state = state,
-        stateMessage = stateMessageText,
-        visualTransformation = VisualTransformation.None,
-        interactionSource = remember { MutableInteractionSource() },
-    ) {
-        DropdownStubData.forEach { (groupName, books) ->
-            DropdownMenuGroupItem(
-                title = {
-                    Text(groupName)
-                },
-            ) {
-                books.forEach { book ->
-                    DropdownMenuItem(
-                        text = { Text(book) },
-                        onClick = {
-                            valueText = book
-                            if (hideOnSelect) expanded = false
-                        },
-                    )
-                }
-            }
-        }
-    }
-
-    SwitchLabelled(
-        checked = hideOnSelect,
-        onCheckedChange = { hideOnSelect = it },
-    ) {
-        Text(
-            text = "Hide the menu on selection",
-            modifier = Modifier.fillMaxWidth(),
-        )
-    }
     SwitchLabelled(
         checked = isRequired,
         onCheckedChange = { isRequired = it },
@@ -140,6 +132,7 @@ private fun ColumnScope.DropdownSample() {
             modifier = Modifier.fillMaxWidth(),
         )
     }
+
     SwitchLabelled(
         checked = isEnabled,
         onCheckedChange = { isEnabled = it },
@@ -163,59 +156,46 @@ private fun ColumnScope.DropdownSample() {
     TextField(
         modifier = Modifier.fillMaxWidth(),
         value = labelText,
-        onValueChange = {
-            labelText = it
-        },
+        onValueChange = { labelText = it },
         label = "Label text",
         placeholder = "Label of the Dropdown",
     )
+
     TextField(
         modifier = Modifier.fillMaxWidth(),
         value = placeHolderText,
-        onValueChange = {
-            placeHolderText = it
-        },
+        onValueChange = { placeHolderText = it },
         label = "Placeholder text",
         placeholder = "Placeholder of the Dropdown",
     )
+
     TextField(
         modifier = Modifier.fillMaxWidth(),
         value = helperText,
-        onValueChange = {
-            helperText = it
-        },
+        onValueChange = { helperText = it },
         label = "Helper text",
         placeholder = "Helper of the Dropdown",
     )
+
     TextField(
         modifier = Modifier.fillMaxWidth(),
         value = stateMessageText,
-        onValueChange = {
-            stateMessageText = it
-        },
+        onValueChange = { stateMessageText = it },
         label = "State message",
         placeholder = "State message of the Dropdown",
     )
+
     TextField(
         modifier = Modifier.fillMaxWidth(),
         value = addonText ?: "",
-        onValueChange = {
-            addonText = it.ifBlank { null }
-        },
+        onValueChange = { addonText = it.ifBlank { null } },
         label = "Prefix",
-        placeholder = "State message of the Dropdown",
+        placeholder = "Prefix text for the Dropdown",
     )
 }
 
 @Preview
 @Composable
-private fun DropdownSamplePreview() {
-    PreviewTheme { DropdownSample() }
+private fun MultiChoiceDropdownSamplePreview() {
+    PreviewTheme { MultiChoiceDropdownSample() }
 }
-
-private data class DropdownExampleGroup(val name: String, val books: ImmutableList<String>)
-
-private val DropdownStubData = persistentListOf(
-    DropdownExampleGroup("Best Sellers", persistentListOf("To Kill a Mockingbird", "War and Peace", "The Idiot")),
-    DropdownExampleGroup("Novelties", persistentListOf("A Picture of Dorian Gray", "1984", "Pride and Prejudice")),
-)
