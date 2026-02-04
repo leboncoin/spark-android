@@ -4,6 +4,7 @@
 
 ## [Unreleased]
 
+ - 🐛 `ButtonContrast` and `ButtonGhost` were using `color` instead of `onContainerColor` values for their content colours
 
 ## [1.8.0-alpha03]
 

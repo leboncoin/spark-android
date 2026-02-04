@@ -80,7 +80,7 @@ public fun ButtonGhost(
     content: @Composable RowScope.() -> Unit,
 ) {
     val contentColor by animateColorAsState(
-        targetValue = intent.colors().color,
+        targetValue = intent.colors().onContainerColor,
         label = "content color",
     )
 
@@ -147,7 +147,7 @@ public fun ButtonGhost(
     atEnd: Boolean = false,
 ) {
     val contentColor by animateColorAsState(
-        targetValue = intent.colors().color,
+        targetValue = intent.colors().onContainerColor,
         label = "content color",
     )
 
@@ -214,7 +214,7 @@ public fun ButtonGhost(
     atEnd: Boolean = false,
 ) {
     val contentColor by animateColorAsState(
-        targetValue = intent.colors().onColor,
+        targetValue = intent.colors().onContainerColor,
         label = "content color",
     )
 
