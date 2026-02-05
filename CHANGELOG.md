@@ -4,6 +4,7 @@
 
 ## [Unreleased]
 
+ - 📝 Add model in the exception message when an Image does not have a defined size
  - 🐛 `ButtonContrast` and `ButtonGhost` were using `color` instead of `onContainerColor` values for their content colours
  - 📝 Improve the message from the crash when using a Spark component outside a `SparkTheme`
 
