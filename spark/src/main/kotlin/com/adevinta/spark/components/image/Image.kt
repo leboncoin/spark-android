@@ -112,7 +112,7 @@ public fun SparkImage(
     SubcomposeAsyncImage(
         modifier = modifier
             .layout { measurable, constraints ->
-                constraints.checkThatImageHasDefinedSize(exceptionHandler)
+                constraints.checkThatImageHasDefinedSize(exceptionHandler, model)
 
                 val placeable = measurable.measure(constraints)
                 layout(placeable.width, placeable.height) {
@@ -270,29 +270,33 @@ internal fun ImageIconState(
     }
 }
 
-private fun Constraints.checkThatImageHasDefinedSize(exceptionHandler: SparkExceptionHandler) {
+private fun Constraints.checkThatImageHasDefinedSize(exceptionHandler: SparkExceptionHandler, model: Any?) {
     val isWidthBounded = hasBoundedWidth
     val isHeightBounded = hasBoundedHeight
     val hasMinWidth = minWidth != 0
     val hasMinHeight = minHeight != 0
     if (!isWidthBounded) {
         exceptionHandler.handleException(
-            IllegalStateException("Image must have a bounded width but was hasBoundedWidth: $isWidthBounded"),
+            IllegalStateException(
+                "Image must have a bounded width but was hasBoundedWidth: $isWidthBounded for model: $model",
+            ),
         )
     }
     if (!isHeightBounded) {
         exceptionHandler.handleException(
-            IllegalStateException("Image must have a bounded height but was hasBoundedHeight: $isHeightBounded"),
+            IllegalStateException(
+                "Image must have a bounded height but was hasBoundedHeight: $isHeightBounded for model: $model",
+            ),
         )
     }
     if (!hasMinWidth) {
         exceptionHandler.handleException(
-            IllegalStateException("Image must have a minimum width but has minWidth: $minWidth"),
+            IllegalStateException("Image must have a minimum width but has minWidth: $minWidth for model: $model"),
         )
     }
     if (!hasMinHeight) {
         exceptionHandler.handleException(
-            IllegalStateException("Image must have a minimum height but has minHeight: $minHeight"),
+            IllegalStateException("Image must have a minimum height but has minHeight: $minHeight for model: $model"),
         )
     }
 }

@@ -4,6 +4,7 @@
 
 ## [Unreleased]
 
+ - 📝 Add model in the exception message when an Image does not have a defined size
 
 ## [1.8.0-alpha03]
 
