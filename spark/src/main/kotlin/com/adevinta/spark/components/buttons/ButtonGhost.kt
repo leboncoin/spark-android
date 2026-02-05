@@ -79,8 +79,9 @@ public fun ButtonGhost(
     atEnd: Boolean = false,
     content: @Composable RowScope.() -> Unit,
 ) {
+    val intentColors = intent.colors()
     val contentColor by animateColorAsState(
-        targetValue = intent.colors().onContainerColor,
+        targetValue = if (intent != ButtonIntent.Surface) intentColors.onContainerColor else intentColors.color,
         label = "content color",
     )
 
@@ -146,8 +147,9 @@ public fun ButtonGhost(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
 ) {
+    val intentColors = intent.colors()
     val contentColor by animateColorAsState(
-        targetValue = intent.colors().onContainerColor,
+        targetValue = if (intent != ButtonIntent.Surface) intentColors.onContainerColor else intentColors.color,
         label = "content color",
     )
 
@@ -213,8 +215,9 @@ public fun ButtonGhost(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
 ) {
+    val intentColors = intent.colors()
     val contentColor by animateColorAsState(
-        targetValue = intent.colors().onContainerColor,
+        targetValue = if (intent != ButtonIntent.Surface) intentColors.onContainerColor else intentColors.color,
         label = "content color",
     )
 
