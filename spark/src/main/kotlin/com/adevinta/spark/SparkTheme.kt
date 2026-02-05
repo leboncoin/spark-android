@@ -280,7 +280,11 @@ public object SparkTheme {
  * behaviors at consumers
  */
 public val LocalSparkExceptionHandler: ProvidableCompositionLocal<SparkExceptionHandler> =
-    staticCompositionLocalOf { error("SparkExceptionHandler not provided. This likely means that you are using a Component without a SparkTheme") }
+    staticCompositionLocalOf {
+        error(
+            "SparkExceptionHandler not provided. This likely means that you are using a Component without a SparkTheme",
+        )
+    }
 
 internal val LocalSparkFeatureFlag: ProvidableCompositionLocal<SparkFeatureFlag> = staticCompositionLocalOf {
     error("SparkFeatureFlag not provided. This likely means that you are using a Component without a SparkTheme")
