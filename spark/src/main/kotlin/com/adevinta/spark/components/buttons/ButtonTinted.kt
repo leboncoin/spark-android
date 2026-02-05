@@ -81,7 +81,9 @@ public fun ButtonTinted(
     val backgroundColor by animateColorAsState(
         targetValue = if (intent != ButtonIntent.Surface) {
             intentColors.containerColor
-        } else SparkTheme.colors.backgroundVariant,
+        } else {
+            SparkTheme.colors.backgroundVariant
+        },
         label = "background color",
     )
     val contentColor by animateColorAsState(
@@ -151,7 +153,9 @@ public fun ButtonTinted(
     val backgroundColor by animateColorAsState(
         targetValue = if (intent != ButtonIntent.Surface) {
             intentColors.containerColor
-        } else SparkTheme.colors.backgroundVariant,
+        } else {
+            SparkTheme.colors.backgroundVariant
+        },
         label = "background color",
     )
     val contentColor by animateColorAsState(
@@ -221,7 +225,9 @@ public fun ButtonTinted(
     val backgroundColor by animateColorAsState(
         targetValue = if (intent != ButtonIntent.Surface) {
             intentColors.containerColor
-        } else SparkTheme.colors.backgroundVariant,
+        } else {
+            SparkTheme.colors.backgroundVariant
+        },
         label = "background color",
     )
     val contentColor by animateColorAsState(
