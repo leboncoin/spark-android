@@ -39,14 +39,6 @@ public enum class SliderIntent {
     },
 
     /**
-     * Support sliders are used to highlight/accentuate actions.
-     */
-    Support {
-        @Composable
-        override fun colors(): IntentColor = IntentColors.Support.colors()
-    },
-
-    /**
      * Used to make slider visually accentuated.
      */
     Accent {
@@ -61,46 +53,7 @@ public enum class SliderIntent {
         @Composable
         override fun colors(): IntentColor = IntentColors.Basic.colors()
     },
-
-    /**
-     * Used for confirmation actions.
-     */
-    Success {
-        @Composable
-        override fun colors(): IntentColor = IntentColors.Success.colors()
-    },
-
-    /**
-     * Used for warning actions.
-     */
-    Alert {
-        @Composable
-        override fun colors(): IntentColor = IntentColors.Alert.colors()
-    },
-
-    /**
-     * Used for risky actions.
-     */
-    Error {
-        @Composable
-        override fun colors(): IntentColor = IntentColors.Danger.colors()
-    },
-
-    /**
-     * Used informational valuable actions.
-     */
-    Info {
-        @Composable
-        override fun colors(): IntentColor = IntentColors.Info.colors()
-    },
-
-    /**
-     * Used for low or irrelevant actions.
-     */
-    Neutral {
-        @Composable
-        override fun colors(): IntentColor = IntentColors.Neutral.colors()
-    }, ;
+    ;
 
     @Composable
     internal abstract fun colors(): IntentColor

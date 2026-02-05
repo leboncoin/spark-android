@@ -52,7 +52,6 @@ import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.buttons.ButtonIntent
 import com.adevinta.spark.components.slider.Slider
-import com.adevinta.spark.components.slider.SliderIntent
 import com.adevinta.spark.components.snackbars.SnackbarHostState
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.toggles.SwitchLabelled
@@ -138,7 +137,6 @@ private fun ColumnScope.PulseSample(snackbarHostState: SnackbarHostState) {
         onValueChangeFinished = restartPulseOnChange,
         valueRange = 0.1f..5.0f,
         steps = 48, // 0.1 increments from 0.1 to 5.0
-        intent = SliderIntent.Basic,
         modifier = Modifier.fillMaxWidth(),
     )
 
@@ -150,7 +148,6 @@ private fun ColumnScope.PulseSample(snackbarHostState: SnackbarHostState) {
         onValueChangeFinished = restartPulseOnChange,
         valueRange = 0.1f..5.0f,
         steps = 48, // 0.1 increments from 0.1 to 5.0
-        intent = SliderIntent.Basic,
         modifier = Modifier.fillMaxWidth(),
     )
 
@@ -162,7 +159,6 @@ private fun ColumnScope.PulseSample(snackbarHostState: SnackbarHostState) {
         onValueChangeFinished = restartPulseOnChange,
         valueRange = 100f..5000f,
         steps = 48, // ~100ms increments from 100 to 5000
-        intent = SliderIntent.Basic,
         modifier = Modifier.fillMaxWidth(),
     )
 
