@@ -4,9 +4,15 @@
 
 ## [Unreleased]
 
- - 📝 Add model in the exception message when an Image does not have a defined size
- - 🐛 `ButtonContrast` and `ButtonGhost` were using `color` instead of `onContainerColor` values for their content colours
- - 📝 Improve the message from the crash when using a Spark component outside a `SparkTheme`
+## [1.8.0-alpha04]
+
+_2026-02-05_
+
+### Spark
+
+- 📝 Add model in the exception message when an Image does not have a defined size
+- 🐛 `ButtonContrast` and `ButtonGhost` were using `color` instead of `onContainerColor` values for their content colours
+- 📝 Improve the message from the crash when using a Spark component outside a `SparkTheme`
 
 ## [1.8.0-alpha03]
 
@@ -1088,7 +1094,9 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.8.0-alpha03...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.8.0-alpha04...HEAD
+
+[1.8.0-alpha04]: https://github.com/leboncoin/spark-android/releases/tag/1.8.0-alpha04
 
 [1.8.0-alpha03]: https://github.com/leboncoin/spark-android/releases/tag/1.8.0-alpha03
 
