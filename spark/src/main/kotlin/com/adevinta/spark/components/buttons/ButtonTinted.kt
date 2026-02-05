@@ -77,8 +77,13 @@ public fun ButtonTinted(
     atEnd: Boolean = false,
     content: @Composable RowScope.() -> Unit,
 ) {
+    val intentColors = intent.colors()
     val backgroundColor by animateColorAsState(
-        targetValue = intent.colors().containerColor,
+        targetValue = if (intent != ButtonIntent.Surface) {
+            intentColors.containerColor
+        } else {
+            SparkTheme.colors.backgroundVariant
+        },
         label = "background color",
     )
     val contentColor by animateColorAsState(
@@ -144,8 +149,13 @@ public fun ButtonTinted(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
 ) {
+    val intentColors = intent.colors()
     val backgroundColor by animateColorAsState(
-        targetValue = intent.colors().containerColor,
+        targetValue = if (intent != ButtonIntent.Surface) {
+            intentColors.containerColor
+        } else {
+            SparkTheme.colors.backgroundVariant
+        },
         label = "background color",
     )
     val contentColor by animateColorAsState(
@@ -211,9 +221,24 @@ public fun ButtonTinted(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
 ) {
+    val intentColors = intent.colors()
+    val backgroundColor by animateColorAsState(
+        targetValue = if (intent != ButtonIntent.Surface) {
+            intentColors.containerColor
+        } else {
+            SparkTheme.colors.backgroundVariant
+        },
+        label = "background color",
+    )
+    val contentColor by animateColorAsState(
+        targetValue = intent.colors().onContainerColor,
+        label = "content color",
+    )
     val colors = ButtonDefaults.buttonColors(
-        containerColor = intent.colors().color,
-        contentColor = intent.colors().onColor,
+        containerColor = backgroundColor,
+        contentColor = contentColor,
+        disabledContainerColor = backgroundColor.disabled,
+        disabledContentColor = contentColor.disabled,
     )
     SparkButton(
         onClick = onClick,
