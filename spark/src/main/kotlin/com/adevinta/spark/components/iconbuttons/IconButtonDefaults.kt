@@ -31,8 +31,6 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.IntentColor
 import com.adevinta.spark.components.buttons.ButtonShape
-import com.adevinta.spark.components.snackbars.SnackbarIntent
-import com.adevinta.spark.components.snackbars.SnackbarStyle
 import com.adevinta.spark.tokens.contentColorFor
 import com.adevinta.spark.tokens.dim3
 
@@ -132,13 +130,9 @@ internal object IconButtonDefaults {
 
     @Composable
     fun ghostIconButtonColorsForSnackbar(
-        style: SnackbarStyle,
-        intent: SnackbarIntent,
+        color: Color,
         containerColor: Color = Color.Transparent,
-        contentColor: Color = when (style) {
-            SnackbarStyle.Filled -> contentColorFor(backgroundColor = intent.filledColor)
-            SnackbarStyle.Tinted -> contentColorFor(backgroundColor = intent.tintedColor)
-        },
+        contentColor: Color = contentColorFor(backgroundColor = color),
         disabledContainerColor: Color = Color.Transparent,
         disabledContentColor: Color = contentColor.dim3,
     ): IconButtonColors = IconButtonColors(

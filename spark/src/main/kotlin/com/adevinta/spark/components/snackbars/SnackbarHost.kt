@@ -123,7 +123,6 @@ public class SnackbarHostState {
         actionLabel: String? = null,
         icon: SparkIcon? = null,
         intent: SnackbarIntent = SnackbarDefaults.intent,
-        style: SnackbarStyle = SnackbarDefaults.style,
         withDismissAction: Boolean = false,
         actionOnNewLine: Boolean = false,
         duration: SnackbarDuration = if (actionLabel == null) {
@@ -134,8 +133,6 @@ public class SnackbarHostState {
     ): SnackbarResult = showSnackbar(
         SnackbarSparkVisuals(
             message = message,
-            icon = icon,
-            style = style,
             intent = intent,
             actionLabel = actionLabel,
             withDismissAction = withDismissAction,

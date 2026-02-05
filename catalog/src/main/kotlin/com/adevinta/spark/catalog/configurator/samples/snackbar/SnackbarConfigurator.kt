@@ -23,6 +23,7 @@ package com.adevinta.spark.catalog.configurator.samples.snackbar
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.SnackbarDefaults
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -34,23 +35,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.catalog.R
-import com.adevinta.spark.catalog.icons.IconPickerItem
 import com.adevinta.spark.catalog.model.Configurator
 import com.adevinta.spark.catalog.ui.ButtonGroup
-import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.buttons.ButtonSize
 import com.adevinta.spark.components.buttons.ButtonTinted
 import com.adevinta.spark.components.snackbars.Snackbar
 import com.adevinta.spark.components.snackbars.SnackbarHostState
-import com.adevinta.spark.components.snackbars.SnackbarIntent
 import com.adevinta.spark.components.snackbars.SnackbarSparkVisuals
-import com.adevinta.spark.components.snackbars.SnackbarStyle
+import com.adevinta.spark.components.snackbars.intent
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.SwitchLabelled
-import com.adevinta.spark.icons.SparkIcon
 import kotlinx.coroutines.launch
 
 public val SnackbarConfigurator: Configurator = Configurator(
@@ -65,15 +62,13 @@ public val SnackbarConfigurator: Configurator = Configurator(
 @Composable
 private fun ColumnScope.SnackbarSample(snackbarHostState: SnackbarHostState) {
     var withDismissAction by remember { mutableStateOf(false) }
-    var icon: SparkIcon? by remember { mutableStateOf(null) }
-    var style by remember { mutableStateOf(SnackbarStyle.Filled) }
     var actionOnNewLine by remember { mutableStateOf(false) }
-    var intent by remember { mutableStateOf(SnackbarIntent.Basic) }
+    var intent by remember { mutableStateOf(SnackbarDefaults.intent) }
     var actionText by remember { mutableStateOf("Action") }
     var contentText by remember { mutableStateOf("Just a snackbar") }
     val scope = rememberCoroutineScope()
 
-    DropdownEnum(
+    ButtonGroup(
         modifier = Modifier.fillMaxWidth(),
         title = stringResource(id = R.string.configurator_component_screen_intent_label),
         selectedOption = intent,
@@ -105,23 +100,11 @@ private fun ColumnScope.SnackbarSample(snackbarHostState: SnackbarHostState) {
             modifier = Modifier.fillMaxWidth(),
         )
     }
-    IconPickerItem(
-        label = "With Icon",
-        selectedIcon = icon,
-        onIconSelected = { icon = it },
-    )
 
-    ButtonGroup(
-        title = "Style",
-        selectedOption = style,
-        onOptionSelect = { style = it },
-    )
     Snackbar(
         intent = intent,
         withDismissAction = withDismissAction,
         actionOnNewLine = actionOnNewLine,
-        style = style,
-        icon = icon,
         actionLabel = actionText,
     ) {
         Text(contentText)
@@ -137,8 +120,6 @@ private fun ColumnScope.SnackbarSample(snackbarHostState: SnackbarHostState) {
                         intent = intent,
                         withDismissAction = withDismissAction,
                         actionOnNewLine = actionOnNewLine,
-                        style = style,
-                        icon = icon,
                         actionLabel = actionText,
                         message = contentText,
                         duration = SnackbarDuration.Short,

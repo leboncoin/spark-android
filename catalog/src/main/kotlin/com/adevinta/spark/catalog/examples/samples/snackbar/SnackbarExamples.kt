@@ -24,7 +24,6 @@ package com.adevinta.spark.catalog.examples.samples.snackbar
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.Text
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,8 +34,8 @@ import com.adevinta.spark.components.buttons.ButtonIntent
 import com.adevinta.spark.components.snackbars.Snackbar
 import com.adevinta.spark.components.snackbars.SnackbarIntent
 import com.adevinta.spark.components.snackbars.SnackbarSparkVisuals
-import com.adevinta.spark.components.snackbars.SnackbarStyle
 import com.adevinta.spark.components.spacer.VerticalSpacer
+import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.text.TextLinkButton
 import com.adevinta.spark.icons.HeartFill
 import com.adevinta.spark.icons.LeboncoinIcons
@@ -58,7 +57,6 @@ public val SnackbarExamples: ImmutableList<Example> = persistentListOf(
             intent = SnackbarIntent.Info,
             withDismissAction = true,
             actionOnNewLine = true,
-            style = SnackbarStyle.Filled,
             icon = LeboncoinIcons.HeartFill,
             actionLabel = "Action",
         ) {
@@ -75,7 +73,6 @@ public val SnackbarExamples: ImmutableList<Example> = persistentListOf(
             intent = SnackbarIntent.Alert,
             withDismissAction = true,
             actionOnNewLine = false,
-            style = SnackbarStyle.Tinted,
             icon = LeboncoinIcons.HeartFill,
             actionLabel = "Action",
         ) {
@@ -133,7 +130,6 @@ public val SnackbarExamples: ImmutableList<Example> = persistentListOf(
                                 message = "Hello Snackbar!",
                                 actionLabel = "Action",
                                 duration = SnackbarDuration.Long,
-                                intent = SnackbarIntent.Accent,
                             ),
                         )
                     }
