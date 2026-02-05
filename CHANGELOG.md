@@ -4,6 +4,7 @@
 
 ## [Unreleased]
 
+ - 📝Improve the message from the crash when using a Spark component outside a `SparkTheme`
 
 ## [1.8.0-alpha03]
 
