@@ -22,47 +22,60 @@
 package com.adevinta.spark.components.snackbars
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
-import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.IntentColor
+import com.adevinta.spark.components.IntentColors
+import com.adevinta.spark.icons.AlertFill
+import com.adevinta.spark.icons.InfoFill
+import com.adevinta.spark.icons.SparkIcon
+import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.ValidFill
+import com.adevinta.spark.icons.WarningFill
 
+/**
+ * SnackbarIntent is used to define the visual style and semantic meaning of a Snackbar.
+ * Each intent corresponds to a specific color palette from the Spark theme.
+ */
 public enum class SnackbarIntent {
-    Success,
-    Alert,
-    Error,
-    Info,
-    Neutral,
-    Main,
-    Basic,
-    Support,
-    Accent,
-    SurfaceInverse,
+
+    /**
+     * This intent is used for information such as validation or success.
+     */
+    Success {
+        @Composable
+        override fun colors(): IntentColor = IntentColors.Success.colors()
+        override val icon: SparkIcon = SparkIcons.ValidFill
+    },
+
+    /**
+     * This intent is used for information such as warnings or alerts.
+     */
+    Alert {
+        @Composable
+        override fun colors(): IntentColor = IntentColors.Alert.colors()
+        override val icon: SparkIcon = SparkIcons.WarningFill
+    },
+
+    /**
+     * This intent is used for information such as Danger or Error.
+     */
+    Error {
+        @Composable
+        override fun colors(): IntentColor = IntentColors.Danger.colors()
+        override val icon: SparkIcon = SparkIcons.AlertFill
+    },
+
+    /**
+     * This intent is used for informational content.
+     */
+    Info {
+        @Composable
+        override fun colors(): IntentColor = IntentColors.Info.colors()
+        override val icon: SparkIcon = SparkIcons.InfoFill
+    },
     ;
 
-    internal val filledColor: Color
-        @Composable get() = when (this) {
-            Success -> SparkTheme.colors.success
-            Alert -> SparkTheme.colors.alert
-            Error -> SparkTheme.colors.error
-            Info -> SparkTheme.colors.info
-            Neutral -> SparkTheme.colors.neutral
-            Main -> SparkTheme.colors.main
-            Basic -> SparkTheme.colors.basic
-            Support -> SparkTheme.colors.support
-            Accent -> SparkTheme.colors.accent
-            SurfaceInverse -> SparkTheme.colors.surfaceInverse
-        }
+    @Composable
+    internal abstract fun colors(): IntentColor
 
-    internal val tintedColor: Color
-        @Composable get() = when (this) {
-            Success -> SparkTheme.colors.successContainer
-            Alert -> SparkTheme.colors.alertContainer
-            Error -> SparkTheme.colors.errorContainer
-            Info -> SparkTheme.colors.infoContainer
-            Neutral -> SparkTheme.colors.neutralContainer
-            Main -> SparkTheme.colors.mainContainer
-            Basic -> SparkTheme.colors.basicContainer
-            Support -> SparkTheme.colors.supportContainer
-            Accent -> SparkTheme.colors.accentContainer
-            SurfaceInverse -> SparkTheme.colors.surfaceInverse
-        }
+    internal abstract val icon: SparkIcon
 }
