@@ -82,7 +82,7 @@ public fun ButtonContrast(
     val containerColor = SparkTheme.colors.surface
     val colors = intent.colors()
     val contentColor by animateColorAsState(
-        targetValue = if (colors.color == containerColor) colors.onColor else colors.color,
+        targetValue = colors.onContainerColor,
         label = "content color",
     )
 
@@ -149,7 +149,7 @@ public fun ButtonContrast(
     val containerColor = SparkTheme.colors.surface
     val colors = intent.colors()
     val contentColor by animateColorAsState(
-        targetValue = if (colors.color == containerColor) colors.onColor else colors.color,
+        targetValue = colors.onContainerColor,
         label = "content color",
     )
 
@@ -215,7 +215,7 @@ public fun ButtonContrast(
     val containerColor = SparkTheme.colors.surface
     val colors = intent.colors()
     val contentColor by animateColorAsState(
-        targetValue = if (colors.color == containerColor) colors.onColor else colors.color,
+        targetValue = colors.onContainerColor,
         label = "content color",
     )
 
