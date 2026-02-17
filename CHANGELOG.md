@@ -4,6 +4,15 @@
 
 ## [Unreleased]
 
+### Scripts
+
+#### 🆕 Component Generator Script
+
+The new `generate-component.main.kts` script should make it easier to bootstrap a new Spark components. It generates `Component.kt`, `SparkComponent.kt`, `ComponentDefaults.kt`, `Component.md`, `Screenshot tests`, `Configurator`, and `Examples` files.
+This script was will use the new component architecture that make variant discovery for consumers easier.
+
+To start generating a new component just use `./scripts/generate-component.main.kts [component-name] [package-name] [-v Variant1] [-v Variant2]` in the scripts directory!1
+
 ## [1.8.0-alpha04]
 
 _2026-02-05_
