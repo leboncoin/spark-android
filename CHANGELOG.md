@@ -4,6 +4,14 @@
 
 ## [Unreleased]
 
+## [1.8.0-alpha05]
+
+_2026-02-18_
+
+### Spark
+
+- Since we have uncertainties regarding the usages of FileKit for the `FileUpload` we marked it as `@InternalSparkApi` until we decide how to handle the file selection
+
 ## [1.8.0-alpha04]
 
 _2026-02-05_

@@ -29,7 +29,7 @@ import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.adevinta.spark.ExperimentalSparkApi
+import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.icons.Close
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
@@ -52,7 +52,7 @@ import kotlinx.collections.immutable.ImmutableList
  * @param clearIcon Icon to use for the clear button. Defaults to [SparkIcons.Close].
  */
 @Composable
-@ExperimentalSparkApi
+@InternalSparkApi
 public fun FileUploadList(
     files: ImmutableList<UploadedFile>,
     onClearFile: (UploadedFile) -> Unit,

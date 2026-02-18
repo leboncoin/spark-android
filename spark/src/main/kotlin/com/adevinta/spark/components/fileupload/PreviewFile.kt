@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.fileupload
 
-import android.R.attr.enabled
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
@@ -56,6 +55,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.icons.Icon
@@ -97,6 +97,7 @@ import java.io.File
  * @param onClick Optional callback invoked when the file preview is clicked. If null, the preview is not clickable.
  * @param clearIcon Icon to use for the clear button. Defaults to [SparkIcons.Close].
  */
+@InternalSparkApi
 @Composable
 public fun PreviewFile(
     file: UploadedFile,

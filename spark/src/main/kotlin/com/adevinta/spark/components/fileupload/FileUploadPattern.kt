@@ -26,7 +26,7 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.adevinta.spark.ExperimentalSparkApi
+import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.chips.ChipDashed
 import io.github.vinceglb.filekit.PlatformFile
@@ -54,7 +54,7 @@ import kotlinx.collections.immutable.toImmutableList
  *
  * @sample com.adevinta.spark.components.fileupload.FileUploadWrapperSamples
  */
-@ExperimentalSparkApi
+@InternalSparkApi
 @Composable
 public fun FileUploadPattern(
     pattern: FileUploadPatternState,
@@ -79,6 +79,7 @@ public fun FileUploadPattern(
  * @property isSingleMode Whether this pattern is in single file mode.
  * @property maxFiles Maximum number of files allowed (null means no limit), only relevant for multiple mode.
  */
+@InternalSparkApi
 @Stable
 public class FileUploadPatternState internal constructor(
     public val launchFilePicker: () -> Unit,
@@ -107,7 +108,7 @@ public class FileUploadPatternState internal constructor(
  * @param dialogSettings Specific configuration for the picker dialog, primarily for desktop platforms.
  * @return A [FileUploadPatternState] used to trigger the pickers and query the current selection configuration.
  */
-@ExperimentalSparkApi
+@InternalSparkApi
 @Composable
 public fun rememberFileUploadPattern(
     onFilesSelect: (ImmutableList<UploadedFile>) -> Unit,
