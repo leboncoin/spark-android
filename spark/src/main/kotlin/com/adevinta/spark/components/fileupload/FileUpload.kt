@@ -28,7 +28,7 @@ import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
-import com.adevinta.spark.ExperimentalSparkApi
+import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.buttons.ButtonIntent
 import com.adevinta.spark.components.buttons.ButtonSize
@@ -52,6 +52,7 @@ import io.github.vinceglb.filekit.size
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.serialization.Serializable
 
+@InternalSparkApi
 public object FileUpload {
 
     /**
@@ -79,7 +80,7 @@ public object FileUpload {
      *
      * @sample com.adevinta.spark.components.fileupload.FileUploadSamples
      */
-    @ExperimentalSparkApi
+    @InternalSparkApi
     @Composable
     public fun Button(
         onResult: (ImmutableList<UploadedFile>) -> Unit,
@@ -151,7 +152,7 @@ public object FileUpload {
      *
      * @sample com.adevinta.spark.components.fileupload.FileUploadSamples
      */
-    @ExperimentalSparkApi
+    @InternalSparkApi
     @Composable
     public fun ButtonSingleSelect(
         onResult: (UploadedFile?) -> Unit,
@@ -235,6 +236,7 @@ public data class UploadedFile(
  * This object centralises default text, icon mapping and layout behaviour to keep the
  * public API of file upload components small and consistent with other Spark components.
  */
+@InternalSparkApi
 public object FileUploadDefaults {
 
     /**
@@ -298,6 +300,7 @@ public object FileUploadDefaults {
 /**
  * Source selection for image/video picker.
  */
+@InternalSparkApi
 @Stable
 public enum class ImageSource {
     /** Only camera picker */
@@ -310,6 +313,7 @@ public enum class ImageSource {
 /**
  * Type of files that can be selected for upload.
  */
+@InternalSparkApi
 @Stable
 public sealed interface FileUploadType {
     /**
@@ -361,6 +365,7 @@ public sealed interface FileUploadType {
 /**
  * Mode for file upload: single file or multiple files.
  */
+@InternalSparkApi
 @Stable
 public sealed interface FileUploadMode {
     /** Single file selection mode */
