@@ -43,9 +43,9 @@ import kotlin.io.path.readText
 import kotlin.io.path.walk
 
 /**
- * SparkIcons will create a Kotlin file containing all icons.
+ * LeboncoinIcons will create a Kotlin file containing all icons.
  */
-class SparkIcons : CliktCommand(
+class LeboncoinIcons : CliktCommand(
     name = "spark-icons-kt.main.kts",
     help = "⚙️ LeboncoinIcons: Create a Kotlin file containing all icons",
 ) {
@@ -91,6 +91,7 @@ class SparkIcons : CliktCommand(
             )
             it.newLine()
             input.files()
+                .filter { it.nameWithoutExtension.startsWith("spark_icons_lbc_") }
                 .map { it.normalize() }
                 .sorted()
                 .map { it.nameWithoutExtension.removePrefix("spark_icons_lbc_").toPascalCase() to it.nameWithoutExtension }
@@ -114,4 +115,4 @@ fun String.capitalize() = replaceFirstChar {
     else it.toString()
 }
 
-SparkIcons().main(args)
+LeboncoinIcons().main(args)
