@@ -5,6 +5,7 @@ on:
     branches: [ "chore-updated-icons" ]
 
 permissions:
+  contents: write
   pull-requests: write
 
 concurrency:
