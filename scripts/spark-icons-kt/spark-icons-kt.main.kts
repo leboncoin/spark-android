@@ -28,17 +28,12 @@
 @file:DependsOn("com.github.ajalt.clikt:clikt-jvm:4.2.0")
 
 import com.github.ajalt.clikt.core.CliktCommand
-import com.github.ajalt.clikt.parameters.options.default
-import com.github.ajalt.clikt.parameters.options.defaultLazy
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.prompt
 import com.github.ajalt.clikt.parameters.types.path
 import java.nio.file.Path
 import java.util.Locale
-import kotlin.apply
-import kotlin.collections.joinToString
-import kotlin.io.bufferedReader
 import kotlin.io.path.ExperimentalPathApi
 import kotlin.io.path.absolutePathString
 import kotlin.io.path.bufferedWriter
@@ -46,30 +41,13 @@ import kotlin.io.path.isRegularFile
 import kotlin.io.path.nameWithoutExtension
 import kotlin.io.path.readText
 import kotlin.io.path.walk
-import kotlin.io.readText
-import kotlin.io.use
-import kotlin.script.experimental.dependencies.DependsOn
-import kotlin.script.experimental.dependencies.Repository
-import kotlin.sequences.filter
-import kotlin.sequences.forEach
-import kotlin.sequences.map
-import kotlin.takeIf
-import kotlin.text.isLowerCase
-import kotlin.text.orEmpty
-import kotlin.text.removePrefix
-import kotlin.text.replaceFirstChar
-import kotlin.text.split
-import kotlin.text.titlecase
-import kotlin.text.trim
-import kotlin.text.trimIndent
-import kotlin.to
 
 /**
  * SparkIcons will create a Kotlin file containing all icons.
  */
 class SparkIcons : CliktCommand(
     name = "spark-icons-kt.main.kts",
-    help = "⚙️ SparkIcons: Create a Kotlin file containing all icons",
+    help = "⚙️ LeboncoinIcons: Create a Kotlin file containing all icons",
 ) {
 
     val input: Path by option("-i", "--input", help = "AVD assets input")
@@ -97,7 +75,7 @@ class SparkIcons : CliktCommand(
 
                 import com.adevinta.spark.icons.SparkIcon.DrawableRes
 
-                public object SparkIcons
+                public object LeboncoinIcons
 
                 """.trimIndent(),
             )
@@ -105,9 +83,9 @@ class SparkIcons : CliktCommand(
             input.files()
                 .map { it.normalize() }
                 .sorted()
-                .map { it.nameWithoutExtension.removePrefix("spark_icons_").toPascalCase() to it.nameWithoutExtension }
+                .map { it.nameWithoutExtension.removePrefix("spark_icons_lbc_").toPascalCase() to it.nameWithoutExtension }
                 .forEach { (name, resource) ->
-                    it.write("""public val SparkIcons.$name: DrawableRes get() = DrawableRes(R.drawable.$resource)""")
+                    it.write("""public val LeboncoinIcons.$name: DrawableRes get() = DrawableRes(R.drawable.$resource)""")
                     it.newLine()
                 }
         }
