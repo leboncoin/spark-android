@@ -105,13 +105,10 @@ public class SnackbarHostState {
      * To change the Snackbar appearance, change it in 'snackbarHost'
      * on the [Scaffold].
      * @param message The message to display in the Snackbar.
-     * @param icon The icon to display in the Snackbar.
+     * @param icon An optional icon to override the default intent icon.
      * @param intent The intent of the Snackbar.
-     * @param style The style of the Snackbar.
+     * @param title An optional title to be displayed above the message.
      * @param actionLabel optional action label to show as button in the Snackbar
-     * @param withDismissAction a boolean to show a dismiss action in the Snackbar. This is
-     * recommended to be set to true for better accessibility when a Snackbar is set with a
-     * [SnackbarDuration.Indefinite]
      * @param duration duration to control how long snackbar will be shown in [SnackbarHost], either
      * [SnackbarDuration.Short], [SnackbarDuration.Long] or [SnackbarDuration.Indefinite].
      *
@@ -122,9 +119,9 @@ public class SnackbarHostState {
         message: String,
         actionLabel: String? = null,
         icon: SparkIcon? = null,
+        title: String? = null,
         intent: SnackbarIntent = SnackbarDefaults.intent,
         withDismissAction: Boolean = false,
-        actionOnNewLine: Boolean = false,
         duration: SnackbarDuration = if (actionLabel == null) {
             SnackbarDuration.Short
         } else {
@@ -134,9 +131,10 @@ public class SnackbarHostState {
         SnackbarSparkVisuals(
             message = message,
             intent = intent,
+            icon = icon,
+            title = title,
             actionLabel = actionLabel,
             withDismissAction = withDismissAction,
-            actionOnNewLine = actionOnNewLine,
             duration = duration,
         ),
     )

@@ -21,18 +21,21 @@
  */
 package com.adevinta.spark.snackbar
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.Text
-import app.cash.paparazzi.DeviceConfig
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowColumn
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.adevinta.spark.DefaultTestDevices
 import com.adevinta.spark.components.snackbars.Snackbar
 import com.adevinta.spark.components.snackbars.SnackbarIntent
-import com.adevinta.spark.components.snackbars.SnackbarStyle
-import com.adevinta.spark.icons.HeartFill
-import com.adevinta.spark.icons.LeboncoinIcons
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshotNightMode
-import com.android.ide.common.rendering.api.SessionParams.RenderingMode.V_SCROLL
+import com.android.ide.common.rendering.api.SessionParams
 import org.junit.Rule
 import org.junit.Test
 
@@ -40,45 +43,203 @@ internal class SnackbarScreenshot {
 
     @get:Rule
     val paparazzi = paparazziRule(
-        renderingMode = V_SCROLL,
-        deviceConfig = DeviceConfig.PIXEL_C,
+        renderingMode = SessionParams.RenderingMode.H_SCROLL,
+        deviceConfig = DefaultTestDevices.Tablet,
     )
 
+    private val shortTitle = "Title"
+    private val longTitle = "This is a very long title that should test how the layout handles extended text"
+    private val shortMessage = "Short message"
+    private val longMessage = "This is a very long message that should test how the layout handles extended " +
+        "text content and wrapping behavior"
+
     @Test
-    fun snackbarIntentsFilledShowcase() {
+    fun snackbarIntentsShowcase() {
         paparazzi.sparkSnapshotNightMode {
             Column {
                 SnackbarIntent.entries.forEach {
                     Snackbar(
-                        style = SnackbarStyle.Filled,
                         intent = it,
-                        actionOnNewLine = true,
-                        withDismissAction = true,
-                        icon = LeboncoinIcons.HeartFill,
+                        title = "Title",
                         actionLabel = "Action",
+                        onDismissClick = {},
                     ) {
                         Text("Lorem ipsum dolor sit amet")
                     }
+                    Spacer(modifier = Modifier.height(8.dp))
                 }
             }
         }
     }
 
+    @OptIn(ExperimentalLayoutApi::class)
     @Test
-    fun snackbarIntentsTintedShowcase() {
+    fun snackbarTitleLayoutVariations() {
         paparazzi.sparkSnapshotNightMode {
-            Column {
-                SnackbarIntent.entries.forEach {
-                    Snackbar(
-                        style = SnackbarStyle.Tinted,
-                        intent = it,
-                        withDismissAction = true,
-                        icon = LeboncoinIcons.HeartFill,
-                        actionOnNewLine = true,
-                        actionLabel = "Action",
-                    ) {
-                        Text("Lorem ipsum dolor sit amet")
-                    }
+            FlowColumn(
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                // Short title + Short message variations
+                Snackbar(
+                    intent = SnackbarIntent.Info,
+                    title = shortTitle,
+                ) {
+                    Text(shortMessage)
+                }
+                Snackbar(
+                    intent = SnackbarIntent.Info,
+                    title = shortTitle,
+                    actionLabel = "Action",
+                    onActionClick = {},
+                ) {
+                    Text(shortMessage)
+                }
+                Snackbar(
+                    intent = SnackbarIntent.Info,
+                    title = shortTitle,
+                    onDismissClick = {},
+                ) {
+                    Text(shortMessage)
+                }
+                Snackbar(
+                    intent = SnackbarIntent.Info,
+                    title = shortTitle,
+                    actionLabel = "Action",
+                    onActionClick = {},
+                    onDismissClick = {},
+                ) {
+                    Text(shortMessage)
+                }
+
+                // Short title + Long message variations
+                Snackbar(
+                    intent = SnackbarIntent.Info,
+                    title = shortTitle,
+                ) {
+                    Text(longMessage)
+                }
+                Snackbar(
+                    intent = SnackbarIntent.Info,
+                    title = shortTitle,
+                    actionLabel = "Action",
+                    onActionClick = {},
+                ) {
+                    Text(longMessage)
+                }
+                Snackbar(
+                    intent = SnackbarIntent.Info,
+                    title = shortTitle,
+                    onDismissClick = {},
+                ) {
+                    Text(longMessage)
+                }
+                Snackbar(
+                    intent = SnackbarIntent.Info,
+                    title = shortTitle,
+                    actionLabel = "Action",
+                    onActionClick = {},
+                    onDismissClick = {},
+                ) {
+                    Text(longMessage)
+                }
+
+                // Long title + Short message variations
+                Snackbar(
+                    intent = SnackbarIntent.Info,
+                    title = longTitle,
+                ) {
+                    Text(shortMessage)
+                }
+                Snackbar(
+                    intent = SnackbarIntent.Info,
+                    title = longTitle,
+                    actionLabel = "Action",
+                    onActionClick = {},
+                ) {
+                    Text(shortMessage)
+                }
+                Snackbar(
+                    intent = SnackbarIntent.Info,
+                    title = longTitle,
+                    onDismissClick = {},
+                ) {
+                    Text(shortMessage)
+                }
+                Snackbar(
+                    intent = SnackbarIntent.Info,
+                    title = longTitle,
+                    actionLabel = "Action",
+                    onActionClick = {},
+                    onDismissClick = {},
+                ) {
+                    Text(shortMessage)
+                }
+
+                // Long title + Long message variations
+                Snackbar(
+                    intent = SnackbarIntent.Info,
+                    title = longTitle,
+                ) {
+                    Text(longMessage)
+                }
+                Snackbar(
+                    intent = SnackbarIntent.Info,
+                    title = longTitle,
+                    actionLabel = "Action",
+                    onActionClick = {},
+                ) {
+                    Text(longMessage)
+                }
+                Snackbar(
+                    intent = SnackbarIntent.Info,
+                    title = longTitle,
+                    onDismissClick = {},
+                ) {
+                    Text(longMessage)
+                }
+                Snackbar(
+                    intent = SnackbarIntent.Info,
+                    title = longTitle,
+                    actionLabel = "Action",
+                    onActionClick = {},
+                    onDismissClick = {},
+                ) {
+                    Text(longMessage)
+                }
+
+                // Action label length variations
+                Snackbar(
+                    intent = SnackbarIntent.Info,
+                    title = shortTitle,
+                    actionLabel = "Short",
+                    onActionClick = {},
+                ) {
+                    Text(shortMessage)
+                }
+                Snackbar(
+                    intent = SnackbarIntent.Info,
+                    title = shortTitle,
+                    actionLabel = "This is a very long action label",
+                    onActionClick = {},
+                ) {
+                    Text(shortMessage)
+                }
+                Snackbar(
+                    intent = SnackbarIntent.Info,
+                    title = longTitle,
+                    actionLabel = "Short",
+                    onActionClick = {},
+                ) {
+                    Text(longMessage)
+                }
+                Snackbar(
+                    intent = SnackbarIntent.Info,
+                    title = longTitle,
+                    actionLabel = "This is a very long action label",
+                    onActionClick = {},
+                ) {
+                    Text(longMessage)
                 }
             }
         }

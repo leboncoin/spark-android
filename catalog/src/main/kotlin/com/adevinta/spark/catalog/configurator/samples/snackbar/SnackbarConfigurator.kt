@@ -35,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.catalog.R
+import com.adevinta.spark.catalog.icons.IconPickerItem
 import com.adevinta.spark.catalog.model.Configurator
 import com.adevinta.spark.catalog.ui.ButtonGroup
 import com.adevinta.spark.catalog.util.PreviewTheme
@@ -48,6 +49,7 @@ import com.adevinta.spark.components.snackbars.intent
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.SwitchLabelled
+import com.adevinta.spark.icons.SparkIcon
 import kotlinx.coroutines.launch
 
 public val SnackbarConfigurator: Configurator = Configurator(
@@ -64,6 +66,8 @@ private fun ColumnScope.SnackbarSample(snackbarHostState: SnackbarHostState) {
     var withDismissAction by remember { mutableStateOf(false) }
     var actionOnNewLine by remember { mutableStateOf(false) }
     var intent by remember { mutableStateOf(SnackbarDefaults.intent) }
+    var icon: SparkIcon? by remember { mutableStateOf(null) }
+    var title by remember { mutableStateOf("") }
     var actionText by remember { mutableStateOf("Action") }
     var contentText by remember { mutableStateOf("Just a snackbar") }
     val scope = rememberCoroutineScope()
@@ -101,10 +105,18 @@ private fun ColumnScope.SnackbarSample(snackbarHostState: SnackbarHostState) {
         )
     }
 
+    IconPickerItem(
+        label = "With Icon",
+        selectedIcon = icon,
+        onIconSelected = { icon = it },
+    )
+
     Snackbar(
         intent = intent,
         withDismissAction = withDismissAction,
         actionOnNewLine = actionOnNewLine,
+        icon = icon,
+        title = title.takeIf { it.isNotEmpty() },
         actionLabel = actionText,
     ) {
         Text(contentText)
@@ -120,6 +132,8 @@ private fun ColumnScope.SnackbarSample(snackbarHostState: SnackbarHostState) {
                         intent = intent,
                         withDismissAction = withDismissAction,
                         actionOnNewLine = actionOnNewLine,
+                        icon = icon,
+                        title = title.takeIf { it.isNotEmpty() },
                         actionLabel = actionText,
                         message = contentText,
                         duration = SnackbarDuration.Short,
@@ -131,6 +145,13 @@ private fun ColumnScope.SnackbarSample(snackbarHostState: SnackbarHostState) {
         Text("Launch Snackbar")
     }
 
+    TextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = title,
+        onValueChange = { title = it },
+        label = "Title",
+        stateMessage = title,
+    )
     TextField(
         modifier = Modifier.fillMaxWidth(),
         value = actionText,
