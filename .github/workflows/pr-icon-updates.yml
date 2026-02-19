@@ -14,7 +14,7 @@ env:
 jobs:
   pr-icon-updates:
     # Detect recursive calls based on last commit message
-    if: ${{ github.event.head_commit.message != '🎨 Update `SparkIcons.kt`' }}
+    if: ${{ github.event.head_commit.message != '🎨 Update `LeboncoinIcons.kt`' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
