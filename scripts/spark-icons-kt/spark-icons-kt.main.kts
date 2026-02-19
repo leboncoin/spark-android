@@ -75,6 +75,16 @@ class SparkIcons : CliktCommand(
 
                 import com.adevinta.spark.icons.SparkIcon.DrawableRes
 
+                /**
+                 * A collection of static icons from Spark for leboncoin.
+                 *
+                 * This object provides access to all static vector icons as drawable resources.
+                 * Each icon is available as a property that returns a [SparkIcon.DrawableRes] or a [SparkIcon.Vector],
+                 * ensuring type safety and consistency across the icon system.
+                 *
+                 * @see SparkIcon.DrawableRes
+                 * @see SparkIcon.Vector
+                 */
                 public object LeboncoinIcons
 
                 """.trimIndent(),
