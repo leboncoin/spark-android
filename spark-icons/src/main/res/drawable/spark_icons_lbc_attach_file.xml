@@ -1,0 +1,31 @@
+<!--
+  Copyright (c) 2023 Adevinta
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <path
+      android:pathData="M7.32,3.3A4.5,4.5 0,0 1,10.5 2H14a4.44,4.44 0,0 1,4.5 4.46v11.77a1,1 0,0 1,-1 1,1 1,0 0,1 -1.02,-1V6.46A2.5,2.5 0,0 0,14 4h-3.5c-0.66,0 -1.29,0.26 -1.75,0.72a2.5,2.5 0,0 0,-0.73 1.74v11.77A1.77,1.77 0,0 0,9.8 20h1.4c0.48,0 0.93,-0.19 1.26,-0.52 0.34,-0.33 0.53,-0.78 0.53,-1.25V7.85q0,-0.16 -0.12,-0.28a0.4,0.4 0,0 0,-0.27 -0.1h-0.7q-0.16,0 -0.27,0.1a0.4,0.4 0,0 0,-0.12 0.28v7.61a1,1 0,0 1,-1 1,1 1,0 0,1 -1.02,-1V7.85c0,-0.64 0.26,-1.24 0.7,-1.7a2.5,2.5 0,0 1,1.71 -0.69h0.7A2.4,2.4 0,0 1,15 7.85v10.38c0,1 -0.4,1.96 -1.1,2.67 -0.72,0.7 -1.69,1.1 -2.7,1.1H9.8A3.75,3.75 0,0 1,6 18.23V6.46a4.4,4.4 0,0 1,1.32 -3.15"
+      android:fillColor="#3a4757"
+      android:fillType="evenOdd"/>
+</vector>
