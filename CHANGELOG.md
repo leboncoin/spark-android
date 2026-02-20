@@ -11,15 +11,7 @@ _2026-02-20_
 ### Spark
 
 #### 🆕 LeboncoinIcons
-
-- ✨ Add `LeboncoinIcons` object as namespace for new static icons from Spark for leboncoin. This object provides access to all static vector icons as drawable resources, similar to `SparkIcons` but specifically for leboncoin-branded icons. Each icon is available as a property that returns a `SparkIcon.DrawableRes`, ensuring type safety and consistency across the icon system.
-
-### CI
-
-- 🐛 Fix GitHub Actions workflow to properly commit new icons in icon-updates PR
-- 🔧 Update icon generation script to filter drawables for `LeboncoinIcons`
-- 📝 Add documentation for `LeboncoinIcons`
-- 🧪 Update screenshot tests to use `LeboncoinIcons` instead of `SparkIcons` for icon testing
+Add `LeboncoinIcons` object as namespace for new static icons from Spark for leboncoin. This object provides access to all static vector icons as drawable resources, similar to `SparkIcons` but specifically for leboncoin-branded icons.
 
 ## [1.8.0-alpha05]
 
