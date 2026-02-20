@@ -23,6 +23,7 @@ package com.adevinta.spark.catalog.configurator.samples.snackbar
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.SnackbarDefaults
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -37,16 +38,14 @@ import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.icons.IconPickerItem
 import com.adevinta.spark.catalog.model.Configurator
 import com.adevinta.spark.catalog.ui.ButtonGroup
-import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.buttons.ButtonSize
 import com.adevinta.spark.components.buttons.ButtonTinted
 import com.adevinta.spark.components.snackbars.Snackbar
 import com.adevinta.spark.components.snackbars.SnackbarHostState
-import com.adevinta.spark.components.snackbars.SnackbarIntent
 import com.adevinta.spark.components.snackbars.SnackbarSparkVisuals
-import com.adevinta.spark.components.snackbars.SnackbarStyle
+import com.adevinta.spark.components.snackbars.intent
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.SwitchLabelled
@@ -58,22 +57,22 @@ public val SnackbarConfigurator: Configurator = Configurator(
     name = "Snackbar",
     description = "Snackbar configuration",
     sourceUrl = "$SampleSourceUrl/SnackbarSamples.kt",
-) {
-    SnackbarSample(it)
+) { snackbarHostState, _ ->
+    SnackbarSample(snackbarHostState)
 }
 
 @Composable
 private fun ColumnScope.SnackbarSample(snackbarHostState: SnackbarHostState) {
     var withDismissAction by remember { mutableStateOf(false) }
-    var icon: SparkIcon? by remember { mutableStateOf(null) }
-    var style by remember { mutableStateOf(SnackbarStyle.Filled) }
     var actionOnNewLine by remember { mutableStateOf(false) }
-    var intent by remember { mutableStateOf(SnackbarIntent.Basic) }
+    var intent by remember { mutableStateOf(SnackbarDefaults.intent) }
+    var icon: SparkIcon? by remember { mutableStateOf(null) }
+    var title by remember { mutableStateOf("") }
     var actionText by remember { mutableStateOf("Action") }
     var contentText by remember { mutableStateOf("Just a snackbar") }
     val scope = rememberCoroutineScope()
 
-    DropdownEnum(
+    ButtonGroup(
         modifier = Modifier.fillMaxWidth(),
         title = stringResource(id = R.string.configurator_component_screen_intent_label),
         selectedOption = intent,
@@ -105,23 +104,17 @@ private fun ColumnScope.SnackbarSample(snackbarHostState: SnackbarHostState) {
             modifier = Modifier.fillMaxWidth(),
         )
     }
+
     IconPickerItem(
         label = "With Icon",
         selectedIcon = icon,
         onIconSelected = { icon = it },
     )
 
-    ButtonGroup(
-        title = "Style",
-        selectedOption = style,
-        onOptionSelect = { style = it },
-    )
     Snackbar(
         intent = intent,
-        withDismissAction = withDismissAction,
-        actionOnNewLine = actionOnNewLine,
-        style = style,
         icon = icon,
+        title = title.takeIf { it.isNotEmpty() },
         actionLabel = actionText,
     ) {
         Text(contentText)
@@ -136,9 +129,8 @@ private fun ColumnScope.SnackbarSample(snackbarHostState: SnackbarHostState) {
                     SnackbarSparkVisuals(
                         intent = intent,
                         withDismissAction = withDismissAction,
-                        actionOnNewLine = actionOnNewLine,
-                        style = style,
                         icon = icon,
+                        title = title.takeIf { it.isNotEmpty() },
                         actionLabel = actionText,
                         message = contentText,
                         duration = SnackbarDuration.Short,
@@ -150,6 +142,13 @@ private fun ColumnScope.SnackbarSample(snackbarHostState: SnackbarHostState) {
         Text("Launch Snackbar")
     }
 
+    TextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = title,
+        onValueChange = { title = it },
+        label = "Title",
+        stateMessage = title,
+    )
     TextField(
         modifier = Modifier.fillMaxWidth(),
         value = actionText,

@@ -63,16 +63,16 @@ public val StepperConfigurators: ImmutableList<Configurator> = persistentListOf(
         name = "Stepper",
         description = "Stepper configuration",
         sourceUrl = "$SampleSourceUrl/StepperSamples.kt",
-    ) {
-        StepperSample(it)
+    ) { snackbarHostState, _ ->
+        StepperSample(snackbarHostState)
     },
     Configurator(
         id = "stepper-form",
         name = "Stepper Form",
         description = "Stepper Form configuration with helper and label",
         sourceUrl = "$SampleSourceUrl/StepperSamples.kt",
-    ) {
-        StepperFormSample(it)
+    ) { snackbarHostState, _ ->
+        StepperFormSample(snackbarHostState)
     },
 )
 

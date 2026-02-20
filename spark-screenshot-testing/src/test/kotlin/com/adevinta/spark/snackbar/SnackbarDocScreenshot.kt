@@ -21,12 +21,15 @@
  */
 package com.adevinta.spark.snackbar
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowColumn
 import androidx.compose.foundation.layout.Row
-import androidx.compose.material3.Text
+import androidx.compose.material3.SnackbarData
+import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.DeviceConfig
 import com.adevinta.spark.components.snackbars.Snackbar
+import com.adevinta.spark.components.snackbars.SnackbarSparkVisuals
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshotNightMode
 import com.android.ide.common.rendering.api.SessionParams
@@ -45,20 +48,31 @@ internal class SnackbarDocScreenshot {
     @Test
     fun snackbarDocScreenshot() {
         paparazzi.sparkSnapshotNightMode {
-            FlowColumn {
+            FlowColumn(
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
                 data.forEach { visual ->
                     Row {
                         Snackbar(
-                            intent = visual.intent,
-                            style = visual.style,
-                            actionOnNewLine = visual.message == stubBody,
-                            withDismissAction = visual.withDismissAction,
-                            icon = visual.icon,
-                            actionLabel = visual.actionLabel,
-                        ) { Text(visual.message) }
+                            data = TestSnackbarData(visual),
+                        )
                     }
                 }
             }
         }
+    }
+}
+
+/**
+ * Test implementation of SnackbarData for screenshot testing
+ */
+private class TestSnackbarData(override val visuals: SnackbarSparkVisuals) : SnackbarData {
+    override fun performAction() {
+        // No-op for testing
+    }
+
+    override fun dismiss() {
+        // No-op for testing
     }
 }

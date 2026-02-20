@@ -79,7 +79,7 @@ public val FileUploadConfigurator: Configurator = Configurator(
     name = "File upload",
     description = "File upload configuration",
     sourceUrl = "$SampleSourceUrl/FileUploadSamples.kt",
-) {
+) { _, _ ->
     FileUploadSample()
 }
 

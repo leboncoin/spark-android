@@ -63,7 +63,7 @@ public val IconToggleButtonsConfigurator: Configurator = Configurator(
     name = "IconToggleButton",
     description = "IconToggleButton configuration",
     sourceUrl = "$SampleSourceUrl/IconToggleButtonSamples.kt",
-) {
+) { _, _ ->
     IconToggleButtonSample()
 }
 

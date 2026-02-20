@@ -96,7 +96,7 @@ public val ImageConfigurator: Configurator = Configurator(
     name = "Image",
     description = "Image configuration",
     sourceUrl = "$SampleSourceUrl/ImageSample.kt",
-) {
+) { _, _ ->
     ImageSample()
 }
 

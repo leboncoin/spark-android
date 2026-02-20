@@ -60,8 +60,8 @@ public val TextLinksConfigurator: Configurator = Configurator(
     name = "TextLink",
     description = "TextLink configuration",
     sourceUrl = "$SampleSourceUrl/TextLinkSamples.kt",
-) {
-    TextLinkSample(it)
+) { snackbarHostState, _ ->
+    TextLinkSample(snackbarHostState)
 }
 
 @Composable

@@ -51,7 +51,7 @@ public val MultiChoiceDropdownConfigurator: Configurator = Configurator(
     name = "MultiChoiceDropdown",
     description = "MultiChoiceDropdown configuration",
     sourceUrl = "$SampleSourceUrl/MultiChoiceDropdownConfigurator.kt",
-) {
+) { _, _ ->
     MultiChoiceDropdownSample()
 }
 

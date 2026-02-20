@@ -57,7 +57,7 @@ public val ComboBoxConfigurators: ImmutableList<Configurator> = persistentListOf
         name = "ComboBox",
         description = "ComboBox configuration",
         sourceUrl = "$SampleSourceUrl/ComboBoxSamples.kt",
-    ) {
+    ) { _, _ ->
         ComboBoxSample()
     },
     Configurator(
@@ -65,7 +65,7 @@ public val ComboBoxConfigurators: ImmutableList<Configurator> = persistentListOf
         name = "MultiChoiceComboBox",
         description = "MultiChoiceComboBox configuration",
         sourceUrl = "$SampleSourceUrl/ComboBoxSamples.kt",
-    ) {
+    ) { _, _ ->
         MultiChoiceComboBoxSample()
     },
     Configurator(
@@ -73,7 +73,7 @@ public val ComboBoxConfigurators: ImmutableList<Configurator> = persistentListOf
         name = "MultiChoiceComboBox with Selected Choices",
         description = "MultiChoiceComboBox configuration with pre-selected choices",
         sourceUrl = "$SampleSourceUrl/ComboBoxSamples.kt",
-    ) {
+    ) { _, _ ->
         MultiChoiceComboBoxWithSelectedSample()
     },
 )
