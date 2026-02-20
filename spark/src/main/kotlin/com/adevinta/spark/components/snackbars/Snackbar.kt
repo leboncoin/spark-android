@@ -100,7 +100,6 @@ internal fun SparkSnackbar(
             .heightIn(min = 60.dp)
             .widthIn(max = 600.dp)
             .fillMaxWidth()
-            .padding(16.dp)
             .sparkUsageOverlay(),
         shape = SparkTheme.shapes.large,
         color = backgroundColor,
@@ -304,7 +303,7 @@ public fun Snackbar(
     ImageRequest.Builder(LocalContext.current)
     SparkSnackbar(
         intent = sparkVisuals?.intent ?: SnackbarDefaults.intent,
-        modifier = modifier,
+        modifier = modifier.padding(12.dp),
         icon = sparkVisuals?.icon,
         title = sparkVisuals?.title,
         actionLabel = sparkVisuals?.actionLabel,

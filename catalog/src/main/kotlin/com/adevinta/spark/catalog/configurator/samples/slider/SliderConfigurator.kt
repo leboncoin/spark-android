@@ -63,7 +63,7 @@ public val SlidersConfigurator: Configurator = Configurator(
     name = "Slider",
     description = "Slider configuration",
     sourceUrl = "$SampleSourceUrl/SliderSamples.kt",
-) {
+) { _, _ ->
     SliderSample()
 }
 

@@ -47,7 +47,7 @@ public val CheckboxConfigurator: Configurator = Configurator(
     name = "Checkbox",
     description = "Checkbox configuration",
     sourceUrl = "$SampleSourceUrl/CheckboxSamples.kt",
-) {
+) { _, _ ->
     CheckboxSample()
 }
 

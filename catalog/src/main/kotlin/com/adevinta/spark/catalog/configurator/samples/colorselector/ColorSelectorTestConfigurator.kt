@@ -53,8 +53,8 @@ public val ColorSelectorTestConfigurator: Configurator = Configurator(
     name = "Color Selector Test",
     description = "Test configurator for ColorSelector component",
     sourceUrl = "$SampleSourceUrl/ColorSelectorSamples.kt",
-) {
-    ColorSelectorTestSample(it)
+) { snackbarHostState, _ ->
+    ColorSelectorTestSample(snackbarHostState)
 }
 
 @Composable

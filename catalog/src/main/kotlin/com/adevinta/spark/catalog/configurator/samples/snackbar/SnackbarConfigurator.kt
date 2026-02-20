@@ -57,8 +57,8 @@ public val SnackbarConfigurator: Configurator = Configurator(
     name = "Snackbar",
     description = "Snackbar configuration",
     sourceUrl = "$SampleSourceUrl/SnackbarSamples.kt",
-) {
-    SnackbarSample(it)
+) { snackbarHostState, _ ->
+    SnackbarSample(snackbarHostState)
 }
 
 @Composable
@@ -113,8 +113,6 @@ private fun ColumnScope.SnackbarSample(snackbarHostState: SnackbarHostState) {
 
     Snackbar(
         intent = intent,
-        withDismissAction = withDismissAction,
-        actionOnNewLine = actionOnNewLine,
         icon = icon,
         title = title.takeIf { it.isNotEmpty() },
         actionLabel = actionText,
@@ -131,7 +129,6 @@ private fun ColumnScope.SnackbarSample(snackbarHostState: SnackbarHostState) {
                     SnackbarSparkVisuals(
                         intent = intent,
                         withDismissAction = withDismissAction,
-                        actionOnNewLine = actionOnNewLine,
                         icon = icon,
                         title = title.takeIf { it.isNotEmpty() },
                         actionLabel = actionText,

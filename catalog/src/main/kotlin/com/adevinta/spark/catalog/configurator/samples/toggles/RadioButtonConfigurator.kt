@@ -46,7 +46,7 @@ public val RadioButtonConfigurator: Configurator = Configurator(
     name = "RadioButton",
     description = "RadioButton configuration",
     sourceUrl = "$SampleSourceUrl/RadioButtonSamples.kt",
-) {
+) { _, _ ->
     RadioButtonSample()
 }
 

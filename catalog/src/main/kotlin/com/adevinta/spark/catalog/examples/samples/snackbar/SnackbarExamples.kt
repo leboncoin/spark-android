@@ -55,8 +55,7 @@ public val SnackbarExamples: ImmutableList<Example> = persistentListOf(
     ) {
         Snackbar(
             intent = SnackbarIntent.Info,
-            withDismissAction = true,
-            actionOnNewLine = true,
+            onDismissClick = {},
             icon = LeboncoinIcons.HeartFill,
             actionLabel = "Action",
         ) {
@@ -71,10 +70,9 @@ public val SnackbarExamples: ImmutableList<Example> = persistentListOf(
     ) {
         Snackbar(
             intent = SnackbarIntent.Alert,
-            withDismissAction = true,
-            actionOnNewLine = false,
             icon = LeboncoinIcons.HeartFill,
             actionLabel = "Action",
+            onDismissClick = {},
         ) {
             Text("Simple message!")
         }

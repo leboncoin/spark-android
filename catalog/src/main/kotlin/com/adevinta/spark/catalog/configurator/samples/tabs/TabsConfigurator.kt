@@ -67,7 +67,7 @@ public val TabsConfigurator: Configurator = Configurator(
     name = "Tab",
     description = "Tab configuration",
     sourceUrl = "$SampleSourceUrl/TabSamples.kt",
-) {
+) { _, _ ->
     TabSample()
 }
 

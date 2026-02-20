@@ -55,7 +55,7 @@ public val ProgressbarConfigurator: Configurator = Configurator(
     name = "Progressbar",
     description = "Progressbar configuration",
     sourceUrl = "$SampleSourceUrl/ProgressbarSamples.kt",
-) {
+) { _, _ ->
     ProgressbarSample()
 }
 

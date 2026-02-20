@@ -60,8 +60,8 @@ public val TagsConfigurator: Configurator = Configurator(
     name = "Tag",
     description = "Tag configuration",
     sourceUrl = "$SampleSourceUrl/TagSamples.kt",
-) {
-    TagSample(it)
+) { snackbarHostState, _ ->
+    TagSample(snackbarHostState)
 }
 
 @Suppress("DEPRECATION")

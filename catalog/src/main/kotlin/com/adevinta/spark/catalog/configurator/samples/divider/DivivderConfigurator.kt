@@ -56,7 +56,7 @@ public val DividerConfigurator: Configurator = Configurator(
     name = "Divider",
     description = "Divider configuration",
     sourceUrl = "$SampleSourceUrl/DividerSamples.kt",
-) {
+) { _, _ ->
     DividerSample()
 }
 

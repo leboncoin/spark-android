@@ -21,10 +21,12 @@
  */
 package com.adevinta.spark.snackbar
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowColumn
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.SnackbarData
+import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.DeviceConfig
 import com.adevinta.spark.components.snackbars.Snackbar
 import com.adevinta.spark.components.snackbars.SnackbarSparkVisuals
@@ -46,7 +48,10 @@ internal class SnackbarDocScreenshot {
     @Test
     fun snackbarDocScreenshot() {
         paparazzi.sparkSnapshotNightMode {
-            FlowColumn {
+            FlowColumn(
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
                 data.forEach { visual ->
                     Row {
                         Snackbar(

@@ -68,7 +68,7 @@ public val PulseConfigurator: ImmutableList<Configurator> = persistentListOf(
         name = "Pulse",
         description = "Pulse animation configuration",
         sourceUrl = "$SampleSourceUrl/PulseConfigurator.kt",
-    ) { snackbarHostState ->
+    ) { snackbarHostState, _ ->
         PulseSample(snackbarHostState)
     },
 )

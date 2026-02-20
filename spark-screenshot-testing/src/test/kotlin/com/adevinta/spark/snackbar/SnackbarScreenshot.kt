@@ -56,7 +56,9 @@ internal class SnackbarScreenshot {
     @Test
     fun snackbarIntentsShowcase() {
         paparazzi.sparkSnapshotNightMode {
-            Column {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
                 SnackbarIntent.entries.forEach {
                     Snackbar(
                         intent = it,
