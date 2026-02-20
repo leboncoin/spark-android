@@ -40,10 +40,10 @@ internal class IconsScreenshot {
     val paparazzi = paparazziRule()
 
     internal object SparkIconProvider : TestParameterValuesProvider() {
-        override fun provideValues(context: Context) = Class.forName("com.adevinta.spark.icons.SparkIconsKt")
+        override fun provideValues(context: Context) = Class.forName("com.adevinta.spark.icons.LeboncoinIconsKt")
             .methods
             .filter { SparkIcon::class.java.isAssignableFrom(it.returnType) }
-            .map { value(it.invoke(null, SparkIcons) as SparkIcon).withName(it.name.removePrefix("get")) }
+            .map { value(it.invoke(null, LeboncoinIcons) as SparkIcon).withName(it.name.removePrefix("get")) }
     }
 
     @Test
