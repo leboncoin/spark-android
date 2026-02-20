@@ -92,8 +92,10 @@ internal class ProgressTrackerScreenshot {
                             ProgressTrackerRow(
                                 modifier = Modifier.width(240.dp),
                                 items = persistentListOf(
-                                    ProgressStep("Lorem ipsume", true,
-                                        doneIcon = LeboncoinIcons.AddCircleFill
+                                    ProgressStep(
+                                        "Lorem ipsume",
+                                        true,
+                                        doneIcon = LeboncoinIcons.AddCircleFill,
                                     ),
                                     ProgressStep(
                                         "Lorem ipsume dolar sit amet",

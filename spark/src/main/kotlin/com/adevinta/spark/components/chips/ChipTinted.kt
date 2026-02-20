@@ -183,8 +183,12 @@ internal fun ChipTintedPreview() {
                     ) {
                         Text("Chip")
                     }
-                    ChipTinted(intent.name, intent = intent,
-                        leadingIcon = LeboncoinIcons.TagOutline, enabled = enabled)
+                    ChipTinted(
+                        intent.name,
+                        intent = intent,
+                        leadingIcon = LeboncoinIcons.TagOutline,
+                        enabled = enabled,
+                    )
                     ChipTinted(intent.name, intent = intent, enabled = enabled)
                     ChipTinted(
                         contentDescription = intent.name,

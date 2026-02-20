@@ -183,8 +183,12 @@ internal fun ChipDashedPreview() {
                     ) {
                         Text("Chip")
                     }
-                    ChipDashed(intent.name, intent = intent,
-                        leadingIcon = LeboncoinIcons.TagOutline, enabled = enabled)
+                    ChipDashed(
+                        intent.name,
+                        intent = intent,
+                        leadingIcon = LeboncoinIcons.TagOutline,
+                        enabled = enabled,
+                    )
                     ChipDashed(intent.name, intent = intent, enabled = enabled)
                     ChipDashed(
                         contentDescription = intent.name,

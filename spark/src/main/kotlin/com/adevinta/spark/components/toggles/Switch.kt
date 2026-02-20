@@ -283,8 +283,9 @@ public fun SwitchLabelled(
  * @property checked icon to be used for the thumb in checked state
  * @property unchecked icon to be used for the thumb in unchecked state
  */
-public data class SwitchIcons(val checked: SparkIcon = SparkIcons.Check,
-                              val unchecked: SparkIcon = LeboncoinIcons.Cross
+public data class SwitchIcons(
+    val checked: SparkIcon = SparkIcons.Check,
+    val unchecked: SparkIcon = LeboncoinIcons.Cross,
 )
 
 @Preview(

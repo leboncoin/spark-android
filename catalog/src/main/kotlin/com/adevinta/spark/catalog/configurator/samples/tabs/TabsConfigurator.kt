@@ -80,7 +80,9 @@ private fun ColumnScope.TabSample() {
     var selectedIndex by remember { mutableIntStateOf(0) }
 
     val tabs =
-        remember { mutableStateListOf(Pair("Home", null) to 0, Pair("Message", LeboncoinIcons.BubbleTextOutline) to 120) }
+        remember {
+            mutableStateListOf(Pair("Home", null) to 0, Pair("Message", LeboncoinIcons.BubbleTextOutline) to 120)
+        }
 
     TabGroup(
         spacedEvenly = isTabsSpacedEvenely,

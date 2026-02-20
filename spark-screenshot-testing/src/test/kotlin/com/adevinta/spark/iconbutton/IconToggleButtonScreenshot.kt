@@ -54,8 +54,9 @@ import org.junit.Test
 
 internal class IconToggleButtonScreenshot {
 
-    private val icons: IconToggleButtonIcons = IconToggleButtonIcons(LeboncoinIcons.UserOutline,
-        LeboncoinIcons.UserFill
+    private val icons: IconToggleButtonIcons = IconToggleButtonIcons(
+        LeboncoinIcons.UserOutline,
+        LeboncoinIcons.UserFill,
     )
 
     private val shapes = ButtonShape.entries
