@@ -58,7 +58,8 @@ import com.adevinta.spark.components.popover.PopoverDefaults.PopoverMinHeight
 import com.adevinta.spark.components.popover.PopoverDefaults.PopoverMinWidth
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.Close
+import com.adevinta.spark.icons.Cross
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.ElevationTokens
 import com.adevinta.spark.tokens.highlight
@@ -138,7 +139,7 @@ public fun Popover(
                                     end = PopoverDismissButtonPadding,
                                 ),
                             intent = IconButtonIntent.Neutral,
-                            icon = SparkIcons.Close,
+                            icon = LeboncoinIcons.Cross,
                             onClick = { popoverState.dismiss() },
                         )
                     }

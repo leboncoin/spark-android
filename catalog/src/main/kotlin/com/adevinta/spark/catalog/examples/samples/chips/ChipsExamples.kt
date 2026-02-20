@@ -76,13 +76,14 @@ import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.TextField
-import com.adevinta.spark.icons.AccountFill
-import com.adevinta.spark.icons.ArrowHorizontalUp
-import com.adevinta.spark.icons.CalendarOutline
+import com.adevinta.spark.icons.CalendarTextOutline
 import com.adevinta.spark.icons.Check
+import com.adevinta.spark.icons.ChevronHorizontalUp
 import com.adevinta.spark.icons.EyeOutline
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.MailOutline
 import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.UserFill
 import com.adevinta.spark.tokens.ElevationTokens
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -193,7 +194,7 @@ private fun ColumnScope.ChipsKind() {
     FlowRow(
         horizontalArrangement = spacedBy(8.dp),
     ) {
-        Chip(text = "Assist", leadingIcon = SparkIcons.CalendarOutline, onClick = {})
+        Chip(text = "Assist", leadingIcon = LeboncoinIcons.CalendarTextOutline, onClick = {})
         ChipSelectable(
             text = "Filter",
             leadingIcon = if (selected) SparkIcons.Check else null,
@@ -311,7 +312,7 @@ private fun ColumnScope.ChipAssist() {
                 ) {
                     Chip(
                         text = "Add to Calendar",
-                        leadingIcon = SparkIcons.CalendarOutline,
+                        leadingIcon = LeboncoinIcons.CalendarTextOutline,
                         onClick = {},
                         intent = ChipIntent.Surface,
                     )
@@ -413,7 +414,7 @@ private fun ChipSuggestion() {
                 text = "john.doe@email.com",
                 style = if (value == "john.doe@email.com") Tinted else Dashed,
                 intent = ChipIntent.Neutral,
-                leadingIcon = SparkIcons.AccountFill,
+                leadingIcon = LeboncoinIcons.UserFill,
                 onClick = {
                     value = "john.doe@email.com"
                 },
@@ -422,7 +423,7 @@ private fun ChipSuggestion() {
                 text = "jane.doe@email.com",
                 style = if (value == "jane.doe@email.com") Tinted else Dashed,
                 intent = ChipIntent.Neutral,
-                leadingIcon = SparkIcons.AccountFill,
+                leadingIcon = LeboncoinIcons.UserFill,
                 onClick = {
                     value = "jane.doe@email.com"
                 },
@@ -463,7 +464,7 @@ private fun ChipSelection() {
         ) {
             Text(text = value.ifEmpty { "Animals" })
             Icon(
-                sparkIcon = SparkIcons.ArrowHorizontalUp,
+                sparkIcon = LeboncoinIcons.ChevronHorizontalUp,
                 modifier = Modifier.size(12.dp),
                 contentDescription = null,
                 tint = LocalContentColor.current,

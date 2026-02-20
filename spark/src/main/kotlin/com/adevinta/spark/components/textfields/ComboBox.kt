@@ -72,7 +72,8 @@ import com.adevinta.spark.components.menu.MultipleChoiceExposedDropdownMenu
 import com.adevinta.spark.components.menu.SingleChoiceDropdownItemColumnScope
 import com.adevinta.spark.components.menu.SingleChoiceExposedDropdownMenu
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.DeleteOutline
+import com.adevinta.spark.icons.CircleCrossOutline
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcons
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -321,7 +322,7 @@ public fun MultiChoiceComboBox(
                             onClick = { onSelectedClick(id) },
                             trailingIcon = {
                                 Icon(
-                                    sparkIcon = SparkIcons.DeleteOutline,
+                                    sparkIcon = LeboncoinIcons.CircleCrossOutline,
                                     modifier = Modifier.size(ChipDefaults.LeadingIconSize),
                                     contentDescription = null,
                                 )

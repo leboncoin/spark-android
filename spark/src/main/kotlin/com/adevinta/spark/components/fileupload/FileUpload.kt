@@ -35,8 +35,9 @@ import com.adevinta.spark.components.buttons.ButtonSize
 import com.adevinta.spark.components.buttons.IconSide
 import com.adevinta.spark.icons.CameraVideo
 import com.adevinta.spark.icons.CvOutline
-import com.adevinta.spark.icons.FilePdfOutline
 import com.adevinta.spark.icons.ImageOutline
+import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.PdfOutline
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tools.modifiers.ifNotNull
@@ -263,7 +264,7 @@ public object FileUploadDefaults {
             }
 
             mimeType == "application/pdf" || lowerName.endsWith(".pdf") -> {
-                SparkIcons.FilePdfOutline
+                LeboncoinIcons.PdfOutline
             }
 
             mimeType.startsWith("video/") ||

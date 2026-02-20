@@ -69,11 +69,12 @@ import com.adevinta.spark.components.icons.rememberSparkIconPainter
 import com.adevinta.spark.components.placeholder.illustrationPlaceholder
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.ErrorPhoto
-import com.adevinta.spark.icons.NoPhoto
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.StrokeImage
 import com.adevinta.spark.icons.Tattoo
+import com.adevinta.spark.icons.WarningImage
 import com.adevinta.spark.tokens.EmphasizeDim2
 import com.adevinta.spark.tools.SparkExceptionHandler
 import com.adevinta.spark.tools.modifiers.ifNotNull
@@ -89,10 +90,10 @@ public fun SparkImage(
     // Useful to preview different states
     transform: (AsyncImagePainter.State) -> AsyncImagePainter.State = AsyncImagePainter.DefaultTransform,
     onState: ((State) -> Unit)? = null,
-    emptyIcon: @Composable () -> Unit = { ImageIconState(SparkIcons.NoPhoto) },
+    emptyIcon: @Composable () -> Unit = { ImageIconState(LeboncoinIcons.StrokeImage) },
     errorIcon: @Composable () -> Unit = {
         ImageIconState(
-            sparkIcon = SparkIcons.ErrorPhoto,
+            sparkIcon = LeboncoinIcons.WarningImage,
             color = SparkTheme.colors.errorContainer,
         )
     },
@@ -205,10 +206,10 @@ public fun Image(
     contentDescription: String?,
     modifier: Modifier = Modifier,
     onState: ((State) -> Unit)? = null,
-    emptyIcon: @Composable () -> Unit = { ImageIconState(SparkIcons.NoPhoto) },
+    emptyIcon: @Composable () -> Unit = { ImageIconState(LeboncoinIcons.StrokeImage) },
     errorIcon: @Composable () -> Unit = {
         ImageIconState(
-            sparkIcon = SparkIcons.ErrorPhoto,
+            sparkIcon = LeboncoinIcons.WarningImage,
             color = SparkTheme.colors.errorContainer,
         )
     },

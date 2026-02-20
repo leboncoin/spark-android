@@ -81,8 +81,9 @@ import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.menu.DropdownMenu
 import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.icons.Chain
 import com.adevinta.spark.icons.Computer
-import com.adevinta.spark.icons.Link
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.Layout
 import soup.compose.material.motion.animation.materialElevationScaleIn
@@ -173,7 +174,7 @@ public fun Component(
                             Box {
                                 var expanded by remember { mutableStateOf(false) }
                                 IconButtonGhost(
-                                    icon = SparkIcons.Link,
+                                    icon = LeboncoinIcons.Chain,
                                     onClick = { expanded = true },
                                     contentDescription = stringResource(R.string.component_menu_links),
                                 )

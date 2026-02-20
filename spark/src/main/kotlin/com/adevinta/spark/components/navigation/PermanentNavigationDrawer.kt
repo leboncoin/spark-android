@@ -39,7 +39,8 @@ import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.Activity
-import com.adevinta.spark.icons.IdentityOutline
+import com.adevinta.spark.icons.IdentityCardOutline
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.Store
 import androidx.compose.material3.PermanentNavigationDrawer as MaterialPermanentNavigationDrawer
@@ -93,7 +94,7 @@ internal fun PermanentNavigationDrawerPreview() {
         padding = PaddingValues(0.dp),
     ) {
         // icons to mimic drawer destinations
-        val items = listOf(SparkIcons.Activity, SparkIcons.IdentityOutline, SparkIcons.Store)
+        val items = listOf(SparkIcons.Activity, LeboncoinIcons.IdentityCardOutline, SparkIcons.Store)
         val selectedItem = remember { mutableStateOf(items[0]) }
         PermanentNavigationDrawer(
             drawerContent = {

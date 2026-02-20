@@ -42,7 +42,8 @@ import com.adevinta.spark.components.toggles.Switch
 import com.adevinta.spark.components.toggles.SwitchIcons
 import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.icons.Check
-import com.adevinta.spark.icons.Close
+import com.adevinta.spark.icons.Cross
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 
@@ -59,7 +60,7 @@ public val SwitchConfigurator: Configurator = Configurator(
 private fun ColumnScope.SwitchSample() {
     var isEnabled by remember { mutableStateOf(true) }
     var iconOn: SparkIcon? by remember { mutableStateOf(SparkIcons.Check) }
-    var iconOff: SparkIcon? by remember { mutableStateOf(SparkIcons.Close) }
+    var iconOff: SparkIcon? by remember { mutableStateOf(LeboncoinIcons.Cross) }
     var label: String? by remember { mutableStateOf(null) }
     var state by remember { mutableStateOf(false) }
     val onClick = { checked: Boolean -> state = checked }

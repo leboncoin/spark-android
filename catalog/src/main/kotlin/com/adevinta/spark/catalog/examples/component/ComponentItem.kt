@@ -68,8 +68,9 @@ import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.image.Image
 import com.adevinta.spark.components.menu.DropdownMenu
 import com.adevinta.spark.components.menu.DropdownMenuItem
+import com.adevinta.spark.icons.GearOutline
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcons
-import com.adevinta.spark.icons.WheelOutline
 import com.adevinta.spark.tokens.applyTonalElevation
 import com.adevinta.spark.tools.modifiers.invisibleSemantic
 import kotlinx.collections.immutable.persistentListOf
@@ -122,7 +123,7 @@ public fun ComponentConfiguratorItem(
                         onClick(component, configurator.id)
                         expanded = false
                     },
-                    leadingIcon = { Icon(SparkIcons.WheelOutline, contentDescription = null) },
+                    leadingIcon = { Icon(LeboncoinIcons.GearOutline, contentDescription = null) },
                 )
             }
         }

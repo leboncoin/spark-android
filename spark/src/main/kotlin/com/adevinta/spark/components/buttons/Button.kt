@@ -56,9 +56,9 @@ import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.buttons.SparkButtonTags.TAG_PROGRESS_INDICATOR
 import com.adevinta.spark.components.icons.Icon
-import com.adevinta.spark.icons.IdentityOutline
+import com.adevinta.spark.icons.IdentityCardOutline
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
 @InternalSparkApi
@@ -272,7 +272,7 @@ private fun SparkButtonPreview() {
                 onClick = { },
                 colors = ButtonDefaults.buttonColors(),
                 size = size,
-                icon = SparkIcons.IdentityOutline,
+                icon = LeboncoinIcons.IdentityCardOutline,
                 iconSide = IconSide.END,
             )
         }

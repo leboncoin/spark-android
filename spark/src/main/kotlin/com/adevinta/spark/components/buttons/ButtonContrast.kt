@@ -36,10 +36,10 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
-import com.adevinta.spark.icons.IdentityOutline
-import com.adevinta.spark.icons.Link
+import com.adevinta.spark.icons.Chain
+import com.adevinta.spark.icons.IdentityCardOutline
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.dim3
 import com.adevinta.spark.tokens.disabled
 
@@ -250,7 +250,7 @@ internal fun ButtonContrastPreview() {
     PreviewTheme(
         color = { SparkTheme.colors.backgroundVariant },
     ) {
-        val icon = SparkIcons.Link
+        val icon = LeboncoinIcons.Chain
         var isLoading by remember { mutableStateOf(false) }
         val buttonText = "Main Button"
         ButtonContrast(
@@ -288,7 +288,7 @@ internal fun ButtonContrastIntentPreview() {
     PreviewTheme(
         color = { SparkTheme.colors.backgroundVariant },
     ) {
-        val icon = SparkIcons.IdentityOutline
+        val icon = LeboncoinIcons.IdentityCardOutline
         ButtonIntent.entries.forEach { intent ->
             ButtonContrast(
                 text = intent.name,

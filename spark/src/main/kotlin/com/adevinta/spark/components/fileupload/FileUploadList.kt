@@ -30,7 +30,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.InternalSparkApi
-import com.adevinta.spark.icons.Close
+import com.adevinta.spark.icons.Cross
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 import io.github.vinceglb.filekit.path
@@ -58,7 +59,7 @@ public fun FileUploadList(
     onClearFile: (UploadedFile) -> Unit,
     modifier: Modifier = Modifier,
     onClick: ((UploadedFile) -> Unit)? = null,
-    clearIcon: SparkIcon = SparkIcons.Close,
+    clearIcon: SparkIcon = LeboncoinIcons.Cross,
 ) {
     AnimatedVisibility(
         modifier = modifier,
