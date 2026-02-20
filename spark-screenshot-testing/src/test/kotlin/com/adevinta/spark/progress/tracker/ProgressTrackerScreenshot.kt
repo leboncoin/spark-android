@@ -39,7 +39,8 @@ import com.adevinta.spark.components.progress.tracker.ProgressStep
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerIntent
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerRow
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.AddFill
+import com.adevinta.spark.icons.AddCircleFill
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkAnimatedIcons
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.addButton
@@ -91,7 +92,9 @@ internal class ProgressTrackerScreenshot {
                             ProgressTrackerRow(
                                 modifier = Modifier.width(240.dp),
                                 items = persistentListOf(
-                                    ProgressStep("Lorem ipsume", true, doneIcon = SparkIcons.AddFill),
+                                    ProgressStep("Lorem ipsume", true,
+                                        doneIcon = LeboncoinIcons.AddCircleFill
+                                    ),
                                     ProgressStep(
                                         "Lorem ipsume dolar sit amet",
                                         true,

@@ -80,8 +80,9 @@ import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.icons.Check
-import com.adevinta.spark.icons.DeleteFill
-import com.adevinta.spark.icons.Search
+import com.adevinta.spark.icons.CircleCrossFill
+import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.MagnifierOutline
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.allAnimatedIconsMetadata
@@ -144,12 +145,12 @@ public fun IconsScreen(
                 .padding(top = 16.dp),
             placeholder = stringResource(id = R.string.icons_screen_search_helper),
             leadingContent = {
-                Icon(sparkIcon = SparkIcons.Search, contentDescription = null)
+                Icon(sparkIcon = LeboncoinIcons.MagnifierOutline, contentDescription = null)
             },
             trailingContent = {
                 Icon(
                     modifier = Modifier.clickable { query = "" },
-                    sparkIcon = SparkIcons.DeleteFill,
+                    sparkIcon = LeboncoinIcons.CircleCrossFill,
                     contentDescription = "Clear",
                 )
             },
@@ -261,7 +262,7 @@ internal sealed class NamedAsset(open val name: String, open val sparkIcon: Spar
 
 internal suspend fun getAllIconsRes(context: Context) = withContext(Default) {
     val drawableIcons = IconR.drawable::class.java.declaredFields.mapNotNull { field ->
-        val prefix = "spark_icons_"
+        val prefix = "spark_icons_lbc_"
         val icon = field.getInt(null)
         val name = context.resources.getResourceEntryName(icon)
         if (!name.startsWith(prefix)) return@mapNotNull null

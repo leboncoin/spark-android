@@ -37,7 +37,8 @@ import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.buttons.ButtonOutlined
 import com.adevinta.spark.components.popover.Popover
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.LikeFill
+import com.adevinta.spark.icons.HeartFill
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.highlight
@@ -107,7 +108,7 @@ private fun PopoverSample(
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        val icon = SparkIcons.LikeFill
+        val icon = LeboncoinIcons.HeartFill
         val contentDescription = "Localized Content Description"
         button(
             /* onClick = */ { },

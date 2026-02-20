@@ -49,7 +49,8 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.text.TextLink
 import com.adevinta.spark.components.text.TextLinkButton
 import com.adevinta.spark.components.toggles.SwitchLabelled
-import com.adevinta.spark.icons.LikeFill
+import com.adevinta.spark.icons.HeartFill
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.res.annotatedStringResource
 import kotlinx.coroutines.launch
@@ -93,7 +94,7 @@ private fun ColumnScope.TextLinkSample(snackbarHostState: SnackbarHostState) {
     TextLinkButton(
         text = "Click me",
         intent = intent,
-        icon = if (isIconAdded) SparkIcons.LikeFill else null,
+        icon = if (isIconAdded) LeboncoinIcons.HeartFill else null,
         iconSide = iconSide,
         isLoading = isLoading,
         onClick = {

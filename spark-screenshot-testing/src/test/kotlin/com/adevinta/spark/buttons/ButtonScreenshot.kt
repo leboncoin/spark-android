@@ -39,8 +39,9 @@ import com.adevinta.spark.components.buttons.ButtonSize
 import com.adevinta.spark.components.buttons.ButtonTinted
 import com.adevinta.spark.components.buttons.IconSide
 import com.adevinta.spark.components.surface.Surface
-import com.adevinta.spark.icons.AccountOutline
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.UserOutline
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshotNightMode
 import com.android.ide.common.rendering.api.SessionParams.RenderingMode.V_SCROLL
@@ -118,7 +119,7 @@ internal class ButtonScreenshot {
                         size = size,
                         intent = intent,
                         enabled = enabled,
-                        icon = SparkIcons.AccountOutline,
+                        icon = LeboncoinIcons.UserOutline,
                         iconSide = IconSide.START,
                     )
                     ButtonOutlined(
@@ -127,7 +128,7 @@ internal class ButtonScreenshot {
                         size = size,
                         intent = intent,
                         enabled = enabled,
-                        icon = SparkIcons.AccountOutline,
+                        icon = LeboncoinIcons.UserOutline,
                         iconSide = IconSide.START,
                     )
                     ButtonTinted(
@@ -136,7 +137,7 @@ internal class ButtonScreenshot {
                         size = size,
                         intent = intent,
                         enabled = enabled,
-                        icon = SparkIcons.AccountOutline,
+                        icon = LeboncoinIcons.UserOutline,
                         iconSide = IconSide.START,
                     )
                     ButtonContrast(
@@ -145,7 +146,7 @@ internal class ButtonScreenshot {
                         size = size,
                         intent = intent,
                         enabled = enabled,
-                        icon = SparkIcons.AccountOutline,
+                        icon = LeboncoinIcons.UserOutline,
                         iconSide = IconSide.START,
                     )
                     ButtonGhost(
@@ -154,7 +155,7 @@ internal class ButtonScreenshot {
                         size = size,
                         intent = intent,
                         enabled = enabled,
-                        icon = SparkIcons.AccountOutline,
+                        icon = LeboncoinIcons.UserOutline,
                         iconSide = IconSide.START,
                     )
                 }
@@ -167,7 +168,7 @@ internal class ButtonScreenshot {
                         size = size,
                         intent = intent,
                         enabled = enabled,
-                        icon = SparkIcons.AccountOutline,
+                        icon = LeboncoinIcons.UserOutline,
                         iconSide = IconSide.END,
                     )
                     ButtonOutlined(
@@ -176,7 +177,7 @@ internal class ButtonScreenshot {
                         size = size,
                         intent = intent,
                         enabled = enabled,
-                        icon = SparkIcons.AccountOutline,
+                        icon = LeboncoinIcons.UserOutline,
                         iconSide = IconSide.END,
                     )
                     ButtonTinted(
@@ -185,7 +186,7 @@ internal class ButtonScreenshot {
                         size = size,
                         intent = intent,
                         enabled = enabled,
-                        icon = SparkIcons.AccountOutline,
+                        icon = LeboncoinIcons.UserOutline,
                         iconSide = IconSide.END,
                     )
                     ButtonContrast(
@@ -194,7 +195,7 @@ internal class ButtonScreenshot {
                         size = size,
                         intent = intent,
                         enabled = enabled,
-                        icon = SparkIcons.AccountOutline,
+                        icon = LeboncoinIcons.UserOutline,
                         iconSide = IconSide.END,
                     )
                     ButtonGhost(
@@ -203,7 +204,7 @@ internal class ButtonScreenshot {
                         size = size,
                         intent = intent,
                         enabled = enabled,
-                        icon = SparkIcons.AccountOutline,
+                        icon = LeboncoinIcons.UserOutline,
                         iconSide = IconSide.END,
                     )
                 }

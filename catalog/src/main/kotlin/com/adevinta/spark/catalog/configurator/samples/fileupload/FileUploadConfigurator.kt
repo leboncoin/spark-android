@@ -65,7 +65,8 @@ import com.adevinta.spark.components.stepper.StepperForm
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.SwitchLabelled
-import com.adevinta.spark.icons.Close
+import com.adevinta.spark.icons.Cross
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 import io.github.vinceglb.filekit.path
@@ -91,7 +92,7 @@ private fun ColumnScope.FileUploadSample() {
     var imageSource by rememberSaveable { mutableStateOf(ImageSource.Gallery) }
     var fileExtension by rememberSaveable { mutableStateOf(FileExtensionStandard.All) }
     var maxFiles: Int by rememberSaveable { mutableIntStateOf(0) }
-    var clearIcon by remember { mutableStateOf<SparkIcon>(SparkIcons.Close) }
+    var clearIcon by remember { mutableStateOf<SparkIcon>(LeboncoinIcons.Cross) }
 
     val selectedType by remember { derivedStateOf { pickerType.toFileUploadType(imageSource, fileExtension) } }
 

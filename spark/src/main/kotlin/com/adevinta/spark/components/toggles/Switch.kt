@@ -40,10 +40,11 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.icons.Icon
-import com.adevinta.spark.icons.AlarmOffFill
-import com.adevinta.spark.icons.AlarmOnFill
+import com.adevinta.spark.icons.BellOffFill
+import com.adevinta.spark.icons.BellOnFill
 import com.adevinta.spark.icons.Check
-import com.adevinta.spark.icons.Close
+import com.adevinta.spark.icons.Cross
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tools.modifiers.minimumTouchTargetSize
@@ -282,7 +283,9 @@ public fun SwitchLabelled(
  * @property checked icon to be used for the thumb in checked state
  * @property unchecked icon to be used for the thumb in unchecked state
  */
-public data class SwitchIcons(val checked: SparkIcon = SparkIcons.Check, val unchecked: SparkIcon = SparkIcons.Close)
+public data class SwitchIcons(val checked: SparkIcon = SparkIcons.Check,
+                              val unchecked: SparkIcon = LeboncoinIcons.Cross
+)
 
 @Preview(
     group = "Toggles",
@@ -293,8 +296,8 @@ private fun AllStatesSwitchLabelledPreview() {
     val text = "This is an example of a multi-line text which is very long and in which the user should read " +
         "all the information."
     val icons = SwitchIcons(
-        checked = SparkIcons.AlarmOnFill,
-        unchecked = SparkIcons.AlarmOffFill,
+        checked = LeboncoinIcons.BellOnFill,
+        unchecked = LeboncoinIcons.BellOffFill,
     )
     PreviewTheme {
         // Test case when only content side is provided

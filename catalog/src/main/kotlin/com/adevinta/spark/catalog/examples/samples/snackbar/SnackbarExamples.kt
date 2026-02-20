@@ -38,7 +38,8 @@ import com.adevinta.spark.components.snackbars.SnackbarSparkVisuals
 import com.adevinta.spark.components.snackbars.SnackbarStyle
 import com.adevinta.spark.components.spacer.VerticalSpacer
 import com.adevinta.spark.components.text.TextLinkButton
-import com.adevinta.spark.icons.LikeFill
+import com.adevinta.spark.icons.HeartFill
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcons
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -58,7 +59,7 @@ public val SnackbarExamples: ImmutableList<Example> = persistentListOf(
             withDismissAction = true,
             actionOnNewLine = true,
             style = SnackbarStyle.Filled,
-            icon = SparkIcons.LikeFill,
+            icon = LeboncoinIcons.HeartFill,
             actionLabel = "Action",
         ) {
             Text("Simple message!")
@@ -75,7 +76,7 @@ public val SnackbarExamples: ImmutableList<Example> = persistentListOf(
             withDismissAction = true,
             actionOnNewLine = false,
             style = SnackbarStyle.Tinted,
-            icon = SparkIcons.LikeFill,
+            icon = LeboncoinIcons.HeartFill,
             actionLabel = "Action",
         ) {
             Text("Simple message!")

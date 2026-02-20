@@ -62,7 +62,8 @@ import com.adevinta.spark.components.spacer.VerticalSpacer
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.text.TextLinkButton
 import com.adevinta.spark.components.toggles.SwitchLabelled
-import com.adevinta.spark.icons.LikeFill
+import com.adevinta.spark.icons.HeartFill
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.Store
 import com.adevinta.spark.tokens.highlight
@@ -197,7 +198,7 @@ private fun ListContent(onHideBottomSheetClicked: () -> Unit) {
                 headlineContent = { Text("Item $it") },
                 leadingContent = {
                     Icon(
-                        SparkIcons.LikeFill,
+                        LeboncoinIcons.HeartFill,
                         contentDescription = "Localized description",
                     )
                 },

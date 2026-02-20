@@ -36,7 +36,8 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
-import com.adevinta.spark.icons.IdentityOutline
+import com.adevinta.spark.icons.IdentityCardOutline
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.disabled
@@ -264,7 +265,7 @@ public fun ButtonTinted(
 @Composable
 internal fun ButtonTintedPreview() {
     PreviewTheme {
-        val icon = SparkIcons.IdentityOutline
+        val icon = LeboncoinIcons.IdentityCardOutline
         var isLoading by remember { mutableStateOf(false) }
         val buttonText = "Main Button"
         ButtonTinted(
@@ -302,7 +303,7 @@ internal fun ButtonTintedIntentPreview() {
     PreviewTheme(
         color = { SparkTheme.colors.backgroundVariant },
     ) {
-        val icon = SparkIcons.IdentityOutline
+        val icon = LeboncoinIcons.IdentityCardOutline
         ButtonIntent.values().forEach { intent ->
             ButtonTinted(
                 text = intent.name,

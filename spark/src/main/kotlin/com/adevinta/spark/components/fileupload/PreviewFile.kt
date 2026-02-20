@@ -63,7 +63,8 @@ import com.adevinta.spark.components.progressbar.Progressbar
 import com.adevinta.spark.components.progressbar.ProgressbarIndeterminate
 import com.adevinta.spark.components.spacer.HorizontalSpacer
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.Close
+import com.adevinta.spark.icons.Cross
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.WarningOutline
@@ -105,7 +106,7 @@ public fun PreviewFile(
     modifier: Modifier = Modifier,
     clearContentDescription: String? = null,
     onClick: (() -> Unit)? = null,
-    clearIcon: SparkIcon = SparkIcons.Close,
+    clearIcon: SparkIcon = LeboncoinIcons.Cross,
 ) {
     val hasError = file.errorMessage != null
     val borderColor by animateColorAsState(
