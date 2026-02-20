@@ -22,8 +22,8 @@
 package com.adevinta.spark.snackbar
 
 import com.adevinta.spark.components.snackbars.SnackbarSparkVisuals
-import com.adevinta.spark.icons.AlarmOnOutline
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.BellOnOutline
+import com.adevinta.spark.icons.LeboncoinIcons
 
 internal val stubShortBody = "Lorem ipsum dolor sit amet"
 internal val stubBody =
@@ -36,14 +36,14 @@ internal val BodyActionSnackbar = SnackbarSparkVisuals(stubShortBody, actionLabe
 internal val BodyIconActionSnackbar = SnackbarSparkVisuals(
     stubShortBody,
     actionLabel = stubAction,
-    icon = SparkIcons.AlarmOnOutline,
+    icon = LeboncoinIcons.BellOnOutline,
 )
-internal val BodyIconSnackbar = SnackbarSparkVisuals(stubShortBody, icon = SparkIcons.AlarmOnOutline)
+internal val BodyIconSnackbar = SnackbarSparkVisuals(stubShortBody, icon = LeboncoinIcons.BellOnOutline)
 internal val BodyIconActionNewLineSnackbar = SnackbarSparkVisuals(
     stubBody,
     actionLabel = stubAction,
     withDismissAction = true,
-    icon = SparkIcons.AlarmOnOutline,
+    icon = LeboncoinIcons.BellOnOutline,
 )
 internal val BodyTitleSnackbar = SnackbarSparkVisuals(stubBody)
 internal val BodyTitleActionSnackbar = SnackbarSparkVisuals(
