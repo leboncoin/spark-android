@@ -4,6 +4,21 @@
 
 ## [Unreleased]
 
+## [1.8.0]
+
+_2026-02-20_
+
+#### 🆕 LeboncoinIcons
+Add `LeboncoinIcons` object as namespace for new static icons from Spark for leboncoin. This object provides access to all static vector icons as drawable resources, similar to `SparkIcons` but specifically for leboncoin-branded icons.
+
+### Spark
+
+- 📝 Add model in the exception message when an Image does not have a defined size
+- 🐛 `ButtonContrast` and `ButtonGhost` were using `color` instead of `onContainerColor` values for their content colours
+- 📝 Improve the message from the crash when using a Spark component outside a `SparkTheme`
+- 🎨 Add new SurfaceDark color token to be used when we need a surface/background to remain dark in light and darkmode like the footer in the website or the drawer in dashboard pro
+- Apply the MaterialComposableHasSparkReplacement in spark modules
+
 ## [1.8.0-alpha06]
 
 _2026-02-20_
@@ -786,7 +801,7 @@ _2024-10-07_
 - 💄 New examples for the elevation tokens have been added.
 
 ### CI
- - Icons screenshot are not bound to the theme colors anymore to reduce invalidation not related to the icons themselves.
+- Icons screenshot are not bound to the theme colors anymore to reduce invalidation not related to the icons themselves.
 
 ## 0.11.0
 
@@ -1111,7 +1126,9 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.8.0-alpha06...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.8.0...HEAD
+
+[1.8.0]: https://github.com/leboncoin/spark-android/releases/tag/1.8.0
 
 [1.8.0-alpha06]: https://github.com/leboncoin/spark-android/releases/tag/1.8.0-alpha06
 
