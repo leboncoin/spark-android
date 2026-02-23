@@ -62,8 +62,9 @@ import com.adevinta.spark.components.popover.TooltipBox
 import com.adevinta.spark.components.scaffold.Scaffold
 import com.adevinta.spark.components.spacer.HorizontalSpacer
 import com.adevinta.spark.components.surface.Surface
-import com.adevinta.spark.icons.Close
+import com.adevinta.spark.icons.Cross
 import com.adevinta.spark.icons.FlashlightFill
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.ElevationTokens

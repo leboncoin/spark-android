@@ -25,10 +25,11 @@ import androidx.compose.runtime.Composable
 import com.adevinta.spark.components.IntentColor
 import com.adevinta.spark.components.IntentColors
 import com.adevinta.spark.icons.AlertFill
+import com.adevinta.spark.icons.CircleCheckFill
 import com.adevinta.spark.icons.InfoFill
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
-import com.adevinta.spark.icons.ValidFill
 import com.adevinta.spark.icons.WarningFill
 
 /**
@@ -43,7 +44,7 @@ public enum class SnackbarIntent {
     Success {
         @Composable
         override fun colors(): IntentColor = IntentColors.Success.colors()
-        override val icon: SparkIcon = SparkIcons.ValidFill
+        override val icon: SparkIcon = LeboncoinIcons.CircleCheckFill
     },
 
     /**
