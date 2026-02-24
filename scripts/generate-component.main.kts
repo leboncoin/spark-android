@@ -23,19 +23,24 @@
  */
 
 @file:Repository("https://repo1.maven.org/maven2/")
+@file:Repository("https://maven.google.com")
 @file:DependsOn("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10")
-@file:DependsOn("com.github.ajalt.clikt:clikt-jvm:4.2.0")
+@file:DependsOn("com.github.ajalt.clikt:clikt-jvm:5.1.0")
 @file:DependsOn("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
 
 import com.github.ajalt.clikt.command.SuspendingCliktCommand
 import com.github.ajalt.clikt.command.main
 import com.github.ajalt.clikt.core.UsageError
-import com.github.ajalt.clikt.parameters.arguments.argument
-import com.github.ajalt.clikt.parameters.arguments.prompt
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.prompt
+import com.github.ajalt.clikt.parameters.options.validate
 import com.github.ajalt.clikt.parameters.options.varargValues
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.supervisorScope
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.time.Year
@@ -45,29 +50,36 @@ import kotlin.io.path.createDirectories
 import kotlin.io.path.exists
 import kotlin.io.path.readText
 import kotlin.io.path.writeText
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.supervisorScope
 
 /**
  * Component Generator creates the complete file structure for new Spark components.
  */
 class GenerateComponent : SuspendingCliktCommand(
     name = "generate-component.main.kts",
-    help = "⚙️ Component Generator: Scaffold new Spark components",
 ) {
     private val componentName: String by option(
-
-        name = "component-name",
         help = "Component name in PascalCase (e.g., Card)",
     ).prompt("Enter component name (PascalCase)")
+        .validate { name ->
+            if (name.isEmpty()) {
+                throw UsageError("Component name cannot be empty")
+            }
+            if (!name.matches(Regex("^[A-Z][a-zA-Z0-9]*$"))) {
+                throw UsageError("Component name must be a valid PascalCase identifier (e.g., Card, Button)")
+            }
+        }
 
     private val packageName: String by option(
-        name = "package-name",
         help = "Package name (e.g., card)",
     ).prompt("Enter package name")
+        .validate { name ->
+            if (name.isEmpty()) {
+                throw UsageError("Package name cannot be empty")
+            }
+            if (!name.matches(Regex("^[a-z][a-z0-9_]*$"))) {
+                throw UsageError("Package name must be a valid lowercase identifier (e.g., card, button)")
+            }
+        }
     private val variants: List<String>? by option(
         "--variants", "-v",
         help = "Variant names (can be specified multiple times, e.g., -v Elevated -v Outlined)",
@@ -79,10 +91,6 @@ class GenerateComponent : SuspendingCliktCommand(
     ).flag(default = false)
 
     override suspend fun run() {
-        // Validate inputs
-        validateComponentName(componentName)
-        validatePackageName(packageName)
-
         // Use variants list directly
         val variantList = variants?.filter { it.isNotEmpty() }.orEmpty()
 
@@ -408,24 +416,6 @@ $componentName.$variant()
             } else {
                 echo("\n✅ Successfully generated ${generatedFiles.size} file(s)!")
             }
-        }
-    }
-
-    private fun validateComponentName(name: String) {
-        if (name.isEmpty()) {
-            throw UsageError("Component name cannot be empty")
-        }
-        if (!name.matches(Regex("^[A-Z][a-zA-Z0-9]*$"))) {
-            throw UsageError("Component name must be a valid PascalCase identifier (e.g., Card, Button)")
-        }
-    }
-
-    private fun validatePackageName(name: String) {
-        if (name.isEmpty()) {
-            throw UsageError("Package name cannot be empty")
-        }
-        if (!name.matches(Regex("^[a-z][a-z0-9_]*$"))) {
-            throw UsageError("Package name must be a valid lowercase identifier (e.g., card, button)")
         }
     }
 }
