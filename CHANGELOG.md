@@ -4,6 +4,21 @@
 
 ## [Unreleased]
 
+## [2.0.0-alpha01]
+
+_2026-02-24_
+
+### Spark
+
+#### 🆕 Snackbar (breaking changes)
+
+> [!CAUTION]
+> `SnackbarStyle` (Filled / Tinted) has been **removed**. Snackbars now use a single visual style with a colored border and elevation. `SnackbarIntent` has been reduced from 10 values to **4**: Success, Alert, Error, Info (Neutral, Main, Basic, Support, Accent, SurfaceInverse are removed).
+
+- **New visuals:** Single style with 2dp border using the intent color. Each intent has a default icon (e.g. Success → CircleCheckFill, Alert → WarningFill).
+- **`Snackbar` composable:** `style` and `actionOnNewLine` parameters removed. New optional `title` parameter (displayed above the message). `icon` is now an optional override of the intent’s default icon. Dismiss is done via `onDismissClick`.
+- **`showSnackbar`:** `style` and `actionOnNewLine` removed; optional `title` added. Default intent changed from `SnackbarIntent.Neutral` to `SnackbarIntent.Info`.
+
 ## [1.8.0]
 
 _2026-02-20_
@@ -1126,7 +1141,9 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.8.0...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/2.0.0-alpha01...HEAD
+
+[2.0.0-alpha01]: https://github.com/leboncoin/spark-android/releases/tag/2.0.0-alpha01
 
 [1.8.0]: https://github.com/leboncoin/spark-android/releases/tag/1.8.0
 
