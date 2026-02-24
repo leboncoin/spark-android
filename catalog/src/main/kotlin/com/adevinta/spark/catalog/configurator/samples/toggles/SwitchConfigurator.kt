@@ -52,7 +52,7 @@ public val SwitchConfigurator: Configurator = Configurator(
     name = "Switch",
     description = "Switch configuration",
     sourceUrl = "$SampleSourceUrl/SwitchSamples.kt",
-) {
+) { _, _ ->
     SwitchSample()
 }
 

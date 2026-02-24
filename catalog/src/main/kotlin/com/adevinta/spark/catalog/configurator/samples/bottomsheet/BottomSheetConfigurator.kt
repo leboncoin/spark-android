@@ -74,7 +74,7 @@ public val BottomSheetConfigurator: Configurator = Configurator(
     name = "BottomSheet",
     description = "BottomSheet configuration",
     sourceUrl = "$SampleSourceUrl/BottomSheetSamples.kt",
-) {
+) { _, _ ->
     BottomSheetSample()
 }
 

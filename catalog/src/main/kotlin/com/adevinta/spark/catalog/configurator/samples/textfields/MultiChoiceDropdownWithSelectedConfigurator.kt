@@ -54,7 +54,7 @@ public val MultiChoiceDropdownWithSelectedConfigurator: Configurator = Configura
     name = "MultiChoiceDropdown with Selected Choices",
     description = "MultiChoiceDropdown configuration with pre-selected choices",
     sourceUrl = "$SampleSourceUrl/MultiChoiceDropdownWithSelectedConfigurator.kt",
-) {
+) { _, _ ->
     MultiChoiceDropdownWithSelectedSample()
 }
 

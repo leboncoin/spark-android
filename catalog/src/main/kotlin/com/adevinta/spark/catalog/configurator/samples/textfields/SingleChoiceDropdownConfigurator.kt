@@ -50,7 +50,7 @@ public val SingleChoiceDropdownConfigurator: Configurator = Configurator(
     name = "SingleChoiceDropdown",
     description = "SingleChoiceDropdown configuration",
     sourceUrl = "$SampleSourceUrl/SingleChoiceDropdownConfigurator.kt",
-) {
+) { _, _ ->
     SingleChoiceDropdownSample()
 }
 

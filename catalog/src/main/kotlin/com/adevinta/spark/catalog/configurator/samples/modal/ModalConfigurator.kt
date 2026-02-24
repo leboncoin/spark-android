@@ -70,7 +70,7 @@ public val ModalConfigurator: Configurator = Configurator(
     name = "Modal",
     description = "Modal configuration",
     sourceUrl = "$SampleSourceUrl/ModalSample.kt",
-) {
+) { _, _ ->
     ModalSample()
 }
 

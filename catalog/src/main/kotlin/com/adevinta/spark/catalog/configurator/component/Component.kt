@@ -101,15 +101,13 @@ public fun ConfiguratorComponentScreen(
                 resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
                 placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
             ),
-            contentWindowInsets = WindowInsets(),
             snackbarHost = { SnackbarHost(snackbarHostState) },
-        ) { paddingValues ->
+        ) { innerPadding ->
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .verticalScroll(scrollState)
                     .windowInsetsPadding(WindowInsets.navigationBars)
-                    .padding(paddingValues)
                     .padding(horizontal = Layout.bodyMargin)
                     .skipToLookaheadSize()
                     .imePadding(),
@@ -133,7 +131,7 @@ public fun ConfiguratorComponentScreen(
                 }
 
                 with(configurator) {
-                    this@Column.content(snackbarHostState)
+                    this@Column.content(snackbarHostState, innerPadding)
                 }
             }
         }

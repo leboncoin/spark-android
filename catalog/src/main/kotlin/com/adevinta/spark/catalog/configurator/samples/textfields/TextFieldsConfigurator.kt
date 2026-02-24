@@ -57,7 +57,7 @@ public val TextFieldsConfigurator: Configurator = Configurator(
     name = "TextFields",
     description = "TextFields configuration",
     sourceUrl = "$SampleSourceUrl/ButtonSamples.kt",
-) {
+) { _, _ ->
     TextFieldSample()
 }
 
