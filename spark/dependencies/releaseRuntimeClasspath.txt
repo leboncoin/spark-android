@@ -155,7 +155,7 @@ org.jetbrains.compose.ui:ui-text:1.9.3
 org.jetbrains.compose.ui:ui-unit:1.9.3
 org.jetbrains.compose.ui:ui-util:1.9.3
 org.jetbrains.compose.ui:ui:1.9.3
-org.jetbrains.kotlin:kotlin-bom:2.3.0
+org.jetbrains.kotlin:kotlin-bom:2.3.10
 org.jetbrains.kotlin:kotlin-stdlib-common:2.3.10
 org.jetbrains.kotlin:kotlin-stdlib:2.3.10
 org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.4.0
