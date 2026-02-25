@@ -91,8 +91,8 @@ class WrongConditionalModifierUsageDetectorTest : LintDetectorTest() {
                             .ifNotNull { padding(5) }
                             .ifNull { padding(5) }
                     }
-                    """.trimIndent(),
-                ),
+                    """,
+                ).indented(),
             )
             .run()
             .expectClean()
@@ -120,8 +120,8 @@ class WrongConditionalModifierUsageDetectorTest : LintDetectorTest() {
                         .ifNull { Modifier.padding(5) }
                         .ifTrue { Modifier.background(42) }
                 }
-                """.trimIndent(),
-            ),
+                """,
+            ).indented(),
         )
             .testModes(FULLY_QUALIFIED)
             .run()
@@ -161,8 +161,8 @@ class WrongConditionalModifierUsageDetectorTest : LintDetectorTest() {
                         Modifier.background(42).padding(10)
                     }
                 }
-                """.trimIndent(),
-            ),
+                """,
+            ).indented(),
         )
             .testModes(FULLY_QUALIFIED)
             .run()

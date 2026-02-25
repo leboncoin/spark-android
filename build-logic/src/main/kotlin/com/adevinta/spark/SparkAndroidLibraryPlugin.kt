@@ -35,7 +35,7 @@ internal class SparkAndroidLibraryPlugin : Plugin<Project> {
             }
             androidLibrary {
                 defaultConfig {
-                    consumerProguardFile("consumer-rules.pro")
+                    file("consumer-rules.pro").takeIf { it.exists() }?.let(::consumerProguardFile)
                     aarMetadata.minCompileSdk = spark().versions.minCompileSdk.toString().toInt()
                 }
             }

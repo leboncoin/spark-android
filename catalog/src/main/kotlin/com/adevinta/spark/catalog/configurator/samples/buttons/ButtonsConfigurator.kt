@@ -64,7 +64,7 @@ public val ButtonsConfigurator: ImmutableList<Configurator> = persistentListOf(
         name = "Button",
         description = "Button configuration",
         sourceUrl = "$SampleSourceUrl/ButtonSamples.kt",
-    ) {
+    ) { _, _ ->
         ButtonSample()
     },
 )

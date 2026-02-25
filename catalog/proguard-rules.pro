@@ -24,3 +24,7 @@
 -keepclasseswithmembers class com.adevinta.spark.tokens.SparkColors {
     *;
 }
+
+# Rules for Filekit
+-keep class com.sun.jna.** { *; }
+-keep class * implements com.sun.jna.** { *; }

@@ -35,7 +35,8 @@ import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.components.buttons.ButtonGhost
 import com.adevinta.spark.components.dialog.AlertDialog
 import com.adevinta.spark.components.iconbuttons.IconButtonFilled
-import com.adevinta.spark.icons.DeleteOutline
+import com.adevinta.spark.icons.CircleCrossOutline
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcons
 
 @OptIn(ExperimentalSparkApi::class)
@@ -101,7 +102,7 @@ internal fun AlertDialogWithIconSample() {
             },
             icon = {
                 IconButtonFilled(
-                    icon = SparkIcons.DeleteOutline,
+                    icon = LeboncoinIcons.CircleCrossOutline,
                     onClick = {},
                     contentDescription = null,
                 )

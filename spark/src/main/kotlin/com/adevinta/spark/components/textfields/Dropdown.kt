@@ -76,6 +76,7 @@ import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconButton
 import com.adevinta.spark.components.icons.IconSize
 import com.adevinta.spark.components.menu.DropdownMenu
+import com.adevinta.spark.components.menu.DropdownMenuItemColumnScope
 import com.adevinta.spark.components.menu.MultiChoiceDropdownItemColumnScope
 import com.adevinta.spark.components.menu.MultipleChoiceExposedDropdownMenu
 import com.adevinta.spark.components.menu.SingleChoiceDropdownItemColumnScope
@@ -84,7 +85,8 @@ import com.adevinta.spark.components.popover.PlainTooltip
 import com.adevinta.spark.components.popover.TooltipBox
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.DeleteOutline
+import com.adevinta.spark.icons.CircleCrossOutline
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkAnimatedIcons
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.collapseExpand
@@ -387,7 +389,7 @@ public fun Dropdown(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     properties: PopupProperties = PopupProperties(focusable = true, dismissOnClickOutside = true),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    dropdownContent: @Composable ColumnScope.() -> Unit,
+    dropdownContent: @Composable DropdownMenuItemColumnScope.() -> Unit,
 ) {
     ExposedDropdownMenuBox(
         expanded = expanded,
@@ -583,7 +585,6 @@ public fun MultiChoiceDropdown(
     dropdownContent: @Composable MultiChoiceDropdownItemColumnScope.() -> Unit,
 ) {
     Column(
-        modifier = modifier.height(IntrinsicSize.Min),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         ExposedDropdownMenuBox(
@@ -596,7 +597,7 @@ public fun MultiChoiceDropdown(
             TextField(
                 value = value,
                 onValueChange = { },
-                modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable, enabled),
+                modifier = modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable, enabled),
                 enabled = enabled,
                 readOnly = true,
                 required = required,
@@ -637,7 +638,7 @@ public fun MultiChoiceDropdown(
                             onClick = { onSelectedClick(id) },
                             trailingIcon = {
                                 Icon(
-                                    sparkIcon = SparkIcons.DeleteOutline,
+                                    sparkIcon = LeboncoinIcons.CircleCrossOutline,
                                     modifier = Modifier.size(ChipDefaults.LeadingIconSize),
                                     contentDescription = null,
                                 )

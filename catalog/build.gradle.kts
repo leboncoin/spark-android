@@ -31,9 +31,8 @@ plugins {
 android {
     namespace = "com.adevinta.spark.catalog"
     defaultConfig.applicationId = "com.adevinta.spark.catalog"
-    defaultConfig.resourceConfigurations.addAll(
-        setOf("en-rGB", "fr"),
-    )
+    @Suppress("UnstableApiUsage")
+    androidResources.localeFilters += setOf("en-rGB", "fr")
     defaultConfig {
         versionName = version.toString()
         if (providers.environmentVariable("GITHUB_ACTION").isPresent) {
@@ -43,21 +42,12 @@ android {
 
     compileOptions.isCoreLibraryDesugaringEnabled = true
 
-    kotlin {
-        compilerOptions {
-            optIn.addAll(
-                "com.adevinta.spark.InternalSparkApi",
-                "com.adevinta.spark.ExperimentalSparkApi",
-            )
-            freeCompilerArgs.add("-Xannotation-default-target=param-property")
-        }
-    }
-
     val keystore = rootProject.file("keystore.properties")
         .takeIf { it.exists() }
         ?.let { Properties().apply { load(it.inputStream()) } }
 
     val debug by signingConfigs.getting
+    //noinspection WrongGradleMethod
     val release by signingConfigs.creating {
         if (keystore == null) return@creating
         keyAlias = keystore.getProperty("keyAlias")
@@ -71,6 +61,16 @@ android {
     }
 }
 
+kotlin {
+    compilerOptions {
+        optIn.addAll(
+            "com.adevinta.spark.InternalSparkApi",
+            "com.adevinta.spark.ExperimentalSparkApi",
+        )
+        freeCompilerArgs.add("-Xannotation-default-target=param-property")
+    }
+}
+
 dependencies {
     implementation(projects.spark)
 
@@ -79,6 +79,7 @@ dependencies {
 
     implementation(libs.accompanist.drawablepainter)
     implementation(libs.colorPicker)
+    implementation(libs.unstyled)
 
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.ui)

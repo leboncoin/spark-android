@@ -57,7 +57,7 @@ public val RatingsConfigurator: Configurator = Configurator(
     name = "Rating Display",
     description = "Rating Display configuration",
     sourceUrl = "$SampleSourceUrl/RatingDisplaySample.kt",
-) {
+) { _, _ ->
     RatingSample()
 }
 

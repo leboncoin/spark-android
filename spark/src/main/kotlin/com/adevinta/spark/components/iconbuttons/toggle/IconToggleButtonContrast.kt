@@ -37,9 +37,9 @@ import com.adevinta.spark.components.iconbuttons.IconButtonColors
 import com.adevinta.spark.components.iconbuttons.IconButtonDefaults
 import com.adevinta.spark.components.iconbuttons.IconButtonIntent
 import com.adevinta.spark.components.iconbuttons.IconButtonSize
-import com.adevinta.spark.icons.FavoriteFill
-import com.adevinta.spark.icons.FavoriteOutline
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.HeartFill
+import com.adevinta.spark.icons.HeartOutline
+import com.adevinta.spark.icons.LeboncoinIcons
 
 /**
  * Icon toggle buttons help people take supplementary actions with a single tap. They’re used when a
@@ -105,7 +105,7 @@ private fun IconToggleButtonContrastPreview() {
 
         IconToggleButtonContrast(
             checked = isChecked,
-            icons = IconToggleButtonIcons(SparkIcons.FavoriteOutline, SparkIcons.FavoriteFill),
+            icons = IconToggleButtonIcons(LeboncoinIcons.HeartOutline, LeboncoinIcons.HeartFill),
             onCheckedChange = { isChecked = !isChecked },
         )
     }

@@ -54,7 +54,8 @@ import com.adevinta.spark.components.tags.TagFilled
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.toggles.SwitchIcons
 import com.adevinta.spark.components.toggles.SwitchLabelled
-import com.adevinta.spark.icons.Close
+import com.adevinta.spark.icons.Cross
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 import kotlinx.coroutines.delay
@@ -135,7 +136,7 @@ internal fun IconExampleScreen(
             SwitchLabelled(
                 checked = atEnd,
                 onCheckedChange = { atEnd = !atEnd },
-                icons = SwitchIcons(checked = icon, unchecked = SparkIcons.Close),
+                icons = SwitchIcons(checked = icon, unchecked = LeboncoinIcons.Cross),
             ) {
                 Text(text = name)
             }

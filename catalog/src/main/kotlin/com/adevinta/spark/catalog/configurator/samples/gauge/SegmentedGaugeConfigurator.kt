@@ -53,7 +53,7 @@ public val GaugesConfigurator: Configurator = Configurator(
     name = "Segmented Gauge",
     description = "Segmented Gauge configuration",
     sourceUrl = "$SampleSourceUrl/GaugeSample.kt",
-) {
+) { _, _ ->
     GaugeSample()
 }
 

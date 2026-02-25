@@ -443,6 +443,18 @@ The project includes custom lint rules that enforce Spark Design System patterns
 
 Alternatively, use the `🔎 Lint` run configuration.
 
+### Binary Compatibility Validation
+
+<https://kotlinlang.org/docs/gradle-binary-compatibility-validation.html>
+
+```bash
+# Check for binary compatibility issues
+./gradlew checkLegacyAbi
+
+# Update reference ABI files
+./gradlew updateLegacyAbi
+```
+
 ### Architecture Compliance
 
 All components must adhere to established architectural patterns:

@@ -53,7 +53,8 @@ import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.SwitchLabelled
-import com.adevinta.spark.icons.LikeFill
+import com.adevinta.spark.icons.HeartFill
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 
@@ -62,14 +63,14 @@ public val IconButtonsConfigurator: Configurator = Configurator(
     name = "IconButton",
     description = "IconButton configuration",
     sourceUrl = "$SampleSourceUrl/IconButtonSamples.kt",
-) {
+) { _, _ ->
     IconButtonSample()
 }
 
 @Composable
 private fun ColumnScope.IconButtonSample() {
     var style by remember { mutableStateOf(IconButtonStyle.Filled) }
-    val icon: SparkIcon by remember { mutableStateOf(SparkIcons.LikeFill) }
+    val icon: SparkIcon by remember { mutableStateOf(LeboncoinIcons.HeartFill) }
     var isLoading by remember { mutableStateOf(false) }
     var isEnabled by remember { mutableStateOf(true) }
     var shape by remember { mutableStateOf(ButtonShape.Pill) }

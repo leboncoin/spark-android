@@ -30,19 +30,17 @@ import java.io.File
 public class SparkAndroidPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            apply(plugin = "org.jetbrains.kotlin.android")
-
             configureKotlin<KotlinAndroidProjectExtension>()
 
             configureAndroid {
                 compileSdk = spark().versions.compileSdk.toString().toInt()
                 defaultConfig.minSdk = spark().versions.minCompileSdk.toString().toInt()
-                packaging {
+                packaging.apply {
                     resources {
                         excludes += "/META-INF/{AL2.0,LGPL2.1}"
                     }
                 }
-                lint {
+                lint.apply {
                     checkDependencies = true
                     warningsAsErrors = true
                     sarifReport = true

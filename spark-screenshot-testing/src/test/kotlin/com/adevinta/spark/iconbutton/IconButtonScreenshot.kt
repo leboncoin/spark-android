@@ -39,8 +39,9 @@ import com.adevinta.spark.components.iconbuttons.IconButtonOutlined
 import com.adevinta.spark.components.iconbuttons.IconButtonSize
 import com.adevinta.spark.components.iconbuttons.IconButtonTinted
 import com.adevinta.spark.components.surface.Surface
-import com.adevinta.spark.icons.AccountOutline
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.UserOutline
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshot
 import com.android.ide.common.rendering.api.SessionParams
@@ -134,7 +135,7 @@ internal class IconButtonScreenshot {
             ) {
                 IconButtonFilled(
                     onClick = {},
-                    icon = SparkIcons.AccountOutline,
+                    icon = LeboncoinIcons.UserOutline,
                     size = size,
                     shape = shape,
                     intent = intent,
@@ -142,7 +143,7 @@ internal class IconButtonScreenshot {
                 )
                 IconButtonOutlined(
                     onClick = {},
-                    icon = SparkIcons.AccountOutline,
+                    icon = LeboncoinIcons.UserOutline,
                     size = size,
                     shape = shape,
                     intent = intent,
@@ -150,7 +151,7 @@ internal class IconButtonScreenshot {
                 )
                 IconButtonTinted(
                     onClick = {},
-                    icon = SparkIcons.AccountOutline,
+                    icon = LeboncoinIcons.UserOutline,
                     size = size,
                     shape = shape,
                     intent = intent,
@@ -158,7 +159,7 @@ internal class IconButtonScreenshot {
                 )
                 IconButtonContrast(
                     onClick = {},
-                    icon = SparkIcons.AccountOutline,
+                    icon = LeboncoinIcons.UserOutline,
                     size = size,
                     shape = shape,
                     intent = intent,
@@ -166,7 +167,7 @@ internal class IconButtonScreenshot {
                 )
                 IconButtonGhost(
                     onClick = {},
-                    icon = SparkIcons.AccountOutline,
+                    icon = LeboncoinIcons.UserOutline,
                     size = size,
                     shape = shape,
                     intent = intent,

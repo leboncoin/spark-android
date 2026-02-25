@@ -28,7 +28,8 @@ import com.adevinta.spark.components.tab.Tab
 import com.adevinta.spark.components.tab.TabGroup
 import com.adevinta.spark.components.tab.TabIntent
 import com.adevinta.spark.components.tab.TabSize
-import com.adevinta.spark.icons.MessageOutline
+import com.adevinta.spark.icons.BubbleTextOutline
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshot
@@ -98,7 +99,7 @@ internal class TabsDocScreenshot {
                 intent = intent,
                 size = size,
                 text = "Message",
-                icon = SparkIcons.MessageOutline,
+                icon = LeboncoinIcons.BubbleTextOutline,
                 enabled = false,
                 trailingContent = {
                     Badge(count = 5)

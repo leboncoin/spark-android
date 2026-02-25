@@ -72,8 +72,9 @@ import com.adevinta.spark.components.scaffold.Scaffold
 import com.adevinta.spark.components.snackbars.SnackbarHost
 import com.adevinta.spark.components.snackbars.SnackbarHostState
 import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.icons.Chain
 import com.adevinta.spark.icons.Computer
-import com.adevinta.spark.icons.Link
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.Layout
 
@@ -101,13 +102,12 @@ public fun ConfiguratorComponentScreen(
                 placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
             ),
             snackbarHost = { SnackbarHost(snackbarHostState) },
-        ) { paddingValues ->
+        ) { innerPadding ->
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .verticalScroll(scrollState)
                     .windowInsetsPadding(WindowInsets.navigationBars)
-                    .padding(paddingValues)
                     .padding(horizontal = Layout.bodyMargin)
                     .skipToLookaheadSize()
                     .imePadding(),
@@ -118,7 +118,7 @@ public fun ConfiguratorComponentScreen(
                 ) {
                     var expanded by remember { mutableStateOf(false) }
                     IconButtonGhost(
-                        icon = SparkIcons.Link,
+                        icon = LeboncoinIcons.Chain,
                         onClick = { expanded = true },
                         contentDescription = "Localized description",
                     )
@@ -131,7 +131,7 @@ public fun ConfiguratorComponentScreen(
                 }
 
                 with(configurator) {
-                    this@Column.content(snackbarHostState)
+                    this@Column.content(snackbarHostState, innerPadding)
                 }
             }
         }
