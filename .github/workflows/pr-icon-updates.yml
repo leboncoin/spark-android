@@ -4,17 +4,21 @@ on:
   push:
     branches: [ "chore-updated-icons" ]
 
+permissions:
+  contents: write
+  pull-requests: write
+
 concurrency:
   group: '${{ github.workflow }}-${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
   cancel-in-progress: true
 
 env:
-  FILE: 'spark-icons/src/main/kotlin/com/adevinta/spark/icons/SparkIcons.kt'
+  FILE: 'spark-icons/src/main/kotlin/com/adevinta/spark/icons/LeboncoinIcons.kt'
 
 jobs:
   pr-icon-updates:
     # Detect recursive calls based on last commit message
-    if: ${{ github.event.head_commit.message != '🎨 Update `SparkIcons.kt`' }}
+    if: ${{ github.event.head_commit.message != '🎨 Update `LeboncoinIcons.kt`' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -26,13 +30,22 @@ jobs:
         continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
+
+      # we need to move the icons because the GHA that we use to push them from
+      # spark-tokens to this repo need to remove the content of its destination dir
+      - run: |
+          mkdir -p spark-icons/src/main/res/drawable
+          mv spark-icons/icons/* spark-icons/src/main/res/drawable/
+          rm -rf spark-icons/icons/*
+
       - run: |
           ./scripts/spark-icons-kt/spark-icons-kt.main.kts --input=spark-icons/src/main/res/drawable --output="$FILE" --copyright=scripts/spark-icons-kt/COPYRIGHT.kt
-          if ! git diff --quiet --exit-code -- "$FILE" ;
+          if ! git diff --quiet --exit-code -- "$FILE spark-icons/src/main/res/drawable" ;
           then
             git config user.name 'spark-ui-bot'
             git config user.email 'spark-ui-bot@users.noreply.github.com'
-            git commit "$FILE" -m '🎨 Update `SparkIcons.kt`'
+            git add "$FILE" spark-icons/src/main/res/drawable
+            git commit -m '🎨 Update `LeboncoinIcons.kt` and update icons'
             git show
             git push
             echo "::notice::UPDATED"

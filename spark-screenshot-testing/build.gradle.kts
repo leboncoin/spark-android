@@ -29,6 +29,15 @@ android {
     namespace = "com.adevinta.spark.screenshot.testing"
 }
 
+kotlin {
+    compilerOptions {
+        optIn.addAll(
+            "com.adevinta.spark.InternalSparkApi",
+            "com.adevinta.spark.ExperimentalSparkApi",
+        )
+    }
+}
+
 dependencies {
     implementation(projects.spark)
 

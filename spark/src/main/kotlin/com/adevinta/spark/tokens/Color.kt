@@ -176,6 +176,8 @@ public fun lightSparkColors(
     onSurface: Color = Blueberry900,
     surfaceInverse: Color = NightShade800,
     onSurfaceInverse: Color = Color.White,
+    surfaceDark: Color = NightShade800,
+    onSurfaceDark: Color = Color.White,
     outline: Color = NightShade400,
     outlineHigh: Color = NightShade900,
     scrim: Color = Color.Black,
@@ -235,6 +237,8 @@ public fun lightSparkColors(
     onSurface = onSurface,
     surfaceInverse = surfaceInverse,
     onSurfaceInverse = onSurfaceInverse,
+    surfaceDark = surfaceDark,
+    onSurfaceDark = onSurfaceDark,
     surfaceTint = surface,
     outline = outline,
     outlineHigh = outlineHigh,
@@ -297,6 +301,8 @@ public fun darkSparkColors(
     onSurface: Color = NightShade50,
     surfaceInverse: Color = NightShade50,
     onSurfaceInverse: Color = NightShade800,
+    surfaceDark: Color = NightShade800,
+    onSurfaceDark: Color = Color.White,
     surfaceTint: Color = Color.White,
     outline: Color = NightShade500,
     outlineHigh: Color = NightShade100,
@@ -357,6 +363,8 @@ public fun darkSparkColors(
     onSurface = onSurface,
     surfaceInverse = surfaceInverse,
     onSurfaceInverse = onSurfaceInverse,
+    surfaceDark = surfaceDark,
+    onSurfaceDark = onSurfaceDark,
     surfaceTint = surfaceTint,
     outline = outline,
     outlineHigh = outlineHigh,
@@ -419,6 +427,8 @@ public fun lightHighContrastSparkColors(
     onSurface: Color = DarkBold,
     surfaceInverse: Color = DarkBold,
     onSurfaceInverse: Color = DarkLight,
+    surfaceDark: Color = DarkBold,
+    onSurfaceDark: Color = DarkLight,
     outline: Color = DarkMid,
     outlineHigh: Color = Color.Black,
     scrim: Color = Color.Black,
@@ -478,6 +488,8 @@ public fun lightHighContrastSparkColors(
     onSurface = onSurface,
     surfaceInverse = surfaceInverse,
     onSurfaceInverse = onSurfaceInverse,
+    surfaceDark = surfaceDark,
+    onSurfaceDark = onSurfaceDark,
     outline = outline,
     outlineHigh = outlineHigh,
     scrim = scrim,
@@ -539,6 +551,8 @@ public fun darkHighContrastSparkColors(
     onSurface: Color = LightLight,
     surfaceInverse: Color = LightLight,
     onSurfaceInverse: Color = DarkBold,
+    surfaceDark: Color = DarkBold,
+    onSurfaceDark: Color = DarkLight,
     outline: Color = Color(0xffc1c1c1),
     outlineHigh: Color = LightLight,
     dimContent1: Float = .72f,
@@ -597,6 +611,8 @@ public fun darkHighContrastSparkColors(
     onSurface = onSurface,
     surfaceInverse = surfaceInverse,
     onSurfaceInverse = onSurfaceInverse,
+    surfaceDark = surfaceDark,
+    onSurfaceDark = onSurfaceDark,
     outline = outline,
     outlineHigh = outlineHigh,
     dimContent1 = dimContent1,
@@ -743,6 +759,8 @@ public class SparkColors(
     onSurface: Color,
     surfaceInverse: Color,
     onSurfaceInverse: Color,
+    surfaceDark: Color,
+    onSurfaceDark: Color,
     surfaceTint: Color,
     outline: Color,
     outlineHigh: Color,
@@ -823,6 +841,10 @@ public class SparkColors(
     public var surfaceInverse: Color by mutableStateOf(surfaceInverse, structuralEqualityPolicy())
         internal set
     public var onSurfaceInverse: Color by mutableStateOf(onSurfaceInverse, structuralEqualityPolicy())
+        internal set
+    public var surfaceDark: Color by mutableStateOf(surfaceDark, structuralEqualityPolicy())
+        internal set
+    public var onSurfaceDark: Color by mutableStateOf(onSurfaceDark, structuralEqualityPolicy())
         internal set
     internal var surfaceTint: Color by mutableStateOf(surfaceTint, structuralEqualityPolicy())
 
@@ -929,6 +951,8 @@ public class SparkColors(
         onSurface: Color = this.onSurface,
         surfaceInverse: Color = this.surfaceInverse,
         onSurfaceInverse: Color = this.onSurfaceInverse,
+        surfaceDark: Color = this.surfaceDark,
+        onSurfaceDark: Color = this.onSurfaceDark,
         surfaceTint: Color = this.surfaceTint,
         outline: Color = this.outline,
         outlineHigh: Color = this.outlineHigh,
@@ -989,6 +1013,8 @@ public class SparkColors(
         onSurface = onSurface,
         surfaceInverse = surfaceInverse,
         onSurfaceInverse = onSurfaceInverse,
+        surfaceDark = surfaceDark,
+        onSurfaceDark = onSurfaceDark,
         surfaceTint = surfaceTint,
         outline = outline,
         outlineHigh = outlineHigh,
@@ -1050,6 +1076,10 @@ public class SparkColors(
         append("onBackgroundVariant=$onBackgroundVariant, ")
         append("surface=$surface, ")
         append("onSurface=$onSurface, ")
+        append("surfaceInverse=$surfaceInverse, ")
+        append("onSurfaceInverse=$onSurfaceInverse, ")
+        append("surfaceDark=$surfaceDark, ")
+        append("onSurfaceDark=$onSurfaceDark, ")
         append("surfaceTint=$surfaceTint, ")
         append("outline=$outline, ")
         append("outlineHigh=$outlineHigh, ")
@@ -1280,6 +1310,7 @@ public fun SparkColors.contentColorFor(backgroundColor: Color): Color = when (ba
     backgroundVariant -> onBackgroundVariant
     surface -> onSurface
     surfaceInverse -> onSurfaceInverse
+    surfaceDark -> onSurfaceDark
     success -> onSuccess
     successContainer -> onSuccessContainer
     alert -> onAlert
@@ -1414,6 +1445,8 @@ internal fun SparkColors.updateColorsFrom(other: SparkColors) {
     onSurface = other.onSurface
     surfaceInverse = other.surfaceInverse
     onSurfaceInverse = other.onSurfaceInverse
+    surfaceDark = other.surfaceDark
+    onSurfaceDark = other.onSurfaceDark
     surfaceTint = other.surfaceTint
     outline = other.outline
     outlineHigh = other.outlineHigh
@@ -1579,6 +1612,8 @@ public fun debugColors(
     onSurface = onDebugColor,
     surfaceInverse = Color.Blue,
     onSurfaceInverse = onDebugColor,
+    surfaceDark = Color.Blue,
+    onSurfaceDark = onDebugColor,
     surfaceTint = debugColor,
     outline = debugColor,
     outlineHigh = debugColor,

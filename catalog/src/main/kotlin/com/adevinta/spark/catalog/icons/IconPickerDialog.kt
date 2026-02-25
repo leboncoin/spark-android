@@ -63,8 +63,9 @@ import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.icons.Check
-import com.adevinta.spark.icons.DeleteFill
-import com.adevinta.spark.icons.Search
+import com.adevinta.spark.icons.CircleCrossFill
+import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.MagnifierOutline
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 
@@ -148,12 +149,12 @@ public fun IconPickerDialog(
                         modifier = Modifier.fillMaxWidth(),
                         placeholder = stringResource(id = R.string.icons_screen_search_helper),
                         leadingContent = {
-                            Icon(sparkIcon = SparkIcons.Search, contentDescription = null)
+                            Icon(sparkIcon = LeboncoinIcons.MagnifierOutline, contentDescription = null)
                         },
                         trailingContent = {
                             Icon(
                                 modifier = Modifier.clickable { query = "" },
-                                sparkIcon = SparkIcons.DeleteFill,
+                                sparkIcon = LeboncoinIcons.CircleCrossFill,
                                 contentDescription = "Clear",
                             )
                         },

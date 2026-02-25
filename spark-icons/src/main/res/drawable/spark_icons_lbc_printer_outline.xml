@@ -1,0 +1,35 @@
+<!--
+  Copyright (c) 2023 Adevinta
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <path
+      android:pathData="M21.3,8.25a2.4,2.4 0,0 0,-1.67 -0.69h-1.8L17.83,3.67A1.67,1.67 0,0 0,16.15 2L7.84,2a1.67,1.67 0,0 0,-1.68 1.67v3.88h-1.8A2.36,2.36 0,0 0,2 9.91v6.25a2.37,2.37 0,0 0,2.36 2.37h1.8v1.8A1.67,1.67 0,0 0,7.84 22h8.32a1.67,1.67 0,0 0,1.68 -1.67v-1.8h1.8A2.36,2.36 0,0 0,22 16.17L22,9.91a2.4,2.4 0,0 0,-0.7 -1.68zM8.12,3.95h7.76v3.6L8.12,7.55zM8.12,20.05v-3.6h7.76v3.6zM20.04,16.16q0,0.17 -0.12,0.3a0.4,0.4 0,0 1,-0.3 0.11h-1.8v-1.1a0.97,0.97 0,0 0,-0.97 -0.98h-9.7a0.97,0.97 0,0 0,-0.98 0.97v1.11h-1.8a0.4,0.4 0,0 1,-0.29 -0.12,0.4 0.4,0 0,1 -0.12,-0.29L3.96,9.92q0,-0.17 0.12,-0.3a0.4,0.4 0,0 1,0.3 -0.12h15.26q0.16,0 0.29,0.13 0.11,0.12 0.12,0.29z"
+      android:fillColor="#3a4757"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M17.55,11.03h-1.4a0.97,0.97 0,0 0,-0.97 0.97c0,0.54 0.43,0.97 0.97,0.97h1.4c0.54,0 0.97,-0.43 0.97,-0.97a0.97,0.97 0,0 0,-0.97 -0.97"
+      android:fillColor="#3a4757"
+      android:fillType="evenOdd"/>
+</vector>

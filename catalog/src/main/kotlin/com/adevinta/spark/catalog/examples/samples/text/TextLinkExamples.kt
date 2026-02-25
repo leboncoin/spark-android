@@ -35,7 +35,8 @@ import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.snackbars.SnackbarIntent
 import com.adevinta.spark.components.text.TextLink
 import com.adevinta.spark.components.text.TextLinkButton
-import com.adevinta.spark.icons.Link
+import com.adevinta.spark.icons.Chain
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.res.annotatedStringResource
 import kotlinx.collections.immutable.ImmutableList
@@ -143,7 +144,7 @@ public val TextLinksExamples: ImmutableList<Example> = persistentListOf(
 
             TextLinkButton(
                 text = "Try out Android Development",
-                icon = SparkIcons.Link,
+                icon = LeboncoinIcons.Chain,
                 onClick = {
                     scope.launch {
                         snackbarHostState.showSnackbar(

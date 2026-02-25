@@ -1,0 +1,34 @@
+<!--
+  Copyright (c) 2023 Adevinta
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <path
+      android:pathData="M14.8,3.53a4.02,4.02 0,0 1,6.02 -0.34,4.07 4.07,0 0,1 -0.33,6.04l-7.15,5.75a5.3,5.3 0,0 1,-1.63 4.7c-2.48,2.5 -6.05,2.71 -8.98,1.87a1,1 0,0 1,-0.44 -1.66c0.65,-0.66 0.6,-1.54 0.43,-3.14 -0.14,-1.4 -0.37,-3.37 1.17,-4.92a5.4,5.4 0,0 1,5.48 -1.45zM7.94,12.13a3.4,3.4 0,0 0,-2.63 1.11c-0.78,0.8 -0.76,1.79 -0.6,3.3 0.1,0.94 0.28,2.2 -0.13,3.37 2.12,0.3 4.23,-0.14 5.71,-1.63a3.4,3.4 0,0 0,1.11 -2.66,3.7 3.7,0 0,0 -1.11,-2.38 4,4 0,0 0,-1.14 -0.8q-0.59,-0.27 -1.21,-0.31M19.4,4.6a2.02,2.02 0,0 0,-3.03 0.17l-5.21,6.57A6,6 0,0 1,12.62 13l6.61,-5.33c0.95,-0.77 1.03,-2.2 0.17,-3.07"
+      android:fillColor="#3a4757"
+      android:fillType="evenOdd"/>
+  <path
+      android:pathData="M17.34,15.17a0.95,0.95 0,0 1,1.81 0l0.02,0.08 0.03,0.11c0.23,1 1.02,1.77 2.02,1.95 1.04,0.18 1.04,1.7 0,1.88 -1,0.18 -1.8,0.94 -2.02,1.95l-0.03,0.1c-0.22,1.02 -1.64,1 -1.86,0l-0.02,-0.1a2.5,2.5 0,0 0,-2.01 -1.95c-1.04,-0.18 -1.04,-1.7 0,-1.88l0.18,-0.04a2.5,2.5 0,0 0,1.83 -1.91l0.02,-0.1z"
+      android:fillColor="#3a4757"/>
+</vector>

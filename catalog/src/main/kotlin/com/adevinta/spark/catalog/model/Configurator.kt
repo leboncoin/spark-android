@@ -24,6 +24,7 @@
 package com.adevinta.spark.catalog.model
 
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import com.adevinta.spark.components.snackbars.SnackbarHostState
 
@@ -32,5 +33,5 @@ public data class Configurator(
     val name: String,
     val description: String,
     val sourceUrl: String,
-    val content: @Composable ColumnScope.(SnackbarHostState) -> Unit,
+    val content: @Composable ColumnScope.(SnackbarHostState, PaddingValues) -> Unit,
 )

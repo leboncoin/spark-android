@@ -65,7 +65,7 @@ public val ProgressTrackerConfigurator: Configurator = Configurator(
     name = "Progress Tracker",
     description = "Progress Tracker configuration",
     sourceUrl = "$SampleSourceUrl/ProgressTrackerSamples.kt",
-) {
+) { _, _ ->
     ProgressTrackerSample()
 }
 

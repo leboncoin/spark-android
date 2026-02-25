@@ -119,6 +119,7 @@ internal fun ComponentActivity.CatalogApp(
         themeProvider.colors(
             useDarkColors = useDark,
             isPro = theme.userMode == UserMode.Pro,
+            isRebranding = theme.userMode == UserMode.Rebranding,
             contrastLevel = contrastLevel,
         )
     }
@@ -334,15 +335,12 @@ private fun HomeTabBar(
     }
 }
 
-@Composable
 private fun getInitialScreen(uri: Uri?): CatalogHomeScreen {
-    val initialScreen = uri?.pathSegments?.let { segments ->
-        when {
-            "examples" in segments -> CatalogHomeScreen.Examples
-            "configurator" in segments -> CatalogHomeScreen.Configurator
-            "icons" in segments -> CatalogHomeScreen.Icons
-            else -> null
-        }
+    val initialScreen = when (uri?.host) {
+        "examples" -> CatalogHomeScreen.Examples
+        "configurator" -> CatalogHomeScreen.Configurator
+        "icons" -> CatalogHomeScreen.Icons
+        else -> null
     }
 
     return initialScreen ?: CatalogHomeScreen.Examples
