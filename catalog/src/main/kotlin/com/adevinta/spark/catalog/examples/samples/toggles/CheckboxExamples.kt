@@ -44,10 +44,12 @@ import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.spacer.VerticalSpacer
 import com.adevinta.spark.components.toggles.Checkbox
 import com.adevinta.spark.components.toggles.CheckboxLabelled
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 private const val CheckboxExampleDescription = "Checkbox examples"
 private const val CheckboxExampleSourceUrl = "$SampleSourceUrl/CheckboxSamples.kt"
-public val CheckboxExamples: List<Example> = listOf(
+public val CheckboxExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "standalone",
         name = "Standalone checkbox",

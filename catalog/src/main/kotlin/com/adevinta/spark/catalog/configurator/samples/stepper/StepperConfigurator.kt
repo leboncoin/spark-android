@@ -53,24 +53,26 @@ import com.adevinta.spark.components.textfields.FormFieldStatus
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.textfields.TextFieldState
 import com.adevinta.spark.components.toggles.SwitchLabelled
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.launch
 
-public val StepperConfigurators: List<Configurator> = listOf(
+public val StepperConfigurators: ImmutableList<Configurator> = persistentListOf(
     Configurator(
         id = "stepper",
         name = "Stepper",
         description = "Stepper configuration",
         sourceUrl = "$SampleSourceUrl/StepperSamples.kt",
-    ) {
-        StepperSample(it)
+    ) { snackbarHostState, _ ->
+        StepperSample(snackbarHostState)
     },
     Configurator(
         id = "stepper-form",
         name = "Stepper Form",
         description = "Stepper Form configuration with helper and label",
         sourceUrl = "$SampleSourceUrl/StepperSamples.kt",
-    ) {
-        StepperFormSample(it)
+    ) { snackbarHostState, _ ->
+        StepperFormSample(snackbarHostState)
     },
 )
 

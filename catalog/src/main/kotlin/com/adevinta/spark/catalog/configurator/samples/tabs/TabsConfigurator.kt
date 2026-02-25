@@ -53,7 +53,8 @@ import com.adevinta.spark.components.tab.TabIntent
 import com.adevinta.spark.components.tab.TabSize
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.toggles.SwitchLabelled
-import com.adevinta.spark.icons.MessageOutline
+import com.adevinta.spark.icons.BubbleTextOutline
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.Minus
 import com.adevinta.spark.icons.Plus
 import com.adevinta.spark.icons.SparkIcons
@@ -66,7 +67,7 @@ public val TabsConfigurator: Configurator = Configurator(
     name = "Tab",
     description = "Tab configuration",
     sourceUrl = "$SampleSourceUrl/TabSamples.kt",
-) {
+) { _, _ ->
     TabSample()
 }
 
@@ -77,8 +78,11 @@ private fun ColumnScope.TabSample() {
     var tabSize by remember { mutableStateOf(TabSize.Medium) }
     var intent by remember { mutableStateOf(TabIntent.Main) }
     var selectedIndex by remember { mutableIntStateOf(0) }
+
     val tabs =
-        remember { mutableStateListOf(Pair("Home", null) to 0, Pair("Message", SparkIcons.MessageOutline) to 120) }
+        remember {
+            mutableStateListOf(Pair("Home", null) to 0, Pair("Message", LeboncoinIcons.BubbleTextOutline) to 120)
+        }
 
     TabGroup(
         spacedEvenly = isTabsSpacedEvenely,
@@ -140,6 +144,7 @@ private fun ColumnScope.TabSample() {
         selectedOption = tabSize,
         onOptionSelect = { tabSize = it },
     )
+
     Column {
         Text(
             text = "Number of tabs",

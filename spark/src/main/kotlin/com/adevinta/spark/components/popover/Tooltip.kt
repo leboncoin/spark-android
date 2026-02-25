@@ -31,7 +31,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.material3.PlainTooltip as MaterialPlainTooltip
@@ -87,9 +86,10 @@ public fun TooltipBox(
  * Usually used with [TooltipBox].
  *
  * @param modifier the [Modifier] to be applied to the tooltip.
- * @param caretSize [DpSize] for the caret of the tooltip, if a default
- *  * caret is desired with a specific dimension. Please see [TooltipDefaults.caretSize] to
- *  * see the default dimensions. Pass in Dp.Unspecified for this parameter if no caret is desired.
+ * @param caretShape [shape] for the caret of the tooltip. If a default caret is desired with a specific dimension
+ * please use TooltipDefaults.caretShape. To see the default dimensions please see TooltipDefaults.caretSize. If
+ * no caret is desired, please pass in null.
+ * @param maxWidth the maximum width for the plain tooltip
  * @param shape the [Shape] that should be applied to the tooltip container.
  * @param contentColor [Color] that will be applied to the tooltip's content.
  * @param containerColor [Color] that will be applied to the tooltip's container.
@@ -103,7 +103,8 @@ public fun TooltipBox(
 @ExperimentalMaterial3Api
 public fun TooltipScope.PlainTooltip(
     modifier: Modifier = Modifier,
-    caretSize: (DpSize) = DpSize.Unspecified,
+    caretShape: Shape? = null,
+    maxWidth: Dp = TooltipDefaults.plainTooltipMaxWidth,
     shape: Shape = TooltipDefaults.plainTooltipContainerShape,
     contentColor: Color = TooltipDefaults.plainTooltipContentColor,
     containerColor: Color = TooltipDefaults.plainTooltipContainerColor,
@@ -113,7 +114,8 @@ public fun TooltipScope.PlainTooltip(
 ) {
     MaterialPlainTooltip(
         modifier = modifier,
-        caretSize = caretSize,
+        caretShape = caretShape,
+        maxWidth = maxWidth,
         shape = shape,
         contentColor = contentColor,
         containerColor = containerColor,

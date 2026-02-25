@@ -27,14 +27,14 @@ plugins {
     alias(libs.plugins.spotless)
 }
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 kotlin {
     compilerOptions {
         allWarningsAsErrors = true
-        jvmTarget = JvmTarget.JVM_17
+        jvmTarget = JvmTarget.JVM_21
     }
     explicitApi()
 }
@@ -49,12 +49,6 @@ dependencies {
     fun DependencyHandlerScope.plugin(plugin: Provider<PluginDependency>) = plugin.map {
         "${it.pluginId}:${it.pluginId}.gradle.plugin:${it.version.requiredVersion}"
     }
-    compileOnly(gradleApi())
-    implementation(plugin(libs.plugins.android.application))
-    implementation(plugin(libs.plugins.android.kotlin))
-    implementation(plugin(libs.plugins.android.library))
-    implementation(plugin(libs.plugins.android.lint))
-    implementation(plugin(libs.plugins.android.test))
     implementation(plugin(libs.plugins.compose))
     implementation(plugin(libs.plugins.dependencyGuard))
     implementation(plugin(libs.plugins.dokka))
@@ -62,6 +56,7 @@ dependencies {
     implementation(plugin(libs.plugins.nmcp))
     implementation(plugin(libs.plugins.paparazzi))
     implementation(plugin(libs.plugins.spotless))
+    implementation(libs.android.gradle)
     implementation(libs.dokka.base)
 }
 
@@ -105,7 +100,8 @@ val ktlint = extensions.getByType<VersionCatalogsExtension>()
 spotless {
     val licenseHeader = rootProject.file("./../spotless/spotless.kt")
     format("misc") {
-        target("**/*.md", "**/.gitignore")
+        target("*.md", "src/**/*.md", ".gitignore")
+        targetExclude("dependencies/*.txt")
         endWithNewline()
     }
     kotlin {

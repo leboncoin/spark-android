@@ -41,10 +41,12 @@ import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.spacer.VerticalSpacer
 import com.adevinta.spark.components.toggles.RadioButton
 import com.adevinta.spark.components.toggles.RadioButtonLabelled
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 private const val RadioButtonExampleDescription = "RadioButton examples"
 private const val RadioButtonExampleSourceUrl = "$SampleSourceUrl/RadioButtonSamples.kt"
-public val RadioButtonExamples: List<Example> = listOf(
+public val RadioButtonExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "standalone",
         name = "Standalone radio button",

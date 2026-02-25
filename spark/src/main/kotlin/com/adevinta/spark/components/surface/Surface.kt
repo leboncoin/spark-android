@@ -468,11 +468,11 @@ private fun Modifier.surface(
 ) = this
     .then(
         if (elevation > 0f) {
-            Modifier.graphicsLayer(
-                shadowElevation = elevation,
-                shape = shape,
-                clip = false,
-            )
+            Modifier.graphicsLayer {
+                shadowElevation = elevation
+                this.shape = shape
+                clip = false
+            }
         } else {
             Modifier
         },

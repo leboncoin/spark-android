@@ -92,7 +92,7 @@ internal class SparkDokkaPlugin : Plugin<Project> {
             // FIXME(android): https://github.com/Kotlin/dokka/issues/2876
             sourceLink {
                 val url = "https://github.com/leboncoin/spark-android/tree/main/${project.name}/src/main/kotlin"
-                localDirectory = projectDir.resolve("src")
+                localDirectory.set(projectDir.resolve("src"))
                 remoteUrl = URI(url).toURL()
                 remoteLineSuffix = "#L"
             }

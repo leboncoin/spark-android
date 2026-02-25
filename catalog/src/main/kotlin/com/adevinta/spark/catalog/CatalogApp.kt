@@ -94,13 +94,15 @@ import com.adevinta.spark.catalog.ui.shaders.colorblindness.ColorBlindNessType
 import com.adevinta.spark.catalog.ui.shaders.colorblindness.shader
 import com.adevinta.spark.tokens.asSparkColors
 import com.adevinta.spark.tokens.contrastLevel
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.launch
 
 @Composable
 internal fun ComponentActivity.CatalogApp(
     theme: Theme,
     onThemeChange: (theme: Theme) -> Unit,
-    components: List<Component>,
+    components: ImmutableList<Component>,
 ) {
     val themeProvider: ThemeProvider = LeboncoinTheme
 
@@ -117,6 +119,7 @@ internal fun ComponentActivity.CatalogApp(
         themeProvider.colors(
             useDarkColors = useDark,
             isPro = theme.userMode == UserMode.Pro,
+            isRebranding = theme.userMode == UserMode.Rebranding,
             contrastLevel = contrastLevel,
         )
     }
@@ -218,16 +221,19 @@ internal fun ComponentActivity.CatalogApp(
                     frontLayerScrimColor = Color.Unspecified,
                     headerHeight = BackdropScaffoldDefaults.HeaderHeight +
                         WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding(),
-                    peekHeight = BackdropScaffoldDefaults.PeekHeight + WindowInsets.statusBars.asPaddingValues()
-                        .calculateTopPadding() - 4.dp,
+                    peekHeight = BackdropScaffoldDefaults.PeekHeight +
+                        WindowInsets.statusBars.asPaddingValues()
+                            .calculateTopPadding() -
+                        4.dp,
                     backLayerBackgroundColor = SparkTheme.colors.mainContainer,
                     appBar = {
                         HomeTabBar(
                             modifier = Modifier
                                 .requiredHeightIn(
                                     min =
-                                    BackdropScaffoldDefaults.PeekHeight + WindowInsets.statusBars.asPaddingValues()
-                                        .calculateTopPadding(),
+                                    BackdropScaffoldDefaults.PeekHeight +
+                                        WindowInsets.statusBars.asPaddingValues()
+                                            .calculateTopPadding(),
                                 )
                                 .statusBarsPadding(),
                             tabSelected = homeScreenValues[pagerState.currentPage],
@@ -312,7 +318,7 @@ private fun HomeTabBar(
     val catalogScreens by remember { mutableStateOf(CatalogHomeScreen.entries) }
     val catalogScreensName by remember {
         derivedStateOf {
-            catalogScreens.map { it.name }
+            catalogScreens.map { it.name }.toImmutableList()
         }
     }
     CatalogTabBar(
@@ -329,15 +335,12 @@ private fun HomeTabBar(
     }
 }
 
-@Composable
 private fun getInitialScreen(uri: Uri?): CatalogHomeScreen {
-    val initialScreen = uri?.pathSegments?.let { segments ->
-        when {
-            "examples" in segments -> CatalogHomeScreen.Examples
-            "configurator" in segments -> CatalogHomeScreen.Configurator
-            "icons" in segments -> CatalogHomeScreen.Icons
-            else -> null
-        }
+    val initialScreen = when (uri?.host) {
+        "examples" -> CatalogHomeScreen.Examples
+        "configurator" -> CatalogHomeScreen.Configurator
+        "icons" -> CatalogHomeScreen.Icons
+        else -> null
     }
 
     return initialScreen ?: CatalogHomeScreen.Examples

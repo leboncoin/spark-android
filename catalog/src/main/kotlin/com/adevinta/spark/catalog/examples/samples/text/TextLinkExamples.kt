@@ -35,14 +35,17 @@ import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.snackbars.SnackbarIntent
 import com.adevinta.spark.components.text.TextLink
 import com.adevinta.spark.components.text.TextLinkButton
-import com.adevinta.spark.icons.Link
+import com.adevinta.spark.icons.Chain
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.res.annotatedStringResource
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.launch
 
 private const val TextLinksExampleSourceUrl = "$SampleSourceUrl/TextLinkExamples.kt"
 
-public val TextLinksExamples: List<Example> = listOf(
+public val TextLinksExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "filled",
         name = "Link inside title",
@@ -141,7 +144,7 @@ public val TextLinksExamples: List<Example> = listOf(
 
             TextLinkButton(
                 text = "Try out Android Development",
-                icon = SparkIcons.Link,
+                icon = LeboncoinIcons.Chain,
                 onClick = {
                     scope.launch {
                         snackbarHostState.showSnackbar(

@@ -29,7 +29,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -50,7 +49,6 @@ import com.adevinta.spark.components.buttons.ButtonTinted
 import com.adevinta.spark.components.card.ElevatedCard
 import com.adevinta.spark.components.progress.tracker.ProgressSizes
 import com.adevinta.spark.components.progress.tracker.ProgressStep
-import com.adevinta.spark.components.progress.tracker.ProgressStyles
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerColumn
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerIntent
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerRow
@@ -67,7 +65,7 @@ public val ProgressTrackerConfigurator: Configurator = Configurator(
     name = "Progress Tracker",
     description = "Progress Tracker configuration",
     sourceUrl = "$SampleSourceUrl/ProgressTrackerSamples.kt",
-) {
+) { _, _ ->
     ProgressTrackerSample()
 }
 
@@ -75,9 +73,9 @@ public val ProgressTrackerConfigurator: Configurator = Configurator(
 private fun ColumnScope.ProgressTrackerSample() {
     var intent by remember { mutableStateOf(ProgressTrackerIntent.Basic) }
     var size by remember { mutableStateOf(ProgressSizes.Large) }
-    var style by remember { mutableStateOf(ProgressStyles.Outlined) }
     var hasIndicatorContent by remember { mutableStateOf(true) }
-    var selectedStep by remember { mutableIntStateOf(1) }
+    var selectedStep: Int? by remember { mutableStateOf(1) }
+    var readOnly by remember { mutableStateOf(false) }
     var items by remember {
         mutableStateOf(
             persistentListOf(
@@ -97,8 +95,8 @@ private fun ColumnScope.ProgressTrackerSample() {
         items = items,
         size = size,
         intent = intent,
-        style = style,
         hasIndicatorContent = hasIndicatorContent,
+        readOnly = readOnly,
         onStepClick = {
             selectedStep = it
         },
@@ -114,8 +112,8 @@ private fun ColumnScope.ProgressTrackerSample() {
         items = items,
         size = size,
         intent = intent,
-        style = style,
         hasIndicatorContent = hasIndicatorContent,
+        readOnly = readOnly,
         onStepClick = {
             selectedStep = it
         },
@@ -140,12 +138,15 @@ private fun ColumnScope.ProgressTrackerSample() {
             modifier = Modifier.fillMaxWidth(),
         )
     }
-
-    ButtonGroup(
-        title = "Style",
-        selectedOption = style,
-        onOptionSelect = { style = it },
-    )
+    SwitchLabelled(
+        checked = readOnly,
+        onCheckedChange = { readOnly = it },
+    ) {
+        Text(
+            text = "Read only",
+            modifier = Modifier.fillMaxWidth(),
+        )
+    }
 
     ButtonGroup(
         title = "Sizes",

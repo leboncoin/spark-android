@@ -39,13 +39,15 @@ import com.adevinta.spark.components.toggles.Switch
 import com.adevinta.spark.components.toggles.SwitchDefaults
 import com.adevinta.spark.components.toggles.SwitchIcons
 import com.adevinta.spark.components.toggles.SwitchLabelled
-import com.adevinta.spark.icons.AlarmOffFill
-import com.adevinta.spark.icons.AlarmOnFill
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.BellOffFill
+import com.adevinta.spark.icons.BellOnFill
+import com.adevinta.spark.icons.LeboncoinIcons
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 private const val SwitchExampleDescription = "Switch examples"
 private const val SwitchExampleSourceUrl = "$SampleSourceUrl/SwitchSamples.kt"
-public val SwitchExamples: List<Example> = listOf(
+public val SwitchExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "standalone",
         name = "Standalone switch",
@@ -66,8 +68,8 @@ public val SwitchExamples: List<Example> = listOf(
             )
             SwitchPair(
                 icons = SwitchIcons(
-                    checked = SparkIcons.AlarmOnFill,
-                    unchecked = SparkIcons.AlarmOffFill,
+                    checked = LeboncoinIcons.BellOnFill,
+                    unchecked = LeboncoinIcons.BellOffFill,
                 ),
                 checked = switchState,
                 onCheckedChange = onCheckedChange,

@@ -28,6 +28,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerBasedShape
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -37,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.surface.Surface
@@ -106,6 +108,19 @@ public fun SparkShapes.asMaterial3Shapes(): Material3Shapes = Material3Shapes(
     large = large,
     extraLarge = extraLarge,
 )
+
+/**
+ * Extension property to get a [CornerBasedShape] with a bottom start of 0.dp.
+ *
+ * ```kotlin
+ * Box(
+ *      modifier = Modifier.clip(SparkTheme.shapes.small.highlight)
+ * )
+ * ```
+ */
+@ExperimentalSparkApi
+public val CornerBasedShape.highlight: CornerBasedShape
+    get() = copy(bottomStart = CornerSize(percent = 0))
 
 /**
  * CompositionLocal used to specify the default shapes for the surfaces.

@@ -41,7 +41,9 @@ public object SparkStringAnnotations {
         typography: SparkTypography,
     ): SpanStyle? = when (annotation.key) {
         "color" -> annotation.value.toColorSpanStyle(colors)
+
         "typography" -> annotation.value.toTypographySpanStyle(typography)
+
         else -> null.also { _ ->
             Log.d("StringResources", "Annotation $this is not supported by spark")
         }
@@ -52,13 +54,21 @@ public object SparkStringAnnotations {
      */
     private fun String.toColorSpanStyle(token: SparkColors): SpanStyle? = when (this) {
         "main" -> token.main
+
         "support" -> token.support
+
         "success" -> token.success
+
         "alert" -> token.alert
+
         "error" -> token.error
+
         "info" -> token.info
+
         "neutral" -> token.neutral
+
         "accent" -> token.accent
+
         else -> null.also { _ ->
             Log.d("StringResources", "Spark color annotation : $this is not supported")
         }
@@ -69,17 +79,29 @@ public object SparkStringAnnotations {
      */
     private fun String.toTypographySpanStyle(token: SparkTypography): SpanStyle? = when (this) {
         "display1" -> token.display1
+
         "display2" -> token.display2
+
         "display3" -> token.display3
+
         "headline1" -> token.headline1
+
         "headline2" -> token.headline2
+
         "subhead" -> token.subhead
+
         "large" -> token.body1
+
         "body1" -> token.body1
+
         "body2" -> token.body2
+
         "caption" -> token.caption
+
         "small" -> token.small
+
         "callout" -> token.callout
+
         else -> null.also { _ ->
             Log.d("StringResources", "Spark typography annotation : $this is not supported")
         }

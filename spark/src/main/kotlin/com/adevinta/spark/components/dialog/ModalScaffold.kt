@@ -44,6 +44,7 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.BottomAppBarDefaults
+import androidx.compose.material3.BottomAppBarScrollBehavior
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.TopAppBarDefaults
@@ -72,6 +73,7 @@ import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.R
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.appbar.BottomAppBar
+import com.adevinta.spark.components.appbar.BottomAppBarSparkDefaults
 import com.adevinta.spark.components.appbar.TopAppBar
 import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.buttons.ButtonOutlined
@@ -82,10 +84,11 @@ import com.adevinta.spark.components.image.Illustration
 import com.adevinta.spark.components.scaffold.Scaffold
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.Close
+import com.adevinta.spark.icons.Cross
 import com.adevinta.spark.icons.ImageFill
-import com.adevinta.spark.icons.MoreMenuVertical
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.ThreeDotsVertical
 import com.adevinta.spark.tokens.Layout
 import com.adevinta.spark.tokens.LocalWindowSizeClass
 
@@ -202,10 +205,13 @@ private fun DialogScaffold(
         onDismissRequest = onClose,
     ) {
         val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+        val bottomAppBarScrollBehavior = BottomAppBarSparkDefaults.bottomAppBarScrollBehavior()
+
         Surface(
             modifier = modifier
                 .sizeIn(minWidth = 280.dp, maxWidth = 560.dp)
-                .nestedScroll(scrollBehavior.nestedScrollConnection),
+                .nestedScroll(scrollBehavior.nestedScrollConnection)
+                .nestedScroll(bottomAppBarScrollBehavior.nestedScrollConnection),
             elevation = 6.dp,
             shape = SparkTheme.shapes.large,
         ) {
@@ -223,24 +229,29 @@ private fun DialogScaffold(
                 )
                 snackbarHost()
                 Box(modifier = Modifier.weight(1f, fill = false)) {
-                    val padding = contentPadding + if (supportButton == null && mainButton == null) {
-                        PaddingValues(bottom = 16.dp)
-                    } else {
-                        PaddingValues(0.dp)
-                    }
+                    val padding = contentPadding +
+                        if (supportButton == null && mainButton == null) {
+                            PaddingValues(bottom = 16.dp)
+                        } else {
+                            PaddingValues(0.dp)
+                        }
                     content(padding)
                 }
                 if (supportButton == null && mainButton == null) return@Column
-                FlowRow(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = 76.dp)
-                        .padding(vertical = 16.dp, horizontal = 24.dp),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.End),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                BottomAppBar(
+                    scrollBehavior = bottomAppBarScrollBehavior,
                 ) {
-                    supportButton?.invoke(Modifier)
-                    mainButton?.invoke(Modifier)
+                    FlowRow(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 76.dp)
+                            .padding(vertical = 16.dp, horizontal = 24.dp),
+                        horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.End),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        supportButton?.invoke(Modifier)
+                        mainButton?.invoke(Modifier)
+                    }
                 }
             }
         }
@@ -271,11 +282,14 @@ private fun PhonePortraitModalScaffold(
         if (inEdgeToEdge) SetUpEdgeToEdgeDialog()
 
         val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+        val bottomAppBarScrollBehavior = BottomAppBarSparkDefaults.bottomAppBarScrollBehavior()
 
         Scaffold(
             modifier = modifier
                 .fillMaxSize()
-                .nestedScroll(scrollBehavior.nestedScrollConnection),
+                .nestedScroll(scrollBehavior.nestedScrollConnection)
+                .nestedScroll(bottomAppBarScrollBehavior.nestedScrollConnection),
+            containerColor = SparkTheme.colors.surface,
             snackbarHost = snackbarHost,
             contentWindowInsets = contentWindowInsets,
             topBar = {
@@ -288,7 +302,7 @@ private fun PhonePortraitModalScaffold(
                     scrollBehavior = scrollBehavior,
                 )
             },
-            bottomBar = { BottomBarPortrait(mainButton, supportButton) },
+            bottomBar = { BottomBarPortrait(mainButton, supportButton, bottomAppBarScrollBehavior) },
         ) { innerPadding ->
             Box(Modifier.padding(contentPadding)) {
                 content(innerPadding)
@@ -297,13 +311,17 @@ private fun PhonePortraitModalScaffold(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun BottomBarPortrait(
     mainButton: @Composable ((Modifier) -> Unit)?,
     supportButton: @Composable ((Modifier) -> Unit)?,
+    scrollBehavior: BottomAppBarScrollBehavior,
 ) {
     if (supportButton == null && mainButton == null) return
-    BottomAppBar {
+    BottomAppBar(
+        scrollBehavior = scrollBehavior,
+    ) {
         val buttonsLayoutModifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 24.dp)
@@ -354,16 +372,21 @@ private fun PhoneLandscapeModalScaffold(
         // Work around for b/246909281 as for now Dialog doesn't pass the drawing insets to its content
         if (inEdgeToEdge) SetUpEdgeToEdgeDialog()
         val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+        val bottomAppBarScrollBehavior = BottomAppBarSparkDefaults.bottomAppBarScrollBehavior()
 
         Scaffold(
             modifier = modifier
                 .fillMaxSize()
-                .nestedScroll(scrollBehavior.nestedScrollConnection),
+                .nestedScroll(scrollBehavior.nestedScrollConnection)
+                .nestedScroll(bottomAppBarScrollBehavior.nestedScrollConnection),
+            containerColor = SparkTheme.colors.surface,
             snackbarHost = snackbarHost,
             contentWindowInsets = contentWindowInsets,
             bottomBar = {
                 if (supportButton == null && mainButton == null) return@Scaffold
-                Surface {
+                BottomAppBar(
+                    scrollBehavior = bottomAppBarScrollBehavior,
+                ) {
                     Row(
                         modifier = Modifier
                             .padding(bottom = 16.dp, top = 8.dp)
@@ -425,7 +448,7 @@ private fun PhoneLandscapeModalScaffold(
 private fun CloseIconButton(onClose: () -> Unit) {
     IconButton(onClick = onClose) {
         Icon(
-            sparkIcon = SparkIcons.Close,
+            sparkIcon = LeboncoinIcons.Cross,
             modifier = Modifier.size(24.dp),
             contentDescription = stringResource(id = R.string.spark_a11y_modal_fullscreen_close),
         )
@@ -485,7 +508,7 @@ private fun ModalPreview() {
                 actions = {
                     Icon(sparkIcon = SparkIcons.ImageFill, contentDescription = "")
                     Icon(sparkIcon = SparkIcons.ImageFill, contentDescription = "")
-                    Icon(sparkIcon = SparkIcons.MoreMenuVertical, contentDescription = "")
+                    Icon(sparkIcon = LeboncoinIcons.ThreeDotsVertical, contentDescription = "")
                 },
             ) { innerPadding ->
                 Text(

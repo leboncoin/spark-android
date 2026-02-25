@@ -56,10 +56,9 @@ import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.buttons.SparkButtonTags.TAG_PROGRESS_INDICATOR
 import com.adevinta.spark.components.icons.Icon
-import com.adevinta.spark.components.icons.IconSize
-import com.adevinta.spark.icons.IdentityOutline
+import com.adevinta.spark.icons.IdentityCardOutline
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
 @InternalSparkApi
@@ -226,11 +225,6 @@ public object SparkButtonDefaults {
     internal val IconSize: Dp = 16.dp
 
     /**
-     * The default size of the icon when used inside a [SparkButtonTags].
-     */
-    public val IconDefaultSize: IconSize = com.adevinta.spark.components.icons.IconSize.Small
-
-    /**
      * The default size of the spacing between an icon and a text when they used inside a [SparkButtonTags].
      */
     internal val IconSpacing: Dp = ButtonDefaults.IconSpacing
@@ -278,7 +272,7 @@ private fun SparkButtonPreview() {
                 onClick = { },
                 colors = ButtonDefaults.buttonColors(),
                 size = size,
-                icon = SparkIcons.IdentityOutline,
+                icon = LeboncoinIcons.IdentityCardOutline,
                 iconSide = IconSide.END,
             )
         }

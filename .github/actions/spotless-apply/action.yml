@@ -13,13 +13,15 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         ref: ${{ inputs.ref }}
         token: ${{ inputs.github-token }}
     - if: ${{ inputs.pr-number }} != ''
-      run: gh pr checkout "${{ inputs.pr-number }}"
+      run: gh pr checkout "${INPUT_PR_NUMBER}"
       shell: bash
+      env:
+        INPUT_PR_NUMBER: ${{ inputs.pr-number }}
     - uses: ./.github/actions/setup-java
     - uses: ./.github/actions/setup-gradle
     - uses: ./.github/actions/setup-gradle-properties

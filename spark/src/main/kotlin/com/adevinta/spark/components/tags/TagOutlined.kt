@@ -50,6 +50,9 @@ public fun TagOutlined(
     atEnd: Boolean = false,
     content: @Composable RowScope.() -> Unit,
 ) {
+    require(intent != TagIntent.Surface) {
+        "Tag Intent Surface can only be used in TagFilled but was used in TagOutlined"
+    }
     val colors = TagDefaults.outlinedColors(intent)
     SparkTag(
         colors = colors,
@@ -83,6 +86,9 @@ public fun TagOutlined(
     tint: Color? = null,
     atEnd: Boolean = false,
 ) {
+    require(intent != TagIntent.Surface) {
+        "Tag Intent Surface can only be used in TagFilled but was used in TagOutlined"
+    }
     val colors = TagDefaults.outlinedColors(intent)
     SparkTag(
         text = text,
@@ -116,6 +122,9 @@ public fun TagOutlined(
     tint: Color? = null,
     atEnd: Boolean = false,
 ) {
+    require(intent != TagIntent.Surface) {
+        "Tag Intent Surface can only be used in TagFilled but was used in TagOutlined"
+    }
     val colors = TagDefaults.outlinedColors(intent)
     SparkTag(
         text = text,

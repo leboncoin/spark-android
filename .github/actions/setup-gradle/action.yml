@@ -7,7 +7,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: gradle/actions/setup-gradle@ac638b010cf58a27ee6c972d7336334ccaf61c96 # v4.4.1
+    - uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
       with:
         add-job-summary-as-pr-comment: on-failure
         cache-encryption-key: ${{ inputs.cache-encryption-key }}

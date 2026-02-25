@@ -24,20 +24,31 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en-GB">
     <string name="app_name">Spark</string>
 
-    <string name="pro">Use the pro theme</string>
-
     <string name="scale" translatable="false">%.1f</string>
     <string name="example_tokens_elevation_label">Elevation value: %d</string>
     <string name="themepicker_navigation_label">Navigation Motion</string>
 
-    <string name="description">Description</string>
     <string name="examples">Examples</string>
-    <string name="no_examples">No examples</string>
+    <string name="no_examples_title">No examples available</string>
+    <string name="no_examples_description">This component doesn’t have any examples yet.</string>
+    <string name="no_examples_configurator_hint">Try the Configurator tab to explore this component</string>
+    <string name="component_menu_links">Component links</string>
 
     <string name="theme_picker_mode_title">Mode</string>
     <string name="theme_picker_theme_title" description="Spark theme. [CHAR_LIMIT=NONE]">Theme</string>
     <string name="theme_picker_text_direction_title" description="Simulate system text direction to be either LTR or RTL. [CHAR_LIMIT=NONE]">Text direction</string>
     <string name="theme_picker_font_scale_title" description="Simulate a11y font scaling. [CHAR_LIMIT=NONE]">Font scale</string>
+    <string name="theme_picker_section_theme_settings">Theme Settings</string>
+    <string name="theme_picker_section_accessibility">Accessibility</string>
+    <string name="theme_picker_section_developer_options">Developer Options</string>
+    <string name="theme_picker_mode_helper">System mode follows your device’s theme setting. Light and Dark modes override the system setting.</string>
+    <string name="theme_picker_theme_helper">Dynamic theme uses colors from your device’s wallpaper (Android 12+). Baseline uses Spark’s default color palette.</string>
+    <string name="theme_picker_pro_theme_helper">Pro theme provides additional color variants for professional use cases.</string>
+    <string name="theme_picker_font_scale_helper">Simulates accessibility font scaling to test how components adapt to larger text sizes.</string>
+    <string name="theme_picker_text_direction_helper">LTR (Left-to-Right) is used for languages like English. RTL (Right-to-Left) is used for languages like Arabic and Hebrew.</string>
+    <string name="theme_picker_contrast_helper">System contrast level (read-only). Adjust in device accessibility settings.</string>
+    <string name="theme_picker_navigation_helper">Controls the animation style when navigating between screens in the catalog app.</string>
+    <string name="theme_picker_developer_options_helper">These options are for debugging and development purposes.</string>
     <string name="examples_component_screen_title">Components examples</string>
     <string name="examples_component_screen_description">These are the examples that can be found in the samples in the javadoc or the README.md files. They show usages of the components with the default params in different scenarios that should represent real use cases.</string>
     <string name="component_button_description">Buttons help people initiate actions, like sending an email, sharing a document,or liking a post.</string>
@@ -67,7 +78,8 @@
     <string name="component_tab_description">Tabs are used to group different but related content, allowing users to navigate views without leaving the page. They always contain at least two items and one tab is active at a time.</string>
     <string name="component_textfield_description">The input / text-field component allows users to write in the space provided for the content.</string>
     <string name="component_tokens_description">The tokens are the basis of this Design System and allow to choose its colours, shapes, typos and icons.</string>
-    <string name="component_popovers_description">Provides a descriptive message or Info for an Anchor.</string>
+    <string name="component_animation_description">Animations provide visual feedback and enhance user experience through motion. The pulse animation creates a pulsating effect that draws attention to interactive elements.</string>
+    <string name="component_badge_description">Badges are visual indicators for numeric values such as tallies and scores, or to highlight status information.</string>
     <string name="component_bottomsheets_description">A bottom sheet is a UI component commonly used in mobile applications to present additional content or options from the bottom of the screen.</string>
     <!--region Icon button-->
     <string name="component_iconbutton_description">Icon buttons help people take supplementary actions with a single tap. They’re used when a compact button is required, such as in a toolbar or image list.</string>
@@ -112,6 +124,8 @@
 
     <string name="component_slider_description">A slider is an interactive component that allows users to set values by moving a handle within a defined range.</string>
 
+    <string name="component_segmentedgauge_description">The Segmented Gauge is a non-interactive visual indicator made up of colored segments. It shows a level or value along a scale (e.g., from “low” to “high”).</string>
+
     <string name="configurator_component_screen_title">Components configurations</string>
     <string name="configurator_component_screen_description">The Configurator allows to visualise a component in every possible state available by customising every property for each component.</string>
     <string name="configurator_component_screen_enabled_label">Enabled</string>
@@ -125,13 +139,16 @@
     <string name="component_menu_issue">Report an issue</string>
 
     <string name="icons_screen_search_helper">Search Spark Icon</string>
+    <string name="icon_picker_title">Select Icon</string>
+    <string name="icon_picker_clear">Clear</string>
+    <string name="icon_picker_no_icon_selected">No icon selected</string>
 
     <string name="spark_text_link_paragraph_example_"><annotation color="neutral" typography="body1">This is Adevinta </annotation><annotation color="main" typography="body1"><u><b>Privacy &amp; Policy</b></u></annotation><annotation color="neutral" typography="body1"> also lots of extra information you may be interested in or should I inform you about that extra information. you might not be aware of it</annotation></string>
 
     <string name="spark_text_link_short_example_"><annotation color="neutral" typography="display2">Learn Kotlin Programming </annotation><annotation color="success" typography="display3"><u><b>https://kotlinlang.org</b></u></annotation></string>
 
     <!--region Divider-->
-    <string name="component_divider_description">The Divider component provides a thin, unobtrusive line that separates and distinguishes sections of content to reinforce visual hierarchy. A few common uses are:
+    <string name="component_divider_description">The Divider component provides a thin, unobtrusive line that separates and distinguishes sections of content to reinforce visual hierarchy.A few common uses are:
         \nSeparating sections on a page.
         \nSeparating items in a list.
         \nCreating a visual contrast between 2 sides of a page.</string>
@@ -144,4 +161,27 @@
     <string name="icons_filter_icon">Icon</string>
     <string name="combobox_example_no_books_found_label">No books found</string>
 
+    <string name="component_popovers_description">Provides a descriptive message or Info for an Anchor.</string>
+    <string name="component_placeholder_description">Skeletons provide visual feedback during loading states, showing skeleton UI that mimics the structure of the actual content avoiding jumps in the interfae once the content is loaded.</string>
+
+    <!--region Color Picker-->
+    <string name="color_picker_title">Select Color</string>
+    <string name="color_picker_select_custom">Validate</string>
+    <string name="color_picker_tokens_title">Spark Colors</string>
+    <string name="color_picker_custom_title">Custom Color</string>
+    <string name="color_picker_custom">Custom</string>
+    <!--endregion-->
+
+    <!--region Color Selector Test-->
+    <string name="component_color_selector_test_description">Test component for the ColorSelector functionality.</string>
+    <!--endregion-->
+
+    <!--region Color Blindness-->
+    <string name="color_blindness_type_title">Color blindness type</string>
+    <string name="color_blindness_severity_label">Severity: %d</string>
+    <string name="color_blindness_deuteranomaly_description">Deuteranomaly: Reduced sensitivity to green light, making it difficult to distinguish between red and green colors.</string>
+    <string name="color_blindness_protanomaly_description">Protanomaly: Reduced sensitivity to red light, making it difficult to distinguish between red and green colors.</string>
+    <string name="color_blindness_tritanomaly_description">Tritanomaly: Reduced sensitivity to blue light, making it difficult to distinguish between blue and yellow colors.</string>
+    <string name="color_blindness_none_description">No color blindness simulation applied.</string>
+    <!--endregion-->
 </resources>

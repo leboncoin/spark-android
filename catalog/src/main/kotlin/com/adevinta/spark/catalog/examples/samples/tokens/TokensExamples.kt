@@ -28,9 +28,11 @@ import com.adevinta.spark.catalog.examples.samples.tokens.shapes.ShapeCustomSamp
 import com.adevinta.spark.catalog.examples.samples.tokens.shapes.ShapeSample
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 private const val TokensExampleSourceUrl = "$SampleSourceUrl/TokensExamples.kt"
-public val TokensExamples: List<Example> = listOf(
+public val TokensExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "colors",
         name = "Colors",

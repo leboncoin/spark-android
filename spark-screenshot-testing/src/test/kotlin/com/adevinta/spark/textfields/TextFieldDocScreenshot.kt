@@ -44,7 +44,8 @@ import com.adevinta.spark.components.textfields.MultilineTextField
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.textfields.TextFieldCharacterCounter
 import com.adevinta.spark.components.textfields.TextFieldState
-import com.adevinta.spark.icons.LikeFill
+import com.adevinta.spark.icons.HeartFill
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshotNightMode
@@ -145,7 +146,7 @@ internal class TextFieldDocScreenshot {
         ) {
             val icon: @Composable (AddonScope.() -> Unit) = @Composable {
                 Icon(
-                    sparkIcon = SparkIcons.LikeFill,
+                    sparkIcon = LeboncoinIcons.HeartFill,
                     contentDescription = null,
                     size = IconSize.Medium,
                 )
@@ -216,7 +217,7 @@ internal class TextFieldDocScreenshot {
         ) {
             val icon: @Composable (AddonScope.() -> Unit) = @Composable {
                 Icon(
-                    sparkIcon = SparkIcons.LikeFill,
+                    sparkIcon = LeboncoinIcons.HeartFill,
                     contentDescription = null,
                     size = IconSize.Medium,
                 )
@@ -292,7 +293,7 @@ internal class TextFieldDocScreenshot {
         ) {
             val icon: @Composable (AddonScope.() -> Unit) = @Composable {
                 Icon(
-                    sparkIcon = SparkIcons.LikeFill,
+                    sparkIcon = LeboncoinIcons.HeartFill,
                     contentDescription = null,
                     size = IconSize.Medium,
                 )

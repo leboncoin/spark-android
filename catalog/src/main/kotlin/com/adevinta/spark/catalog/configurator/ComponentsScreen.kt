@@ -112,13 +112,19 @@ internal fun ComponentsListScreen(
             .consumeWindowInsets(contentPadding),
         columns = GridCells.Fixed(columns),
         state = state,
+        verticalArrangement = Arrangement.spacedBy(Layout.gutter),
+        horizontalArrangement = Arrangement.spacedBy(Layout.gutter),
         contentPadding = PaddingValues(
-            start = Layout.bodyMargin / 2 + contentPadding.calculateLeftPadding(
-                LocalLayoutDirection.current,
-            ),
-            end = Layout.bodyMargin / 2 + contentPadding.calculateRightPadding(
-                LocalLayoutDirection.current,
-            ),
+            start = Layout.bodyMargin /
+                2 +
+                contentPadding.calculateLeftPadding(
+                    LocalLayoutDirection.current,
+                ),
+            end = Layout.bodyMargin /
+                2 +
+                contentPadding.calculateRightPadding(
+                    LocalLayoutDirection.current,
+                ),
             top = contentPadding.calculateTopPadding(),
             bottom = contentPadding.calculateBottomPadding(),
         ),

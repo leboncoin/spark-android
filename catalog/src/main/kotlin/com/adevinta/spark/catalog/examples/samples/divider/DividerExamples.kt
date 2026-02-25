@@ -42,6 +42,8 @@ import com.adevinta.spark.components.spacer.HorizontalSpacer
 import com.adevinta.spark.components.spacer.VerticalSpacer
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.highlight
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 private const val DividerExampleDescription = "Divider examples"
 private const val DividerExampleSourceUrl = "$SampleSourceUrl/DividerSamples.kt"
@@ -56,7 +58,7 @@ private const val LongTextExample =
         " Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi." +
         " Aliquam in hendrerit urna. Pellentesque sit amet sapien fringill"
 
-public val DividerExamples: List<Example> = listOf(
+public val DividerExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "horizontal-no-label",
         name = "HorizontalDivider With Label",

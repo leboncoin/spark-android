@@ -25,10 +25,8 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -44,16 +42,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.chips.ChipDefaults.LeadingIconEndSpacing
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.tags.TagDefaults.LeadingIconSize
-import com.adevinta.spark.components.tags.TagDefaults.MinHeight
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.Accessories
 import com.adevinta.spark.icons.SparkIcon
@@ -64,6 +63,73 @@ import com.adevinta.spark.tools.modifiers.SlotArea
 import com.adevinta.spark.tools.modifiers.invisibleSemantic
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
+/**
+ * Base composable for Spark tag components that assemble the different building block of these components.
+ *
+ * @param colors The color scheme for the tag
+ * @param modifier modifier for the tag container
+ * @param border Optional border styling for the [TagOutlined]
+ * @param leadingContent Optional composable content to display, most of the time an icon like on the overload
+ * @param shape The shape of the tag (defaults to full rounded)
+ * @param size The size variant of the tag
+ * @param content The main content of the tag, usually a [Text]
+ */
+@InternalSparkApi
+@Composable
+internal fun BaseSparkTag(
+    colors: TagColors,
+    modifier: Modifier = Modifier,
+    border: BorderStroke? = null,
+    leadingContent: (@Composable () -> Unit)? = null,
+    shape: Shape = SparkTheme.shapes.full,
+    size: TagSize = TagSize.Medium,
+    content: @Composable RowScope.() -> Unit,
+) {
+    Surface(
+        modifier = modifier.sparkUsageOverlay(),
+        shape = shape,
+        color = colors.backgroundColor,
+        contentColor = colors.contentColor.copy(1.0f),
+        border = border,
+    ) {
+        ProvideTextStyle(
+            value = SparkTheme.typography.caption.highlight,
+        ) {
+            Row(
+                Modifier
+                    .defaultMinSize(minHeight = size.minHeight.dp)
+                    .padding(vertical = size.verticalPadding.dp, horizontal = HorizontalPadding),
+                horizontalArrangement = Arrangement.spacedBy(LeadingIconEndSpacing, Alignment.Start),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                AnimatedVisibility(
+                    modifier = Modifier.invisibleSemantic(),
+                    value = leadingContent,
+                ) { leadContent ->
+                    CompositionLocalProvider(
+                        LocalContentColor provides colors.contentColor,
+                    ) {
+                        leadContent()
+                    }
+                }
+
+                content()
+            }
+        }
+    }
+}
+
+/**
+ * Base composable for Spark tag components that assemble the different building block of these components.
+ *
+ * @param colors The color scheme for the tag
+ * @param modifier modifier for the tag container
+ * @param border Optional border styling for the [TagOutlined]
+ * @param leadingIcon The spark icon shown at the start of the tag
+ * @param tint The tint color for the icon. Use Color.Unspecified to not apply tint.
+ * @param atEnd Whether the animated vector should be rendered at the end of all its animations.
+ * @param content The main content of the tag, usually a [Text]
+ */
 @InternalSparkApi
 @Composable
 internal fun BaseSparkTag(
@@ -75,71 +141,24 @@ internal fun BaseSparkTag(
     atEnd: Boolean = false,
     content: @Composable RowScope.() -> Unit,
 ) {
-    Surface(
-        modifier = modifier.sparkUsageOverlay(),
-        shape = SparkTheme.shapes.full,
-        color = colors.backgroundColor,
-        contentColor = colors.contentColor.copy(1.0f),
-        border = border,
-    ) {
-        ProvideTextStyle(
-            value = SparkTheme.typography.caption.highlight,
-        ) {
-            Row(
-                Modifier
-                    .defaultMinSize(minHeight = MinHeight)
-                    .padding(vertical = VerticalPadding, horizontal = HorizontalPadding),
-                horizontalArrangement = Arrangement.spacedBy(LeadingIconEndSpacing, Alignment.Start),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                AnimatedVisibility(
-                    modifier = Modifier.invisibleSemantic(),
-                    visible = leadingIcon != null,
-                ) {
-                    if (leadingIcon != null) {
-                        CompositionLocalProvider(
-                            LocalContentColor provides colors.contentColor,
-                        ) {
-                            Icon(
-                                sparkIcon = leadingIcon,
-                                modifier = Modifier.size(LeadingIconSize),
-                                contentDescription = null, // The tag is associated with a mandatory label so it's okay
-                                tint = tint ?: LocalContentColor.current,
-                                atEnd = atEnd,
-                            )
-                        }
-                    } else {
-                        // Placeholder so that the animation doesn't breaks when the icon disappears
-                        Spacer(Modifier.size(LeadingIconSize))
-                    }
-                }
-
-                ProvideTextStyle(value = SparkTheme.typography.caption.highlight) {
-                    content()
-                }
-            }
+    val iconContent = leadingIcon?.let {
+        @Composable {
+            Icon(
+                sparkIcon = it,
+                modifier = Modifier.size(LeadingIconSize),
+                contentDescription = null, // The tag is associated with a mandatory label so it's okay
+                tint = tint ?: LocalContentColor.current,
+                atEnd = atEnd,
+            )
         }
     }
-}
-
-@Composable
-private fun <T> ColumnScope.AnimatedVisibility(
-    value: T?,
-    modifier: Modifier = Modifier,
-    content: @Composable AnimatedVisibilityScope.(T) -> Unit,
-) {
-    // null until non-null then never null again
-    var lastNonNullValueOrNull by remember { mutableStateOf(value) }
-    lastNonNullValueOrNull = value ?: lastNonNullValueOrNull
-
-    AnimatedVisibility(
-        visible = value != null,
+    BaseSparkTag(
+        colors = colors,
         modifier = modifier,
-    ) {
-        lastNonNullValueOrNull?.let {
-            content(it)
-        }
-    }
+        border = border,
+        leadingContent = iconContent,
+        content = content,
+    )
 }
 
 @Composable
@@ -244,8 +263,6 @@ internal fun SparkTag(
 public data class TagColors(val backgroundColor: Color, val contentColor: Color)
 
 public object TagDefaults {
-    internal val MinHeight = 20.dp
-
     /**
      * The outlined tag's border size
      */
@@ -291,15 +308,7 @@ public object TagDefaults {
     }
 }
 
-/**
- * The content padding used by a tag.
- * Used as start padding when there's leading icon, used as eng padding when there's no
- * trailing icon.
- */
-private val LeadingIconEndSpacing = 4.dp
-
 private val HorizontalPadding = 8.dp
-private val VerticalPadding = 2.dp
 
 @Preview(
     group = "Tags",
@@ -309,7 +318,7 @@ private val VerticalPadding = 2.dp
 private fun SparkTagPreview() {
     PreviewTheme {
         val colors = TagDefaults.filledColors()
-        BaseSparkTag(colors = colors) {
+        BaseSparkTag(colors = colors, atEnd = false) {
             SlotArea(color = LocalContentColor.current) {
                 Text("À la une")
             }

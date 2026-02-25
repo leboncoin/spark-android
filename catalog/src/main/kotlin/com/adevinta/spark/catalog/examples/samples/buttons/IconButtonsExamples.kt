@@ -27,7 +27,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
@@ -36,13 +35,15 @@ import com.adevinta.spark.components.iconbuttons.IconButtonFilled
 import com.adevinta.spark.components.iconbuttons.IconButtonGhost
 import com.adevinta.spark.components.iconbuttons.IconButtonOutlined
 import com.adevinta.spark.components.iconbuttons.IconButtonTinted
-import com.adevinta.spark.icons.BellShake
 import com.adevinta.spark.icons.SparkAnimatedIcons
 import com.adevinta.spark.icons.SparkIcon
+import com.adevinta.spark.icons.bellShake
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 private const val IconButtonsExampleDescription = "Icon Button examples"
 private const val IconButtonsExampleSourceUrl = "$SampleSourceUrl/IconButtonSamples.kt"
-public val IconButtonsExamples: List<Example> = listOf(
+public val IconButtonsExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "filled",
         name = "Filled Icon Button",
@@ -149,7 +150,7 @@ private fun IconButtonSample(
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        val icon = SparkAnimatedIcons.BellShake
+        val icon = SparkAnimatedIcons.bellShake()
         val contentDescription = "Localized Content Description"
         val isLoading by remember { mutableStateOf(false) }
         button(

@@ -23,7 +23,6 @@ package com.adevinta.spark.catalog.icons
 
 import android.content.ClipData
 import android.content.Context
-import androidx.annotation.DrawableRes
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.BoundsTransform
 import androidx.compose.animation.ExperimentalSharedTransitionApi
@@ -81,10 +80,12 @@ import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.icons.Check
-import com.adevinta.spark.icons.DeleteFill
-import com.adevinta.spark.icons.Search
+import com.adevinta.spark.icons.CircleCrossFill
+import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.MagnifierOutline
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.allAnimatedIconsMetadata
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -103,7 +104,7 @@ public fun IconsScreen(
     sharedTransitionScope: SharedTransitionScope,
     animatedContentScope: AnimatedContentScope,
     modifier: Modifier = Modifier,
-    onIconClick: (id: Int, name: String, isAnimated: Boolean) -> Unit,
+    onIconClick: (name: String, isAnimated: Boolean) -> Unit,
 ) {
     val context = LocalContext.current
     val clipboard = LocalClipboard.current
@@ -144,12 +145,12 @@ public fun IconsScreen(
                 .padding(top = 16.dp),
             placeholder = stringResource(id = R.string.icons_screen_search_helper),
             leadingContent = {
-                Icon(sparkIcon = SparkIcons.Search, contentDescription = null)
+                Icon(sparkIcon = LeboncoinIcons.MagnifierOutline, contentDescription = null)
             },
             trailingContent = {
                 Icon(
                     modifier = Modifier.clickable { query = "" },
-                    sparkIcon = SparkIcons.DeleteFill,
+                    sparkIcon = LeboncoinIcons.CircleCrossFill,
                     contentDescription = "Clear",
                 )
             },
@@ -192,10 +193,10 @@ public fun IconsScreen(
             items(
                 items = filteredIcons,
                 key = { it.name },
-                contentType = { it is NamedAsset.Icon },
+                contentType = { it.sparkIcon is SparkIcon.AnimatedPainter },
             ) { asset ->
                 with(sharedTransitionScope) {
-                    val drawableRes = asset.drawableRes
+                    val sparkIcon = asset.sparkIcon
                     val iconName = asset.name
                     val isAnimated = asset is NamedAsset.AnimatedIcon
                     Column(
@@ -210,7 +211,7 @@ public fun IconsScreen(
                                 },
                                 onLongClickLabel = stringResource(R.string.icons_item_long_click_a11y),
                                 onClick = {
-                                    onIconClick(drawableRes, iconName, isAnimated)
+                                    onIconClick(iconName, isAnimated)
                                 },
                                 onClickLabel = stringResource(R.string.icons_item_click_a11y),
                             )
@@ -228,14 +229,14 @@ public fun IconsScreen(
                             }
                         }
                         Icon(
-                            sparkIcon = SparkIcon.DrawableRes(drawableRes),
+                            sparkIcon = sparkIcon,
                             contentDescription = null,
                             modifier = Modifier
                                 .sharedElement(
                                     sharedTransitionScope.rememberSharedContentState(key = "icon-$iconName"),
                                     animatedVisibilityScope = animatedContentScope,
                                     boundsTransform = boundsTransform,
-                                    placeHolderSize = SharedTransitionScope.PlaceHolderSize.animatedSize,
+                                    placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
                                 )
                                 .size(40.dp),
                         )
@@ -252,29 +253,34 @@ public fun IconsScreen(
 }
 
 @Stable
-private sealed class NamedAsset(open val name: String, @DrawableRes open val drawableRes: Int) {
-    data class Icon(override val name: String, @DrawableRes override val drawableRes: Int) :
-        NamedAsset(name, drawableRes)
+internal sealed class NamedAsset(open val name: String, open val sparkIcon: SparkIcon) {
+    data class Icon(override val name: String, override val sparkIcon: SparkIcon) : NamedAsset(name, sparkIcon)
 
-    data class AnimatedIcon(override val name: String, @DrawableRes override val drawableRes: Int) :
-        NamedAsset(name, drawableRes)
+    data class AnimatedIcon(override val name: String, override val sparkIcon: SparkIcon) :
+        NamedAsset(name, sparkIcon)
 }
 
-private suspend fun getAllIconsRes(context: Context) = withContext(Default) {
-    IconR.drawable::class.java.declaredFields.mapNotNull { field ->
-        val prefix = "spark_icons_"
+internal suspend fun getAllIconsRes(context: Context) = withContext(Default) {
+    val drawableIcons = IconR.drawable::class.java.declaredFields.mapNotNull { field ->
+        val prefix = "spark_icons_lbc_"
         val icon = field.getInt(null)
         val name = context.resources.getResourceEntryName(icon)
         if (!name.startsWith(prefix)) return@mapNotNull null
         when {
             name.contains("animated") -> {
                 val animatedName = name.removePrefix(prefix).removeSuffix("_animated").toPascalCase()
-                NamedAsset.AnimatedIcon(animatedName, icon)
+                NamedAsset.AnimatedIcon(animatedName, SparkIcon.DrawableRes(icon))
             }
 
-            else -> NamedAsset.Icon(name.removePrefix(prefix).toPascalCase(), icon)
+            else -> NamedAsset.Icon(name.removePrefix(prefix).toPascalCase(), SparkIcon.DrawableRes(icon))
         }
     }
+
+    val composableAnimatedIcons = allAnimatedIconsMetadata.map { metadata ->
+        NamedAsset.AnimatedIcon(metadata.name, metadata.iconProvider())
+    }
+
+    drawableIcons + composableAnimatedIcons
 }
 
 private fun String.toPascalCase(): String = split("_").joinToString(separator = "") { str ->

@@ -62,7 +62,6 @@ dependencies {
     implementation(libs.accompanist.drawablepainter)
 
     implementation(libs.androidx.appCompat.resources)
-    implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core)
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.savedstate)
@@ -82,6 +81,9 @@ dependencies {
     api(platform(libs.coil.bom))
     api(libs.coil.compose)
     api(libs.kotlinx.collections.immutable)
+    // FileKit for file picker dialogs in the configurator
+    api(libs.filekit)
+    api(libs.filekit.dialogs)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlin.test)

@@ -35,10 +35,12 @@ import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.slider.RangeSlider
 import com.adevinta.spark.components.slider.Slider
 import com.adevinta.spark.components.slider.SliderIntent
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 private const val SlidersExampleSourceUrl = "$SampleSourceUrl/SliderExamples.kt"
 
-public val SlidersExamples: List<Example> = listOf(
+public val SlidersExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "steps",
         name = "Slider with Steps",

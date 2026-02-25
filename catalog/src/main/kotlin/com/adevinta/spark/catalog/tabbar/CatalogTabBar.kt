@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.catalog.tabbar
 
+import android.annotation.SuppressLint
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
@@ -55,6 +56,8 @@ import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.components.image.Illustration
 import com.adevinta.spark.components.text.Text
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 public fun CatalogTabBar(
@@ -87,10 +90,11 @@ private fun AppIcon() {
     )
 }
 
+@SuppressLint("MaterialComposableHasSparkReplacement")
 @Composable
 internal fun CatalogTabs(
     modifier: Modifier = Modifier,
-    titles: List<String>,
+    titles: ImmutableList<String>,
     tabSelected: CatalogHomeScreen,
     onTabSelected: (CatalogHomeScreen) -> Unit,
 ) {
@@ -117,6 +121,7 @@ internal fun CatalogTabs(
     }
 }
 
+@SuppressLint("MaterialComposableHasSparkReplacement")
 @Composable
 private fun CatalogTab(
     selected: Boolean,
@@ -155,7 +160,7 @@ private fun CatalogTabBarPreview() {
         ) { tabBarModifier ->
             CatalogTabs(
                 modifier = tabBarModifier,
-                titles = CatalogHomeScreen.entries.map { it.name },
+                titles = CatalogHomeScreen.entries.map { it.name }.toImmutableList(),
                 tabSelected = CatalogHomeScreen.Examples,
                 onTabSelected = { },
             )

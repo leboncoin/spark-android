@@ -70,7 +70,7 @@ internal class ColorsScreenshot {
                 ),
                 listOf(
                     listOf(::background, ::backgroundVariant),
-                    listOf(::surface, ::surfaceInverse),
+                    listOf(::surface, ::surfaceInverse, ::surfaceDark),
                     listOf(::outline, ::outlineHigh),
                 ),
             )
