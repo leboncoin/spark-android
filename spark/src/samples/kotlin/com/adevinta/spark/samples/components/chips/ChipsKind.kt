@@ -32,9 +32,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.components.chips.Chip
 import com.adevinta.spark.components.chips.ChipSelectable
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.CalendarOutline
 import com.adevinta.spark.icons.Check
+import com.adevinta.spark.icons.SparkIcons
 
 @Composable
 @Preview

@@ -36,13 +36,6 @@ plugins {
     alias(libs.plugins.spark.dokka)
 }
 
-// Aggregate documentation from all subprojects with dokka applied
-// https://kotl.in/dokka-gradle-migration
-dependencies {
-    dokka(project(":spark"))
-    dokka(project(":spark-icons"))
-}
-
 allprojects {
     apply(plugin = "com.adevinta.spark.spotless")
 }
