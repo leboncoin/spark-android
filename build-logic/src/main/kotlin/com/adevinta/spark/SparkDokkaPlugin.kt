@@ -73,24 +73,30 @@ internal class SparkDokkaPlugin : Plugin<Project> {
     }
 
     private fun Project.configureSubProject() {
-        val proj = this
         extensions.configure<DokkaExtension> {
             dokkaSourceSets.configureEach {
                 // Parse Module and Package docs
                 // https://kotlinlang.org/docs/dokka-module-and-package-docs.html
-                proj.projectDir.resolve("src").walk()
+                projectDir.resolve("src").walk()
                     .filter { it.isFile && it.extension == "md" }.toList()
                     .let { includes.from(it) }
 
-                // List of files or directories containing sample code (referenced with @sample tags)
-                proj.projectDir.resolve("samples").walk()
-                    .filter { it.isFile && it.extension == "kt" }.toList()
-                    .let { samples.from(it) }
+                // Sample code referenced via @sample tags.
+                // Only applied to 'release' — Dokka requires each file to belong to exactly one
+                // source set (debug/release/androidJvm would otherwise all claim the same root,
+                // see https://github.com/Kotlin/dokka/issues/3701).
+                if (name == "main") {
+                    projectDir.resolve("src/samples/kotlin")
+                        .takeIf { it.exists() }
+                        ?.let { samplesDir ->
+                            samples.from(samplesDir)
+                        }
+                }
 
                 // https://kotlinlang.org/docs/dokka-gradle.html#source-link-configuration
                 sourceLink {
-                    val url = "https://github.com/leboncoin/spark-android/tree/main/${proj.name}/src/main/kotlin"
-                    localDirectory.set(proj.projectDir.resolve("src"))
+                    val url = "https://github.com/leboncoin/spark-android/tree/main/$name/src"
+                    localDirectory.set(projectDir.resolve("src"))
                     remoteUrl(url)
                     remoteLineSuffix.set("#L")
                 }
