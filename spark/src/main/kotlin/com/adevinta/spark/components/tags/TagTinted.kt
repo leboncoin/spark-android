@@ -49,6 +49,9 @@ public fun TagTinted(
     atEnd: Boolean = false,
     content: @Composable RowScope.() -> Unit,
 ) {
+    require(intent != TagIntent.Surface) {
+        "Tag Intent Surface can only be used in TagFilled but was used in TagTinted"
+    }
     SparkTag(
         colors = TagDefaults.tintedColors(intent),
         modifier = modifier,
@@ -77,6 +80,9 @@ public fun TagTinted(
     tint: Color? = null,
     atEnd: Boolean = false,
 ) {
+    require(intent != TagIntent.Surface) {
+        "Tag Intent Surface can only be used in TagFilled but was used in TagTinted"
+    }
     SparkTag(
         colors = TagDefaults.tintedColors(intent),
         modifier = modifier,
@@ -105,6 +111,9 @@ public fun TagTinted(
     tint: Color? = null,
     atEnd: Boolean = false,
 ) {
+    require(intent != TagIntent.Surface) {
+        "Tag Intent Surface can only be used in TagFilled but was used in TagTinted"
+    }
     SparkTag(
         colors = TagDefaults.tintedColors(intent),
         modifier = modifier,

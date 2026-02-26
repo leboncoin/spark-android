@@ -404,6 +404,7 @@ public fun BackdropScaffold(
                         val newTarget =
                             when (scaffoldState.targetValue) {
                                 Concealed -> Concealed
+
                                 Revealed ->
                                     if (newAnchors.hasAnchorFor(Revealed)) Revealed else Concealed
                             }

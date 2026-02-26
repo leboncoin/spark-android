@@ -42,7 +42,8 @@ import com.adevinta.spark.components.textfields.FormFieldStatus
 import com.adevinta.spark.components.textfields.MultilineTextField
 import com.adevinta.spark.components.textfields.TextFieldCharacterCounter
 import com.adevinta.spark.icons.Check
-import com.adevinta.spark.icons.LikeFill
+import com.adevinta.spark.icons.HeartFill
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.paparazziRule
@@ -128,7 +129,7 @@ internal class MultilineTextFieldScreenshot {
         ) {
             val icon: @Composable (AddonScope.() -> Unit) = @Composable {
                 Icon(
-                    sparkIcon = SparkIcons.LikeFill,
+                    sparkIcon = LeboncoinIcons.HeartFill,
                     contentDescription = null,
                     size = IconSize.Medium,
                 )

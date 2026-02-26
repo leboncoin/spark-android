@@ -45,7 +45,8 @@ import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.icons.Activity
-import com.adevinta.spark.icons.IdentityOutline
+import com.adevinta.spark.icons.IdentityCardOutline
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.Store
 import androidx.compose.material3.PermanentDrawerSheet as MaterialPermanentDrawerSheet
@@ -106,7 +107,7 @@ internal fun PermanentDrawerSheetPreview() {
         padding = PaddingValues(0.dp),
     ) {
         // icons to mimic drawer destinations
-        val items = listOf(SparkIcons.Activity, SparkIcons.IdentityOutline, SparkIcons.Store)
+        val items = listOf(SparkIcons.Activity, LeboncoinIcons.IdentityCardOutline, SparkIcons.Store)
         val selectedItem = remember { mutableStateOf(items[0]) }
         PermanentDrawerSheet(Modifier.width(240.dp)) {
             Spacer(Modifier.height(12.dp))

@@ -40,8 +40,8 @@ import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.MenuAnchorType
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.getValue
@@ -72,7 +72,8 @@ import com.adevinta.spark.components.menu.MultipleChoiceExposedDropdownMenu
 import com.adevinta.spark.components.menu.SingleChoiceDropdownItemColumnScope
 import com.adevinta.spark.components.menu.SingleChoiceExposedDropdownMenu
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.DeleteOutline
+import com.adevinta.spark.icons.CircleCrossOutline
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcons
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -145,7 +146,7 @@ public fun SingleChoiceComboBox(
             SparkSelectTrailingIcon(
                 expanded = expanded,
                 modifier = Modifier.menuAnchor(
-                    MenuAnchorType.SecondaryEditable,
+                    ExposedDropdownMenuAnchorType.SecondaryEditable,
                     enabled = enabled,
                 ),
                 onClick = { onExpandedChange(!expanded) },
@@ -153,7 +154,7 @@ public fun SingleChoiceComboBox(
         }
         TextField(
             state = state,
-            modifier = modifier.menuAnchor(MenuAnchorType.PrimaryEditable, enabled = enabled),
+            modifier = modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryEditable, enabled = enabled),
             enabled = enabled,
             readOnly = false,
             required = required,
@@ -268,7 +269,7 @@ public fun MultiChoiceComboBox(
                 SparkSelectTrailingIcon(
                     expanded = expanded,
                     modifier = Modifier.menuAnchor(
-                        MenuAnchorType.SecondaryEditable,
+                        ExposedDropdownMenuAnchorType.SecondaryEditable,
                         enabled = enabled,
                     ),
                     onClick = { onExpandedChange(!expanded) },
@@ -276,7 +277,7 @@ public fun MultiChoiceComboBox(
             }
             TextField(
                 state = state,
-                modifier = modifier.menuAnchor(MenuAnchorType.PrimaryEditable, enabled = enabled),
+                modifier = modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryEditable, enabled = enabled),
                 enabled = enabled,
                 readOnly = false,
                 required = required,
@@ -321,7 +322,7 @@ public fun MultiChoiceComboBox(
                             onClick = { onSelectedClick(id) },
                             trailingIcon = {
                                 Icon(
-                                    sparkIcon = SparkIcons.DeleteOutline,
+                                    sparkIcon = LeboncoinIcons.CircleCrossOutline,
                                     modifier = Modifier.size(ChipDefaults.LeadingIconSize),
                                     contentDescription = null,
                                 )

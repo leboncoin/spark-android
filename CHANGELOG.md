@@ -4,6 +4,178 @@
 
 ## [Unreleased]
 
+## [2.0.0-alpha01]
+
+_2026-02-24_
+
+### Spark
+
+#### 🆕 Snackbar (breaking changes)
+
+> [!CAUTION]
+> `SnackbarStyle` (Filled / Tinted) has been **removed**. Snackbars now use a single visual style with a colored border and elevation. `SnackbarIntent` has been reduced from 10 values to **4**: Success, Alert, Error, Info (Neutral, Main, Basic, Support, Accent, SurfaceInverse are removed).
+
+- **New visuals:** Single style with 2dp border using the intent color. Each intent has a default icon (e.g. Success → CircleCheckFill, Alert → WarningFill).
+- **`Snackbar` composable:** `style` and `actionOnNewLine` parameters removed. New optional `title` parameter (displayed above the message). `icon` is now an optional override of the intent’s default icon. Dismiss is done via `onDismissClick`.
+- **`showSnackbar`:** `style` and `actionOnNewLine` removed; optional `title` added. Default intent changed from `SnackbarIntent.Neutral` to `SnackbarIntent.Info`.
+
+## [1.8.0]
+
+_2026-02-20_
+
+#### 🆕 LeboncoinIcons
+Add `LeboncoinIcons` object as namespace for new static icons from Spark for leboncoin. This object provides access to all static vector icons as drawable resources, similar to `SparkIcons` but specifically for leboncoin-branded icons.
+
+### Spark
+
+- 📝 Add model in the exception message when an Image does not have a defined size
+- 🐛 `ButtonContrast` and `ButtonGhost` were using `color` instead of `onContainerColor` values for their content colours
+- 📝 Improve the message from the crash when using a Spark component outside a `SparkTheme`
+- 🎨 Add new SurfaceDark color token to be used when we need a surface/background to remain dark in light and darkmode like the footer in the website or the drawer in dashboard pro
+- Apply the MaterialComposableHasSparkReplacement in spark modules
+
+## [1.8.0-alpha06]
+
+_2026-02-20_
+
+### Spark
+
+#### 🆕 LeboncoinIcons
+Add `LeboncoinIcons` object as namespace for new static icons from Spark for leboncoin. This object provides access to all static vector icons as drawable resources, similar to `SparkIcons` but specifically for leboncoin-branded icons.
+
+## [1.8.0-alpha05]
+
+_2026-02-18_
+
+### Spark
+
+- Since we have uncertainties regarding the usages of FileKit for the `FileUpload` we marked it as `@InternalSparkApi` until we decide how to handle the file selection
+
+## [1.8.0-alpha04]
+
+_2026-02-05_
+
+### Spark
+
+- 📝 Add model in the exception message when an Image does not have a defined size
+- 🐛 `ButtonContrast` and `ButtonGhost` were using `color` instead of `onContainerColor` values for their content colours
+- 📝 Improve the message from the crash when using a Spark component outside a `SparkTheme`
+
+## [1.8.0-alpha03]
+
+_2026-01-28_
+
+### Spark
+
+#### 🆕 FileUpload Component
+
+- ✨ Add `FileUpload.Button` and `FileUpload.ButtonSingleSelect` composables for selecting files through a button trigger. Supports single or multiple file selection with images, videos, and generic files (with optional extension filtering). For images, you can choose between camera or gallery selection. Use `FileUploadList` or `PreviewFile` to display selected files with progress indicators, error states, and remove actions. The `FileUploadPattern` allows you to integrate file upload functionality into any custom component.
+
+```kotlin
+// Single file selection
+var selectedFile by remember { mutableStateOf<UploadedFile?>(null) }
+
+FileUpload.ButtonSingleSelect(
+    onResult = { file -> selectedFile = file },
+    label = "Select file",
+    type = FileUploadType.Image(ImageSource.Gallery)
+)
+```
+
+> [!NOTE]
+> This component is experimental and marked with `@ExperimentalSparkApi`. Feedbacks are welcomed.
+
+## [1.8.0-alpha02]
+
+_2026-01-22_
+
+### Spark
+- Add new SurfaceDark color token to be used when we need a surface/background to remain dark in light and darkmode like the footer in the website or the drawer in dashboard pro
+
+## [1.8.0-alpha01]
+_2026-01-22_
+
+### Spark
+- Apply the MaterialComposableHasSparkReplacement in spark modules
+- Add new SurfaceDark color token to be used when we need a surface/background to remain dark in light and darkmode like the footer in the website or the drawer in dashboard pro
+
+### CI
+- Run lint task on the `:spark-lint` module
+
+## [1.7.1]
+
+_2026-01-28_
+
+### Spark
+
+- 🐛 `Dropdown` Fix layout used in MultiChoice made the dropdown smaller than intended
+
+## [1.7.0]
+
+_2026-01-14_
+
+### Spark
+
+#### 🆕 SegmentedGauge Component
+
+- ✨ Add `SegmentedGauge` and `SegmentedGaugeShort` composables for level indication
+- Support for different sizes (Small, Medium) and custom colors
+
+> [!NOTE]
+> This component is experimental and marked with `@ExperimentalSparkApi`. Feedbacks are welcomed.
+
+- 💄 Add intent surface for the filled tag as it was missing
+- 📝 Fix wordings in the documentation
+- ⚙️ Migrate lint rules that were present in the lbc app into spark
+
+### Catalog
+
+- ✨ Add color selector component for component configurators
+- 🚀 Compress vignettes to reduce app weight and improve vignette loading speed
+
+## [1.7.0-alpha01]
+
+_2026-01-08_
+
+### Spark
+
+#### 🆕 SegmentedGauge Component
+
+- ✨ Add `SegmentedGauge` and `SegmentedGaugeShort` composables for level indication
+- Support for different sizes (Small, Medium) and custom colors
+
+> [!NOTE]
+> This component is experimental and marked with `@ExperimentalSparkApi`. Feedbacks are welcomed.
+
+- 📝 Fix wordings in the documentation
+- ⚙️ Migrate lint rules that were present in the lbc app into spark
+
+### Catalog
+
+- ✨ Add color selector component for component configurators
+- 🚀 Compress vignettes to reduce app weight and improve vignette loading speed
+
+## [1.6.2]
+
+_2026-01-08_
+
+### Spark
+
+- 🔧 Migrated `bodyWidth()` modifier to use `bodyMaxWidth` based on window size class breakpoints, centering content horizontally with a max width of 840dp for expanded & large screens and 1040dp for extra large screens.
+
+## [1.6.1]
+
+_2026-01-08_
+
+### Spark
+
+- 🐛 Fixed the `Image` Composable to ensure it does not download images twice
+
+#### ⬆️ Dependency Updates
+
+- ⬆️ Bump `androidx.compose:compose-bom` from 2025.09.00 to 2025.12.01
+- 🔧 Pin `androidx.compose.material3:material3` to version 1.3.2 (not using BOM version)
+
 ## [1.6.0]
 
 _2025-11-12_
@@ -47,6 +219,14 @@ _2025-10-30_
 ### Catalog
 
 - 💄Add new vignettes illustrations to represent the components when browsing them in the app
+
+## [1.5.1]
+
+_2025-11-26_
+
+### Spark
+
+- 🐛 Fixed the `Image` Composable to ensure it does not download images twice.
 
 ## [1.5.0]
 
@@ -636,7 +816,7 @@ _2024-10-07_
 - 💄 New examples for the elevation tokens have been added.
 
 ### CI
- - Icons screenshot are not bound to the theme colors anymore to reduce invalidation not related to the icons themselves.
+- Icons screenshot are not bound to the theme colors anymore to reduce invalidation not related to the icons themselves.
 
 ## 0.11.0
 
@@ -961,11 +1141,39 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/1.6.0...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/2.0.0-alpha01...HEAD
+
+[2.0.0-alpha01]: https://github.com/leboncoin/spark-android/releases/tag/2.0.0-alpha01
+
+[1.8.0]: https://github.com/leboncoin/spark-android/releases/tag/1.8.0
+
+[1.8.0-alpha06]: https://github.com/leboncoin/spark-android/releases/tag/1.8.0-alpha06
+
+[1.8.0-alpha05]: https://github.com/leboncoin/spark-android/releases/tag/1.8.0-alpha05
+
+[1.8.0-alpha04]: https://github.com/leboncoin/spark-android/releases/tag/1.8.0-alpha04
+
+[1.8.0-alpha03]: https://github.com/leboncoin/spark-android/releases/tag/1.8.0-alpha03
+
+[1.8.0-alpha02]: https://github.com/leboncoin/spark-android/releases/tag/1.8.0-alpha02
+
+[1.8.0-alpha01]: https://github.com/leboncoin/spark-android/releases/tag/1.8.0-alpha01
+
+[1.7.1]: https://github.com/leboncoin/spark-android/releases/tag/1.7.1
+
+[1.7.0]: https://github.com/leboncoin/spark-android/releases/tag/1.7.0
+
+[1.7.0-alpha01]: https://github.com/leboncoin/spark-android/releases/tag/1.7.0-alpha01
+
+[1.6.2]: https://github.com/leboncoin/spark-android/releases/tag/1.6.2
+
+[1.6.1]: https://github.com/leboncoin/spark-android/releases/tag/1.6.1
 
 [1.6.0]: https://github.com/leboncoin/spark-android/releases/tag/1.6.0
 
 [1.6.0-alpha01]: https://github.com/leboncoin/spark-android/releases/tag/1.6.0-alpha01
+
+[1.5.1]: https://github.com/leboncoin/spark-android/releases/tag/1.5.1
 
 [1.5.0]: https://github.com/leboncoin/spark-android/releases/tag/1.5.0
 

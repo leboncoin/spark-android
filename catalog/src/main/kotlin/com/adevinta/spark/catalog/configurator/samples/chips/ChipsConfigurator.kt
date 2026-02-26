@@ -51,7 +51,7 @@ public val ChipsConfigurator: Configurator = Configurator(
     name = "Chip",
     description = "Chip configuration",
     sourceUrl = "$SampleSourceUrl/ChipSamples.kt",
-) {
+) { _, _ ->
     ChipSample()
 }
 

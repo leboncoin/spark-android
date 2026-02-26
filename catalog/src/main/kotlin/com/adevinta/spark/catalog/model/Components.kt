@@ -32,6 +32,8 @@ import com.adevinta.spark.catalog.configurator.samples.buttons.IconToggleButtons
 import com.adevinta.spark.catalog.configurator.samples.chips.ChipsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.colorselector.ColorSelectorTestConfigurator
 import com.adevinta.spark.catalog.configurator.samples.divider.DividerConfigurator
+import com.adevinta.spark.catalog.configurator.samples.fileupload.FileUploadConfigurator
+import com.adevinta.spark.catalog.configurator.samples.gauge.GaugesConfigurator
 import com.adevinta.spark.catalog.configurator.samples.image.ImageConfigurator
 import com.adevinta.spark.catalog.configurator.samples.modal.ModalConfigurator
 import com.adevinta.spark.catalog.configurator.samples.popover.PopoverConfigurator
@@ -45,7 +47,9 @@ import com.adevinta.spark.catalog.configurator.samples.tabs.TabsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.tags.TagsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.text.TextLinksConfigurator
 import com.adevinta.spark.catalog.configurator.samples.textfields.ComboBoxConfigurators
-import com.adevinta.spark.catalog.configurator.samples.textfields.DropdownsConfigurator
+import com.adevinta.spark.catalog.configurator.samples.textfields.MultiChoiceDropdownConfigurator
+import com.adevinta.spark.catalog.configurator.samples.textfields.MultiChoiceDropdownWithSelectedConfigurator
+import com.adevinta.spark.catalog.configurator.samples.textfields.SingleChoiceDropdownConfigurator
 import com.adevinta.spark.catalog.configurator.samples.textfields.TextFieldsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.toggles.CheckboxConfigurator
 import com.adevinta.spark.catalog.configurator.samples.toggles.RadioButtonConfigurator
@@ -59,6 +63,8 @@ import com.adevinta.spark.catalog.examples.samples.chips.ChipsExamples
 import com.adevinta.spark.catalog.examples.samples.combobox.ComboBoxExample
 import com.adevinta.spark.catalog.examples.samples.dialog.DialogsExamples
 import com.adevinta.spark.catalog.examples.samples.divider.DividerExamples
+import com.adevinta.spark.catalog.examples.samples.fileupload.FileUploadExamples
+import com.adevinta.spark.catalog.examples.samples.gauge.SegmentedGaugeExamples
 import com.adevinta.spark.catalog.examples.samples.icons.IconsExamples
 import com.adevinta.spark.catalog.examples.samples.placeholder.PlaceholderExamples
 import com.adevinta.spark.catalog.examples.samples.popover.PopoverExamples
@@ -81,6 +87,7 @@ import com.adevinta.spark.catalog.examples.samples.tokens.TokensExamples
 import com.adevinta.spark.catalog.util.ComponentGuidelinesUrl
 import com.adevinta.spark.catalog.util.PackageSummaryUrl
 import com.adevinta.spark.catalog.util.SparkSourceUrl
+import kotlinx.collections.immutable.persistentListOf
 
 public data class Component(
     val id: String,
@@ -216,7 +223,11 @@ private val Dropdowns = Component(
     docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.dropdown/index.html",
     sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/textfields/Dropdown.kt",
     examples = DropdownsExamples,
-    configurators = listOf(DropdownsConfigurator),
+    configurators = persistentListOf(
+        SingleChoiceDropdownConfigurator,
+        MultiChoiceDropdownConfigurator,
+        MultiChoiceDropdownWithSelectedConfigurator,
+    ),
 )
 
 private val Animations = Component(
@@ -279,6 +290,18 @@ private val Image = Component(
     sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/components/image/Image.kt",
     examples = emptyList(),
     configurators = listOf(ImageConfigurator),
+)
+
+private val FileUpload = Component(
+    id = "fileupload",
+    name = "File upload",
+    illustration = R.drawable.fileupload,
+    description = R.string.component_image_description,
+    guidelinesUrl = "$ComponentGuidelinesUrl/p/096e9f-image",
+    docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.fileupload/index.html",
+    sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/fileupload/FileUpload.kt",
+    examples = FileUploadExamples,
+    configurators = listOf(FileUploadConfigurator),
 )
 
 private val Popovers = Component(
@@ -344,6 +367,18 @@ private val Rating = Component(
     sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/rating/RatingDisplay.kt",
     examples = RatingExamples,
     configurators = listOf(RatingsConfigurator),
+)
+
+private val SegmentedGauge = Component(
+    id = "gauge",
+    name = "Segmented Gauge",
+    illustration = R.drawable.gauge,
+    description = R.string.component_segmentedgauge_description,
+    guidelinesUrl = "$ComponentGuidelinesUrl/p/43dea8-segmentedgauge",
+    docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.gauge/index.html",
+    sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/gauge/SegmentedGauge.kt",
+    examples = SegmentedGaugeExamples,
+    configurators = listOf(GaugesConfigurator),
 )
 
 private val Skeletons = Component(
@@ -487,11 +522,13 @@ public val Components: List<Component> = listOf(
     IconButtons,
     IconToggleButtons,
     Image,
+    FileUpload,
     Popovers,
     Progressbars,
     ProgressTracker,
     RadioButtons,
     Rating,
+    SegmentedGauge,
     Skeletons,
     Sliders,
     Snackbars,

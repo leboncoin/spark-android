@@ -21,13 +21,9 @@
  */
 package com.adevinta.spark.catalog.configurator.component
 
-import androidx.compose.animation.BoundsTransform
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
-import androidx.compose.animation.core.ArcMode
 import androidx.compose.animation.core.ExperimentalAnimationSpecApi
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.keyframes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -76,8 +72,9 @@ import com.adevinta.spark.components.scaffold.Scaffold
 import com.adevinta.spark.components.snackbars.SnackbarHost
 import com.adevinta.spark.components.snackbars.SnackbarHostState
 import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.icons.Chain
 import com.adevinta.spark.icons.Computer
-import com.adevinta.spark.icons.Link
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.Layout
 
@@ -90,13 +87,6 @@ public fun ConfiguratorComponentScreen(
     val scrollState = rememberScrollState()
     TrackScrollJank(scrollableState = scrollState, stateName = "configurator-component:screen")
     val snackbarHostState = remember { SnackbarHostState() }
-    val boundsTransform = BoundsTransform { initialBounds, targetBounds ->
-        keyframes {
-            durationMillis = 300
-            initialBounds at 0 using ArcMode.ArcBelow using FastOutSlowInEasing
-            targetBounds at 300
-        }
-    }
     with(LocalSharedTransitionScope.current) {
         Scaffold(
             modifier = Modifier.sharedBounds(
@@ -109,11 +99,10 @@ public fun ConfiguratorComponentScreen(
                 ),
                 animatedVisibilityScope = LocalAnimatedVisibilityScope.current,
                 resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
-//                boundsTransform = boundsTransform,
-                placeHolderSize = SharedTransitionScope.PlaceHolderSize.animatedSize,
+                placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
             ),
             snackbarHost = { SnackbarHost(snackbarHostState) },
-        ) {
+        ) { innerPadding ->
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -129,7 +118,7 @@ public fun ConfiguratorComponentScreen(
                 ) {
                     var expanded by remember { mutableStateOf(false) }
                     IconButtonGhost(
-                        icon = SparkIcons.Link,
+                        icon = LeboncoinIcons.Chain,
                         onClick = { expanded = true },
                         contentDescription = "Localized description",
                     )
@@ -142,7 +131,7 @@ public fun ConfiguratorComponentScreen(
                 }
 
                 with(configurator) {
-                    this@Column.content(snackbarHostState)
+                    this@Column.content(snackbarHostState, innerPadding)
                 }
             }
         }
