@@ -44,6 +44,8 @@ import com.adevinta.spark.tools.modifiers.ifTrue
 
 /**
  * Outlined chip with dashed border.
+ *
+ * @sample com.adevinta.spark.samples.components.chips.ChipsKind
  * @param intent The [ChipIntent] colors that will be used for the content and background of this chip in
  * different states.
  * @param modifier The [Modifier] to be applied to the component

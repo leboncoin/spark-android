@@ -189,7 +189,7 @@ private fun ColumnScope.ChipsDefault() {
 
 @Composable
 @Preview
-private fun ColumnScope.ChipsKind() {
+private fun ChipsKind() {
     var selected by remember { mutableStateOf(true) }
     FlowRow(
         horizontalArrangement = spacedBy(8.dp),

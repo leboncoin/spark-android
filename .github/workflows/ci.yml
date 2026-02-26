@@ -161,8 +161,7 @@ jobs:
       - uses: ./.github/actions/setup-gradle-properties
 
       - name: 📋 Build Dokka
-        # https://github.com/Kotlin/dokka/issues/1217
-        run: ./gradlew dokkaHtmlMultiModule --no-configuration-cache --no-parallel --max-workers=1
+        run: ./gradlew dokkaGeneratePublicationHtml
       - name: 📦 Archive Dokka
         uses: actions/upload-artifact@v6
         with:

@@ -57,7 +57,6 @@ dependencies {
     implementation(plugin(libs.plugins.paparazzi))
     implementation(plugin(libs.plugins.spotless))
     implementation(libs.android.gradle)
-    implementation(libs.dokka.base)
 }
 
 gradlePlugin {
