@@ -79,34 +79,33 @@ internal class SparkDokkaPlugin : Plugin<Project> {
 
     private fun Project.configureSubProject() = extensions.configure<DokkaExtension> {
         dokkaSourceSets.configureEach {
-            if (name == "release") {
-                // Parse Module and Package docs
-                // https://kotlinlang.org/docs/dokka-module-and-package-docs.html
-                projectDir.resolve("src").walk()
-                    .filter { it.isFile && it.extension == "md" }.toList()
-                    .let { includes.from(it) }
+            if (name != "release") return@configureEach
+            // Parse Module and Package docs
+            // https://kotlinlang.org/docs/dokka-module-and-package-docs.html
+            projectDir.resolve("src").walk()
+                .filter { it.isFile && it.extension == "md" }.toList()
+                .let { includes.from(it) }
 
-                // Sample code referenced via @sample tags.
-                projectDir.resolve("src/samples/kotlin")
-                    .takeIf { it.exists() }
-                    ?.let { samplesDir ->
-                        samples.from(samplesDir)
-                    }
-
-                // https://kotlinlang.org/docs/dokka-gradle.html#source-link-configuration
-                sourceLink {
-                    val url = "https://github.com/leboncoin/spark-android/tree/main/${this@configureSubProject.name}/src"
-                    localDirectory.set(projectDir.resolve("src"))
-                    remoteUrl(url)
-                    remoteLineSuffix.set("#L")
+            // Sample code referenced via @sample tags.
+            projectDir.resolve("src/samples/kotlin")
+                .takeIf { it.exists() }
+                ?.let { samplesDir ->
+                    samples.from(samplesDir)
                 }
 
-                // Only document public API surface; protected/internal/private members add noise
-                documentedVisibilities(VisibilityModifier.Public)
-
-                // Skip packages that have no documented items after applying the above filters
-                skipEmptyPackages.set(true)
+            // https://kotlinlang.org/docs/dokka-gradle.html#source-link-configuration
+            sourceLink {
+                val url = "https://github.com/leboncoin/spark-android/tree/main/${this@configureSubProject.name}/src"
+                localDirectory.set(projectDir.resolve("src"))
+                remoteUrl(url)
+                remoteLineSuffix.set("#L")
             }
+
+            // Only document public API surface; protected/internal/private members add noise
+            documentedVisibilities(VisibilityModifier.Public)
+
+            // Skip packages that have no documented items after applying the above filters
+            skipEmptyPackages.set(true)
         }
         pluginsConfiguration.named<DokkaHtmlPluginParameters>("html") {
             footerMessage.set("© ${Year.now().value} Adevinta")
