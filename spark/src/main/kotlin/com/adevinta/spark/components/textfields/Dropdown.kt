@@ -40,7 +40,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.TooltipAnchorPosition
 import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.TooltipState
 import androidx.compose.runtime.Composable
@@ -597,7 +596,7 @@ public fun MultiChoiceDropdown(
             TextField(
                 value = value,
                 onValueChange = { },
-                modifier = modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable, enabled),
+                modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable, enabled),
                 enabled = enabled,
                 readOnly = true,
                 required = required,

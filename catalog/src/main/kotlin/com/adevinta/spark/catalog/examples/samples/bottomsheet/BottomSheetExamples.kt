@@ -190,12 +190,12 @@ private fun ConfiguredBottomSheet(
                     BottomSheetContentExamples.List -> ListContent(onHideBottomSheetClicked)
                 }
             },
-            applyTempStatusBarPadding = true,
-            dragHandle = if (isDragHandlerEnabled) {
-                { DragHandle() }
-            } else {
-                null
-            },
+//            applyTempStatusBarPadding = true,
+//            dragHandle = if (isDragHandlerEnabled) {
+//                { DragHandle() }
+//            } else {
+//                null
+//            },
             onDismissRequest = onDismissRequest,
             sheetState = bottomSheetState,
         )
