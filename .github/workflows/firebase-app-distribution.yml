@@ -98,8 +98,8 @@ jobs:
       - name: '📦 Archive release-notes.txt'
         uses: actions/upload-artifact@v7
         with:
-          name: release-notes.txt
           path: 'release-notes.txt'
+          archive: false
 
       - name: '🚀 Publish'
         run: >-
