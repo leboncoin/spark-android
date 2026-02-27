@@ -184,6 +184,7 @@ jobs:
         with:
           name: lava-metrics.json
           path: metrics.json
+          archive: false
 
   finish:
     name: 🏁 Finish
