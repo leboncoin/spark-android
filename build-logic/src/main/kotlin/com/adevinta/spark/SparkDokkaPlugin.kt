@@ -86,26 +86,27 @@ internal class SparkDokkaPlugin : Plugin<Project> {
                 .filter { it.isFile && it.extension == "md" }.toList()
                 .let { includes.from(it) }
 
-            // Sample code referenced via @sample tags.
-            projectDir.resolve("src/samples/kotlin")
-                .takeIf { it.exists() }
-                ?.let { samplesDir ->
-                    samples.from(samplesDir)
+                // Sample code referenced via @sample tags.
+                projectDir.resolve("src/samples/kotlin")
+                    .takeIf { it.exists() }
+                    ?.let { samplesDir ->
+                        samples.from(samplesDir)
+                    }
+
+                // https://kotlinlang.org/docs/dokka-gradle.html#source-link-configuration
+                sourceLink {
+                    val url = "https://github.com/leboncoin/spark-android/tree/main/${this@configureSubProject.name}/src"
+                    localDirectory.set(projectDir.resolve("src"))
+                    remoteUrl(url)
+                    remoteLineSuffix.set("#L")
                 }
 
-            // https://kotlinlang.org/docs/dokka-gradle.html#source-link-configuration
-            sourceLink {
-                val url = "https://github.com/leboncoin/spark-android/tree/main/${this@configureSubProject.name}/src"
-                localDirectory.set(projectDir.resolve("src"))
-                remoteUrl(url)
-                remoteLineSuffix.set("#L")
+                // Only document public API surface; protected/internal/private members add noise
+                documentedVisibilities(VisibilityModifier.Public)
+
+                // Skip packages that have no documented items after applying the above filters
+                skipEmptyPackages.set(true)
             }
-
-            // Only document public API surface; protected/internal/private members add noise
-            documentedVisibilities(VisibilityModifier.Public)
-
-            // Skip packages that have no documented items after applying the above filters
-            skipEmptyPackages.set(true)
         }
         pluginsConfiguration.named<DokkaHtmlPluginParameters>("html") {
             footerMessage.set("© ${Year.now().value} Adevinta")
