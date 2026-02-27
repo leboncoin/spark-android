@@ -52,6 +52,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.icons.Icon
+import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.contentColorFor
 import com.adevinta.spark.tools.modifiers.minimumTouchTargetSize
 
@@ -70,7 +71,7 @@ import com.adevinta.spark.tools.modifiers.minimumTouchTargetSize
  *
  * 3) Background: Surface fills the shape specified by [shape] with the [color]. If [color] is
  * [ColorScheme.surface] a color overlay will be applied. The color of the overlay depends on the
- * [tonalElevation] of this Surface, and the [LocalAbsoluteTonalElevation] set by any parent
+ * [elevation] of this Surface, and the [LocalAbsoluteTonalElevation] set by any parent
  * surfaces. This ensures that a Surface never appears to have a lower elevation overlay than its
  * ancestors, by summing the elevation of all previous Surfaces.
  *
@@ -93,12 +94,10 @@ import com.adevinta.spark.tools.modifiers.minimumTouchTargetSize
  * @param contentColor The preferred content color provided by this Surface to its children.
  * Defaults to either the matching content color for [color], or if [color] is not a color from the
  * theme, this will keep the same value set above this Surface.
- * @param tonalElevation When [color] is [ColorScheme.surface], a higher the elevation will result
- * in a darker color in light theme and lighter color in dark theme.
- * @param shadowElevation The size of the shadow below the surface. To prevent shadow creep, only
- * apply shadow elevation when absolutely necessary, such as when the surface requires visual
- * separation from a patterned background. Note that It will not affect z index of the Surface.
- * If you want to change the drawing order you can use `Modifier.zIndex`.
+ * @param elevation The size of the shadow below the surface. Note that It will not affect z
+ * index of the Surface. If you want to change the drawing order you can use `Modifier.zIndex`
+ * When [color] is [ColorScheme.surface], a higher the elevation will result
+ * in a lighter color in dark theme.
  * @param border Optional border to draw on top of the surface
  */
 @Composable
@@ -157,7 +156,7 @@ public fun Surface(
  *
  * 3) Background: Surface fills the shape specified by [shape] with the [color]. If [color] is
  * [ColorScheme.surface] a color overlay may be applied. The color of the overlay depends on the
- * [tonalElevation] of this Surface, and the [LocalAbsoluteTonalElevation] set by any
+ * [elevation] of this Surface, and the [LocalAbsoluteTonalElevation] set by any
  * parent surfaces. This ensures that a Surface never appears to have a lower elevation overlay than
  * its ancestors, by summing the elevation of all previous Surfaces.
  *
@@ -186,16 +185,16 @@ public fun Surface(
  * @param enabled Controls the enabled state of the surface. When `false`, this surface will not be
  * clickable
  * @param shape Defines the surface's shape as well its shadow. A shadow is only displayed if the
- * [tonalElevation] is greater than zero.
+ * [elevation] is greater than zero.
  * @param color The background color. Use [Color.Transparent] to have no color.
  * @param contentColor The preferred content color provided by this Surface to its children.
  * Defaults to either the matching content color for [color], or if [color] is not a color from the
  * theme, this will keep the same value set above this Surface.
  * @param border Optional border to draw on top of the surface
- * @param tonalElevation When [color] is [ColorScheme.surface], a higher the elevation will result
- * in a darker color in light theme and lighter color in dark theme.
- * @param shadowElevation The size of the shadow below the surface. Note that It will not affect z
- * index of the Surface. If you want to change the drawing order you can use `Modifier.zIndex`.
+ * @param elevation The size of the shadow below the surface. Note that It will not affect z
+ * index of the Surface. If you want to change the drawing order you can use `Modifier.zIndex`
+ * When [color] is [ColorScheme.surface], a higher the elevation will result
+ * in a lighter color in dark theme.
  * @param interactionSource an optional hoisted [MutableInteractionSource] for observing and
  * emitting [Interaction]s for this surface. You can use this to change the surface's
  * appearance or preview the surface in different states. Note that if `null` is provided,
@@ -262,7 +261,7 @@ public fun Surface(
  *
  * 3) Background: Surface fills the shape specified by [shape] with the [color]. If [color] is
  * [ColorScheme.surface] a color overlay may be applied. The color of the overlay depends on the
- * [tonalElevation] of this Surface, and the [LocalAbsoluteTonalElevation] set by any
+ * [elevation] of this Surface, and the [LocalAbsoluteTonalElevation] set by any
  * parent surfaces. This ensures that a Surface never appears to have a lower elevation overlay than
  * its ancestors, by summing the elevation of all previous Surfaces.
  *
@@ -291,16 +290,16 @@ public fun Surface(
  * @param enabled Controls the enabled state of the surface. When `false`, this surface will not be
  * clickable
  * @param shape Defines the surface's shape as well its shadow. A shadow is only displayed if the
- * [tonalElevation] is greater than zero.
+ * [elevation] is greater than zero.
  * @param color The background color. Use [Color.Transparent] to have no color.
  * @param contentColor The preferred content color provided by this Surface to its children.
  * Defaults to either the matching content color for [color], or if [color] is not a color from the
  * theme, this will keep the same value set above this Surface.
  * @param border Optional border to draw on top of the surface
- * @param tonalElevation When [color] is [ColorScheme.surface], a higher the elevation will result
- * in a darker color in light theme and lighter color in dark theme.
- * @param shadowElevation The size of the shadow below the surface. Note that It will not affect z
- * index of the Surface. If you want to change the drawing order you can use `Modifier.zIndex`.
+ * @param elevation The size of the shadow below the surface. Note that It will not affect z
+ * index of the Surface. If you want to change the drawing order you can use `Modifier.zIndex`
+ * When [color] is [ColorScheme.surface], a higher the elevation will result
+ * in a lighter color in dark theme.
  * @param interactionSource an optional hoisted [MutableInteractionSource] for observing and
  * emitting [Interaction]s for this surface. You can use this to change the surface's
  * appearance or preview the surface in different states. Note that if `null` is provided,
@@ -369,7 +368,7 @@ public fun Surface(
  *
  * 3) Background: Surface fills the shape specified by [shape] with the [color]. If [color] is
  * [ColorScheme.surface] a color overlay may be applied. The color of the overlay depends on the
- * [tonalElevation] of this Surface, and the [LocalAbsoluteTonalElevation] set by any
+ * [elevation] of this Surface, and the [LocalAbsoluteTonalElevation] set by any
  * parent surfaces. This ensures that a Surface never appears to have a lower elevation overlay than
  * its ancestors, by summing the elevation of all previous Surfaces.
  *
@@ -398,16 +397,16 @@ public fun Surface(
  * @param enabled Controls the enabled state of the surface. When `false`, this surface will not be
  * clickable
  * @param shape Defines the surface's shape as well its shadow. A shadow is only displayed if the
- * [tonalElevation] is greater than zero.
+ * [elevation] is greater than zero.
  * @param color The background color. Use [Color.Transparent] to have no color.
  * @param contentColor The preferred content color provided by this Surface to its children.
  * Defaults to either the matching content color for [color], or if [color] is not a color from the
  * theme, this will keep the same value set above this Surface.
  * @param border Optional border to draw on top of the surface
- * @param tonalElevation When [color] is [ColorScheme.surface], a higher the elevation will result
- * in a darker color in light theme and lighter color in dark theme.
- * @param shadowElevation The size of the shadow below the surface. Note that It will not affect z
- * index of the Surface. If you want to change the drawing order you can use `Modifier.zIndex`.
+ * @param elevation The size of the shadow below the surface. Note that It will not affect z
+ * index of the Surface. If you want to change the drawing order you can use `Modifier.zIndex`
+ * When [color] is [ColorScheme.surface], a higher the elevation will result
+ * in a lighter color in dark theme.
  * @param interactionSource an optional hoisted [MutableInteractionSource] for observing and
  * emitting [Interaction]s for this surface. You can use this to change the surface's
  * appearance or preview the surface in different states. Note that if `null` is provided,

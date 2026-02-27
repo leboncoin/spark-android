@@ -22,23 +22,35 @@
 package com.adevinta.spark.samples.components.chips
 
 import androidx.compose.foundation.layout.Arrangement.spacedBy
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.components.chips.Chip
+import com.adevinta.spark.components.chips.ChipIntent
 import com.adevinta.spark.components.chips.ChipSelectable
+import com.adevinta.spark.components.chips.ChipStyles
 import com.adevinta.spark.icons.CalendarOutline
 import com.adevinta.spark.icons.Check
 import com.adevinta.spark.icons.SparkIcons
 
+/**
+ * Demonstrates the four chip kinds: Assist, Filter, Input, and Suggestion.
+ */
 @Composable
 @Preview
-private fun ChipsKind() {
+public fun ChipsKind() {
     var selected by remember { mutableStateOf(true) }
     FlowRow(
         horizontalArrangement = spacedBy(8.dp),
@@ -54,8 +66,88 @@ private fun ChipsKind() {
             text = "Input",
             onClick = { },
             onClose = { },
-            onCloseLabel = "Supprimer le filtre",
+            onCloseLabel = "Remove filter",
         )
         Chip(text = "Suggestion", onClick = { })
+    }
+}
+
+/**
+ * Demonstrates single-selection filter chips using RadioButton semantics and [selectableGroup].
+ * Only one chip can be selected at a time.
+ */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+@Preview
+public fun ChipSingleSelectionSample() {
+    val filters = listOf("Fruit", "Vegetable")
+    var selected by remember { mutableStateOf("Fruit") }
+    FlowRow(
+        horizontalArrangement = spacedBy(8.dp),
+        modifier = Modifier.selectableGroup(),
+    ) {
+        filters.forEach { filter ->
+            ChipSelectable(
+                modifier = Modifier.semantics { role = Role.RadioButton },
+                text = filter,
+                selected = selected == filter,
+                onClick = { selected = filter },
+            )
+        }
+    }
+}
+
+/**
+ * Demonstrates multiple-selection filter chips where several chips can be toggled independently.
+ * A checkmark icon appears when a chip is selected.
+ */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+@Preview
+public fun ChipMultipleSelectionSample() {
+    val filters = listOf("Animal", "Flower", "Tree")
+    var selectedFilters by remember { mutableStateOf(listOf("Animal", "Tree")) }
+    FlowRow(
+        horizontalArrangement = spacedBy(8.dp),
+    ) {
+        filters.forEach { filter ->
+            val isSelected = filter in selectedFilters
+            ChipSelectable(
+                text = filter,
+                selected = isSelected,
+                leadingIcon = if (isSelected) SparkIcons.Check else null,
+                onClick = {
+                    selectedFilters = if (isSelected) {
+                        selectedFilters - filter
+                    } else {
+                        selectedFilters + filter
+                    }
+                },
+            )
+        }
+    }
+}
+
+/**
+ * Demonstrates input chips (dashed style) that can be removed by clicking the close button.
+ */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+@Preview
+public fun ChipInputSample() {
+    var tags by remember { mutableStateOf(listOf("First", "Second", "Third")) }
+    FlowRow(
+        horizontalArrangement = spacedBy(8.dp),
+    ) {
+        tags.forEach { tag ->
+            Chip(
+                text = tag,
+                style = ChipStyles.Dashed,
+                intent = ChipIntent.Neutral,
+                onClick = {},
+                onClose = { tags = tags - tag },
+                onCloseLabel = "Remove $tag from the list",
+            )
+        }
     }
 }

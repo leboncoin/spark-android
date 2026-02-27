@@ -32,6 +32,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -71,7 +72,7 @@ import androidx.compose.material3.Scaffold as MaterialScaffold
  * @param modifier the [Modifier] to be applied to this scaffold
  * @param topBar top app bar of the screen, typically a [TopAppBar]
  * @param bottomBar bottom bar of the screen, typically a [NavigationBar]
- * @param snackbarHost component to host [Snackbar]s that are pushed to be shown via
+ * @param snackbarHost component to host [com.adevinta.spark.components.snackbars.Snackbar]s that are pushed to be shown via
  * [SnackbarHostState.showSnackbar], typically a [SnackbarHost]
  * @param floatingActionButton Main action button of the screen, typically a [FloatingActionButton]
  * @param floatingActionButtonPosition position of the FAB on the screen. See [FabPosition].
@@ -85,8 +86,8 @@ import androidx.compose.material3.Scaffold as MaterialScaffold
  * [bottomBar] are not present, as the scaffold expect [topBar]/[bottomBar] to handle insets
  * instead
  * @param content content of the screen. The lambda receives a [PaddingValues] that should be
- * applied to the content root via [Modifier.padding] and [Modifier.consumeWindowInsets] to
- * properly offset top and bottom bars. If using [Modifier.verticalScroll], apply this modifier to
+ * applied to the content root via `Modifier.padding` and [Modifier.consumeWindowInsets] to
+ * properly offset top and bottom bars. If using `Modifier.verticalScroll`, apply this modifier to
  * the child of the scroll, and not on the scroll itself.
  */
 @Composable
@@ -103,7 +104,7 @@ public fun Scaffold(
     content: @Composable (PaddingValues) -> Unit,
 ) {
     MaterialScaffold(
-        modifier = modifier,
+        modifier = modifier.padding(),
         topBar = topBar,
         bottomBar = bottomBar,
         snackbarHost = snackbarHost,

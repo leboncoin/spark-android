@@ -56,6 +56,7 @@ import kotlinx.collections.immutable.ImmutableList
  * Defaults to a filled button with the label.
  *
  * @sample com.adevinta.spark.components.fileupload.FileUploadSamples
+ * @sample com.adevinta.spark.components.fileupload.FileUploadCustomButtonSamples
  */
 @Composable
 internal fun FileUploadSingleButton(
@@ -121,6 +122,7 @@ internal fun FileUploadSingleButton(
  * Defaults to a filled button with the label.
  *
  * @sample com.adevinta.spark.components.fileupload.FileUploadSamples
+ * @sample com.adevinta.spark.components.fileupload.FileUploadMultipleSamples
  */
 @Composable
 internal fun FileUploadButton(

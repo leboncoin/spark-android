@@ -12,7 +12,7 @@ custom `trailingContent`. It is mandatory to provide `contentDescription` for `i
 
 ### Styles
 
-The tab can have one of the [TabSize](TabDefaults.kt), that will affect the Tabs typography size:
+The tab can have one of the `TabSize` values, that will affect the Tabs typography size:
 
 - `ExtraSmall`
 - `Small`
@@ -23,7 +23,7 @@ The tab can have one of the [TabSize](TabDefaults.kt), that will affect the Tabs
 The size of the icon is the same as the size of the text. For icon-only tabs the icon size
 is `IconSize.Small`.
 
-The tabs accept 2 colors [TabIntent](TabDefaults.kt)s:
+The tabs accept 2 colors `TabIntent`s:
 
 - Basic (default)
 - Main
@@ -37,7 +37,7 @@ The tabs accept 2 colors [TabIntent](TabDefaults.kt)s:
 
 The tabs occupy just as much space as they need, but they can also be full-width.
 
-Depending on the available place and parameter `spacedEvenly`, a [TabGroup](TabGroup.kt) places its
+Depending on the available place and parameter `spacedEvenly`, a `TabGroup` places its
 tabs evenly spaced along the entire row, with each tab taking up an equal amount of space unless
 content cannot be fully displayed. In this case each larger tab is attributed a needed space and the
 rest is distributed evenly among smaller tabs. If there is not enough screen space to display all

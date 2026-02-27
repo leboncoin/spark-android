@@ -201,6 +201,7 @@ private fun SparkChipSelectable(
  * for this chip. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this chip in different states.
  * @param content a Composable to set as the chip's custom content.
+ * @sample com.adevinta.spark.samples.components.chips.ChipsKind
  */
 @Composable
 public fun Chip(
@@ -269,6 +270,8 @@ public fun Chip(
  * for this chip. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this chip in different states.
  * @param content a Composable to set as the chip's custom content.
+ * @sample com.adevinta.spark.samples.components.chips.ChipSingleSelectionSample
+ * @sample com.adevinta.spark.samples.components.chips.ChipMultipleSelectionSample
  */
 @Composable
 public fun ChipSelectable(
@@ -372,6 +375,8 @@ private fun CloseIconButton(
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this chip. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this chip in different states.
+ * @sample com.adevinta.spark.samples.components.chips.ChipsKind
+ * @sample com.adevinta.spark.samples.components.chips.ChipInputSample
  */
 @Composable
 public fun Chip(
@@ -434,6 +439,8 @@ public fun Chip(
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this chip. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this chip in different states.
+ * @sample com.adevinta.spark.samples.components.chips.ChipSingleSelectionSample
+ * @sample com.adevinta.spark.samples.components.chips.ChipMultipleSelectionSample
  */
 @Composable
 public fun ChipSelectable(

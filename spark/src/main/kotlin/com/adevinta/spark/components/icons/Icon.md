@@ -9,14 +9,14 @@ coming from either of these sources:
 - [Painter](https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/painter/Painter)
 
 It behaves like the Compose Foundation Icon component but it also accepts size parameter that have
-the following values ([IconSize](IconDefaults.kt)):
+the following values (`IconSize`):
 
 - Small (16.dp)
 - Medium (24.dp) - default size
 - Large (32.dp)
 - ExtraLarge (40.dp)
 
-Use [IconIntent](IconIntent.kt) to pass one of the accepted intents:
+Use `IconIntent` to pass one of the accepted intents:
 - Basic
 - Accent
 - Main

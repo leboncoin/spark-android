@@ -67,7 +67,7 @@ internal object IconButtonDefaults {
     internal val TooltipContentColor @Composable get() = SparkTheme.colors.onSurfaceInverse
 
     /**
-     * The [Shape] for a [PlainTooltipBox]'s container.
+     * The [Shape] for a [com.adevinta.spark.components.popover.TooltipBox]'s container.
      */
     val TooltipContainerShape: Shape
         @Composable get() = SparkTheme.shapes.large
@@ -160,12 +160,6 @@ internal object IconButtonDefaults {
 
 /**
  * Represents the container and content colors used in an icon button in different states.
- *
- * - See [IconButtonDefaults.filledIconButtonColors] and
- * [IconButtonDefaults.filledTonalIconButtonColors] for the default colors used in a
- * [IconButtonFilled].
- * - See [IconButtonDefaults.outlinedIconButtonColors] for the default colors used in an
- * [OutlinedIconButton].
  */
 @Immutable
 // FIXME: Copy from MD. Remove once MD version is updated and constructor is no longer internal

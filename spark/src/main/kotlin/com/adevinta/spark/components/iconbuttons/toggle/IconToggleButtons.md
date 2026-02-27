@@ -21,7 +21,7 @@ Icon toggle buttons come in various styles:
 
 ### Sizes
 
-Icon toggle buttons come in 3 sizes [IconToggleButtonSize](IconToggleButtonSize.kt):
+Icon toggle buttons come in 3 sizes `IconButtonSize`:
 
 - small - 32.dp (however, the minimum touch size is applied and is 44.dp)
 - medium - 44.dp (default)
