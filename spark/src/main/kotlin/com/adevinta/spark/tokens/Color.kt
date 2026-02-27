@@ -1479,7 +1479,7 @@ internal fun SparkColors.updateColorsFrom(other: SparkColors) {
 }
 
 /**
- * Returns the new background [Color] to use, representing the original background [color] with an
+ * Returns the new background [Color] to use, representing the original background [backgroundColor] with an
  * overlay corresponding to [elevation] applied. The overlay will only be applied to
  * [ColorScheme.surface].
  */

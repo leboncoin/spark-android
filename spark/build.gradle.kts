@@ -22,9 +22,9 @@
 plugins {
     alias(libs.plugins.spark.library)
     alias(libs.plugins.spark.compose)
-    alias(libs.plugins.spark.dokka)
     alias(libs.plugins.spark.publishing)
     alias(libs.plugins.spark.dependencyGuard)
+    alias(libs.plugins.spark.dokka)
 }
 
 android {

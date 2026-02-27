@@ -245,9 +245,6 @@ private fun SnackbarAction(
  * @param modifier modifiers for the Snackbar layout
  * @param intent The [SnackbarIntent] which defines the colour and icon of the Snackbar.
  * Defaults to [SnackbarIntent.Info].
- * @param withDismissAction Whether the dismiss icon is enabled.
- * @param actionOnNewLine whether action should be put on the separate line. Recommended
- * for action with long action text
  * @param icon An optional custom icon that overrides the default intent icon.
  * @param title An optional title to be displayed above the message content.
  * @param actionLabel action to add as an action to the snackbar.

@@ -50,7 +50,7 @@ public val LocalElevationOverlay: ProvidableCompositionLocal<ElevationOverlay?> 
  * ElevationOverlay does not replace the shadows drawn by a [Surface], but is used as an
  * additional representation of elevation.
  *
- * The default ElevationOverlay only applies in dark theme (![Colors.isLight]), in accordance with
+ * The default ElevationOverlay only applies in dark theme, in accordance with
  * the Material specification for
  * [Dark Theme](https://material.io/design/color/dark-theme.html#properties).
  *
@@ -62,7 +62,7 @@ public fun interface ElevationOverlay {
     /**
      * Returns the new background [Color] to use, representing the original background [color]
      * with an overlay corresponding to [elevation] applied. Typically this should only be
-     * applied to [Colors.surface].
+     * applied to [com.adevinta.spark.tokens.SparkColors.surface].
      */
     @Composable
     public fun apply(color: Color, elevation: Dp): Color
@@ -87,7 +87,7 @@ private object DefaultElevationOverlay : ElevationOverlay {
 
 /**
  * @return the alpha-modified foreground color to overlay on top of the surface color to produce
- * the resultant color. This color is the [contentColorFor] the [backgroundColor], with alpha
+ * the resultant color. This color is the [contentColorFor] the `backgroundColor`, with alpha
  * applied depending on the value of [elevation].
  */
 @ReadOnlyComposable

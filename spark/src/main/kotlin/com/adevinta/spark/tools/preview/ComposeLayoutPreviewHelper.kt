@@ -66,10 +66,10 @@ public fun AbstractComposeView.setupEditMode() {
 }
 
 /**
- * Initializes a barebone Recomposer with a fake SavedStateRegisterOwner
+ * Initializes a barebone Recomposer with a fake SavedStateRegistryOwner
  * and a fake ViewModelStoreOwner.
  *
- * Most of this code is taken from [ComposeViewAdapter] and [ComposeView].
+ * Most of this code is taken from `ComposeViewAdapter` and `ComposeView`.
  */
 private class ComposeLayoutPreviewHelper(val view: AbstractComposeView) {
 

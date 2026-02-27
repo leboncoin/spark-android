@@ -58,6 +58,7 @@ internal class SparkDokkaPlugin : Plugin<Project> {
             }
             pluginsConfiguration.named<DokkaHtmlPluginParameters>("html") {
                 fun File.recursiveAssets() = walk().filter(File::isFile)
+                    .filter { !it.name.startsWith(".") } // exclude macOS hidden files like .DS_Store
                     // https://github.com/Kotlin/dokka/issues/3400
                     .filter { runCatching { URI(it.name) }.isSuccess }
                     .toList().toTypedArray()
@@ -78,6 +79,7 @@ internal class SparkDokkaPlugin : Plugin<Project> {
 
     private fun Project.configureSubProject() = extensions.configure<DokkaExtension> {
         dokkaSourceSets.configureEach {
+            if (name != "release") return@configureEach
             // Parse Module and Package docs
             // https://kotlinlang.org/docs/dokka-module-and-package-docs.html
             projectDir.resolve("src").walk()
@@ -93,7 +95,7 @@ internal class SparkDokkaPlugin : Plugin<Project> {
 
             // https://kotlinlang.org/docs/dokka-gradle.html#source-link-configuration
             sourceLink {
-                val url = "https://github.com/leboncoin/spark-android/tree/main/$name/src"
+                val url = "https://github.com/leboncoin/spark-android/tree/main/${this@configureSubProject.name}/src"
                 localDirectory.set(projectDir.resolve("src"))
                 remoteUrl(url)
                 remoteLineSuffix.set("#L")

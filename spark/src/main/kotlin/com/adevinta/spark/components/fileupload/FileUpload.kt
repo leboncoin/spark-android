@@ -80,6 +80,7 @@ public object FileUpload {
      * Defaults to a filled button with the label.
      *
      * @sample com.adevinta.spark.components.fileupload.FileUploadSamples
+     * @sample com.adevinta.spark.components.fileupload.FileUploadMultipleSamples
      */
     @InternalSparkApi
     @Composable
@@ -152,6 +153,7 @@ public object FileUpload {
      * Defaults to a filled button with the label.
      *
      * @sample com.adevinta.spark.components.fileupload.FileUploadSamples
+     * @sample com.adevinta.spark.components.fileupload.FileUploadCustomButtonSamples
      */
     @InternalSparkApi
     @Composable

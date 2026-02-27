@@ -51,7 +51,7 @@ internal object TabGroupDefaults {
     val minTabWidth = 48.dp
 
     /**
-     * Default indicator, which will be positioned at the bottom of the [TabRow], on top of the
+     * Default indicator, which will be positioned at the bottom of the [TabGroup], on top of the
      * divider.
      *
      * @param modifier modifier for the indicator's layout
@@ -85,7 +85,7 @@ internal object TabGroupDefaults {
         tween(durationMillis = 250, easing = FastOutSlowInEasing)
 
     /**
-     * [Modifier] that takes up all the available width inside the [TabRow], and then animates
+     * [Modifier] that takes up all the available width inside the [TabGroup], and then animates
      * the offset of the indicator it is applied to, depending on the [currentTabPosition].
      *
      * @param currentTabPosition [TabPosition] of the currently selected tab. This is used to
