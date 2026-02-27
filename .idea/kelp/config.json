@@ -1,0 +1,80 @@
+{
+  "componentFunHighlighting": [{
+    "functionFqnPrefix": "com.your.designsystem.package.components.",
+    "functionSimpleNamePrefix": "Ds"
+  }],
+  "colorPreview": {
+    "codeCompletionEnabled": true,
+    "gutterEnabled": true,
+    "enumColorTokensEnabled": true
+  },
+  "inlayHints": {
+    "enabled": true,
+    "enums": true
+  },
+  "iconsRendering": [{
+    "codeCompletionEnabled": true,
+    "gutterEnabled": true,
+    "containerClassName": "com.your.designsystem.package.DsIcons",
+
+    "propertyNameFilter": {
+      "startsWith": ["ic_"],
+      "doesNotStartWith": ["allIconsAsList", "otherProperty"]
+    },
+
+    "propertyToResourceMapper": {
+      "addPrefix": "ic_",
+      "convertToSnakeCase": true
+    }
+  }],
+  "demoApp": {
+    "intentionName": "🚀 Open in MY CUSTOM design system demo app",
+    "functionFilters": [
+      {
+        "functionFqnPrefix": "com.your.designsystem.package.components.",
+        "functionSimpleNamePrefix": "Ds"
+      }
+    ],
+    "appPackageName": "com.your.designsystem.package.demo",
+    "componentDeeplink": "yourscheme://component/DS_COMPONENT_FQN_DEEPLINK_PLACEHOLDER",
+    "apkInstallation": true
+  },
+  "liveTemplates": [
+    {
+      "abbreviation": "dt",
+      "text": "com.your.designsystem.DsTheme.$CODE_COMPLETION$",
+      "description": "Writes \"DsTheme.\"",
+      "variables": [{ "name": "CODE_COMPLETION", "expression": "complete()" }]
+    },
+    {
+      "abbreviation": "dtc",
+      "text": "com.your.designsystem.DsTheme.colors.$CODE_COMPLETION$",
+      "description": "Writes \"DsTheme.colors.\"",
+      "variables": [{ "name": "CODE_COMPLETION", "expression": "complete()" }]
+    },
+    {
+      "abbreviation": "dtt",
+      "text": "com.your.designsystem.DsTheme.typography.$CODE_COMPLETION$",
+      "description": "Writes \"DsTheme.typography.\"",
+      "variables": [{ "name": "CODE_COMPLETION", "expression": "complete()" }]
+    },
+    {
+      "abbreviation": "dti",
+      "text": "com.your.designsystem.DsTheme.icons.$CODE_COMPLETION$",
+      "description": "Writes \"DsTheme.icons.\"",
+      "variables": [{ "name": "CODE_COMPLETION", "expression": "complete()" }]
+    },
+    {
+      "abbreviation": "rmso",
+      "text": "$VAL_TYPE$ $NAME$ by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf($VALUE$) }",
+      "description": "Creates mutableStateOf",
+      "reformat": true,
+      "variables": [
+        { "name": "VAL_TYPE", "expression": "enum(\"var\", \"val\")" },
+        { "name": "NAME" },
+        { "name": "VALUE", "expression": "enum(\"false\", \"null\", \"0\", \"0f\")" }
+      ],
+      "context": ["KOTLIN_CLASS", "KOTLIN_STATEMENT", "KOTLIN_TOPLEVEL"]
+    }
+  ]
+}

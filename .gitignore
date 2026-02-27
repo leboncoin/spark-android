@@ -123,6 +123,9 @@ Temporary Items
 # IDEA Code completion exclusion
 !.idea/codeInsightSettings.xml
 
+# Kelp configuration
+!.idea/kelp/config.json
+
 # CI secrets
 keystore.jks
 keystore.properties
