@@ -178,4 +178,8 @@
     <string name="color_blindness_tritanomaly_description">Tritanomalie : sensibilité réduite à la lumière bleue, rendant difficile la distinction entre les couleurs bleue et jaune.</string>
     <string name="color_blindness_none_description">Aucune simulation de daltonisme appliquée.</string>
     <!--endregion-->
+
+    <!--region InputOTP-->
+    <string name="component_inputotp_description">InputOTP est un composant spécialisé pour saisir des mots de passe à usage unique et des codes de vérification. Il affiche des emplacements individuels pour chaque caractère et gère automatiquement le focus pour l\'authentification 2FA/MFA.</string>
+    <!--endregion-->
 </resources>
