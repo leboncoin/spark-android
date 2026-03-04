@@ -177,10 +177,10 @@ jobs:
         id: linkchecker
       - name: 📦 Archive linkchecker
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
-          name: linkchecker.html
-          path: 'linkchecker-out.html'
+          archive: false 
+          path: linkchecker-out.html
 
   lava-scan:
     name: 🌋 Lava Scan
