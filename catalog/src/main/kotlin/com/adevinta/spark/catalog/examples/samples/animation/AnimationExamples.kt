@@ -41,9 +41,11 @@ import com.adevinta.spark.components.buttons.ButtonIntent
 import com.adevinta.spark.components.buttons.ButtonTinted
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.Layout
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 private const val AnimationsExampleSourceUrl = "$SampleSourceUrl/PulsesSamples.kt"
-public val AnimationExamples: List<Example> = listOf(
+public val AnimationExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "pulse-basic",
         name = "Basic Pulse",

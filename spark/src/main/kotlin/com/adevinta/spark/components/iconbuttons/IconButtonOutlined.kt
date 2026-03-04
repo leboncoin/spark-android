@@ -31,9 +31,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.buttons.ButtonShape
 import com.adevinta.spark.components.progress.Spinner
+import com.adevinta.spark.icons.GearOutline
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
-import com.adevinta.spark.icons.WheelOutline
 
 /**
  * Icon buttons help people take supplementary actions with a single tap. They’re used when a
@@ -98,7 +99,7 @@ public fun IconButtonOutlined(
 @Composable
 private fun IconButtonOutlinedPreview() {
     PreviewTheme {
-        val icon = SparkIcons.WheelOutline
+        val icon = LeboncoinIcons.GearOutline
         val contentDescription = "Localized description"
 
         IconButtonOutlined(

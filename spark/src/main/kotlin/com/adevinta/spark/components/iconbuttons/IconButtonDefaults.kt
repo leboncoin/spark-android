@@ -31,8 +31,6 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.IntentColor
 import com.adevinta.spark.components.buttons.ButtonShape
-import com.adevinta.spark.components.snackbars.SnackbarIntent
-import com.adevinta.spark.components.snackbars.SnackbarStyle
 import com.adevinta.spark.tokens.contentColorFor
 import com.adevinta.spark.tokens.dim3
 
@@ -69,7 +67,7 @@ internal object IconButtonDefaults {
     internal val TooltipContentColor @Composable get() = SparkTheme.colors.onSurfaceInverse
 
     /**
-     * The [Shape] for a [PlainTooltipBox]'s container.
+     * The [Shape] for a [com.adevinta.spark.components.popover.TooltipBox]'s container.
      */
     val TooltipContainerShape: Shape
         @Composable get() = SparkTheme.shapes.large
@@ -132,13 +130,9 @@ internal object IconButtonDefaults {
 
     @Composable
     fun ghostIconButtonColorsForSnackbar(
-        style: SnackbarStyle,
-        intent: SnackbarIntent,
+        color: Color,
         containerColor: Color = Color.Transparent,
-        contentColor: Color = when (style) {
-            SnackbarStyle.Filled -> contentColorFor(backgroundColor = intent.filledColor)
-            SnackbarStyle.Tinted -> contentColorFor(backgroundColor = intent.tintedColor)
-        },
+        contentColor: Color = contentColorFor(backgroundColor = color),
         disabledContainerColor: Color = Color.Transparent,
         disabledContentColor: Color = contentColor.dim3,
     ): IconButtonColors = IconButtonColors(
@@ -166,12 +160,6 @@ internal object IconButtonDefaults {
 
 /**
  * Represents the container and content colors used in an icon button in different states.
- *
- * - See [IconButtonDefaults.filledIconButtonColors] and
- * [IconButtonDefaults.filledTonalIconButtonColors] for the default colors used in a
- * [IconButtonFilled].
- * - See [IconButtonDefaults.outlinedIconButtonColors] for the default colors used in an
- * [OutlinedIconButton].
  */
 @Immutable
 // FIXME: Copy from MD. Remove once MD version is updated and constructor is no longer internal

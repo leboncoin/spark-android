@@ -59,16 +59,19 @@ import com.adevinta.spark.components.list.ListItem
 import com.adevinta.spark.components.spacer.VerticalSpacer
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.text.TextLinkButton
-import com.adevinta.spark.icons.LikeFill
+import com.adevinta.spark.icons.HeartFill
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.Store
 import com.adevinta.spark.tokens.highlight
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.launch
 
 private const val BottomSheetExampleSourceUrl = "$SparkSampleSourceUrl/bottomsheet/BottomSheetExamples.kt"
 
 @OptIn(ExperimentalMaterial3Api::class)
-public val BottomSheetExamples: List<Example> = listOf(
+public val BottomSheetExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "list-content",
         name = "BottomSheet List Content",
@@ -217,7 +220,7 @@ private fun ListContent(onHideBottomSheetClicked: () -> Unit) {
                 headlineContent = { Text("Item $it") },
                 leadingContent = {
                     Icon(
-                        SparkIcons.LikeFill,
+                        LeboncoinIcons.HeartFill,
                         contentDescription = "Localized description",
                     )
                 },

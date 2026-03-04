@@ -28,6 +28,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerBasedShape
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -37,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.surface.Surface
@@ -52,10 +54,10 @@ import androidx.compose.material3.Shapes as Material3Shapes
  * - Medium components
  * - Large components
  *
- * @param none A shape style with 4 same-sized corners whose size are equal to [RectangleShape].
+ * @param none A shape style with 4 same-sized corners whose size are equal to [androidx.compose.ui.graphics.RectangleShape].
  * By default app bars, navigation bars, banners, full-screen dialogs, and navigation rails use this shape.
  * @param extraSmall A shape style with 4 same-sized corners whose size are bigger than
- * [RectangleShape] and smaller than [SparkShapes.small]. By default, autocomplete menu, select menu,
+ * [androidx.compose.ui.graphics.RectangleShape] and smaller than [SparkShapes.small]. By default, autocomplete menu, select menu,
  * snackbars, standard menu, and text fields use this shape.
  * @param small A shape style with 4 same-sized corners whose size are bigger than
  * [SparkShapes.extraSmall] and smaller than [SparkShapes.medium]. By default, chips use this shape.
@@ -106,6 +108,19 @@ public fun SparkShapes.asMaterial3Shapes(): Material3Shapes = Material3Shapes(
     large = large,
     extraLarge = extraLarge,
 )
+
+/**
+ * Extension property to get a [CornerBasedShape] with a bottom start of 0.dp.
+ *
+ * ```kotlin
+ * Box(
+ *      modifier = Modifier.clip(SparkTheme.shapes.small.highlight)
+ * )
+ * ```
+ */
+@ExperimentalSparkApi
+public val CornerBasedShape.highlight: CornerBasedShape
+    get() = copy(bottomStart = CornerSize(percent = 0))
 
 /**
  * CompositionLocal used to specify the default shapes for the surfaces.

@@ -58,7 +58,6 @@ internal fun SparkSpinner(
  * @param intent The [SpinnerIntent] colors that will be used to draw the spinner
  * @param modifier the [Modifier] to be applied to this component
  * @param size one of the [SpinnerSize]s that defines the size of the component
- * @param isBackgroundVisible whether a background should be drawn
  */
 @Composable
 public fun Spinner(

@@ -37,13 +37,15 @@ import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.badge.Badge
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.OfferOutline
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.TagOutline
 import com.adevinta.spark.tools.modifiers.ifTrue
 
 /**
  * Outlined chip with dashed border.
+ *
+ * @sample com.adevinta.spark.samples.components.chips.ChipsKind
  * @param intent The [ChipIntent] colors that will be used for the content and background of this chip in
  * different states.
  * @param modifier The [Modifier] to be applied to the component
@@ -183,12 +185,17 @@ internal fun ChipDashedPreview() {
                     ) {
                         Text("Chip")
                     }
-                    ChipDashed(intent.name, intent = intent, leadingIcon = SparkIcons.OfferOutline, enabled = enabled)
+                    ChipDashed(
+                        intent.name,
+                        intent = intent,
+                        leadingIcon = LeboncoinIcons.TagOutline,
+                        enabled = enabled,
+                    )
                     ChipDashed(intent.name, intent = intent, enabled = enabled)
                     ChipDashed(
                         contentDescription = intent.name,
                         intent = intent,
-                        icon = SparkIcons.OfferOutline,
+                        icon = LeboncoinIcons.TagOutline,
                         enabled = enabled,
                     )
                 }

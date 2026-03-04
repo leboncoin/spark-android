@@ -47,6 +47,7 @@ import com.adevinta.spark.catalog.datastore.theme.collectAsStateWithDefault
 import com.adevinta.spark.catalog.model.Components
 import com.adevinta.spark.catalog.themes.ThemeMode
 import com.adevinta.spark.catalog.ui.navigation.provideAssistContent
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -113,7 +114,7 @@ public class MainActivity : AppCompatActivity() {
 
             CatalogApp(
                 theme = theme,
-                components = Components,
+                components = Components.toImmutableList(),
                 onThemeChange = {
                     coroutineScope.launch {
                         propertiesHandler.updateProperties(it)

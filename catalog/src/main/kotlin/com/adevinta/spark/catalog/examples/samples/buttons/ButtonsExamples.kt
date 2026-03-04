@@ -43,13 +43,16 @@ import com.adevinta.spark.components.buttons.ButtonGhost
 import com.adevinta.spark.components.buttons.ButtonOutlined
 import com.adevinta.spark.components.buttons.ButtonTinted
 import com.adevinta.spark.components.buttons.IconSide
-import com.adevinta.spark.icons.LikeFill
+import com.adevinta.spark.icons.HeartFill
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 private const val ButtonsExampleDescription = "Button examples"
 private const val ButtonsExampleSourceUrl = "$SampleSourceUrl/ButtonSamples.kt"
-public val ButtonsExamples: List<Example> = listOf(
+public val ButtonsExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "filled",
         name = "Filled Button",
@@ -232,7 +235,7 @@ private fun ButtonSample(
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        val icon = SparkIcons.LikeFill
+        val icon = LeboncoinIcons.HeartFill
         var isLoading by remember { mutableStateOf(false) }
         val buttonText = "Filled Button"
 

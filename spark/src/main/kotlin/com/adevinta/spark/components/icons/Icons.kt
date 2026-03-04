@@ -196,11 +196,14 @@ public fun Icon(
 @Composable
 public fun rememberSparkIconPainter(sparkIcon: SparkIcon, atEnd: Boolean = false): Painter = when (sparkIcon) {
     is SparkIcon.Vector -> rememberVectorPainter(sparkIcon.imageVector)
+
     is SparkIcon.DrawableRes -> rememberDrawablePainter(getDrawable(LocalContext.current, sparkIcon.drawableId))
+
     is SparkIcon.AnimatedDrawableRes -> {
         val icon = AnimatedImageVector.animatedVectorResource(sparkIcon.drawableId)
         rememberAnimatedVectorPainter(icon, atEnd)
     }
+
     is SparkIcon.AnimatedPainter -> sparkIcon.painterProvider(atEnd)
 }
 

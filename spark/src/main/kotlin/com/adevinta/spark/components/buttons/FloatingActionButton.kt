@@ -42,6 +42,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.icons.Icon
+import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.PenOutline
 import com.adevinta.spark.icons.SparkIcon
@@ -281,7 +282,7 @@ public fun ExtendedFloatingActionButton(
  * The other extended floating action button overload is for FABs without an icon.
  *
  * Default content description for accessibility is extended from the extended fabs icon. For custom
- * behavior, you can provide your own via [Modifier.semantics].
+ * behavior, you can provide your own via `Modifier.semantics`.
  *
  * @param text label displayed inside this FAB
  * @param icon icon to show inside the FAB

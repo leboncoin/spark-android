@@ -11,14 +11,10 @@ places like:
 - Cards
 - Toolbars
 
-|       | Filled                                                                                                          | Outlined                                                                                                          | Tinted                                                                                                          | Ghost                                                                                                          | Contrast                                                                                                          |
-|-------|-----------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
-| Light | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttonfilledintents_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttonoutlinedintents_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttontintedintents_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttonghostintents_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttoncontrastintents_light.png) |
-| Dark  | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttonfilledintents_dark.png)  | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttonoutlinedintents_dark.png)  | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttontintedintents_dark.png)  | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttonghostintents_dark.png)  | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttoncontrastintents_dark.png)  |
-
-### Sizes
-
-![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttonsizes_light.png)
+| Light                                                                              | Dark                                                                              |
+|------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
+| ![](../../images/com.adevinta.spark.buttons_ButtonScreenshot_large_light.png)      | ![](../../images/com.adevinta.spark.buttons_ButtonScreenshot_large_dark.png)      |
+| ![](../../images/com.adevinta.spark.buttons_ButtonScreenshot_medium_light.png)     | ![](../../images/com.adevinta.spark.buttons_ButtonScreenshot_medium_dark.png)     |
 
 The minimal usage of the component is the text and the click action.
 
@@ -50,9 +46,9 @@ ButtonFilled(
 )
 ```
 
-| Light                                                                                                    | Dark                                                                                                    |
-|----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttonfilled_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttonfilled_dark.png) |
+| Light                                                                          | Dark                                                                          |
+|--------------------------------------------------------------------------------|-------------------------------------------------------------------------------|
+| ![](../../images/com.adevinta.spark.buttons_ButtonScreenshot_large_light.png)  | ![](../../images/com.adevinta.spark.buttons_ButtonScreenshot_large_dark.png)  |
 
 #### ButtonOutlined
 
@@ -70,10 +66,6 @@ ButtonOutlined(
 )
 ```
 
-| Light                                                                                                      | Dark                                                                                                      |
-|------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttonoutlined_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttonoutlined_dark.png) |
-
 #### ButtonTinted
 
 Tinted buttons are medium-emphasis buttons that is an alternative middle ground between
@@ -90,16 +82,12 @@ ButtonTinted(
 )
 ```
 
-| Light                                                                                                    | Dark                                                                                                    |
-|----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttontinted_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttontinted_dark.png) |
-
 #### ButtonGhost
 
 Ghost buttons are used for the lowest priority actions, especially when presenting multiple options.
 
 Ghost buttons can be placed on a variety of backgrounds. Until the button is interacted with, its
-container isn’t visible.
+container isn't visible.
 This button style is often used inside other components like snackbars, dialogs, and cards.
 
 ```kotlin
@@ -108,10 +96,6 @@ ButtonGhost(
     onClick = { /*Click event*/ },
 )
 ```
-
-| Light                                                                                                   | Dark                                                                                                   |
-|---------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttonghost_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttonghost_dark.png) |
 
 #### ButtonContrast
 
@@ -124,7 +108,3 @@ ButtonContrast(
     onClick = { /*Click event*/ },
 )
 ```
-
-| Light                                                                                                      | Dark                                                                                                      |
-|------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttoncontrast_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttoncontrast_dark.png) |

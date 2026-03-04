@@ -70,7 +70,7 @@ public val PopoverConfigurator: Configurator = Configurator(
     name = "Popover",
     description = "Popover configuration",
     sourceUrl = "$SampleSourceUrl/PopoverSamples.kt",
-) {
+) { _, _ ->
     PopoverSample()
 }
 

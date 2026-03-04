@@ -237,5 +237,6 @@ private fun lerp(from: PathNode, to: PathNode, fraction: Float): PathNode = when
     }
 
     is PathNode.RelativeArcTo -> TODO("Support for RelativeArcTo not implemented yet")
+
     is PathNode.ArcTo -> TODO("Support for ArcTo not implemented yet")
 }

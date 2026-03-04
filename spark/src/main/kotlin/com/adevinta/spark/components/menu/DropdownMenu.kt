@@ -22,6 +22,7 @@
 package com.adevinta.spark.components.menu
 
 import android.annotation.SuppressLint
+import androidx.annotation.RestrictTo
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.Interaction
@@ -51,6 +52,7 @@ import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
@@ -69,6 +71,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
 import com.adevinta.spark.ExperimentalSparkApi
+import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.R
 import com.adevinta.spark.SparkTheme
@@ -77,10 +80,11 @@ import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.textfields.MultiChoiceComboBox
 import com.adevinta.spark.components.textfields.SingleChoiceComboBox
 import com.adevinta.spark.icons.Check
+import com.adevinta.spark.icons.GearOutline
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.MailOutline
 import com.adevinta.spark.icons.PenFill
 import com.adevinta.spark.icons.SparkIcons
-import com.adevinta.spark.icons.WheelOutline
 import com.adevinta.spark.tokens.ElevationTokens
 import com.adevinta.spark.tokens.EmphasizeDim1
 import com.adevinta.spark.tokens.SparkColors
@@ -105,7 +109,7 @@ import androidx.compose.material3.DropdownMenu as MaterialDropdownMenu
  * The [content] of a [DropdownMenu] will typically be [DropdownMenuItem]s, as well as custom
  * content. Using [DropdownMenuItem]s will result in a menu that matches the Material
  * specification for menus. Also note that the [content] is placed inside a scrollable [Column],
- * so using a [LazyColumn] as the root layout inside [content] is unsupported.
+ * so using a [androidx.compose.foundation.lazy.LazyColumn] as the root layout inside [content] is unsupported.
  *
  * [onDismissRequest] will be called when the menu should close for example when there is a
  * tap outside the menu, or when the back key is pressed.
@@ -185,7 +189,7 @@ public fun ExposedDropdownMenuBoxScope.ExposedDropdownMenu(
         containerColor = SparkTheme.colors.surface,
         tonalElevation = ElevationTokens.Level0,
         shadowElevation = ElevationTokens.Level2,
-        matchTextFieldWidth = matchTextFieldWidth,
+        matchAnchorWidth = matchTextFieldWidth,
         border = null,
         content = {
             val scope = remember { DropdownMenuItemWrapper(this) }
@@ -229,7 +233,7 @@ public fun ExposedDropdownMenuBoxScope.SingleChoiceExposedDropdownMenu(
         containerColor = SparkTheme.colors.surface,
         tonalElevation = ElevationTokens.Level0,
         shadowElevation = ElevationTokens.Level2,
-        matchTextFieldWidth = matchTextFieldWidth,
+        matchAnchorWidth = matchTextFieldWidth,
         border = null,
         content = {
             val scope = remember { SingleChoiceDropdownItemWrapper(this) }
@@ -271,7 +275,7 @@ public fun ExposedDropdownMenuBoxScope.MultipleChoiceExposedDropdownMenu(
         containerColor = SparkTheme.colors.surface,
         tonalElevation = ElevationTokens.Level2,
         shadowElevation = ElevationTokens.Level2,
-        matchTextFieldWidth = matchTextFieldWidth,
+        matchAnchorWidth = matchTextFieldWidth,
         border = null,
         content = {
             val scope = remember { MultiChoiceDropdownItemWrapper(this) }
@@ -281,15 +285,21 @@ public fun ExposedDropdownMenuBoxScope.MultipleChoiceExposedDropdownMenu(
 }
 
 /** Scope for the children of a [DropdownMenu] */
-public interface DropdownMenuItemColumnScope : ColumnScope
+@Immutable
+public sealed interface DropdownMenuItemColumnScope : ColumnScope
 
 /** Scope for the children of a [SingleChoiceComboBox] */
-public interface SingleChoiceDropdownItemColumnScope : DropdownMenuItemColumnScope
+@Immutable
+public sealed interface SingleChoiceDropdownItemColumnScope : DropdownMenuItemColumnScope
 
 /** Scope for the children of a [MultiChoiceComboBox] */
-public interface MultiChoiceDropdownItemColumnScope : DropdownMenuItemColumnScope
+@Immutable
+public sealed interface MultiChoiceDropdownItemColumnScope : DropdownMenuItemColumnScope
 
-private class DropdownMenuItemWrapper(scope: ColumnScope) :
+// Needed to be able to test Group Item in screenshots
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
+@InternalSparkApi
+public class DropdownMenuItemWrapper(scope: ColumnScope) :
     DropdownMenuItemColumnScope,
     ColumnScope by scope
 
@@ -690,19 +700,19 @@ public fun DropdownMenuItemColumnScope.NoContentItem(
  * @param title The title label of the group, it's styled in [SparkTypography.body1] and colored in emphasis [SparkColors.dim1]
  * @param modifier The modifier to be applied to the Group.
  */
+@SuppressLint("ComposeUnstableReceiver") // Used as namespace
 @Composable
 @ExperimentalSparkApi
-public fun DropdownMenuGroupItem(
+public fun <T : DropdownMenuItemColumnScope> T.DropdownMenuGroupItem(
     title: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    content: @Composable DropdownMenuItemColumnScope.() -> Unit,
+    content: @Composable T.() -> Unit,
 ) {
     Column(modifier = modifier.sparkUsageOverlay()) {
         SectionHeadline {
             title()
         }
-        val scope = remember { DropdownMenuItemWrapper(this) }
-        scope.content()
+        this@DropdownMenuGroupItem.content()
     }
 }
 
@@ -746,7 +756,7 @@ private fun DropdownMenuItemPreview() {
             enabled = false,
             leadingIcon = {
                 Icon(
-                    SparkIcons.WheelOutline,
+                    LeboncoinIcons.GearOutline,
                     contentDescription = null,
                 )
             },
@@ -788,9 +798,33 @@ private fun DropdownMenuGroupItemPreview() {
         padding = PaddingValues(0.dp),
         contentPadding = 0.dp,
     ) {
-        DropdownMenuGroupItem(
-            title = { Text("Logiciel") },
-        ) {
+        with(DropdownMenuItemWrapper(this)) {
+            DropdownMenuGroupItem(
+                title = { Text("Logiciel") },
+            ) {
+                SparkDropdownMenuItem(
+                    text = { Text("Edit") },
+                    leadingIcon = {
+                        Icon(
+                            SparkIcons.PenFill,
+                            contentDescription = null,
+                        )
+                    },
+                )
+                SparkDropdownMenuItem(
+                    text = { Text("Save") },
+                )
+                SparkDropdownMenuItem(
+                    text = { Text("Settings") },
+                    enabled = false,
+                    leadingIcon = {
+                        Icon(
+                            LeboncoinIcons.GearOutline,
+                            contentDescription = null,
+                        )
+                    },
+                )
+            }
             SparkDropdownMenuItem(
                 text = { Text("Edit") },
                 leadingIcon = {
@@ -803,28 +837,6 @@ private fun DropdownMenuGroupItemPreview() {
             SparkDropdownMenuItem(
                 text = { Text("Save") },
             )
-            SparkDropdownMenuItem(
-                text = { Text("Settings") },
-                enabled = false,
-                leadingIcon = {
-                    Icon(
-                        SparkIcons.WheelOutline,
-                        contentDescription = null,
-                    )
-                },
-            )
         }
-        SparkDropdownMenuItem(
-            text = { Text("Edit") },
-            leadingIcon = {
-                Icon(
-                    SparkIcons.PenFill,
-                    contentDescription = null,
-                )
-            },
-        )
-        SparkDropdownMenuItem(
-            text = { Text("Save") },
-        )
     }
 }

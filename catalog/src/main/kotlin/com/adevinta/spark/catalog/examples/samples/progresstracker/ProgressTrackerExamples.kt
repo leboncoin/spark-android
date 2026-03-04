@@ -28,6 +28,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -40,11 +41,12 @@ import com.adevinta.spark.components.progress.tracker.ProgressStep
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerColumn
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerIntent
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerRow
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
 private const val ProgressTrackerExampleSourceUrl = "$SampleSourceUrl/ProgressTrackerSamples.kt"
 
-public val ProgressTrackerExamples: List<Example> = listOf(
+public val ProgressTrackerExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "default",
         name = "Default",
@@ -143,7 +145,7 @@ private fun ColumnScope.ProgressTrackerDefault() {
 @Composable
 @Preview
 private fun ColumnScope.ProgressTrackerControlled() {
-    var selectedStep by remember { mutableIntStateOf(0) }
+    var selectedStep: Int? by remember { mutableStateOf(0) }
     val items = persistentListOf(
         ProgressStep("Lorem ipsume", true),
         ProgressStep("Lorem ipsume dolar sit amet", true),
@@ -181,7 +183,7 @@ private fun ColumnScope.ProgressTrackerControlled() {
 @Composable
 @Preview
 private fun ColumnScope.ProgressTrackerDisabled() {
-    var selectedStep by remember { mutableIntStateOf(0) }
+    var selectedStep: Int? by remember { mutableStateOf(0) }
     val items = persistentListOf(
         ProgressStep("Lorem ipsume", true),
         ProgressStep("Lorem ipsume dolar sit amet", false),

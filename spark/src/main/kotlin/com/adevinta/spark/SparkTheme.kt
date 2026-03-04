@@ -32,7 +32,6 @@ import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.LocalRippleConfiguration
-import androidx.compose.material3.LocalUseFallbackRippleImplementation
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.RippleConfiguration
@@ -148,7 +147,6 @@ public fun SparkTheme(
         LocalSparkFeatureFlag provides sparkFeatureFlag,
         LocalSparkExceptionHandler provides exceptionHandler,
         LocalWindowSizeClass provides currentWindowAdaptiveInfo().windowSizeClass,
-        LocalUseFallbackRippleImplementation provides false,
         LocalIndication provides rippleIndication,
     ) {
         MaterialTheme(
@@ -282,10 +280,14 @@ public object SparkTheme {
  * behaviors at consumers
  */
 public val LocalSparkExceptionHandler: ProvidableCompositionLocal<SparkExceptionHandler> =
-    staticCompositionLocalOf { error("SparkExceptionHandler not provided") }
+    staticCompositionLocalOf {
+        error(
+            "SparkExceptionHandler not provided. This likely means that you are using a Component without a SparkTheme",
+        )
+    }
 
 internal val LocalSparkFeatureFlag: ProvidableCompositionLocal<SparkFeatureFlag> = staticCompositionLocalOf {
-    error("SparkFeatureFlag not provided")
+    error("SparkFeatureFlag not provided. This likely means that you are using a Component without a SparkTheme")
 }
 
 /**

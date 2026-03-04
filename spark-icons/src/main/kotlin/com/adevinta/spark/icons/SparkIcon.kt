@@ -26,7 +26,6 @@ import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 
-@Stable
 /**
  * A unified representation of different icon types used in the Spark design system.
  *
@@ -36,6 +35,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
  *
  * It also allows spark components to enforce consumers to use the icons from the design system.
  */
+@Stable
 public sealed interface SparkIcon {
 
     /**

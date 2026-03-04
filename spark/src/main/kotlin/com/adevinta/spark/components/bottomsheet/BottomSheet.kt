@@ -64,8 +64,8 @@ import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.list.ListItem
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.toggles.CheckboxLabelled
-import com.adevinta.spark.icons.LikeFill
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.HeartFill
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.tokens.contentColorFor
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 import kotlinx.coroutines.launch
@@ -79,13 +79,6 @@ import kotlinx.coroutines.launch
  *
  * @param onDismissRequest
  * @param modifier Optional [Modifier] for the bottom sheet.
- * @param showHandle Optional [Boolean] to show / hide handle, if handle is hidden it will fill all screen.
- *
- *
- * @param contentTopPadding The top padding for the content of the bottom sheet, does not apply to the handle.
- *
- * By default if showHandle is [Boolean.true]. contentTopPadding = [SheetDefaults.ContentTopPadding]
- * else contentTopPadding = [SheetDefaults.ContentTopPaddingNoHandle]
  *
  * If you want to have immersive BottomSheet, you can set contentTopPadding = 0.dp,
  * Beware you need to set your content top padding yourself
@@ -125,11 +118,9 @@ public fun BottomSheet(
  * required action has been taken.
  **
  * A simple example of a modal bottom sheet looks like this:
- * @param contentTopPadding The top padding for the content of the bottom sheet, does not apply to the handle.
  * @param onDismissRequest Executes when the user clicks outside of the bottom sheet, after sheet
  * animates to [androidx.compose.material3.SheetValue.Hidden].
  * @param modifier Optional [Modifier] for the bottom sheet.
- * @param showHandle Optional [Boolean] to show / hide handle, if handle is hidden it will fill all screen.
  * @param sheetState The state of the bottom sheet.
  * @param shape The shape of the bottom sheet.
  * @param containerColor The color used for the background of this bottom sheet
@@ -138,8 +129,6 @@ public fun BottomSheet(
  * the matching content color for [containerColor],
  * or to the current [androidx.compose.material3.LocalContentColor] if [containerColor] is not a color from the theme.
  *
- * @param tonalElevation The tonal elevation of this bottom sheet.
- * @param scrimColor Color of the scrim that obscures content when the bottom sheet is open.
  * @param dragHandle Optional visual marker to swipe the bottom sheet.
  * @param content The content to be displayed inside the bottom sheet.
  */
@@ -259,7 +248,7 @@ private fun ModalBottomSheetSample() {
                         headlineContent = { Text("Item $it") },
                         leadingContent = {
                             Icon(
-                                SparkIcons.LikeFill,
+                                LeboncoinIcons.HeartFill,
                                 contentDescription = "Localized description",
                             )
                         },

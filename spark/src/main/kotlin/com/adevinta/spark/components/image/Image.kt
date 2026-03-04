@@ -55,7 +55,6 @@ import coil3.asImage
 import coil3.compose.AsyncImagePainter
 import coil3.compose.SubcomposeAsyncImage
 import coil3.compose.SubcomposeAsyncImageContent
-import coil3.compose.rememberAsyncImagePainter
 import coil3.decode.DataSource
 import coil3.request.ErrorResult
 import coil3.request.ImageRequest
@@ -70,11 +69,12 @@ import com.adevinta.spark.components.icons.rememberSparkIconPainter
 import com.adevinta.spark.components.placeholder.illustrationPlaceholder
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.ErrorPhoto
-import com.adevinta.spark.icons.NoPhoto
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.StrokeImage
 import com.adevinta.spark.icons.Tattoo
+import com.adevinta.spark.icons.WarningImage
 import com.adevinta.spark.tokens.EmphasizeDim2
 import com.adevinta.spark.tools.SparkExceptionHandler
 import com.adevinta.spark.tools.modifiers.ifNotNull
@@ -90,10 +90,10 @@ public fun SparkImage(
     // Useful to preview different states
     transform: (AsyncImagePainter.State) -> AsyncImagePainter.State = AsyncImagePainter.DefaultTransform,
     onState: ((State) -> Unit)? = null,
-    emptyIcon: @Composable () -> Unit = { ImageIconState(SparkIcons.NoPhoto) },
+    emptyIcon: @Composable () -> Unit = { ImageIconState(LeboncoinIcons.StrokeImage) },
     errorIcon: @Composable () -> Unit = {
         ImageIconState(
-            sparkIcon = SparkIcons.ErrorPhoto,
+            sparkIcon = LeboncoinIcons.WarningImage,
             color = SparkTheme.colors.errorContainer,
         )
     },
@@ -109,16 +109,11 @@ public fun SparkImage(
     val emptyStateIcon = remember(emptyIcon) {
         movableContentOf(emptyIcon)
     }
-    val painter = rememberAsyncImagePainter(
-        model = model,
-        transform = transform,
-        onState = { onState?.invoke(it.asImageState()) },
-    )
     val exceptionHandler = LocalSparkExceptionHandler.current
     SubcomposeAsyncImage(
         modifier = modifier
             .layout { measurable, constraints ->
-                constraints.checkThatImageHasDefinedSize(exceptionHandler)
+                constraints.checkThatImageHasDefinedSize(exceptionHandler, model)
 
                 val placeable = measurable.measure(constraints)
                 layout(placeable.width, placeable.height) {
@@ -146,6 +141,7 @@ public fun SparkImage(
         val input by painter.input.collectAsStateWithLifecycle()
         when (state) {
             AsyncImagePainter.State.Empty -> emptyStateIcon()
+
             is AsyncImagePainter.State.Loading -> loadingPlaceholder()
 
             is AsyncImagePainter.State.Error -> {
@@ -210,10 +206,10 @@ public fun Image(
     contentDescription: String?,
     modifier: Modifier = Modifier,
     onState: ((State) -> Unit)? = null,
-    emptyIcon: @Composable () -> Unit = { ImageIconState(SparkIcons.NoPhoto) },
+    emptyIcon: @Composable () -> Unit = { ImageIconState(LeboncoinIcons.StrokeImage) },
     errorIcon: @Composable () -> Unit = {
         ImageIconState(
-            sparkIcon = SparkIcons.ErrorPhoto,
+            sparkIcon = LeboncoinIcons.WarningImage,
             color = SparkTheme.colors.errorContainer,
         )
     },
@@ -275,29 +271,33 @@ internal fun ImageIconState(
     }
 }
 
-private fun Constraints.checkThatImageHasDefinedSize(exceptionHandler: SparkExceptionHandler) {
+private fun Constraints.checkThatImageHasDefinedSize(exceptionHandler: SparkExceptionHandler, model: Any?) {
     val isWidthBounded = hasBoundedWidth
     val isHeightBounded = hasBoundedHeight
     val hasMinWidth = minWidth != 0
     val hasMinHeight = minHeight != 0
     if (!isWidthBounded) {
         exceptionHandler.handleException(
-            IllegalStateException("Image must have a bounded width but was hasBoundedWidth: $isWidthBounded"),
+            IllegalStateException(
+                "Image must have a bounded width but was hasBoundedWidth: $isWidthBounded for model: $model",
+            ),
         )
     }
     if (!isHeightBounded) {
         exceptionHandler.handleException(
-            IllegalStateException("Image must have a bounded height but was hasBoundedHeight: $isHeightBounded"),
+            IllegalStateException(
+                "Image must have a bounded height but was hasBoundedHeight: $isHeightBounded for model: $model",
+            ),
         )
     }
     if (!hasMinWidth) {
         exceptionHandler.handleException(
-            IllegalStateException("Image must have a minimum width but has minWidth: $minWidth"),
+            IllegalStateException("Image must have a minimum width but has minWidth: $minWidth for model: $model"),
         )
     }
     if (!hasMinHeight) {
         exceptionHandler.handleException(
-            IllegalStateException("Image must have a minimum height but has minHeight: $minHeight"),
+            IllegalStateException("Image must have a minimum height but has minHeight: $minHeight for model: $model"),
         )
     }
 }
