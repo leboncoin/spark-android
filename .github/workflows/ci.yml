@@ -59,12 +59,12 @@ jobs:
         id: build
         run: ./gradlew assembleRelease
       - name: 📦 Archive APKs
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: apk
           path: '**/build/outputs/apk/**/*.apk'
       - name: 📦 Archive AARs
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: aar
           path: '**/build/outputs/aar'
@@ -169,7 +169,7 @@ jobs:
       - name: 📋 Build Dokka
         run: ./gradlew dokkaGeneratePublicationHtml
       - name: 📦 Archive Dokka
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: dokka
           path: build/dokka
@@ -194,10 +194,11 @@ jobs:
         with:
           version: latest
           config: lava.yaml
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: lava-metrics.json
           path: metrics.json
+          archive: false
 
   finish:
     name: 🏁 Finish
