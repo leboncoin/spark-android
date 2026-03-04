@@ -81,6 +81,7 @@ import com.adevinta.spark.icons.PenOutline
 import com.adevinta.spark.icons.Plus
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.ElevationTokens
+import com.adevinta.spark.tokens.SparkColors
 import com.adevinta.spark.tokens.applyTonalElevation
 import com.adevinta.spark.tokens.contentColorFor
 
@@ -225,7 +226,7 @@ public class SparkBottomAppBarScrollBehavior(
  * @param contentColor the preferred color for content inside this BottomAppBar. Defaults to either
  * the matching content color for [containerColor], or to the current [LocalContentColor] if
  * [containerColor] is not a color from the theme.
- * @param elevation when [containerColor] is [ColorScheme.surface], a translucent main color
+ * @param elevation when [containerColor] is [SparkColors.surface], a translucent main color
  * overlay is applied on top of the container. A higher tonal elevation value will result in a
  * darker color in light theme and lighter color in dark theme. See also: [Surface].
  * @param contentPadding the padding applied to the content of this BottomAppBar
@@ -291,7 +292,7 @@ public fun BottomAppBar(
  * @param contentColor the preferred color for content inside this BottomAppBar. Defaults to either
  * the matching content color for [containerColor], or to the current [LocalContentColor] if
  * [containerColor] is not a color from the theme.
- * @param elevation when [containerColor] is [ColorScheme.surface], a translucent main color
+ * @param elevation when [containerColor] is [SparkColors.surface], a translucent main color
  * overlay is applied on top of the container. A higher tonal elevation value will result in a
  * darker color in light theme and lighter color in dark theme. See also: [Surface].
  * @param contentPadding the padding applied to the content of this BottomAppBar

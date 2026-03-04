@@ -12,12 +12,12 @@ Most commonly chip contains an optional `leadingIcon` and the text.
 
 ### Styles
 
-The chip can have one of the [ChipStyles](ChipStyles.kt):
-- [Outlined](ChipOutlined.kt) - using a solid border stroke and no background
-- [Tinted](ChipTinted.kt) - using one of the "containers" colors
-- [Dashed](ChipDashed.kt) - using a dashed border and no background
+The chip can have one of the `ChipStyles`:
+- `Outlined` - using a solid border stroke and no background
+- `Tinted` - using one of the "containers" colors
+- `Dashed` - using a dashed border and no background
 
-The color is set using one of the [ChipIntent](ChipIntent.kt)s:
+The color is set using one of the `ChipIntent`s:
 - Basic (default color)
 - Accent
 - Main

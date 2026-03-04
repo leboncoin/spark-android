@@ -3,8 +3,7 @@
 [Switches](https://spark.adevinta.com/1186e1705/p/58a2c6-switch/b/700a17) can be used in forms on a
 full page, in modals, or on side panels.
 They can be used in a list but we shouldn’t mix them with other components such
-as [Checkboxes](./CheckBox.md) or
-[Radio buttons](./RadioButton.md).
+as `Checkbox` or `RadioButton`.
 
 Switches must respect the established color code and not use other colors to emphasize the
 activation and deactivation of a functionality or service.
@@ -20,7 +19,7 @@ It is also used to control binary options (On/Off or True/False).
 ### SwitchLabelled
 
 The minimal usage of the component is a standalone checkbox but you can add a label
-using [SwitchLabelled](Switch.kt).
+using `SwitchLabelled`.
 Please refer to design specs to find what content is accepted.
 
 - An icon can be added on the right of label.

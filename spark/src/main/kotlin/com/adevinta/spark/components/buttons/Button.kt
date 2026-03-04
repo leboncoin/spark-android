@@ -230,7 +230,7 @@ public object SparkButtonDefaults {
     internal val IconSpacing: Dp = ButtonDefaults.IconSpacing
 
     /**
-     * The default content padding used by [TextButton]
+     * The default content padding used by Buttons
      */
     internal fun buttonContentPadding(size: ButtonSize) = PaddingValues(
         horizontal = 16.dp,
@@ -238,7 +238,7 @@ public object SparkButtonDefaults {
     )
 
     /**
-     * The default content padding used by [TextButton]
+     * The default content padding used by [com.adevinta.spark.components.text.TextLinkButton]
      */
     internal fun textlinkButtonContentPadding(size: ButtonSize) = PaddingValues(
         horizontal = 0.dp,

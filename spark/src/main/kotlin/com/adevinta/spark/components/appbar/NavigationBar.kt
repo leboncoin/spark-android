@@ -99,9 +99,8 @@ internal fun SparkNavigationBar(
  * [NavigationBar] component.
  *
  * @param modifier the [Modifier] to be applied to this navigation bar
- * @param elevation when [containerColor] is [ColorScheme.surface], a translucent main color
- * overlay is applied on top of the container. A higher tonal elevation value will result in a
- * darker color in light theme and lighter color in dark theme. See also: [Surface].
+ * @param elevation A higher elevation value will result in a more diffused shadow in light theme and
+ * lighter color in dark theme. See also: [Surface].
  * @param windowInsets a window insets of the navigation bar.
  * @param content the content of this navigation bar, typically 3-5 [NavigationBarItem]s
  */

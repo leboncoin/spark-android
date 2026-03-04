@@ -54,10 +54,10 @@ import androidx.compose.material3.Shapes as Material3Shapes
  * - Medium components
  * - Large components
  *
- * @param none A shape style with 4 same-sized corners whose size are equal to [RectangleShape].
+ * @param none A shape style with 4 same-sized corners whose size are equal to [androidx.compose.ui.graphics.RectangleShape].
  * By default app bars, navigation bars, banners, full-screen dialogs, and navigation rails use this shape.
  * @param extraSmall A shape style with 4 same-sized corners whose size are bigger than
- * [RectangleShape] and smaller than [SparkShapes.small]. By default, autocomplete menu, select menu,
+ * [androidx.compose.ui.graphics.RectangleShape] and smaller than [SparkShapes.small]. By default, autocomplete menu, select menu,
  * snackbars, standard menu, and text fields use this shape.
  * @param small A shape style with 4 same-sized corners whose size are bigger than
  * [SparkShapes.extraSmall] and smaller than [SparkShapes.medium]. By default, chips use this shape.

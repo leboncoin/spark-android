@@ -21,7 +21,7 @@ Icon buttons come in various styles:
 
 ### Sizes
 
-Icon buttons come in 3 sizes [IconButtonSize](IconButtonSize.kt):
+Icon buttons come in 3 sizes `IconButtonSize`:
 
 - small - 32.dp (however, the minimum touch size is applied and is 44.dp)
 - medium - 44.dp (default)
@@ -32,7 +32,7 @@ for `IconButtonSize.Large`
 ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_iconbuttons_iconbuttons_light.png)
 
 ### Shapes
-Icon buttons come in 3 shapes [ButtonShape](ButtonShape.kt) :
+Icon buttons come in 3 shapes `ButtonShape`:
 - Square
 - Rounded (default)
 - Pill

@@ -15,7 +15,7 @@ to indicate how long an activity will take.
 
 A visible background may be added to display a background behind the spinner.
 
-All intents from Spark are available for this component ([SpinnerIntent](SpinnerIntent.kt)).
+All intents from Spark are available for this component (`SpinnerIntent`).
 
 - Basic
 - Accent
@@ -29,7 +29,7 @@ All intents from Spark are available for this component ([SpinnerIntent](Spinner
 - Neutral
 - Current (default)
 
-The spinner has two sizes ([SpinnerSize](SpinnerDefaults.kt)):
+The spinner has two sizes (`SpinnerSize`):
 
 - Small (20.dp)
 - Medium (28.dp)

@@ -96,7 +96,8 @@ import java.io.File
  * @param modifier Modifier to be applied to the component.
  * @param clearContentDescription Content description for the clear button. If null, defaults to "Remove ${file.name}".
  * @param onClick Optional callback invoked when the file preview is clicked. If null, the preview is not clickable.
- * @param clearIcon Icon to use for the clear button. Defaults to [SparkIcons.Close].
+ * @param clearIcon Icon to use for the clear button. Defaults to [LeboncoinIcons.Cross].
+ * @sample com.adevinta.spark.components.fileupload.FilePreviewStatesSamples
  */
 @InternalSparkApi
 @Composable

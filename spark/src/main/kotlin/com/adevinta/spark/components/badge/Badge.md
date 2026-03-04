@@ -9,7 +9,7 @@ such as counts or status. A badge can include labels or numbers.
 | Dark  | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_badge_badgenostroke_dark.png)  | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_badge_badgewithstroke_dark.png)  |
 
 The default value of overflowCount is 99. When count is larger than 99, a `+` is displayed.
-A badge can be used as a part of [`BadgedBox`](#layout) or as a standalone when it is not attached visually to
+A badge can be used as a part of `BadgedBox` (see Layout section) or as a standalone when it is not attached visually to
 a specific relative element.
 
 Badge content can contain:
@@ -38,7 +38,7 @@ If no content is passed, an empty badge is drawn.
 A 2px stroke is displayed by default. But it can be removed if needed.
 When no count is displayed in the badge, the badge is smaller but still round.
 
-Badge accepts the following [BadgeIntent](BadgeIntent.kt)s :
+Badge accepts the following `BadgeIntent`s:
 
 - Basic
 - Accent
