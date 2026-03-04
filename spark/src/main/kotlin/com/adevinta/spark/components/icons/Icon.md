@@ -37,8 +37,3 @@ Icon(
     size = IconSize.Large,
 )
 ```
-
-|       | Colors and sizes                                                                              |
-|-------|-----------------------------------------------------------------------------------------------|
-| Light | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_icon_icon_light.png) |
-| Dark  | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_icon_icon_dark.png)  |
