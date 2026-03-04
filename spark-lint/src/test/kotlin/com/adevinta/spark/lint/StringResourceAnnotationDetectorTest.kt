@@ -81,11 +81,11 @@ public class StringResourceAnnotationDetectorTest : LintDetectorTest() {
         .expect(
             """
                 res/values/strings.xml:3: Error: unknown is not a valid color value.
-                Supported values are [main, support, success, alert, error, info, neutral, accent]. [UnsupportedAnnotationAttributeValueDetector]
+                Supported values are [main, support, success, alert, error, info, neutral, accent]. [UnsupportedAnnotationAttributeValue]
                                         <string name="example"><annotation color="unknown" typography="unknown">Example</annotation></string>
                                                                            ~~~~~~~~~~~~~~~
                 res/values/strings.xml:3: Error: unknown is not a valid typography value.
-                Supported values are [display1, display2, display3, headline1, headline2, subhead, large, body1, body2, caption, small, callout]. [UnsupportedAnnotationAttributeValueDetector]
+                Supported values are [display1, display2, display3, headline1, headline2, subhead, large, body1, body2, caption, small, callout]. [UnsupportedAnnotationAttributeValue]
                                         <string name="example"><annotation color="unknown" typography="unknown">Example</annotation></string>
                                                                                            ~~~~~~~~~~~~~~~~~~~~
                 2 errors, 0 warnings

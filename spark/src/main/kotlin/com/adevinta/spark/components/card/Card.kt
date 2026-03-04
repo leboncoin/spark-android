@@ -22,6 +22,7 @@
 package com.adevinta.spark.components.card
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope

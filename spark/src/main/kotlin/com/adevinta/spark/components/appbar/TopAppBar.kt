@@ -90,6 +90,7 @@ import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconButton
+import com.adevinta.spark.components.icons.IconToggleButton
 import com.adevinta.spark.components.navigation.UpNavigationIcon
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
@@ -115,7 +116,7 @@ import kotlin.math.roundToInt
  * @param title the title to be displayed in the top app bar
  * @param modifier the [Modifier] to be applied to this top app bar
  * @param navigationIcon the navigation icon displayed at the start of the top app bar. This should
- * typically be an [IconButton] or [IconToggleButton].
+ * typically be an [IconButton] or [com.adevinta.spark.components.icons.IconToggleButton].
  * @param actions the actions displayed at the end of the top app bar. This should typically be
  * [IconButton]s. The default layout here is a [Row], so icons inside will be placed horizontally.
  * @param windowInsets a window insets that app bar will respect.
@@ -922,8 +923,10 @@ private fun TopAppBarLayout(
             titlePlaceable.placeRelative(
                 x = when (titleHorizontalArrangement) {
                     Arrangement.Center -> (constraints.maxWidth - titlePlaceable.width) / 2
+
                     Arrangement.End ->
                         constraints.maxWidth - titlePlaceable.width - actionIconsPlaceable.width
+
                     // Arrangement.Start.
                     // An TopAppBarTitleInset will make sure the title is offset in case the
                     // navigation icon is missing.
@@ -931,6 +934,7 @@ private fun TopAppBarLayout(
                 },
                 y = when (titleVerticalArrangement) {
                     Arrangement.Center -> (layoutHeight - titlePlaceable.height) / 2
+
                     // Apply bottom padding from the title's baseline only when the Arrangement is
                     // "Bottom".
                     Arrangement.Bottom ->
@@ -944,6 +948,7 @@ private fun TopAppBarLayout(
                                     titleBottomPadding - titlePlaceable.height + titleBaseline,
                                 )
                         }
+
                     // Arrangement.Top
                     else -> 0
                 },

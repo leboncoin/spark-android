@@ -105,6 +105,7 @@ public enum class ThemeMode {
 public enum class UserMode {
     Part,
     Pro,
+    Rebranding,
 }
 
 public enum class NavigationMode(

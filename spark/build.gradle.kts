@@ -22,9 +22,9 @@
 plugins {
     alias(libs.plugins.spark.library)
     alias(libs.plugins.spark.compose)
-    alias(libs.plugins.spark.dokka)
     alias(libs.plugins.spark.publishing)
     alias(libs.plugins.spark.dependencyGuard)
+    alias(libs.plugins.spark.dokka)
 }
 
 android {
@@ -81,6 +81,9 @@ dependencies {
     api(platform(libs.coil.bom))
     api(libs.coil.compose)
     api(libs.kotlinx.collections.immutable)
+    // FileKit for file picker dialogs in the configurator
+    api(libs.filekit)
+    api(libs.filekit.dialogs)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlin.test)

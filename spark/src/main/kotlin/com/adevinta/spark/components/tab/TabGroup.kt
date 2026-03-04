@@ -54,10 +54,11 @@ import com.adevinta.spark.components.badge.Badge
 import com.adevinta.spark.components.divider.HorizontalDivider
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.tab.TabGroupDefaults.tabIndicatorOffset
-import com.adevinta.spark.icons.AccountFill
-import com.adevinta.spark.icons.MessageOutline
-import com.adevinta.spark.icons.Search
+import com.adevinta.spark.icons.BubbleTextOutline
+import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.MagnifierOutline
 import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.UserFill
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -150,7 +151,7 @@ internal fun SparkTabGroup(
                 val maxEqualTabWidth = (tabRowWidth - oversizedTabs.sum()) / (tabCount - oversizedTabs.size)
                 tabWidthList = tabWidthList.map { maxOf(maxEqualTabWidth, it) }
             }
-            val tabContentWidths = mutableListOf<Dp>()
+            mutableListOf<Dp>()
             val tabPlaceables = tabMeasurables.mapIndexed { i, tab ->
                 tab.measure(
                     if (scrollable) {
@@ -345,9 +346,9 @@ public fun TabGroup(
 private fun TabGroupPreview() {
     val tabs = mutableListOf(
         Pair("Home", null) to 0,
-        Pair("Search", SparkIcons.Search) to 0,
-        Pair("Message", SparkIcons.MessageOutline) to 0,
-        Pair(null, SparkIcons.AccountFill) to 0,
+        Pair("Search", LeboncoinIcons.MagnifierOutline) to 0,
+        Pair("Message", LeboncoinIcons.BubbleTextOutline) to 0,
+        Pair(null, LeboncoinIcons.UserFill) to 0,
     )
     var selectedIndex by remember { mutableIntStateOf(0) }
     PreviewTheme {
@@ -383,7 +384,7 @@ private fun TabGroupPreview() {
 private fun TabGroupFixedSizePreview() {
     val tabs = mutableListOf(
         Pair("Home", null) to 0,
-        Pair("Message", SparkIcons.MessageOutline) to 1,
+        Pair("Message", LeboncoinIcons.BubbleTextOutline) to 1,
     )
     var selectedIndex by remember { mutableIntStateOf(1) }
     PreviewTheme {

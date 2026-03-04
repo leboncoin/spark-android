@@ -42,10 +42,10 @@ import kotlinx.coroutines.sync.withLock
 import kotlin.coroutines.resume
 
 /**
- * Host for [Snackbar]s to be used in [Scaffold] to properly show, hide and dismiss items based
+ * Host for [Snackbar]s to be used in [com.adevinta.spark.components.scaffold.Scaffold] to properly show, hide and dismiss items based
  * on Material specification and the [hostState].
  *
- * This component with default parameters comes build-in with [Scaffold], if you need to show a
+ * This component with default parameters comes build-in with [com.adevinta.spark.components.scaffold.Scaffold], if you need to show a
  * default [Snackbar], use [SnackbarHostState.showSnackbar].
  *
  * @param hostState state of this component to read and show [Snackbar]s accordingly
@@ -82,8 +82,8 @@ public fun SnackbarHost(
  * State of the [SnackbarHost], which controls the queue and the current [Snackbar] being shown
  * inside the [SnackbarHost].
  *
- * This state is usually [remember]ed and used to provide a
- * [SnackbarHost] to a [Scaffold].
+ * This state is usually `remember`ed and used to provide a
+ * [SnackbarHost] to a [com.adevinta.spark.components.scaffold.Scaffold].
  */
 @Stable
 public class SnackbarHostState {
@@ -94,7 +94,7 @@ public class SnackbarHostState {
 
     /**
      * Shows or queues to be shown a [Snackbar] at the bottom of
-     * the [Scaffold] to which this state
+     * the [com.adevinta.spark.components.scaffold.Scaffold] to which this state
      * is attached and suspends until the snackbar has disappeared.
      *
      * [SnackbarHostState] guarantees to show at most one snackbar at a time. If this function is
@@ -103,15 +103,12 @@ public class SnackbarHostState {
      * from display and/or the queue to be displayed.
      *
      * To change the Snackbar appearance, change it in 'snackbarHost'
-     * on the [Scaffold].
+     * on the [com.adevinta.spark.components.scaffold.Scaffold].
      * @param message The message to display in the Snackbar.
-     * @param icon The icon to display in the Snackbar.
+     * @param icon An optional icon to override the default intent icon.
      * @param intent The intent of the Snackbar.
-     * @param style The style of the Snackbar.
+     * @param title An optional title to be displayed above the message.
      * @param actionLabel optional action label to show as button in the Snackbar
-     * @param withDismissAction a boolean to show a dismiss action in the Snackbar. This is
-     * recommended to be set to true for better accessibility when a Snackbar is set with a
-     * [SnackbarDuration.Indefinite]
      * @param duration duration to control how long snackbar will be shown in [SnackbarHost], either
      * [SnackbarDuration.Short], [SnackbarDuration.Long] or [SnackbarDuration.Indefinite].
      *
@@ -122,10 +119,9 @@ public class SnackbarHostState {
         message: String,
         actionLabel: String? = null,
         icon: SparkIcon? = null,
+        title: String? = null,
         intent: SnackbarIntent = SnackbarDefaults.intent,
-        style: SnackbarStyle = SnackbarDefaults.style,
         withDismissAction: Boolean = false,
-        actionOnNewLine: Boolean = false,
         duration: SnackbarDuration = if (actionLabel == null) {
             SnackbarDuration.Short
         } else {
@@ -134,19 +130,18 @@ public class SnackbarHostState {
     ): SnackbarResult = showSnackbar(
         SnackbarSparkVisuals(
             message = message,
-            icon = icon,
-            style = style,
             intent = intent,
+            icon = icon,
+            title = title,
             actionLabel = actionLabel,
             withDismissAction = withDismissAction,
-            actionOnNewLine = actionOnNewLine,
             duration = duration,
         ),
     )
 
     /**
      * Shows or queues to be shown a [Snackbar] at
-     * the bottom of the [Scaffold] to which this state
+     * the bottom of the [com.adevinta.spark.components.scaffold.Scaffold] to which this state
      * is attached and suspends until the snackbar has disappeared.
      *
      * [SnackbarHostState] guarantees to show at most one snackbar at a time. If this function is

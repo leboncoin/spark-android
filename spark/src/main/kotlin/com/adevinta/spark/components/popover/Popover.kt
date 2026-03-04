@@ -30,6 +30,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.RichTooltipColors
+import androidx.compose.material3.TooltipAnchorPosition
 import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.TooltipState
 import androidx.compose.material3.rememberTooltipState
@@ -57,7 +58,8 @@ import com.adevinta.spark.components.popover.PopoverDefaults.PopoverMinHeight
 import com.adevinta.spark.components.popover.PopoverDefaults.PopoverMinWidth
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.Close
+import com.adevinta.spark.icons.Cross
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.ElevationTokens
 import com.adevinta.spark.tokens.highlight
@@ -89,7 +91,9 @@ import kotlinx.coroutines.launch
 public fun Popover(
     popover: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    positionProvider: PopupPositionProvider = TooltipDefaults.rememberRichTooltipPositionProvider(),
+    positionProvider: PopupPositionProvider = TooltipDefaults.rememberTooltipPositionProvider(
+        positioning = TooltipAnchorPosition.Above,
+    ),
     intent: PopoverIntent = PopoverIntent.Surface,
     isDismissButtonEnabled: Boolean = false,
     popoverState: TooltipState = rememberTooltipState(isPersistent = true),
@@ -135,7 +139,7 @@ public fun Popover(
                                     end = PopoverDismissButtonPadding,
                                 ),
                             intent = IconButtonIntent.Neutral,
-                            icon = SparkIcons.Close,
+                            icon = LeboncoinIcons.Cross,
                             onClick = { popoverState.dismiss() },
                         )
                     }

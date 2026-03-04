@@ -55,9 +55,10 @@ import com.adevinta.spark.icons.internal.animatePathAsState
  * @see SparkIcon.AnimatedPainter
  * @see SparkIcon.AnimatedDrawableRes
  */
-public object SparkAnimatedIcons
+public object LeboncoinAnimatedIcons
+public typealias SparkAnimatedIcons = LeboncoinAnimatedIcons
 
-public fun SparkAnimatedIcons.collapseExpand(): SparkIcon.AnimatedPainter = SparkIcon.AnimatedPainter { expanded ->
+public fun LeboncoinAnimatedIcons.collapseExpand(): SparkIcon.AnimatedPainter = SparkIcon.AnimatedPainter { expanded ->
     rememberVectorPainter(
         defaultWidth = 24.dp,
         defaultHeight = 24.dp,
@@ -87,7 +88,7 @@ public fun SparkAnimatedIcons.collapseExpand(): SparkIcon.AnimatedPainter = Spar
     }
 }
 
-public fun SparkAnimatedIcons.likeHeart(): SparkIcon.AnimatedPainter = SparkIcon.AnimatedPainter { filled ->
+public fun LeboncoinAnimatedIcons.likeHeart(): SparkIcon.AnimatedPainter = SparkIcon.AnimatedPainter { filled ->
     rememberVectorPainter(
         defaultWidth = 24.dp,
         defaultHeight = 24.dp,
@@ -117,7 +118,7 @@ public fun SparkAnimatedIcons.likeHeart(): SparkIcon.AnimatedPainter = SparkIcon
     }
 }
 
-public fun SparkAnimatedIcons.searchIcon(): SparkIcon.AnimatedPainter = SparkIcon.AnimatedPainter { filled ->
+public fun LeboncoinAnimatedIcons.searchIcon(): SparkIcon.AnimatedPainter = SparkIcon.AnimatedPainter { filled ->
     val animatedScale by animateFloatAsState(
         targetValue = if (filled) 1f else 0f,
         animationSpec = tween(durationMillis = 275, easing = FastOutSlowInEasing),
@@ -169,7 +170,7 @@ public fun SparkAnimatedIcons.searchIcon(): SparkIcon.AnimatedPainter = SparkIco
     }
 }
 
-public fun SparkAnimatedIcons.bellShake(): SparkIcon.AnimatedPainter = SparkIcon.AnimatedPainter {
+public fun LeboncoinAnimatedIcons.bellShake(): SparkIcon.AnimatedPainter = SparkIcon.AnimatedPainter {
     val infiniteTransition = rememberInfiniteTransition(label = "bell_shake")
     val shakeRotation by infiniteTransition.animateFloat(
         initialValue = 0f,
@@ -219,7 +220,7 @@ public fun SparkAnimatedIcons.bellShake(): SparkIcon.AnimatedPainter = SparkIcon
     }
 }
 
-public fun SparkAnimatedIcons.addButton(): SparkIcon.AnimatedPainter = SparkIcon.AnimatedPainter { filled ->
+public fun LeboncoinAnimatedIcons.addButton(): SparkIcon.AnimatedPainter = SparkIcon.AnimatedPainter { filled ->
     val animatedScale by animateFloatAsState(
         targetValue = if (filled) 0f else 1f,
         animationSpec = tween(durationMillis = 300, easing = FastOutSlowInEasing),
@@ -276,7 +277,7 @@ public fun SparkAnimatedIcons.addButton(): SparkIcon.AnimatedPainter = SparkIcon
     }
 }
 
-public fun SparkAnimatedIcons.accountIcon(): SparkIcon.AnimatedPainter = SparkIcon.AnimatedPainter { filled ->
+public fun LeboncoinAnimatedIcons.accountIcon(): SparkIcon.AnimatedPainter = SparkIcon.AnimatedPainter { filled ->
     rememberVectorPainter(
         defaultWidth = 24.dp,
         defaultHeight = 24.dp,
@@ -334,7 +335,7 @@ public fun SparkAnimatedIcons.accountIcon(): SparkIcon.AnimatedPainter = SparkIc
     }
 }
 
-public fun SparkAnimatedIcons.messageIcon(): SparkIcon.AnimatedPainter = SparkIcon.AnimatedPainter { filled ->
+public fun LeboncoinAnimatedIcons.messageIcon(): SparkIcon.AnimatedPainter = SparkIcon.AnimatedPainter { filled ->
     rememberVectorPainter(
         defaultWidth = 24.dp,
         defaultHeight = 24.dp,

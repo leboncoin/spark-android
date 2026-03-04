@@ -120,6 +120,9 @@ internal class TagsScreenshot {
                             style = SparkTheme.typography.headline1,
                         )
                         Style.entries.forEach { style ->
+                            // Skip Surface intent for non-Filled styles
+                            if (intent == TagIntent.Surface && style != Filled) return@forEach
+
                             Column(
                                 modifier = Modifier.padding(8.dp),
                                 verticalArrangement = Arrangement.spacedBy(8.dp),

@@ -68,8 +68,9 @@ import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.image.Image
 import com.adevinta.spark.components.menu.DropdownMenu
 import com.adevinta.spark.components.menu.DropdownMenuItem
+import com.adevinta.spark.icons.GearOutline
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcons
-import com.adevinta.spark.icons.WheelOutline
 import com.adevinta.spark.tokens.applyTonalElevation
 import com.adevinta.spark.tools.modifiers.invisibleSemantic
 import kotlinx.collections.immutable.persistentListOf
@@ -122,7 +123,7 @@ public fun ComponentConfiguratorItem(
                         onClick(component, configurator.id)
                         expanded = false
                     },
-                    leadingIcon = { Icon(SparkIcons.WheelOutline, contentDescription = null) },
+                    leadingIcon = { Icon(LeboncoinIcons.GearOutline, contentDescription = null) },
                 )
             }
         }
@@ -172,7 +173,7 @@ public fun ComponentItem(
                     boundsTransform = boundsTransform,
                     resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
                     clipInOverlayDuringTransition = OverlayClip(RoundedCornerShape(cardRadius)),
-                    placeHolderSize = SharedTransitionScope.PlaceHolderSize.animatedSize,
+                    placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
                 ),
             shape = SparkTheme.shapes.extraLarge,
             colors = CardDefaults.elevatedCardColors(containerColor = SparkTheme.colors.surface),
@@ -219,7 +220,7 @@ public fun ComponentItem(
                                 ),
                             ),
                             animatedVisibilityScope = animatedVisibilityScope,
-                            resizeMode = SharedTransitionScope.ResizeMode.ScaleToBounds(),
+                            resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
                         ),
                     style = SparkTheme.typography.body2,
                 )
