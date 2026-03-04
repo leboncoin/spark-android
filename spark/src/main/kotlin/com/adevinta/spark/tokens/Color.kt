@@ -1021,6 +1021,83 @@ public class SparkColors(
         dimContent5 = dimContent5,
     )
 
+    /**
+     * Required by the [Kelp](https://github.com/ozontech/kelp) Android Studio plugin to render
+     * color swatches in the IDE gutter and code completion menu.
+     *
+     * Property naming convention: `name_lightARGB_darkARGB`
+     */
+    @Suppress("unused")
+    private class KelpColorPreview {
+        // Main
+        val main_FFEC5A13_FFF07B42 = Unit
+        val onMain_FFFFFFFF_FF2F1305 = Unit
+        val mainContainer_FFFFE9DE_FF89380F = Unit
+        val onMainContainer_FF89380F_FFFFF2EB = Unit
+        val mainVariant_FFB84A14_FFF49D71 = Unit
+        val onMainVariant_FFFFFFFF_FF2F1305 = Unit
+        // Support
+        val support_FF094171_FFC2E0FA = Unit
+        val onSupport_FFFFFFFF_FF152233 = Unit
+        val supportContainer_FFE6F2FD_FF094171 = Unit
+        val onSupportContainer_FF152233_FFF4F9FE = Unit
+        val supportVariant_FF0C5291_FFE6F2FD = Unit
+        val onSupportVariant_FFFFFFFF_FF152233 = Unit
+        // Accent
+        val accent_FF8526D9_FFCFA3F5 = Unit
+        val onAccent_FFFFFFFF_FF1B052E = Unit
+        val accentContainer_FFE9D6FA_FF501782 = Unit
+        val onAccentContainer_FF360F57_FFF5EDFD = Unit
+        val accentVariant_FF501782_FFB775F0 = Unit
+        val onAccentVariant_FFFFFFFF_FF1B052E = Unit
+        // Basic
+        val basic_FF094171_FFC2E0FA = Unit
+        val onBasic_FFFFFFFF_FF152233 = Unit
+        val basicContainer_FFE6F2FD_FF094171 = Unit
+        val onBasicContainer_FF152233_FFF4F9FE = Unit
+        // Background
+        val background_FFFFFFFF_FF202730 = Unit
+        val onBackground_FF152233_FFF6F8F9 = Unit
+        val backgroundVariant_FFF4F9FE_FF000000 = Unit
+        val onBackgroundVariant_FF152233_FFF6F8F9 = Unit
+        // Surface
+        val surface_FFFFFFFF_FF202730 = Unit
+        val onSurface_FF152233_FFF6F8F9 = Unit
+        val surfaceInverse_FF2B3441_FFF6F8F9 = Unit
+        val onSurfaceInverse_FFFFFFFF_FF2B3441 = Unit
+        val surfaceDark_FF2B3441_FF2B3441 = Unit
+        val onSurfaceDark_FFFFFFFF_FFFFFFFF = Unit
+        // Outline / Scrim
+        val outline_FFACB8C7_FF6C819D = Unit
+        val outlineHigh_FF202730_FFF0F2F5 = Unit
+        val scrim_FF000000_FF000000 = Unit
+        // Success
+        val success_FF1D6340_FF8ECDAE = Unit
+        val onSuccess_FFFFFFFF_FF0C291B = Unit
+        val successContainer_FFE0F2E9_FF1D6340 = Unit
+        val onSuccessContainer_FF1D6340_FFF5FBF8 = Unit
+        // Alert
+        val alert_FFFFAA00_FFFFCC66 = Unit
+        val onAlert_FF202730_FF332200 = Unit
+        val alertContainer_FFFFEECC_FF664400 = Unit
+        val onAlertContainer_FF664400_FFFFF6E5 = Unit
+        // Error
+        val error_FFAD291F_FFE8867D = Unit
+        val onError_FFFFFFFF_FF2B0B08 = Unit
+        val errorContainer_FFF7D7D4_FF822017 = Unit
+        val onErrorContainer_FF822017_FFFBECEB = Unit
+        // Info
+        val info_FF0C5291_FF9FCEF7 = Unit
+        val onInfo_FFFFFFFF_FF152233 = Unit
+        val infoContainer_FFC2E0FA_FF094171 = Unit
+        val onInfoContainer_FF0C5291_FFF4F9FE = Unit
+        // Neutral
+        val neutral_FF3A4757_FFD0D7DF = Unit
+        val onNeutral_FFFFFFFF_FF202730 = Unit
+        val neutralContainer_FFF0F2F5_FF3A4757 = Unit
+        val onNeutralContainer_FF3A4757_FFF6F8F9 = Unit
+    }
+
     override fun toString(): String = buildString {
         append("SparkColors(")
         append("accent=$accent, ")

@@ -1,32 +1,33 @@
 {
   "componentFunHighlighting": [{
-    "functionFqnPrefix": "com.your.designsystem.package.components.",
-    "functionSimpleNamePrefix": "Ds"
+    "functionFqnPrefix": "com.adevinta.spark.components.",
+    "functionSimpleNamePrefix": ""
   }],
   "colorPreview": {
     "codeCompletionEnabled": true,
-    "gutterEnabled": true,
-    "enumColorTokensEnabled": true
+    "gutterEnabled": true
   },
   "inlayHints": {
-    "enabled": true,
-    "enums": true
+    "enabled": true
   },
-  "iconsRendering": [{
+  "iconsRendering": {
     "codeCompletionEnabled": true,
     "gutterEnabled": true,
-    "containerClassName": "com.your.designsystem.package.DsIcons",
-
+    "containerClassName": "com.adevinta.spark.icons.LeboncoinIcons",
     "propertyNameFilter": {
-      "startsWith": ["ic_"],
-      "doesNotStartWith": ["allIconsAsList", "otherProperty"]
+      "startsWith": [
+        ""
+      ],
+      "doesNotStartWith": [
+        "allIconsAsList",
+        "otherProperty"
+      ]
     },
-
     "propertyToResourceMapper": {
-      "addPrefix": "ic_",
+      "addPrefix": "spark_icons_lbc_",
       "convertToSnakeCase": true
     }
-  }],
+  },
   "demoApp": {
     "intentionName": "🚀 Open in MY CUSTOM design system demo app",
     "functionFilters": [
@@ -41,28 +42,59 @@
   },
   "liveTemplates": [
     {
-      "abbreviation": "dt",
-      "text": "com.your.designsystem.DsTheme.$CODE_COMPLETION$",
-      "description": "Writes \"DsTheme.\"",
-      "variables": [{ "name": "CODE_COMPLETION", "expression": "complete()" }]
+      "abbreviation": "spt",
+      "text": "com.adevinta.spark.SparkTheme.$CODE_COMPLETION$",
+      "description": "Writes \"SparkTheme.\"",
+      "variables": [
+        {
+          "name": "CODE_COMPLETION",
+          "expression": "complete()"
+        }
+      ]
     },
     {
-      "abbreviation": "dtc",
-      "text": "com.your.designsystem.DsTheme.colors.$CODE_COMPLETION$",
-      "description": "Writes \"DsTheme.colors.\"",
-      "variables": [{ "name": "CODE_COMPLETION", "expression": "complete()" }]
+      "abbreviation": "sptc",
+      "text": "com.adevinta.spark.SparkTheme.colors.$CODE_COMPLETION$",
+      "description": "Writes \"SparkTheme.colors.\"",
+      "variables": [
+        {
+          "name": "CODE_COMPLETION",
+          "expression": "complete()"
+        }
+      ]
     },
     {
-      "abbreviation": "dtt",
-      "text": "com.your.designsystem.DsTheme.typography.$CODE_COMPLETION$",
-      "description": "Writes \"DsTheme.typography.\"",
-      "variables": [{ "name": "CODE_COMPLETION", "expression": "complete()" }]
+      "abbreviation": "sptt",
+      "text": "com.adevinta.spark.SparkTheme.typography.$CODE_COMPLETION$",
+      "description": "Writes \"SparkTheme.typography.\"",
+      "variables": [
+        {
+          "name": "CODE_COMPLETION",
+          "expression": "complete()"
+        }
+      ]
     },
     {
-      "abbreviation": "dti",
-      "text": "com.your.designsystem.DsTheme.icons.$CODE_COMPLETION$",
-      "description": "Writes \"DsTheme.icons.\"",
-      "variables": [{ "name": "CODE_COMPLETION", "expression": "complete()" }]
+      "abbreviation": "spts",
+      "text": "com.adevinta.spark.SparkTheme.shapes.$CODE_COMPLETION$",
+      "description": "Writes \"SparkTheme.shapes.\"",
+      "variables": [
+        {
+          "name": "CODE_COMPLETION",
+          "expression": "complete()"
+        }
+      ]
+    },
+    {
+      "abbreviation": "spi",
+      "text": "com.adevinta.spark.icons.LeboncoinIcons.$CODE_COMPLETION$",
+      "description": "Writes \"LeboncoinIcons.\"",
+      "variables": [
+        {
+          "name": "CODE_COMPLETION",
+          "expression": "complete()"
+        }
+      ]
     },
     {
       "abbreviation": "rmso",
@@ -70,11 +102,23 @@
       "description": "Creates mutableStateOf",
       "reformat": true,
       "variables": [
-        { "name": "VAL_TYPE", "expression": "enum(\"var\", \"val\")" },
-        { "name": "NAME" },
-        { "name": "VALUE", "expression": "enum(\"false\", \"null\", \"0\", \"0f\")" }
+        {
+          "name": "VAL_TYPE",
+          "expression": "enum(\"var\", \"val\")"
+        },
+        {
+          "name": "NAME"
+        },
+        {
+          "name": "VALUE",
+          "expression": "enum(\"false\", \"null\", \"0\", \"0f\")"
+        }
       ],
-      "context": ["KOTLIN_CLASS", "KOTLIN_STATEMENT", "KOTLIN_TOPLEVEL"]
+      "context": [
+        "KOTLIN_CLASS",
+        "KOTLIN_STATEMENT",
+        "KOTLIN_TOPLEVEL"
+      ]
     }
   ]
 }
