@@ -107,6 +107,7 @@ internal class SparkDokkaPlugin : Plugin<Project> {
             // Skip packages that have no documented items after applying the above filters
             skipEmptyPackages.set(true)
         }
+
         pluginsConfiguration.named<DokkaHtmlPluginParameters>("html") {
             footerMessage.set("© ${Year.now().value} Adevinta")
         }

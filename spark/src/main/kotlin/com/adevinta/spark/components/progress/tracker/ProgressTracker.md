@@ -13,8 +13,8 @@ selection.
 
 |            | Light                                                                                                                | Dark                                                                                                                |
 |------------|----------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
-| Horizontal | ![](../../images/com.adevinta.spark.progress.tracker_ProgressTrackerDocScreenshot_progressRowShowcase__light.png)    | ![](../../images/com.adevinta.spark.progress.tracker_ProgressTrackerDocScreenshot_progressRowShowcase__dark.png)    |
-| Vertical   | ![](../../images/com.adevinta.spark.progress.tracker_ProgressTrackerDocScreenshot_progressColumnShowcase__light.png) | ![](../../images/com.adevinta.spark.progress.tracker_ProgressTrackerDocScreenshot_progressColumnShowcase__dark.png) |
+| Horizontal | ![](../../images/com.adevinta.spark.progress.tracker_ProgressTrackerDocScreenshot_progressRowShowcase_light.png)    | ![](../../images/com.adevinta.spark.progress.tracker_ProgressTrackerDocScreenshot_progressRowShowcase_dark.png)    |
+| Vertical   | ![](../../images/com.adevinta.spark.progress.tracker_ProgressTrackerDocScreenshot_progressColumnShowcase_light.png) | ![](../../images/com.adevinta.spark.progress.tracker_ProgressTrackerDocScreenshot_progressColumnShowcase_dark.png) |
 
 The minimal usage of the component is the step list to be displayed.
 

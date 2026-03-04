@@ -55,34 +55,27 @@ fun SegmentedGaugeShort(
 
 ### Five-Segment Gauge Types
 
-| Type | Description | Light Theme | Dark Theme |
-|------|-------------|-------------|------------|
-| VeryHigh | Excellent/Optimal status | ![VeryHigh Light](screenshots/segmentedGauge_five_segment_types_light.png) | ![VeryHigh Dark](screenshots/segmentedGauge_five_segment_types_dark.png) |
-| High | Good/Above average status | ![High Light](screenshots/segmentedGauge_five_segment_types_light.png) | ![High Dark](screenshots/segmentedGauge_five_segment_types_dark.png) |
-| Medium | Average/Neutral status | ![Medium Light](screenshots/segmentedGauge_five_segment_types_light.png) | ![Medium Dark](screenshots/segmentedGauge_five_segment_types_dark.png) |
-| Low | Below average/Poor status | ![Low Light](screenshots/segmentedGauge_five_segment_types_light.png) | ![Low Dark](screenshots/segmentedGauge_five_segment_types_dark.png) |
-| VeryLow | Critical/Bad status | ![VeryLow Light](screenshots/segmentedGauge_five_segment_types_light.png) | ![VeryLow Dark](screenshots/segmentedGauge_five_segment_types_dark.png) |
+| Light Theme | Dark Theme |
+|-------------|------------|
+| ![Five segment types light](../../images/com.adevinta.spark.components.gauge_SegmentedGaugeDocumentationScreenshots_segmentedGauge_five_segment_types_light.png) | ![Five segment types dark](../../images/com.adevinta.spark.components.gauge_SegmentedGaugeDocumentationScreenshots_segmentedGauge_five_segment_types_dark.png) |
 
 ### Three-Segment Gauge Types
 
-| Type | Description | Light Theme | Dark Theme |
-|------|-------------|-------------|------------|
-| VeryHigh | Excellent/Optimal status | ![VeryHigh Light](screenshots/segmentedGauge_three_segment_types_light.png) | ![VeryHigh Dark](screenshots/segmentedGauge_three_segment_types_dark.png) |
-| Low | Below average/Poor status | ![Low Light](screenshots/segmentedGauge_three_segment_types_light.png) | ![Low Dark](screenshots/segmentedGauge_three_segment_types_dark.png) |
-| VeryLow | Critical/Bad status | ![VeryLow Light](screenshots/segmentedGauge_three_segment_types_light.png) | ![VeryLow Dark](screenshots/segmentedGauge_three_segment_types_dark.png) |
+| Light Theme | Dark Theme |
+|-------------|------------|
+| ![Three segment types light](../../images/com.adevinta.spark.components.gauge_SegmentedGaugeDocumentationScreenshots_segmentedGauge_three_segment_types_light.png) | ![Three segment types dark](../../images/com.adevinta.spark.components.gauge_SegmentedGaugeDocumentationScreenshots_segmentedGauge_three_segment_types_dark.png) |
 
 ### Sizes
 
-| Size | Width × Height | Indicator Size | Example |
-|------|----------------|----------------|---------|
-| Small | 24 × 8 dp | 12 dp | ![Small Size](screenshots/segmentedGauge_sizes_light.png) |
-| Medium | 34 × 12 dp | 16 dp | ![Medium Size](screenshots/segmentedGauge_sizes_light.png) |
+| Light Theme | Dark Theme |
+|-------------|------------|
+| ![Sizes light](../../images/com.adevinta.spark.components.gauge_SegmentedGaugeDocumentationScreenshots_segmentedGauge_sizes_light.png) | ![Sizes dark](../../images/com.adevinta.spark.components.gauge_SegmentedGaugeDocumentationScreenshots_segmentedGauge_sizes_dark.png) |
 
 ### Custom Colors
 
-When semantic colors don't fit your use case, you can provide custom colors:
-
-![Custom Colors](screenshots/segmentedGauge_custom_colors_light.png)
+| Light Theme | Dark Theme |
+|-------------|------------|
+| ![Custom colors light](../../images/com.adevinta.spark.components.gauge_SegmentedGaugeDocumentationScreenshots_segmentedGauge_custom_colors_light.png) | ![Custom colors dark](../../images/com.adevinta.spark.components.gauge_SegmentedGaugeDocumentationScreenshots_segmentedGauge_custom_colors_dark.png) |
 
 ## Usage Examples
 
@@ -126,7 +119,7 @@ fun ContactPurchaseScore(score: Int) {
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Text("Purchase Potential:")
-        SegmentedGaugeShort(type = gaugeType) { Text("Potential of $score") 
+        SegmentedGaugeShort(type = gaugeType) { Text("Potential of $score")
     }
 }
 ```
