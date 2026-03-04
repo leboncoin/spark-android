@@ -69,7 +69,7 @@ import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
  * and changes @param checked by `true` or `false`
  * @param icons a content to be drawn inside the IconToggleButton,
  * should show one of [IconToggleButtonIcons] values that sets checked and unchecked
- * @param colors [IconButtonColors] that will be used to resolve the colors used for this icon
+ * @param colors IconButtonColors that will be used to resolve the colors used for this icon
  * button in different states.
  * @param modifier the [Modifier] to be applied to this icon button
  * @param enabled controls the enabled state of this icon button. When `false`, this component will
