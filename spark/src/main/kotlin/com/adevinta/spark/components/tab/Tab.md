@@ -5,7 +5,7 @@ related content, allowing users to navigate views without leaving the page. They
 least two items and one tab is active at a time. Tabs can be used on full page layouts or in
 components such as modals, cards, or side panels.
 
-![](../../images/com.adevinta.spark.tab_TabsDocScreenshot_tabsIntentShowcase__light.png)
+![](../../images/com.adevinta.spark.tab_TabsDocScreenshot_tabsIntentShowcase_light.png)
 
 Most commonly chip contains an `leadingIcon` and/ or the `text`, but you can also provide a
 custom `trailingContent`. It is mandatory to provide `contentDescription` for `icon` only tabs.
@@ -31,7 +31,7 @@ The tabs accept 2 colors `TabIntent`s:
 
 | Light                                                                                    | Dark                                                                                                   |
 |------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark.tab_TabsDocScreenshot_tabsIntentShowcase__light.png) | ![](../../images/com.adevinta.spark.tab_TabsDocScreenshot_tabsIntentShowcase__dark.png) |
+| ![](../../images/com.adevinta.spark.tab_TabsDocScreenshot_tabsIntentShowcase_light.png) | ![](../../images/com.adevinta.spark.tab_TabsDocScreenshot_tabsIntentShowcase_dark.png) |
 
 ### TabGroup
 
