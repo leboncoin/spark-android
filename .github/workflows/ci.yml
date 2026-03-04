@@ -173,7 +173,10 @@ jobs:
         with:
           name: dokka
           path: build/dokka
-      - run: linkchecker build/dokka --file-output=html --no-status
+      - run: >-
+          linkchecker build/dokka
+          --ignore-url='/--root--[.]html'
+          --file-output=html --no-status
         id: linkchecker
       - name: 📦 Archive linkchecker
         if: ${{ !cancelled() }}
