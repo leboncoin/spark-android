@@ -82,7 +82,7 @@ import kotlinx.coroutines.launch
  *
  * If you want to have immersive BottomSheet, you can set contentTopPadding = 0.dp,
  * Beware you need to set your content top padding yourself
- * to avoid content to be hidden by the handle at least [SheetDefaults.ContentTopPadding]
+ * to avoid content to be hidden by the handle at least SheetDefaults.ContentTopPadding
  *
  *
  * @param sheetState the state of the bottom sheet.
