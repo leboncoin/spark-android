@@ -8,7 +8,7 @@ Only one snackbar may be displayed at a time.
 
 | Light                                                                                                | Dark                                                                                             |
 |------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark.snackbar_SnackbarDocScreenshot_snackbarDocScreenshot__light.png) | ![](../../images/com.adevinta.spark.snackbar_SnackbarDocScreenshot_snackbarDocScreenshot__dark.png) |
+| ![](../../images/com.adevinta.spark.snackbar_SnackbarDocScreenshot_snackbarDocScreenshot_light.png) | ![](../../images/com.adevinta.spark.snackbar_SnackbarDocScreenshot_snackbarDocScreenshot_dark.png) |
 
 ## Basic Usage
 

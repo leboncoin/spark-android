@@ -1,7 +1,7 @@
 # Package com.adevinta.spark.components.iconbuttons.toggle
 
 [IconToggleButtons](https://spark.adevinta.com/1186e1705/p/2352e9-icon-button/b/32e1a2) take supplementary
-actions with a single tap. They’re used when a compact button is required, such as in a toolbar or
+actions with a single tap. They're used when a compact button is required, such as in a toolbar or
 image list.
 
 ### Styles
@@ -14,10 +14,9 @@ Icon toggle buttons come in various styles:
 - Contrast
 - Ghost
 
-|       | Filled                                                                                                                           | Outlined                                                                                                                           | Tinted                                                                                                                           | Ghost                                                                                                                           | Contrast                                                                                                                           |
-|-------|----------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
-| Light | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_icontogglebutton_icontogglebuttonfilledsmall_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_icontogglebutton_icontogglebuttonoutlinedsmall_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_icontogglebutton_icontogglebuttontintedsmall_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_icontogglebutton_icontogglebuttonghostsmall_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_icontogglebutton_icontogglebuttoncontrastsmall_light.png) |
-| Dark  | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_icontogglebutton_icontogglebuttonfilledsmall_dark.png)  | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_icontogglebutton_icontogglebuttonoutlinedsmall_dark.png)  | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_icontogglebutton_icontogglebuttontintedsmall_dark.png)  | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_icontogglebutton_icontogglebuttonghostsmall_dark.png)  | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_icontogglebutton_icontogglebuttoncontrastsmall_dark.png)  |
+| Enabled                                                                                    | Disabled                                                                                    | Shapes                                                                                    |
+|--------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|
+| ![](../../images/com.adevinta.spark.iconbutton_IconToggleButtonScreenshot_enabled.png)     | ![](../../images/com.adevinta.spark.iconbutton_IconToggleButtonScreenshot_disabled.png)     | ![](../../images/com.adevinta.spark.iconbutton_IconToggleButtonScreenshot_shape.png)      |
 
 ### Sizes
 
@@ -29,7 +28,6 @@ Icon toggle buttons come in 3 sizes `IconButtonSize`:
 
 The content icon is 16.dp for `IconToggleButtonSize.Small` and `IconToggleButtonSize.Medium`, and 24.dp
 for `IconToggleButtonSize.Large`
-![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_icontogglebuttons_icontogglebuttons_light.png)
 
 ### Intents
 
@@ -58,10 +56,6 @@ fun IconToggleButtonFilled(
 )
 ```
 
-| Light                                                                                                                  | Dark                                                                                                                  |
-|------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_icontogglebutton_icontogglebuttonfilledsmall_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_icontogglebutton_icontogglebuttonfilledsmall_dark.png) |
-
 #### IconToggleButtonOutlined
 
 Outlined icon toggle buttons are used for support actions. The outlined styling places less emphasis on these
@@ -77,10 +71,6 @@ fun IconToggleButtonOutlined(
 )
 ```
 
-| Light                                                                                                                    | Dark                                                                                                                    |
-|--------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_icontogglebutton_icontogglebuttonoutlinedsmall_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_icontogglebutton_icontogglebuttonoutlinedsmall_dark.png) |
-
 #### IconToggleButtonTinted
 
 Tinted icon toggle buttons are medium-emphasis buttons that is an alternative middle ground between
@@ -95,16 +85,12 @@ fun IconToggleButtonTinted(
 )
 ```
 
-| Light                                                                                                                  | Dark                                                                                                                  |
-|------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_icontogglebutton_icontogglebuttontintedsmall_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_icontogglebutton_icontogglebuttontintedsmall_dark.png) |
-
 #### IconToggleButtonGhost
 
 Ghost icon toggle buttons are used for the lowest priority actions, especially when presenting multiple options.
 
 Ghost icon toggle buttons can be placed on a variety of backgrounds. Until the button is interacted with, its
-container isn’t visible.
+container isn't visible.
 This button style is often used inside other components like snackbars, dialogs, and cards.
 
 ```kotlin
@@ -114,10 +100,6 @@ fun IconToggleButtonGhost(
     icons: IconToggleButtonIcons,
 )
 ```
-
-| Light                                                                                                                 | Dark                                                                                                                 |
-|-----------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_icontogglebutton_icontogglebuttonghostsmall_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_icontogglebutton_icontogglebuttonghostsmall_dark.png) |
 
 #### IconToggleButtonContrast
 
@@ -131,7 +113,3 @@ fun IconToggleButtonContrast(
     icons: IconToggleButtonIcons,
 )
 ```
-
-| Light                                                                                                                    | Dark                                                                                                                    |
-|--------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_icontogglebutton_icontogglebuttoncontrastsmall_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_icontogglebutton_icontogglebuttoncontrastsmall_dark.png) |

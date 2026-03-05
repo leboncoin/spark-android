@@ -1,13 +1,13 @@
 [versions]
 accompanist = "0.36.0"
-agp = "9.0.1"
+agp = "9.1.0"
 androidx-activity = "1.12.4"
 androidx-appCompat = "1.7.1"
 compileSdk = "36"
 dokka = "2.2.0-Beta"
 filekit = "0.12.0"
 kotlin = "2.3.10"
-lint = "32.0.1"
+lint = "32.1.0"
 material3 = "1.4.0"
 minCompileSdk = "24"
 targetSdk = "36"
@@ -128,7 +128,7 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 nmcp = "com.gradleup.nmcp:1.4.4"
 paparazzi = "app.cash.paparazzi:2.0.0-alpha04"
-spotless = "com.diffplug.spotless:8.2.1"
+spotless = "com.diffplug.spotless:8.3.0"
 
 
 # Plugins defined by this project

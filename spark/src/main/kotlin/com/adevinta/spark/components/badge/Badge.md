@@ -1,12 +1,9 @@
 # Package com.adevinta.spark.components.badge
 
-[Badges](https://spark.adevinta.com/1186e1705/p/8711ec-badge/b/98915d) convey dynamic information, 
+[Badges](https://spark.adevinta.com/1186e1705/p/8711ec-badge/b/98915d) convey dynamic information,
 such as counts or status. A badge can include labels or numbers.
 
-|       | No Stroke                                                                                               | With Stroke                                                                                               |
-|-------|---------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
-| Light | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_badge_badgenostroke_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_badge_badgewithstroke_light.png) |
-| Dark  | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_badge_badgenostroke_dark.png)  | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_badge_badgewithstroke_dark.png)  |
+![](../../images/com.adevinta.spark.components.badge_BadgeScreenshot_badge.png)
 
 The default value of overflowCount is 99. When count is larger than 99, a `+` is displayed.
 A badge can be used as a part of `BadgedBox` (see Layout section) or as a standalone when it is not attached visually to
@@ -61,11 +58,6 @@ Badge(
     hasStroke = false
 )
 ```
-
-| Light                                                                                                         | Dark                                                                                                         |
-|---------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_badge_badgedboxnostroke_light.png)   | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_badge_badgedboxnostroke_dark.png)   |
-| ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_badge_badgedboxwithstroke_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_badge_badgedboxwithstroke_dark.png) |
 
 ## Layout
 
