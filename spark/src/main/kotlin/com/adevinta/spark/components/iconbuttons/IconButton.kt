@@ -58,7 +58,7 @@ import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
  * compact button is required, such as in a toolbar or image list.
  *
  * @param icon a content to be drawn inside the IconButton
- * @param colors IconButtonColors that will be used to resolve the colors used for this icon
+ * @param colors `IconButtonColors` that will be used to resolve the colors used for this icon
  * button in different states.
  * @param onClick called when this icon button is clicked
  * @param modifier the [Modifier] to be applied to this icon button

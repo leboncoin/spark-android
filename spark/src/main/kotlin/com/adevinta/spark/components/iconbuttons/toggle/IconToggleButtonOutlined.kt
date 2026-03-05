@@ -54,7 +54,7 @@ import com.adevinta.spark.icons.SparkIcons
  * @param icons a content to be drawn inside the IconToggleButton,
  * should show one of [IconToggleButtonIcons] values that sets checked and unchecked
  * @param modifier the [Modifier] to be applied to this icon button
- * @param intent one of [IconButtonIntent] values that will be used to determine IconButtonColors to be applied*
+ * @param intent one of [IconButtonIntent] values that will be used to determine the color to be applied*
  * @param enabled controls the enabled state of this icon button. When `false`, this component will
  * not respond to user input, and it will appear visually disabled and disabled to accessibility
  * services.

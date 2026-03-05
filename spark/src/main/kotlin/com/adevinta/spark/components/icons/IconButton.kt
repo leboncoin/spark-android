@@ -58,7 +58,7 @@ import androidx.compose.material3.OutlinedIconButton as MaterialOutlinedIconButt
  * @param enabled controls the enabled state of this icon button. When `false`, this component will
  * not respond to user input, and it will appear visually disabled and disabled to accessibility
  * services.
- * @param colors [IconButtonColors] that will be used to resolve the colors used for this icon
+ * @param colors `IconButtonColors` that will be used to resolve the colors used for this icon
  * button in different states. See [IconButtonDefaults.iconButtonColors].
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this icon button. You can create and pass in your own `remember`ed instance to observe
@@ -104,7 +104,7 @@ public fun IconButton(
  * not respond to user input, and it will appear visually disabled and disabled to accessibility
  * services.
  * @param shape defines the shape of this icon button's container
- * @param colors [IconButtonColors] that will be used to resolve the colors used for this icon
+ * @param colors `IconButtonColors` that will be used to resolve the colors used for this icon
  * button in different states. See [IconButtonDefaults.filledIconButtonColors].
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this icon button. You can create and pass in your own `remember`ed instance to observe
@@ -157,7 +157,7 @@ public fun FilledIconButton(
  * not respond to user input, and it will appear visually disabled and disabled to accessibility
  * services.
  * @param shape defines the shape of this icon button's container
- * @param colors [IconButtonColors] that will be used to resolve the colors used for this icon
+ * @param colors `IconButtonColors` that will be used to resolve the colors used for this icon
  * button in different states. See [IconButtonDefaults.filledIconButtonColors].
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this icon button. You can create and pass in your own `remember`ed instance to observe
@@ -214,7 +214,7 @@ public fun FilledTonalIconButton(
  * services.
  * @param shape defines the shape of this icon button's container and border (when [border] is not
  * null)
- * @param colors [IconButtonColors] that will be used to resolve the colors used for this icon
+ * @param colors `IconButtonColors` that will be used to resolve the colors used for this icon
  * button in different states. See [IconButtonDefaults.outlinedIconButtonColors].
  * @param border the border to draw around the container of this icon button. Pass `null` for no
  * border. See [IconButtonDefaults.outlinedIconButtonBorder].

@@ -51,4 +51,3 @@ fun ProgressbarIndeterminate(
     isRounded: Boolean
 )
 ```
-
