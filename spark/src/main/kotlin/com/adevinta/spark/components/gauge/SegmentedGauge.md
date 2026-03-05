@@ -59,12 +59,6 @@ fun SegmentedGaugeShort(
 |-------------|------------|
 | ![Five segment types light](../../images/com.adevinta.spark.components.gauge_SegmentedGaugeDocumentationScreenshots_segmentedGauge_five_segment_types_light.png) | ![Five segment types dark](../../images/com.adevinta.spark.components.gauge_SegmentedGaugeDocumentationScreenshots_segmentedGauge_five_segment_types_dark.png) |
 
-### Three-Segment Gauge Types
-
-| Light Theme | Dark Theme |
-|-------------|------------|
-| ![Three segment types light](../../images/com.adevinta.spark.components.gauge_SegmentedGaugeDocumentationScreenshots_segmentedGauge_three_segment_types_light.png) | ![Three segment types dark](../../images/com.adevinta.spark.components.gauge_SegmentedGaugeDocumentationScreenshots_segmentedGauge_three_segment_types_dark.png) |
-
 ### Sizes
 
 | Light Theme | Dark Theme |
