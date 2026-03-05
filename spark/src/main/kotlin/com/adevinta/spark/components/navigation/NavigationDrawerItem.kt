@@ -98,7 +98,7 @@ internal fun SparkNavigationDrawerItem(
  * @param modifier the [Modifier] to be applied to this item
  * @param icon optional icon for this item, typically an [Icon]
  * @param badge optional badge to show on this item from the end side
- * item in different states. See NavigationDrawerItemDefaults.colors.
+ * item in different states. See [NavigationDrawerItemDefaults.colors].
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this item. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this item in different states.

@@ -12,6 +12,11 @@ There are multiple variants available:
 - Determinate progress bar
 - Indeterminate progress bar
 
+|       | Determinate                                                                                                 | Indeterminate                                                                                               |
+|-------|-------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
+| Light | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_progressbar_progressbar_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_progressbar_progressbar_light.png) | 
+| Dark  | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_progressbar_progressbar_dark.png)  | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_progressbar_progressbar_dark.png)  |
+
 ### Border
 
 Progressbar come in 2 border shapes:
@@ -43,6 +48,10 @@ fun Progressbar(
 )
 ```
 
+| Light                                                                                                       | Dark                                                                                                       |
+|-------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
+| ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_progressbar_progressbar_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_progressbar_progressbar_dark.png) |
+
 #### ProgressbarIntermediate
 
 ```kotlin
@@ -52,3 +61,6 @@ fun ProgressbarIndeterminate(
 )
 ```
 
+| Light                                                                                                                  | Dark                                                                                            |
+|------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
+| ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_progressbar_progressbar_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_progressbar_progressbar_dark.png) |
