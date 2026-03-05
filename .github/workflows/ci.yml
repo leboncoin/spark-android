@@ -175,7 +175,7 @@ jobs:
           path: build/dokka
       - run: >-
           linkchecker build/dokka
-          --ignore-url='/--root--[.]html'
+          --ignore-url='/--root--[.]html$'
           --file-output=html --no-status
         id: linkchecker
       - name: 📦 Archive linkchecker
