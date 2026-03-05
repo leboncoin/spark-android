@@ -12,11 +12,6 @@ Dividers are typically placed throughout your UI in places like:
 - Toolbars
 - Dialogs
 
-|       | Horizontal Divider                                                                    | Vertical Divider                                                                    |
-|-------|---------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
-| Light | ![](../../images/com.adevinta.spark.divider_DividerScreenshot_horizontal_0_light.png) | ![](../../images/com.adevinta.spark.divider_DividerScreenshot_vertical_0_light.png) |
-| Dark  | ![](../../images/com.adevinta.spark.divider_DividerScreenshot_horizontal_0_dark.png)  | ![](../../images/com.adevinta.spark.divider_DividerScreenshot_vertical_0_dark.png)  |
-
 #### Horizontal Divider
 ```kotlin
 Column {
