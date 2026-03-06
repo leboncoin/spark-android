@@ -26,6 +26,7 @@ import nmcp.NmcpAggregationExtension
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
+import org.gradle.api.tasks.bundling.Jar
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.configure
@@ -35,6 +36,8 @@ import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.register
 import org.gradle.kotlin.dsl.the
 import org.gradle.plugins.signing.SigningExtension
+import org.jetbrains.dokka.gradle.tasks.DokkaGenerateTask
+import org.jetbrains.kotlin.gradle.utils.named
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.toJavaDuration
 
@@ -90,17 +93,22 @@ internal object SparkPublication {
     }
 
     private fun Project.configureAndroidPublication(publication: MavenPublication) {
+        val dokkaJavadocJar = tasks.register<Jar>("dokkaHtmlJar") {
+            description = "A javadoc JAR containing Dokka HTML documentation"
+            from(tasks.named<DokkaGenerateTask>("dokkaGeneratePublicationHtml").flatMap { it.outputDirectory })
+            archiveClassifier.set("javadoc")
+        }
         configure<LibraryExtension> {
             publishing {
                 singleVariant("release") {
                     withSourcesJar()
-                    withJavadocJar()
                 }
             }
         }
         // AGP creates software components during the afterEvaluate callback step...
         afterEvaluate {
             publication.from(components.getByName("release"))
+            publication.artifact(dokkaJavadocJar)
         }
     }
 
