@@ -78,6 +78,7 @@ import com.adevinta.spark.catalog.examples.samples.tabs.TabsExamples
 import com.adevinta.spark.catalog.examples.samples.tags.TagsExamples
 import com.adevinta.spark.catalog.examples.samples.text.TextLinksExamples
 import com.adevinta.spark.catalog.examples.samples.textfields.DropdownsExamples
+import com.adevinta.spark.catalog.examples.samples.textfields.InputOTPExamples
 import com.adevinta.spark.catalog.examples.samples.textfields.TextFieldsExamples
 import com.adevinta.spark.catalog.examples.samples.toggles.CheckboxExamples
 import com.adevinta.spark.catalog.examples.samples.toggles.IconToggleButtonsExamples
@@ -278,6 +279,18 @@ private val IconToggleButtons = Component(
     sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/components/iconTogglebuttons/IconToggleButton.kt",
     examples = IconToggleButtonsExamples,
     configurators = listOf(IconToggleButtonsConfigurator),
+)
+
+private val InputOTP = Component(
+    id = "inputOTP",
+    name = "InputOTP",
+    illustration = R.drawable.input_textfield,
+    description = R.string.component_inputotp_description,
+    guidelinesUrl = "$ComponentGuidelinesUrl/p/773c60-input--text-field/b/0658e2",
+    docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.textfields/index.html",
+    sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/components/textfields/InputOTP.kt",
+    examples = InputOTPExamples,
+    configurators = emptyList(),
 )
 
 private val Image = Component(
@@ -522,6 +535,7 @@ public val Components: List<Component> = listOf(
     IconButtons,
     IconToggleButtons,
     Image,
+    InputOTP,
     FileUpload,
     Popovers,
     Progressbars,
