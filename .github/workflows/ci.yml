@@ -167,7 +167,7 @@ jobs:
       - run: pip install -r .github/requirements.txt
 
       - name: 📋 Build Dokka
-        run: ./gradlew dokkaGeneratePublicationHtml
+        run: ./gradlew dokkaGeneratePublicationHtml publishToMavenLocal
       - name: 📦 Archive Dokka
         uses: actions/upload-artifact@v7
         with:
