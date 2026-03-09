@@ -68,7 +68,6 @@ import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.icons.Cross
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import io.github.vinceglb.filekit.path
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -236,7 +235,7 @@ private fun ColumnScope.FileUploadSample() {
         VerticalSpacer(8.dp)
 
         allFiles.forEach { file ->
-            Card(
+            Card.Flat(
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 FileStateControls(

@@ -53,7 +53,7 @@ public val CardConfigurator: Configurator = Configurator(
     name = "Card",
     description = "Card configuration",
     sourceUrl = "$SampleSourceUrl/CardSamples.kt",
-) {
+) { _, _ ->
     CardSample()
 }
 
@@ -136,7 +136,7 @@ private fun ColumnScope.CardSample() {
     )
 
     AnimatedVisibility(
-        variant == CardVariant.Outlined
+        variant == CardVariant.Outlined,
     ) {
         ColorSelector(
             title = "Border Color",

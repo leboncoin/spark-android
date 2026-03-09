@@ -89,7 +89,9 @@ internal fun SparkCard(
 ) {
     val border = if (borderColor != Color.Unspecified) {
         BorderStroke(1.dp, borderColor)
-    } else null
+    } else {
+        null
+    }
     Surface(
         modifier = modifier.sparkUsageOverlay(),
         shape = shape,
@@ -105,7 +107,6 @@ internal fun SparkCard(
         }
     }
 }
-
 
 @Composable
 internal fun SparkCard(
@@ -125,7 +126,9 @@ internal fun SparkCard(
     val animatedBackgroundColor by animateColorAsState(color)
     val border = if (borderColor != Color.Unspecified) {
         BorderStroke(1.dp, animatedBorderColor)
-    } else null
+    } else {
+        null
+    }
     Surface(
         onClick = onClick,
         modifier = modifier.sparkUsageOverlay(),
@@ -150,7 +153,7 @@ private fun CardHeading(
     headingColor: Color,
     shape: Shape,
 ) {
-    val cornerSize = if(shape is CornerBasedShape) shape.topStart else CornerSize(16.dp)
+    val cornerSize = if (shape is CornerBasedShape) shape.topStart else CornerSize(16.dp)
     Box(
         modifier = Modifier
             .height(16.dp)
@@ -215,7 +218,8 @@ internal fun SparkCard(
  * more customization. This function is deprecated in favor of the [Card] object variants.
  */
 @Deprecated(
-    message = "Use Card.Flat for a simple card with default styling, or use Card with CardColors for more customization",
+    message = "Use Card.Flat for a simple card with default styling, or use Card with" +
+        " CardColors for more customization",
     replaceWith = ReplaceWith(
         "Card.Flat(modifier = modifier, shape = shape, content = content)",
         "com.adevinta.spark.components.card.Card",
@@ -478,7 +482,8 @@ public object Card {
  * and [CardColors] for more customization. This function is deprecated in favor of the [Card] object variants.
  */
 @Deprecated(
-    message = "Use Card.Flat with onClick for a clickable card with default styling, or use Card with onClick and CardColors for more customization",
+    message = "Use Card.Flat with onClick for a clickable card with default styling, or use Card with " +
+        "onClick and CardColors for more customization",
     replaceWith = ReplaceWith(
         "Card.Flat(onClick = onClick, modifier = modifier, shape = shape, content = content)",
         "com.adevinta.spark.components.card.Card",
@@ -735,7 +740,6 @@ internal fun PreviewCard() {
 @Composable
 internal fun PreviewInteractiveCard() {
     PreviewTheme(color = { SparkTheme.colors.backgroundVariant }) {
-
         Card.Flat(
             onClick = {},
         ) {

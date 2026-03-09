@@ -37,8 +37,8 @@ import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.card.Card
 import com.adevinta.spark.components.icons.Icon
-import com.adevinta.spark.icons.LikeOutline
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.HeartOutline
+import com.adevinta.spark.icons.LeboncoinIcons
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import com.adevinta.spark.components.text.Text as SparkText
@@ -133,7 +133,8 @@ private fun ColumnScope.CardElevated() {
         )
         Card.Elevated {
             SparkText(
-                text = "This is an elevated card with a drop shadow. It provides more separation from the background than flat cards.",
+                text = "This is an elevated card with a drop shadow. It provides more separation from the " +
+                    "background than flat cards.",
             )
         }
         Card.Elevated(
@@ -160,7 +161,8 @@ private fun ColumnScope.CardOutlined() {
         )
         Card.Outlined {
             SparkText(
-                text = "This is an outlined card with a border. It provides clear visual separation from the background.",
+                text = "This is an outlined card with a border. It provides clear visual " +
+                    "separation from the background.",
             )
         }
         Card.Outlined(
@@ -239,7 +241,8 @@ private fun ColumnScope.CardContent() {
                     style = SparkTheme.typography.subhead,
                 )
                 SparkText(
-                    text = "Cards can contain various types of content including text, images, and interactive elements.",
+                    text = "Cards can contain various types of content including text, " +
+                        "images, and interactive elements.",
                 )
             }
         }
@@ -253,7 +256,7 @@ private fun ColumnScope.CardContent() {
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
                     Icon(
-                        sparkIcon = SparkIcons.LikeOutline,
+                        sparkIcon = LeboncoinIcons.HeartOutline,
                         contentDescription = "Heart icon",
                         modifier = Modifier.size(24.dp),
                     )

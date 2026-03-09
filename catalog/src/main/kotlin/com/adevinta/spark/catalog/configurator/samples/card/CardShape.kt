@@ -19,12 +19,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 package com.adevinta.spark.catalog.configurator.samples.card
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Shape
-
 import com.adevinta.spark.SparkTheme
 
 internal enum class CardShape {

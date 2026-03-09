@@ -19,7 +19,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 package com.adevinta.spark.components.card
 
 import androidx.compose.foundation.background
@@ -49,71 +48,67 @@ internal class CardHighlightShape(private val cornerSize: CornerSize) : Shape {
         size: Size,
         layoutDirection: LayoutDirection,
         density: Density,
-    ): Outline {
-        return Outline.Generic(
-            path = drawTicketPath(cornerSize = cornerSize, size = size, density = density),
-        )
-    }
+    ): Outline = Outline.Generic(
+        path = drawTicketPath(cornerSize = cornerSize, size = size, density = density),
+    )
 }
 
-private fun drawTicketPath(cornerSize: CornerSize, size: Size, density: Density): Path {
-    return Path().apply {
-        val cornerRadius = cornerSize.toPx(size, density)
-        // Top left arc
-        arcTo(
-            rect = Rect(
-                left = 0f,
-                top = 0f,
-                right = cornerRadius,
-                bottom = cornerRadius,
-            ),
-            startAngleDegrees = 180.0f,
-            sweepAngleDegrees = 90.0f,
-            forceMoveTo = false,
-        )
-        lineTo(x = size.width - cornerRadius, y = 0f)
-        // Top right arc
-        arcTo(
-            rect = Rect(
-                left = size.width - cornerRadius,
-                top = 0f,
-                right = size.width,
-                bottom = cornerRadius,
-            ),
-            startAngleDegrees = 270.0f,
-            sweepAngleDegrees = 90.0f,
-            forceMoveTo = false,
-        )
-        lineTo(x = size.width, y = size.height - cornerRadius)
-        // Bottom right arc
-        arcTo(
-            rect = Rect(
-                left = size.width - cornerRadius*2,
-                top = size.height - cornerRadius / 2,
-                right = size.width,
-                bottom = size.height + cornerRadius / 2,
-            ),
-            startAngleDegrees = 0f,
-            sweepAngleDegrees = -90.0f,
-            forceMoveTo = false,
-        )
-        lineTo(x = cornerRadius, y = size.height - cornerRadius / 2)
-        // Bottom left arc
-        arcTo(
-            rect = Rect(
-                left = 0f,
-                top = size.height - cornerRadius / 2,
-                right = cornerRadius*2,
-                bottom = size.height + cornerRadius / 2,
-            ),
-            startAngleDegrees = -90.0f,
-            sweepAngleDegrees = -90.0f,
-            forceMoveTo = false,
-        )
-        lineTo(x = 0f, y = cornerRadius)
+private fun drawTicketPath(cornerSize: CornerSize, size: Size, density: Density): Path = Path().apply {
+    val cornerRadius = cornerSize.toPx(size, density)
+    // Top left arc
+    arcTo(
+        rect = Rect(
+            left = 0f,
+            top = 0f,
+            right = cornerRadius,
+            bottom = cornerRadius,
+        ),
+        startAngleDegrees = 180.0f,
+        sweepAngleDegrees = 90.0f,
+        forceMoveTo = false,
+    )
+    lineTo(x = size.width - cornerRadius, y = 0f)
+    // Top right arc
+    arcTo(
+        rect = Rect(
+            left = size.width - cornerRadius,
+            top = 0f,
+            right = size.width,
+            bottom = cornerRadius,
+        ),
+        startAngleDegrees = 270.0f,
+        sweepAngleDegrees = 90.0f,
+        forceMoveTo = false,
+    )
+    lineTo(x = size.width, y = size.height - cornerRadius)
+    // Bottom right arc
+    arcTo(
+        rect = Rect(
+            left = size.width - cornerRadius * 2,
+            top = size.height - cornerRadius / 2,
+            right = size.width,
+            bottom = size.height + cornerRadius / 2,
+        ),
+        startAngleDegrees = 0f,
+        sweepAngleDegrees = -90.0f,
+        forceMoveTo = false,
+    )
+    lineTo(x = cornerRadius, y = size.height - cornerRadius / 2)
+    // Bottom left arc
+    arcTo(
+        rect = Rect(
+            left = 0f,
+            top = size.height - cornerRadius / 2,
+            right = cornerRadius * 2,
+            bottom = size.height + cornerRadius / 2,
+        ),
+        startAngleDegrees = -90.0f,
+        sweepAngleDegrees = -90.0f,
+        forceMoveTo = false,
+    )
+    lineTo(x = 0f, y = cornerRadius)
 
-        close()
-    }
+    close()
 }
 
 @Preview
@@ -123,40 +118,43 @@ private fun PreviewHighlightCardShape() {
         Box(
             modifier = Modifier.height(32.dp)
                 .clip(SparkTheme.shapes.small)
-                .background(SparkTheme.colors.accent)
+                .background(SparkTheme.colors.accent),
         ) {
-            Box( modifier = Modifier
-                .fillMaxWidth()
-                .requiredHeight(8.dp)
-                .clip(CardHighlightShape(CornerSize(8.dp)))
-                .background(SparkTheme.colors.main)
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .requiredHeight(8.dp)
+                    .clip(CardHighlightShape(CornerSize(8.dp)))
+                    .background(SparkTheme.colors.main),
             )
         }
 
         Box(
             modifier = Modifier.height(48.dp)
                 .clip(SparkTheme.shapes.large)
-                .background(SparkTheme.colors.accent)
+                .background(SparkTheme.colors.accent),
         ) {
-            Box( modifier = Modifier
-                .fillMaxWidth()
-                .requiredHeight(16.dp)
-                .clip(CardHighlightShape(CornerSize(16.dp)))
-                .background(SparkTheme.colors.main)
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .requiredHeight(16.dp)
+                    .clip(CardHighlightShape(CornerSize(16.dp)))
+                    .background(SparkTheme.colors.main),
             )
         }
 
         Box(
             modifier = Modifier.height(64.dp)
                 .clip(SparkTheme.shapes.extraLarge)
-                .background(SparkTheme.colors.accent)
+                .background(SparkTheme.colors.accent),
 
         ) {
-            Box( modifier = Modifier
-                .fillMaxWidth()
-                .requiredHeight(28.dp)
-                .clip(CardHighlightShape(CornerSize(28.dp)))
-                .background(SparkTheme.colors.main)
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .requiredHeight(28.dp)
+                    .clip(CardHighlightShape(CornerSize(28.dp)))
+                    .background(SparkTheme.colors.main),
             )
         }
     }

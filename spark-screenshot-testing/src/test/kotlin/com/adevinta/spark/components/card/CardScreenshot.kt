@@ -26,10 +26,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.DeviceConfig
+import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshot
@@ -153,10 +153,11 @@ internal class CardScreenshot {
                 ) {
                     Text(
                         text = "Card Title",
-                        style = com.adevinta.spark.SparkTheme.typography.headline4,
+                        style = SparkTheme.typography.headline2,
                     )
                     Text(
-                        text = "Card content with multiple lines of text to demonstrate how cards can contain various types of content.",
+                        text = "Card content with multiple lines of text to demonstrate how cards can contain " +
+                            "various types of content.",
                     )
                 }
             }

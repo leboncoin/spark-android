@@ -54,7 +54,7 @@ public val CardHighlightedConfigurator: Configurator = Configurator(
     name = "Card Highlighted",
     description = "Highlighted card variants configuration",
     sourceUrl = "$SampleSourceUrl/CardSamples.kt",
-) {
+) { _, _ ->
     CardHighlightedSample()
 }
 
@@ -202,7 +202,7 @@ private fun ConfiguredHighlightedCard(
                                 Text(
                                     text = headingText,
                                     style = SparkTheme.typography.caption,
-                                    modifier = Modifier.padding(start = 16.dp)
+                                    modifier = Modifier.padding(start = 16.dp),
                                 )
                             }
                         },
@@ -220,7 +220,7 @@ private fun ConfiguredHighlightedCard(
                                 Text(
                                     text = headingText,
                                     style = SparkTheme.typography.caption,
-                                    modifier = Modifier.padding(start = 16.dp)
+                                    modifier = Modifier.padding(start = 16.dp),
                                 )
                             }
                         },
@@ -244,7 +244,7 @@ private fun ConfiguredHighlightedCard(
                             Text(
                                 text = headingText,
                                 style = SparkTheme.typography.caption,
-                                modifier = Modifier.padding(start = 16.dp)
+                                modifier = Modifier.padding(start = 16.dp),
                             )
                         }
                     },
@@ -262,7 +262,7 @@ private fun ConfiguredHighlightedCard(
                             Text(
                                 text = headingText,
                                 style = SparkTheme.typography.caption,
-                                modifier = Modifier.padding(start = 16.dp)
+                                modifier = Modifier.padding(start = 16.dp),
                             )
                         }
                     },
@@ -298,10 +298,6 @@ private enum class HighlightedCardVariant {
     HighlightFlat,
     HighlightElevated,
 }
-
-
-
-
 
 @Preview
 @Composable
