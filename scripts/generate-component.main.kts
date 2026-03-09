@@ -1,7 +1,7 @@
 #!/usr/bin/env kotlin
 
 /*
- * Copyright (c) 2023 Adevinta
+ * Copyright (c) 2025 Adevinta
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -51,6 +51,164 @@ import kotlin.io.path.exists
 import kotlin.io.path.readText
 import kotlin.io.path.writeText
 
+private val SPARK_BASE = "com/adevinta/spark"
+
+private fun Path.sparkComponentsPath(packageName: String): Path =
+    resolve("spark/src/main/kotlin/$SPARK_BASE/components/$packageName")
+
+private fun Path.screenshotComponentsPath(packageName: String): Path =
+    resolve("spark-screenshot-testing/src/test/kotlin/$SPARK_BASE/components/$packageName")
+
+private fun Path.catalogConfiguratorPath(packageName: String): Path =
+    resolve("catalog/src/main/kotlin/$SPARK_BASE/catalog/configurator/samples/$packageName")
+
+private fun Path.catalogExamplesPath(packageName: String): Path =
+    resolve("catalog/src/main/kotlin/$SPARK_BASE/catalog/examples/samples/$packageName")
+
+private fun detectProjectRoot(): Path {
+    val currentDir = Paths.get(System.getProperty("user.dir"))
+    return when {
+        currentDir.resolve("spotless").exists() -> currentDir
+        currentDir.fileName.toString() == "scripts" &&
+            currentDir.parent?.resolve("spotless")?.exists() == true -> currentDir.parent!!
+        else -> currentDir
+    }
+}
+
+private fun String.applySubstitutions(substitutions: Map<String, String>): String =
+    substitutions.entries.fold(this) { content, (key, value) -> content.replace(key, value) }
+
+private fun validateTemplatesExist(templateDir: Path, templateFiles: List<String>): List<Path> =
+    templateFiles.map { templateDir.resolve(it) }.filter { !it.exists() }
+
+private data class ComponentNames(
+    val componentName: String,
+    val packageName: String,
+) {
+    val componentNameLower: String get() = componentName.lowercase()
+    val sparkComponentName: String get() = "Spark$componentName"
+    val componentNameScreenshot: String get() = "${componentName}Screenshot"
+    val componentNameConfigurator: String get() = "${componentName}Configurator"
+    val componentNameExamples: String get() = "${componentName}Examples"
+    val componentNameDefaults: String get() = "${componentName}Defaults"
+    val componentNameSamples: String get() = "${componentName}Samples"
+    val exampleDescriptionVarName: String get() = "${componentName}ExampleDescription"
+    val exampleSourceUrlVarName: String get() = "${componentName}ExampleSourceUrl"
+}
+
+private fun buildVariantsContent(names: ComponentNames, variantList: List<String>): String {
+    val variantBlock = { variant: String ->
+        """    /**
+     * ${names.componentName} $variant variant.
+     *
+     * TODO: Add description for $variant variant.
+     *
+     * @param modifier the Modifier to be applied to this ${names.componentNameLower}
+     */
+    @Composable
+    public fun $variant(
+        modifier: Modifier = Modifier,
+    ) {
+        ${names.sparkComponentName}(
+            modifier = modifier,
+        )
+    }"""
+    }
+    return if (variantList.isNotEmpty()) {
+        variantList.joinToString("\n\n", transform = variantBlock)
+    } else {
+        variantBlock("Default")
+            .replace("TODO: Add description for Default variant", "TODO: Add component description")
+            .replace(" Default variant", " component")
+    }
+}
+
+private fun buildScreenshotTable(variantList: List<String>): String {
+    val placeholder = "![](../../images/...)"
+    return if (variantList.isNotEmpty()) {
+        val header = variantList.joinToString(" | ") { it }
+        val separator = variantList.joinToString("|") { "---" }
+        val row = variantList.joinToString(" | ") { placeholder }
+        """
+|       | $header |
+|-------|$separator|
+| Light | $row |
+| Dark  | $row |
+""".trimIndent()
+    } else {
+        """
+| Light | Dark |
+|-------|------|
+| $placeholder | $placeholder |
+""".trimIndent()
+    }
+}
+
+private fun buildVariantsSections(componentName: String, variantList: List<String>): String =
+    variantList.joinToString("\n\n") { variant ->
+        """
+#### $componentName.$variant
+
+TODO: Add description for $variant variant.
+
+```kotlin
+$componentName.$variant()
+```
+
+| Light | Dark |
+|-------|------|
+| ![](../../images/...) | ![](../../images/...) |
+""".trimIndent()
+    }
+
+private fun buildTemplateMappings(
+    names: ComponentNames,
+    copyright: String,
+    variantsContent: String,
+    screenshotTable: String,
+    variantsSections: String,
+    firstVariant: String,
+    examplesContent: String,
+): Map<String, String> = mapOf(
+    $$"$componentName" to names.componentName,
+    $$"$componentNameLower" to names.componentNameLower,
+    $$"$packageName" to names.packageName,
+    $$"$sparkComponentName" to names.sparkComponentName,
+    $$"$componentNameScreenshot" to names.componentNameScreenshot,
+    $$"$componentNameConfigurator" to names.componentNameConfigurator,
+    $$"$componentNameExamples" to names.componentNameExamples,
+    $$"$componentNameDefaults" to names.componentNameDefaults,
+    $$"$componentNameSamples" to names.componentNameSamples,
+    $$"$componentNameExampleDescription" to names.exampleDescriptionVarName,
+    $$"$componentNameExampleSourceUrl" to names.exampleSourceUrlVarName,
+    $$"$copyright" to copyright,
+    $$"$variantsContent" to variantsContent,
+    $$"$screenshotTable" to screenshotTable,
+    $$"$variantsSections" to variantsSections,
+    $$"$firstVariant" to firstVariant,
+    $$"$examplesContent" to examplesContent,
+)
+
+private fun buildExamplesContent(names: ComponentNames, variantList: List<String>): String {
+    val exampleBlock = { id: String, displayName: String, call: String ->
+        """    Example(
+        id = "$id",
+        name = "$displayName",
+        description = ${names.exampleDescriptionVarName},
+        sourceUrl = ${names.exampleSourceUrlVarName},
+    ) {
+        $call
+    }"""
+    }
+    return if (variantList.isNotEmpty()) {
+        variantList.joinToString(",\n") { variant ->
+            exampleBlock(variant.lowercase(), "$variant ${names.componentName}", "${names.componentName}.$variant()")
+        }
+    } else {
+        exampleBlock("default", names.componentName, "${names.componentName}.Default()")
+    }
+}
+
 /**
  * Component Generator creates the complete file structure for new Spark components.
  */
@@ -91,261 +249,47 @@ class GenerateComponent : SuspendingCliktCommand(
     ).flag(default = false)
 
     override suspend fun run() {
-        // Use variants list directly
         val variantList = variants?.filter { it.isNotEmpty() }.orEmpty()
+        val projectRoot = detectProjectRoot()
 
-        // Get project root (assuming script is in scripts/ directory)
-        // Try to detect project root by looking for spotless directory
-        val currentDir = Paths.get(System.getProperty("user.dir"))
-        val projectRoot = if (currentDir.resolve("spotless").exists()) {
-            currentDir
-        } else if (currentDir.fileName.toString() == "scripts" && currentDir.parent?.resolve("spotless")?.exists() == true) {
-            currentDir.parent
-        } else {
-            // Fallback: assume we're in project root
-            currentDir
-        } ?: currentDir
-
-        // Read copyright template
-        val copyrightTemplate = projectRoot
-            .resolve("spotless")
-            .resolve("spotless.kt")
+        val copyright = projectRoot
+            .resolve("spotless/spotless.kt")
             .readText()
-        val copyright = copyrightTemplate.replace("\$YEAR", Year.now().value.toString())
+            .replace($$"$YEAR", Year.now().value.toString())
 
-        // Derive spark component name
-        val sparkComponentName = "Spark$componentName"
-        val componentNameLower = componentName.lowercase()
-        val componentNameScreenshot = "${componentName}Screenshot"
-        val componentNameConfigurator = "${componentName}Configurator"
-        val componentNameExamples = "${componentName}Examples"
-        val componentNameDefaults = "${componentName}Defaults"
-        val componentNameSamples = "${componentName}Samples"
+        val names = ComponentNames(componentName, packageName)
 
-        // Generate variants content for Component.kt
-        val variantsContent = if (variantList.isNotEmpty()) {
-            variantList.joinToString("\n\n") { variant ->
-                """    /**
-     * $componentName $variant variant.
-     *
-     * TODO: Add description for $variant variant.
-     *
-     * @param modifier the Modifier to be applied to this $componentNameLower
-     */
-    @Composable
-    public fun $variant(
-        modifier: Modifier = Modifier,
-    ) {
-        $sparkComponentName(
-            modifier = modifier,
-        )
-    }"""
-            }
-        } else {
-            """    /**
-     * $componentName component.
-     *
-     * TODO: Add component description.
-     *
-     * @param modifier the Modifier to be applied to this $componentNameLower
-     */
-    @Composable
-    public fun Default(
-        modifier: Modifier = Modifier,
-    ) {
-        $sparkComponentName(
-            modifier = modifier,
-        )
-    }"""
-        }
-
-        // Generate screenshot table for Component.md
-        val screenshotTable = if (variantList.isNotEmpty()) {
-            val header = variantList.joinToString(" | ") { it }
-            val separator = variantList.joinToString("|") { "---" }
-            val lightRow = variantList.joinToString(" | ") { "![](../../images/...)" }
-            val darkRow = variantList.joinToString(" | ") { "![](../../images/...)" }
-            """
-|       | $header |
-|-------|$separator|
-| Light | $lightRow |
-| Dark  | $darkRow |
-""".trimIndent()
-        } else {
-            """
-| Light | Dark |
-|-------|------|
-| ![](../../images/...) | ![](../../images/...) |
-""".trimIndent()
-        }
-
-        // Generate variants sections for Component.md
+        val variantsContent = buildVariantsContent(names, variantList)
+        val screenshotTable = buildScreenshotTable(variantList)
         val firstVariant = variantList.firstOrNull() ?: "Default"
-        val variantsSections = if (variantList.isNotEmpty()) {
-            variantList.joinToString("\n\n") { variant ->
-                """
-#### $componentName.$variant
+        val variantsSections = buildVariantsSections(names.componentName, variantList)
+        val examplesContent = buildExamplesContent(names, variantList)
 
-TODO: Add description for $variant variant.
-
-```kotlin
-$componentName.$variant()
-```
-
-| Light | Dark |
-|-------|------|
-| ![](../../images/...) | ![](../../images/...) |
-""".trimIndent()
-            }
-        } else {
-            ""
-        }
-
-        // Generate examples content for ComponentExamples.kt
-        val exampleDescriptionVarName = "${componentName}ExampleDescription"
-        val exampleSourceUrlVarName = "${componentName}ExampleSourceUrl"
-        val examplesContent = if (variantList.isNotEmpty()) {
-            variantList.joinToString(",\n") { variant ->
-                """    Example(
-        id = "${variant.lowercase()}",
-        name = "$variant $componentName",
-        description = $exampleDescriptionVarName,
-        sourceUrl = $exampleSourceUrlVarName,
-    ) {
-        $componentName.$variant()
-    }"""
-            }
-        } else {
-            """    Example(
-        id = "default",
-        name = "$componentName",
-        description = $exampleDescriptionVarName,
-        sourceUrl = $exampleSourceUrlVarName,
-    ) {
-        $componentName.Default()
-    }"""
-        }
-
-        // Template mappings
-        val templateMappings = mapOf(
-            $$"$componentName" to componentName,
-            $$"$componentNameLower" to componentNameLower,
-            $$"$packageName" to packageName,
-            $$"$sparkComponentName" to sparkComponentName,
-            $$"$componentNameScreenshot" to componentNameScreenshot,
-            $$"$componentNameConfigurator" to componentNameConfigurator,
-            $$"$componentNameExamples" to componentNameExamples,
-            $$"$componentNameDefaults" to componentNameDefaults,
-            $$"$componentNameSamples" to componentNameSamples,
-            $$"$componentNameExampleDescription" to exampleDescriptionVarName,
-            $$"$componentNameExampleSourceUrl" to exampleSourceUrlVarName,
-            $$"$copyright" to copyright,
-            $$"$variantsContent" to variantsContent,
-            $$"$screenshotTable" to screenshotTable,
-            $$"$variantsSections" to variantsSections,
-            $$"$firstVariant" to firstVariant,
-            $$"$examplesContent" to examplesContent,
+        val templateMappings = buildTemplateMappings(
+            names = names,
+            copyright = copyright,
+            variantsContent = variantsContent,
+            screenshotTable = screenshotTable,
+            variantsSections = variantsSections,
+            firstVariant = firstVariant,
+            examplesContent = examplesContent,
         )
 
-        // File generation mappings: template file -> target path
+        val componentsPath = projectRoot.sparkComponentsPath(names.packageName)
+        val templateDir = projectRoot.resolve("scripts/templates/component")
         val filesToGenerate = listOf(
-            "Component.kt.template" to projectRoot
-                .resolve("spark")
-                .resolve("src")
-                .resolve("main")
-                .resolve("kotlin")
-                .resolve("com")
-                .resolve("adevinta")
-                .resolve("spark")
-                .resolve("components")
-                .resolve(packageName)
-                .resolve("$componentName.kt"),
-            "SparkComponent.kt.template" to projectRoot
-                .resolve("spark")
-                .resolve("src")
-                .resolve("main")
-                .resolve("kotlin")
-                .resolve("com")
-                .resolve("adevinta")
-                .resolve("spark")
-                .resolve("components")
-                .resolve(packageName)
-                .resolve("$sparkComponentName.kt"),
-            "ComponentDefaults.kt.template" to projectRoot
-                .resolve("spark")
-                .resolve("src")
-                .resolve("main")
-                .resolve("kotlin")
-                .resolve("com")
-                .resolve("adevinta")
-                .resolve("spark")
-                .resolve("components")
-                .resolve(packageName)
-                .resolve("$componentNameDefaults.kt"),
-            "Component.md.template" to projectRoot
-                .resolve("spark")
-                .resolve("src")
-                .resolve("main")
-                .resolve("kotlin")
-                .resolve("com")
-                .resolve("adevinta")
-                .resolve("spark")
-                .resolve("components")
-                .resolve(packageName)
-                .resolve("$componentName.md"),
-            "ComponentScreenshot.kt.template" to projectRoot
-                .resolve("spark-screenshot-testing")
-                .resolve("src")
-                .resolve("test")
-                .resolve("kotlin")
-                .resolve("com")
-                .resolve("adevinta")
-                .resolve("spark")
-                .resolve("components")
-                .resolve(packageName)
-                .resolve("$componentNameScreenshot.kt"),
-            "ComponentConfigurator.kt.template" to projectRoot
-                .resolve("catalog")
-                .resolve("src")
-                .resolve("main")
-                .resolve("kotlin")
-                .resolve("com")
-                .resolve("adevinta")
-                .resolve("spark")
-                .resolve("catalog")
-                .resolve("configurator")
-                .resolve("samples")
-                .resolve(packageName)
-                .resolve("$componentNameConfigurator.kt"),
-            "ComponentExamples.kt.template" to projectRoot
-                .resolve("catalog")
-                .resolve("src")
-                .resolve("main")
-                .resolve("kotlin")
-                .resolve("com")
-                .resolve("adevinta")
-                .resolve("spark")
-                .resolve("catalog")
-                .resolve("examples")
-                .resolve("samples")
-                .resolve(packageName)
-                .resolve("$componentNameExamples.kt"),
+            "Component.kt.template" to componentsPath.resolve("${names.componentName}.kt"),
+            "SparkComponent.kt.template" to componentsPath.resolve("${names.sparkComponentName}.kt"),
+            "ComponentDefaults.kt.template" to componentsPath.resolve("${names.componentNameDefaults}.kt"),
+            "Component.md.template" to componentsPath.resolve("${names.componentName}.md"),
+            "ComponentScreenshot.kt.template" to projectRoot.screenshotComponentsPath(names.packageName)
+                .resolve("${names.componentNameScreenshot}.kt"),
+            "ComponentConfigurator.kt.template" to projectRoot.catalogConfiguratorPath(names.packageName)
+                .resolve("${names.componentNameConfigurator}.kt"),
+            "ComponentExamples.kt.template" to projectRoot.catalogExamplesPath(names.packageName)
+                .resolve("${names.componentNameExamples}.kt"),
         )
-
-        // Template directory
-        val templateDir = projectRoot
-            .resolve("scripts")
-            .resolve("templates")
-            .resolve("component")
-
-        // Validate all templates exist before starting
-        val missingTemplates = mutableListOf<Path>()
-        for ((templateFile, _) in filesToGenerate) {
-            val templatePath = templateDir.resolve(templateFile)
-            if (!templatePath.exists()) {
-                missingTemplates.add(templatePath)
-            }
-        }
+        val missingTemplates = validateTemplatesExist(templateDir, filesToGenerate.map { it.first })
 
         if (missingTemplates.isNotEmpty()) {
             echo("❌ Missing template files:")
@@ -370,22 +314,11 @@ $componentName.$variant()
                             return@async null
                         }
 
-                        // Read template
-                        var content = templatePath.readText()
-
-                        // Substitute variables
-                        for ((key, value) in templateMappings) {
-                            content = content.replace(key, value)
-                        }
+                        val content = templatePath.readText().applySubstitutions(templateMappings)
 
                         if (dryRun) {
                             echo("📄 Would create: ${targetPath.absolutePathString()}")
-                            if (targetPath.exists()) {
-                                echo("   ⚠️  File already exists - would be skipped")
-                                null
-                            } else {
-                                targetPath
-                            }
+                            targetPath
                         } else {
                             // Create parent directories
                             targetPath.parent?.createDirectories()
@@ -403,21 +336,18 @@ $componentName.$variant()
             }.awaitAll().filterNotNull()
         }
 
-        if (dryRun) {
-            if (generatedFiles.isEmpty()) {
-                echo("\n⚠️  No new files would be generated (all files already exist).")
-            } else {
-                echo("\n🔍 Would generate ${generatedFiles.size} file(s) (dry-run mode).")
-                echo("   Run without --dry-run to actually create the files.")
-            }
-        } else {
-            if (generatedFiles.isEmpty()) {
-                echo("\n⚠️  No files were generated.")
-            } else {
-                echo("\n✅ Successfully generated ${generatedFiles.size} file(s)!")
-            }
-        }
+        echo(buildSummaryMessage(dryRun, generatedFiles.size))
     }
+}
+
+private fun buildSummaryMessage(dryRun: Boolean, generatedCount: Int): String {
+    val prefix = "\n"
+    return when {
+        generatedCount == 0 && dryRun -> "⚠️  No new files would be generated (all files already exist)."
+        generatedCount == 0 -> "⚠️  No files were generated."
+        dryRun -> "🔍 Would generate $generatedCount file(s) (dry-run mode).\n   Run without --dry-run to actually create the files."
+        else -> "✅ Successfully generated $generatedCount file(s)!"
+    }.let { prefix + it }
 }
 
 @OptIn(ExperimentalPathApi::class)

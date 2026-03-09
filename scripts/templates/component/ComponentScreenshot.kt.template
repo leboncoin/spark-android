@@ -1,0 +1,30 @@
+$copyright
+package com.adevinta.spark.components.$packageNameLower
+
+import androidx.compose.runtime.Composable
+import com.adevinta.spark.DefaultTestDevices
+import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.$packageName.$componentName
+import com.adevinta.spark.paparazziRule
+import com.adevinta.spark.sparkSnapshotNightMode
+import com.android.ide.common.rendering.api.SessionParams.RenderingMode.V_SCROLL
+import org.junit.Rule
+import org.junit.Test
+
+internal class $componentNameScreenshot {
+
+    @get:Rule
+    val paparazzi = paparazziRule(
+        renderingMode = V_SCROLL,
+        deviceConfig = DefaultTestDevices.Tablet,
+    )
+
+    @Test
+    fun default() {
+        paparazzi.sparkSnapshotNightMode {
+            SparkTheme {
+                // TODO: Add component preview
+            }
+        }
+    }
+}
