@@ -1,0 +1,9 @@
+$copyright
+package com.adevinta.spark.components.$packageName
+
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+
+public object $componentName {
+$variantsContent
+}
