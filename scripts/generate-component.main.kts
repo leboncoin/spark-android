@@ -21,26 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
-@file:Repository("https://repo1.maven.org/maven2/")
-@file:Repository("https://maven.google.com")
-@file:DependsOn("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10")
 @file:DependsOn("com.github.ajalt.clikt:clikt-jvm:5.1.0")
 @file:DependsOn("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
 
 import com.github.ajalt.clikt.command.SuspendingCliktCommand
 import com.github.ajalt.clikt.command.main
 import com.github.ajalt.clikt.core.UsageError
+import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.prompt
 import com.github.ajalt.clikt.parameters.options.validate
 import com.github.ajalt.clikt.parameters.options.varargValues
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
+import com.github.ajalt.clikt.parameters.types.file
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.supervisorScope
+import java.io.File
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.time.Year
@@ -70,7 +65,8 @@ private fun detectProjectRoot(): Path {
     return when {
         currentDir.resolve("spotless").exists() -> currentDir
         currentDir.fileName.toString() == "scripts" &&
-            currentDir.parent?.resolve("spotless")?.exists() == true -> currentDir.parent!!
+                currentDir.parent?.resolve("spotless")?.exists() == true -> currentDir.parent!!
+
         else -> currentDir
     }
 }
@@ -130,16 +126,13 @@ private fun buildScreenshotTable(variantList: List<String>): String {
         val separator = variantList.joinToString("|") { "---" }
         val row = variantList.joinToString(" | ") { placeholder }
         """
-|       | $header |
-|-------|$separator|
-| Light | $row |
-| Dark  | $row |
+| $header |
+|$separator|
+| $row |
 """.trimIndent()
     } else {
         """
-| Light | Dark |
-|-------|------|
-| $placeholder | $placeholder |
+$placeholder
 """.trimIndent()
     }
 }
@@ -155,9 +148,7 @@ TODO: Add description for $variant variant.
 $componentName.$variant()
 ```
 
-| Light | Dark |
-|-------|------|
-| ![](../../images/...) | ![](../../images/...) |
+![](../../images/...)
 """.trimIndent()
     }
 
@@ -243,6 +234,16 @@ class GenerateComponent : SuspendingCliktCommand(
         help = "Variant names (can be specified multiple times, e.g., -v Elevated -v Outlined)",
     ).varargValues()
 
+    private val projectDir by option(
+        "--project-dir", "-p",
+        help = "The project directory. Defaults to the current working directory",
+    ).file(
+        mustExist = true,
+        mustBeReadable = true,
+        canBeFile = false
+    )
+        .default(File("."))
+
     private val dryRun by option(
         "--dry-run",
         help = "Preview what would be generated without creating files",
@@ -302,39 +303,35 @@ class GenerateComponent : SuspendingCliktCommand(
         }
 
         // Generate files concurrently
-        val generatedFiles = supervisorScope {
-            filesToGenerate.map { (templateFile, targetPath) ->
-                async(Dispatchers.IO) {
-                    try {
-                        val templatePath = templateDir.resolve(templateFile)
+        val generatedFiles = filesToGenerate.map { (templateFile, targetPath) ->
+            try {
+                val templatePath = templateDir.resolve(templateFile)
 
-                        if (targetPath.exists()) {
-                            echo("⚠️  File already exists: ${targetPath.absolutePathString()}")
-                            echo("   Skipping...")
-                            return@async null
-                        }
-
-                        val content = templatePath.readText().applySubstitutions(templateMappings)
-
-                        if (dryRun) {
-                            echo("📄 Would create: ${targetPath.absolutePathString()}")
-                            targetPath
-                        } else {
-                            // Create parent directories
-                            targetPath.parent?.createDirectories()
-
-                            // Write file
-                            targetPath.writeText(content)
-                            echo("✅ Created: ${targetPath.absolutePathString()}")
-                            targetPath
-                        }
-                    } catch (e: Exception) {
-                        echo("❌ Error processing ${templateFile}: ${e.message}")
-                        null
-                    }
+                if (targetPath.exists()) {
+                    echo("⚠️  File already exists: ${targetPath.absolutePathString()}")
+                    echo("   Skipping...")
+                    return@map null
                 }
-            }.awaitAll().filterNotNull()
-        }
+
+                val content = templatePath.readText().applySubstitutions(templateMappings)
+
+                if (dryRun) {
+                    echo("📄 Would create: ${targetPath.absolutePathString()}")
+                    targetPath
+                } else {
+                    // Create parent directories
+                    targetPath.parent?.createDirectories()
+
+                    // Write file
+                    targetPath.writeText(content)
+                    echo("✅ Created: ${targetPath.absolutePathString()}")
+                    targetPath
+                }
+            } catch (e: Exception) {
+                echo("❌ Error processing ${templateFile}: ${e.message}")
+                null
+            }
+        }.filterNotNull()
 
         echo(buildSummaryMessage(dryRun, generatedFiles.size))
     }
