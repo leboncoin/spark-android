@@ -24,6 +24,7 @@ package com.adevinta.spark.components.card
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -502,6 +503,7 @@ public fun Card(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable ColumnScope.() -> Unit,
 ) {
+    androidx.compose.material3.Card { }
     SparkCard(
         onClick = onClick,
         modifier = modifier,

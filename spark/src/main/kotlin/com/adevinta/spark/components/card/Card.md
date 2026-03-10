@@ -6,9 +6,11 @@ Cards are versatile components that can display various types of content includi
 
 ## Variants
 
-Spark provides three main card variants:
+Spark provides several card variants. Each variant is shown in both light and dark themes, following Material Design's documentation approach.
 
 ### Flat Card
+
+![](../../images/com.adevinta.spark.components.card_CardDocumentationScreenshots_flatCard.png)
 
 Flat cards provide subtle separation from the background. This has less emphasis than elevated or outlined cards.
 
@@ -20,6 +22,8 @@ Card.Flat {
 
 ### Elevated Card
 
+![](../../images/com.adevinta.spark.components.card_CardDocumentationScreenshots_elevatedCard.png)
+
 Elevated cards have a drop shadow, providing more separation from the background than filled cards, but less than outlined cards.
 
 ```kotlin
@@ -30,11 +34,41 @@ Card.Elevated {
 
 ### Outlined Card
 
+![](../../images/com.adevinta.spark.components.card_CardDocumentationScreenshots_outlinedCard.png)
+
 Outlined cards have a visual boundary around the container. This can provide greater emphasis than the other types.
 
 ```kotlin
 Card.Outlined {
     Text("This is an outlined card with a border.")
+}
+```
+
+### Highlight Flat Card
+
+![](../../images/com.adevinta.spark.components.card_CardDocumentationScreenshots_highlightFlatCard.png)
+
+Highlight flat cards feature a colored banner at the top for additional emphasis.
+
+```kotlin
+Card.HighlightFlat(
+    heading = { }
+) {
+    Text("Card with highlight banner")
+}
+```
+
+### Highlight Elevated Card
+
+![](../../images/com.adevinta.spark.components.card_CardDocumentationScreenshots_highlightElevatedCard.png)
+
+Highlight elevated cards combine a colored top banner with a drop shadow for maximum emphasis.
+
+```kotlin
+Card.HighlightElevated(
+    heading = { }
+) {
+    Text("Card with highlight banner and elevation")
 }
 ```
 
@@ -97,7 +131,7 @@ For flat cards, you can customize the background color:
 
 ```kotlin
 Card.Flat(
-    colors = SparkTheme.colors.surfaceVariant
+    colors = SparkTheme.colors.backgroundVariant
 ) {
     Text("Card with custom color")
 }
@@ -107,7 +141,7 @@ For outlined cards, you can customize the border color:
 
 ```kotlin
 Card.Outlined(
-    borderColor = SparkTheme.colors.outlineVariant
+    borderColor = SparkTheme.colors.outlineHigh
 ) {
     Text("Card with custom border color")
 }
@@ -124,7 +158,7 @@ Card.Elevated {
     Column {
         Text(
             text = "Card Title",
-            style = SparkTheme.typography.headline4
+            style = SparkTheme.typography.headline2
         )
         Text("Card description text")
     }
@@ -156,14 +190,6 @@ Card.Elevated {
     }
 }
 ```
-
-## Screenshots
-
-| Variant | Light | Dark |
-|---------|-------|------|
-| Flat | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_card_cardvariants_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_card_cardvariants_dark.png) |
-| Elevated | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_card_cardvariants_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_card_cardvariants_dark.png) |
-| Outlined | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_card_cardvariants_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_card_cardvariants_dark.png) |
 
 ## Best Practices
 
