@@ -135,6 +135,7 @@ internal fun ComponentActivity.CatalogApp(
             useSparkTokensHighlighter = theme.highlightSparkTokens,
             useSparkComponentsHighlighter = theme.highlightSparkComponents,
             isContainingActivityEdgeToEdge = true,
+            useNewButtonAndTagsShapes = theme.useNewButtonAndTagsShapes,
         ),
     ) {
         val layoutDirection = when (theme.textDirection) {

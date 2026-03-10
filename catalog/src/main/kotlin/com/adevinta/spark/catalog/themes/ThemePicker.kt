@@ -342,17 +342,6 @@ public fun ThemePicker(
                             HelperText(text = stringResource(id = R.string.theme_picker_navigation_helper))
                         }
                         SwitchLabelled(
-                            checked = theme.useLegacyTheme,
-                            onCheckedChange = { checked ->
-                                onThemeChange(theme.copy(useLegacyTheme = checked))
-                            },
-                        ) {
-                            Text(
-                                text = "Use LegacyTheme",
-                                modifier = Modifier.fillMaxWidth(),
-                            )
-                        }
-                        SwitchLabelled(
                             checked = theme.highlightSparkComponents,
                             onCheckedChange = { checked ->
                                 onThemeChange(theme.copy(highlightSparkComponents = checked))
@@ -371,6 +360,17 @@ public fun ThemePicker(
                         ) {
                             Text(
                                 text = "Highlight Spark Tokens",
+                                modifier = Modifier.fillMaxWidth(),
+                            )
+                        }
+                        SwitchLabelled(
+                            checked = theme.useNewButtonAndTagsShapes,
+                            onCheckedChange = { checked ->
+                                onThemeChange(theme.copy(useNewButtonAndTagsShapes = checked))
+                            },
+                        ) {
+                            Text(
+                                text = "New Button and Tags shape",
                                 modifier = Modifier.fillMaxWidth(),
                             )
                         }

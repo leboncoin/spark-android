@@ -41,7 +41,6 @@ import com.adevinta.spark.icons.Chain
 import com.adevinta.spark.icons.IdentityCardOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.disabled
 
 /**
@@ -98,7 +97,11 @@ public fun ButtonGhost(
         onClick = onClick,
         modifier = modifier,
         size = size,
-        shape = shape.shape,
+        shape = if (LocalSparkFeatureFlag.current.useNewButtonAndTagsShapes) {
+            SparkTheme.shapes.full
+        } else {
+            shape.shape
+        },
         enabled = enabled,
         elevation = ButtonDefaults.buttonElevation(),
         colors = colors,
@@ -167,7 +170,11 @@ public fun ButtonGhost(
         text = text,
         modifier = modifier,
         size = size,
-        shape = shape,
+        shape = if (LocalSparkFeatureFlag.current.useNewButtonAndTagsShapes) {
+            ButtonShape.Pill
+        } else {
+            shape
+        },
         enabled = enabled,
         elevation = ButtonDefaults.buttonElevation(),
         colors = colors,
@@ -235,7 +242,11 @@ public fun ButtonGhost(
         text = text,
         modifier = modifier,
         size = size,
-        shape = shape,
+        shape = if (LocalSparkFeatureFlag.current.useNewButtonAndTagsShapes) {
+            ButtonShape.Pill
+        } else {
+            shape
+        },
         enabled = enabled,
         elevation = ButtonDefaults.buttonElevation(),
         colors = colors,
