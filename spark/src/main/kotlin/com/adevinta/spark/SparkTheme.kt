@@ -233,6 +233,9 @@ internal fun SparkTenantTheme(
         colors = colors,
         shapes = sparkShapes(),
         typography = sparkTypography(),
+        sparkFeatureFlag = SparkFeatureFlag(
+            useNewButtonAndTagsShapes = true,
+        ),
         content = content,
     )
 }
@@ -289,18 +292,3 @@ public val LocalSparkExceptionHandler: ProvidableCompositionLocal<SparkException
 internal val LocalSparkFeatureFlag: ProvidableCompositionLocal<SparkFeatureFlag> = staticCompositionLocalOf {
     error("SparkFeatureFlag not provided. This likely means that you are using a Component without a SparkTheme")
 }
-
-/**
- * Flags that will activate debugging features from Spark or features hidden to consumers.
- *
- * @property useSparkTokensHighlighter Highlight visually where the spark tokens are used or not. Setting it to true
- * makes the text in cursive, colors in red/green/blue and shapes in full cut corners.
- * @property useSparkComponentsHighlighter Highlight visually with an overlay where the spark components are used
- * or not. Setting it to true show an overlay on spark components.
- * @property isContainingActivityEdgeToEdge
- */
-public data class SparkFeatureFlag(
-    val useSparkTokensHighlighter: Boolean = false,
-    val useSparkComponentsHighlighter: Boolean = false,
-    val isContainingActivityEdgeToEdge: Boolean = false,
-)

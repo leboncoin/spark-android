@@ -32,6 +32,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
+import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.icons.CameraFill
@@ -91,7 +92,11 @@ public fun ButtonOutlined(
         onClick = onClick,
         modifier = modifier,
         size = size,
-        shape = shape.shape,
+        shape = if (LocalSparkFeatureFlag.current.useNewButtonAndTagsShapes) {
+            SparkTheme.shapes.full
+        } else {
+            shape.shape
+        },
         enabled = enabled,
         elevation = null,
         border = SparkButtonDefaults.outlinedBorder(if (enabled) contentColor else disabledContentColor),
@@ -155,7 +160,11 @@ public fun ButtonOutlined(
         text = text,
         modifier = modifier,
         size = size,
-        shape = shape,
+        shape = if (LocalSparkFeatureFlag.current.useNewButtonAndTagsShapes) {
+            ButtonShape.Pill
+        } else {
+            shape
+        },
         enabled = enabled,
         elevation = null,
         border = SparkButtonDefaults.outlinedBorder(if (enabled) contentColor else disabledContentColor),
@@ -215,6 +224,11 @@ public fun ButtonOutlined(
         text = text,
         modifier = modifier,
         size = size,
+        shape = if (LocalSparkFeatureFlag.current.useNewButtonAndTagsShapes) {
+            ButtonShape.Pill
+        } else {
+            SparkButtonDefaults.DefaultShape
+        },
         enabled = enabled,
         elevation = null,
         border = SparkButtonDefaults.outlinedBorder(contentColor),

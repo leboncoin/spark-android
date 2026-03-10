@@ -34,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
+import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.icons.Chain
@@ -97,7 +98,11 @@ public fun ButtonContrast(
         content = content,
         modifier = modifier,
         size = size,
-        shape = shape.shape,
+        shape = if (LocalSparkFeatureFlag.current.useNewButtonAndTagsShapes) {
+            SparkTheme.shapes.full
+        } else {
+            shape.shape
+        },
         enabled = enabled,
         elevation = ButtonDefaults.buttonElevation(),
         colors = buttonColors,

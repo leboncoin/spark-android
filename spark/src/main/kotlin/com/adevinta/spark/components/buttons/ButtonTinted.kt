@@ -34,12 +34,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
+import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.icons.IdentityCardOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.disabled
 
 /**
@@ -101,7 +101,11 @@ public fun ButtonTinted(
         onClick = onClick,
         modifier = modifier,
         size = size,
-        shape = shape.shape,
+        shape = if (LocalSparkFeatureFlag.current.useNewButtonAndTagsShapes) {
+            SparkTheme.shapes.full
+        } else {
+            shape.shape
+        },
         enabled = enabled,
         elevation = ButtonDefaults.filledTonalButtonElevation(),
         colors = colors,
@@ -174,7 +178,11 @@ public fun ButtonTinted(
         text = text,
         modifier = modifier,
         size = size,
-        shape = shape,
+        shape = if (LocalSparkFeatureFlag.current.useNewButtonAndTagsShapes) {
+            ButtonShape.Pill
+        } else {
+            shape
+        },
         enabled = enabled,
         elevation = ButtonDefaults.filledTonalButtonElevation(),
         colors = colors,
@@ -246,7 +254,11 @@ public fun ButtonTinted(
         text = text,
         modifier = modifier,
         size = size,
-        shape = shape,
+        shape = if (LocalSparkFeatureFlag.current.useNewButtonAndTagsShapes) {
+            ButtonShape.Pill
+        } else {
+            shape
+        },
         enabled = enabled,
         elevation = ButtonDefaults.filledTonalButtonElevation(),
         colors = colors,
