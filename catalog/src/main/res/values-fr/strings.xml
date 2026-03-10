@@ -79,6 +79,7 @@
     <string name="component_tokens_description">Les tokens/jetons sont la base de ce système de design et permettent à chaque marque de choisir ses couleurs, formes, typos et icônes.</string>
     <string name="component_popovers_description">Fournit un message descriptif ou une information pour un élément d’ancrage.</string>
     <string name="component_bottomsheets_description">Une Bottom sheet est un composant d’interface utilisateur couramment utilisé dans les applications mobiles pour présenter du contenu ou des options supplémentaires à partir du bas de l’écran.</string>
+    <string name="component_card_description">Les cartes contiennent du contenu et des actions qui concernent les informations sur un sujet. Elles offrent une séparation visuelle et peuvent être statiques ou interactives.</string>
     <!--region Icon button-->
     <string name="component_iconbutton_description">Les icône boutons aident les utilisateurs à effectuer des actions supplémentaires d’un simple toucher. Elles sont utilisées lorsqu’un bouton compact est nécessaire, par exemple dans une barre d’outils ou une liste d’images.</string>
     <!--endregion-->
