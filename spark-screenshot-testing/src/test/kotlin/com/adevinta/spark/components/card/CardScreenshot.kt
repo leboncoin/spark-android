@@ -23,13 +23,13 @@ package com.adevinta.spark.components.card
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.DeviceConfig
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshot
@@ -48,126 +48,121 @@ internal class CardScreenshot {
 
     @Test
     fun cardVariants() = paparazzi.sparkSnapshotNightMode(drawBackground = true) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            Text("Flat Card")
-            Card.Flat {
-                Text("This is a flat card with default styling.")
-            }
+        Surface(color = SparkTheme.colors.backgroundVariant) {
+            Row {
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                ) {
+                    Card.Flat {
+                        Text("This is a flat card with default styling.")
+                    }
 
-            Text("Elevated Card")
-            Card.Elevated {
-                Text("This is an elevated card with a drop shadow.")
-            }
+                    Card.Elevated {
+                        Text("This is an elevated card with a drop shadow.")
+                    }
 
-            Text("Outlined Card")
-            Card.Outlined {
-                Text("This is an outlined card with a border.")
-            }
-        }
-    }
-
-    @Test
-    fun cardStates() = paparazzi.sparkSnapshot(drawBackground = false) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            Text("Enabled Interactive Card")
-            Card.Flat(
-                onClick = {},
-            ) {
-                Text("This card is enabled and clickable.")
-            }
-
-            Text("Disabled Interactive Card")
-            Card.Flat(
-                onClick = {},
-            ) {
-                Text("This card is disabled.")
-            }
-        }
-    }
-
-    @Test
-    fun cardInteractive() = paparazzi.sparkSnapshot(drawBackground = false) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            Text("Interactive Flat Card")
-            Card.Flat(
-                onClick = {},
-            ) {
-                Text("Clickable flat card")
-            }
-
-            Text("Interactive Elevated Card")
-            Card.Elevated(
-                onClick = {},
-            ) {
-                Text("Clickable elevated card")
-            }
-
-            Text("Interactive Outlined Card")
-            Card.Outlined(
-                onClick = {},
-            ) {
-                Text("Clickable outlined card")
+                    Card.Outlined {
+                        Text("This is an outlined card with a border.")
+                    }
+                }
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                ) {
+                    Card.HighlightFlat {
+                        Text("This is a flat card with a highlight banner.")
+                    }
+                    Card.HighlightElevated {
+                        Text("This is an elevated card with a highlight banner.")
+                    }
+                }
             }
         }
     }
 
     @Test
     fun cardShapes() = paparazzi.sparkSnapshot(drawBackground = false) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            Text("Card with default shape")
-            Card.Flat {
-                Text("Default medium shape")
-            }
+        Surface(color = SparkTheme.colors.backgroundVariant) {
+            Row {
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                ) {
+                    Card.Flat {
+                        Text("Default medium shape")
+                    }
 
-            Text("Card with custom padding")
-            Card.Flat(
-                contentPadding = PaddingValues(24.dp),
-            ) {
-                Text("Card with larger padding")
+                    Card.Flat(
+                        shape = SparkTheme.shapes.large,
+                    ) {
+                        Text("Card with large shape")
+                    }
+
+                    Card.Flat(
+                        shape = SparkTheme.shapes.extraSmall,
+                    ) {
+                        Text("Card with extraSmall shape")
+                    }
+                }
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                ) {
+                    Card.HighlightFlat {
+                        Text("Default medium shape")
+                    }
+
+                    Card.HighlightFlat(
+                        shape = SparkTheme.shapes.large,
+                    ) {
+                        Text("Card with large shape")
+                    }
+
+                    Card.HighlightFlat(
+                        shape = SparkTheme.shapes.extraSmall,
+                    ) {
+                        Text("Card with extraSmall shape")
+                    }
+                }
             }
         }
     }
 
     @Test
-    fun cardContent() = paparazzi.sparkSnapshot(drawBackground = false) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            Card.Elevated {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
+    fun cardColors() = paparazzi.sparkSnapshotNightMode(drawBackground = false) {
+        Surface(color = SparkTheme.colors.backgroundVariant) {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                Card.Elevated(
+                    colors = SparkTheme.colors.accentContainer,
                 ) {
-                    Text(
-                        text = "Card Title",
-                        style = SparkTheme.typography.headline2,
-                    )
-                    Text(
-                        text = "Card content with multiple lines of text to demonstrate how cards can contain " +
-                            "various types of content.",
-                    )
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        Text(
+                            text = "Card Title",
+                            style = SparkTheme.typography.headline2,
+                        )
+                        Text(
+                            text = "Card content with multiple lines of text to demonstrate how cards can contain " +
+                                "various types of content.",
+                        )
+                    }
                 }
-            }
 
-            Card.Elevated {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                Card.HighlightElevated(
+                    colors = SparkTheme.colors.accentContainer,
                 ) {
-                    Text("Card with horizontal layout")
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        Text("Card with horizontal layout")
+                    }
                 }
             }
         }
