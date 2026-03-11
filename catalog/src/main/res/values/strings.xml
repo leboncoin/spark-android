@@ -81,6 +81,7 @@
     <string name="component_animation_description">Animations provide visual feedback and enhance user experience through motion. The pulse animation creates a pulsating effect that draws attention to interactive elements.</string>
     <string name="component_badge_description">Badges are visual indicators for numeric values such as tallies and scores, or to highlight status information.</string>
     <string name="component_bottomsheets_description">A bottom sheet is a UI component commonly used in mobile applications to present additional content or options from the bottom of the screen.</string>
+    <string name="component_card_description">Cards contain content and actions that relate information about a subject. They provide visual separation and can be static or interactive.</string>
     <!--region Icon button-->
     <string name="component_iconbutton_description">Icon buttons help people take supplementary actions with a single tap. They’re used when a compact button is required, such as in a toolbar or image list.</string>
     <!--endregion-->

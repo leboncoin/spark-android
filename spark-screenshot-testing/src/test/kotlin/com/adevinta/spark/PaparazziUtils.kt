@@ -24,6 +24,7 @@ package com.adevinta.spark
 import android.view.View
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
@@ -141,6 +142,41 @@ internal fun Paparazzi.sparkSnapshotNightMode(
         }
     }
     exception?.let { throw it }
+}
+
+/**
+ * Generate 1 screenshot with the same content side by side but one in light theme and teh other in dark theme.
+ */
+internal fun Paparazzi.sparkDocSnapshot(
+    drawBackground: Boolean = true,
+    composable: @Composable () -> Unit,
+) {
+    sparkSnapshot(
+        drawBackground = drawBackground,
+    ) {
+        Row {
+            Box(
+                Modifier.weight(1f),
+            ) {
+                SparkThemeContent(
+                    colors = lightSparkColors(),
+                    drawBackground = drawBackground,
+                ) {
+                    composable()
+                }
+            }
+            Box(
+                Modifier.weight(1f),
+            ) {
+                SparkThemeContent(
+                    colors = darkSparkColors(),
+                    drawBackground = drawBackground,
+                ) {
+                    composable()
+                }
+            }
+        }
+    }
 }
 
 /**
