@@ -4,14 +4,24 @@
 
 ## [Unreleased]
 
-### Scripts
+## [2.1.0-alpha01]
+
+_2026-03-11_
+
+### Spark
+
+#### 💄 Buttons and Tags have new shapes!
+
+The **buttons** now have a full rounded shape and the **tags** use `SparkTheme.shapes.extraSmall`.
+This chanmge can be toggled via the `SparkFeatureFlag.useNewButtonAndTagsShapes` feature flag.
+
+#### 🆕 New Card specs
+
+Card is now defined by clear variants discoverable on the `Card` object. Use `Card.Flat`, `Card.Elevated`, `Card.Outlined`, `Card.HighlightFlat`, or `Card.HighlightElevated` for the different styles.
 
 #### 🆕 Component Generator Script
 
-The new `generate-component.main.kts` script should make it easier to bootstrap a new Spark components. It generates `Component.kt`, `SparkComponent.kt`, `ComponentDefaults.kt`, `Component.md`, `Screenshot tests`, `Configurator`, and `Examples` files.
-This script was will use the new component architecture that make variant discovery for consumers easier.
-
-To start generating a new component just use `./scripts/generate-component.main.kts [component-name] [package-name] [-v Variant1] [-v Variant2]` in the scripts directory!
+We now have a helper script to simplify the creation of a new components. To use it invoki it like this `./scripts/generate-component.main.kts [component-name] [package-name] [-v Variant1] [-v Variant2]`
 
 ## [2.0.0]
 
@@ -1170,7 +1180,9 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/2.0.0...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/2.1.0-alpha01...HEAD
+
+[2.1.0-alpha01]: https://github.com/leboncoin/spark-android/compare/2.0.0...2.1.0-alpha01
 
 [2.0.0]: https://github.com/leboncoin/spark-android/compare/2.0.0-alpha01...2.0.0
 
