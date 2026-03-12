@@ -43,6 +43,7 @@ jobs:
           ls spark-icons/
       - run: |
           ./scripts/spark-icons-kt/spark-icons-kt.main.kts --input=spark-icons/src/main/res/drawable --output="$FILE" --copyright=scripts/spark-icons-kt/COPYRIGHT.kt
+          cat "$FILE"
           if ! git diff --quiet --exit-code -- "$FILE spark-icons/src/main/res/drawable" ;
           then
             git config user.name 'spark-ui-bot'
