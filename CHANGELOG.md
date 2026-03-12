@@ -23,6 +23,16 @@ Card is now defined by clear variants discoverable on the `Card` object. Use `Ca
 
 We now have a helper script to simplify the creation of a new components. To use it invoki it like this `./scripts/generate-component.main.kts [component-name] [package-name] [-v Variant1] [-v Variant2]`
 
+## [2.0.1]
+
+_2026-03-12_
+
+### Icons
+- 🐛 Fix an issue with the generation of `LeboncoinIcons` when new icons are merged in spark-tokens.
+- 💄 Increase the decimal precisions for paths from 2 to 3 to avoid some paths malformations
+- 🆕 Add new stop light icon
+- 💄 Fix Cardboard icon missing the safe padding and the malformation of state criteria
+
 ## [2.0.0]
 
 _2026-03-05_
@@ -1182,7 +1192,9 @@ _2023-03-29_
 
 [Unreleased]: https://github.com/leboncoin/spark-android/compare/2.1.0-alpha01...HEAD
 
-[2.1.0-alpha01]: https://github.com/leboncoin/spark-android/compare/2.0.0...2.1.0-alpha01
+[2.1.0-alpha01]: https://github.com/leboncoin/spark-android/compare/2.0.1...2.1.0-alpha01
+
+[2.0.1]: https://github.com/leboncoin/spark-android/compare/2.0.0...2.0.1
 
 [2.0.0]: https://github.com/leboncoin/spark-android/compare/2.0.0-alpha01...2.0.0
 
