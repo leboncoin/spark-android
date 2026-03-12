@@ -23,6 +23,11 @@ Card is now defined by clear variants discoverable on the `Card` object. Use `Ca
 
 We now have a helper script to simplify the creation of a new components. To use it invoki it like this `./scripts/generate-component.main.kts [component-name] [package-name] [-v Variant1] [-v Variant2]`
 
+### 📝 Documentation
+
+We're testing newways to better represent the components in our [documentation](https://leboncoin.github.io/spark-android/) by including dedicated screenshots generated from screenshot tests to ensure that you always get the up to date visuals.
+We're also tesing including these new screenshots in the kdoc direclty.
+
 ## [2.1.0-alpha01]
 
 _2026-03-11_
