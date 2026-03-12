@@ -4,6 +4,25 @@
 
 ## [Unreleased]
 
+## [2.1.0]
+
+_2026-03-12_
+
+### Spark
+
+#### 💄 Buttons and Tags have new shapes!
+
+The **buttons** now have a full rounded shape and the **tags** use `SparkTheme.shapes.extraSmall`.
+This chanmge can be toggled via the `SparkFeatureFlag.useNewButtonAndTagsShapes` feature flag.
+
+#### 🆕 New Card specs
+
+Card is now defined by clear variants discoverable on the `Card` object. Use `Card.Flat`, `Card.Elevated`, `Card.Outlined`, `Card.HighlightFlat`, or `Card.HighlightElevated` for the different styles.
+
+#### 🆕 Component Generator Script
+
+We now have a helper script to simplify the creation of a new components. To use it invoki it like this `./scripts/generate-component.main.kts [component-name] [package-name] [-v Variant1] [-v Variant2]`
+
 ## [2.1.0-alpha01]
 
 _2026-03-11_
@@ -1190,9 +1209,11 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/2.1.0-alpha01...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/2.1.0...HEAD
 
-[2.1.0-alpha01]: https://github.com/leboncoin/spark-android/compare/2.0.1...2.1.0-alpha01
+[2.1.0]: https://github.com/leboncoin/spark-android/compare/2.0.1...2.1.0
+
+[2.1.0-alpha01]: https://github.com/leboncoin/spark-android/compare/2.0.1...2.1.0-alpha01 https://github.com/leboncoin/spark-android/compare/2.0.1...2.1.0-alpha01
 
 [2.0.1]: https://github.com/leboncoin/spark-android/compare/2.0.0...2.0.1
 
