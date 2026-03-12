@@ -35,12 +35,12 @@ jobs:
       # spark-tokens to this repo need to remove the content of its destination dir
       - run: |
           mkdir -p spark-icons/src/main/res/drawable
-
       - run: |
           cp -r spark-icons/icons/. spark-icons/src/main/res/drawable/
+          ls spark-icons/src/main/res/drawable
       - run: |
           rm -rf spark-icons/icons
-
+          ls spark-icons/
       - run: |
           ./scripts/spark-icons-kt/spark-icons-kt.main.kts --input=spark-icons/src/main/res/drawable --output="$FILE" --copyright=scripts/spark-icons-kt/COPYRIGHT.kt
           if ! git diff --quiet --exit-code -- "$FILE spark-icons/src/main/res/drawable" ;
