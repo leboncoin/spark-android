@@ -49,6 +49,11 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.card.Card.Elevated
+import com.adevinta.spark.components.card.Card.Flat
+import com.adevinta.spark.components.card.Card.HighlightElevated
+import com.adevinta.spark.components.card.Card.HighlightFlat
+import com.adevinta.spark.components.card.Card.Outlined
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.dim2
@@ -245,8 +250,27 @@ public fun Card(
     )
 }
 
+/**
+ * Spark card component.
+ *
+ * Cards contain content and actions that relate information about a subject. They provide
+ * visual separation from the background and can be static or interactive.
+ *
+ * Variants: [Flat], [Elevated], [Outlined], [HighlightFlat], [HighlightElevated].
+ */
 public object Card {
 
+    /**
+     * Elevated card with a drop shadow. More separation from the background than [Flat], less than [Outlined].
+     *
+     * ![Elevated card](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.card_CardDocumentationScreenshots_elevatedCard.png)
+     *
+     * @param modifier the Modifier to be applied to this card
+     * @param shape the shape of this card
+     * @param colors background color of the card
+     * @param contentPadding padding around the content
+     * @param content content of the card
+     */
     @Composable
     public fun Elevated(
         modifier: Modifier = Modifier,
@@ -266,6 +290,18 @@ public object Card {
         )
     }
 
+    /**
+     * Clickable elevated card with a drop shadow. More separation from the background than [Flat], less than [Outlined].
+     *
+     * ![Elevated card](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.card_CardDocumentationScreenshots_elevatedCard.png)
+     *
+     * @param onClick called when this card is clicked
+     * @param modifier the Modifier to be applied to this card
+     * @param shape the shape of this card
+     * @param colors background color of the card
+     * @param contentPadding padding around the content
+     * @param content content of the card
+     */
     @Composable
     public fun Elevated(
         onClick: () -> Unit,
@@ -287,6 +323,18 @@ public object Card {
         )
     }
 
+    /**
+     * Outlined card with a visual boundary around the container. Can provide greater emphasis than other types.
+     *
+     * ![Outlined card](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.card_CardDocumentationScreenshots_outlinedCard.png)
+     *
+     * @param modifier the Modifier to be applied to this card
+     * @param shape the shape of this card
+     * @param colors background color of the card
+     * @param borderColor color of the border
+     * @param contentPadding padding around the content
+     * @param content content of the card
+     */
     @Composable
     public fun Outlined(
         modifier: Modifier = Modifier,
@@ -307,6 +355,19 @@ public object Card {
         )
     }
 
+    /**
+     * Clickable outlined card with a visual boundary around the container. Can provide greater emphasis than other types.
+     *
+     * ![Outlined card](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.card_CardDocumentationScreenshots_outlinedCard.png)
+     *
+     * @param onClick called when this card is clicked
+     * @param modifier the Modifier to be applied to this card
+     * @param shape the shape of this card
+     * @param colors background color of the card
+     * @param borderColor color of the border
+     * @param contentPadding padding around the content
+     * @param content content of the card
+     */
     @Composable
     public fun Outlined(
         onClick: () -> Unit,
@@ -329,6 +390,17 @@ public object Card {
         )
     }
 
+    /**
+     * Flat card with subtle separation from the background. Less emphasis than [Elevated] or [Outlined].
+     *
+     * ![Flat card](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.card_CardDocumentationScreenshots_flatCard.png)
+     *
+     * @param modifier the Modifier to be applied to this card
+     * @param shape the shape of this card
+     * @param colors background color of the card
+     * @param contentPadding padding around the content
+     * @param content content of the card
+     */
     @Composable
     public fun Flat(
         modifier: Modifier = Modifier,
@@ -348,6 +420,18 @@ public object Card {
         )
     }
 
+    /**
+     * Clickable flat card with subtle separation from the background. Less emphasis than [Elevated] or [Outlined].
+     *
+     * ![Flat card](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.card_CardDocumentationScreenshots_flatCard.png)
+     *
+     * @param onClick called when this card is clicked
+     * @param modifier the Modifier to be applied to this card
+     * @param shape the shape of this card
+     * @param colors background color of the card
+     * @param contentPadding padding around the content
+     * @param content content of the card
+     */
     @Composable
     public fun Flat(
         onClick: () -> Unit,
@@ -369,6 +453,18 @@ public object Card {
         )
     }
 
+    /**
+     * Highlight elevated card: colored top banner with drop shadow for maximum emphasis.
+     *
+     * ![Highlight elevated card](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.card_CardDocumentationScreenshots_highlightElevatedCard.png)
+     *
+     * @param modifier the Modifier to be applied to this card
+     * @param shape the shape of this card
+     * @param colors color used for the heading banner
+     * @param contentPadding padding around the content
+     * @param heading optional composable drawn in the top banner area
+     * @param content content of the card
+     */
     @Composable
     public fun HighlightElevated(
         modifier: Modifier = Modifier,
@@ -390,6 +486,19 @@ public object Card {
         )
     }
 
+    /**
+     * Clickable highlight elevated card: colored top banner with drop shadow for maximum emphasis.
+     *
+     * ![Highlight elevated card](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.card_CardDocumentationScreenshots_highlightElevatedCard.png)
+     *
+     * @param onClick called when this card is clicked
+     * @param modifier the Modifier to be applied to this card
+     * @param shape the shape of this card
+     * @param colors color used for the heading banner
+     * @param contentPadding padding around the content
+     * @param heading optional composable drawn in the top banner area
+     * @param content content of the card
+     */
     @Composable
     public fun HighlightElevated(
         onClick: () -> Unit,
@@ -413,6 +522,18 @@ public object Card {
         )
     }
 
+    /**
+     * Highlight flat card with a colored banner at the top for additional emphasis.
+     *
+     * ![Highlight flat card](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.card_CardDocumentationScreenshots_highlightFlatCard.png)
+     *
+     * @param modifier the Modifier to be applied to this card
+     * @param shape the shape of this card
+     * @param colors color used for the heading banner
+     * @param contentPadding padding around the content
+     * @param heading optional composable drawn in the top banner area
+     * @param content content of the card
+     */
     @Composable
     public fun HighlightFlat(
         modifier: Modifier = Modifier,
@@ -434,6 +555,19 @@ public object Card {
         )
     }
 
+    /**
+     * Clickable highlight flat card with a colored banner at the top for additional emphasis.
+     *
+     * ![Highlight flat card](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.card_CardDocumentationScreenshots_highlightFlatCard.png)
+     *
+     * @param onClick called when this card is clicked
+     * @param modifier the Modifier to be applied to this card
+     * @param shape the shape of this card
+     * @param colors color used for the heading banner
+     * @param contentPadding padding around the content
+     * @param heading optional composable drawn in the top banner area
+     * @param content content of the card
+     */
     @Composable
     public fun HighlightFlat(
         onClick: () -> Unit,
@@ -503,7 +637,6 @@ public fun Card(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable ColumnScope.() -> Unit,
 ) {
-    androidx.compose.material3.Card { }
     SparkCard(
         onClick = onClick,
         modifier = modifier,
@@ -720,17 +853,17 @@ public fun ElevatedCard(
 @Composable
 internal fun PreviewCard() {
     PreviewTheme(color = { SparkTheme.colors.backgroundVariant }) {
-        Card.Flat {
+        Flat {
             Text(
                 text = "Card preview",
             )
         }
-        Card.Outlined {
+        Outlined {
             Text(
                 text = "Card preview",
             )
         }
-        Card.Elevated {
+        Elevated {
             Text(
                 text = "Card preview",
             )
@@ -742,7 +875,7 @@ internal fun PreviewCard() {
 @Composable
 internal fun PreviewInteractiveCard() {
     PreviewTheme(color = { SparkTheme.colors.backgroundVariant }) {
-        Card.Flat(
+        Flat(
             onClick = {},
         ) {
             Text(
@@ -750,14 +883,14 @@ internal fun PreviewInteractiveCard() {
             )
         }
 
-        Card.Outlined(
+        Outlined(
             onClick = {},
         ) {
             Text(
                 text = "Card preview",
             )
         }
-        Card.Elevated(
+        Elevated(
             onClick = {},
         ) {
             Text(
@@ -771,13 +904,13 @@ internal fun PreviewInteractiveCard() {
 @Composable
 internal fun PreviewHighlightCard() {
     PreviewTheme(color = { SparkTheme.colors.backgroundVariant }) {
-        Card.HighlightFlat {
+        HighlightFlat {
             Text(
                 text = "Card preview",
             )
         }
 
-        Card.HighlightElevated(
+        HighlightElevated(
             onClick = {},
         ) {
             Text(
