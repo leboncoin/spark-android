@@ -502,6 +502,7 @@ public val LeboncoinIcons.StateCriteria: DrawableRes get() = DrawableRes(R.drawa
 public val LeboncoinIcons.StickerCriteria: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_sticker_criteria)
 public val LeboncoinIcons.StopFill: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_stop_fill)
 public val LeboncoinIcons.StopOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_stop_outline)
+public val LeboncoinIcons.Stoplight: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_stoplight)
 public val LeboncoinIcons.StoreCriteria: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_store_criteria)
 public val LeboncoinIcons.StoreFill: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_store_fill)
 public val LeboncoinIcons.StoreOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_store_outline)
