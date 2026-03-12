@@ -39,12 +39,11 @@ jobs:
           rm -rf spark-icons/icons
       - run: |
           ./scripts/spark-icons-kt/spark-icons-kt.main.kts --input=spark-icons/src/main/res/drawable --output="$FILE" --copyright=scripts/spark-icons-kt/COPYRIGHT.kt
-          git add "$FILE" spark-icons/src/main/res/drawable
+          git add "$FILE" spark-icons
           if ! git diff --cached --quiet --exit-code ;
           then
             git config user.name 'spark-ui-bot'
             git config user.email 'spark-ui-bot@users.noreply.github.com'
-            git add "$FILE" spark-icons/src/main/res/drawable
             git commit -m '🎨 Update `LeboncoinIcons.kt` and update icons'
             git show
             git push
