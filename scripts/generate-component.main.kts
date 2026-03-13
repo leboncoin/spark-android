@@ -23,21 +23,21 @@
  */
 @file:DependsOn("com.github.ajalt.clikt:clikt-jvm:5.1.0")
 @file:DependsOn("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
+@file:Import(
+    "utils/clikt.main.kts",
+    "utils/files.main.kts",
+)
 
 import com.github.ajalt.clikt.command.SuspendingCliktCommand
 import com.github.ajalt.clikt.command.main
 import com.github.ajalt.clikt.core.UsageError
-import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.prompt
 import com.github.ajalt.clikt.parameters.options.validate
 import com.github.ajalt.clikt.parameters.options.varargValues
-import com.github.ajalt.clikt.parameters.types.file
 import kotlinx.coroutines.runBlocking
-import java.io.File
 import java.nio.file.Path
-import java.nio.file.Paths
 import java.time.Year
 import kotlin.io.path.ExperimentalPathApi
 import kotlin.io.path.absolutePathString
@@ -59,17 +59,6 @@ private fun Path.catalogConfiguratorPath(packageName: String): Path =
 
 private fun Path.catalogExamplesPath(packageName: String): Path =
     resolve("catalog/src/main/kotlin/$SPARK_BASE/catalog/examples/samples/$packageName")
-
-private fun detectProjectRoot(): Path {
-    val currentDir = Paths.get(System.getProperty("user.dir"))
-    return when {
-        currentDir.resolve("spotless").exists() -> currentDir
-        currentDir.fileName.toString() == "scripts" &&
-                currentDir.parent?.resolve("spotless")?.exists() == true -> currentDir.parent!!
-
-        else -> currentDir
-    }
-}
 
 private fun String.applySubstitutions(substitutions: Map<String, String>): String =
     substitutions.entries.fold(this) { content, (key, value) -> content.replace(key, value) }
@@ -234,15 +223,7 @@ class GenerateComponent : SuspendingCliktCommand(
         help = "Variant names (can be specified multiple times, e.g., -v Elevated -v Outlined)",
     ).varargValues()
 
-    private val projectDir by option(
-        "--project-dir", "-p",
-        help = "The project directory. Defaults to the current working directory",
-    ).file(
-        mustExist = true,
-        mustBeReadable = true,
-        canBeFile = false
-    )
-        .default(File("."))
+    private val projectDir by projectDir()
 
     private val dryRun by option(
         "--dry-run",
@@ -251,9 +232,8 @@ class GenerateComponent : SuspendingCliktCommand(
 
     override suspend fun run() {
         val variantList = variants?.filter { it.isNotEmpty() }.orEmpty()
-        val projectRoot = detectProjectRoot()
 
-        val copyright = projectRoot
+        val copyright = projectDir
             .resolve("spotless/spotless.kt")
             .readText()
             .replace($$"$YEAR", Year.now().value.toString())
@@ -276,18 +256,18 @@ class GenerateComponent : SuspendingCliktCommand(
             examplesContent = examplesContent,
         )
 
-        val componentsPath = projectRoot.sparkComponentsPath(names.packageName)
-        val templateDir = projectRoot.resolve("scripts/templates/component")
+        val componentsPath = projectDir.sparkComponentsPath(names.packageName)
+        val templateDir = projectDir.resolve("scripts/templates/component")
         val filesToGenerate = listOf(
             "Component.kt.template" to componentsPath.resolve("${names.componentName}.kt"),
             "SparkComponent.kt.template" to componentsPath.resolve("${names.sparkComponentName}.kt"),
             "ComponentDefaults.kt.template" to componentsPath.resolve("${names.componentNameDefaults}.kt"),
             "Component.md.template" to componentsPath.resolve("${names.componentName}.md"),
-            "ComponentScreenshot.kt.template" to projectRoot.screenshotComponentsPath(names.packageName)
+            "ComponentScreenshot.kt.template" to projectDir.screenshotComponentsPath(names.packageName)
                 .resolve("${names.componentNameScreenshot}.kt"),
-            "ComponentConfigurator.kt.template" to projectRoot.catalogConfiguratorPath(names.packageName)
+            "ComponentConfigurator.kt.template" to projectDir.catalogConfiguratorPath(names.packageName)
                 .resolve("${names.componentNameConfigurator}.kt"),
-            "ComponentExamples.kt.template" to projectRoot.catalogExamplesPath(names.packageName)
+            "ComponentExamples.kt.template" to projectDir.catalogExamplesPath(names.packageName)
                 .resolve("${names.componentNameExamples}.kt"),
         )
         val missingTemplates = validateTemplatesExist(templateDir, filesToGenerate.map { it.first })
