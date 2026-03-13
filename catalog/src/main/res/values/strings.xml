@@ -88,6 +88,9 @@
     <!--region Icon Toggle button-->
     <string name="component_icontogglebutton_description">Icon toggle buttons help people take supplementary actions with a single tap. They’re used when a compact button is required, such as in a toolbar or image list.</string>
     <!--endregion-->
+    <!--region InputOTP-->
+    <string name="component_inputotp_description">InputOTP is a specialized component for entering one-time passwords and verification codes. It displays individual slots for each character and automatically manages focus for 2FA/MFA authentication.</string>
+    <!--endregion-->
     <!--region image -->
     <string name="component_image_description">The Image component is used to display images with support for fallback in case of issues when loading them.</string>
     <string name="component_image_narrow_description">Street photography of a person walking in a paved alley after a rain with bright white/golden lights on the side and the centre deep blue color with an umbrella</string>
