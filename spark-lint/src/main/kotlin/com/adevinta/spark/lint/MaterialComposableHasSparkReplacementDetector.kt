@@ -50,7 +50,7 @@ public class MaterialComposableHasSparkReplacementDetector :
 
     override fun visitMethodCall(context: JavaContext, node: UCallExpression, method: PsiMethod) {
         val packageName = (method.containingFile as? PsiJavaFile)?.packageName ?: return
-        val replacement = REPLACEMENTS["$packageName.${method.name}"] ?: return
+        val replacement = REPLACEMENTS["$packageName.${node.methodName ?: method.name}"] ?: return
         method.reportUsage(context, node, replacement)
     }
 
