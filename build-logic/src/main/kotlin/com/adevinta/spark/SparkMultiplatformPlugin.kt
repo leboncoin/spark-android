@@ -102,6 +102,12 @@ public class SparkMultiplatformPlugin : Plugin<Project> {
 //            configureKotlin()
             explicitApi()
 
+            sourceSets.apply {
+                create("nonAndroidMain") { dependsOn(commonMain.get()) }
+                jvmMain.get().dependsOn(getByName("nonAndroidMain"))
+                // Add other / future source sets here as needed, e.g. jsMain, iosMain, etc.
+            }
+
 //            addKotlinBom()
         }
     }
