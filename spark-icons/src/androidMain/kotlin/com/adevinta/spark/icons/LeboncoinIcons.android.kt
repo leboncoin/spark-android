@@ -23,18 +23,7 @@
 
 package com.adevinta.spark.icons
 
-/**
- * A collection of static icons from Spark for leboncoin.
- *
- * This object provides access to all static vector icons as drawable resources.
- * Each icon is available as a property that returns a [SparkIcon.DrawableRes] on android
- * or [SparkIcon.Resource] or a [SparkIcon.Vector],
- * ensuring type safety and consistency across the icon system.
- *
- * @see SparkIcon.DrawableRes
- * @see SparkIcon.Vector
- */
-public object LeboncoinIcons
+import com.adevinta.spark.icons.SparkIcon.DrawableRes
 
 public val LeboncoinIcons.AccessoriesCriteria: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_accessories_criteria)
 public val LeboncoinIcons.Activity: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_activity)
@@ -261,8 +250,6 @@ public val LeboncoinIcons.GraphArrowUp: DrawableRes get() = DrawableRes(R.drawab
 public val LeboncoinIcons.GraphFill: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_graph_fill)
 public val LeboncoinIcons.GraphOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_graph_outline)
 public val LeboncoinIcons.GraphicCriteria: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_graphic_criteria)
-public val LeboncoinIcons.GraphicCursor: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_graphic_cursor)
-public val LeboncoinIcons.GraphicHand: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_graphic_hand)
 public val LeboncoinIcons.GroundFloorCriteria: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_ground_floor_criteria)
 public val LeboncoinIcons.GroupFill: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_group_fill)
 public val LeboncoinIcons.GroupOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_group_outline)
@@ -392,8 +379,6 @@ public val LeboncoinIcons.NeutralFaceFill: DrawableRes get() = DrawableRes(R.dra
 public val LeboncoinIcons.NeutralFaceOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_neutral_face_outline)
 public val LeboncoinIcons.OldFill: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_old_fill)
 public val LeboncoinIcons.OldOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_old_outline)
-public val LeboncoinIcons.OpenLetterFill: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_open_letter_fill)
-public val LeboncoinIcons.OpenLetterOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_open_letter_outline)
 public val LeboncoinIcons.PaintPalette: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_paint_palette)
 public val LeboncoinIcons.PaintbrushAI: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_paintbrush_a_i)
 public val LeboncoinIcons.PaperJobCriteria: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_paper_job_criteria)
