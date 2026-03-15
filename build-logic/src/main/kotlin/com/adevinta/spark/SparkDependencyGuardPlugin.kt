@@ -33,7 +33,12 @@ internal class SparkDependencyGuardPlugin : Plugin<Project> {
             apply(plugin = "com.dropbox.dependency-guard")
 
             configure<DependencyGuardPluginExtension> {
-                configuration("releaseRuntimeClasspath")
+                if (isKotlinMultiplatform) {
+                    if (isAndroid) configuration("androidRuntimeClasspath")
+                    configuration("jvmMainRuntimeClasspath")
+                } else {
+                    configuration("releaseRuntimeClasspath")
+                }
             }
         }
     }
