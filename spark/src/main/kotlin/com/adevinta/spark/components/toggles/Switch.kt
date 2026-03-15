@@ -47,7 +47,7 @@ import com.adevinta.spark.icons.Check
 import com.adevinta.spark.icons.Cross
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
+
 import com.adevinta.spark.tools.modifiers.minimumTouchTargetSize
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 import androidx.compose.material3.Switch as MaterialSwitch
@@ -286,7 +286,7 @@ public fun SwitchLabelled(
  * @property unchecked icon to be used for the thumb in unchecked state
  */
 public data class SwitchIcons(
-    val checked: SparkIcon = SparkIcons.Check,
+    val checked: SparkIcon = LeboncoinIcons.Check,
     val unchecked: SparkIcon = LeboncoinIcons.Cross,
 )
 

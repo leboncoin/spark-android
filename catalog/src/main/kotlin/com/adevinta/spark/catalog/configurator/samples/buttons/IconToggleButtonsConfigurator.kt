@@ -56,7 +56,7 @@ import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.icons.CarFill
 import com.adevinta.spark.icons.CarOutline
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.LeboncoinIcons
 
 public val IconToggleButtonsConfigurator: Configurator = Configurator(
     id = "icon-toggle-button",
@@ -75,7 +75,7 @@ private fun ColumnScope.IconToggleButtonSample() {
     var shape by remember { mutableStateOf(ButtonShape.Rounded) }
     var size by remember { mutableStateOf(IconButtonSize.Medium) }
     var intent by remember { mutableStateOf(IconButtonIntent.Main) }
-    val icons by remember { mutableStateOf(IconToggleButtonIcons(SparkIcons.CarOutline, SparkIcons.CarFill)) }
+    val icons by remember { mutableStateOf(IconToggleButtonIcons(LeboncoinIcons.CarOutline, LeboncoinIcons.CarFill)) }
     var contentDescription by remember { mutableStateOf("Content Description") }
 
     ConfiguredIconToggleButton(

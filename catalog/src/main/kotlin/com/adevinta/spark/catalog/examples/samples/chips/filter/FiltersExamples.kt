@@ -42,7 +42,7 @@ import com.adevinta.spark.components.chips.ChipSelectable
 import com.adevinta.spark.components.spacer.VerticalSpacer
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.Check
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.LeboncoinIcons
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
@@ -140,7 +140,7 @@ private fun UnionFilter() {
             ChipSelectable(
                 text = filter.name,
                 selected = selected,
-                leadingIcon = if (selected) SparkIcons.Check else null,
+                leadingIcon = if (selected) LeboncoinIcons.Check else null,
                 onClick = {
                     unionSelected = if (selected) {
                         unionSelected - filter.name
@@ -224,7 +224,7 @@ private fun InterFilter() {
             ChipSelectable(
                 text = filter.name,
                 selected = selected,
-                leadingIcon = if (selected) SparkIcons.Check else null,
+                leadingIcon = if (selected) LeboncoinIcons.Check else null,
                 onClick = {
                     interSelected = if (selected) {
                         interSelected - filter.name

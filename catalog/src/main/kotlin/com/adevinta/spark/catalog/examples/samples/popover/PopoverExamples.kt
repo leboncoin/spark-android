@@ -40,7 +40,7 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.HeartFill
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
+
 import com.adevinta.spark.tokens.highlight
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf

@@ -36,7 +36,7 @@ import com.adevinta.spark.components.buttons.ButtonTinted
 import com.adevinta.spark.components.buttons.IconSide
 import com.adevinta.spark.components.spacer.VerticalSpacer
 import com.adevinta.spark.icons.ImageOutline
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.LeboncoinIcons
 import io.github.vinceglb.filekit.PlatformFile
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableSet
@@ -125,7 +125,7 @@ public fun FileUploadCustomButtonSamples() {
                 ButtonTinted(
                     onClick = onClick,
                     text = "Upload with Tinted Button",
-                    icon = SparkIcons.ImageOutline,
+                    icon = LeboncoinIcons.ImageOutline,
                     iconSide = IconSide.START,
                 )
             },
@@ -191,7 +191,7 @@ public fun FileUploadWrapperSamples() {
             ButtonTinted(
                 onClick = onClick,
                 text = "Pick files",
-                icon = SparkIcons.ImageOutline,
+                icon = LeboncoinIcons.ImageOutline,
                 iconSide = IconSide.START,
                 modifier = Modifier.fillMaxWidth(),
             )

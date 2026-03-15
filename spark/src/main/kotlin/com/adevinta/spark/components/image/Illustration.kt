@@ -44,9 +44,9 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.icons.rememberSparkIconPainter
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
-import com.adevinta.spark.icons.Store
+import com.adevinta.spark.icons.StoreOutline
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import androidx.compose.foundation.Image as FoundationImage
@@ -339,7 +339,7 @@ public fun Illustration(
 internal fun IllustrationPreview() {
     PreviewTheme {
         Illustration(
-            sparkIcon = SparkIcons.Store,
+            sparkIcon = LeboncoinIcons.StoreOutline,
             contentDescription = null,
             modifier = Modifier.size(100.dp),
         )

@@ -79,7 +79,6 @@ import com.adevinta.spark.icons.GearOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.PenOutline
 import com.adevinta.spark.icons.Plus
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.ElevationTokens
 import com.adevinta.spark.tokens.SparkColors
 import com.adevinta.spark.tokens.applyTonalElevation
@@ -437,13 +436,13 @@ internal fun BottomAppBarPreview() {
                 IconButton(onClick = { /* doSomething() */ }) {
                     Icon(
                         modifier = Modifier.size(24.dp),
-                        sparkIcon = SparkIcons.Check,
+                        sparkIcon = LeboncoinIcons.Check,
                         contentDescription = "Localized description",
                     )
                 }
                 IconButton(onClick = { /* doSomething() */ }) {
                     Icon(
-                        SparkIcons.PenOutline,
+                        LeboncoinIcons.PenOutline,
                         contentDescription = "Localized description",
                     )
                 }
@@ -453,7 +452,7 @@ internal fun BottomAppBarPreview() {
                     onClick = { /* do something */ },
                     containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
                     elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation(),
-                    icon = SparkIcons.Plus,
+                    icon = LeboncoinIcons.Plus,
                     contentDescription = "Localized description",
                 )
             },
@@ -483,13 +482,13 @@ internal fun BottomAppBarScrollablePreview() {
                     actions = {
                         IconButton(onClick = { /* doSomething() */ }) {
                             Icon(
-                                sparkIcon = SparkIcons.Check,
+                                sparkIcon = LeboncoinIcons.Check,
                                 contentDescription = "Action 1",
                             )
                         }
                         IconButton(onClick = { /* doSomething() */ }) {
                             Icon(
-                                sparkIcon = SparkIcons.PenOutline,
+                                sparkIcon = LeboncoinIcons.PenOutline,
                                 contentDescription = "Action 2",
                             )
                         }

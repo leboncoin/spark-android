@@ -41,7 +41,7 @@ import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.buttons.ButtonGhost
 import com.adevinta.spark.components.buttons.IconSide
 import com.adevinta.spark.icons.CopyFill
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.LeboncoinIcons
 
 @ExperimentalSparkApi
 @SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
@@ -174,7 +174,7 @@ internal fun AlertDialogPreview() {
                     onClick = {
                     },
                     text = "Confirm",
-                    icon = SparkIcons.CopyFill,
+                    icon = LeboncoinIcons.CopyFill,
                     iconSide = IconSide.START,
                 )
             },
@@ -183,7 +183,7 @@ internal fun AlertDialogPreview() {
                     onClick = {
                     },
                     text = "Dismiss",
-                    icon = SparkIcons.CopyFill,
+                    icon = LeboncoinIcons.CopyFill,
                     iconSide = IconSide.START,
                 )
             },

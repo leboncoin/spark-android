@@ -84,7 +84,7 @@ import com.adevinta.spark.icons.CircleCrossFill
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.MagnifierOutline
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
+
 import com.adevinta.spark.icons.allAnimatedIconsMetadata
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.launch
@@ -167,14 +167,14 @@ public fun IconsScreen(
                 text = stringResource(R.string.icons_filter_icon),
                 onClick = { showIcons = !showIcons },
                 style = ChipStyles.Tinted,
-                leadingIcon = if (showIcons) SparkIcons.Check else null,
+                leadingIcon = if (showIcons) LeboncoinIcons.Check else null,
             )
             ChipSelectable(
                 selected = showAnimatedIcons,
                 text = stringResource(R.string.icons_filter_icon_animated),
                 onClick = { showAnimatedIcons = !showAnimatedIcons },
                 style = ChipStyles.Tinted,
-                leadingIcon = if (showAnimatedIcons) SparkIcons.Check else null,
+                leadingIcon = if (showAnimatedIcons) LeboncoinIcons.Check else null,
             )
         }
         val state = rememberLazyGridState()

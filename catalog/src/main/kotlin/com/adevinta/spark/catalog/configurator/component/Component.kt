@@ -75,7 +75,6 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.Chain
 import com.adevinta.spark.icons.Computer
 import com.adevinta.spark.icons.LeboncoinIcons
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.Layout
 
 @OptIn(ExperimentalSharedTransitionApi::class, ExperimentalAnimationSpecApi::class)
@@ -165,7 +164,7 @@ private fun ConfiguratorComponentMenu(
             onClick = { context.openUrl(component.docsUrl) },
             leadingIcon = {
                 Icon(
-                    sparkIcon = SparkIcons.Computer,
+                    sparkIcon = LeboncoinIcons.Computer,
                     contentDescription = null,
                 )
             },

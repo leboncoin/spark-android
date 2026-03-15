@@ -49,7 +49,7 @@ import com.adevinta.spark.icons.HeartFill
 import com.adevinta.spark.icons.HeartOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
+
 import com.adevinta.spark.tokens.highlight
 
 public val TextFieldsConfigurator: Configurator = Configurator(

@@ -45,7 +45,7 @@ import com.adevinta.spark.icons.Check
 import com.adevinta.spark.icons.Cross
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
+
 
 public val SwitchConfigurator: Configurator = Configurator(
     id = "switch",
@@ -59,7 +59,7 @@ public val SwitchConfigurator: Configurator = Configurator(
 @Composable
 private fun ColumnScope.SwitchSample() {
     var isEnabled by remember { mutableStateOf(true) }
-    var iconOn: SparkIcon? by remember { mutableStateOf(SparkIcons.Check) }
+    var iconOn: SparkIcon? by remember { mutableStateOf(LeboncoinIcons.Check) }
     var iconOff: SparkIcon? by remember { mutableStateOf(LeboncoinIcons.Cross) }
     var label: String? by remember { mutableStateOf(null) }
     var state by remember { mutableStateOf(false) }

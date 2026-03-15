@@ -43,7 +43,7 @@ import com.adevinta.spark.components.chips.ChipSelectable
 import com.adevinta.spark.components.chips.ChipStyles
 import com.adevinta.spark.icons.CalendarOutline
 import com.adevinta.spark.icons.Check
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.LeboncoinIcons
 
 /**
  * Demonstrates the four chip kinds: Assist, Filter, Input, and Suggestion.
@@ -55,10 +55,10 @@ public fun ChipsKind() {
     FlowRow(
         horizontalArrangement = spacedBy(8.dp),
     ) {
-        Chip(text = "Assist", leadingIcon = SparkIcons.CalendarOutline, onClick = {})
+        Chip(text = "Assist", leadingIcon = LeboncoinIcons.CalendarOutline, onClick = {})
         ChipSelectable(
             text = "Filter",
-            leadingIcon = if (selected) SparkIcons.Check else null,
+            leadingIcon = if (selected) LeboncoinIcons.Check else null,
             onClick = { selected = !selected },
             selected = selected,
         )
@@ -115,7 +115,7 @@ public fun ChipMultipleSelectionSample() {
             ChipSelectable(
                 text = filter,
                 selected = isSelected,
-                leadingIcon = if (isSelected) SparkIcons.Check else null,
+                leadingIcon = if (isSelected) LeboncoinIcons.Check else null,
                 onClick = {
                     selectedFilters = if (isSelected) {
                         selectedFilters - filter

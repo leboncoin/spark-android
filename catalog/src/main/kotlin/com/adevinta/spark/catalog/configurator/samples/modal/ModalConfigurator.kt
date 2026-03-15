@@ -60,7 +60,7 @@ import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.icons.ImageFill
 import com.adevinta.spark.icons.LeboncoinIcons
-import com.adevinta.spark.icons.SparkIcons
+
 import com.adevinta.spark.icons.ThreeDotsVertical
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -138,10 +138,10 @@ internal fun ColumnScope.ModalSample() {
             },
             actions = {
                 IconButton(onClick = { }) {
-                    Icon(sparkIcon = SparkIcons.ImageFill, contentDescription = "")
+                    Icon(sparkIcon = LeboncoinIcons.ImageFill, contentDescription = "")
                 }
                 IconButton(onClick = { }) {
-                    Icon(sparkIcon = SparkIcons.ImageFill, contentDescription = "")
+                    Icon(sparkIcon = LeboncoinIcons.ImageFill, contentDescription = "")
                 }
                 IconButton(onClick = { }) {
                     Icon(sparkIcon = LeboncoinIcons.ThreeDotsVertical, contentDescription = "")

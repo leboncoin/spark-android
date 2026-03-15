@@ -87,7 +87,6 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.Cross
 import com.adevinta.spark.icons.ImageFill
 import com.adevinta.spark.icons.LeboncoinIcons
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.ThreeDotsVertical
 import com.adevinta.spark.tokens.Layout
 import com.adevinta.spark.tokens.LocalWindowSizeClass
@@ -506,8 +505,8 @@ private fun ModalPreview() {
                     Text(text = "Title")
                 },
                 actions = {
-                    Icon(sparkIcon = SparkIcons.ImageFill, contentDescription = "")
-                    Icon(sparkIcon = SparkIcons.ImageFill, contentDescription = "")
+                    Icon(sparkIcon = LeboncoinIcons.ImageFill, contentDescription = "")
+                    Icon(sparkIcon = LeboncoinIcons.ImageFill, contentDescription = "")
                     Icon(sparkIcon = LeboncoinIcons.ThreeDotsVertical, contentDescription = "")
                 },
             ) { innerPadding ->
