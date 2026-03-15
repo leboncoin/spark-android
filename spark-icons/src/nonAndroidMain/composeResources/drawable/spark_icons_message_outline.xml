@@ -1,0 +1,40 @@
+<!--
+  Copyright (c) 2023 Adevinta
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <path
+      android:fillColor="#FF4F6076"
+      android:pathData="M16.9 8.2H7.1c-0.56 0-1.02-0.46-1.02-1.02S6.54 6.17 7.1 6.17h9.8c0.56 0 1.02 0.45 1.02 1.01S17.46 8.2 16.9 8.2Z"/>
+  <path
+      android:fillColor="#FF4F6076"
+      android:pathData="M16.9 11.38H7.1c-0.56 0-1.02-0.45-1.02-1.01S6.54 9.35 7.1 9.35h9.8c0.56 0 1.02 0.46 1.02 1.02s-0.46 1.01-1.02 1.01Z"/>
+  <path
+      android:fillColor="#FF4F6076"
+      android:pathData="M6.08 13.63c0-0.56 0.46-1.01 1.02-1.01h6.53c0.56 0 1.02 0.45 1.02 1.01s-0.46 1.02-1.02 1.02H7.1c-0.56 0-1.02-0.46-1.02-1.02Z"/>
+  <path
+      android:fillColor="#FF4F6076"
+      android:fillType="evenOdd"
+      android:pathData="M2 6.18C2 3.84 3.9 2 6.22 2h11.5C20.08 2 22 3.92 22 6.28v14.7c0 0.39-0.22 0.74-0.56 0.91-0.34 0.17-0.76 0.14-1.06-0.1l-3.67-2.73H6.3c-2.36 0-4.27-1.9-4.28-4.25L2 6.18Zm4.22-2.15C5 4.03 4.04 5 4.03 6.18c0 2.6 0 6.1 0.02 8.62 0 1.23 1 2.23 2.25 2.23h10.75c0.22 0 0.43 0.07 0.6 0.2l2.32 1.73V6.28c0-1.24-1-2.25-2.25-2.25H6.22Z"/>
+</vector>
