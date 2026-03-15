@@ -1,0 +1,33 @@
+<!--
+  Copyright (c) 2023 Adevinta
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M23.91,11.53a1.09,1.09 0,0 0,-0.27 -0.4L12.87,0.36a1.09,1.09 0,0 0,-0.4 -0.27,1.27 1.27,0 0,0 -0.94,0c-0.15,0.06 -0.29,0.15 -0.4,0.27L0.36,11.13c-0.12,0.11 -0.21,0.25 -0.27,0.4a1.27,1.27 0,0 0,0 0.94c0.06,0.15 0.15,0.29 0.27,0.4a1.23,1.23 0,0 0,1.74 0l0.38,-0.38v10.28A1.23,1.23 0,0 0,3.71 24h16.57a1.23,1.23 0,0 0,1.23 -1.23V12.49l0.38,0.38c0.11,0.12 0.25,0.21 0.4,0.27a1.27,1.27 0,0 0,0.94 0c0.15,-0.06 0.29,-0.15 0.4,-0.27a1.23,1.23 0,0 0,0.27 -1.34zM4.95,21.54V10.02L12,2.97l7.05,7.05v11.51z"/>
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M13.66,8.22a2.7,2.7 0,0 0,-3.6 0c-0.5,0.44 -0.82,1.04 -0.9,1.7a2.75,2.75 0,0 0,1.72 2.88v6.15c0,0.26 0.1,0.51 0.29,0.69 0.18,0.18 0.43,0.29 0.69,0.29s0.51,-0.1 0.69,-0.29a1,1 0,0 0,0.2 -0.29h0.26c0.26,0 0.51,-0.1 0.69,-0.29 0.18,-0.18 0.29,-0.43 0.29,-0.69s-0.1,-0.51 -0.29,-0.69a0.99,0.99 0,0 0,-0.69 -0.29h-0.18v-0.35h0.18c0.26,0 0.51,-0.1 0.69,-0.29 0.18,-0.18 0.29,-0.43 0.29,-0.69s-0.1,-0.51 -0.29,-0.69a0.99,0.99 0,0 0,-0.69 -0.29h-0.18L12.83,12.8a2.74,2.74 0,0 0,1.72 -2.88,2.69 2.69,0 0,0 -0.9,-1.7zM11.24,9.85c0.08,-0.12 0.2,-0.22 0.34,-0.28a0.74,0.74 0,0 1,0.44 -0.04c0.15,0.03 0.28,0.1 0.39,0.21s0.18,0.24 0.21,0.39c0.03,0.15 0.01,0.3 -0.04,0.44a0.77,0.77 0,0 1,-0.7 0.47,0.75 0.75,0 0,1 -0.75,-0.75c0,-0.15 0.02,-0.31 0.11,-0.44"/>
+</vector>

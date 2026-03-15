@@ -1,0 +1,31 @@
+<!--
+  Copyright (c) 2023 Adevinta
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <path
+      android:pathData="M22,4.633c0,-0.26 -0.066,-0.516 -0.192,-0.745a1.6,1.6 0,0 0,-0.508 -0.582,1.8 1.8,0 0,0 -0.725,-0.287 1.7,1.7 0,0 0,-0.783 0.066L3.583,8.673a2.44,2.44 0,0 0,-1.141 0.82A2.3,2.3 0,0 0,2 10.836v1.525c0.016,0.467 0.176,0.918 0.458,1.294 0.283,0.378 0.675,0.663 1.125,0.82l1.884,0.647v1.516c0.003,0.895 0.265,1.77 0.756,2.524a4.77,4.77 0,0 0,2.015 1.732,4.87 4.87,0 0,0 5.095,-0.659 4.6,4.6 0,0 0,1.392 -1.95l5.058,1.737c0.252,0.083 0.52,0.106 0.784,0.066 0.26,-0.042 0.508,-0.14 0.725,-0.287 0.216,-0.15 0.39,-0.35 0.508,-0.582a1.56,1.56 0,0 0,0.192 -0.746L21.992,4.642zM12.083,18.752a2.88,2.88 0,0 1,-3.02 0.395A2.8,2.8 0,0 1,7.87 18.12a2.75,2.75 0,0 1,-0.445 -1.497v-0.82l5.467,1.877a2.8,2.8 0,0 1,-0.809 1.073"
+      android:fillColor="#3a4757"
+      android:fillType="evenOdd"/>
+</vector>

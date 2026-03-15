@@ -1,0 +1,31 @@
+<!--
+  Copyright (c) 2023 Adevinta
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M4.5,13.35a2.4,2.4 0,0 0,2.39 2.42h2.12v2.81c-1.03,-0.1 -2.05,-0.26 -3.07,-0.47l-0.98,-0.2a0.39,0.39 0,0 0,-0.45 0.3c-0.04,0.21 0.09,0.41 0.29,0.45l0.98,0.2c4.23,0.89 8.6,0.85 12.82,-0.11l0.44,-0.1a0.4,0.4 0,0 0,0.29 -0.46,0.37 0.37,0 0,0 -0.45,-0.29l-0.44,0.1c-1.01,0.23 -2.02,0.4 -3.04,0.52v-2.75h1.72a2.4,2.4 0,0 0,2.39 -2.42v-3.12h-6.57L12.94,4.98a0.47,0.47 0,0 0,-0.48 -0.48h-1.92a6.06,6.06 0,0 0,-6.01 5.73h-0.01v3.12ZM14.64,15.77L9.76,15.77v2.87c1.62,0.12 3.25,0.11 4.88,-0.04zM12.18,5.26v4.97h-6.9a5.3,5.3 0,0 1,5.26 -4.97zM5.26,10.99v2.35c0,0.92 0.73,1.66 1.63,1.66h10.22c0.9,0 1.63,-0.74 1.63,-1.66v-2.35z"
+      android:fillType="evenOdd"/>
+</vector>
