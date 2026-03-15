@@ -49,7 +49,7 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.GearOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
+
 import com.adevinta.spark.tools.modifiers.minimumTouchTargetSize
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 

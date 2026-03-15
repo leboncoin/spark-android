@@ -46,7 +46,7 @@ import com.adevinta.spark.components.fileupload.PreviewFile
 import com.adevinta.spark.components.fileupload.UploadedFile
 import com.adevinta.spark.components.spacer.VerticalSpacer
 import com.adevinta.spark.icons.ImageOutline
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.LeboncoinIcons
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.path
 import kotlinx.collections.immutable.ImmutableList
@@ -296,7 +296,7 @@ private fun ButtonCustomizationExample() {
             label = "Medium with icon at end",
             modifier = Modifier.fillMaxWidth(),
             size = ButtonSize.Medium,
-            icon = SparkIcons.ImageOutline,
+            icon = LeboncoinIcons.ImageOutline,
             iconSide = IconSide.END,
         )
 
@@ -308,7 +308,7 @@ private fun ButtonCustomizationExample() {
             label = "Large with icon",
             modifier = Modifier.fillMaxWidth(),
             size = ButtonSize.Large,
-            icon = SparkIcons.ImageOutline,
+            icon = LeboncoinIcons.ImageOutline,
             iconSide = IconSide.START,
         )
 
@@ -357,7 +357,7 @@ private fun CustomButtonContentExample() {
                 ButtonTinted(
                     onClick = onClick,
                     text = "Upload with Tinted Button",
-                    icon = SparkIcons.ImageOutline,
+                    icon = LeboncoinIcons.ImageOutline,
                     iconSide = IconSide.START,
                 )
             },
@@ -374,7 +374,7 @@ private fun CustomButtonContentExample() {
                 ButtonOutlined(
                     onClick = onClick,
                     text = "Upload with Outlined Button",
-                    icon = SparkIcons.ImageOutline,
+                    icon = LeboncoinIcons.ImageOutline,
                     iconSide = IconSide.END,
                 )
             },
@@ -451,7 +451,7 @@ private fun UploadProgressErrorExample() {
             },
             label = "Select file to upload",
             modifier = Modifier.fillMaxWidth(),
-            icon = SparkIcons.ImageOutline,
+            icon = LeboncoinIcons.ImageOutline,
             iconSide = IconSide.START,
         )
 

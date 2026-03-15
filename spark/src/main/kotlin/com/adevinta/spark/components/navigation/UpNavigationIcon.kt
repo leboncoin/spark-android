@@ -29,7 +29,7 @@ import com.adevinta.spark.R
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconSize
 import com.adevinta.spark.icons.ArrowLeft
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
 @Composable
@@ -44,7 +44,7 @@ public fun UpNavigationIcon(
     ) {
         Icon(
             size = IconSize.Medium,
-            sparkIcon = SparkIcons.ArrowLeft,
+            sparkIcon = LeboncoinIcons.ArrowLeft,
             contentDescription = contentDescription,
         )
     }

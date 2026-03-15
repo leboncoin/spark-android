@@ -34,12 +34,12 @@ import com.adevinta.spark.components.buttons.ButtonIntent
 import com.adevinta.spark.components.buttons.ButtonSize
 import com.adevinta.spark.components.buttons.IconSide
 import com.adevinta.spark.icons.CameraVideo
-import com.adevinta.spark.icons.CvOutline
+import com.adevinta.spark.icons.FileOutline
 import com.adevinta.spark.icons.ImageOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.PdfOutline
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
+
 import com.adevinta.spark.tools.modifiers.ifNotNull
 import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.PlatformFile
@@ -262,7 +262,7 @@ public object FileUploadDefaults {
                 lowerName.endsWith(".jpg") ||
                 lowerName.endsWith(".jpeg") ||
                 lowerName.endsWith(".webp") -> {
-                SparkIcons.ImageOutline
+                LeboncoinIcons.ImageOutline
             }
 
             mimeType == "application/pdf" || lowerName.endsWith(".pdf") -> {
@@ -274,10 +274,10 @@ public object FileUploadDefaults {
                 lowerName.endsWith(".mov") ||
                 lowerName.endsWith(".avi") ||
                 lowerName.endsWith(".mkv") -> {
-                SparkIcons.CameraVideo
+                LeboncoinIcons.CameraVideo
             }
 
-            else -> SparkIcons.CvOutline
+            else -> LeboncoinIcons.FileOutline
         }
     }
 

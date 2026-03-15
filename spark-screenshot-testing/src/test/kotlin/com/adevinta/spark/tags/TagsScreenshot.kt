@@ -45,7 +45,7 @@ import com.adevinta.spark.components.tags.TagTinted
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.FireFill
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshotNightMode
 import com.adevinta.spark.tags.TagsScreenshot.Style.Filled
@@ -60,7 +60,7 @@ import java.util.Locale
 internal class TagsScreenshot {
 
     private val values: List<String> = listOf(stubBody, stubShortBody, "")
-    private val icon: List<SparkIcon?> = listOf(SparkIcons.FireFill, null)
+    private val icon: List<SparkIcon?> = listOf(LeboncoinIcons.FireFill, null)
 
     enum class Style {
         Tinted,

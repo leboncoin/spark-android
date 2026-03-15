@@ -40,8 +40,8 @@ import com.adevinta.spark.components.badge.BadgeStyle
 import com.adevinta.spark.components.badge.BadgedBox
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.surface.Surface
-import com.adevinta.spark.icons.MailOutline
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.MailBoxOpenOutline
+import com.adevinta.spark.icons.LeboncoinIcons
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
@@ -175,7 +175,7 @@ private fun ColumnScope.BadgeBadgedBox() {
 
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
             BadgedBox(badge = { Badge(count = 5) }) {
-                Icon(SparkIcons.MailOutline, contentDescription = "Mail")
+                Icon(LeboncoinIcons.MailBoxOpenOutline, contentDescription = "Mail")
             }
 
             BadgedBox(badge = { Badge() }) {

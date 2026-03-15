@@ -57,7 +57,6 @@ import com.adevinta.spark.components.tab.TabGroupDefaults.tabIndicatorOffset
 import com.adevinta.spark.icons.BubbleTextOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.MagnifierOutline
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.UserFill
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch

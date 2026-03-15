@@ -71,9 +71,8 @@ import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.Stack
 import com.adevinta.spark.icons.StrokeImage
-import com.adevinta.spark.icons.Tattoo
 import com.adevinta.spark.icons.WarningImage
 import com.adevinta.spark.tokens.EmphasizeDim2
 import com.adevinta.spark.tools.SparkExceptionHandler
@@ -386,9 +385,9 @@ private fun AsyncImagePainter.State.asImageState(): State = when (this) {
 @Composable
 private fun ImagePreview() {
     PreviewTheme {
-        val painter = rememberSparkIconPainter(sparkIcon = SparkIcons.Tattoo)
+        val painter = rememberSparkIconPainter(sparkIcon = LeboncoinIcons.Stack)
         val drawable =
-            AppCompatResources.getDrawable(LocalContext.current, SparkIcons.Tattoo.drawableId)!!
+            AppCompatResources.getDrawable(LocalContext.current, LeboncoinIcons.Stack.drawableId)!!
         val imageRequest = ImageRequest.Builder(LocalContext.current).data(Unit).build()
 
         Text("Empty")

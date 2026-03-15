@@ -57,7 +57,7 @@ import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.ImageFill
 import com.adevinta.spark.icons.LeboncoinIcons
-import com.adevinta.spark.icons.SparkIcons
+
 import com.adevinta.spark.icons.ThreeDotsVertical
 
 @Composable
@@ -92,10 +92,10 @@ internal fun EdgeToEdgeExample() {
                 },
                 actions = {
                     IconButton(onClick = { /*TODO*/ }) {
-                        Icon(sparkIcon = SparkIcons.ImageFill, contentDescription = "")
+                        Icon(sparkIcon = LeboncoinIcons.ImageFill, contentDescription = "")
                     }
                     IconButton(onClick = { /*TODO*/ }) {
-                        Icon(sparkIcon = SparkIcons.ImageFill, contentDescription = "")
+                        Icon(sparkIcon = LeboncoinIcons.ImageFill, contentDescription = "")
                     }
                     IconButton(onClick = { /*TODO*/ }) {
                         Icon(sparkIcon = LeboncoinIcons.ThreeDotsVertical, contentDescription = "")

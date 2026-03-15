@@ -74,7 +74,7 @@ import com.adevinta.spark.components.menu.SingleChoiceExposedDropdownMenu
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.CircleCrossOutline
 import com.adevinta.spark.icons.LeboncoinIcons
-import com.adevinta.spark.icons.SparkIcons
+
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 

@@ -51,7 +51,7 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.CircleCrossOutline
 import com.adevinta.spark.icons.HeartFill
 import com.adevinta.spark.icons.LeboncoinIcons
-import com.adevinta.spark.icons.SparkIcons
+
 import com.adevinta.spark.tokens.SparkTypography
 import kotlinx.coroutines.flow.flowOf
 

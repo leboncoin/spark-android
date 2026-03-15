@@ -39,7 +39,7 @@ import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.rating.RatingStarState.Empty
 import com.adevinta.spark.components.rating.RatingStarState.Full
 import com.adevinta.spark.components.rating.RatingStarState.Half
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.StarFill
 import com.adevinta.spark.icons.StarOutline
 import com.adevinta.spark.tokens.dim3
@@ -72,7 +72,7 @@ public fun RatingStar(
         label = "outlined star color",
     )
 
-    val icon = if (state == Full) SparkIcons.StarFill else SparkIcons.StarOutline
+    val icon = if (state == Full) LeboncoinIcons.StarFill else LeboncoinIcons.StarOutline
 
     when (state) {
         Full,
@@ -103,7 +103,7 @@ public fun RatingStar(
                         .clip(
                             FractionalRectangleShape(startFraction = 0f, endFraction = 0.5f),
                         ),
-                    sparkIcon = SparkIcons.StarFill,
+                    sparkIcon = LeboncoinIcons.StarFill,
                     tint = filledStarColor,
                     contentDescription = null,
                 )
@@ -113,7 +113,7 @@ public fun RatingStar(
                         .clip(
                             FractionalRectangleShape(startFraction = 0.5f, endFraction = 1f),
                         ),
-                    sparkIcon = SparkIcons.StarOutline,
+                    sparkIcon = LeboncoinIcons.StarOutline,
                     tint = outlinedStarColor,
                     contentDescription = null,
                 )

@@ -29,9 +29,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.PreviewTheme
-import com.adevinta.spark.icons.Booster
+import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.RocketOutline
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 
 /**
  * Outlined tag represent support information
@@ -146,7 +146,7 @@ public fun TagOutlined(
 @Composable
 internal fun TagOutlinedPreview() {
     PreviewTheme {
-        val icon = SparkIcons.Booster
+        val icon = LeboncoinIcons.RocketOutline
         TagOutlined("", leadingIcon = icon)
         TagOutlined("Tag Basic")
         TagOutlined("Tag Basic", leadingIcon = icon)

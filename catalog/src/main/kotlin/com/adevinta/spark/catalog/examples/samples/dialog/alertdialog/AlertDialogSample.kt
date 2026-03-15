@@ -37,7 +37,7 @@ import com.adevinta.spark.components.dialog.AlertDialog
 import com.adevinta.spark.components.iconbuttons.IconButtonFilled
 import com.adevinta.spark.icons.CircleCrossOutline
 import com.adevinta.spark.icons.LeboncoinIcons
-import com.adevinta.spark.icons.SparkIcons
+
 
 @OptIn(ExperimentalSparkApi::class)
 @Preview

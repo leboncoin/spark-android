@@ -70,7 +70,7 @@ import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.GearOutline
 import com.adevinta.spark.icons.LeboncoinIcons
-import com.adevinta.spark.icons.SparkIcons
+
 import com.adevinta.spark.tokens.applyTonalElevation
 import com.adevinta.spark.tools.modifiers.invisibleSemantic
 import kotlinx.collections.immutable.persistentListOf

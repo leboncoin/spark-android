@@ -82,9 +82,8 @@ import com.adevinta.spark.components.textfields.SingleChoiceComboBox
 import com.adevinta.spark.icons.Check
 import com.adevinta.spark.icons.GearOutline
 import com.adevinta.spark.icons.LeboncoinIcons
-import com.adevinta.spark.icons.MailOutline
+import com.adevinta.spark.icons.MailBoxOpenOutline
 import com.adevinta.spark.icons.PenFill
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.ElevationTokens
 import com.adevinta.spark.tokens.EmphasizeDim1
 import com.adevinta.spark.tokens.SparkColors
@@ -396,7 +395,7 @@ private fun SparkDropdownMenuItem(
  */
 @Deprecated(
     message = "DropdownMenuItem is now scoped and can't be used as a Standalone component, migrate to " +
-        "the variant that has DropdownMenuItemColumnScope as a receiver",
+            "the variant that has DropdownMenuItemColumnScope as a receiver",
     replaceWith = ReplaceWith(
         "DropdownMenuItemColumnScope.DropdownMenuItem(text, onClick, modifier, leadingIcon, trailingIcon, enabled, contentPadding, interactionSource)",
     ),
@@ -534,7 +533,7 @@ public fun SingleChoiceDropdownItemColumnScope.DropdownMenuItem(
         leadingIcon = if (selected) {
             @Composable {
                 Icon(
-                    sparkIcon = SparkIcons.Check,
+                    sparkIcon = LeboncoinIcons.Check,
                     contentDescription = null, // Semantics handled in the Row
                     modifier = Modifier.size(24.dp),
                 )
@@ -598,7 +597,7 @@ public fun MultiChoiceDropdownItemColumnScope.DropdownMenuItem(
         leadingIcon = if (checked) {
             @Composable {
                 Icon(
-                    sparkIcon = SparkIcons.Check,
+                    sparkIcon = LeboncoinIcons.Check,
                     contentDescription = null, // Semantics handled in the Row
                     modifier = Modifier.size(24.dp),
                 )
@@ -743,7 +742,7 @@ private fun DropdownMenuItemPreview() {
             text = { Text("Edit") },
             leadingIcon = {
                 Icon(
-                    SparkIcons.PenFill,
+                    LeboncoinIcons.PenFill,
                     contentDescription = null,
                 )
             },
@@ -767,7 +766,7 @@ private fun DropdownMenuItemPreview() {
             text = { Text("Send Feedback") },
             leadingIcon = {
                 Icon(
-                    SparkIcons.MailOutline,
+                    LeboncoinIcons.MailBoxOpenOutline,
                     contentDescription = null,
                 )
             },
@@ -777,7 +776,7 @@ private fun DropdownMenuItemPreview() {
             text = { Text("Send Feedback Send Feedback Send Feedback Send Feedback Send Feedback Send Feed") },
             leadingIcon = {
                 Icon(
-                    SparkIcons.MailOutline,
+                    LeboncoinIcons.MailBoxOpenOutline,
                     contentDescription = null,
                 )
             },
@@ -806,7 +805,7 @@ private fun DropdownMenuGroupItemPreview() {
                     text = { Text("Edit") },
                     leadingIcon = {
                         Icon(
-                            SparkIcons.PenFill,
+                            LeboncoinIcons.PenFill,
                             contentDescription = null,
                         )
                     },
@@ -829,7 +828,7 @@ private fun DropdownMenuGroupItemPreview() {
                 text = { Text("Edit") },
                 leadingIcon = {
                     Icon(
-                        SparkIcons.PenFill,
+                        LeboncoinIcons.PenFill,
                         contentDescription = null,
                     )
                 },

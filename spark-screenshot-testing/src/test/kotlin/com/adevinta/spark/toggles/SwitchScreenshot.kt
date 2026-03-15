@@ -33,7 +33,7 @@ import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.icons.BellOffFill
 import com.adevinta.spark.icons.BellOnFill
 import com.adevinta.spark.icons.LeboncoinIcons
-import com.adevinta.spark.icons.SparkIcons
+
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshotNightMode
 import org.junit.Rule

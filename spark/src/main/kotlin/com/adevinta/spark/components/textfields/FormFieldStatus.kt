@@ -30,7 +30,7 @@ import com.adevinta.spark.components.textfields.TextFieldState.Success
 import com.adevinta.spark.icons.AlertOutline
 import com.adevinta.spark.icons.Check
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.WarningOutline
 
 public typealias FormFieldStatus = TextFieldState
@@ -46,7 +46,7 @@ public enum class TextFieldState(public val icon: SparkIcon) {
     /**
      * Used for feedbacks that are positive.
      */
-    Success(icon = SparkIcons.Check) {
+    Success(icon = LeboncoinIcons.Check) {
         @Composable
         override fun color(): Color = SparkTheme.colors.success
     },
@@ -54,7 +54,7 @@ public enum class TextFieldState(public val icon: SparkIcon) {
     /**
      * Used for feedbacks that are negative.
      */
-    Alert(icon = SparkIcons.WarningOutline) {
+    Alert(icon = LeboncoinIcons.WarningOutline) {
         @Composable
         override fun color(): Color = SparkTheme.colors.alert
     },
@@ -62,7 +62,7 @@ public enum class TextFieldState(public val icon: SparkIcon) {
     /**
      * Used for feedbacks that are negative and dangerous. (required field not filled or a wrong input)
      */
-    Error(icon = SparkIcons.AlertOutline) {
+    Error(icon = LeboncoinIcons.AlertOutline) {
         @Composable
         override fun color(): Color = SparkTheme.colors.error
     },

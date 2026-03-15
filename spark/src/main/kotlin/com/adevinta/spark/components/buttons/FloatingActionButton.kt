@@ -46,7 +46,7 @@ import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.PenOutline
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.LeboncoinIcons
 import androidx.compose.material3.ExtendedFloatingActionButton as MaterialExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton as MaterialFloatingActionButton
 import androidx.compose.material3.LargeFloatingActionButton as MaterialLargeFloatingActionButton
@@ -347,7 +347,7 @@ internal fun DropdownMenuPreview() {
 
         LargeFloatingActionButton(
             onClick = { /* do something */ },
-            icon = SparkIcons.PenOutline,
+            icon = LeboncoinIcons.PenOutline,
             contentDescription = "Localized description",
         )
 
@@ -355,7 +355,7 @@ internal fun DropdownMenuPreview() {
 
         FloatingActionButton(
             onClick = { /* do something */ },
-            icon = SparkIcons.PenOutline,
+            icon = LeboncoinIcons.PenOutline,
             contentDescription = "Localized description",
         )
 
@@ -363,7 +363,7 @@ internal fun DropdownMenuPreview() {
 
         SmallFloatingActionButton(
             onClick = { /* do something */ },
-            icon = SparkIcons.PenOutline,
+            icon = LeboncoinIcons.PenOutline,
             contentDescription = "Localized description",
         )
 
@@ -378,7 +378,7 @@ internal fun DropdownMenuPreview() {
         }
 
         ExtendedFloatingActionButton(
-            icon = SparkIcons.PenOutline,
+            icon = LeboncoinIcons.PenOutline,
             text = { Text(text = "Extended FAB") },
             onClick = { expandedFab = !expandedFab },
             expanded = expandedFab,

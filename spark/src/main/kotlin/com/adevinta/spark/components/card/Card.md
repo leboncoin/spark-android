@@ -170,7 +170,7 @@ Card.Elevated {
 ```kotlin
 Card.Elevated {
     Row {
-        Icon(SparkIcons.HeartOutline, contentDescription = null)
+        Icon(LeboncoinIcons.HeartOutline, contentDescription = null)
         Text("Card with icon")
     }
 }

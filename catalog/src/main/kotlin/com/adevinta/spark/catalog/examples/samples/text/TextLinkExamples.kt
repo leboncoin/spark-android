@@ -37,7 +37,7 @@ import com.adevinta.spark.components.text.TextLink
 import com.adevinta.spark.components.text.TextLinkButton
 import com.adevinta.spark.icons.Chain
 import com.adevinta.spark.icons.LeboncoinIcons
-import com.adevinta.spark.icons.SparkIcons
+
 import com.adevinta.spark.res.annotatedStringResource
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf

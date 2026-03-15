@@ -54,7 +54,7 @@ import com.adevinta.spark.components.icons.IconSize
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
+
 import com.adevinta.spark.icons.UserFill
 import com.adevinta.spark.tokens.disabled
 import com.adevinta.spark.tools.modifiers.ifNotNull

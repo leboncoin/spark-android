@@ -38,7 +38,7 @@ import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.spacer.HorizontalSpacer
 import com.adevinta.spark.icons.IdentityCardOutline
 import com.adevinta.spark.icons.LeboncoinIcons
-import com.adevinta.spark.icons.SparkIcons
+
 
 /**
  * This function is used to set the current value of [LocalContentColor] to onSurface. Any [Text], Icons, other

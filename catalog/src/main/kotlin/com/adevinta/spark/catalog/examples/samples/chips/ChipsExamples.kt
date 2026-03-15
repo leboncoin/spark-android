@@ -81,8 +81,7 @@ import com.adevinta.spark.icons.Check
 import com.adevinta.spark.icons.ChevronHorizontalUp
 import com.adevinta.spark.icons.EyeOutline
 import com.adevinta.spark.icons.LeboncoinIcons
-import com.adevinta.spark.icons.MailOutline
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.MailBoxOpenOutline
 import com.adevinta.spark.icons.UserFill
 import com.adevinta.spark.tokens.ElevationTokens
 import kotlinx.collections.immutable.ImmutableList
@@ -197,7 +196,7 @@ private fun ChipsKind() {
         Chip(text = "Assist", leadingIcon = LeboncoinIcons.CalendarTextOutline, onClick = {})
         ChipSelectable(
             text = "Filter",
-            leadingIcon = if (selected) SparkIcons.Check else null,
+            leadingIcon = if (selected) LeboncoinIcons.Check else null,
             onClick = { selected = !selected },
             selected = selected,
         )
@@ -318,7 +317,7 @@ private fun ColumnScope.ChipAssist() {
                     )
                     Chip(
                         text = "Join the meet",
-                        leadingIcon = SparkIcons.EyeOutline,
+                        leadingIcon = LeboncoinIcons.EyeOutline,
                         onClick = {},
                         intent = ChipIntent.Surface,
                     )
@@ -397,7 +396,7 @@ private fun ChipSuggestion() {
         label = "From",
         leadingContent = {
             TextFieldIcon(
-                icon = SparkIcons.MailOutline,
+                icon = LeboncoinIcons.MailBoxOpenOutline,
                 contentDescription = null,
             )
         },
