@@ -38,9 +38,9 @@ import com.adevinta.spark.components.menu.DropdownMenuItemWrapper
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.MultiChoiceDropdown
 import com.adevinta.spark.components.textfields.SingleChoiceDropdown
+import com.adevinta.spark.icons.Check
 import com.adevinta.spark.icons.FlashlightFill
 import com.adevinta.spark.icons.LeboncoinIcons
-import com.adevinta.spark.icons.ValidFill
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshot
 import com.android.ide.common.rendering.api.SessionParams
@@ -141,7 +141,7 @@ internal class DropdownScreenshot {
         DropdownMenuItem(
             enabled = enabled,
             text = { Text("book") },
-            leadingIcon = { Icon(sparkIcon = LeboncoinIcons.ValidFill, contentDescription = null) },
+            leadingIcon = { Icon(sparkIcon = LeboncoinIcons.Check, contentDescription = null) },
             onClick = { },
         )
         DropdownMenuItem(
@@ -153,7 +153,7 @@ internal class DropdownScreenshot {
         DropdownMenuItem(
             enabled = enabled,
             text = { Text("book") },
-            leadingIcon = { Icon(sparkIcon = LeboncoinIcons.ValidFill, contentDescription = null) },
+            leadingIcon = { Icon(sparkIcon = LeboncoinIcons.Check, contentDescription = null) },
             trailingIcon = { Icon(sparkIcon = LeboncoinIcons.FlashlightFill, contentDescription = null) },
             onClick = { },
         )
