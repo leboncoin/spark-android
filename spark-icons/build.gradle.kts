@@ -40,10 +40,10 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(platform(projects.sparkBom))
-    implementation(compose.ui)
-            implementation(compose.runtime)
-            implementation(compose.components.resources)
-            api(compose.animation)
+            implementation(libs.compose.ui)
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.components.resources)
+            api(libs.compose.animation)
         }
         androidMain.dependencies {
             implementation(libs.androidx.compose.ui.tooling)
