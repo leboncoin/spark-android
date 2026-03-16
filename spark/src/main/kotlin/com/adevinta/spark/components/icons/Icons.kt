@@ -210,6 +210,7 @@ public fun rememberSparkIconPainter(sparkIcon: SparkIcon, atEnd: Boolean = false
     }
 
     is SparkIcon.AnimatedPainter -> sparkIcon.painterProvider(atEnd)
+
     is SparkIcon.Resource -> error("This type is available only for kmp")
 }
 

@@ -41,7 +41,6 @@ import com.adevinta.spark.icons.HeartFill
 import com.adevinta.spark.icons.HeartOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 
-
 /**
  * Icon toggle buttons help people take supplementary actions with a single tap. They’re used when a
  * compact toggle button is required, such as in a toolbar or image list.

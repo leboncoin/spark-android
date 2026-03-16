@@ -23,8 +23,8 @@ package com.adevinta.spark.components.progress.tracker
 
 import androidx.compose.ui.text.AnnotatedString
 import com.adevinta.spark.icons.Check
-import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.SparkIcon
 
 /**
  * Step in the [ProgressTrackerRow] & [ProgressTrackerColumn] component.

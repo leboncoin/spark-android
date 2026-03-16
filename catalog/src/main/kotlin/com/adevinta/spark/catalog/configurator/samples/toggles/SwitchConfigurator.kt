@@ -46,7 +46,6 @@ import com.adevinta.spark.icons.Cross
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
 
-
 public val SwitchConfigurator: Configurator = Configurator(
     id = "switch",
     name = "Switch",

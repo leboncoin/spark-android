@@ -55,7 +55,6 @@ import com.adevinta.spark.icons.ChevronHorizontalDown
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.PenOutline
 
-
 /**
  * Example demonstrating BottomAppBar with sticky behavior and elevation
  * that responds to scrollable content, similar to TopAppBar behavior.

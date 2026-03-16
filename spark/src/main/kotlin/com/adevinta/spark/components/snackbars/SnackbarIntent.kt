@@ -29,7 +29,6 @@ import com.adevinta.spark.icons.CircleCheckFill
 import com.adevinta.spark.icons.InfoFill
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-
 import com.adevinta.spark.icons.WarningFill
 
 /**

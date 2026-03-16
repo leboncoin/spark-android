@@ -56,7 +56,6 @@ import com.adevinta.spark.components.snackbars.SnackbarHostState
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.ImageFill
 import com.adevinta.spark.icons.LeboncoinIcons
-
 import com.adevinta.spark.icons.ThreeDotsVertical
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch

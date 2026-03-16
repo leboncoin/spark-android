@@ -43,9 +43,9 @@ import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.PenOutline
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.tokens.contentColorFor
 import androidx.compose.material3.ExtendedFloatingActionButton as MaterialExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton as MaterialFloatingActionButton

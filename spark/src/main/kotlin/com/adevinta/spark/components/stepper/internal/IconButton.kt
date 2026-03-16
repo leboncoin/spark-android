@@ -44,9 +44,9 @@ import com.adevinta.spark.components.textfields.AnimationDuration
 import com.adevinta.spark.components.textfields.DefaultSparkTextFieldColors
 import com.adevinta.spark.components.textfields.animateBorderStrokeAsState
 import com.adevinta.spark.components.textfields.sparkOutlinedTextFieldColors
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.Plus
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.LeboncoinIcons
 
 @Composable
 internal fun IconButton(

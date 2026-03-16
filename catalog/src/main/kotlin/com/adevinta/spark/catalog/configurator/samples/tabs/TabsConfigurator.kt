@@ -57,7 +57,6 @@ import com.adevinta.spark.icons.BubbleTextOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.Minus
 import com.adevinta.spark.icons.Plus
-
 import com.adevinta.spark.tokens.bodyWidth
 import com.adevinta.spark.tokens.highlight
 import kotlin.random.Random

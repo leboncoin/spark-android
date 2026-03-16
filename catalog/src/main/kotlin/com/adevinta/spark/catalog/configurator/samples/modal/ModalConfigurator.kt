@@ -60,7 +60,6 @@ import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.icons.ImageFill
 import com.adevinta.spark.icons.LeboncoinIcons
-
 import com.adevinta.spark.icons.ThreeDotsVertical
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch

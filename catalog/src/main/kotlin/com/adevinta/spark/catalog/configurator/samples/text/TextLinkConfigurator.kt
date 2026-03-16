@@ -51,7 +51,6 @@ import com.adevinta.spark.components.text.TextLinkButton
 import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.icons.HeartFill
 import com.adevinta.spark.icons.LeboncoinIcons
-
 import com.adevinta.spark.res.annotatedStringResource
 import kotlinx.coroutines.launch
 

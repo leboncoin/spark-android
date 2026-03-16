@@ -46,11 +46,11 @@ import com.adevinta.spark.components.textfields.SparkSelectTrailingIcon
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.textfields.TextFieldCharacterCounter
 import com.adevinta.spark.components.textfields.TextFieldState
-import com.adevinta.spark.icons.RocketOutline
 import com.adevinta.spark.icons.EyeFill
 import com.adevinta.spark.icons.EyeOffFill
-import com.adevinta.spark.icons.QuestionOutline
 import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.QuestionOutline
+import com.adevinta.spark.icons.RocketOutline
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlin.random.Random

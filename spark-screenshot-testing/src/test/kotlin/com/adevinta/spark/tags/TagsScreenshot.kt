@@ -44,8 +44,8 @@ import com.adevinta.spark.components.tags.TagOutlined
 import com.adevinta.spark.components.tags.TagTinted
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.FireFill
-import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshotNightMode
 import com.adevinta.spark.tags.TagsScreenshot.Style.Filled

@@ -57,7 +57,6 @@ import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.ImageFill
 import com.adevinta.spark.icons.LeboncoinIcons
-
 import com.adevinta.spark.icons.ThreeDotsVertical
 
 @Composable

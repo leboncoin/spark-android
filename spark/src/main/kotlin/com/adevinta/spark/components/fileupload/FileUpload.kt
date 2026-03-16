@@ -39,7 +39,6 @@ import com.adevinta.spark.icons.ImageOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.PdfOutline
 import com.adevinta.spark.icons.SparkIcon
-
 import com.adevinta.spark.tools.modifiers.ifNotNull
 import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.PlatformFile

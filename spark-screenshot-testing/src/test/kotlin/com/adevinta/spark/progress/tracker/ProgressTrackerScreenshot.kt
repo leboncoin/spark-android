@@ -42,7 +42,6 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.AddCircleFill
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkAnimatedIcons
-
 import com.adevinta.spark.icons.addButton
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshotNightMode

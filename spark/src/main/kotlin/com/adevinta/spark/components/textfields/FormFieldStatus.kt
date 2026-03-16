@@ -29,8 +29,8 @@ import com.adevinta.spark.components.textfields.TextFieldState.Error
 import com.adevinta.spark.components.textfields.TextFieldState.Success
 import com.adevinta.spark.icons.AlertOutline
 import com.adevinta.spark.icons.Check
-import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.WarningOutline
 
 public typealias FormFieldStatus = TextFieldState

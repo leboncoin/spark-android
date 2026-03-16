@@ -38,7 +38,6 @@ import com.adevinta.spark.icons.CameraFill
 import com.adevinta.spark.icons.IdentityCardOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-
 import com.adevinta.spark.tokens.disabled
 
 /**

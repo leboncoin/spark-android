@@ -61,7 +61,6 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.text.TextLinkButton
 import com.adevinta.spark.icons.HeartFill
 import com.adevinta.spark.icons.LeboncoinIcons
-
 import com.adevinta.spark.icons.StoreOutline
 import com.adevinta.spark.tokens.highlight
 import kotlinx.collections.immutable.ImmutableList

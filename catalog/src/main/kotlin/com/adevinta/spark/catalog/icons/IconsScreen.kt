@@ -84,7 +84,6 @@ import com.adevinta.spark.icons.CircleCrossFill
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.MagnifierOutline
 import com.adevinta.spark.icons.SparkIcon
-
 import com.adevinta.spark.icons.allAnimatedIconsMetadata
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.launch

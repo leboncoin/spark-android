@@ -84,7 +84,6 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.Chain
 import com.adevinta.spark.icons.Computer
 import com.adevinta.spark.icons.LeboncoinIcons
-
 import com.adevinta.spark.tokens.Layout
 import soup.compose.material.motion.animation.materialElevationScaleIn
 import soup.compose.material.motion.animation.materialFadeThroughIn

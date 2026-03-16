@@ -48,7 +48,6 @@ import com.adevinta.spark.icons.HeartOutline
 import com.adevinta.spark.icons.House
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-
 import com.adevinta.spark.icons.UserFill
 import androidx.compose.material3.NavigationDrawerItem as MaterialNavigationDrawerItem
 import androidx.compose.material3.NavigationDrawerItemColors as MaterialNavigationDrawerItemColors
