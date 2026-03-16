@@ -24,11 +24,8 @@ package com.adevinta.spark
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompileCommon
 
@@ -57,8 +54,6 @@ public class SparkMultiplatformPlugin : Plugin<Project> {
 //                binaries.executable()
 //            }
 
-            // We don't need to build an iOS x64 framework
-            // iosX64()
             // iosArm64()
             // iosSimulatorArm64()
 
@@ -98,41 +93,17 @@ public class SparkMultiplatformPlugin : Plugin<Project> {
                 }
             }
 
-//            configureSpotless()
-//            configureKotlin()
             explicitApi()
 
             sourceSets.apply {
                 create("nonAndroidMain") { dependsOn(commonMain.get()) }
                 jvmMain.get().dependsOn(getByName("nonAndroidMain"))
                 // Add other / future source sets here as needed, e.g. jsMain, iosMain, etc.
+
+                commonMain.dependencies {
+                    implementation(project.dependencies.platform(spark().libraries.`kotlin-bom`))
+                }
             }
-
-//            addKotlinBom()
-        }
-    }
-}
-
-public fun Project.addKspDependencyForAllTargets(dependencyNotation: Any): Unit =
-    addKspDependencyForAllTargets("", dependencyNotation)
-
-public fun Project.addKspTestDependencyForAllTargets(dependencyNotation: Any): Unit =
-    addKspDependencyForAllTargets("Test", dependencyNotation)
-
-private fun Project.addKspDependencyForAllTargets(
-    configurationNameSuffix: String,
-    dependencyNotation: Any,
-) {
-    val kmpExtension = extensions.getByType<KotlinMultiplatformExtension>()
-    dependencies {
-        kmpExtension.targets.asSequence().filter { target ->
-            // Don't add KSP for common target, only final platforms
-            target.platformType != KotlinPlatformType.common
-        }.forEach { target ->
-            add(
-                "ksp${target.targetName.capitalized()}$configurationNameSuffix",
-                dependencyNotation,
-            )
         }
     }
 }

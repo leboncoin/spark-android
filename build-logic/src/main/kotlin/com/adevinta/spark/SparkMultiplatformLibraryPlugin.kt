@@ -32,7 +32,6 @@ import java.io.File
 internal class SparkMultiplatformLibraryPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-//            apply(plugin  = "com.adevinta.spark.multiplatform")
             apply(plugin = "com.android.kotlin.multiplatform.library")
             extensions.configure<KotlinMultiplatformExtension> {
                 extensions.configure<KotlinMultiplatformAndroidLibraryExtension> {
