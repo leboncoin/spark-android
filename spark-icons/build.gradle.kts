@@ -34,6 +34,7 @@ kotlin {
     }
     android {
         namespace = "com.adevinta.spark.icons"
+        // Doesn't seem to be available for kmp?
 //        resourcePrefix = "spark_icons_"
     }
     sourceSets {
