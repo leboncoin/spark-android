@@ -40,7 +40,7 @@ internal class IconsScreenshot {
     val paparazzi = paparazziRule()
 
     internal object SparkIconProvider : TestParameterValuesProvider() {
-        override fun provideValues(context: Context) = Class.forName("com.adevinta.spark.icons.LeboncoinIconsKt")
+        override fun provideValues(context: Context) = Class.forName("com.adevinta.spark.icons.LeboncoinIcons_androidKt")
             .methods
             .filter { SparkIcon::class.java.isAssignableFrom(it.returnType) }
             .map { value(it.invoke(null, LeboncoinIcons) as SparkIcon).withName(it.name.removePrefix("get")) }
@@ -50,12 +50,14 @@ internal class IconsScreenshot {
     @Suppress("JUnitMalformedDeclaration")
     fun render(
         @TestParameter(valuesProvider = SparkIconProvider::class) icon: SparkIcon,
-    ) = paparazzi.sparkSnapshot(drawBackground = false) {
-        Icon(
-            sparkIcon = icon,
-            contentDescription = icon.toString(),
-            size = IconSize.ExtraLarge,
-            tint = Color.Black,
-        )
+    ) {
+        paparazzi.sparkSnapshot(drawBackground = false) {
+            Icon(
+                sparkIcon = icon,
+                contentDescription = icon.toString(),
+                size = IconSize.ExtraLarge,
+                tint = Color.Black,
+            )
+        }
     }
 }
