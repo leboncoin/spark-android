@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.bottomsheet.scaffold
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -73,6 +74,7 @@ import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
  *  @sample com.adevinta.spark.samples.components.bottomsheet.BottomSheetScaffoldSample
  */
 @Composable
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @ExperimentalMaterial3Api
 public fun BottomSheetScaffold(
     sheetContent: @Composable BoxScope.() -> Unit,

@@ -23,8 +23,6 @@ package com.adevinta.spark.catalog.examples.samples.dialog.alertdialog
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Warning
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -35,9 +33,10 @@ import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.components.buttons.ButtonGhost
 import com.adevinta.spark.components.dialog.AlertDialog
 import com.adevinta.spark.components.iconbuttons.IconButtonFilled
+import com.adevinta.spark.components.icons.Icon
+import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.CircleCrossOutline
 import com.adevinta.spark.icons.LeboncoinIcons
-import com.adevinta.spark.icons.SparkIcons
 
 @OptIn(ExperimentalSparkApi::class)
 @Preview

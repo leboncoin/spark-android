@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.navigation
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.size
@@ -48,6 +49,7 @@ import com.adevinta.spark.tokens.highlight
 import androidx.compose.material3.NavigationRailItem as MaterialNavigationRailItem
 import androidx.compose.material3.NavigationRailItemDefaults as MaterialNavigationRailItemDefaults
 
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @InternalSparkApi
 @Composable
 internal fun SparkNavigationRailItem(

@@ -49,7 +49,6 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.MenuItemColors
 import androidx.compose.material3.ProvideTextStyle
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
@@ -77,6 +76,7 @@ import com.adevinta.spark.R
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.divider.HorizontalDivider
 import com.adevinta.spark.components.icons.Icon
+import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.MultiChoiceComboBox
 import com.adevinta.spark.components.textfields.SingleChoiceComboBox
 import com.adevinta.spark.icons.Check
@@ -127,6 +127,7 @@ import androidx.compose.material3.DropdownMenu as MaterialDropdownMenu
  * outside the menu's bounds
  * @param offset [DpOffset] to be added to the position of the menu
  */
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun DropdownMenu(
     expanded: Boolean,

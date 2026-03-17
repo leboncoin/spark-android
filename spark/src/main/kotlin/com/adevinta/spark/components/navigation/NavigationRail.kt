@@ -21,10 +21,10 @@
  */
 package com.adevinta.spark.components.navigation
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.material3.NavigationRailDefaults
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,8 +38,10 @@ import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.MagnifierOutline
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.UserFill
+import com.adevinta.spark.tokens.contentColorFor
 import androidx.compose.material3.NavigationRail as MaterialNavigationRail
 
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @InternalSparkApi
 @Composable
 internal fun SparkNavigationRail(

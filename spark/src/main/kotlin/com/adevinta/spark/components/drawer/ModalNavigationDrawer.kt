@@ -27,19 +27,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Face
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material3.Button
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
-import androidx.compose.material3.Icon
-import androidx.compose.material3.ModalNavigationDrawer
-import androidx.compose.material3.NavigationDrawerItem
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.NavigationDrawerItemDefaults
-import androidx.compose.material3.Text
-import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -52,8 +43,16 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.buttons.ButtonFilled
+import com.adevinta.spark.components.navigation.NavigationDrawerItem
+import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.icons.Family
+import com.adevinta.spark.icons.HeartOutline
+import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.MailBoxOpenOutline
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @ExperimentalSparkApi
 @Composable
 internal fun SparkModalNavigationDrawer(
@@ -89,6 +88,7 @@ internal fun SparkModalNavigationDrawer(
  * @param scrimColor color of the scrim that obscures content when the drawer is open
  * @param content content of the rest of the UI
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @ExperimentalSparkApi
 @Composable
 public fun ModalNavigationDrawer(
@@ -109,6 +109,7 @@ public fun ModalNavigationDrawer(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(
     group = "Drawer",
     name = "ModalNavigationDrawer",
@@ -121,7 +122,7 @@ internal fun ModalNavigationDrawerPreview() {
         val drawerState = rememberDrawerState(DrawerValue.Closed)
         val scope = rememberCoroutineScope()
         // icons to mimic drawer destinations
-        val items = listOf(Icons.Default.Favorite, Icons.Default.Face, Icons.Default.Email)
+        val items = listOf(LeboncoinIcons.HeartOutline, LeboncoinIcons.Family, LeboncoinIcons.MailBoxOpenOutline)
         val selectedItem = remember { mutableStateOf(items[0]) }
 
         ModalNavigationDrawer(
@@ -131,8 +132,8 @@ internal fun ModalNavigationDrawerPreview() {
                     Spacer(Modifier.height(12.dp))
                     items.forEach { item ->
                         NavigationDrawerItem(
-                            icon = { Icon(item, contentDescription = null) },
-                            label = { Text(item.name) },
+                            icon = item,
+                            label = "item",
                             selected = item == selectedItem.value,
                             onClick = {
                                 scope.launch { drawerState.close() }
@@ -152,7 +153,7 @@ internal fun ModalNavigationDrawerPreview() {
                 ) {
                     Text(text = if (drawerState.isClosed) ">>> Swipe >>>" else "<<< Swipe <<<")
                     Spacer(Modifier.height(20.dp))
-                    Button(onClick = { scope.launch { drawerState.open() } }) {
+                    ButtonFilled(onClick = { scope.launch { drawerState.open() } }) {
                         Text("Click to open")
                     }
                 }

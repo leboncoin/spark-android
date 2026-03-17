@@ -33,6 +33,7 @@ import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshotNightMode
 import org.junit.Rule
 import org.junit.Test
+import com.adevinta.spark.components.text.Text
 
 class RadioButtonScreenshot {
     @get:Rule
