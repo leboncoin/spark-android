@@ -149,7 +149,7 @@ internal fun SparkIconToggleButton(
 @Composable
 private fun IconToggleButtonPreview() {
     PreviewTheme {
-        val intent = IconButtonIntent.Basic
+        val intent = IconButtonIntent.Support
         var state by remember {
             mutableStateOf(false)
         }

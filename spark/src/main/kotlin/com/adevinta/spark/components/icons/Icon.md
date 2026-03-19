@@ -17,10 +17,9 @@ the following values (`IconSize`):
 - ExtraLarge (40.dp)
 
 Use `IconIntent` to pass one of the accepted intents:
-- Basic
+- Support
 - Accent
 - Main
-- Support
 - Surface
 - Success
 - Alert

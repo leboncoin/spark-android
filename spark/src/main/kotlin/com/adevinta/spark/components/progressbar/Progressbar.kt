@@ -79,7 +79,7 @@ internal fun SparkProgressbar(
 public fun Progressbar(
     progress: () -> Float,
     modifier: Modifier = Modifier,
-    intent: ProgressbarIntent = ProgressbarIntent.Basic,
+    intent: ProgressbarIntent = ProgressbarIntent.Support,
     isRounded: Boolean = true,
 ) {
     SparkProgressbar(
@@ -105,7 +105,7 @@ public fun Progressbar(
 @Composable
 public fun ProgressbarIndeterminate(
     modifier: Modifier = Modifier,
-    intent: ProgressbarIntent = ProgressbarIntent.Basic,
+    intent: ProgressbarIntent = ProgressbarIntent.Support,
     isRounded: Boolean = true,
 ) {
     SparkProgressbar(

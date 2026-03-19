@@ -79,7 +79,7 @@ public val SlidersExamples: ImmutableList<Example> = persistentListOf(
 
             Slider(
                 value = progress,
-                intent = SliderIntent.Basic,
+                intent = SliderIntent.Support,
                 onValueChange = { progress = it },
                 enabled = true,
                 valueRange = 0f..1f,

@@ -32,10 +32,9 @@ for `IconToggleButtonSize.Large`
 ### Intents
 
 Icon Toggle Buttons support all intents:
-- Basic (default)
+- Support (default)
 - Accent
 - Main
-- Support
 - Success
 - Alert
 - Danger

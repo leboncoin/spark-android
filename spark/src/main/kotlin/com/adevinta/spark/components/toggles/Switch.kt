@@ -58,7 +58,7 @@ internal fun SparkSwitch(
     onCheckedChange: ((Boolean) -> Unit)?,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    intent: ToggleIntent = ToggleIntent.Basic,
+    intent: ToggleIntent = ToggleIntent.Support,
     icons: SwitchIcons? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
@@ -268,7 +268,7 @@ public fun SwitchLabelled(
 ) {
     SwitchLabelled(
         contentSide = contentSide,
-        intent = ToggleIntent.Basic,
+        intent = ToggleIntent.Support,
         checked = checked,
         onCheckedChange = onCheckedChange,
         modifier = modifier,

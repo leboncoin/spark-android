@@ -169,7 +169,7 @@ public fun ComponentName(
     enabled: Boolean = true,
     
     // 3. Design system parameters (semantic abstractions)
-    intent: ComponentIntent = ComponentIntent.Basic,
+    intent: ComponentIntent = ComponentIntent.Support,
     size: ComponentSize = ComponentSize.Medium,
     
     // 4. Advanced behavioral parameters

@@ -61,7 +61,7 @@ import com.adevinta.spark.tools.modifiers.ifTrue
 public fun ChipTinted(
     text: String,
     modifier: Modifier = Modifier,
-    intent: ChipIntent = ChipIntent.Basic,
+    intent: ChipIntent = ChipIntent.Support,
     enabled: Boolean = true,
     leadingIcon: SparkIcon? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -102,7 +102,7 @@ public fun ChipTinted(
     icon: SparkIcon,
     contentDescription: String,
     modifier: Modifier = Modifier,
-    intent: ChipIntent = ChipIntent.Basic,
+    intent: ChipIntent = ChipIntent.Support,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     onClick: () -> Unit = {},
@@ -137,7 +137,7 @@ public fun ChipTinted(
 @Composable
 public fun ChipTinted(
     modifier: Modifier = Modifier,
-    intent: ChipIntent = ChipIntent.Basic,
+    intent: ChipIntent = ChipIntent.Support,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     onClick: () -> Unit = {},

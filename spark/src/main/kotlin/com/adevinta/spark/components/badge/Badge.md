@@ -37,7 +37,6 @@ When no count is displayed in the badge, the badge is smaller but still round.
 
 Badge accepts the following `BadgeIntent`s:
 
-- Basic
 - Accent
 - Main
 - Support

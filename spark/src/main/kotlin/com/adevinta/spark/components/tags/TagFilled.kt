@@ -43,7 +43,7 @@ import com.adevinta.spark.icons.SparkIcons
 @Composable
 public fun TagFilled(
     modifier: Modifier = Modifier,
-    intent: TagIntent = TagIntent.Basic,
+    intent: TagIntent = TagIntent.Support,
     leadingIcon: SparkIcon? = null,
     tint: Color? = null,
     atEnd: Boolean = false,
@@ -72,7 +72,7 @@ public fun TagFilled(
 public fun TagFilled(
     text: String,
     modifier: Modifier = Modifier,
-    intent: TagIntent = TagIntent.Basic,
+    intent: TagIntent = TagIntent.Support,
     leadingIcon: SparkIcon? = null,
     tint: Color? = null,
     atEnd: Boolean = false,
@@ -100,7 +100,7 @@ public fun TagFilled(
 public fun TagFilled(
     text: AnnotatedString,
     modifier: Modifier = Modifier,
-    intent: TagIntent = TagIntent.Basic,
+    intent: TagIntent = TagIntent.Support,
     leadingIcon: SparkIcon? = null,
     tint: Color? = null,
     atEnd: Boolean = false,

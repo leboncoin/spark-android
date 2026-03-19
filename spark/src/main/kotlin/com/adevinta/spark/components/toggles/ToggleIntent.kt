@@ -35,15 +35,20 @@ import com.adevinta.spark.components.IntentColors
 import com.adevinta.spark.tokens.disabled
 
 @Deprecated(
-    message = "Intents for toggles have been deprecated in favor of using only the basic color and the error color",
+    message = "Intents for toggles have been deprecated in favor of using only the support color and the error color",
 )
 public enum class ToggleIntent {
     /**
      * The default color of such UI controls as toggles, Slider, etc.
      */
+    @Deprecated(
+        message = "Basic has been removed with the rebranding, use Support instead",
+        replaceWith = ReplaceWith("ToggleIntent.Support"),
+        level = DeprecationLevel.ERROR,
+    )
     Basic {
         @Composable
-        override fun colors(): IntentColor = IntentColors.Basic.colors()
+        override fun colors(): IntentColor = IntentColors.Support.colors()
     },
 
     /**

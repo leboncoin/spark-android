@@ -138,7 +138,7 @@ private fun ColumnScope.PulseSample(snackbarHostState: SnackbarHostState) {
         onValueChangeFinished = restartPulseOnChange,
         valueRange = 0.1f..5.0f,
         steps = 48, // 0.1 increments from 0.1 to 5.0
-        intent = SliderIntent.Basic,
+        intent = SliderIntent.Support,
         modifier = Modifier.fillMaxWidth(),
     )
 
@@ -150,7 +150,7 @@ private fun ColumnScope.PulseSample(snackbarHostState: SnackbarHostState) {
         onValueChangeFinished = restartPulseOnChange,
         valueRange = 0.1f..5.0f,
         steps = 48, // 0.1 increments from 0.1 to 5.0
-        intent = SliderIntent.Basic,
+        intent = SliderIntent.Support,
         modifier = Modifier.fillMaxWidth(),
     )
 
@@ -162,7 +162,7 @@ private fun ColumnScope.PulseSample(snackbarHostState: SnackbarHostState) {
         onValueChangeFinished = restartPulseOnChange,
         valueRange = 100f..5000f,
         steps = 48, // ~100ms increments from 100 to 5000
-        intent = SliderIntent.Basic,
+        intent = SliderIntent.Support,
         modifier = Modifier.fillMaxWidth(),
     )
 
@@ -206,15 +206,37 @@ private enum class PulseColor {
             @Composable
             get() = SolidColor(SparkTheme.colors.accentContainer)
     },
+
+    @Deprecated(
+        message = "Basic has been removed with the rebranding, use Support instead",
+        replaceWith = ReplaceWith("PulseColor.Support"),
+        level = DeprecationLevel.ERROR,
+    )
     Basic {
         override val brush: Brush
             @Composable
-            get() = SolidColor(SparkTheme.colors.basic)
+            get() = SolidColor(SparkTheme.colors.support)
     },
+
+    @Deprecated(
+        message = "Basic has been removed with the rebranding, use Support instead",
+        replaceWith = ReplaceWith("PulseColor.SupportContainer"),
+        level = DeprecationLevel.ERROR,
+    )
     BasicContainer {
         override val brush: Brush
             @Composable
-            get() = SolidColor(SparkTheme.colors.basicContainer)
+            get() = SolidColor(SparkTheme.colors.supportContainer)
+    },
+    Support {
+        override val brush: Brush
+            @Composable
+            get() = SolidColor(SparkTheme.colors.support)
+    },
+    SupportContainer {
+        override val brush: Brush
+            @Composable
+            get() = SolidColor(SparkTheme.colors.supportContainer)
     },
     Success {
         override val brush: Brush

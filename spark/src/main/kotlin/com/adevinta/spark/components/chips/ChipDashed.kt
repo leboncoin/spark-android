@@ -61,7 +61,7 @@ import com.adevinta.spark.tools.modifiers.ifTrue
 @Composable
 public fun ChipDashed(
     modifier: Modifier = Modifier,
-    intent: ChipIntent = ChipIntent.Basic,
+    intent: ChipIntent = ChipIntent.Support,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     onClick: () -> Unit = {},
@@ -101,7 +101,7 @@ public fun ChipDashed(
 public fun ChipDashed(
     text: String,
     modifier: Modifier = Modifier,
-    intent: ChipIntent = ChipIntent.Basic,
+    intent: ChipIntent = ChipIntent.Support,
     enabled: Boolean = true,
     leadingIcon: SparkIcon? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -142,7 +142,7 @@ public fun ChipDashed(
     icon: SparkIcon,
     contentDescription: String,
     modifier: Modifier = Modifier,
-    intent: ChipIntent = ChipIntent.Basic,
+    intent: ChipIntent = ChipIntent.Support,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     onClick: () -> Unit = {},

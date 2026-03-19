@@ -50,7 +50,7 @@ internal fun SparkCheckbox(
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    intent: ToggleIntent = ToggleIntent.Basic,
+    intent: ToggleIntent = ToggleIntent.Support,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     androidx.compose.material3.TriStateCheckbox(
@@ -148,7 +148,7 @@ public fun Checkbox(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
-        intent = if (error) ToggleIntent.Danger else ToggleIntent.Basic,
+        intent = if (error) ToggleIntent.Danger else ToggleIntent.Support,
         interactionSource = interactionSource,
     )
 }

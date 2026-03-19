@@ -81,7 +81,7 @@ internal fun FileUploadSingleButton(
                 },
             onClick = onClick,
             text = label,
-            intent = ButtonIntent.Basic,
+            intent = ButtonIntent.Support,
             enabled = enabled,
         )
     },
@@ -148,7 +148,7 @@ internal fun FileUploadButton(
                 },
             onClick = onClick,
             text = label,
-            intent = ButtonIntent.Basic,
+            intent = ButtonIntent.Support,
             enabled = enabled,
         )
     },

@@ -105,7 +105,7 @@ import androidx.compose.material3.VerticalDivider as MaterialVerticalDivider
  *
  * @property items The list of steps to be displayed in the progress tracker.
  * @property modifier The modifier to be applied to the progress tracker.
- * @property intent The intent of the progress tracker, which determines its color scheme. Basic being the default.
+ * @property intent The intent of the progress tracker, which determines its color scheme. Support being the default.
  * @property style The style of the progress tracker, either outlined (default) or tinted.
  * @property size The size of the progress tracker, either large (default), medium, or small.
  * @property hasIndicatorContent A boolean value indicating whether the step indicator should show the step index.
@@ -119,7 +119,7 @@ import androidx.compose.material3.VerticalDivider as MaterialVerticalDivider
 public fun ProgressTrackerRow(
     items: ImmutableList<ProgressStep>,
     modifier: Modifier = Modifier,
-    intent: ProgressTrackerIntent = ProgressTrackerIntent.Basic,
+    intent: ProgressTrackerIntent = ProgressTrackerIntent.Support,
     style: ProgressStyles = ProgressStyles.Tinted,
     size: ProgressSizes = ProgressSizes.Large,
     readOnly: Boolean = false,
@@ -152,7 +152,7 @@ public fun ProgressTrackerRow(
  *
  * @property items The list of steps to be displayed in the progress tracker.
  * @property modifier The modifier to be applied to the progress tracker.
- * @property intent The intent of the progress tracker, which determines its color scheme. Basic being the default.
+ * @property intent The intent of the progress tracker, which determines its color scheme. Support being the default.
  * @property size The size of the progress tracker, either large (default), medium, or small.
  * @property hasIndicatorContent A boolean value indicating whether the step indicator should show the step index.
  * @property onStepClick Callback with the step index selected.
@@ -165,7 +165,7 @@ public fun ProgressTrackerRow(
 public fun ProgressTrackerColumn(
     items: ImmutableList<ProgressStep>,
     modifier: Modifier = Modifier,
-    intent: ProgressTrackerIntent = ProgressTrackerIntent.Basic,
+    intent: ProgressTrackerIntent = ProgressTrackerIntent.Support,
     style: ProgressStyles = ProgressStyles.Tinted,
     size: ProgressSizes = ProgressSizes.Large,
     readOnly: Boolean = false,
@@ -196,7 +196,7 @@ private fun ProgressTracker(
     items: ImmutableList<ProgressStep>,
     orientation: LayoutOrientation,
     modifier: Modifier = Modifier,
-    intent: ProgressTrackerIntent = ProgressTrackerIntent.Basic,
+    intent: ProgressTrackerIntent = ProgressTrackerIntent.Support,
     style: ProgressStyles = ProgressStyles.Tinted,
     size: ProgressSizes = ProgressSizes.Large,
     readOnly: Boolean = false,
@@ -659,7 +659,7 @@ private fun PreviewProgressIndicator() {
         items.forEachIndexed { index, progressStep ->
             val isDone = index < selectedStep
             StepIndicator(
-                colors = ProgressTrackerIntent.Basic.colors(),
+                colors = ProgressTrackerIntent.Support.colors(),
                 size = ProgressSizes.Large,
                 style = ProgressStyles.Tinted,
                 index = index,

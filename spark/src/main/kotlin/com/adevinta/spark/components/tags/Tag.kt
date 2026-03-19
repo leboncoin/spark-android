@@ -292,7 +292,7 @@ public object TagDefaults {
 
     @Composable
     internal fun filledColors(
-        intent: TagIntent = TagIntent.Basic,
+        intent: TagIntent = TagIntent.Support,
     ): TagColors {
         val backgroundColor = intent.colors().color
         return TagColors(

@@ -43,10 +43,9 @@ data and show/hide an indeterminate circular progress indicator on the start of 
 ### Intents
 
 Icon Buttons support all intents:
-- Basic (default)
+- Support (default)
 - Accent
 - Main
-- Support
 - Success
 - Alert
 - Danger

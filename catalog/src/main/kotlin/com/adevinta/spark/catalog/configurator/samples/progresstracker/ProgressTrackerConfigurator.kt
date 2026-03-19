@@ -71,7 +71,7 @@ public val ProgressTrackerConfigurator: Configurator = Configurator(
 
 @Composable
 private fun ColumnScope.ProgressTrackerSample() {
-    var intent by remember { mutableStateOf(ProgressTrackerIntent.Basic) }
+    var intent by remember { mutableStateOf(ProgressTrackerIntent.Support) }
     var size by remember { mutableStateOf(ProgressSizes.Large) }
     var hasIndicatorContent by remember { mutableStateOf(true) }
     var selectedStep: Int? by remember { mutableStateOf(1) }

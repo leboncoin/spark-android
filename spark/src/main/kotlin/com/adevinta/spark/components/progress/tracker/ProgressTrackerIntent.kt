@@ -32,9 +32,22 @@ public enum class ProgressTrackerIntent {
     /**
      * Used to match default color of such UI controls as toggles, Slider, etc.
      */
+    @Deprecated(
+        message = "Basic has been removed with the rebranding, use Support instead",
+        replaceWith = ReplaceWith("ProgressTrackerIntent.Support"),
+        level = DeprecationLevel.ERROR,
+    )
     Basic {
         @Composable
-        override fun colors(): IntentColor = IntentColors.Basic.colors()
+        override fun colors(): IntentColor = IntentColors.Support.colors()
+    },
+
+    /**
+     * Used to match default color of such UI controls as toggles, Slider, etc.
+     */
+    Support {
+        @Composable
+        override fun colors(): IntentColor = IntentColors.Support.colors()
     },
 
     /**
