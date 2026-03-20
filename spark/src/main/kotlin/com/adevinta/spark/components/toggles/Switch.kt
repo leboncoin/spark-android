@@ -23,13 +23,13 @@
 
 package com.adevinta.spark.components.toggles
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectableGroup
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.icons.Icon
+import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.BellOffFill
 import com.adevinta.spark.icons.BellOnFill
 import com.adevinta.spark.icons.Check
@@ -51,6 +52,7 @@ import com.adevinta.spark.tools.modifiers.minimumTouchTargetSize
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 import androidx.compose.material3.Switch as MaterialSwitch
 
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 @InternalSparkApi
 internal fun SparkSwitch(

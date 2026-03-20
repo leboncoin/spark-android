@@ -24,6 +24,7 @@
 
 package com.adevinta.spark.components.scaffold
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -35,15 +36,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FabPosition
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.LocalContentColor
-import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.ScaffoldDefaults
-import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -52,9 +48,11 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.appbar.TopAppBar
+import com.adevinta.spark.components.buttons.ExtendedFloatingActionButton
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconButton
 import com.adevinta.spark.components.surface.Surface
+import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.BurgerMenu
 import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.contentColorFor
@@ -90,6 +88,7 @@ import androidx.compose.material3.Scaffold as MaterialScaffold
  * properly offset top and bottom bars. If using `Modifier.verticalScroll`, apply this modifier to
  * the child of the scroll, and not on the scroll itself.
  */
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun Scaffold(
     modifier: Modifier = Modifier,

@@ -38,7 +38,6 @@ import androidx.compose.material3.SnackbarData
 import androidx.compose.material3.SnackbarDefaults
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarVisuals
-import androidx.compose.material3.Text
 import androidx.compose.material3.TooltipAnchorPosition
 import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.rememberTooltipState
@@ -62,6 +61,7 @@ import com.adevinta.spark.components.popover.TooltipBox
 import com.adevinta.spark.components.scaffold.Scaffold
 import com.adevinta.spark.components.spacer.HorizontalSpacer
 import com.adevinta.spark.components.surface.Surface
+import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.Cross
 import com.adevinta.spark.icons.FlashlightFill
 import com.adevinta.spark.icons.LeboncoinIcons

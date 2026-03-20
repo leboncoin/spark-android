@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.icons
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -67,7 +68,7 @@ import androidx.compose.material3.OutlinedIconToggleButton as MaterialOutlinedIc
  * [Interaction]s and customize the appearance / behavior of this icon button in different states.
  * @param content the content of this icon button, typically an [Icon]
  */
-
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun IconToggleButton(
     checked: Boolean,
@@ -125,6 +126,7 @@ public fun IconToggleButton(
     ),
     level = DeprecationLevel.WARNING,
 )
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @ExperimentalSparkApi
 @Composable
 public fun FilledIconToggleButton(
@@ -189,6 +191,7 @@ public fun FilledIconToggleButton(
     ),
     level = DeprecationLevel.WARNING,
 )
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @ExperimentalSparkApi
 @Composable
 public fun FilledTonalIconToggleButton(
@@ -254,6 +257,7 @@ public fun FilledTonalIconToggleButton(
     ),
     level = DeprecationLevel.WARNING,
 )
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @ExperimentalSparkApi
 @Composable
 public fun OutlinedIconToggleButton(

@@ -23,17 +23,16 @@ package com.adevinta.spark.toggles
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.DefaultTestDevices
+import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.toggles.ContentSide
 import com.adevinta.spark.components.toggles.SwitchIcons
 import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.icons.BellOffFill
 import com.adevinta.spark.icons.BellOnFill
 import com.adevinta.spark.icons.LeboncoinIcons
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshotNightMode
 import org.junit.Rule

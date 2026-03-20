@@ -21,12 +21,14 @@
  */
 package com.adevinta.spark.components.appbar
 
+import android.annotation.SuppressLint
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarState
 import androidx.compose.runtime.Composable
 import com.adevinta.spark.ExperimentalSparkApi
 import androidx.compose.material3.rememberTopAppBarState as rememberMaterialTopAppBarState
 
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @OptIn(ExperimentalMaterial3Api::class)
 @ExperimentalSparkApi
 @Composable

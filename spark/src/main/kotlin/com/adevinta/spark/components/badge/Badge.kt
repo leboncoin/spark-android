@@ -30,7 +30,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.ProvideTextStyle
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
@@ -47,6 +46,7 @@ import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.R
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tools.modifiers.ifNotNull
 import com.adevinta.spark.tools.modifiers.ifTrue
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
