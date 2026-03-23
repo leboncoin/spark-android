@@ -121,7 +121,6 @@ public object FileUpload {
             iconSide = iconSide,
             type = type,
             maxFiles = maxFiles,
-            title = title,
             directory = directory,
             dialogSettings = dialogSettings,
             enabled = enabled,
@@ -144,7 +143,6 @@ public object FileUpload {
      * @param iconSide If an icon is added, you can configure the side where is should be displayed, at the start
      * or end of the button. Only applies when using the default [buttonContent].
      * @param type Type of files to select (image, video, file, etc.)
-     * @param title Optional title for the file picker dialog
      * @param directory Optional directory to open the picker in
      * @param dialogSettings Optional settings for the file picker dialog
      * @param enabled Whether the button is enabled
@@ -165,7 +163,6 @@ public object FileUpload {
         icon: SparkIcon? = null,
         iconSide: IconSide = IconSide.START,
         type: FileUploadType = FileUploadType.File(),
-        title: String? = null,
         directory: PlatformFile? = null,
         dialogSettings: FileKitDialogSettings = FileKitDialogSettings.createDefault(),
         enabled: Boolean = true,
@@ -192,7 +189,6 @@ public object FileUpload {
             icon = icon,
             iconSide = iconSide,
             type = type,
-            title = title,
             directory = directory,
             dialogSettings = dialogSettings,
             enabled = enabled,

@@ -47,7 +47,6 @@ import kotlinx.collections.immutable.ImmutableList
  * @param label Text label for the default button
  * @param modifier Modifier to be applied to the button
  * @param type Type of files to select (image, video, file, etc.)
- * @param title Optional title for the file picker dialog
  * @param directory Optional directory to open the picker in
  * @param dialogSettings Optional settings for the file picker dialog
  * @param enabled Whether the button is enabled
@@ -67,7 +66,6 @@ internal fun FileUploadSingleButton(
     icon: SparkIcon? = null,
     iconSide: IconSide = IconSide.START,
     type: FileUploadType = FileUploadType.File(),
-    title: String? = null,
     directory: PlatformFile? = null,
     dialogSettings: FileKitDialogSettings = FileKitDialogSettings.createDefault(),
     enabled: Boolean = true,
@@ -89,7 +87,6 @@ internal fun FileUploadSingleButton(
     val pattern = rememberFileUploadPattern(
         type = type,
         mode = FileUploadMode.Single,
-        title = title,
         directory = directory,
         dialogSettings = dialogSettings,
         onFilesSelect = { files -> onResult(files.firstOrNull()) },
@@ -113,7 +110,6 @@ internal fun FileUploadSingleButton(
  * @param modifier Modifier to be applied to the button
  * @param type Type of files to select (image, video, file, etc.)
  * @param maxFiles Maximum number of files that can be selected. If null, no limit.
- * @param title Optional title for the file picker dialog
  * @param directory Optional directory to open the picker in
  * @param dialogSettings Optional settings for the file picker dialog
  * @param enabled Whether the button is enabled
@@ -134,7 +130,6 @@ internal fun FileUploadButton(
     iconSide: IconSide = IconSide.START,
     type: FileUploadType = FileUploadType.File(),
     maxFiles: Int? = null,
-    title: String? = null,
     directory: PlatformFile? = null,
     dialogSettings: FileKitDialogSettings = FileKitDialogSettings.createDefault(),
     enabled: Boolean = true,
@@ -156,7 +151,6 @@ internal fun FileUploadButton(
     val pattern = rememberFileUploadPattern(
         type = type,
         mode = FileUploadMode.Multiple(maxFiles),
-        title = title,
         directory = directory,
         dialogSettings = dialogSettings,
         onFilesSelect = onResult,
