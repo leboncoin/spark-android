@@ -103,7 +103,6 @@ public class FileUploadPatternState internal constructor(
  * This also determines the available sources like Camera or Gallery.
  * @param mode The selection strategy: [FileUploadMode.Single] for one file or
  * [FileUploadMode.Multiple] for several files with an optional limit.
- * @param title An optional title displayed in the file picker system dialog.
  * @param directory An optional initial directory for the file picker to open in.
  * @param dialogSettings Specific configuration for the picker dialog, primarily for desktop platforms.
  * @return A [FileUploadPatternState] used to trigger the pickers and query the current selection configuration.
@@ -114,7 +113,6 @@ public fun rememberFileUploadPattern(
     onFilesSelect: (ImmutableList<UploadedFile>) -> Unit,
     type: FileUploadType = FileUploadType.File(),
     mode: FileUploadMode = FileUploadMode.Single,
-    title: String? = null,
     directory: PlatformFile? = null,
     dialogSettings: FileKitDialogSettings = FileKitDialogSettings.createDefault(),
 ): FileUploadPatternState {
@@ -127,7 +125,6 @@ public fun rememberFileUploadPattern(
         // Single mode: callback receives PlatformFile? directly
         rememberFilePickerLauncher(
             type = fileKitType,
-            title = title,
             directory = directory,
             dialogSettings = dialogSettings,
         ) { pickedFile ->
@@ -139,7 +136,6 @@ public fun rememberFileUploadPattern(
         rememberFilePickerLauncher(
             type = fileKitType,
             mode = FileKitMode.Multiple(maxItems = maxFiles),
-            title = title,
             directory = directory,
             dialogSettings = dialogSettings,
         ) { result ->
