@@ -4,6 +4,15 @@
 
 ## [Unreleased]
 
+## [2.1.1]
+
+_2026-03-31_
+
+### Icons
+
+- 🆕 Add new `GraphicCursor`, `GraphicHand`, `OpenLetterFill`, and `OpenLetterOutline` icons
+- 💄 Fix `LbcAccessoriesCriteria` and `Layer` icons
+
 ## [2.1.0]
 
 _2026-03-12_
@@ -1214,7 +1223,9 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/2.1.0...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/2.1.1...HEAD
+
+[2.1.1]: https://github.com/leboncoin/spark-android/compare/2.1.0...2.1.1
 
 [2.1.0]: https://github.com/leboncoin/spark-android/compare/2.0.1...2.1.0
 
