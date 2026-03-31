@@ -1,0 +1,182 @@
+name: 'Release'
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g. 2.2.0)'
+        required: true
+        type: string
+      release_type:
+        description: 'Release type'
+        required: true
+        type: choice
+        options:
+          - stable
+          - alpha
+
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+jobs:
+  # ── Phase 1: open the prepare-version PR ──────────────────────────────────
+  prepare-release:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.PAT_SPARK }}
+          fetch-depth: 0
+
+      - name: 'Configure git identity'
+        run: |
+          git config user.name 'spark-ui-bot'
+          git config user.email 'spark-ui-bot@users.noreply.github.com'
+
+      - name: 'Bump version in gradle.properties'
+        run: |
+          sed -i "s/^version=.*/version=${{ inputs.version }}/" gradle.properties
+
+      - name: 'Update CHANGELOG.md'
+        uses: thomaseizinger/keep-a-changelog-new-release@3.1.0
+        with:
+          version: ${{ inputs.version }}
+
+      - name: 'Create prepare-version branch and open PR'
+        env:
+          VERSION: ${{ inputs.version }}
+          GH_TOKEN: ${{ secrets.PAT_SPARK }}
+        run: |
+          BRANCH="chore/prepare-version-${VERSION}"
+          git checkout -b "$BRANCH"
+          git add gradle.properties CHANGELOG.md
+          git commit -m "chore: prepare version ${VERSION}"
+          git push origin "$BRANCH"
+          gh pr create \
+            --title "chore: prepare version ${VERSION}" \
+            --body "Automated release preparation for \`${VERSION}\`." \
+            --base main \
+            --head "$BRANCH"
+
+  # ── Phase 2: post-merge – tag, publish, bump, release ─────────────────────
+  post-merge-release:
+    if: >
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.merged == true &&
+      startsWith(github.event.pull_request.title, 'chore: prepare version ')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.PAT_SPARK }}
+          fetch-depth: 0
+
+      - name: 'Configure git identity'
+        run: |
+          git config user.name 'spark-ui-bot'
+          git config user.email 'spark-ui-bot@users.noreply.github.com'
+
+      - name: 'Extract version from PR title'
+        id: extract
+        run: |
+          TITLE="${{ github.event.pull_request.title }}"
+          VERSION="${TITLE#chore: prepare version }"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+
+      - name: 'Tag origin/main with the release version'
+        env:
+          VERSION: ${{ steps.extract.outputs.version }}
+        run: |
+          git tag "$VERSION" origin/main
+          git push origin "$VERSION"
+
+      - name: 'Wait for publish.yml to succeed'
+        env:
+          VERSION: ${{ steps.extract.outputs.version }}
+          GH_TOKEN: ${{ secrets.PAT_SPARK }}
+        run: |
+          echo "Waiting for publish workflow triggered by tag ${VERSION}..."
+          sleep 15  # allow the tag-triggered run to register
+          for i in $(seq 1 40); do
+            STATUS=$(gh run list \
+              --workflow publish.yml \
+              --limit 5 \
+              --json headBranch,status,conclusion,headSha \
+              --jq --arg tag "$VERSION" \
+              '[.[] | select(.headBranch == $tag)] | .[0] | "\(.status) \(.conclusion)"')
+            echo "Attempt ${i}: ${STATUS}"
+            case "$STATUS" in
+              "completed success") echo "Publish succeeded."; break ;;
+              "completed "*)       echo "Publish failed or cancelled."; exit 1 ;;
+            esac
+            if [ "$i" -eq 40 ]; then echo "Timed out waiting for publish."; exit 1; fi
+            sleep 30
+          done
+
+      - name: 'Compute next alpha version'
+        id: next
+        env:
+          VERSION: ${{ steps.extract.outputs.version }}
+        run: |
+          # Increment patch and append -alpha01
+          # Minor or major version bumps require manual adjustment of this step
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+          NEXT_PATCH=$((PATCH + 1))
+          NEXT_VERSION="${MAJOR}.${MINOR}.${NEXT_PATCH}-alpha01"
+          echo "next_version=${NEXT_VERSION}" >> "$GITHUB_OUTPUT"
+
+      - name: 'Bump gradle.properties to next development version'
+        env:
+          NEXT_VERSION: ${{ steps.next.outputs.next_version }}
+        run: |
+          git pull --ff-only origin main
+          sed -i "s/^version=.*/version=${NEXT_VERSION}/" gradle.properties
+
+      - name: 'Open next-dev-version PR'
+        env:
+          NEXT_VERSION: ${{ steps.next.outputs.next_version }}
+          VERSION: ${{ steps.extract.outputs.version }}
+          GH_TOKEN: ${{ secrets.PAT_SPARK }}
+        run: |
+          BRANCH="chore/prepare-next-version-${NEXT_VERSION}"
+          git checkout -b "$BRANCH"
+          git add gradle.properties
+          git commit -m "chore: prepare next development version ${NEXT_VERSION}"
+          git push origin "$BRANCH"
+          gh pr create \
+            --title "chore: prepare next development version" \
+            --body "Bumps version to \`${NEXT_VERSION}\` after release of \`${VERSION}\`." \
+            --base main \
+            --head "$BRANCH"
+
+      - name: 'Trigger Dokka deployment'
+        env:
+          VERSION: ${{ steps.extract.outputs.version }}
+          GH_TOKEN: ${{ secrets.PAT_SPARK }}
+        run: |
+          gh workflow run dokka.yml \
+            --ref main \
+            --field ref="${VERSION}"
+
+      - name: 'Extract CHANGELOG entries for this version'
+        env:
+          VERSION: ${{ steps.extract.outputs.version }}
+        run: |
+          sed -n "/## \[${VERSION}\]/, /## \[[0-9]/p" CHANGELOG.md | sed '1d;$d' > /tmp/release-notes.md
+
+      - name: 'Create GitHub Release'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.extract.outputs.version }}
+          name: ${{ steps.extract.outputs.version }}
+          body_path: /tmp/release-notes.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_SPARK }}

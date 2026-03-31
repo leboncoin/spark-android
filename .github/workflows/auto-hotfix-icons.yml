@@ -1,0 +1,128 @@
+name: 'Auto hotfix: icons'
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+jobs:
+  auto-hotfix:
+    if: >
+      github.event.pull_request.merged == true &&
+      github.event.pull_request.head.ref == 'chore-updated-icons'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.PAT_SPARK }}
+          fetch-depth: 0
+
+      - name: 'Configure git identity'
+        run: |
+          git config user.name 'spark-ui-bot'
+          git config user.email 'spark-ui-bot@users.noreply.github.com'
+
+      - name: 'Determine base version and next patch'
+        id: versions
+        run: |
+          # Use the latest semver tag (excludes alpha/beta pre-releases)
+          LATEST_TAG=$(git tag --sort=-v:refname \
+            | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' \
+            | head -1)
+          echo "base_tag=${LATEST_TAG}" >> "$GITHUB_OUTPUT"
+
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$LATEST_TAG"
+          NEXT_PATCH=$((PATCH + 1))
+          NEXT_VERSION="${MAJOR}.${MINOR}.${NEXT_PATCH}"
+          echo "version=${NEXT_VERSION}" >> "$GITHUB_OUTPUT"
+          echo "hotfix_branch=hotfix/${NEXT_VERSION}" >> "$GITHUB_OUTPUT"
+
+      - name: 'Create hotfix branch from latest stable tag'
+        env:
+          BASE_TAG: ${{ steps.versions.outputs.base_tag }}
+          HOTFIX_BRANCH: ${{ steps.versions.outputs.hotfix_branch }}
+        run: |
+          git checkout -b "$HOTFIX_BRANCH" "refs/tags/$BASE_TAG"
+
+      - name: 'Cherry-pick icon commits from merged PR'
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GH_TOKEN: ${{ secrets.PAT_SPARK }}
+        run: |
+          # Collect commits from the merged PR that touched icon files
+          MERGE_SHA="${{ github.event.pull_request.merge_commit_sha }}"
+
+          # Find the commit(s) on the PR branch before the merge commit
+          # The PR had commits pushed to chore-updated-icons; we cherry-pick
+          # the specific icon-related commits by inspecting the PR's commit list.
+          COMMITS=$(gh pr view "$PR_NUMBER" --json commits --jq '.commits[].oid')
+
+          for SHA in $COMMITS; do
+            echo "Cherry-picking $SHA"
+            git cherry-pick --allow-empty "$SHA" || {
+              echo "Cherry-pick of $SHA failed. Attempting with strategy."
+              git cherry-pick --abort 2>/dev/null || true
+              git cherry-pick -X theirs "$SHA"
+            }
+          done
+
+      - name: 'Bump version in gradle.properties'
+        env:
+          VERSION: ${{ steps.versions.outputs.version }}
+        run: |
+          sed -i "s/^version=.*/version=${VERSION}/" gradle.properties
+          git add gradle.properties
+          git commit -m "chore: bump version to ${VERSION} for icon hotfix"
+
+      - name: 'Update CHANGELOG.md'
+        uses: thomaseizinger/keep-a-changelog-new-release@3.1.0
+        with:
+          version: ${{ steps.versions.outputs.version }}
+
+      - name: 'Commit CHANGELOG.md'
+        env:
+          VERSION: ${{ steps.versions.outputs.version }}
+        run: |
+          git add CHANGELOG.md
+          git commit -m "chore: update CHANGELOG.md for ${VERSION}"
+
+      - name: 'Push hotfix branch and tag'
+        env:
+          VERSION: ${{ steps.versions.outputs.version }}
+          HOTFIX_BRANCH: ${{ steps.versions.outputs.hotfix_branch }}
+        run: |
+          git push origin "$HOTFIX_BRANCH"
+          git tag "$VERSION"
+          git push origin "$VERSION"
+          # publish.yml and firebase-app-distribution.yml fire automatically on tag push
+
+      - name: 'Extract CHANGELOG entries for GitHub Release'
+        env:
+          VERSION: ${{ steps.versions.outputs.version }}
+        run: |
+          sed -n "/## \[${VERSION}\]/, /## \[[0-9]/p" CHANGELOG.md | sed '1d;$d' > /tmp/release-notes.md
+
+      - name: 'Create GitHub Release'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.versions.outputs.version }}
+          name: ${{ steps.versions.outputs.version }}
+          body_path: /tmp/release-notes.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_SPARK }}
+
+      - name: 'Open back-merge PR to main'
+        env:
+          VERSION: ${{ steps.versions.outputs.version }}
+          HOTFIX_BRANCH: ${{ steps.versions.outputs.hotfix_branch }}
+          GH_TOKEN: ${{ secrets.PAT_SPARK }}
+        run: |
+          gh pr create \
+            --title "chore: merge hotfix ${VERSION} back to main" \
+            --body "Back-merge of hotfix \`${VERSION}\` (icon update). Review and merge with **merge commit** (not squash) to preserve hotfix history." \
+            --base main \
+            --head "$HOTFIX_BRANCH" \
+            --label "hotfix"

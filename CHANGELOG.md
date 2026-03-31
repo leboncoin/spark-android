@@ -4,18 +4,14 @@
 
 ## [Unreleased]
 
-## [2.1.1]
-
-_2026-03-31_
+## [2.1.1] - 2026-03-31
 
 ### Icons
 
 - 🆕 Add new `GraphicCursor`, `GraphicHand`, `OpenLetterFill`, and `OpenLetterOutline` icons
 - 💄 Fix `LbcAccessoriesCriteria` and `Layer` icons
 
-## [2.1.0]
-
-_2026-03-12_
+## [2.1.0] - 2026-03-12
 
 ### Spark
 
@@ -37,9 +33,7 @@ We now have a helper script to simplify the creation of a new components. To use
 We're testing newways to better represent the components in our [documentation](https://leboncoin.github.io/spark-android/) by including dedicated screenshots generated from screenshot tests to ensure that you always get the up to date visuals.
 We're also tesing including these new screenshots in the kdoc direclty.
 
-## [2.1.0-alpha01]
-
-_2026-03-11_
+## [2.1.0-alpha01] - 2026-03-11
 
 ### Spark
 
@@ -56,9 +50,7 @@ Card is now defined by clear variants discoverable on the `Card` object. Use `Ca
 
 We now have a helper script to simplify the creation of a new components. To use it invoki it like this `./scripts/generate-component.main.kts [component-name] [package-name] [-v Variant1] [-v Variant2]`
 
-## [2.0.1]
-
-_2026-03-12_
+## [2.0.1] - 2026-03-12
 
 ### Icons
 - 🐛 Fix an issue with the generation of `LeboncoinIcons` when new icons are merged in spark-tokens.
@@ -66,9 +58,7 @@ _2026-03-12_
 - 🆕 Add new stop light icon
 - 💄 Fix Cardboard icon missing the safe padding and the malformation of state criteria
 
-## [2.0.0]
-
-_2026-03-05_
+## [2.0.0] - 2026-03-05
 
 ### Spark
 
@@ -81,9 +71,7 @@ _2026-03-05_
 - **`Snackbar` composable:** `style` and `actionOnNewLine` parameters removed. New optional `title` parameter (displayed above the message). `icon` is now an optional override of the intent's default icon. Dismiss is done via `onDismissClick`.
 - **`showSnackbar`:** `style` and `actionOnNewLine` removed; optional `title` added. Default intent changed from `SnackbarIntent.Neutral` to `SnackbarIntent.Info`.
 
-## [2.0.0-alpha01]
-
-_2026-02-24_
+## [2.0.0-alpha01] - 2026-02-24
 
 ### Spark
 
@@ -101,9 +89,7 @@ _2026-02-24_
 
 
 
-## [1.8.0]
-
-_2026-02-20_
+## [1.8.0] - 2026-02-20
 
 #### 🆕 LeboncoinIcons
 Add `LeboncoinIcons` object as namespace for new static icons from Spark for leboncoin. This object provides access to all static vector icons as drawable resources, similar to `SparkIcons` but specifically for leboncoin-branded icons.
@@ -116,26 +102,20 @@ Add `LeboncoinIcons` object as namespace for new static icons from Spark for leb
 - 🎨 Add new SurfaceDark color token to be used when we need a surface/background to remain dark in light and darkmode like the footer in the website or the drawer in dashboard pro
 - Apply the MaterialComposableHasSparkReplacement in spark modules
 
-## [1.8.0-alpha06]
-
-_2026-02-20_
+## [1.8.0-alpha06] - 2026-02-20
 
 ### Spark
 
 #### 🆕 LeboncoinIcons
 Add `LeboncoinIcons` object as namespace for new static icons from Spark for leboncoin. This object provides access to all static vector icons as drawable resources, similar to `SparkIcons` but specifically for leboncoin-branded icons.
 
-## [1.8.0-alpha05]
-
-_2026-02-18_
+## [1.8.0-alpha05] - 2026-02-18
 
 ### Spark
 
 - Since we have uncertainties regarding the usages of FileKit for the `FileUpload` we marked it as `@InternalSparkApi` until we decide how to handle the file selection
 
-## [1.8.0-alpha04]
-
-_2026-02-05_
+## [1.8.0-alpha04] - 2026-02-05
 
 ### Spark
 
@@ -143,9 +123,7 @@ _2026-02-05_
 - 🐛 `ButtonContrast` and `ButtonGhost` were using `color` instead of `onContainerColor` values for their content colours
 - 📝 Improve the message from the crash when using a Spark component outside a `SparkTheme`
 
-## [1.8.0-alpha03]
-
-_2026-01-28_
+## [1.8.0-alpha03] - 2026-01-28
 
 ### Spark
 
@@ -167,15 +145,12 @@ FileUpload.ButtonSingleSelect(
 > [!NOTE]
 > This component is experimental and marked with `@ExperimentalSparkApi`. Feedbacks are welcomed.
 
-## [1.8.0-alpha02]
-
-_2026-01-22_
+## [1.8.0-alpha02] - 2026-01-22
 
 ### Spark
 - Add new SurfaceDark color token to be used when we need a surface/background to remain dark in light and darkmode like the footer in the website or the drawer in dashboard pro
 
-## [1.8.0-alpha01]
-_2026-01-22_
+## [1.8.0-alpha01] - 2026-01-22
 
 ### Spark
 - Apply the MaterialComposableHasSparkReplacement in spark modules
@@ -184,17 +159,13 @@ _2026-01-22_
 ### CI
 - Run lint task on the `:spark-lint` module
 
-## [1.7.1]
-
-_2026-01-28_
+## [1.7.1] - 2026-01-28
 
 ### Spark
 
 - 🐛 `Dropdown` Fix layout used in MultiChoice made the dropdown smaller than intended
 
-## [1.7.0]
-
-_2026-01-14_
+## [1.7.0] - 2026-01-14
 
 ### Spark
 
@@ -215,9 +186,7 @@ _2026-01-14_
 - ✨ Add color selector component for component configurators
 - 🚀 Compress vignettes to reduce app weight and improve vignette loading speed
 
-## [1.7.0-alpha01]
-
-_2026-01-08_
+## [1.7.0-alpha01] - 2026-01-08
 
 ### Spark
 
@@ -237,17 +206,13 @@ _2026-01-08_
 - ✨ Add color selector component for component configurators
 - 🚀 Compress vignettes to reduce app weight and improve vignette loading speed
 
-## [1.6.2]
-
-_2026-01-08_
+## [1.6.2] - 2026-01-08
 
 ### Spark
 
 - 🔧 Migrated `bodyWidth()` modifier to use `bodyMaxWidth` based on window size class breakpoints, centering content horizontally with a max width of 840dp for expanded & large screens and 1040dp for extra large screens.
 
-## [1.6.1]
-
-_2026-01-08_
+## [1.6.1] - 2026-01-08
 
 ### Spark
 
@@ -258,9 +223,7 @@ _2026-01-08_
 - ⬆️ Bump `androidx.compose:compose-bom` from 2025.09.00 to 2025.12.01
 - 🔧 Pin `androidx.compose.material3:material3` to version 1.3.2 (not using BOM version)
 
-## [1.6.0]
-
-_2025-11-12_
+## [1.6.0] - 2025-11-12
 
 ### Spark
 
@@ -284,9 +247,7 @@ _2025-11-12_
 - 💄 Update Backdrop component to use `background` color instead of `surface` for front layer
 - 💄Add new vignettes illustrations to represent the components when browsing them in the app
 
-## [1.6.0-alpha01]
-
-_2025-10-30_
+## [1.6.0-alpha01] - 2025-10-30
 
 ### Spark
 
@@ -302,17 +263,13 @@ _2025-10-30_
 
 - 💄Add new vignettes illustrations to represent the components when browsing them in the app
 
-## [1.5.1]
-
-_2025-11-26_
+## [1.5.1] - 2025-11-26
 
 ### Spark
 
 - 🐛 Fixed the `Image` Composable to ensure it does not download images twice.
 
-## [1.5.0]
-
-_2025-10-29_
+## [1.5.0] - 2025-10-29
 
 ### Spark
 
@@ -356,9 +313,7 @@ _2025-10-29_
 - ⬆️ Bump `paparazzi` to 2.0.0-alpha02.
 - ⬆️ Bump `io.coil-kt.coil3:coil-bom` from 3.2.0 to 3.3.0
 
-## [1.5.0-beta02]
-
-_2025-10-29_
+## [1.5.0-beta02] - 2025-10-29
 
 ### Spark
 
@@ -376,17 +331,13 @@ _2025-10-28_
 - ✨ Add more api to `ProgressTracker`, with a `readonly` mode & the possibility to change the icons
   for each steps.
 
-## [1.5.0-alpha03]
-
-_2025-10-16_
+## [1.5.0-alpha03] - 2025-10-16
 
 ### Spark
 
 - 🔧 Updated contrast level threshold in `LeboncoinTheme` from Material Medium to High as Users do not expect the drastic change in color
 
-## [1.5.0-alpha02]
-
-_2025-10-03_
+## [1.5.0-alpha02] - 2025-10-03
 
 ### Spark
 
@@ -397,9 +348,7 @@ _2025-10-03_
 
 - `Scaffold` now correctly applies `containerColor` for its content's background.
 
-## [1.5.0-alpha01]
-
-_2025-09-18_
+## [1.5.0-alpha01] - 2025-09-18
 
 ### Spark
 
@@ -427,9 +376,7 @@ _2025-09-18_
 - ⬆️ Bump `paparazzi` to 2.0.0-alpha02.
 - ⬆️ Bump `io.coil-kt.coil3:coil-bom` from 3.2.0 to 3.3.0
 
-## [1.4.2]
-
-_2025-10-17_
+## [1.4.2] - 2025-10-17
 
 ### Spark
 
@@ -437,18 +384,14 @@ _2025-10-17_
 
 - `Scaffold` now correctly applies `containerColor` for its content's background.
 
-## [1.4.1]
-
-_2025-10-17_
+## [1.4.1] - 2025-10-17
 
 ### Spark
 
 - 🔧 Updated contrast level threshold in `LeboncoinTheme` from Material Medium to High as Users do
   not expect the drastic change in color
 
-## [1.4.0]
-
-_2025-09-05_
+## [1.4.0] - 2025-09-05
 
 ### Spark
 
@@ -511,9 +454,7 @@ ButtonTinted(
 > - If you use a color other than **"Basic"** or **"Error"**, consider replacing it and use the new `error` parameter.
 > - If you use Start/left content side, update your usage to End/right alignment for improved accessibility.
 
-## [1.4.0-beta01]
-
-_2025-09-04_
+## [1.4.0-beta01] - 2025-09-04
 
 ### Spark
 
@@ -522,9 +463,7 @@ _2025-09-04_
 - 🆕 Add a `pulse` example and configurator
 - Pulse now have a `enabled` argument to avoid making a complex modifier chain when we want to control the visibility of this animation
 
-## [1.4.0-alpha03]
-
-_2025-08-01_
+## [1.4.0-alpha03] - 2025-08-01
 
 ### Spark
 
@@ -568,9 +507,7 @@ ButtonTinted(
 
 - 🔧 Add a `positionProvider` argument to change the spacing between a `Popover` and its anchor
 
-## [1.4.0-alpha02]
-
-_2025-07-29_
+## [1.4.0-alpha02] - 2025-07-29
 
 ### Spark
 
@@ -580,9 +517,7 @@ _2025-07-29_
 #### Modal
 - 🐛 Fixed ModalScaffold by removing `FLAG_LAYOUT_NO_LIMITS` window flag to allow proper scrollable popup behavior when it's used inside it
 
-## [1.4.0-alpha01]
-
-_2025-07-28_
+## [1.4.0-alpha01] - 2025-07-28
 
 ### Spark
 
@@ -596,9 +531,7 @@ _2025-07-28_
 > - If you use a color other than **"Basic"** or **"Error"**, consider replacing it and use the new `error` parameter.
 > - If you use Start/left content side, update your usage to End/right alignment for improved accessibility.
 
-## [1.3.0]
-
-_2025-07-23_
+## [1.3.0] - 2025-07-23
 
 ### Spark
 
@@ -748,25 +681,19 @@ SingleChoiceComboBox(
 - 🚀 Optimized CI workflow by splitting jobs for better parallelization (#1584)
 - 🚀 Migrated publishing from OSSRH to Central Portal (#1581)
 
-## [1.2.2]
-
-_2025-04-28_
+## [1.2.2] - 2025-04-28
 
 ### Spark
 * ✨ Introduce `SparkExceptionHandler` that allow users to control the behavior of some crashable unvalid events/states
 * 🐛 Fix `Image` Icon Size leading to crash
 * 🐛 `Image` will now signal that it's missing a defined size
 
-## [1.2.1]
-
-_2025-03-27_
+## [1.2.1] - 2025-03-27
 
 ### Spark
 * 🐛 Ensure Modifiers are applied only once when using conditional Modifiers
 
-## [1.2.0]
-
-_2025-03-19_
+## [1.2.0] - 2025-03-19
 
 ### Spark
 * ✨ New `Stepper` Component
@@ -781,33 +708,25 @@ _2025-03-19_
 * 🚀 Material transitions can now be tested in the catalog app to showcase & test their behaviour.
 * 🕶️ The screen reader navigation has been improved and we'll continue to improve it globally to meet the same standard as lbc
 
-## [1.1.4]
-
-_2025-02-19_
+## [1.1.4] - 2025-02-19
 
 ### Spark
 - 🛠️ Modal `inEdgeToEdge` parameter was applied even when set to false.
 - 🐛 Conditional modifiers were reapplying the chain instead of doing nothing when the predicate was false.
 
-## [1.1.3]
-
-_2025-01-29_
+## [1.1.3] - 2025-01-29
 
 ### Spark
 - 🛠 Use latest and simpler workaround to display a Dialog in fullscreen with support to edge-to-edge.
 - 🛠️ Modal `inEdgeToEdge` parameter now default to false.
 
-## [1.1.2]
-
-_2025-01-29_
+## [1.1.2] - 2025-01-29
 
 ### Spark
 - 🐛 Conditional modifiers were not working as expected since they returned an empty modifier instead of modifier chain if the condition was not met.
 
 
-## [1.1.1]
-
-_2025-01-28_
+## [1.1.1] - 2025-01-28
 
 ### Spark
 - 🐛 Conditional modifiers were not working as expected since they returned an empty.
@@ -815,9 +734,7 @@ _2025-01-28_
 - 🐛 Revert `Image` behavior on sizing with empty/loading/error states.
 
 
-## [1.1.0]
-
-_2025-01-06_
+## [1.1.0] - 2025-01-06
 
 ### Animated Icons
 > [!CAUTION]
@@ -854,9 +771,7 @@ Now all textfields (not only the multi line one) can display a character count a
 - 🛠️ Migrated from uri to the new Typesafe routes for navigation.
 - ✨ New examples for the shape tokens has benn added by @EliottLujan!
 
-## [1.0.2]
-
-_2024-12-11_
+## [1.0.2] - 2024-12-11
 
 ### Spark
 
@@ -870,9 +785,7 @@ _2024-11-07_
 
 - 🐛 User Avatar presence badge was incorrectly placed, especially in big sizes.
 
-## [1.0.0]
-
-_2024-10-07_
+## [1.0.0] - 2024-10-07
 
 ### Spark
 > [!CAUTION]
@@ -939,9 +852,7 @@ It has 2 styles, intents and the new dismiss action that are also available on t
 - 🎨 KA theme colors for outline has been changed in light mode and in dark mode it's the background + variants color
 - 🆕 Examples on how to make a Button Toggle has been added
 
-## [0.10.1]
-
-_2024-06-18_
+## [0.10.1] - 2024-06-18
 
 ### Spark
 - 🐛 `ModalScaffold` can now take no actions and will hide the Bottom app Bar.
@@ -950,9 +861,7 @@ _2024-06-18_
 ### Catalog App
 - `ModalScaffold` Added an example that will show the modal with no actions.
 
-## [0.10.0]
-
-_2024-05-16_
+## [0.10.0] - 2024-05-16
 
 ### Spark
 - 🆕 `BottomSheetScaffold` now has a new sheetPeekHeight parameter
@@ -964,9 +873,7 @@ _2024-05-16_
 ### Catalog App
 - 🐛 `Checkbox` Fix intents in CheckboxConfigurator
 
-## [0.9.0]
-
-_2024-04-23_
+## [0.9.0] - 2024-04-23
 
 ### Spark
 
@@ -1013,9 +920,7 @@ If you want to make your Chip closable then you will need to add a callback acti
 - 🆕 Ran Lava Vulnerability Scanner on CI workflow
 - 🔧 Moved code formatting tasks first in the contributing list
 
-## [0.8.0]
-
-_2024-02-28_
+## [0.8.0] - 2024-02-28
 
 ### Spark
 
@@ -1029,9 +934,7 @@ _2024-02-28_
 * 🎨 Add Configurator for `Progressbar`
 * 🚀 Replace deprecated actionsdesk/lfs-warning with composite action
 
-## [0.7.0]
-
-_2024-02-15_
+## [0.7.0] - 2024-02-15
 
 ### Spark
 
@@ -1055,9 +958,7 @@ _2024-02-15_
 * 📝 A message can be specified when publishing the app
 
 
-## [0.6.1]
-
-_2023-12-21_
+## [0.6.1] - 2023-12-21
 
 ### Fix Modal reported issues
 *  Fix the content padding not being passed to it's children.
@@ -1065,9 +966,7 @@ _2023-12-21_
 * Inset for non edge to edge app was broken and displaying the content bellow the system bars.
 *  Add the support for WindowHeightSizeClass.Expanded to show the fullscreen modal in portrait
 
-## [0.6.0]
-
-_2023-12-19_
+## [0.6.0] - 2023-12-19
 
 ### Spark
 
@@ -1092,9 +991,7 @@ _2023-12-19_
 * 🐛 Fix typos in `TabsExamples` and replace one icon to fit the style
 * 📝 Replace `zeroheight` links with `spark.adevinta.com`
 
-## [0.5.0]
-
-_2023-09-26_
+## [0.5.0] - 2023-09-26
 
 ### Spark
 
@@ -1123,15 +1020,11 @@ _2023-09-26_
 * 💄 Modify Segmented color to be more visible and make switch take full width
 * 💄 Update catalog app to show `ExtraLarge` icons
 
-## [0.4.2]
-
-_2023-08-24_
+## [0.4.2] - 2023-08-24
 
 * 🐛 Some color tokens were not updated on theme change
 
-## [0.4.1]
-
-_2023-08-17_
+## [0.4.1] - 2023-08-17
 
 ### Spark
 * 🆕 Implement `Spark Tab` and `Tab Group`
@@ -1153,17 +1046,13 @@ _2023-08-17_
 * 🐛 The app state is saved on configuration change
 * 🐛 Fix the link to component documentation
 
-## [0.3.1]
-
-_2023-07-31_
+## [0.3.1] - 2023-07-31
 
 * 🆕 Added `Basic` and `Accent` intents to all released components.
 * 💄Updated the default color intents to `Basic` for `Tag`, `Chip`, `Spinner`.
 * 🗑️ Deprecated `Primary` and `Secondary` intents, `Main` and `Support`should be used instead.
 
-## [0.3.0]
-
-_2023-07-11_
+## [0.3.0] - 2023-07-11
 
 * 🆕 Migrate `TextField` to the new spark spec with multiple sizes, styles and intents.
 * 🔧 Add extensions to make usage of dims and highlights simpler.
@@ -1174,9 +1063,7 @@ _2023-07-11_
 * 🗑️ Deprecated `SparkIcons` are now removed.
 * Update icon resources
 
-## [0.2.0]
-
-_2023-06-23_
+## [0.2.0] - 2023-06-23
 
 * 🆕 Migrate `Badges` to the new spark spec with multiple sizes, styles and intents.
 * 🆕 Migrate `Icons` to the new spark spec with multiple sizes, styles and intents.
@@ -1185,15 +1072,11 @@ _2023-06-23_
 * 🆕 Add fullscreen modal component as experimental
 * Update icon resources
 
-## [0.1.1]
-
-_2023-05-23_
+## [0.1.1] - 2023-05-23
 
 * Add missing Categories/Family icon #388
 
-## [0.1.0]
-
-_2023-04-18_
+## [0.1.0] - 2023-04-18
 
 ### What's new since 0.0.3
 
@@ -1205,21 +1088,15 @@ _2023-04-18_
   than `SparkTheme.colors.background` which is useful to test custom surfaces for example.
 * 💄Fix `callout` Typo having a size of `14.sp` instead of `16.sp`
 
-## [0.0.3]
-
-_2023-04-05_
+## [0.0.3] - 2023-04-05
 
 * Modify the `Image` fallback states background and icon colors #306
 * Integrate the new typography tokens #298
 * Add Legacy option to use previous DS style #310
 
-## [0.0.2]
+## [0.0.2] - 2023-03-30
 
-_2023-03-30_
-
-## [0.0.1]
-
-_2023-03-29_
+## [0.0.1] - 2023-03-29
 
 <!-- Links -->
 
