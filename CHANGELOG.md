@@ -4,6 +4,12 @@
 
 ## [Unreleased]
 
+### Spark
+
+#### 💄 Rebranded shapes extended to more components
+
+Chips, icon buttons, and text fields now participate in the rebranding shape changes introduced in 2.1.0. The feature flag `SparkFeatureFlag.useNewButtonAndTagsShapes` has been renamed to `useRebrandedShapes` to reflect the broader scope.
+
 ## [2.1.1]
 
 _2026-03-31_

@@ -101,7 +101,7 @@ public fun ButtonTinted(
         onClick = onClick,
         modifier = modifier,
         size = size,
-        shape = if (LocalSparkFeatureFlag.current.useNewButtonAndTagsShapes) {
+        shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
             SparkTheme.shapes.full
         } else {
             shape.shape
@@ -178,7 +178,7 @@ public fun ButtonTinted(
         text = text,
         modifier = modifier,
         size = size,
-        shape = if (LocalSparkFeatureFlag.current.useNewButtonAndTagsShapes) {
+        shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
             ButtonShape.Pill
         } else {
             shape
@@ -254,7 +254,7 @@ public fun ButtonTinted(
         text = text,
         modifier = modifier,
         size = size,
-        shape = if (LocalSparkFeatureFlag.current.useNewButtonAndTagsShapes) {
+        shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
             ButtonShape.Pill
         } else {
             shape

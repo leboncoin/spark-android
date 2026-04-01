@@ -29,11 +29,11 @@ package com.adevinta.spark
  * @property useSparkComponentsHighlighter Highlight visually with an overlay where the spark components are used
  * or not. Setting it to true show an overlay on spark components.
  * @property isContainingActivityEdgeToEdge
- * @property useNewButtonAndTagsShapes Use new button and chips shapes.
+ * @property useRebrandedShapes Use new button, chips, tags and textfield shapes.
  */
 public data class SparkFeatureFlag(
     val useSparkTokensHighlighter: Boolean = false,
     val useSparkComponentsHighlighter: Boolean = false,
     val isContainingActivityEdgeToEdge: Boolean = false,
-    val useNewButtonAndTagsShapes: Boolean = false,
+    val useRebrandedShapes: Boolean = false,
 )

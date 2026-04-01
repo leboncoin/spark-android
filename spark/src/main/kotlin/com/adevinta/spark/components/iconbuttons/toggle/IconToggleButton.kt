@@ -42,6 +42,7 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.InternalSparkApi
+import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.buttons.ButtonShape
 import com.adevinta.spark.components.iconbuttons.IconButtonColors
@@ -117,6 +118,11 @@ internal fun SparkIconToggleButton(
                 positioning = TooltipAnchorPosition.Above,
             ),
         ) {
+            val shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
+                ButtonShape.Pill
+            } else {
+                shape
+            }
             Surface(
                 checked = checked,
                 onCheckedChange = onCheckedChange,

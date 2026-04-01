@@ -35,6 +35,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import com.adevinta.spark.ExperimentalSparkApi
+import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.SparkTheme
 import androidx.compose.material3.FilledIconButton as MaterialFilledIconButton
 import androidx.compose.material3.FilledTonalIconButton as MaterialFilledTonalIconButton
@@ -125,6 +126,11 @@ public fun FilledIconButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
+    val shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
+        SparkTheme.shapes.full
+    } else {
+        shape
+    }
     MaterialFilledIconButton(
         onClick = onClick,
         modifier = modifier,
@@ -181,6 +187,11 @@ public fun FilledTonalIconButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
+    val shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
+        SparkTheme.shapes.full
+    } else {
+        shape
+    }
     MaterialFilledTonalIconButton(
         onClick = onClick,
         modifier = modifier,
@@ -240,6 +251,11 @@ public fun OutlinedIconButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
+    val shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
+        SparkTheme.shapes.full
+    } else {
+        shape
+    }
     MaterialOutlinedIconButton(
         onClick = onClick,
         modifier = modifier,

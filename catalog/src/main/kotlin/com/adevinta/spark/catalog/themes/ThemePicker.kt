@@ -364,9 +364,9 @@ public fun ThemePicker(
                             )
                         }
                         SwitchLabelled(
-                            checked = theme.useNewButtonAndTagsShapes,
+                            checked = theme.useRebrandedShapes,
                             onCheckedChange = { checked ->
-                                onThemeChange(theme.copy(useNewButtonAndTagsShapes = checked))
+                                onThemeChange(theme.copy(useRebrandedShapes = checked))
                             },
                         ) {
                             Text(

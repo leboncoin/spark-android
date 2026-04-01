@@ -98,7 +98,7 @@ public fun ButtonContrast(
         content = content,
         modifier = modifier,
         size = size,
-        shape = if (LocalSparkFeatureFlag.current.useNewButtonAndTagsShapes) {
+        shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
             SparkTheme.shapes.full
         } else {
             shape.shape
