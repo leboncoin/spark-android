@@ -7,6 +7,7 @@
 ### Spark
 
 - 🗑️ `Basic` intent has been deprecated across all components (`ButtonIntent`, `BadgeIntent`, `ChipIntent`, `TagIntent`, `ToggleIntent`, etc.) and replaced with `Support`, which was already identical in value. Usages of `Basic` will produce a compile error with an automatic migration hint to `Support`.
+- 💥 `Basic` intent has been hard-deleted from all 11 component intent enums, `IntentColors`, `SparkColors`, and `contentColorFor`. Migrate all remaining `Basic` usages to `Support` before upgrading.
 
 ## [2.1.0]
 
