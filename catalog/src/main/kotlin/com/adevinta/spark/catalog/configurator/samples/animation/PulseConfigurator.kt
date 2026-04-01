@@ -207,27 +207,6 @@ private enum class PulseColor {
             get() = SolidColor(SparkTheme.colors.accentContainer)
     },
 
-    @Deprecated(
-        message = "Basic has been removed with the rebranding, use Support instead",
-        replaceWith = ReplaceWith("PulseColor.Support"),
-        level = DeprecationLevel.ERROR,
-    )
-    Basic {
-        override val brush: Brush
-            @Composable
-            get() = SolidColor(SparkTheme.colors.support)
-    },
-
-    @Deprecated(
-        message = "Basic has been removed with the rebranding, use Support instead",
-        replaceWith = ReplaceWith("PulseColor.SupportContainer"),
-        level = DeprecationLevel.ERROR,
-    )
-    BasicContainer {
-        override val brush: Brush
-            @Composable
-            get() = SolidColor(SparkTheme.colors.supportContainer)
-    },
     Support {
         override val brush: Brush
             @Composable

@@ -39,19 +39,6 @@ import com.adevinta.spark.tokens.disabled
 )
 public enum class ToggleIntent {
     /**
-     * The default color of such UI controls as toggles, Slider, etc.
-     */
-    @Deprecated(
-        message = "Basic has been removed with the rebranding, use Support instead",
-        replaceWith = ReplaceWith("ToggleIntent.Support"),
-        level = DeprecationLevel.ERROR,
-    )
-    Basic {
-        @Composable
-        override fun colors(): IntentColor = IntentColors.Support.colors()
-    },
-
-    /**
      * Used to make components visually accentuated.
      */
     Accent {

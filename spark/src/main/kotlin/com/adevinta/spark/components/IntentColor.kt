@@ -34,24 +34,6 @@ internal data class IntentColor(
 
 internal enum class IntentColors {
     /**
-     * Used to match default color of such UI controls as toggles, Slider, etc.
-     */
-    @Deprecated(
-        message = "Basic has been removed with the rebranding, use Support instead",
-        replaceWith = ReplaceWith("IntentColors.Support"),
-        level = DeprecationLevel.ERROR,
-    )
-    Basic {
-        @Composable
-        override fun colors() = IntentColor(
-            color = SparkTheme.colors.support,
-            onColor = SparkTheme.colors.onSupport,
-            containerColor = SparkTheme.colors.supportContainer,
-            onContainerColor = SparkTheme.colors.onSupportContainer,
-        )
-    },
-
-    /**
      * Used to make UI component visually accentuated.
      */
     Accent {
