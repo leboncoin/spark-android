@@ -67,7 +67,7 @@ public val SlidersExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "no-steps",
         name = "Slider with No Steps",
-        description = "Slider intent Basic, with no steps",
+        description = "Slider intent Support, with no steps",
         sourceUrl = SlidersExampleSourceUrl,
     ) {
 

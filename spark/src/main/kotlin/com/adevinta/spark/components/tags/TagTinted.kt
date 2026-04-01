@@ -132,7 +132,7 @@ internal fun TagTonalPreview() {
     PreviewTheme {
         val icon = SparkIcons.Booster
         TagTinted("", leadingIcon = icon)
-        TagTinted("Tag Basic")
-        TagTinted("Tag Basic", leadingIcon = icon)
+        TagTinted("Tag Support")
+        TagTinted("Tag Support", leadingIcon = icon)
     }
 }

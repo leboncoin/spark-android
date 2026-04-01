@@ -123,7 +123,7 @@ internal fun TagFilledPreview() {
     PreviewTheme {
         val icon = SparkIcons.Booster
         TagFilled("", leadingIcon = icon)
-        TagFilled("Tag Basic")
-        TagFilled("Tag Basic", leadingIcon = icon)
+        TagFilled("Tag Support")
+        TagFilled("Tag Support", leadingIcon = icon)
     }
 }

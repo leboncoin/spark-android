@@ -148,7 +148,7 @@ internal fun TagOutlinedPreview() {
     PreviewTheme {
         val icon = SparkIcons.Booster
         TagOutlined("", leadingIcon = icon)
-        TagOutlined("Tag Basic")
-        TagOutlined("Tag Basic", leadingIcon = icon)
+        TagOutlined("Tag Support")
+        TagOutlined("Tag Support", leadingIcon = icon)
     }
 }
