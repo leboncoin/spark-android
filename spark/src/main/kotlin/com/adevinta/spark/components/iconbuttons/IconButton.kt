@@ -37,6 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.InternalSparkApi
+import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.buttons.ButtonShape
 import com.adevinta.spark.components.icons.Icon
@@ -49,7 +50,6 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.GearOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tools.modifiers.minimumTouchTargetSize
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
@@ -113,6 +113,11 @@ internal fun SparkIconButton(
             },
             state = rememberTooltipState(),
         ) {
+            val shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
+                ButtonShape.Pill
+            } else {
+                shape
+            }
             Surface(
                 onClick = onClick,
                 modifier = Modifier

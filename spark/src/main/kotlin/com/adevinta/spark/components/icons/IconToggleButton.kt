@@ -33,7 +33,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
-import com.adevinta.spark.ExperimentalSparkApi
+import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.buttons.ButtonShape
 import com.adevinta.spark.tokens.contentColorFor
@@ -118,16 +118,7 @@ public fun IconToggleButton(
  * @param content the content of this icon button, typically an [Icon]
  */
 
-@Deprecated(
-    message = "This component is no longer used",
-    replaceWith = ReplaceWith(
-        expression = "IconToggleButtonFilled(icons, onCheckedChange, modifier, checked, enabled, interactionSource)",
-        imports = ["com.adevinta.spark.components.iconbuttons.toggle.IconToggleButtonFilled"],
-    ),
-    level = DeprecationLevel.WARNING,
-)
 @SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
-@ExperimentalSparkApi
 @Composable
 public fun FilledIconToggleButton(
     checked: Boolean,
@@ -139,6 +130,11 @@ public fun FilledIconToggleButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
+    val shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
+        SparkTheme.shapes.full
+    } else {
+        shape
+    }
     MaterialFilledIconToggleButton(
         checked = checked,
         onCheckedChange = onCheckedChange,
@@ -183,16 +179,7 @@ public fun FilledIconToggleButton(
  * [Interaction]s and customize the appearance / behavior of this icon button in different states.
  * @param content the content of this icon button, typically an [Icon]
  */
-@Deprecated(
-    message = "This component is no longer used",
-    replaceWith = ReplaceWith(
-        expression = "IconToggleButtonTinted(icons, onCheckedChange, modifier, checked, enabled, interactionSource)",
-        imports = ["com.adevinta.spark.components.iconbuttons.toggle.IconToggleButtonTinted"],
-    ),
-    level = DeprecationLevel.WARNING,
-)
 @SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
-@ExperimentalSparkApi
 @Composable
 public fun FilledTonalIconToggleButton(
     checked: Boolean,
@@ -207,6 +194,11 @@ public fun FilledTonalIconToggleButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
+    val shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
+        ButtonShape.Pill
+    } else {
+        shape
+    }
     MaterialFilledTonalIconToggleButton(
         checked = checked,
         onCheckedChange = onCheckedChange,
@@ -249,16 +241,7 @@ public fun FilledTonalIconToggleButton(
  * [Interaction]s and customize the appearance / behavior of this icon button in different states.
  * @param content the content of this icon button, typically an [Icon]
  */
-@Deprecated(
-    message = "This component is no longer used",
-    replaceWith = ReplaceWith(
-        expression = "IconToggleButtonOutlined(icons, onCheckedChange, modifier, checked, enabled, interactionSource)",
-        imports = ["com.adevinta.spark.components.iconbuttons.toggle.IconToggleButtonOutlined"],
-    ),
-    level = DeprecationLevel.WARNING,
-)
 @SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
-@ExperimentalSparkApi
 @Composable
 public fun OutlinedIconToggleButton(
     checked: Boolean,
@@ -271,6 +254,11 @@ public fun OutlinedIconToggleButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
+    val shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
+        SparkTheme.shapes.full
+    } else {
+        shape
+    }
     MaterialOutlinedIconToggleButton(
         checked = checked,
         onCheckedChange = onCheckedChange,

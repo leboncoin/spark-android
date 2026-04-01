@@ -236,7 +236,7 @@ internal fun SparkTenantTheme(
         shapes = sparkShapes(),
         typography = sparkTypography(),
         sparkFeatureFlag = SparkFeatureFlag(
-            useNewButtonAndTagsShapes = true,
+            useRebrandedShapes = true,
         ),
         content = content,
     )
