@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+### Spark
+
+- 🗑️ `Basic` intent has been deprecated across all components (`ButtonIntent`, `BadgeIntent`, `ChipIntent`, `TagIntent`, `ToggleIntent`, etc.) and replaced with `Support`, which was already identical in value. Usages of `Basic` will produce a compile error with an automatic migration hint to `Support`.
+
 ## [2.1.0]
 
 _2026-03-12_
