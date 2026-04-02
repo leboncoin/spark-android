@@ -89,7 +89,6 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.CircleCrossOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkAnimatedIcons
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.collapseExpand
 import com.adevinta.spark.tokens.SparkTypography
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
@@ -421,14 +420,14 @@ public fun Dropdown(
             interactionSource = interactionSource,
         )
         // Use Exposed when b/205589613 is fixed
-        ExposedDropdownMenu(
-//        DropdownMenu(
+//        ExposedDropdownMenu(
+        DropdownMenu(
             expanded = expanded,
             onDismissRequest = onDismissRequest,
             modifier = Modifier
                 .exposedDropdownSize()
                 .padding(16.dp),
-//            properties = properties,
+            properties = properties,
             content = dropdownContent,
         )
     }
