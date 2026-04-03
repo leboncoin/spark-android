@@ -96,7 +96,7 @@ public data class SparkShapes(
         val `medium___12dp` = Unit
         val `large___16dp` = Unit
         val `extraLarge___28dp` = Unit
-        val `full___50%` = Unit
+        val `full___50` = Unit
     }
 }
 
