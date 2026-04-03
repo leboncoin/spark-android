@@ -117,6 +117,11 @@ internal fun SparkTextField(
     maxLines: Int,
     minLines: Int,
     modifier: Modifier = Modifier,
+    shape: Shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
+        SparkTheme.shapes.full
+    } else {
+        SparkTheme.shapes.large
+    },
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     val colors = sparkOutlinedTextFieldColors()
@@ -190,7 +195,7 @@ internal fun SparkTextField(
                         state,
                         interactionSource,
                         colors,
-                        SparkTheme.shapes.large,
+                        shape,
                     )
                 }
             },
@@ -222,6 +227,11 @@ internal fun SparkTextField(
     maxLines: Int,
     minLines: Int,
     modifier: Modifier = Modifier,
+    shape: Shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
+        SparkTheme.shapes.full
+    } else {
+        SparkTheme.shapes.large
+    },
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     val colors = sparkOutlinedTextFieldColors()
@@ -294,7 +304,7 @@ internal fun SparkTextField(
                         state,
                         interactionSource,
                         colors,
-                        SparkTheme.shapes.large,
+                        shape,
                     )
                 }
             },
@@ -441,11 +451,6 @@ internal fun OutlinedBorderContainerBox(
         targetValue = colors.containerColor(enabled).value,
         animationSpec = tween(durationMillis = AnimationDuration),
     )
-    val shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
-        SparkTheme.shapes.full
-    } else {
-        shape
-    }
     Box(
         modifier
             .border(borderStroke.value, shape)
