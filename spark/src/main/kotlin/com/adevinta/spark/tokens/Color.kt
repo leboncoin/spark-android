@@ -1257,7 +1257,7 @@ private fun Color.adjustColorToMaterialTone(tone: Float): Color {
  *
  * @see contentColorFor
  */
-@Suppress("DEPRECATION")
+@Suppress("DEPRECATION_ERROR")
 public fun SparkColors.contentColorFor(backgroundColor: Color): Color = when (backgroundColor) {
     accent -> onAccent
     accentContainer -> onAccentContainer
