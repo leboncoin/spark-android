@@ -205,7 +205,28 @@ public data class SparkTypography(
      * Call to actions
      */
     val callout: TextStyle,
-)
+) {
+    /**
+     * Required by the [Kelp](https://github.com/ozontech/kelp) Android Studio plugin to render
+     * font-size/line-height inlay hints next to usages of typography tokens.
+     *
+     * Property naming convention: `name___value`
+     */
+    @Suppress("unused")
+    private class KelpInlayPreview {
+        val display1___40sp = Unit
+        val display2___32sp = Unit
+        val display3___24sp = Unit
+        val headline1___20sp = Unit
+        val headline2___18sp = Unit
+        val subhead___16sp = Unit
+        val body1___16sp = Unit
+        val body2___14sp = Unit
+        val caption___12sp = Unit
+        val small___10sp = Unit
+        val callout___16sp = Unit
+    }
+}
 
 @Suppress("CompositionLocalAllowlist") // We need it to get access to our typo like Material
 internal val LocalSparkTypography = staticCompositionLocalOf { sparkTypography() }

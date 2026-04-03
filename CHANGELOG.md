@@ -8,6 +8,10 @@
 
 - 🗑️ `Basic` intent has been deprecated across all components (`ButtonIntent`, `BadgeIntent`, `ChipIntent`, `TagIntent`, `ToggleIntent`, etc.) and replaced with `Support`, which was already identical in value. Usages of `Basic` will produce a compile error with an automatic migration hint to `Support`.
 
+#### 🔧 Kelp IDE plugin support
+
+Added `KelpInlayPreview` inner classes to `SparkColors`, `SparkShapes`, `SparkTypography`, and `ElevationTokens` so the [Kelp](https://github.com/ozontech/kelp) Android Studio plugin can render color swatches, corner-radius, font-size, and elevation inlay hints directly in the editor. Also added a `.idea/kelp/config.json` configuration file to enable Kelp out of the box for contributors.
+
 #### 💄 Rebranded shapes extended to more components
 
 Chips, icon buttons, and text fields now participate in the rebranding shape changes introduced in 2.1.0. The feature flag `SparkFeatureFlag.useNewButtonAndTagsShapes` has been renamed to `useRebrandedShapes` to reflect the broader scope.
