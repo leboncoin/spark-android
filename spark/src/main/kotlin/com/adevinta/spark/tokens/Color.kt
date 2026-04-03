@@ -745,39 +745,6 @@ public class SparkColors(
     public var onAccentVariant: Color by mutableStateOf(onAccentVariant, structuralEqualityPolicy())
         internal set
 
-    @Order(3)
-    @Deprecated(
-        message = "basic has been removed with the rebranding, use support instead",
-        replaceWith = ReplaceWith("support"),
-        level = DeprecationLevel.ERROR,
-    )
-    public var basic: Color by mutableStateOf(support, structuralEqualityPolicy())
-        internal set
-
-    @Deprecated(
-        message = "onBasic has been removed with the rebranding, use onSupport instead",
-        replaceWith = ReplaceWith("onSupport"),
-        level = DeprecationLevel.ERROR,
-    )
-    public var onBasic: Color by mutableStateOf(onSupport, structuralEqualityPolicy())
-        internal set
-
-    @Deprecated(
-        message = "basicContainer has been removed with the rebranding, use supportContainer instead",
-        replaceWith = ReplaceWith("supportContainer"),
-        level = DeprecationLevel.ERROR,
-    )
-    public var basicContainer: Color by mutableStateOf(supportContainer, structuralEqualityPolicy())
-        internal set
-
-    @Deprecated(
-        message = "onBasicContainer has been removed with the rebranding, use onSupportContainer instead",
-        replaceWith = ReplaceWith("onSupportContainer"),
-        level = DeprecationLevel.ERROR,
-    )
-    public var onBasicContainer: Color by mutableStateOf(onSupportContainer, structuralEqualityPolicy())
-        internal set
-
     @Order(0)
     public var main: Color by mutableStateOf(main, structuralEqualityPolicy())
         internal set
@@ -1257,13 +1224,10 @@ private fun Color.adjustColorToMaterialTone(tone: Float): Color {
  *
  * @see contentColorFor
  */
-@Suppress("DEPRECATION")
 public fun SparkColors.contentColorFor(backgroundColor: Color): Color = when (backgroundColor) {
     accent -> onAccent
     accentContainer -> onAccentContainer
     accentVariant -> onAccentVariant
-    basic -> onBasic
-    basicContainer -> onBasicContainer
     main -> onMain
     mainContainer -> onMainContainer
     mainVariant -> onMainVariant

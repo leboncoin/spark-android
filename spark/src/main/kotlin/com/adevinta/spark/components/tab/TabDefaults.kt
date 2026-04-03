@@ -47,19 +47,6 @@ internal object TabDefaults {
 
 public enum class TabIntent {
     /**
-     * The default color of such UI controls as toggles, Slider, etc.
-     */
-    @Deprecated(
-        message = "Basic has been removed with the rebranding, use Support instead",
-        replaceWith = ReplaceWith("TabIntent.Support"),
-        level = DeprecationLevel.ERROR,
-    )
-    Basic {
-        @Composable
-        override fun color(): Color = SparkTheme.colors.support
-    },
-
-    /**
      * Used for the most important information.
      */
     Main {
