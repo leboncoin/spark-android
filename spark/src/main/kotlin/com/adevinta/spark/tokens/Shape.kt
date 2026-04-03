@@ -178,7 +178,6 @@ internal fun ShapePreview() {
                 )
             }
             Row {
-
                 ShapeItem(
                     modifier = Modifier,
                     shape = SparkTheme.shapes.medium,
