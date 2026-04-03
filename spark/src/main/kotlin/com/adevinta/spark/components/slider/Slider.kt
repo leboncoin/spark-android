@@ -128,7 +128,7 @@ private val DefaultHandleSize = DpSize(DefaultHandleSizeWidth, DefaultHandleSize
 
 @Composable
 internal fun Handle(
-    intent: SliderIntent = remember { SliderIntent.Basic },
+    intent: SliderIntent = remember { SliderIntent.Support },
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     enabled: Boolean = true,
     handleSize: DpSize = DefaultHandleSize,
@@ -187,7 +187,7 @@ internal fun Handle(
         Box(
             modifier = Modifier
                 .size(DefaultHandleSizeInnerWidth)
-                .background(SparkTheme.colors.basicContainer, CircleShape),
+                .background(SparkTheme.colors.supportContainer, CircleShape),
         )
         Box(
             modifier = Modifier
@@ -258,7 +258,7 @@ internal fun getCoercedActiveRangeEndAsFraction(
 internal fun Track(
     sliderState: SliderState,
     modifier: Modifier = Modifier,
-    intent: SliderIntent = SliderIntent.Basic,
+    intent: SliderIntent = SliderIntent.Support,
     enabled: Boolean = true,
     rounded: Boolean = false,
 ) {
@@ -349,7 +349,7 @@ private fun DrawScope.drawTrack(
 internal fun Track(
     rangeSliderState: RangeSliderState,
     modifier: Modifier = Modifier,
-    intent: SliderIntent = SliderIntent.Basic,
+    intent: SliderIntent = SliderIntent.Support,
     enabled: Boolean = true,
     rounded: Boolean = false,
 ) {
@@ -417,7 +417,7 @@ public fun Slider(
     enabled: Boolean = true,
     rounded: Boolean = false,
     steps: Int = 0,
-    intent: SliderIntent = SliderIntent.Basic,
+    intent: SliderIntent = SliderIntent.Support,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     SparkSlider(

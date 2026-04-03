@@ -132,10 +132,6 @@ public fun lightSparkColors(
     onAccentContainer: Color = Plum800,
     accentVariant: Color = Plum700,
     onAccentVariant: Color = Color.White,
-    basic: Color = Blueberry800,
-    onBasic: Color = Color.White,
-    basicContainer: Color = Blueberry100,
-    onBasicContainer: Color = Blueberry900,
     main: Color = Clementin500,
     onMain: Color = Color.White,
     mainContainer: Color = Clementin100,
@@ -193,10 +189,6 @@ public fun lightSparkColors(
     onAccentContainer = onAccentContainer,
     accentVariant = accentVariant,
     onAccentVariant = onAccentVariant,
-    basic = basic,
-    onBasic = onBasic,
-    basicContainer = basicContainer,
-    onBasicContainer = onBasicContainer,
     main = main,
     onMain = onMain,
     mainContainer = mainContainer,
@@ -257,10 +249,6 @@ public fun darkSparkColors(
     onAccentContainer: Color = Plum50,
     accentVariant: Color = Plum300,
     onAccentVariant: Color = Plum900,
-    basic: Color = Blueberry200,
-    onBasic: Color = Blueberry900,
-    basicContainer: Color = Blueberry800,
-    onBasicContainer: Color = Blueberry50,
     main: Color = Clementin400,
     onMain: Color = Clementin900,
     mainContainer: Color = Clementin700,
@@ -319,10 +307,6 @@ public fun darkSparkColors(
     onAccentContainer = onAccentContainer,
     accentVariant = accentVariant,
     onAccentVariant = onAccentVariant,
-    basic = basic,
-    onBasic = onBasic,
-    basicContainer = basicContainer,
-    onBasicContainer = onBasicContainer,
     main = main,
     onMain = onMain,
     mainContainer = mainContainer,
@@ -383,10 +367,6 @@ public fun lightHighContrastSparkColors(
     onAccentContainer: Color = DarkBold,
     accentVariant: Color = DarkMedium,
     onAccentVariant: Color = DarkLight,
-    basic: Color = DarkRegular,
-    onBasic: Color = DarkLight,
-    basicContainer: Color = DarkMedium,
-    onBasicContainer: Color = DarkBold,
     main: Color = DarkRegular,
     onMain: Color = DarkLight,
     mainContainer: Color = DarkMedium,
@@ -444,10 +424,6 @@ public fun lightHighContrastSparkColors(
     onAccentContainer = onAccentContainer,
     accentVariant = accentVariant,
     onAccentVariant = onAccentVariant,
-    basic = basic,
-    onBasic = onBasic,
-    basicContainer = basicContainer,
-    onBasicContainer = onBasicContainer,
     main = main,
     onMain = onMain,
     mainContainer = mainContainer,
@@ -507,10 +483,6 @@ public fun darkHighContrastSparkColors(
     onAccentContainer: Color = LightLight,
     accentVariant: Color = DarkMedium,
     onAccentVariant: Color = DarkBold,
-    basic: Color = LightGray,
-    onBasic: Color = DarkBold,
-    basicContainer: Color = LightMid,
-    onBasicContainer: Color = LightLight,
     main: Color = LightGray,
     onMain: Color = DarkBold,
     mainContainer: Color = LightMid,
@@ -567,10 +539,6 @@ public fun darkHighContrastSparkColors(
     onAccentContainer = onAccentContainer,
     accentVariant = accentVariant,
     onAccentVariant = onAccentVariant,
-    basic = basic,
-    onBasic = onBasic,
-    basicContainer = basicContainer,
-    onBasicContainer = onBasicContainer,
     main = main,
     onMain = onMain,
     mainContainer = mainContainer,
@@ -638,10 +606,6 @@ public fun darkHighContrastSparkColors(
  * @property onAccentContainer
  * @property accentVariant
  * @property onAccentVariant
- * @property basic
- * @property onBasic
- * @property basicContainer
- * @property onBasicContainer
  * @property main The main color is the color displayed most frequently across your app’s
  * screens and components.
  * @property onMain Color used for text and icons displayed on top of the main color.
@@ -715,10 +679,6 @@ public class SparkColors(
     onAccentContainer: Color,
     accentVariant: Color,
     onAccentVariant: Color,
-    basic: Color,
-    onBasic: Color,
-    basicContainer: Color,
-    onBasicContainer: Color,
     main: Color,
     onMain: Color,
     mainContainer: Color,
@@ -786,13 +746,36 @@ public class SparkColors(
         internal set
 
     @Order(3)
-    public var basic: Color by mutableStateOf(basic, structuralEqualityPolicy())
+    @Deprecated(
+        message = "basic has been removed with the rebranding, use support instead",
+        replaceWith = ReplaceWith("support"),
+        level = DeprecationLevel.ERROR,
+    )
+    public var basic: Color by mutableStateOf(support, structuralEqualityPolicy())
         internal set
-    public var onBasic: Color by mutableStateOf(onBasic, structuralEqualityPolicy())
+
+    @Deprecated(
+        message = "onBasic has been removed with the rebranding, use onSupport instead",
+        replaceWith = ReplaceWith("onSupport"),
+        level = DeprecationLevel.ERROR,
+    )
+    public var onBasic: Color by mutableStateOf(onSupport, structuralEqualityPolicy())
         internal set
-    public var basicContainer: Color by mutableStateOf(basicContainer, structuralEqualityPolicy())
+
+    @Deprecated(
+        message = "basicContainer has been removed with the rebranding, use supportContainer instead",
+        replaceWith = ReplaceWith("supportContainer"),
+        level = DeprecationLevel.ERROR,
+    )
+    public var basicContainer: Color by mutableStateOf(supportContainer, structuralEqualityPolicy())
         internal set
-    public var onBasicContainer: Color by mutableStateOf(onBasicContainer, structuralEqualityPolicy())
+
+    @Deprecated(
+        message = "onBasicContainer has been removed with the rebranding, use onSupportContainer instead",
+        replaceWith = ReplaceWith("onSupportContainer"),
+        level = DeprecationLevel.ERROR,
+    )
+    public var onBasicContainer: Color by mutableStateOf(onSupportContainer, structuralEqualityPolicy())
         internal set
 
     @Order(0)
@@ -927,10 +910,6 @@ public class SparkColors(
         onAccentContainer: Color = this.onAccentContainer,
         accentVariant: Color = this.accentVariant,
         onAccentVariant: Color = this.onAccentVariant,
-        basic: Color = this.basic,
-        onBasic: Color = this.onBasic,
-        basicContainer: Color = this.basicContainer,
-        onBasicContainer: Color = this.onBasicContainer,
         main: Color = this.main,
         onMain: Color = this.onMain,
         mainContainer: Color = this.mainContainer,
@@ -989,10 +968,6 @@ public class SparkColors(
         onAccentContainer = onAccentContainer,
         accentVariant = accentVariant,
         onAccentVariant = onAccentVariant,
-        basic = basic,
-        onBasic = onBasic,
-        basicContainer = basicContainer,
-        onBasicContainer = onBasicContainer,
         main = main,
         onMain = onMain,
         mainContainer = mainContainer,
@@ -1054,10 +1029,6 @@ public class SparkColors(
         append("onAccentContainer=$onAccentContainer, ")
         append("accentVariant=$accentVariant, ")
         append("onAccentVariant=$onAccentVariant, ")
-        append("basic=$basic, ")
-        append("onBasic=$onBasic, ")
-        append("basicContainer=$basicContainer, ")
-        append("onBasicContainer=$onBasicContainer, ")
         append("main=$main, ")
         append("onMain=$onMain, ")
         append("mainContainer=$mainContainer, ")
@@ -1208,10 +1179,6 @@ public fun ColorScheme.asSparkColors(useDark: Boolean): SparkColors = if (useDar
         onSupportContainer = onTertiaryContainer,
         supportVariant = tertiary.adjustColorToMaterialTone(90f),
         onSupportVariant = tertiary.adjustColorToMaterialTone(10f),
-        basic = tertiary,
-        onBasic = onTertiary,
-        basicContainer = tertiaryContainer,
-        onBasicContainer = onTertiaryContainer,
         background = background,
         onBackground = onBackground,
         surface = surface,
@@ -1249,10 +1216,6 @@ public fun ColorScheme.asSparkColors(useDark: Boolean): SparkColors = if (useDar
         onSupportContainer = onTertiaryContainer,
         supportVariant = tertiary.adjustColorToMaterialTone(10f),
         onSupportVariant = tertiary.adjustColorToMaterialTone(99f),
-        basic = tertiary,
-        onBasic = onTertiary,
-        basicContainer = tertiaryContainer,
-        onBasicContainer = onTertiaryContainer,
         background = background,
         onBackground = onBackground,
         surface = surface,
@@ -1294,6 +1257,7 @@ private fun Color.adjustColorToMaterialTone(tone: Float): Color {
  *
  * @see contentColorFor
  */
+@Suppress("DEPRECATION_ERROR")
 public fun SparkColors.contentColorFor(backgroundColor: Color): Color = when (backgroundColor) {
     accent -> onAccent
     accentContainer -> onAccentContainer
@@ -1421,10 +1385,6 @@ internal fun SparkColors.updateColorsFrom(other: SparkColors) {
     onAccentContainer = other.onAccentContainer
     accentVariant = other.accentVariant
     onAccentVariant = other.onAccentVariant
-    basic = other.basic
-    onBasic = other.onBasic
-    basicContainer = other.basicContainer
-    onBasicContainer = other.onBasicContainer
     main = other.main
     onMain = other.onMain
     mainContainer = other.mainContainer
@@ -1568,10 +1528,6 @@ public fun debugColors(
     onAccentContainer = onDebugColor,
     accentVariant = debugColor,
     onAccentVariant = onDebugColor,
-    basic = debugColor,
-    onBasic = onDebugColor,
-    basicContainer = debugColor,
-    onBasicContainer = onDebugColor,
     main = debugColor,
     onMain = onDebugColor,
     mainContainer = debugColor,
@@ -1690,7 +1646,6 @@ private val previewColors
                 listOf(::main, ::mainContainer, ::mainVariant),
                 listOf(::support, ::supportContainer, ::supportVariant),
                 listOf(::accent, ::accentContainer, ::accentVariant),
-                listOf(::basic, ::basicContainer),
             ),
             listOf(
                 listOf(::success, ::successContainer),

@@ -70,7 +70,7 @@ private fun ColumnScope.TextLinkSample(snackbarHostState: SnackbarHostState) {
     var isLoading by remember { mutableStateOf(false) }
     var iconSide by remember { mutableStateOf(IconSide.START) }
     val coroutineScope = rememberCoroutineScope()
-    var intent by remember { mutableStateOf(ButtonIntent.Basic) }
+    var intent by remember { mutableStateOf(ButtonIntent.Support) }
 
     Text(text = "Text Link Component", style = SparkTheme.typography.headline1)
 

@@ -123,7 +123,7 @@ public fun RangeSlider(
     value: ClosedFloatingPointRange<Float>,
     onValueChange: (ClosedFloatingPointRange<Float>) -> Unit,
     modifier: Modifier = Modifier,
-    intent: SliderIntent = SliderIntent.Basic,
+    intent: SliderIntent = SliderIntent.Support,
     enabled: Boolean = true,
     rounded: Boolean = false,
     valueRange: ClosedFloatingPointRange<Float> = 0f..1f,

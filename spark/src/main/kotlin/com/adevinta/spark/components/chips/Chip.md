@@ -13,10 +13,9 @@ The chip can have one of the `ChipStyles`:
 - `Dashed` - using a dashed border and no background
 
 The color is set using one of the `ChipIntent`s:
-- Basic (default color)
+- Support (default color)
 - Accent
 - Main
-- Support
 - Success
 - Alert
 - Danger

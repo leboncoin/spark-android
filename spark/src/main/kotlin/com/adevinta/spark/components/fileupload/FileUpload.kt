@@ -107,7 +107,7 @@ public object FileUpload {
                     },
                 onClick = onClick,
                 text = label,
-                intent = ButtonIntent.Basic,
+                intent = ButtonIntent.Support,
                 enabled = enabled,
             )
         },
@@ -179,7 +179,7 @@ public object FileUpload {
                     },
                 onClick = onClick,
                 text = label,
-                intent = ButtonIntent.Basic,
+                intent = ButtonIntent.Support,
                 enabled = enabled,
             )
         },

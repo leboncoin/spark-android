@@ -48,7 +48,7 @@ internal fun SparkRadioButton(
     selected: Boolean,
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
-    intent: ToggleIntent = ToggleIntent.Basic,
+    intent: ToggleIntent = ToggleIntent.Support,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
@@ -145,7 +145,7 @@ public fun RadioButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     SparkRadioButton(
-        intent = if (error) ToggleIntent.Danger else ToggleIntent.Basic,
+        intent = if (error) ToggleIntent.Danger else ToggleIntent.Support,
         selected = selected,
         onClick = onClick,
         interactionSource = interactionSource,

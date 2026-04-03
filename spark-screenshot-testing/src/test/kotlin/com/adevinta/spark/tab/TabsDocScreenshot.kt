@@ -76,7 +76,7 @@ internal class TabsDocScreenshot {
 
     @Composable
     private fun Tabs(
-        intent: TabIntent = TabIntent.Basic,
+        intent: TabIntent = TabIntent.Support,
         size: TabSize = TabSize.Medium,
         spacedEvenly: Boolean = true,
     ) {

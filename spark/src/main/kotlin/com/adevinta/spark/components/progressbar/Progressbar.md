@@ -26,7 +26,6 @@ Icon Buttons support all intents:
 - Main
 - Support
 - Accent
-- Basic
 - Success
 - Alert
 - Danger

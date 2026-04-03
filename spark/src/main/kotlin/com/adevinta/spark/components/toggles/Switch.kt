@@ -60,7 +60,7 @@ internal fun SparkSwitch(
     onCheckedChange: ((Boolean) -> Unit)?,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    intent: ToggleIntent = ToggleIntent.Basic,
+    intent: ToggleIntent = ToggleIntent.Support,
     icons: SwitchIcons? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
@@ -107,7 +107,7 @@ internal fun SparkSwitch(
  * appearance / behavior of this Switch in different [Interaction]s.
  */
 @Deprecated(
-    message = "Intent Switch have been deprecated in favour of just using Basic",
+    message = "Intent Switch have been deprecated in favour of just using Support",
     replaceWith = ReplaceWith(
         "Switch(checked = checked, onCheckedChange = onCheckedChange, modifier = modifier, enabled = enabled, error = false, interactionSource = interactionSource)",
     ),
@@ -191,7 +191,7 @@ public fun Switch(
  * @param content The content displayed before the switch, usually a Text composable shown at the start.
  */
 @Deprecated(
-    message = "Intent SwitchLabelled have been deprecated in favour of just using Basic with a end " +
+    message = "Intent SwitchLabelled have been deprecated in favour of just using Support with a end " +
         "content side",
     replaceWith = ReplaceWith(
         "SwitchLabelled(checked = checked, onCheckedChange = onCheckedChange, " +
@@ -270,7 +270,7 @@ public fun SwitchLabelled(
 ) {
     SwitchLabelled(
         contentSide = contentSide,
-        intent = ToggleIntent.Basic,
+        intent = ToggleIntent.Support,
         checked = checked,
         onCheckedChange = onCheckedChange,
         modifier = modifier,

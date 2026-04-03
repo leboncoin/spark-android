@@ -43,7 +43,7 @@ import com.adevinta.spark.icons.SparkIcons
 @Composable
 public fun TagTinted(
     modifier: Modifier = Modifier,
-    intent: TagIntent = TagIntent.Basic,
+    intent: TagIntent = TagIntent.Support,
     leadingIcon: SparkIcon? = null,
     tint: Color? = null,
     atEnd: Boolean = false,
@@ -75,7 +75,7 @@ public fun TagTinted(
 public fun TagTinted(
     text: String,
     modifier: Modifier = Modifier,
-    intent: TagIntent = TagIntent.Basic,
+    intent: TagIntent = TagIntent.Support,
     leadingIcon: SparkIcon? = null,
     tint: Color? = null,
     atEnd: Boolean = false,
@@ -106,7 +106,7 @@ public fun TagTinted(
 public fun TagTinted(
     text: AnnotatedString,
     modifier: Modifier = Modifier,
-    intent: TagIntent = TagIntent.Basic,
+    intent: TagIntent = TagIntent.Support,
     leadingIcon: SparkIcon? = null,
     tint: Color? = null,
     atEnd: Boolean = false,
@@ -132,7 +132,7 @@ internal fun TagTonalPreview() {
     PreviewTheme {
         val icon = SparkIcons.Booster
         TagTinted("", leadingIcon = icon)
-        TagTinted("Tag Basic")
-        TagTinted("Tag Basic", leadingIcon = icon)
+        TagTinted("Tag Support")
+        TagTinted("Tag Support", leadingIcon = icon)
     }
 }

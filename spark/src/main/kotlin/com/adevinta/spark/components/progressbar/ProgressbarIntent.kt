@@ -57,9 +57,14 @@ public enum class ProgressbarIntent {
     /**
      * Used to match default color of such UI controls as toggles, Slider, etc.
      */
+    @Deprecated(
+        message = "Basic has been removed with the rebranding, use Support instead",
+        replaceWith = ReplaceWith("ProgressbarIntent.Support"),
+        level = DeprecationLevel.ERROR,
+    )
     Basic {
         @Composable
-        override fun colors(): IntentColor = IntentColors.Basic.colors()
+        override fun colors(): IntentColor = IntentColors.Support.colors()
     },
 
     /**

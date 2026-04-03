@@ -37,7 +37,7 @@ SwitchLabelled(
 
 ### Styles
 
-The `Switch` and `SwitchLabelled` now only have one style: **"Basic"**.
+The `Switch` and `SwitchLabelled` now only have one style: **"Support"**.
 
 ## Layout
 
