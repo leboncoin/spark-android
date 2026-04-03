@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.slider
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.RangeSliderState
@@ -37,6 +38,7 @@ import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 import androidx.compose.material3.RangeSlider as MaterialRangeSlider
 
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @OptIn(ExperimentalMaterial3Api::class)
 @InternalSparkApi
 @Composable

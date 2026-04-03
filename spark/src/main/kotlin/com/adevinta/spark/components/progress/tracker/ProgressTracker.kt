@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.progress.tracker
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColor
@@ -363,6 +364,7 @@ private fun StepLabel(
     }
 }
 
+@SuppressLint("MaterialComposableHasSparkReplacement") // The spark Divider can't allow us to do this
 @Composable
 private fun ProgressTrack(
     orientation: LayoutOrientation,

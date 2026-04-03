@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.image
 
+import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.foundation.Image
@@ -50,6 +51,7 @@ import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import androidx.compose.foundation.Image as FoundationImage
 
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @InternalSparkApi
 @Composable
 internal fun SparkIllustration(

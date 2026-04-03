@@ -63,6 +63,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.offset
 import androidx.compose.ui.util.fastFirstOrNull
 import com.adevinta.spark.InternalSparkApi
+import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.SparkTheme.colors
@@ -112,6 +113,11 @@ private fun SparkChip(
 ) {
     @Suppress("NAME_SHADOWING")
     val interactionSource = interactionSource ?: remember { MutableInteractionSource() }
+    val shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
+        SparkTheme.shapes.large
+    } else {
+        SparkTheme.shapes.small
+    }
     Surface(
         onClick = onClick,
         modifier = modifier
@@ -119,7 +125,7 @@ private fun SparkChip(
             .sparkUsageOverlay()
             .semantics(mergeDescendants = true) { role = Role.Button },
         enabled = enabled,
-        shape = SparkTheme.shapes.small,
+        shape = shape,
         color = containerColor,
         border = border,
         contentColor = contentColor,
@@ -162,6 +168,11 @@ private fun SparkChipSelectable(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
+    val shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
+        SparkTheme.shapes.large
+    } else {
+        SparkTheme.shapes.small
+    }
     Surface(
         onClick = onClick,
         modifier = modifier
@@ -170,7 +181,7 @@ private fun SparkChipSelectable(
             .semantics(mergeDescendants = true) { role = Role.Checkbox },
         enabled = enabled,
         selected = selected,
-        shape = SparkTheme.shapes.small,
+        shape = shape,
         color = containerColor,
         border = border,
         contentColor = contentColor,
@@ -497,12 +508,17 @@ private fun ChipContent(
         LocalContentColor provides contentColor,
         LocalTextStyle provides SparkTheme.typography.body2,
     ) {
+        val shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
+            SparkTheme.shapes.large
+        } else {
+            SparkTheme.shapes.small
+        }
         Layout(
             modifier = Modifier
                 .ifTrue(style == ChipStyles.Dashed) {
                     dashedBorder(
                         width = ChipDefaults.BorderStrokeWidth,
-                        shape = SparkTheme.shapes.small,
+                        shape = shape,
                         color = contentColor,
                     )
                 }
@@ -524,12 +540,17 @@ private fun ChipContent(
                     )
                 }
                 if (label != null) {
+                    val spacing = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
+                        8.dp
+                    } else {
+                        4.dp
+                    }
                     Row(
                         modifier = Modifier
                             .layoutId(LabelLayoutId)
                             .padding(
-                                start = if (leadingIcon != null) 4.dp else 0.dp,
-                                end = if (trailingIcon != null) 4.dp else 0.dp,
+                                start = if (leadingIcon != null) spacing else 0.dp,
+                                end = if (trailingIcon != null) spacing else 0.dp,
                             ),
                         horizontalArrangement = Arrangement.Start,
                         verticalAlignment = Alignment.CenterVertically,

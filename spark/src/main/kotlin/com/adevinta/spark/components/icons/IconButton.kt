@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.icons
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -34,6 +35,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import com.adevinta.spark.ExperimentalSparkApi
+import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.SparkTheme
 import androidx.compose.material3.FilledIconButton as MaterialFilledIconButton
 import androidx.compose.material3.FilledTonalIconButton as MaterialFilledTonalIconButton
@@ -65,6 +67,7 @@ import androidx.compose.material3.OutlinedIconButton as MaterialOutlinedIconButt
  * [Interaction]s and customize the appearance / behavior of this icon button in different states.
  * @param content the content of this icon button, typically an [Icon]
  */
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 @ExperimentalSparkApi
 public fun IconButton(
@@ -112,6 +115,7 @@ public fun IconButton(
  * @param content the content of this icon button, typically an [Icon]
  */
 @ExperimentalSparkApi
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun FilledIconButton(
     onClick: () -> Unit,
@@ -122,6 +126,11 @@ public fun FilledIconButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
+    val shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
+        SparkTheme.shapes.full
+    } else {
+        shape
+    }
     MaterialFilledIconButton(
         onClick = onClick,
         modifier = modifier,
@@ -165,6 +174,7 @@ public fun FilledIconButton(
  * @param content the content of this icon button, typically an [Icon]
  */
 @ExperimentalSparkApi
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun FilledTonalIconButton(
     onClick: () -> Unit,
@@ -177,6 +187,11 @@ public fun FilledTonalIconButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
+    val shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
+        SparkTheme.shapes.full
+    } else {
+        shape
+    }
     MaterialFilledTonalIconButton(
         onClick = onClick,
         modifier = modifier,
@@ -224,6 +239,7 @@ public fun FilledTonalIconButton(
  * @param content the content of this icon button, typically an [Icon]
  */
 @ExperimentalSparkApi
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun OutlinedIconButton(
     onClick: () -> Unit,
@@ -235,6 +251,11 @@ public fun OutlinedIconButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
+    val shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
+        SparkTheme.shapes.full
+    } else {
+        shape
+    }
     MaterialOutlinedIconButton(
         onClick = onClick,
         modifier = modifier,

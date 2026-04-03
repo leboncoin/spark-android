@@ -51,7 +51,6 @@ import androidx.compose.material3.BottomAppBarState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.LocalContentColor
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.rememberBottomAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -72,6 +71,7 @@ import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.buttons.FloatingActionButton
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconButton
+import com.adevinta.spark.components.scaffold.Scaffold
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.Check
@@ -244,7 +244,7 @@ public fun BottomAppBar(
     modifier: Modifier = Modifier,
     floatingActionButton: @Composable (() -> Unit)? = null,
     containerColor: Color = BottomAppBarDefaults.containerColor,
-    contentColor: Color = androidx.compose.material3.contentColorFor(containerColor),
+    contentColor: Color = contentColorFor(containerColor),
     elevation: Dp = BottomAppBarDefaults.ContainerElevation,
     contentPadding: PaddingValues = BottomAppBarDefaults.ContentPadding,
     windowInsets: WindowInsets = BottomAppBarDefaults.windowInsets,

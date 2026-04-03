@@ -70,6 +70,7 @@ import com.adevinta.spark.components.chips.ChipSelectable
 import com.adevinta.spark.components.chips.ChipStyles
 import com.adevinta.spark.components.chips.ChipStyles.Dashed
 import com.adevinta.spark.components.chips.ChipStyles.Tinted
+import com.adevinta.spark.components.divider.HorizontalDivider
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.menu.DropdownMenu
 import com.adevinta.spark.components.menu.DropdownMenuItem
@@ -91,7 +92,6 @@ import kotlinx.coroutines.delay
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
-import androidx.compose.material3.HorizontalDivider as MaterialHorizontalDivider
 
 private const val ChipsExampleSourceUrl = "$SampleSourceUrl/ChipsSamples.kt"
 
@@ -301,7 +301,7 @@ private fun ColumnScope.ChipAssist() {
                 }
             }
 
-            MaterialHorizontalDivider(color = LocalContentColor.current)
+            HorizontalDivider()
             Column {
                 Text(
                     text = nowDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)),

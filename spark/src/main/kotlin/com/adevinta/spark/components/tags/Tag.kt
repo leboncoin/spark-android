@@ -82,7 +82,7 @@ internal fun BaseSparkTag(
     modifier: Modifier = Modifier,
     border: BorderStroke? = null,
     leadingContent: (@Composable () -> Unit)? = null,
-    shape: Shape = if (LocalSparkFeatureFlag.current.useNewButtonAndTagsShapes) {
+    shape: Shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
         SparkTheme.shapes.extraSmall
     } else {
         SparkTheme.shapes.full

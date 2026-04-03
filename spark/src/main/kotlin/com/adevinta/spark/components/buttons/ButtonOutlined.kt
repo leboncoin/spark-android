@@ -92,7 +92,7 @@ public fun ButtonOutlined(
         onClick = onClick,
         modifier = modifier,
         size = size,
-        shape = if (LocalSparkFeatureFlag.current.useNewButtonAndTagsShapes) {
+        shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
             SparkTheme.shapes.full
         } else {
             shape.shape
@@ -160,7 +160,7 @@ public fun ButtonOutlined(
         text = text,
         modifier = modifier,
         size = size,
-        shape = if (LocalSparkFeatureFlag.current.useNewButtonAndTagsShapes) {
+        shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
             ButtonShape.Pill
         } else {
             shape
@@ -224,7 +224,7 @@ public fun ButtonOutlined(
         text = text,
         modifier = modifier,
         size = size,
-        shape = if (LocalSparkFeatureFlag.current.useNewButtonAndTagsShapes) {
+        shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
             ButtonShape.Pill
         } else {
             SparkButtonDefaults.DefaultShape

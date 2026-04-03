@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.textfields
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -86,6 +87,7 @@ public abstract class AddonScope {
      * A Button that can be used as trailing content for a [TextField]. The button is a custom one as a regular
      * one doesn't fit so it has a more limited api than a Spark button.
      */
+    @SuppressLint("MaterialComposableHasSparkReplacement") // Spark Button can't allow us to do this
     @ExperimentalSparkApi
     @Composable
     public fun Button(

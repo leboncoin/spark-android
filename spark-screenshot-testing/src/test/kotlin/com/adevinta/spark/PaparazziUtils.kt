@@ -89,6 +89,7 @@ private fun SparkThemeContent(
     CompositionLocalProvider(LocalInspectionMode provides true) {
         SparkTheme(
             colors = colors,
+            sparkFeatureFlag = SparkFeatureFlag(useRebrandedShapes = true),
         ) {
             // The first box acts as a shield from ComposeView which forces the first layout node
             // to match it's size. This allows the content below to wrap as needed.

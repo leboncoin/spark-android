@@ -8,6 +8,19 @@
 
 - 🗑️ `Basic` intent has been deprecated across all components (`ButtonIntent`, `BadgeIntent`, `ChipIntent`, `TagIntent`, `ToggleIntent`, etc.) and replaced with `Support`, which was already identical in value. Usages of `Basic` will produce a compile error with an automatic migration hint to `Support`.
 
+#### 💄 Rebranded shapes extended to more components
+
+Chips, icon buttons, and text fields now participate in the rebranding shape changes introduced in 2.1.0. The feature flag `SparkFeatureFlag.useNewButtonAndTagsShapes` has been renamed to `useRebrandedShapes` to reflect the broader scope.
+
+## [2.1.1]
+
+_2026-03-31_
+
+### Icons
+
+- 🆕 Add new `GraphicCursor`, `GraphicHand`, `OpenLetterFill`, and `OpenLetterOutline` icons
+- 💄 Fix `LbcAccessoriesCriteria` and `Layer` icons
+
 ## [2.1.0]
 
 _2026-03-12_
@@ -1218,7 +1231,9 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/2.1.0...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/2.1.1...HEAD
+
+[2.1.1]: https://github.com/leboncoin/spark-android/compare/2.1.0...2.1.1
 
 [2.1.0]: https://github.com/leboncoin/spark-android/compare/2.0.1...2.1.0
 

@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -97,6 +98,7 @@ import com.adevinta.spark.tools.SparkExceptionHandler
  * @param exceptionHandler An instance of [SparkExceptionHandler] for handling logs within Spark components.
  * Defaults to [DefaultSparkExceptionHandler].
  */
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 public fun SparkTheme(
@@ -234,7 +236,7 @@ internal fun SparkTenantTheme(
         shapes = sparkShapes(),
         typography = sparkTypography(),
         sparkFeatureFlag = SparkFeatureFlag(
-            useNewButtonAndTagsShapes = true,
+            useRebrandedShapes = true,
         ),
         content = content,
     )
