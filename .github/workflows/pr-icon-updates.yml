@@ -12,13 +12,10 @@ concurrency:
   group: '${{ github.workflow }}-${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
   cancel-in-progress: true
 
-env:
-  FILE: 'spark-icons/src/main/kotlin/com/adevinta/spark/icons/LeboncoinIcons.kt'
-
 jobs:
   pr-icon-updates:
     # Detect recursive calls based on last commit message
-    if: ${{ github.event.head_commit.message != '🎨 Update `LeboncoinIcons.kt`' }}
+    if: ${{ github.event.head_commit.message != '🎨 Update LeboncoinIcons and icon drawables' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -31,21 +28,26 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
 
-      # we need to move the icons because the GHA that we use to push them from
-      # spark-tokens to this repo need to remove the content of its destination dir
+      # The upstream spark-tokens workflow pushes raw drawables into spark-icons/icons/.
+      # Copy them into both the Android res directory and the KMP compose resources directory,
+      # then remove the staging area.
       - run: |
-          mkdir -p spark-icons/src/main/res/drawable
-          cp -r spark-icons/icons/. spark-icons/src/main/res/drawable/
+          mkdir -p spark-icons/src/androidMain/res/drawable
+          mkdir -p spark-icons/src/nonAndroidMain/composeResources/drawable
+          cp -r spark-icons/icons/. spark-icons/src/androidMain/res/drawable/
+          cp -r spark-icons/icons/. spark-icons/src/nonAndroidMain/composeResources/drawable/
           rm -rf spark-icons/icons
       - run: |
-          ./scripts/spark-icons-kt/spark-icons-kt.main.kts --input=spark-icons/src/main/res/drawable --output="$FILE" --copyright=scripts/spark-icons-kt/COPYRIGHT.kt
-          git add "$FILE" spark-icons
+          ./scripts/spark-icons-kt/spark-icons-kt.main.kts \
+            --input=spark-icons/src/androidMain/res/drawable \
+            --output-dir=spark-icons/src \
+            --copyright=scripts/spark-icons-kt/COPYRIGHT.kt
+          git add spark-icons/src spark-icons
           if ! git diff --cached --quiet --exit-code ;
           then
             git config user.name 'spark-ui-bot'
             git config user.email 'spark-ui-bot@users.noreply.github.com'
-            git commit -m '🎨 Update `LeboncoinIcons.kt` and update icons'
-            git show
+            git commit -m '🎨 Update LeboncoinIcons and icon drawables'
             git push
             echo "::notice::UPDATED"
           else
