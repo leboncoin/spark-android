@@ -1625,7 +1625,6 @@ public final class com/adevinta/spark/catalog/util/UrlKt {
 	public static final field ReleasesUrl Ljava/lang/String;
 	public static final field SampleSourceUrl Ljava/lang/String;
 	public static final field SourceUrl Ljava/lang/String;
-	public static final field SparkSampleSourceUrl Ljava/lang/String;
 	public static final field SparkSourceUrl Ljava/lang/String;
 	public static final field StyleGuidelinesUrl Ljava/lang/String;
 	public static final fun openUrl (Landroid/content/Context;Ljava/lang/String;)V
