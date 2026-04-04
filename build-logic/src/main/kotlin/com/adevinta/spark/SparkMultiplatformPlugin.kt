@@ -42,24 +42,15 @@ public class SparkMultiplatformPlugin : Plugin<Project> {
             jvm()
             if (isAndroid) {
                 androidTarget()
-                if (isAndroidMultiplaformLibrary) {
+                if (isAndroidMultiplatformLibrary) {
                     androidLibrary {
                         experimentalProperties["android.experimental.kmp.enableAndroidResources"] = true
                     }
                 }
             }
-//            @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
-//            wasmJs {
-//                browser()
-//                binaries.executable()
-//            }
-
-            // iosArm64()
-            // iosSimulatorArm64()
 
             compilerOptions {
-                // Only add opt-in flags for modules that actually have these annotations
-                if (project.name != "spark-icons") {
+                if (hasSparkInternalAnnotations) {
                     freeCompilerArgs.addAll(
                         listOf(
                             "-Xexpect-actual-classes",
@@ -71,7 +62,7 @@ public class SparkMultiplatformPlugin : Plugin<Project> {
                 allWarningsAsErrors.set(true)
             }
 
-            if (project.name != "spark-icons") {
+            if (hasSparkInternalAnnotations) {
                 sourceSets.all {
                     languageSettings.optIn("com.adevinta.spark.InternalSparkApi")
                     languageSettings.optIn("com.adevinta.spark.ExperimentalSparkApi")
@@ -99,11 +90,9 @@ public class SparkMultiplatformPlugin : Plugin<Project> {
                 create("nonAndroidMain") { dependsOn(commonMain.get()) }
                 jvmMain.get().dependsOn(getByName("nonAndroidMain"))
                 // Add other / future source sets here as needed, e.g. jsMain, iosMain, etc.
-
-                commonMain.dependencies {
-                    implementation(project.dependencies.platform(spark().libraries.`kotlin-bom`))
-                }
             }
         }
+
+        addKotlinBom()
     }
 }

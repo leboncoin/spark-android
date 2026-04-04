@@ -72,7 +72,7 @@ private fun canMorph(from: List<PathNode>, to: List<PathNode>): Boolean {
     }
 
     for (i in from.indices) {
-        if (from[i].javaClass != to[i].javaClass) {
+        if (from[i]::class != to[i]::class) {
             return false
         }
     }

@@ -40,8 +40,9 @@ import org.jetbrains.compose.resources.DrawableResource
 public sealed interface SparkIcon {
 
     /**
-     * An icon represented by an android drawable resource.
+     * An icon represented by an Android drawable resource ID.
      *
+     * Android-only. On KMP targets use [Resource] instead.
      * It should be a vector drawable rather than a raster image/icon.
      *
      * @property drawableId The resource ID of the drawable to display
@@ -49,11 +50,11 @@ public sealed interface SparkIcon {
     public data class DrawableRes(val drawableId: Int) : SparkIcon
 
     /**
-     * An icon represented by an android drawable resource.
+     * An icon represented by a Compose Multiplatform [DrawableResource].
      *
-     * It should be a vector drawable rather than a raster image/icon.
+     * Use this on KMP targets. On Android-only consumers [DrawableRes] is also available.
      *
-     * @property res The resource ID of the drawable to display
+     * @property res The drawable resource to display
      */
     public data class Resource(val res: DrawableResource) : SparkIcon
 

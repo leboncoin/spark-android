@@ -427,6 +427,6 @@ public val allAnimatedIconsMetadata: List<AnimatedIconMetadata> = listOf(
 // TODO: Replace with internal annotation when core its moved to core module
 // @InternalSparkApi
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
-public val allAnimatedIcons: Set<SparkIcon.AnimatedPainter> = allAnimatedIconsMetadata
-    .map { it.iconProvider() }
-    .toSet()
+public val allAnimatedIcons: Set<SparkIcon.AnimatedPainter> by lazy {
+    allAnimatedIconsMetadata.map { it.iconProvider() }.toSet()
+}
