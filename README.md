@@ -52,6 +52,73 @@ dependencies {
 }
 ```
 
+## Usage
+
+### Applying the theme
+
+Wrap your content in `SparkTheme`. Any Spark composable used outside it throws a runtime error.
+
+```kotlin
+SparkTheme {
+    // Your composable hierarchy
+}
+```
+
+### Custom colour palette
+
+Pass `lightSparkColors` and `darkSparkColors` to override the default palette. Supply only the tokens you want to change; the rest fall back to Spark defaults.
+
+```kotlin
+val myLightColors = lightSparkColors(
+    accent = Color(0xFF6200EE),
+    onAccent = Color.White,
+)
+val myDarkColors = darkSparkColors(
+    accent = Color(0xFFBB86FC),
+    onAccent = Color.Black,
+)
+
+SparkTheme(
+    colors = if (isSystemInDarkTheme()) myDarkColors else myLightColors,
+) {
+    // content
+}
+```
+
+### Feature flags
+
+`SparkFeatureFlag` gates opt-in behaviour such as rebranded shapes and development highlighters. Construct it once and pass it to `SparkTheme`.
+
+```kotlin
+SparkTheme(
+    colors = myColors,
+    sparkFeatureFlag = SparkFeatureFlag(
+        useRebrandedShapes = true,
+        isContainingActivityEdgeToEdge = true,
+    ),
+) {
+    // content
+}
+```
+
+### Icons module
+
+The `spark-icons` artifact ships separately from the core module. Add both in the same BoM block:
+
+```kotlin
+dependencies {
+    implementation(platform("com.adevinta.spark:spark-bom:<version>"))
+    implementation("com.adevinta.spark:spark")
+    implementation("com.adevinta.spark:spark-icons")
+}
+```
+
+### API reference
+
+Full KDoc is published at [adevinta.github.io/spark-android](https://adevinta.github.io/spark-android/).
+
+---
+
 ## Contributing
 
 Please take a look at the [contribution guide](docs/CONTRIBUTING.md) to setup your dev environment and get a list of common tasks used in this project, as well as the [Code of conduct](docs/CODE_OF_CONDUCT.md).

@@ -186,6 +186,67 @@ public fun ComponentName(
 2. Create the public api ([see](https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/spark/src/main/kotlin/com/adevinta/spark/components/tags/TagFilled.kt#L35-L60))
 3. Create defaults either inlined in the component file or in a separate file if its already too big ([see](https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/spark/src/main/kotlin/com/adevinta/spark/components/tags/Tag.kt#L246-L292)):
 4. Create intent and size enums ([see](https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/spark/src/main/kotlin/com/adevinta/spark/components/tags/TagIntent.kt#L14-L19)):
+
+### Component Generator
+
+`scripts/generate-component.main.kts` scaffolds the full file structure for a new component so you don't create files manually.
+
+**Invocation**
+
+```bash
+./scripts/generate-component.main.kts
+```
+
+The script prompts for the component name and package name interactively. Pass them as flags to skip the prompts:
+
+```bash
+./scripts/generate-component.main.kts \
+  --component-name Card \
+  --package-name card \
+  -v Elevated -v Outlined
+```
+
+**Options**
+
+| Flag | Description |
+|------|-------------|
+| `--component-name` | Component name in PascalCase (e.g., `Card`). Prompted if omitted. |
+| `--package-name` | Package directory name in lowercase (e.g., `card`). Prompted if omitted. |
+| `-v` / `--variants` | Variant names, repeatable (e.g., `-v Elevated -v Outlined`). Omit to generate a single `Default` variant. |
+| `--dry-run` | Preview which files would be created without writing anything. |
+
+**What it generates**
+
+For a component named `Card` in package `card` with variants `Elevated` and `Outlined`, the script creates:
+
+```text
+spark/src/main/kotlin/com/adevinta/spark/components/card/
+├── Card.kt
+├── SparkCard.kt
+├── CardDefaults.kt
+└── Card.md
+
+spark-screenshot-testing/src/test/kotlin/com/adevinta/spark/components/card/
+└── CardScreenshot.kt
+
+catalog/src/main/kotlin/com/adevinta/spark/catalog/configurator/samples/card/
+└── CardConfigurator.kt
+
+catalog/src/main/kotlin/com/adevinta/spark/catalog/examples/samples/card/
+└── CardExamples.kt
+```
+
+**What you still need to do manually**
+
+The generator produces scaffolding only. After running it you must:
+
+- Fill in the component logic in `SparkCard.kt` and `Card.kt`
+- Add design token mappings in `CardDefaults.kt`
+- Create `CardIntent.kt` and `CardSize.kt` if the component needs them
+- Write the screenshot test bodies in `CardScreenshot.kt`
+- Register the component in the catalog's `Components.kt` registry
+- Replace all `TODO` placeholders in `Card.md`
+
 ---
 
 ## 🧪 Testing
