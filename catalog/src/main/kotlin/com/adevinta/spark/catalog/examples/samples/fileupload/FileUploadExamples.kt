@@ -34,7 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.catalog.model.Example
-import com.adevinta.spark.catalog.util.SparkSampleSourceUrl
+import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.buttons.ButtonOutlined
 import com.adevinta.spark.components.buttons.ButtonSize
 import com.adevinta.spark.components.buttons.ButtonTinted
@@ -58,7 +58,7 @@ import kotlinx.collections.immutable.toImmutableSet
 import kotlinx.coroutines.delay
 import java.io.File
 
-private const val FileUploadExampleSourceUrl = "$SparkSampleSourceUrl/fileupload/FileUploadExamples.kt"
+private const val FileUploadExampleSourceUrl = "$SampleSourceUrl/fileupload/FileUploadExamples.kt"
 
 public val FileUploadExamples: ImmutableList<Example> = persistentListOf(
     Example(

@@ -47,7 +47,7 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.configurator.samples.bottomsheet.BottomSheetContentExamples
 import com.adevinta.spark.catalog.model.Example
-import com.adevinta.spark.catalog.util.SparkSampleSourceUrl
+import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.bottomsheet.BottomSheet
 import com.adevinta.spark.components.bottomsheet.DragHandle
 import com.adevinta.spark.components.buttons.ButtonFilled
@@ -68,7 +68,7 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.launch
 
-private const val BottomSheetExampleSourceUrl = "$SparkSampleSourceUrl/bottomsheet/BottomSheetExamples.kt"
+private const val BottomSheetExampleSourceUrl = "$SampleSourceUrl/bottomsheet/BottomSheetExamples.kt"
 
 @OptIn(ExperimentalMaterial3Api::class)
 public val BottomSheetExamples: ImmutableList<Example> = persistentListOf(
