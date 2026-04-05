@@ -36,11 +36,11 @@ This guide provides instructions for contributing to Spark Android. It covers en
 
 ### Repository Access
 
-> [!NOTE] 
+> [!NOTE]
 > Leboncoin employees only
-> Please ensure you have push rights to this repository, rather than forking the repository for contributions. Follow the "Engineering Contribution" guide in the (To be defined, Android Guild or Foundation) space in Backstage to get access.
+> Please ensure you have push rights to this repository, rather than forking it. Follow the "Engineering Contribution" guide in the Android Guild space in Backstage to get access.
 
-This repository being public, you can directly contribute to it. However, we encourage you to fork the repository for your contributions to avoid conflicts when pulling as only contributors can push to the main repository.
+This repository is public. External contributors should fork it and submit pull requests from their fork. Only team members with push access may contribute directly to branches in the upstream repository.
 
 ### Knowledge Requirements
 
@@ -118,7 +118,7 @@ Once you have a compatible environment as described above, you can set up the pr
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/adevinta/spark-android.git
+   git clone https://github.com/leboncoin/spark-android.git
    cd spark-android
    ```
 
@@ -501,104 +501,54 @@ Use feature flags when:
 
 **Step 1: Define the Feature Flag**
 
-Add a new entry to the `SparkFeatureFlags` class:
+Add a new property to the `SparkFeatureFlag` data class in `spark/src/main/kotlin/com/adevinta/spark/SparkFeatureFlag.kt`:
 
 ```kotlin
-// spark/src/main/kotlin/com/adevinta/spark/SparkFeatureFlags.kt
-object SparkFeatureFlags {
-    /**
-     * Enables the new ripple animation for buttons.
-     * When enabled, buttons use Material 3 ripple effects.
-     * When disabled, buttons use the legacy ripple animation.
-     * 
-     * @default false (legacy behavior maintained)
-     */
-    var enableNewButtonRipple: Boolean = false
-    
-    /**
-     * Enables automatic content description generation for badges.
-     * When enabled, badges automatically generate accessibility descriptions.
-     * When disabled, consumers must provide explicit content descriptions.
-     * 
-     * @default true (new accessibility feature enabled by default)
-     */
-    var enableBadgeAutoContentDescription: Boolean = true
-}
+public data class SparkFeatureFlag(
+    /** Highlight visually where Spark tokens are used. Makes text cursive and colours diagnostic. */
+    val useSparkTokensHighlighter: Boolean = false,
+    /** Show an overlay on Spark components to highlight where they are used. */
+    val useSparkComponentsHighlighter: Boolean = false,
+    val isContainingActivityEdgeToEdge: Boolean = false,
+    /** Use rebranded shapes for buttons, chips, tags, and text fields. */
+    val useRebrandedShapes: Boolean = false,
+    // Add your new flag here with a conservative default
+    val myNewFlag: Boolean = false,
+)
 ```
 
 **Step 2: Use the Feature Flag in Your Component**
 
+Read the flag via `SparkTheme.featureFlag`, which is provided by `LocalSparkFeatureFlag`:
+
 ```kotlin
-// spark/src/main/kotlin/com/adevinta/spark/components/button/Button.kt
 @Composable
-public fun ButtonFilled(
-    onClick: () -> Unit,
-    text: String,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    // ... other parameters
-) {
-    val interactionSource = remember { MutableInteractionSource() }
-    
-    Button(
-        onClick = onClick,
-        modifier = modifier,
-        enabled = enabled,
-        interactionSource = interactionSource,
-        // Use feature flag to determine behavior
-        colors = if (SparkFeatureFlags.enableNewButtonRipple) {
-            ButtonDefaults.newRippleColors()
-        } else {
-            ButtonDefaults.legacyColors()
-        }
-    ) {
-        Text(text = text)
+public fun MyComponent() {
+    val featureFlag = SparkTheme.featureFlag
+    if (featureFlag.myNewFlag) {
+        // new behaviour
+    } else {
+        // existing behaviour
     }
 }
 ```
 
-**Step 3: Consumer Override Example**
+**Step 3: Pass the Flag to SparkTheme**
 
-Here's how a consumer (like the catalog app or a feature team) can override the feature flag:
+`SparkFeatureFlag` is an immutable data class passed directly to `SparkTheme`. Consumers construct it once and pass it at the theme root:
 
 ```kotlin
-...
-// Override Spark feature flags before using components
-SparkFeatureFlags.enableNewButtonRipple = true
-CompositionLocalProvider(
-    LocalSparkFeatureFlag provides SparkFeatureFlag(
-        enableNewButtonRipple = true,
+SparkTheme(
+    colors = myColors,
+    sparkFeatureFlag = SparkFeatureFlag(
+        myNewFlag = true,
     ),
 ) {
-    ButtonFilled()
-}
-...
-```
-
-**Or in a specific activity/fragment:**
-
-```kotlin
-// In a specific screen where you want to test the new behavior
-@Composable
-fun MyScreen() {
-    // Temporarily override for this screen
-    DisposableEffect(Unit) {
-        val originalRippleFlag = SparkFeatureFlags.enableNewButtonRipple
-        SparkFeatureFlags.enableNewButtonRipple = true
-        
-        onDispose {
-            // Restore original value when leaving the screen
-            SparkFeatureFlags.enableNewButtonRipple = originalRippleFlag
-        }
-    }
-    
-    // Use components normally - they'll use the overridden flag
-    ButtonFilled(
-        onClick = { /* handle click */ },
-        text = "Try New Ripple Effect"
-    )
+    // content
 }
 ```
+
+To enable a flag only for a subtree, wrap that subtree in its own `SparkTheme` call with the desired flag value.
 
 #### Best Practices
 

@@ -18,7 +18,11 @@ find
 the design specifications and technical information for supported platforms by Adevinta on
 [spark.adevinta.com](https://spark.adevinta.com).
 
-The demo app is not currently available, but we plan to publish it in the near future.
+Build and install the catalog app locally to browse all components:
+
+```bash
+./gradlew :catalog:installDebug
+```
 
 ## 🚀 Getting Started
 
