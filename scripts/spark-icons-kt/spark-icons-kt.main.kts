@@ -25,44 +25,41 @@
 @file:Repository("https://repo1.maven.org/maven2/")
 @file:Repository("https://maven.google.com")
 @file:DependsOn("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10")
-@file:DependsOn("com.github.ajalt.clikt:clikt-jvm:4.2.0")
+@file:DependsOn("com.github.ajalt.clikt:clikt-jvm:5.1.0")
+@file:Import("../utils/clikt.main.kts")
+@file:Import("../utils/ext.main.kts")
+@file:Import("../utils/files.main.kts")
 
 import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.core.Context
+import com.github.ajalt.clikt.core.main
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
-import com.github.ajalt.clikt.parameters.options.prompt
+import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.path
 import java.nio.file.Path
-import java.util.Locale
-import kotlin.io.path.ExperimentalPathApi
 import kotlin.io.path.absolutePathString
 import kotlin.io.path.bufferedWriter
 import kotlin.io.path.isRegularFile
 import kotlin.io.path.nameWithoutExtension
 import kotlin.io.path.readText
-import kotlin.io.path.walk
 
 /**
  * LeboncoinIcons will create a Kotlin file containing all icons.
  */
 class LeboncoinIcons : CliktCommand(
     name = "spark-icons-kt.main.kts",
-    help = "⚙️ LeboncoinIcons: Create a Kotlin file containing all icons",
 ) {
+    override fun help(context: Context) = "⚙️ LeboncoinIcons: Create a Kotlin file containing all icons"
 
-    val input: Path by option("-i", "--input", help = "AVD assets input")
-        .path(mustExist = true, canBeFile = false, mustBeReadable = true)
-        .prompt()
+    val input: Path by input("AVD assets input").required()
 
-    val output: Path by option("-o", "--output", help = "Kotlin file output")
-        .path(mustExist = false, canBeDir = false)
-        .prompt()
+    val output: Path by output("Kotlin file output").required()
 
     val copyright: Path? by option("-c", "--copyright", help = "Copyright header")
         .path(mustExist = false, canBeDir = false, mustBeReadable = true)
 
-    val quiet by option("-q", "--quiet", help = "Print errors only")
-        .flag(default = false)
+    val quiet by quiet()
 
     override fun run() {
         output.bufferedWriter().use {
@@ -102,17 +99,6 @@ class LeboncoinIcons : CliktCommand(
         }
         if (!quiet) echo("\n✅ " + output.absolutePathString())
     }
-}
-
-@OptIn(ExperimentalPathApi::class)
-fun Path.files() = walk().filter { it: Path -> it.isRegularFile() }
-fun Path.files(predicate: (Path) -> Boolean) = files().filter(predicate)
-fun String.exec() = Runtime.getRuntime().exec(this).text()
-fun Process.text() = apply { waitFor() }.inputStream.bufferedReader().use { it.readText().trim() }
-fun String.toPascalCase(): String = split("_").joinToString(separator = "") { it.capitalize() }
-fun String.capitalize() = replaceFirstChar {
-    if (it.isLowerCase()) it.titlecase(Locale.getDefault())
-    else it.toString()
 }
 
 LeboncoinIcons().main(args)

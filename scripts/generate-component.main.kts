@@ -27,11 +27,11 @@
 @file:DependsOn("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10")
 @file:DependsOn("com.github.ajalt.clikt:clikt-jvm:5.1.0")
 @file:DependsOn("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
+@file:Import("utils/clikt.main.kts")
 
 import com.github.ajalt.clikt.command.SuspendingCliktCommand
 import com.github.ajalt.clikt.command.main
 import com.github.ajalt.clikt.core.UsageError
-import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.prompt
 import com.github.ajalt.clikt.parameters.options.validate
@@ -40,11 +40,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.supervisorScope
+import kotlinx.coroutines.coroutineScope
 import java.nio.file.Path
-import java.nio.file.Paths
 import java.time.Year
-import kotlin.io.path.ExperimentalPathApi
 import kotlin.io.path.absolutePathString
 import kotlin.io.path.createDirectories
 import kotlin.io.path.exists
@@ -64,16 +62,6 @@ private fun Path.catalogConfiguratorPath(packageName: String): Path =
 
 private fun Path.catalogExamplesPath(packageName: String): Path =
     resolve("catalog/src/main/kotlin/$SPARK_BASE/catalog/examples/samples/$packageName")
-
-private fun detectProjectRoot(): Path {
-    val currentDir = Paths.get(System.getProperty("user.dir"))
-    return when {
-        currentDir.resolve("spotless").exists() -> currentDir
-        currentDir.fileName.toString() == "scripts" &&
-            currentDir.parent?.resolve("spotless")?.exists() == true -> currentDir.parent!!
-        else -> currentDir
-    }
-}
 
 private fun String.applySubstitutions(substitutions: Map<String, String>): String =
     substitutions.entries.fold(this) { content, (key, value) -> content.replace(key, value) }
@@ -243,14 +231,12 @@ class GenerateComponent : SuspendingCliktCommand(
         help = "Variant names (can be specified multiple times, e.g., -v Elevated -v Outlined)",
     ).varargValues()
 
-    private val dryRun by option(
-        "--dry-run",
-        help = "Preview what would be generated without creating files",
-    ).flag(default = false)
+    private val dryRun by dryRun()
+
+    private val projectRoot by projectDir()
 
     override suspend fun run() {
         val variantList = variants?.filter { it.isNotEmpty() }.orEmpty()
-        val projectRoot = detectProjectRoot()
 
         val copyright = projectRoot
             .resolve("spotless/spotless.kt")
@@ -302,7 +288,7 @@ class GenerateComponent : SuspendingCliktCommand(
         }
 
         // Generate files concurrently
-        val generatedFiles = supervisorScope {
+        val generatedFiles = coroutineScope {
             filesToGenerate.map { (templateFile, targetPath) ->
                 async(Dispatchers.IO) {
                     try {
@@ -350,7 +336,6 @@ private fun buildSummaryMessage(dryRun: Boolean, generatedCount: Int): String {
     }.let { prefix + it }
 }
 
-@OptIn(ExperimentalPathApi::class)
 runBlocking {
     GenerateComponent().main(args)
 }
