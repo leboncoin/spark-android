@@ -1,13 +1,18 @@
-#!/usr/bin/env kotlin
+no #!/usr/bin/env kotlin
 
 @file:Repository("https://repo1.maven.org/maven2/")
 @file:Repository("https://maven.google.com")
 @file:DependsOn("org.jetbrains.kotlin:kotlin-stdlib:1.9.10")
 @file:DependsOn("com.android.tools:sdk-common:31.1.1")
-@file:DependsOn("com.github.ajalt.clikt:clikt-jvm:4.2.0")
+@file:DependsOn("com.github.ajalt.clikt:clikt-jvm:5.1.0")
+@file:Import("../utils/clikt.main.kts")
+@file:Import("../utils/ext.main.kts")
+@file:Import("../utils/files.main.kts")
 
 import com.android.ide.common.vectordrawable.Svg2Vector
 import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.core.Context
+import com.github.ajalt.clikt.core.main
 import com.github.ajalt.clikt.parameters.options.check
 import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.defaultLazy
@@ -17,11 +22,9 @@ import com.github.ajalt.clikt.parameters.options.prompt
 import com.github.ajalt.clikt.parameters.types.int
 import com.github.ajalt.clikt.parameters.types.path
 import java.lang.System.lineSeparator
-import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.io.path.absolutePathString
 import kotlin.io.path.createTempDirectory
-import kotlin.io.path.extension
 import kotlin.io.path.isRegularFile
 import kotlin.io.path.name
 import kotlin.io.path.nameWithoutExtension
@@ -35,8 +38,8 @@ import kotlin.io.path.readText
  */
 class SVG2AVD : CliktCommand(
     name = "svg2avd.main.kts",
-    help = "⚙️ svg2avd: Convert SVG files to Android Vector Drawables (AVD).",
 ) {
+    override fun help(context: Context) = "⚙️ svg2avd: Convert SVG files to Android Vector Drawables (AVD)."
 
     private val input: Path by option("-i", "--input", help = "SVG assets input directory")
         .path(mustExist = true, canBeFile = false, mustBeReadable = true)
@@ -55,13 +58,12 @@ class SVG2AVD : CliktCommand(
     private val copyright: Path? by option("-c", "--copyright", help = "Copyright header for AVD")
         .path(mustExist = false, canBeDir = false, mustBeReadable = true)
 
-    private val quiet by option("-q", "--quiet", help = "Print errors only")
-        .flag(default = false)
+    private val quiet by quiet()
 
     override fun run() = input
         .ifNotNull(precision) { compress(precision = it) }
-        .files(extension = "svg")
-        .parallel().forEach { it.convert(output) }
+        .filesWithExtension("svg")
+        .toList().parallelStream().forEach { it.convert(output) }
         .also { if (!quiet) echo(lineSeparator() + "✅ " + output.absolutePathString()) }
 
     private fun Path.compress(precision: Int) = createTempDirectory().also {
@@ -83,11 +85,8 @@ class SVG2AVD : CliktCommand(
             Svg2Vector.parseSvgToXml(this, it)
         }
 
-    private fun Path.files() = Files.walk(this).filter { it: Path -> it.isRegularFile() }
-    private fun Path.files(extension: String) = files().filter { it.extension == extension }
     private fun exec(vararg cmd: String) = Runtime.getRuntime().exec((arrayOf("cmd", "/c").takeIf { isWindows() } ?: emptyArray()) + cmd).text()
     private fun Process.text() = apply { waitFor() }.inputStream.bufferedReader().use { it.readText().trim() }
-    private fun String.toSnakeCase(): String = "(?<=.)[A-Z]".toRegex().replace(this, "_$0").lowercase()
     private fun <I : Any, O : Any?> I.ifNotNull(it: O?, block: I.(O) -> I): I = if (it != null) block(it) else this
     private fun isWindows() = System.getProperty("os.name").orEmpty().startsWith("windows", ignoreCase = true)
 }
