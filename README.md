@@ -113,11 +113,20 @@ dependencies {
 }
 ```
 
+### Theming and tokens
+
+A full guide to the colour intent system, custom palettes, shape and typography tokens, and
+`SparkFeatureFlag` is in [docs/theming.md](docs/theming.md).
+
 ### API reference
 
 Full KDoc is published at [adevinta.github.io/spark-android](https://adevinta.github.io/spark-android/).
 
 ---
+
+## Upgrading
+
+See [UPGRADING.md](UPGRADING.md) for migration guides when updating across breaking versions.
 
 ## Contributing
 

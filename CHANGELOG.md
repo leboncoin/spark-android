@@ -1,5 +1,7 @@
 # Changelog
 
+> For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
+
 <!-- Don't forget to update links at the end of this page! -->
 
 ## [Unreleased]
@@ -46,7 +48,7 @@ _2026-03-12_
 #### 💄 Buttons and Tags have new shapes!
 
 The **buttons** now have a full rounded shape and the **tags** use `SparkTheme.shapes.extraSmall`.
-This chanmge can be toggled via the `SparkFeatureFlag.useNewButtonAndTagsShapes` feature flag.
+This change can be toggled via the `SparkFeatureFlag.useNewButtonAndTagsShapes` feature flag (renamed to `useRebrandedShapes` in a subsequent release).
 
 #### 🆕 New Card specs
 
@@ -54,12 +56,12 @@ Card is now defined by clear variants discoverable on the `Card` object. Use `Ca
 
 #### 🆕 Component Generator Script
 
-We now have a helper script to simplify the creation of a new components. To use it invoki it like this `./scripts/generate-component.main.kts [component-name] [package-name] [-v Variant1] [-v Variant2]`
+We now have a helper script to simplify the creation of a new components. To use it invoke it like this `./scripts/generate-component.main.kts [component-name] [package-name] [-v Variant1] [-v Variant2]`
 
 ### 📝 Documentation
 
-We're testing newways to better represent the components in our [documentation](https://leboncoin.github.io/spark-android/) by including dedicated screenshots generated from screenshot tests to ensure that you always get the up to date visuals.
-We're also tesing including these new screenshots in the kdoc direclty.
+We're testing new ways to better represent the components in our [documentation](https://leboncoin.github.io/spark-android/) by including dedicated screenshots generated from screenshot tests to ensure that you always get the up to date visuals.
+We're also testing including these new screenshots in the kdoc directly.
 
 ## [2.1.0-alpha01]
 
@@ -70,7 +72,7 @@ _2026-03-11_
 #### 💄 Buttons and Tags have new shapes!
 
 The **buttons** now have a full rounded shape and the **tags** use `SparkTheme.shapes.extraSmall`.
-This chanmge can be toggled via the `SparkFeatureFlag.useNewButtonAndTagsShapes` feature flag.
+This change can be toggled via the `SparkFeatureFlag.useNewButtonAndTagsShapes` feature flag (renamed to `useRebrandedShapes` in a subsequent release).
 
 #### 🆕 New Card specs
 
@@ -78,7 +80,7 @@ Card is now defined by clear variants discoverable on the `Card` object. Use `Ca
 
 #### 🆕 Component Generator Script
 
-We now have a helper script to simplify the creation of a new components. To use it invoki it like this `./scripts/generate-component.main.kts [component-name] [package-name] [-v Variant1] [-v Variant2]`
+We now have a helper script to simplify the creation of a new components. To use it invoke it like this `./scripts/generate-component.main.kts [component-name] [package-name] [-v Variant1] [-v Variant2]`
 
 ## [2.0.1]
 

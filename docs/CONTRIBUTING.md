@@ -138,7 +138,7 @@ Once you have a compatible environment as described above, you can set up the pr
 The Spark Design System follows a standardized architecture for all components. This section walks you through creating a new component from scratch.
 
 > [!NOTE]
-> This section contains all the architectural standards and patterns you need to follow.
+> **See also:** [`COMPONENT_CREATION_GUIDE.md`](./COMPONENT_CREATION_GUIDE.md) — the detailed reference for component architecture, parameter conventions, Paparazzi test structure, and catalog integration standards. The sections below summarise the key patterns; follow the guide for the full specification.
 
 ### Component Structure
 
