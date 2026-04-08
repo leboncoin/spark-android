@@ -81,8 +81,10 @@ class CiMetrics : CliktCommand("ci-metrics.main.kts") {
         val json = Json.parseToJsonElement(path.readText())
         return json.jsonArray.associate { job ->
             val obj = job.jsonObject
-            val name = obj["name"]?.jsonPrimitive?.content ?: ""
-            val duration = obj["duration"]?.jsonPrimitive?.content?.toDoubleOrNull() ?: 0.0
+            val name = obj["name"]?.jsonPrimitive?.content
+                ?: error("Job entry missing 'name' field")
+            val duration = obj["duration"]?.jsonPrimitive?.content?.toDoubleOrNull()
+                ?: error("Job '$name' has missing or invalid 'duration' field")
             name to duration
         }
     }

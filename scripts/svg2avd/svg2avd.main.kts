@@ -1,4 +1,4 @@
-no #!/usr/bin/env kotlin
+#!/usr/bin/env kotlin
 
 @file:Repository("https://repo1.maven.org/maven2/")
 @file:Repository("https://maven.google.com")

@@ -17,6 +17,10 @@ import kotlin.io.path.useLines
 
 private val SERVICE_NAME = "library-metrics"
 
+// Module source paths - relative to project root
+private val ICONS_FILE = "spark-icons/src/main/kotlin/com/adevinta/spark/icons/LeboncoinIcons.kt"
+private val COMPONENTS_DIR = "spark/src/main/kotlin/com/adevinta/spark/components"
+
 class LibraryMetrics : CliktCommand("library-metrics.main.kts") {
 
     override fun help(context: Context) = "Submits library metrics (icons, docs) to Datadog."
@@ -58,14 +62,12 @@ class LibraryMetrics : CliktCommand("library-metrics.main.kts") {
     }
 
     private fun countIcons(projectDir: Path): Int {
-        val iconsFile = projectDir
-            .resolve("spark-icons/src/main/kotlin/com/adevinta/spark/icons/LeboncoinIcons.kt")
+        val iconsFile = projectDir.resolve(ICONS_FILE)
         return iconsFile.useLines { lines -> lines.count { it.startsWith("public val LeboncoinIcons.") } }
     }
 
     private fun countDocs(projectDir: Path): Pair<Int, Int> {
-        val componentsDir = projectDir
-            .resolve("spark/src/main/kotlin/com/adevinta/spark/components")
+        val componentsDir = projectDir.resolve(COMPONENTS_DIR)
 
         val componentDirs = componentsDir.listDirectoryEntries()
             .filter { it.isDirectory() }

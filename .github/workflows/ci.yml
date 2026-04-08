@@ -213,8 +213,46 @@ jobs:
       - test
       - lint
       - dokka
+      - lava-scan
     runs-on: ubuntu-latest
     steps:
       - if: ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}
         name: Fail
         run: exit 1
+
+  datadog-ci:
+    name: 📊 Datadog CI Metrics
+    needs: [finish]
+    if: ${{ !cancelled() && needs.finish.result == 'success' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup-java
+
+      - name: Fetch job durations via GitHub API
+        run: |
+          gh api repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs \
+            --jq '[.jobs[] | {name: .name, duration: (.completed_at | fromdateiso8601) - (.started_at | fromdateiso8601)}]' \
+            > job-durations.json
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Count screenshot tests
+        id: screenshots
+        run: |
+          count=$(grep -r --include="*.kt" -c "@Test" spark-screenshot-testing/src/test | awk -F: '{s+=$2} END {print s}')
+          echo "count=$count" >> $GITHUB_OUTPUT
+
+      - name: Submit library metrics
+        run: kotlin scripts/datadog/library-metrics.main.kts -- --project-dir .
+        env:
+          DD_API_KEY: ${{ secrets.DD_API_KEY }}
+
+      - name: Submit CI metrics
+        run: >
+          kotlin scripts/datadog/ci-metrics.main.kts --
+          --jobs-json job-durations.json
+          --screenshot-count ${{ steps.screenshots.outputs.count }}
+        env:
+          DD_API_KEY: ${{ secrets.DD_API_KEY }}
