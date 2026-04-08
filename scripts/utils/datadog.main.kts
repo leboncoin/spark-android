@@ -6,6 +6,7 @@ import com.datadog.api.client.v2.model.MetricIntakeType.GAUGE
 import com.datadog.api.client.v2.model.MetricPayload
 import com.datadog.api.client.v2.model.MetricPoint
 import com.datadog.api.client.v2.model.MetricSeries
+import java.time.Instant
 
 /**
  * Represents a metric to be submitted to Datadog.
@@ -13,14 +14,17 @@ import com.datadog.api.client.v2.model.MetricSeries
  * @property name The metric name (e.g. "spark.health.artifact.weight")
  * @property value The metric value
  * @property tags Metric-specific tags (common tags are added automatically)
- * @property timestampSeconds Unix timestamp in seconds (defaults to current time)
+ * @property unit The unit assigned to a metric @see https://docs.datadoghq.com/fr/metrics/units/#liste-dunit%C3%A9s
  */
 data class SparkMetric(
     val name: String,
     val value: Double,
-    val tags: List<String> = emptyList(),
-    val timestampSeconds: Long = System.currentTimeMillis() / 1000,
-)
+    private val tags: List<String> = emptyList(),
+    val unit: String? = null,
+) {
+    val usableTags: List<String>
+        get() = tags.map { "spark.health.$it" }.filter { it.isNotBlank() }
+}
 
 /**
  * Submits metrics to Datadog.
@@ -52,7 +56,7 @@ fun submitMetrics(
 
     if (dryRun) {
         metrics.forEach { metric ->
-            val allTags = commonTags + metric.tags
+            val allTags = commonTags + metric.usableTags
             println("[dry-run] ${metric.name} = ${metric.value}  tags=$allTags")
         }
         return
@@ -64,8 +68,9 @@ fun submitMetrics(
         MetricSeries()
             .metric(metric.name)
             .type(GAUGE)
-            .points(listOf(MetricPoint().timestamp(metric.timestampSeconds).value(metric.value)))
-            .tags(commonTags + metric.tags)
+            .run { if (metric.unit != null) this.unit(metric.unit) else this }
+            .points(listOf(MetricPoint().timestamp(Instant.now().epochSecond).value(metric.value)))
+            .tags(commonTags + metric.usableTags)
     }
 
     val payload = MetricPayload().series(series)
@@ -85,7 +90,8 @@ fun submitMetrics(
 }
 
 /**
- * Requires an environment variable to be set, throwing an error if not.
+ * Guards that an environment variable is set, throwing an error if not.
  */
-fun requireEnvVariable(name: String): String =
-    System.getenv(name) ?: error("Required environment variable '$name' is not set.")
+fun requireEnvVariable(name: String) {
+    if (System.getenv(name).isNullOrBlank()) error("Required environment variable '$name' is not set.")
+}

@@ -40,7 +40,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.supervisorScope
 import java.nio.file.Path
 import java.time.Year
 import kotlin.io.path.absolutePathString
@@ -288,7 +288,7 @@ class GenerateComponent : SuspendingCliktCommand(
         }
 
         // Generate files concurrently
-        val generatedFiles = coroutineScope {
+        val generatedFiles = supervisorScope {
             filesToGenerate.map { (templateFile, targetPath) ->
                 async(Dispatchers.IO) {
                     try {
