@@ -30,18 +30,6 @@ jobs:
           name: maven
           path: build/.m2/repository
 
-      - name: '📦 Upload AARs for metrics'
-        uses: actions/upload-artifact@v7
-        with:
-          name: aar-release
-          path: '**/build/outputs/aar/*-release.aar'
-
-      - name: '📦 Upload APK for metrics'
-        uses: actions/upload-artifact@v7
-        with:
-          name: apk-release
-          path: 'catalog/build/outputs/apk/**/*-release.apk'
-
   datadog-release:
     name: 📊 Datadog Release Metrics
     needs: publish
@@ -54,37 +42,6 @@ jobs:
           fetch-depth: 0
 
       - uses: ./.github/actions/setup-java
-
-      - name: Download AARs
-        uses: actions/download-artifact@v4
-        with:
-          name: aar-release
-          path: aar-output/
-
-      - name: Download APK
-        uses: actions/download-artifact@v4
-        with:
-          name: apk-release
-          path: apk-output/
-
-      - uses: ./.github/actions/diffuse-aar
-
-      - name: Run diffuse on artifacts
-        run: |
-          diffuse=~/.spark/diffuse/diffuse-0.3.0/bin/diffuse
-          aar_dir=$(find aar-output -type d -name aar | head -1)
-          "$diffuse" info --apk $(find apk-output -name "*-release.apk" | head -1) > apk.txt
-          "$diffuse" info --aar "$aar_dir/spark-release.aar" > spark.txt
-          "$diffuse" info --aar "$aar_dir/spark-icons-release.aar" > spark-icons.txt
-
-      - name: Submit artifact metrics
-        run: >
-          ./scripts/datadog/artifact-metrics.main.kts --
-          --input apk.txt
-          --input spark.txt
-          --input spark-icons.txt
-        env:
-          DD_API_KEY: ${{ secrets.DD_API_KEY }}
 
       - name: Submit release cadence metric
         run: |
