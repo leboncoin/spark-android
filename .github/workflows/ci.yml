@@ -233,7 +233,7 @@ jobs:
       - name: Fetch job durations via GitHub API
         run: |
           gh api repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs \
-            --jq '[.jobs[] | {name: .name, duration: (.completed_at | fromdateiso8601) - (.started_at | fromdateiso8601)}]' \
+            --jq '[.jobs[] | select(.completed_at != null and .started_at != null) | {name: .name, duration: (.completed_at | fromdateiso8601) - (.started_at | fromdateiso8601)}]' \
             > job-durations.json
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
