@@ -274,10 +274,9 @@ jobs:
       - name: Run diffuse on artifacts
         run: |
           diffuse=~/.spark/diffuse/diffuse-0.3.0/bin/diffuse
-          aar_dir=$(find aar-output -type d -name aar | head -1)
           "$diffuse" info --apk $(find apk-output -name "*-release.apk" | head -1) > apk.txt
-          "$diffuse" info --aar "$aar_dir/spark-release.aar" > spark.txt
-          "$diffuse" info --aar "$aar_dir/spark-icons-release.aar" > spark-icons.txt
+          "$diffuse" info --aar $(find aar-output -name "spark-release.aar" | head -1) > spark.txt
+          "$diffuse" info --aar $(find aar-output -name "spark-icons-release.aar" | head -1) > spark-icons.txt
 
       - name: Submit artifact metrics
         run: >
