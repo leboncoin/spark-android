@@ -80,12 +80,13 @@ public fun ButtonFilled(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.() -> Unit,
 ) {
+    val intentColors = intent.colors()
     val backgroundColor by animateColorAsState(
-        targetValue = intent.colors().color,
+        targetValue = intentColors.color,
         label = "background color",
     )
     val contentColor by animateColorAsState(
-        targetValue = intent.colors().onColor,
+        targetValue = intentColors.onColor,
         label = "content color",
     )
     val colors = ButtonDefaults.buttonColors(
@@ -153,12 +154,13 @@ public fun ButtonFilled(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
 ) {
+    val intentColors = intent.colors()
     val backgroundColor by animateColorAsState(
-        targetValue = intent.colors().color,
+        targetValue = intentColors.color,
         label = "background color",
     )
     val contentColor by animateColorAsState(
-        targetValue = intent.colors().onColor,
+        targetValue = intentColors.onColor,
         label = "content color",
     )
     val colors = ButtonDefaults.buttonColors(
@@ -224,12 +226,13 @@ public fun ButtonFilled(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
 ) {
+    val intentColors = intent.colors()
     val backgroundColor by animateColorAsState(
-        targetValue = intent.colors().color,
+        targetValue = intentColors.color,
         label = "background color",
     )
     val contentColor by animateColorAsState(
-        targetValue = intent.colors().onColor,
+        targetValue = intentColors.onColor,
         label = "content color",
     )
     val colors = ButtonDefaults.buttonColors(
