@@ -88,7 +88,7 @@ public fun ButtonTinted(
         label = "background color",
     )
     val contentColor by animateColorAsState(
-        targetValue = intent.colors().onContainerColor,
+        targetValue = intentColors.onContainerColor,
         label = "content color",
     )
     val colors = ButtonDefaults.buttonColors(
@@ -164,7 +164,7 @@ public fun ButtonTinted(
         label = "background color",
     )
     val contentColor by animateColorAsState(
-        targetValue = intent.colors().onContainerColor,
+        targetValue = intentColors.onContainerColor,
         label = "content color",
     )
     val colors = ButtonDefaults.buttonColors(
@@ -240,7 +240,7 @@ public fun ButtonTinted(
         label = "background color",
     )
     val contentColor by animateColorAsState(
-        targetValue = intent.colors().onContainerColor,
+        targetValue = intentColors.onContainerColor,
         label = "content color",
     )
     val colors = ButtonDefaults.buttonColors(
