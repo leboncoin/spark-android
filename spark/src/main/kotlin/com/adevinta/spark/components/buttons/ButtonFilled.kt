@@ -40,7 +40,6 @@ import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.icons.IdentityCardOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.tokens.dim3
 import com.adevinta.spark.tokens.disabled
 
 /**
@@ -93,7 +92,7 @@ public fun ButtonFilled(
         containerColor = backgroundColor,
         contentColor = contentColor,
         disabledContainerColor = backgroundColor.disabled,
-        disabledContentColor = contentColor.dim3,
+        disabledContentColor = contentColor.disabled,
     )
     BaseSparkButton(
         onClick = onClick,
@@ -238,6 +237,8 @@ public fun ButtonFilled(
     val colors = ButtonDefaults.buttonColors(
         containerColor = backgroundColor,
         contentColor = contentColor,
+        disabledContainerColor = backgroundColor.disabled,
+        disabledContentColor = contentColor.disabled,
     )
     SparkButton(
         onClick = onClick,
