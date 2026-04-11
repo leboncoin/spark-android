@@ -1586,7 +1586,7 @@ public fun contrastLevel(
     fallback: () -> Float = { 0f },
 ): Float = if (isContrastLevelAvailable) {
     val uiModeManager = context.getSystemService<UiModeManager>()
-    uiModeManager?.contrast?.takeIf { isContrastLevelAvailable } ?: fallback()
+    uiModeManager?.contrast ?: fallback()
 } else {
     fallback()
 }
