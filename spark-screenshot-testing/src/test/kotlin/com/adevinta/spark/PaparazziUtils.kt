@@ -25,14 +25,22 @@ import android.view.View
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalInspectionMode
+import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.Paparazzi
 import com.adevinta.spark.tokens.SparkColors
+import com.adevinta.spark.tokens.contentColorFor
 import com.adevinta.spark.tokens.darkHighContrastSparkColors
 import com.adevinta.spark.tokens.darkSparkColors
 import com.adevinta.spark.tokens.lightHighContrastSparkColors
@@ -149,33 +157,21 @@ internal fun Paparazzi.sparkSnapshotNightMode(
  * Generate 1 screenshot with the same content side by side but one in light theme and teh other in dark theme.
  */
 internal fun Paparazzi.sparkDocSnapshot(
-    drawBackground: Boolean = true,
+    color: @Composable () -> Color = { SparkTheme.colors.background },
     composable: @Composable () -> Unit,
 ) {
-    sparkSnapshot(
-        drawBackground = drawBackground,
-    ) {
+    snapshot {
         Row {
-            Box(
-                Modifier.weight(1f),
-            ) {
-                SparkThemeContent(
-                    colors = lightSparkColors(),
-                    drawBackground = drawBackground,
-                ) {
-                    composable()
-                }
-            }
-            Box(
-                Modifier.weight(1f),
-            ) {
-                SparkThemeContent(
-                    colors = darkSparkColors(),
-                    drawBackground = drawBackground,
-                ) {
-                    composable()
-                }
-            }
+            DocSnapshotHalf(
+                colors = lightSparkColors(),
+                color = color,
+                composable = composable,
+            )
+            DocSnapshotHalf(
+                colors = darkSparkColors(),
+                color = color,
+                composable = composable,
+            )
         }
     }
 }
@@ -205,6 +201,36 @@ internal fun Paparazzi.sparkSnapshotHighContrast(
         }
     }
     exception?.let { throw it }
+}
+
+@Composable
+private fun RowScope.DocSnapshotHalf(
+    colors: SparkColors,
+    color: @Composable () -> Color = { SparkTheme.colors.background },
+    composable: @Composable () -> Unit,
+) {
+    CompositionLocalProvider(LocalInspectionMode provides true) {
+        SparkTheme(
+            colors = colors,
+            sparkFeatureFlag = SparkFeatureFlag(useRebrandedShapes = true),
+        ) {
+            val color = color()
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .heightIn(min= 160.dp)
+                    .background(color = color),
+                contentAlignment = Alignment.Center,
+            ) {
+                CompositionLocalProvider(LocalContentColor provides contentColorFor(color)) {
+                    Box(Modifier.padding(16.dp)) {
+                        composable()
+                    }
+                }
+            }
+        }
+    }
 }
 
 enum class ThemeVariant { Light, Dark }

@@ -24,34 +24,36 @@ from systems like Material Design Components and Ant Design.
 
 #### 📄 Standard File Structure
 
+The `generate-component.main.kts` script scaffolds this layout:
+
 ```text/plain
-spark/src/main/kotlin/com/adevinta/spark/components/{component-name}/
-├── Component.kt                 # Public API surface
-├── ComponentDefaults.kt         # Design token mappings and default values
-├── ComponentIntent.kt           # Semantic color variants
-├── ComponentSize.kt            # Size specifications
-├── ComponentState.kt           # Behavioral state management
-└── Component.md                # API documentation and usage guidelines
+spark/src/main/kotlin/com/adevinta/spark/components/{package}/
+├── Component.kt                 # Public API object with variant functions
+├── SparkComponent.kt            # @InternalSparkApi implementation
+├── ComponentDefaults.kt         # Default values, constants, helper functions
+└── Component.md                 # Component documentation
+
+spark-screenshot-testing/src/test/kotlin/com/adevinta/spark/components/{package}/
+└── ComponentScreenshot.kt       # Paparazzi regression + documentation screenshots
+
+catalog/src/main/kotlin/com/adevinta/spark/catalog/
+├── configurator/samples/{package}/ComponentConfigurator.kt
+└── examples/samples/{package}/ComponentExamples.kt
 ```
 
-This structure ensures:
-
-- **Clear API boundaries** between public and internal implementations
-- **Centralized design token management** through defaults
-- **Semantic abstraction** of visual properties through intents
-- **Consistent sizing systems** across components
-- **Self-documenting** code organization
+> **Tip:** Run `kotlin scripts/generate-component.main.kts` to scaffold all seven files at once.
+> Pass `--variants Elevated Outlined` to pre-populate variant stubs.
 
 #### Reference Implementation: Button Component
 
 The Button component exemplifies this structure:
 
-- `Button.kt` - Composable API surface with five style variants
+- `Button.kt` - Public API object with `Filled`, `Outlined`, `Ghost`, `Tinted`, `Contrast` variants
 - `ButtonDefaults.kt` - Color mappings, elevation tokens, and shape definitions
-- `ButtonIntent.kt` - Semantic color intentions (Basic, Main, Support, etc.)
+- `ButtonIntent.kt` - Semantic color intentions (Main, Support, etc.)
 - `ButtonSize.kt` - Standardized sizing scale (Small, Medium, Large)
 - `ButtonShape.kt` - Shape abstractions (Square, Rounded, Pill)
-- `Buttons.md` - Component documentation with usage examples
+- `Buttons.md` - Component documentation with screenshots and usage examples
 
 ### API Design Principles
 
@@ -95,35 +97,45 @@ This ordering provides:
 
 #### Layered Implementation Architecture
 
-Components implement a two-layer architecture separating public APIs from internal implementations:
+Components implement a two-layer architecture separating public APIs from internal implementations.
+
+`Component.kt` — public API object, one function per variant:
 
 ```kotlin
-// Public API Layer - Semantic abstractions
-@Composable
-public fun ComponentName(
-    intent: ComponentIntent = ComponentIntent.Support,
-    size: ComponentSize = ComponentSize.Medium,
-    // ... other semantic parameters
-) {
-    val colors = ComponentDefaults.colors(intent)
-    val dimensions = ComponentDefaults.dimensions(size)
-    
-    SparkComponent(
-        colors = colors,
-        dimensions = dimensions,
-        // ... mapped parameters
-    )
+public object ComponentName {
+    /**
+     * ComponentName Filled variant.
+     *
+     * @param modifier the Modifier to be applied to this componentname
+     */
+    @Composable
+    public fun Filled(
+        modifier: Modifier = Modifier,
+    ) {
+        SparkComponentName(modifier = modifier)
+    }
 }
+```
 
-// Internal Implementation Layer - Design token integration
+`SparkComponent.kt` — internal implementation, annotated `@InternalSparkApi`:
+
+```kotlin
 @InternalSparkApi
 @Composable
-internal fun SparkComponent(
-    colors: ComponentColors,
-    dimensions: ComponentDimensions,
-    // ... resolved design tokens
+internal fun SparkComponentName(
+    modifier: Modifier = Modifier,
 ) {
-    // Material3 integration with Spark theming
+    Box(modifier = modifier.sparkUsageOverlay()) {
+        // TODO: Add component implementation
+    }
+}
+```
+
+`ComponentDefaults.kt` — constants, helpers, and token mappings:
+
+```kotlin
+public object ComponentNameDefaults {
+    // TODO: Add default values, helper functions, and constants
 }
 ```
 
@@ -147,39 +159,96 @@ maintaining quality at scale in design systems. 🛡️
 #### 📸 Visual Regression Testing (Mandatory)
 
 Visual regression testing using Paparazzi prevents unintended visual changes and ensures consistent
-rendering across devices. This approach is standard practice in common compose design systems.
+rendering across devices. Each component needs **two kinds** of screenshot test class, both in
+`spark-screenshot-testing/src/test/kotlin/com/adevinta/spark/components/{component}/`.
+
+The generator scaffolds a single `ComponentScreenshot.kt` file containing both classes:
+
+##### Regression screenshots (`*Screenshot`)
+
+Groups all states and variants into compact grid-style tests on `PIXEL_C` with `SHRINK`. These
+are **not committed** — CI regenerates goldens automatically on every run.
 
 ```kotlin
-// spark-screenshot-testing/src/test/kotlin/com/adevinta/spark/{component}/
-class ComponentScreenshot {
+internal class ComponentNameScreenshot {
+
     @get:Rule
     val paparazzi = paparazziRule(
-        deviceConfig = DefaultTestDevices.Tablet,
-        renderingMode = RenderingMode.SHRINK,
+        renderingMode = SHRINK,
+        deviceConfig = DeviceConfig.PIXEL_C,
     )
 
     @Test
-    fun componentVariants() {
-        paparazzi.sparkSnapshot {
-            ComponentShowcase()
+    fun componentNameVariants() = paparazzi.sparkSnapshotNightMode {
+        Column {
+            ComponentNameIntent.entries.forEach { intent ->
+                Row {
+                    ComponentName.Filled(intent = intent)
+                    ComponentName.Outlined(intent = intent)
+                }
+            }
         }
     }
-    
+
     @Test
-    fun componentStates() {
-        paparazzi.sparkSnapshotNightMode {
-            ComponentStateShowcase()
+    fun componentNameStates() = paparazzi.sparkSnapshotNightMode {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            ComponentName.Filled(enabled = true)
+            ComponentName.Filled(enabled = false)
         }
     }
 }
 ```
 
-**Coverage Requirements:**
+The template starts with a minimal stub — fill in all intents, sizes, and states as you implement
+the component.
 
-- All visual variants (intents, sizes, shapes)
-- Interactive states (default, hover, pressed, disabled)
-- Theme variations (light/dark mode)
-- Edge cases (empty content, overflow scenarios)
+##### Documentation screenshots (`*DocumentationScreenshots`)
+
+One test per variant, rendered light/dark side-by-side using `sparkDocSnapshot` on
+`DefaultTestDevices.DocPhone` (compact landscape). These **are committed** to the repo and
+referenced directly from the component's `.md` file.
+
+```kotlin
+internal class ComponentNameDocumentationScreenshots {
+
+    @get:Rule
+    val paparazzi = paparazziRule(
+        renderingMode = SHRINK,
+        deviceConfig = DefaultTestDevices.DocPhone,
+    )
+
+    @Test
+    fun componentNameFilled() = paparazzi.sparkDocSnapshot {
+        ComponentName.Filled()
+    }
+
+    @Test
+    fun componentNameOutlined() = paparazzi.sparkDocSnapshot {
+        ComponentName.Outlined()
+    }
+}
+```
+
+If a variant needs a non-default background (e.g. a contrast variant only visible on coloured
+surfaces), pass a `color` lambda:
+
+```kotlin
+@Test
+fun componentNameContrast() = paparazzi.sparkDocSnapshot(
+    color = { SparkTheme.colors.backgroundVariant },
+) {
+    ComponentName.Contrast()
+}
+```
+
+The generated filename follows Paparazzi's convention:
+`<package>_<ClassName>_<testMethodName>.png`
+
+Reference it from the `.md` file as:
+```markdown
+![](../../images/com.adevinta.spark.components.componentname_ComponentNameDocumentationScreenshots_componentNameFilled.png)
+```
 
 #### ♿ Accessibility Testing (Required for Interactive Components)
 
@@ -258,75 +327,43 @@ by publishing technical documentation, functional documentaion and a test applic
 
 #### 📖 Component Documentation Structure
 
-Each component requires structured documentation that balances comprehensive reference material with
-practical usage guidance:
+Each component's `.md` file lives alongside the source in the component package. The generator
+scaffolds this structure:
 
 ```markdown
-# Package com.adevinta.spark.components.{component}
+# Package com.adevinta.spark.components.{package}
 
-[Component Name](https://spark.adevinta.com/guidelines/component-path) serves as [primary purpose] in [context of use]. This component implements [relevant design principles] and provides [key benefits].
+[ComponentName](https://spark.adevinta.com/...) TODO: Add component description.
 
-## When to Use
-- [Primary use case]
-- [Secondary use case]
-- [Edge case consideration]
+![](../../images/com.adevinta.spark.components.{package}_{ComponentName}DocumentationScreenshots_{variantMethodName}.png)
 
-## API Overview
+The minimal usage of the component is:
 
 ```kotlin
-@Composable
-fun ComponentName(
-    required: RequiredType,
-    modifier: Modifier = Modifier,
-    intent: ComponentIntent = ComponentIntent.Support,
-    // ... other parameters
-)
+ComponentName.FirstVariant()
 ```
 
-## Variants
+#### ComponentName.FirstVariant
 
-The component supports the following semantic variants:
+![](../../images/com.adevinta.spark.components.{package}_{ComponentName}DocumentationScreenshots_{variantMethodName}.png)
 
-|         | Light Theme                        | Dark Theme                        |
-|---------|------------------------------------|-----------------------------------|
-| Support | ![](screenshots/support-light.png) | ![](screenshots/support-dark.png) |
-| Main    | ![](screenshots/main-light.png)    | ![](screenshots/main-dark.png)    |
-
-// We reccomend to create screenshots test specific for documentation so that they're always up to
-date with the documention and they're not bloated by the other tests that are too exhaustive.
-
-## Usage Examples
-
-### Basic Implementation
+TODO: Add description for FirstVariant variant.
 
 ```kotlin
-ComponentName(
-    onClick = { /* Handle action */ },
-    text = "Primary action"
-)
+ComponentName.FirstVariant()
+```
 ```
 
-### Advanced Configuration
+Each image is a side-by-side light/dark screenshot generated by `sparkDocSnapshot`.
+See [Documentation Screenshots](CONTRIBUTING.md#documentation-screenshots) for how to produce them.
 
-```kotlin
-ComponentName(
-    onClick = viewModel::handleAction,
-    intent = ComponentIntent.Main,
-    size = ComponentSize.Large,
-    enabled = state.isActionEnabled
-)
+The filename pattern is Paparazzi's standard convention:
+`<package>_<ClassName>_<testMethodName>.png`
+
+For example:
 ```
-
-## Accessibility
-
-- [Screen reader considerations]
-- [Keyboard navigation behavior]
-- [Semantic markup details]
-
-## Design Guidelines
-
-Refer to the [official design specifications](design-system-url) for detailed visual and interaction
-guidelines.
+../../images/com.adevinta.spark.components.chips_ChipDocumentationScreenshots_chipOutlined.png
+```
 
 ### API Documentation Standards
 
@@ -380,39 +417,26 @@ These examples serve multiple purposes:
   real app
 
 ```kotlin
-// catalog/src/main/kotlin/com/adevinta/spark/catalog/examples/samples/{component}/
-public val ComponentExamples: ImmutableList<Example> = persistentListOf(
+// catalog/src/main/kotlin/com/adevinta/spark/catalog/examples/samples/{package}/
+private const val ComponentNameExampleDescription = "ComponentName examples"
+private const val ComponentNameExampleSourceUrl = "$SampleSourceUrl/ComponentNameSamples.kt"
+
+public val ComponentNameExamples: ImmutableList<Example> = persistentListOf(
     Example(
-        id = "basic-usage",
-        name = "Basic Implementation",
-        description = "Demonstrates default component behavior with minimal configuration",
-        sourceUrl = "$SampleSourceUrl/ComponentSamples.kt",
+        id = "filled",
+        name = "Filled ComponentName",
+        description = ComponentNameExampleDescription,
+        sourceUrl = ComponentNameExampleSourceUrl,
     ) {
-        BasicComponentExample()
+        ComponentName.Filled()
     },
     Example(
-        id = "variant-showcase",
-        name = "Style Variants",
-        description = "Shows all available visual styles and semantic intents",
-        sourceUrl = "$SampleSourceUrl/ComponentSamples.kt",
+        id = "outlined",
+        name = "Outlined ComponentName",
+        description = ComponentNameExampleDescription,
+        sourceUrl = ComponentNameExampleSourceUrl,
     ) {
-        ComponentVariantsExample()
-    },
-    Example(
-        id = "interactive-states",
-        name = "Interactive States",
-        description = "Demonstrates component behavior across different interaction states",
-        sourceUrl = "$SampleSourceUrl/ComponentSamples.kt",
-    ) {
-        ComponentInteractiveExample()
-    },
-    Example(
-        id = "specific-usecase",
-        name = "Specific Usecase",
-        description = "Demonstrates a specific usecase for the component",
-        sourceUrl = "$SampleSourceUrl/ComponentSamples.kt",
-    ) {
-        ComponentSpecificUsecaseExample()
+        ComponentName.Outlined()
     },
 )
 ```
@@ -452,21 +476,22 @@ For components with multiple configuration options, provide interactive configur
 real-time parameter adjustment:
 
 ```kotlin
-// catalog/src/main/kotlin/com/adevinta/spark/catalog/configurator/{component}/
-public val ComponentConfigurator = Configurator(
-    id = "component-configurator",
-    name = "Component Configuration",
-    description = "Interactive component customization",
-    sourceUrl = "$ConfiguratorSourceUrl/ComponentConfigurator.kt",
-) {
-    ConfiguratorComponentExample()
-}
-
-// If you need to add more configurators you can add them to the list
-public val ComponentConfigurators: List<Configurator> = listOf(
-    ComponentConfigurator,
-    // ... other configurators
+// catalog/src/main/kotlin/com/adevinta/spark/catalog/configurator/samples/{package}/
+public val ComponentNameConfigurator: ImmutableList<Configurator> = persistentListOf(
+    Configurator(
+        id = "componentname",
+        name = "ComponentName",
+        description = "ComponentName configuration",
+        sourceUrl = "$SampleSourceUrl/ComponentNameSamples.kt",
+    ) { _, _ ->
+        ComponentNameSample()
+    },
 )
+
+@Composable
+private fun ColumnScope.ComponentNameSample() {
+    // TODO: Add configurator implementation
+}
 ```
 
 ### Code quality and standards enforcement

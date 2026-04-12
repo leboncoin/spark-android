@@ -2,38 +2,6 @@
 
 Migration guides for breaking changes, newest first. For a full list of changes see [CHANGELOG.md](CHANGELOG.md).
 
----
-
-## Upgrading to 3.0 (unreleased)
-
-### `Basic` intent removed across all components
-
-> **Status: in progress** - `Basic` entries currently compile with `DeprecationLevel.ERROR`. A follow-up release will delete them entirely.
-
-`Basic` was identical in value to `Support` and has been removed from the rebranding. The IDE provides an automatic quick-fix via `ReplaceWith`.
-
-Affected intent enums: `ButtonIntent`, `BadgeIntent`, `ChipIntent`, `TagIntent`, `ToggleIntent`, and any other intent enum in the `spark` module.
-
-**Before:**
-
-```kotlin
-ButtonFilled(intent = ButtonIntent.Basic)
-Chip(intent = ChipIntent.Basic)
-Tag(intent = TagIntent.Basic)
-```
-
-**After:**
-
-```kotlin
-ButtonFilled(intent = ButtonIntent.Support)
-Chip(intent = ChipIntent.Support)
-Tag(intent = TagIntent.Support)
-```
-
-Apply all instances at once: in Android Studio, place the cursor on any red `Basic` reference and choose **Replace with 'Support'**, or run **Code > Inspect Code** to batch-apply all `ReplaceWith` suggestions.
-
----
-
 ## Upgrading to 2.0
 
 ### Snackbar API redesigned
@@ -190,7 +158,7 @@ Material3 1.3 introduces its own compile-level and visual breaking changes. Veri
 
 ## Upgrading to 0.11
 
-### Snackbar API introduced (first migration step toward 2.0)
+### Snackbar API introduced
 
 `SnackbarColors` and all per-color Snackbar overrides were deprecated at `DeprecationLevel.ERROR` in 0.11. Migrate to `SnackbarStyle` and `SnackbarIntent` here before upgrading to 2.0, where `SnackbarStyle` itself is removed.
 

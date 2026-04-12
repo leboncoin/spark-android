@@ -273,6 +273,45 @@ This pattern saves disk space (Git LFS storage on [GitHub incurs costs](https://
 
 You can also add different variants like `sparkSnapshotDevices` to generate screenshots for mobile, foldable, and tablet layouts. Use `sparkSnapshotNightMode` for light and dark mode screenshots, and `sparkSnapshotHighContrast` for high contrast mode. However, high contrast mode is more commonly used for tokens rather than individual components.
 
+#### Documentation Screenshots
+
+In addition to regression screenshots, components should have **documentation screenshots** — side-by-side light/dark images embedded in the component's `.md` file. These follow Material Design's approach of showing one variant per image.
+
+Use `sparkDocSnapshot` (backed by `DefaultTestDevices.DocPhone` — a compact landscape config) and name the class `*DocumentationScreenshots`:
+
+```kotlin
+internal class ChipDocumentationScreenshots {
+
+    @get:Rule
+    val paparazzi = paparazziRule(
+        renderingMode = SHRINK,
+        deviceConfig = DefaultTestDevices.DocPhone,
+    )
+
+    @Test
+    fun chipOutlined() = paparazzi.sparkDocSnapshot {
+        ChipOutlined(text = "Outlined chip", onClick = {})
+    }
+}
+```
+
+`sparkDocSnapshot` renders the composable twice (light left, dark right) with the theme surface as background. Pass a custom `color` lambda to override the background for components that need contrast:
+
+```kotlin
+// ButtonContrast needs a darker background to be visible
+fun buttonContrast() = paparazzi.sparkDocSnapshot(color = { SparkTheme.colors.backgroundVariant }) {
+    ButtonContrast(text = "Contrast button", onClick = {})
+}
+```
+
+Reference the generated images in the component's `.md` file using the relative path:
+
+```markdown
+![](../../images/com.adevinta.spark.components.chips_ChipDocumentationScreenshots_chipOutlined.png)
+```
+
+The image filename follows Paparazzi's convention: `<package>_<ClassName>_<testMethodName>.png`. Unlike regression screenshots, **documentation screenshots should be committed** — they are referenced directly by the `.md` files and must be present in the repository.
+
 #### Running Screenshot Tests
 
 Snapshot tests will run on CI and compare them to the stored golden images. However, if you want to debug or verify your tests locally, you can run tests as usual via Android Studio for the default variant and check the output.

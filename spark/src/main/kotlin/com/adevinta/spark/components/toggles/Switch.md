@@ -5,16 +5,14 @@ full page, in modals, or on side panels.
 They can be used in a list but we shouldn’t mix them with other components such
 as `Checkbox` or `RadioButton`.
 
+![](../../images/com.adevinta.spark.components.toggles_SwitchDocumentationScreenshots_switchStates.png)
+
 Switches must respect the established color code and not use other colors to emphasize the
 activation and deactivation of a functionality or service.
 
 Switch component allows the user to activate or deactivate the state of an element or concept.
 It is usually used as an element to add services, activate functionalities or adjust settings.
 It is also used to control binary options (On/Off or True/False).
-
-| Light                                                                              | Dark                                                                              |
-|------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark.toggles_SwitchScreenshot_all_states_light.png) | ![](../../images/com.adevinta.spark.toggles_SwitchScreenshot_all_states_dark.png) |
 
 ### SwitchLabelled
 
