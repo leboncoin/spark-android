@@ -219,7 +219,7 @@ private fun RowScope.DocSnapshotHalf(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth()
-                    .heightIn(min= 160.dp)
+                    .heightIn(min = 160.dp)
                     .background(color = color),
                 contentAlignment = Alignment.Center,
             ) {

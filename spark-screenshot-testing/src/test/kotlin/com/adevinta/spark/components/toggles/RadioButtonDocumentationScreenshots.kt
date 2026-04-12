@@ -59,4 +59,3 @@ internal class RadioButtonDocumentationScreenshots {
         }
     }
 }
-
