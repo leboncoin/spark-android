@@ -39,7 +39,7 @@ kotlin {
     }
     sourceSets {
         commonMain.dependencies {
-            api(platform(projects.sparkBom))
+            api(project.dependencies.platform(projects.sparkBom))
             implementation(libs.compose.ui)
             implementation(libs.compose.runtime)
             implementation(libs.compose.components.resources)

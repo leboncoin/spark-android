@@ -23,6 +23,6 @@
   -->
 <lint>
     <issue id="VectorPath">
-        <ignore path="src/main/res/drawable/*.xml" />
+        <ignore path="src/androidMain/res/drawable/*.xml" />
     </issue>
 </lint>

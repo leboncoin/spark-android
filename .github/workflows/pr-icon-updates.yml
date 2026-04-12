@@ -39,7 +39,7 @@ jobs:
           rm -rf spark-icons/icons
       - run: |
           ./scripts/spark-icons-kt/spark-icons-kt.main.kts \
-            --input=spark-icons/src/androidMain/res/drawable \
+            --in=spark-icons/src/androidMain/res/drawable \
             --output-dir=spark-icons/src \
             --copyright=scripts/spark-icons-kt/COPYRIGHT.kt
           git add spark-icons/src spark-icons
