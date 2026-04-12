@@ -13,6 +13,10 @@
 - 🎨 Refactor `ButtonFilled` and `ButtonTinted` to resolve `intent.colors()` once per composition instead of multiple times, reducing redundant allocations per recomposition
 - 🗑️ `Basic` intent has been deprecated across all components (`ButtonIntent`, `BadgeIntent`, `ChipIntent`, `TagIntent`, `ToggleIntent`, etc.) and replaced with `Support`, which was already identical in value. Usages of `Basic` will produce a compile error with an automatic migration hint to `Support`.
 
+### Icons
+
+- ♻️ `spark-icons` is now a Kotlin Multiplatform module — icons are available to JVM/desktop targets in addition to Android
+
 #### 🔧 Kelp IDE plugin support
 
 Added `KelpInlayPreview` inner classes to `SparkColors`, `SparkShapes`, `SparkTypography`, and `ElevationTokens` so the [Kelp](https://github.com/ozontech/kelp) Android Studio plugin can render color swatches, corner-radius, font-size, and elevation inlay hints directly in the editor. Also added a `.idea/kelp/config.json` configuration file to enable Kelp out of the box for contributors.
