@@ -39,6 +39,7 @@ import com.adevinta.spark.components.badge.BadgeStyle
 import com.adevinta.spark.components.badge.BadgedBox
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.surface.Surface
+import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.MailBoxOpenOutline
 import kotlinx.collections.immutable.ImmutableList
