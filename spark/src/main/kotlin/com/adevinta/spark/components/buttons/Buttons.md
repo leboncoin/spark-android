@@ -11,11 +11,6 @@ places like:
 - Cards
 - Toolbars
 
-| Light                                                                              | Dark                                                                              |
-|------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark.buttons_ButtonScreenshot_large_light.png)      | ![](../../images/com.adevinta.spark.buttons_ButtonScreenshot_large_dark.png)      |
-| ![](../../images/com.adevinta.spark.buttons_ButtonScreenshot_medium_light.png)     | ![](../../images/com.adevinta.spark.buttons_ButtonScreenshot_medium_dark.png)     |
-
 The minimal usage of the component is the text and the click action.
 
 ```kotlin
@@ -36,6 +31,8 @@ There are multiple style variants for the button with the same parameters:
 
 #### ButtonFilled
 
+![](../../images/com.adevinta.spark.buttons_ButtonDocumentationScreenshots_buttonFilled.png)
+
 Filled buttons are the standard button for most use cases. The filled styling places the most
 emphasis and should be used for important, final actions.
 
@@ -46,11 +43,9 @@ ButtonFilled(
 )
 ```
 
-| Light                                                                          | Dark                                                                          |
-|--------------------------------------------------------------------------------|-------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark.buttons_ButtonScreenshot_large_light.png)  | ![](../../images/com.adevinta.spark.buttons_ButtonScreenshot_large_dark.png)  |
-
 #### ButtonOutlined
+
+![](../../images/com.adevinta.spark.buttons_ButtonDocumentationScreenshots_buttonOutlined.png)
 
 Outlined buttons are used for support actions. The outlined styling places less emphasis on these
 actions that are important but not the main ones.
@@ -68,6 +63,8 @@ ButtonOutlined(
 
 #### ButtonTinted
 
+![](../../images/com.adevinta.spark.buttons_ButtonDocumentationScreenshots_buttonTinted.png)
+
 Tinted buttons are medium-emphasis buttons that is an alternative middle ground between
 default Buttons (filled) and Outlined buttons. They can be used in contexts where lower-priority
 button requires slightly more emphasis than an outline would give, such as "Next" in an onboarding
@@ -84,6 +81,8 @@ ButtonTinted(
 
 #### ButtonGhost
 
+![](../../images/com.adevinta.spark.buttons_ButtonDocumentationScreenshots_buttonGhost.png)
+
 Ghost buttons are used for the lowest priority actions, especially when presenting multiple options.
 
 Ghost buttons can be placed on a variety of backgrounds. Until the button is interacted with, its
@@ -98,6 +97,8 @@ ButtonGhost(
 ```
 
 #### ButtonContrast
+
+![](../../images/com.adevinta.spark.buttons_ButtonDocumentationScreenshots_buttonContrast.png)
 
 Contrast buttons are used for the high to mid priority actions when the background is dark like on
 an image or a video.

@@ -113,22 +113,13 @@ private fun buildVariantsContent(names: ComponentNames, variantList: List<String
 
 private fun buildScreenshotTable(variantList: List<String>): String {
     val placeholder = "![](../../images/...)"
+    // One sparkDocSnapshot image per variant (light + dark side by side in a single file)
     return if (variantList.isNotEmpty()) {
-        val header = variantList.joinToString(" | ") { it }
-        val separator = variantList.joinToString("|") { "---" }
-        val row = variantList.joinToString(" | ") { placeholder }
-        """
-|       | $header |
-|-------|$separator|
-| Light | $row |
-| Dark  | $row |
-""".trimIndent()
+        variantList.joinToString("\n\n") { variant ->
+            "### $variant\n\n$placeholder"
+        }
     } else {
-        """
-| Light | Dark |
-|-------|------|
-| $placeholder | $placeholder |
-""".trimIndent()
+        placeholder
     }
 }
 
@@ -137,15 +128,13 @@ private fun buildVariantsSections(componentName: String, variantList: List<Strin
         """
 #### $componentName.$variant
 
+![](../../images/...)
+
 TODO: Add description for $variant variant.
 
 ```kotlin
 $componentName.$variant()
 ```
-
-| Light | Dark |
-|-------|------|
-| ![](../../images/...) | ![](../../images/...) |
 """.trimIndent()
     }
 

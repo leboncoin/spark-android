@@ -3,7 +3,7 @@
 [Badges](https://spark.adevinta.com/1186e1705/p/8711ec-badge/b/98915d) convey dynamic information,
 such as counts or status. A badge can include labels or numbers.
 
-![](../../images/com.adevinta.spark.components.badge_BadgeScreenshot_badge.png)
+![](../../images/com.adevinta.spark.components.badge_BadgeDocumentationScreenshots_badgeCount.png)
 
 The default value of overflowCount is 99. When count is larger than 99, a `+` is displayed.
 A badge can be used as a part of `BadgedBox` (see Layout section) or as a standalone when it is not attached visually to

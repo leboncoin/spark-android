@@ -6,11 +6,16 @@ import com.adevinta.spark.DefaultTestDevices
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.$packageName.$componentName
 import com.adevinta.spark.paparazziRule
+import com.adevinta.spark.sparkDocSnapshot
 import com.adevinta.spark.sparkSnapshotNightMode
+import com.android.ide.common.rendering.api.SessionParams.RenderingMode.SHRINK
 import com.android.ide.common.rendering.api.SessionParams.RenderingMode.V_SCROLL
 import org.junit.Rule
 import org.junit.Test
 
+/**
+ * Regression screenshots — group all states/variants in a single test for compact coverage.
+ */
 internal class $componentNameScreenshot {
 
     @get:Rule
@@ -27,4 +32,24 @@ internal class $componentNameScreenshot {
             }
         }
     }
+}
+
+/**
+ * Documentation screenshots — one test per variant, light/dark side by side.
+ * Generated images are committed and referenced from the component's .md file.
+ */
+internal class ${componentName}DocumentationScreenshots {
+
+    @get:Rule
+    val paparazzi = paparazziRule(
+        renderingMode = SHRINK,
+        deviceConfig = DefaultTestDevices.DocPhone,
+    )
+
+    // TODO: Add one @Test per variant using paparazzi.sparkDocSnapshot { ... }
+    // Example:
+    // @Test
+    // fun ${componentNameLower}Default() = paparazzi.sparkDocSnapshot {
+    //     $componentName.$firstVariant()
+    // }
 }

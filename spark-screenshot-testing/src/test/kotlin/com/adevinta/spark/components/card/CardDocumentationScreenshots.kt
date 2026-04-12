@@ -22,16 +22,13 @@
 package com.adevinta.spark.components.card
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.DeviceConfig
 import com.adevinta.spark.SparkTheme
-import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkDocSnapshot
@@ -53,61 +50,41 @@ internal class CardDocumentationScreenshots {
     )
 
     @Test
-    fun flatCard() = paparazzi.sparkDocSnapshot {
-        Surface(color = SparkTheme.colors.backgroundVariant) {
-            Box(Modifier.padding(16.dp)) {
-                Card.Flat {
-                    CardContent()
-                }
-            }
+    fun flatCard() = paparazzi.sparkDocSnapshot(color = { SparkTheme.colors.backgroundVariant }) {
+        Card.Flat {
+            CardContent()
         }
     }
 
     @Test
-    fun elevatedCard() = paparazzi.sparkDocSnapshot {
-        Surface(color = SparkTheme.colors.backgroundVariant) {
-            Box(Modifier.padding(16.dp)) {
-                Card.Elevated {
-                    CardContent()
-                }
-            }
+    fun elevatedCard() = paparazzi.sparkDocSnapshot(color = { SparkTheme.colors.backgroundVariant }) {
+        Card.Elevated {
+            CardContent()
         }
     }
 
     @Test
-    fun outlinedCard() = paparazzi.sparkDocSnapshot {
-        Surface(color = SparkTheme.colors.backgroundVariant) {
-            Box(Modifier.padding(16.dp)) {
-                Card.Outlined {
-                    CardContent()
-                }
-            }
+    fun outlinedCard() = paparazzi.sparkDocSnapshot(color = { SparkTheme.colors.backgroundVariant }) {
+        Card.Outlined {
+            CardContent()
         }
     }
 
     @Test
-    fun highlightFlatCard() = paparazzi.sparkDocSnapshot {
-        Surface(color = SparkTheme.colors.backgroundVariant) {
-            Box(Modifier.padding(16.dp)) {
-                Card.HighlightFlat(
-                    heading = { },
-                ) {
-                    CardContent()
-                }
-            }
+    fun highlightFlatCard() = paparazzi.sparkDocSnapshot(color = { SparkTheme.colors.backgroundVariant }) {
+        Card.HighlightFlat(
+            heading = { },
+        ) {
+            CardContent()
         }
     }
 
     @Test
-    fun highlightElevatedCard() = paparazzi.sparkDocSnapshot {
-        Surface(color = SparkTheme.colors.backgroundVariant) {
-            Box(Modifier.padding(16.dp)) {
-                Card.HighlightElevated(
-                    heading = { },
-                ) {
-                    CardContent()
-                }
-            }
+    fun highlightElevatedCard() = paparazzi.sparkDocSnapshot(color = { SparkTheme.colors.backgroundVariant }) {
+        Card.HighlightElevated(
+            heading = { },
+        ) {
+            CardContent()
         }
     }
 }

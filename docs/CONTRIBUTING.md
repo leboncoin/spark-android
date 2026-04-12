@@ -36,11 +36,11 @@ This guide provides instructions for contributing to Spark Android. It covers en
 
 ### Repository Access
 
-> [!NOTE] 
+> [!NOTE]
 > Leboncoin employees only
-> Please ensure you have push rights to this repository, rather than forking the repository for contributions. Follow the "Engineering Contribution" guide in the (To be defined, Android Guild or Foundation) space in Backstage to get access.
+> Please ensure you have push rights to this repository, rather than forking it. Follow the "Engineering Contribution" guide in the Android Guild space in Backstage to get access.
 
-This repository being public, you can directly contribute to it. However, we encourage you to fork the repository for your contributions to avoid conflicts when pulling as only contributors can push to the main repository.
+This repository is public. External contributors should fork it and submit pull requests from their fork. Only team members with push access may contribute directly to branches in the upstream repository.
 
 ### Knowledge Requirements
 
@@ -118,7 +118,7 @@ Once you have a compatible environment as described above, you can set up the pr
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/adevinta/spark-android.git
+   git clone https://github.com/leboncoin/spark-android.git
    cd spark-android
    ```
 
@@ -138,7 +138,7 @@ Once you have a compatible environment as described above, you can set up the pr
 The Spark Design System follows a standardized architecture for all components. This section walks you through creating a new component from scratch.
 
 > [!NOTE]
-> This section contains all the architectural standards and patterns you need to follow.
+> **See also:** [`COMPONENT_CREATION_GUIDE.md`](./COMPONENT_CREATION_GUIDE.md) — the detailed reference for component architecture, parameter conventions, Paparazzi test structure, and catalog integration standards. The sections below summarise the key patterns; follow the guide for the full specification.
 
 ### Component Structure
 
@@ -186,6 +186,67 @@ public fun ComponentName(
 2. Create the public api ([see](https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/spark/src/main/kotlin/com/adevinta/spark/components/tags/TagFilled.kt#L35-L60))
 3. Create defaults either inlined in the component file or in a separate file if its already too big ([see](https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/spark/src/main/kotlin/com/adevinta/spark/components/tags/Tag.kt#L246-L292)):
 4. Create intent and size enums ([see](https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/spark/src/main/kotlin/com/adevinta/spark/components/tags/TagIntent.kt#L14-L19)):
+
+### Component Generator
+
+`scripts/generate-component.main.kts` scaffolds the full file structure for a new component so you don't create files manually.
+
+**Invocation**
+
+```bash
+./scripts/generate-component.main.kts
+```
+
+The script prompts for the component name and package name interactively. Pass them as flags to skip the prompts:
+
+```bash
+./scripts/generate-component.main.kts \
+  --component-name Card \
+  --package-name card \
+  -v Elevated -v Outlined
+```
+
+**Options**
+
+| Flag | Description |
+|------|-------------|
+| `--component-name` | Component name in PascalCase (e.g., `Card`). Prompted if omitted. |
+| `--package-name` | Package directory name in lowercase (e.g., `card`). Prompted if omitted. |
+| `-v` / `--variants` | Variant names, repeatable (e.g., `-v Elevated -v Outlined`). Omit to generate a single `Default` variant. |
+| `--dry-run` | Preview which files would be created without writing anything. |
+
+**What it generates**
+
+For a component named `Card` in package `card` with variants `Elevated` and `Outlined`, the script creates:
+
+```text
+spark/src/main/kotlin/com/adevinta/spark/components/card/
+├── Card.kt
+├── SparkCard.kt
+├── CardDefaults.kt
+└── Card.md
+
+spark-screenshot-testing/src/test/kotlin/com/adevinta/spark/components/card/
+└── CardScreenshot.kt
+
+catalog/src/main/kotlin/com/adevinta/spark/catalog/configurator/samples/card/
+└── CardConfigurator.kt
+
+catalog/src/main/kotlin/com/adevinta/spark/catalog/examples/samples/card/
+└── CardExamples.kt
+```
+
+**What you still need to do manually**
+
+The generator produces scaffolding only. After running it you must:
+
+- Fill in the component logic in `SparkCard.kt` and `Card.kt`
+- Add design token mappings in `CardDefaults.kt`
+- Create `CardIntent.kt` and `CardSize.kt` if the component needs them
+- Write the screenshot test bodies in `CardScreenshot.kt`
+- Register the component in the catalog's `Components.kt` registry
+- Replace all `TODO` placeholders in `Card.md`
+
 ---
 
 ## 🧪 Testing
@@ -211,6 +272,45 @@ Group all component states into a single screenshot when possible. This approach
 This pattern saves disk space (Git LFS storage on [GitHub incurs costs](https://docs.github.com/en/billing/concepts/product-billing/git-lfs)) and reduces the burden on reviewers.
 
 You can also add different variants like `sparkSnapshotDevices` to generate screenshots for mobile, foldable, and tablet layouts. Use `sparkSnapshotNightMode` for light and dark mode screenshots, and `sparkSnapshotHighContrast` for high contrast mode. However, high contrast mode is more commonly used for tokens rather than individual components.
+
+#### Documentation Screenshots
+
+In addition to regression screenshots, components should have **documentation screenshots** — side-by-side light/dark images embedded in the component's `.md` file. These follow Material Design's approach of showing one variant per image.
+
+Use `sparkDocSnapshot` (backed by `DefaultTestDevices.DocPhone` — a compact landscape config) and name the class `*DocumentationScreenshots`:
+
+```kotlin
+internal class ChipDocumentationScreenshots {
+
+    @get:Rule
+    val paparazzi = paparazziRule(
+        renderingMode = SHRINK,
+        deviceConfig = DefaultTestDevices.DocPhone,
+    )
+
+    @Test
+    fun chipOutlined() = paparazzi.sparkDocSnapshot {
+        ChipOutlined(text = "Outlined chip", onClick = {})
+    }
+}
+```
+
+`sparkDocSnapshot` renders the composable twice (light left, dark right) with the theme surface as background. Pass a custom `color` lambda to override the background for components that need contrast:
+
+```kotlin
+// ButtonContrast needs a darker background to be visible
+fun buttonContrast() = paparazzi.sparkDocSnapshot(color = { SparkTheme.colors.backgroundVariant }) {
+    ButtonContrast(text = "Contrast button", onClick = {})
+}
+```
+
+Reference the generated images in the component's `.md` file using the relative path:
+
+```markdown
+![](../../images/com.adevinta.spark.components.chips_ChipDocumentationScreenshots_chipOutlined.png)
+```
+
+The image filename follows Paparazzi's convention: `<package>_<ClassName>_<testMethodName>.png`. Unlike regression screenshots, **documentation screenshots should be committed** — they are referenced directly by the `.md` files and must be present in the repository.
 
 #### Running Screenshot Tests
 
@@ -501,104 +601,54 @@ Use feature flags when:
 
 **Step 1: Define the Feature Flag**
 
-Add a new entry to the `SparkFeatureFlags` class:
+Add a new property to the `SparkFeatureFlag` data class in `spark/src/main/kotlin/com/adevinta/spark/SparkFeatureFlag.kt`:
 
 ```kotlin
-// spark/src/main/kotlin/com/adevinta/spark/SparkFeatureFlags.kt
-object SparkFeatureFlags {
-    /**
-     * Enables the new ripple animation for buttons.
-     * When enabled, buttons use Material 3 ripple effects.
-     * When disabled, buttons use the legacy ripple animation.
-     * 
-     * @default false (legacy behavior maintained)
-     */
-    var enableNewButtonRipple: Boolean = false
-    
-    /**
-     * Enables automatic content description generation for badges.
-     * When enabled, badges automatically generate accessibility descriptions.
-     * When disabled, consumers must provide explicit content descriptions.
-     * 
-     * @default true (new accessibility feature enabled by default)
-     */
-    var enableBadgeAutoContentDescription: Boolean = true
-}
+public data class SparkFeatureFlag(
+    /** Highlight visually where Spark tokens are used. Makes text cursive and colours diagnostic. */
+    val useSparkTokensHighlighter: Boolean = false,
+    /** Show an overlay on Spark components to highlight where they are used. */
+    val useSparkComponentsHighlighter: Boolean = false,
+    val isContainingActivityEdgeToEdge: Boolean = false,
+    /** Use rebranded shapes for buttons, chips, tags, and text fields. */
+    val useRebrandedShapes: Boolean = false,
+    // Add your new flag here with a conservative default
+    val myNewFlag: Boolean = false,
+)
 ```
 
 **Step 2: Use the Feature Flag in Your Component**
 
+Read the flag via `SparkTheme.featureFlag`, which is provided by `LocalSparkFeatureFlag`:
+
 ```kotlin
-// spark/src/main/kotlin/com/adevinta/spark/components/button/Button.kt
 @Composable
-public fun ButtonFilled(
-    onClick: () -> Unit,
-    text: String,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    // ... other parameters
-) {
-    val interactionSource = remember { MutableInteractionSource() }
-    
-    Button(
-        onClick = onClick,
-        modifier = modifier,
-        enabled = enabled,
-        interactionSource = interactionSource,
-        // Use feature flag to determine behavior
-        colors = if (SparkFeatureFlags.enableNewButtonRipple) {
-            ButtonDefaults.newRippleColors()
-        } else {
-            ButtonDefaults.legacyColors()
-        }
-    ) {
-        Text(text = text)
+public fun MyComponent() {
+    val featureFlag = SparkTheme.featureFlag
+    if (featureFlag.myNewFlag) {
+        // new behaviour
+    } else {
+        // existing behaviour
     }
 }
 ```
 
-**Step 3: Consumer Override Example**
+**Step 3: Pass the Flag to SparkTheme**
 
-Here's how a consumer (like the catalog app or a feature team) can override the feature flag:
+`SparkFeatureFlag` is an immutable data class passed directly to `SparkTheme`. Consumers construct it once and pass it at the theme root:
 
 ```kotlin
-...
-// Override Spark feature flags before using components
-SparkFeatureFlags.enableNewButtonRipple = true
-CompositionLocalProvider(
-    LocalSparkFeatureFlag provides SparkFeatureFlag(
-        enableNewButtonRipple = true,
+SparkTheme(
+    colors = myColors,
+    sparkFeatureFlag = SparkFeatureFlag(
+        myNewFlag = true,
     ),
 ) {
-    ButtonFilled()
-}
-...
-```
-
-**Or in a specific activity/fragment:**
-
-```kotlin
-// In a specific screen where you want to test the new behavior
-@Composable
-fun MyScreen() {
-    // Temporarily override for this screen
-    DisposableEffect(Unit) {
-        val originalRippleFlag = SparkFeatureFlags.enableNewButtonRipple
-        SparkFeatureFlags.enableNewButtonRipple = true
-        
-        onDispose {
-            // Restore original value when leaving the screen
-            SparkFeatureFlags.enableNewButtonRipple = originalRippleFlag
-        }
-    }
-    
-    // Use components normally - they'll use the overridden flag
-    ButtonFilled(
-        onClick = { /* handle click */ },
-        text = "Try New Ripple Effect"
-    )
+    // content
 }
 ```
+
+To enable a flag only for a subtree, wrap that subtree in its own `SparkTheme` call with the desired flag value.
 
 #### Best Practices
 
