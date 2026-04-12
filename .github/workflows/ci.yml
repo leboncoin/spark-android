@@ -68,6 +68,11 @@ jobs:
         with:
           name: aar-release
           path: '**/build/outputs/aar/*-release.aar'
+      - name: 📦 Archive JVM JARs
+        uses: actions/upload-artifact@v7
+        with:
+          name: jar-release
+          path: '**/build/libs/*-jvm-[0-9]*.jar'
       - name: 📢 Diffuse reports
         if: ${{ always() && github.event_name == 'pull_request' && steps.build.outcome == 'success' }}
         uses: ./.github/actions/diffuse-aar
@@ -269,6 +274,12 @@ jobs:
           name: apk-release
           path: apk-output/
 
+      - name: Download JVM JARs
+        uses: actions/download-artifact@v8
+        with:
+          name: jar-release
+          path: jar-output/
+
       - uses: ./.github/actions/diffuse-aar
 
       - name: Run diffuse on artifacts
@@ -277,6 +288,7 @@ jobs:
           "$diffuse" info --apk $(find apk-output -name "*-release.apk" | head -1) > apk.txt
           "$diffuse" info --aar $(find aar-output -name "spark-release.aar" | head -1) > spark.txt
           "$diffuse" info --aar $(find aar-output -name "spark-icons-release.aar" | head -1) > spark-icons.txt
+          "$diffuse" info --jar $(find jar-output -name "*-jvm-[0-9]*.jar" | head -1) > spark-icons-jvm.txt
 
       - name: Submit artifact metrics
         run: >
@@ -284,5 +296,6 @@ jobs:
           --input apk.txt
           --input spark.txt
           --input spark-icons.txt
+          --input spark-icons-jvm.txt
         env:
           DD_API_KEY: ${{ secrets.DD_API_KEY }}

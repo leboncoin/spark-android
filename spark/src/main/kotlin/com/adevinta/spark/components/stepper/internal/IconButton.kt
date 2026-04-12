@@ -44,9 +44,9 @@ import com.adevinta.spark.components.textfields.AnimationDuration
 import com.adevinta.spark.components.textfields.DefaultSparkTextFieldColors
 import com.adevinta.spark.components.textfields.animateBorderStrokeAsState
 import com.adevinta.spark.components.textfields.sparkOutlinedTextFieldColors
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.Plus
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 
 @Composable
 internal fun IconButton(
@@ -103,7 +103,7 @@ internal fun IconButton(
 private fun PreviewIconButton() {
     PreviewTheme {
         IconButton(
-            sparkIcon = SparkIcons.Plus,
+            sparkIcon = LeboncoinIcons.Plus,
             contentDescription = "",
             enabled = true,
             shape = SparkTheme.shapes.large,
@@ -111,7 +111,7 @@ private fun PreviewIconButton() {
             colors = sparkOutlinedTextFieldColors(),
         )
         IconButton(
-            sparkIcon = SparkIcons.Plus,
+            sparkIcon = LeboncoinIcons.Plus,
             contentDescription = "",
             enabled = false,
             shape = SparkTheme.shapes.large,

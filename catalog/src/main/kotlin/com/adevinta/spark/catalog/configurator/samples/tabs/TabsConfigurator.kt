@@ -57,7 +57,6 @@ import com.adevinta.spark.icons.BubbleTextOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.Minus
 import com.adevinta.spark.icons.Plus
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.bodyWidth
 import com.adevinta.spark.tokens.highlight
 import kotlin.random.Random
@@ -154,7 +153,7 @@ private fun ColumnScope.TabSample() {
         Row {
             Spacer(modifier = Modifier.padding(start = 16.dp))
             IconButtonFilled(
-                icon = SparkIcons.Minus,
+                icon = LeboncoinIcons.Minus,
                 onClick = {
                     if (tabs.size > 1) {
                         tabs.removeAt(tabs.lastIndex)
@@ -164,7 +163,7 @@ private fun ColumnScope.TabSample() {
             Spacer(modifier = Modifier.padding(start = 16.dp))
 
             IconButtonFilled(
-                icon = SparkIcons.Plus,
+                icon = LeboncoinIcons.Plus,
                 onClick = {
                     val randomString = ('A'..'z').map { it }.shuffled().subList(0, 5).joinToString("")
                     tabs.add(Pair(randomString, null) to Random.nextInt(3))

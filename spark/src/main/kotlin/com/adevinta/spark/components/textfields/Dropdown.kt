@@ -89,7 +89,6 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.CircleCrossOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkAnimatedIcons
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.collapseExpand
 import com.adevinta.spark.tokens.SparkTypography
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay

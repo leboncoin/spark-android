@@ -38,8 +38,8 @@ import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.textfields.TextFieldCharacterCounter
 import com.adevinta.spark.components.textfields.TextFieldState
 import com.adevinta.spark.icons.Check
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshot
 import com.android.ide.common.rendering.api.SessionParams.RenderingMode.H_SCROLL
@@ -48,7 +48,7 @@ import org.junit.Test
 
 internal class TextFieldScreenshot {
 
-    private val icons: List<SparkIcon?> = listOf(SparkIcons.Check, null)
+    private val icons: List<SparkIcon?> = listOf(LeboncoinIcons.Check, null)
 
     private val helpers: List<String?> = listOf(null, stubBody)
 

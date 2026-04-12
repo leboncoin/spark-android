@@ -1,0 +1,30 @@
+<!--
+  Copyright (c) 2023 Adevinta
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M21.57,6.07c-0.51,-0.44 -1.35,-0.44 -1.78,0.09l-7.7,9.14 -0.25,-0.35c-0.25,-0.44 -0.76,-0.7 -1.19,-0.61l5.42,-6.44c0.25,-0.26 0.34,-0.61 0.34,-0.96s-0.17,-0.7 -0.42,-0.87a1.62,1.62 0,0 0,-0.85 -0.26c-0.34,0 -0.68,0.17 -0.85,0.44L6.5,15.39l-2.29,-2.78c-0.42,-0.61 -1.19,-0.7 -1.78,-0.17a1.27,1.27 0,0 0,-0.17 1.74l2.54,3.13c0.17,0.26 0.42,0.44 0.76,0.61 0.25,0.17 0.59,0.17 0.93,0.26 0.34,0 0.59,-0.09 0.93,-0.17 0.25,-0.17 0.59,-0.35 0.76,-0.61l1.44,-1.65c0,0.17 0.08,0.44 0.17,0.61l0.51,0.87c0,0.09 0.08,0.09 0.08,0.17 0.17,0.26 0.42,0.44 0.76,0.61 0.25,0.17 0.59,0.17 0.93,0.26 0.34,0 0.59,-0.09 0.85,-0.17 0.25,-0.17 0.59,-0.35 0.76,-0.61L21.64,8a1.4,1.4 0,0 0,-0.08 -1.91Z"/>
+</vector>

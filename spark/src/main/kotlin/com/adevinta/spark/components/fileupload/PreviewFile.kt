@@ -66,7 +66,6 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.Cross
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.WarningOutline
 import com.adevinta.spark.tokens.EmphasizeDim1
 import com.adevinta.spark.tokens.ripple
@@ -250,7 +249,7 @@ private fun PreviewFileIcon(
     error: Boolean = false,
 ) {
     val icon = if (error) {
-        SparkIcons.WarningOutline
+        LeboncoinIcons.WarningOutline
     } else {
         FileUploadDefaults.iconFor(mimeType, name)
     }

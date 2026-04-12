@@ -66,7 +66,6 @@ import com.adevinta.spark.icons.Cross
 import com.adevinta.spark.icons.FlashlightFill
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.ElevationTokens
 import com.adevinta.spark.tokens.contentColorFor
 import com.adevinta.spark.tokens.highlight
@@ -415,7 +414,7 @@ private fun BodyIconDismissSnackbarPreview() {
     PreviewTheme {
         Snackbar(
             intent = SnackbarIntent.Error,
-            icon = SparkIcons.FlashlightFill,
+            icon = LeboncoinIcons.FlashlightFill,
             actionLabel = StubAction,
             title = "Title",
             onDismissClick = {},
@@ -432,7 +431,7 @@ private fun BodyIconActionNewLineLongSnackbarPreview() {
     PreviewTheme {
         Snackbar(
             intent = SnackbarIntent.Info,
-            icon = SparkIcons.FlashlightFill,
+            icon = LeboncoinIcons.FlashlightFill,
             actionLabel = StubBodyLong,
             onActionClick = {},
             onDismissClick = {},

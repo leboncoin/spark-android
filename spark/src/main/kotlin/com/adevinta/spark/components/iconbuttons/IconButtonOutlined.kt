@@ -34,7 +34,6 @@ import com.adevinta.spark.components.progress.Spinner
 import com.adevinta.spark.icons.GearOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 
 /**
  * Icon buttons help people take supplementary actions with a single tap. They’re used when a

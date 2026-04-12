@@ -1,5 +1,5 @@
-name: '📢 Diffuse AAR report'
-description: 'Add diffuse AAR report to Pull Requests'
+name: '📢 Diffuse artifact report'
+description: 'Add diffuse AAR and JAR report to Pull Requests'
 inputs:
   diffuse-version:
     description: 'Diffuse version'
@@ -35,6 +35,7 @@ runs:
 
         \`\`\`
         $(find . -path "*/build/outputs/aar/*-release.aar" -exec "$HOME/.spark/diffuse/$DIFFUSE_BIN" info --aar {} \;)
+        $(find . -path "*/build/libs/*-jvm-[0-9]*.jar" -exec "$HOME/.spark/diffuse/$DIFFUSE_BIN" info --jar {} \;)
         \`\`\`
 
         </details>

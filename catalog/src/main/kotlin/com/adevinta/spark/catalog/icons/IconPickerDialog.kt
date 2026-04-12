@@ -67,7 +67,6 @@ import com.adevinta.spark.icons.CircleCrossFill
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.MagnifierOutline
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 
 @ExperimentalSparkApi
 @Composable
@@ -169,14 +168,14 @@ public fun IconPickerDialog(
                             text = stringResource(R.string.icons_filter_icon),
                             onClick = { showIcons = !showIcons },
                             style = ChipStyles.Tinted,
-                            leadingIcon = if (showIcons) SparkIcons.Check else null,
+                            leadingIcon = if (showIcons) LeboncoinIcons.Check else null,
                         )
                         ChipSelectable(
                             selected = showAnimatedIcons,
                             text = stringResource(R.string.icons_filter_icon_animated),
                             onClick = { showAnimatedIcons = !showAnimatedIcons },
                             style = ChipStyles.Tinted,
-                            leadingIcon = if (showAnimatedIcons) SparkIcons.Check else null,
+                            leadingIcon = if (showAnimatedIcons) LeboncoinIcons.Check else null,
                         )
                     }
                 }
@@ -218,7 +217,7 @@ public fun IconPickerDialog(
                     )
                     if (isSelected) {
                         Icon(
-                            sparkIcon = SparkIcons.Check,
+                            sparkIcon = LeboncoinIcons.Check,
                             contentDescription = null,
                             modifier = Modifier.size(16.dp),
                             tint = SparkTheme.colors.main,

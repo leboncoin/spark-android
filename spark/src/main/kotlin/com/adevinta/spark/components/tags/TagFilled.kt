@@ -28,9 +28,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.PreviewTheme
-import com.adevinta.spark.icons.Booster
+import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.RocketOutline
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 
 /**
  * Filled tag represent main information
@@ -121,7 +121,7 @@ public fun TagFilled(
 @Composable
 internal fun TagFilledPreview() {
     PreviewTheme {
-        val icon = SparkIcons.Booster
+        val icon = LeboncoinIcons.RocketOutline
         TagFilled("", leadingIcon = icon)
         TagFilled("Tag Support")
         TagFilled("Tag Support", leadingIcon = icon)

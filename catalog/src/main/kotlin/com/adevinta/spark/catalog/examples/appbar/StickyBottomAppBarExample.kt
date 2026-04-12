@@ -54,7 +54,6 @@ import com.adevinta.spark.icons.Check
 import com.adevinta.spark.icons.ChevronHorizontalDown
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.PenOutline
-import com.adevinta.spark.icons.SparkIcons
 
 /**
  * Example demonstrating BottomAppBar with sticky behavior and elevation
@@ -85,7 +84,7 @@ private fun StickyBottomAppBarExample() {
                     actions = {
                         IconButton(onClick = { /* Handle action */ }) {
                             Icon(
-                                sparkIcon = SparkIcons.Check,
+                                sparkIcon = LeboncoinIcons.Check,
                                 contentDescription = "Action",
                             )
                         }
@@ -204,13 +203,13 @@ private fun BottomAppBarWithIconsExample() {
                     actions = {
                         IconButton(onClick = { /* Handle action */ }) {
                             Icon(
-                                sparkIcon = SparkIcons.Check,
+                                sparkIcon = LeboncoinIcons.Check,
                                 contentDescription = "Action 1",
                             )
                         }
                         IconButton(onClick = { /* Handle action */ }) {
                             Icon(
-                                sparkIcon = SparkIcons.PenOutline,
+                                sparkIcon = LeboncoinIcons.PenOutline,
                                 contentDescription = "Action 2",
                             )
                         }
@@ -300,13 +299,13 @@ private fun BottomAppBarMinimalContentExample() {
                     actions = {
                         IconButton(onClick = { /* Handle action */ }) {
                             Icon(
-                                sparkIcon = SparkIcons.Check,
+                                sparkIcon = LeboncoinIcons.Check,
                                 contentDescription = "Confirm",
                             )
                         }
                         IconButton(onClick = { /* Handle action */ }) {
                             Icon(
-                                sparkIcon = SparkIcons.PenOutline,
+                                sparkIcon = LeboncoinIcons.PenOutline,
                                 contentDescription = "Edit",
                             )
                         }

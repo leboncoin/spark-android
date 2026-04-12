@@ -46,11 +46,11 @@ import com.adevinta.spark.components.textfields.SparkSelectTrailingIcon
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.textfields.TextFieldCharacterCounter
 import com.adevinta.spark.components.textfields.TextFieldState
-import com.adevinta.spark.icons.Booster
 import com.adevinta.spark.icons.EyeFill
 import com.adevinta.spark.icons.EyeOffFill
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.QuestionOutline
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.RocketOutline
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlin.random.Random
@@ -162,7 +162,7 @@ private fun TextFieldWithIcon() {
         onValueChange = { valueText = it },
         trailingContent = {
             TextFieldIcon(
-                icon = SparkIcons.QuestionOutline,
+                icon = LeboncoinIcons.QuestionOutline,
                 modifier = Modifier,
                 contentDescription = "",
             )
@@ -183,7 +183,7 @@ private fun TextFieldWithIconButton() {
         trailingContent = {
             TextFieldIconButton(
                 modifier = Modifier,
-                icon = SparkIcons.Booster,
+                icon = LeboncoinIcons.RocketOutline,
                 contentDescription = "",
                 onClick = { value = Random.nextInt(0, 8000).toString() },
             )
@@ -207,8 +207,8 @@ private fun TextFieldWithIconToggleButton() {
             TextFieldIconToggleButton(
                 modifier = Modifier,
                 checked = checked,
-                checkedIcon = SparkIcons.EyeFill,
-                unCheckedIcon = SparkIcons.EyeOffFill,
+                checkedIcon = LeboncoinIcons.EyeFill,
+                unCheckedIcon = LeboncoinIcons.EyeOffFill,
                 contentDescription = "",
                 onCheckedChange = { checked = it },
             )

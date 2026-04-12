@@ -45,9 +45,9 @@ import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.stepper.StepperDefaults
 import com.adevinta.spark.components.stepper.stepperSemantics
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.Minus
 import com.adevinta.spark.icons.Plus
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tools.modifiers.ifTrue
 import com.adevinta.spark.tools.modifiers.invisibleSemantic
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
@@ -96,7 +96,7 @@ internal fun SparkStepper(
             modifier = Modifier
                 .fillMaxHeight()
                 .generateStepperTestTag(testTag, "Decrement"),
-            sparkIcon = SparkIcons.Minus,
+            sparkIcon = LeboncoinIcons.Minus,
             contentDescription = "", // handled by semantics modifier
             enabled = enabled && coerced > range.first,
             colors = colors,
@@ -126,7 +126,7 @@ internal fun SparkStepper(
             modifier = Modifier
                 .fillMaxHeight()
                 .generateStepperTestTag(testTag, "Increment"),
-            sparkIcon = SparkIcons.Plus,
+            sparkIcon = LeboncoinIcons.Plus,
             contentDescription = "", // handled by semantics modifier
             enabled = enabled && coerced < range.last,
             colors = colors,

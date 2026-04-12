@@ -84,7 +84,6 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.Chain
 import com.adevinta.spark.icons.Computer
 import com.adevinta.spark.icons.LeboncoinIcons
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.Layout
 import soup.compose.material.motion.animation.materialElevationScaleIn
 import soup.compose.material.motion.animation.materialFadeThroughIn
@@ -284,7 +283,7 @@ private fun ComponentQuickActionsMenu(
             },
             leadingIcon = {
                 Icon(
-                    sparkIcon = SparkIcons.Computer,
+                    sparkIcon = LeboncoinIcons.Computer,
                     contentDescription = null,
                 )
             },
@@ -318,7 +317,7 @@ private fun EmptyExamplesState(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Icon(
-            sparkIcon = SparkIcons.Computer,
+            sparkIcon = LeboncoinIcons.Computer,
             contentDescription = null,
             modifier = Modifier.size(64.dp),
             tint = SparkTheme.colors.onSurface.copy(alpha = 0.38f),

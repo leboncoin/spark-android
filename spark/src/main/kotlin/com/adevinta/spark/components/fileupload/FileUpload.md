@@ -68,7 +68,7 @@ FileUploadPattern(pattern = pattern) { onClick ->
 TextField(
     trailingIcon = {
         IconButton(onClick = { pattern.launchPicker() }) {
-            Icon(SparkIcons.Upload)
+            Icon(LeboncoinIcons.Upload)
         }
     }
 )
@@ -155,7 +155,7 @@ FileUpload.ButtonSingleSelect(
 // Custom preview for single file
 selectedFile?.let { file ->
     Row {
-        Icon(SparkIcons.Check)
+        Icon(LeboncoinIcons.Check)
         Text(file.name)
     }
 }
@@ -232,7 +232,7 @@ PreviewFile(
     enabled = true, // whether the component is enabled
     clearContentDescription = "Remove ${uploadedFile.name}", // accessibility label for the clear/remove file button
     onClick = { /* handle file click */ }, // makes the preview clickable, use null to make the preview read only
-    clearIcon = SparkIcons.Close, // customize the clear/remove button icon
+    clearIcon = LeboncoinIcons.Close, // customize the clear/remove button icon
 )
 ```
 

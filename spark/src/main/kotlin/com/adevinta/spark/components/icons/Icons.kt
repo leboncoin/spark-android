@@ -45,8 +45,8 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.icons.Check
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tools.modifiers.ifNotNull
 import com.adevinta.spark.tools.modifiers.ifTrue
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
@@ -210,6 +210,8 @@ public fun rememberSparkIconPainter(sparkIcon: SparkIcon, atEnd: Boolean = false
     }
 
     is SparkIcon.AnimatedPainter -> sparkIcon.painterProvider(atEnd)
+
+    is SparkIcon.Resource -> error("This type is available only for kmp")
 }
 
 @PreviewLightDark
@@ -227,7 +229,7 @@ private fun IconPreview() {
                             },
                         ) {
                             Icon(
-                                sparkIcon = SparkIcons.Check,
+                                sparkIcon = LeboncoinIcons.Check,
                                 tint = intents[index].color(),
                                 contentDescription = "Done",
                                 size = size,

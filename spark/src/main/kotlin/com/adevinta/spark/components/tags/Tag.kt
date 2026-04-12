@@ -54,9 +54,9 @@ import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.tags.TagDefaults.LeadingIconSize
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.Accessories
+import com.adevinta.spark.icons.AccessoriesCriteria
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.contentColorFor
 import com.adevinta.spark.tokens.highlight
 import com.adevinta.spark.tools.modifiers.SlotArea
@@ -323,12 +323,12 @@ private fun SparkTagPreview() {
                 Text("À la une")
             }
         }
-        BaseSparkTag(leadingIcon = SparkIcons.Accessories, colors = colors) {
+        BaseSparkTag(leadingIcon = LeboncoinIcons.AccessoriesCriteria, colors = colors) {
             SlotArea(color = LocalContentColor.current) {
                 Text("À la une")
             }
         }
-        BaseSparkTag(leadingIcon = SparkIcons.Accessories, colors = colors) {
+        BaseSparkTag(leadingIcon = LeboncoinIcons.AccessoriesCriteria, colors = colors) {
         }
     }
 }

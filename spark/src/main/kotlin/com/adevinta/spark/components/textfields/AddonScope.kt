@@ -70,9 +70,9 @@ import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.EyeFill
 import com.adevinta.spark.icons.EyeOffFill
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.QuestionOutline
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.SparkColors
 import kotlin.random.Random
 import androidx.compose.material3.FilledTonalButton as MaterialButton
@@ -354,7 +354,7 @@ private fun TextFieldWithIconPreview() {
             onValueChange = {},
             trailingContent = {
                 TextFieldIcon(
-                    icon = SparkIcons.QuestionOutline,
+                    icon = LeboncoinIcons.QuestionOutline,
                     modifier = Modifier,
                     contentDescription = "",
                 )
@@ -377,7 +377,7 @@ private fun TextFieldWithIconButtonPreview() {
             trailingContent = {
                 TextFieldIconButton(
                     modifier = Modifier,
-                    icon = SparkIcons.EyeOffFill,
+                    icon = LeboncoinIcons.EyeOffFill,
                     contentDescription = "",
                     onClick = { value = Random.nextInt(0, 8000).toString() },
                 )
@@ -401,8 +401,8 @@ private fun TextFieldWithIconToggleButtonPreview() {
                 TextFieldIconToggleButton(
                     modifier = Modifier,
                     checked = checked,
-                    checkedIcon = SparkIcons.EyeFill,
-                    unCheckedIcon = SparkIcons.EyeOffFill,
+                    checkedIcon = LeboncoinIcons.EyeFill,
+                    unCheckedIcon = LeboncoinIcons.EyeOffFill,
                     contentDescription = "",
                     onCheckedChange = { checked = it },
                 )
@@ -416,8 +416,8 @@ private fun TextFieldWithIconToggleButtonPreview() {
                 TextFieldIconToggleButton(
                     modifier = Modifier,
                     checked = !checked,
-                    checkedIcon = SparkIcons.EyeFill,
-                    unCheckedIcon = SparkIcons.EyeOffFill,
+                    checkedIcon = LeboncoinIcons.EyeFill,
+                    unCheckedIcon = LeboncoinIcons.EyeOffFill,
                     contentDescription = "",
                     onCheckedChange = { checked = it },
                 )

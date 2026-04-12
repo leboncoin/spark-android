@@ -1,6 +1,7 @@
 [versions]
 accompanist = "0.36.0"
 agp = "9.1.0"
+compose-multiplatform = "1.10.2"
 androidx-activity = "1.13.0"
 androidx-appCompat = "1.7.1"
 compileSdk = "36"
@@ -67,6 +68,11 @@ androidx-test-truth = "androidx.test.ext:truth:1.7.0"
 
 androidx-window = "androidx.window:window:1.5.1"
 
+compose-runtime = { module ="org.jetbrains.compose.ui:ui", version.ref = "compose-multiplatform" }
+compose-ui = { module ="org.jetbrains.compose.runtime:runtime", version.ref = "compose-multiplatform" }
+compose-components-resources = { module ="org.jetbrains.compose.components:components-resources", version.ref = "compose-multiplatform" }
+compose-animation = { module ="org.jetbrains.compose.animation:animation", version.ref = "compose-multiplatform" }
+
 # https://coil-kt.github.io/coil/
 coil-bom = "io.coil-kt.coil3:coil-bom:3.4.0"
 coil-compose = { module = "io.coil-kt.coil3:coil-compose" }
@@ -119,9 +125,12 @@ unstyled = "com.composables:composeunstyled:1.49.6"
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-multiplatform  = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
+compose-multiplatform  = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 android-lint = { id = "com.android.lint", version.ref = "agp" }
 android-test = { id = "com.android.test", version.ref = "agp" }
-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 dependencyGuard = "com.dropbox.dependency-guard:0.5.0"
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -136,7 +145,10 @@ spark-root = { id = "com.adevinta.spark.root" }
 spark-android = { id = "com.adevinta.spark.android" }
 spark-application = { id = "com.adevinta.spark.android-application" }
 spark-library = { id = "com.adevinta.spark.android-library" }
-spark-compose = { id = "com.adevinta.spark.android-compose" }
+spark-compose = { id = "com.adevinta.spark.compose" }
+spark-compose-multiplatform = { id = "com.adevinta.spark.compose.multiplatform" }
+spark-multiplatform = { id = "com.adevinta.spark.multiplatform" }
+spark-multiplatform-library = { id = "com.adevinta.spark.multiplatform.library" }
 spark-lint = { id = "com.adevinta.spark.android-lint" }
 spark-publishing = { id = "com.adevinta.spark.publishing" }
 spark-kotlinJvm = { id = "com.adevinta.spark.kotlin-jvm" }

@@ -29,7 +29,6 @@ import com.adevinta.spark.icons.CircleCheckFill
 import com.adevinta.spark.icons.InfoFill
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.WarningFill
 
 /**
@@ -53,7 +52,7 @@ public enum class SnackbarIntent {
     Alert {
         @Composable
         override fun colors(): IntentColor = IntentColors.Alert.colors()
-        override val icon: SparkIcon = SparkIcons.WarningFill
+        override val icon: SparkIcon = LeboncoinIcons.WarningFill
     },
 
     /**
@@ -62,7 +61,7 @@ public enum class SnackbarIntent {
     Error {
         @Composable
         override fun colors(): IntentColor = IntentColors.Danger.colors()
-        override val icon: SparkIcon = SparkIcons.AlertFill
+        override val icon: SparkIcon = LeboncoinIcons.AlertFill
     },
 
     /**
@@ -71,7 +70,7 @@ public enum class SnackbarIntent {
     Info {
         @Composable
         override fun colors(): IntentColor = IntentColors.Info.colors()
-        override val icon: SparkIcon = SparkIcons.InfoFill
+        override val icon: SparkIcon = LeboncoinIcons.InfoFill
     },
     ;
 

@@ -96,7 +96,7 @@ import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.BurgerMenu
 import com.adevinta.spark.icons.CameraFill
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.tokens.ElevationTokens
 import com.adevinta.spark.tokens.applyTonalElevation
 import com.adevinta.spark.tokens.contentColorFor
@@ -1020,7 +1020,7 @@ internal fun PreviewTopAppBar() {
                 navigationIcon = {
                     IconButton(onClick = { /* doSomething() */ }) {
                         Icon(
-                            sparkIcon = SparkIcons.BurgerMenu,
+                            sparkIcon = LeboncoinIcons.BurgerMenu,
                             contentDescription = "Localized description",
                         )
                     }
@@ -1029,7 +1029,7 @@ internal fun PreviewTopAppBar() {
                 actions = {
                     IconButton(onClick = { /* doSomething() */ }) {
                         Icon(
-                            sparkIcon = SparkIcons.CameraFill,
+                            sparkIcon = LeboncoinIcons.CameraFill,
                             contentDescription = "Localized description",
                         )
                     }
@@ -1041,7 +1041,7 @@ internal fun PreviewTopAppBar() {
                 navigationIcon = {
                     IconButton(onClick = { /* doSomething() */ }) {
                         Icon(
-                            sparkIcon = SparkIcons.BurgerMenu,
+                            sparkIcon = LeboncoinIcons.BurgerMenu,
                             contentDescription = "Localized description",
                         )
                     }
@@ -1049,7 +1049,7 @@ internal fun PreviewTopAppBar() {
                 actions = {
                     IconButton(onClick = { /* doSomething() */ }) {
                         Icon(
-                            sparkIcon = SparkIcons.CameraFill,
+                            sparkIcon = LeboncoinIcons.CameraFill,
                             contentDescription = "Localized description",
                         )
                     }
@@ -1061,7 +1061,7 @@ internal fun PreviewTopAppBar() {
                 navigationIcon = {
                     IconButton(onClick = { /* doSomething() */ }) {
                         Icon(
-                            sparkIcon = SparkIcons.BurgerMenu,
+                            sparkIcon = LeboncoinIcons.BurgerMenu,
                             contentDescription = "Localized description",
                         )
                     }
@@ -1069,7 +1069,7 @@ internal fun PreviewTopAppBar() {
                 actions = {
                     IconButton(onClick = { /* doSomething() */ }) {
                         Icon(
-                            sparkIcon = SparkIcons.CameraFill,
+                            sparkIcon = LeboncoinIcons.CameraFill,
                             contentDescription = "Localized description",
                         )
                     }
@@ -1081,7 +1081,7 @@ internal fun PreviewTopAppBar() {
                 navigationIcon = {
                     IconButton(onClick = { /* doSomething() */ }) {
                         Icon(
-                            sparkIcon = SparkIcons.BurgerMenu,
+                            sparkIcon = LeboncoinIcons.BurgerMenu,
                             contentDescription = "Localized description",
                         )
                     }
@@ -1090,7 +1090,7 @@ internal fun PreviewTopAppBar() {
                 actions = {
                     IconButton(onClick = { /* doSomething() */ }) {
                         Icon(
-                            sparkIcon = SparkIcons.CameraFill,
+                            sparkIcon = LeboncoinIcons.CameraFill,
                             contentDescription = "Localized description",
                         )
                     }

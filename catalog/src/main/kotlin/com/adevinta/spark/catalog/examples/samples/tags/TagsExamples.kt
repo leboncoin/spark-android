@@ -35,9 +35,9 @@ import com.adevinta.spark.components.tags.TagHighlightBadge
 import com.adevinta.spark.components.tags.TagIntent
 import com.adevinta.spark.components.tags.TagOutlined
 import com.adevinta.spark.components.tags.TagTinted
-import com.adevinta.spark.icons.Booster
+import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.RocketOutline
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
@@ -142,7 +142,7 @@ private fun TagSample(
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        val icon = SparkIcons.Booster
+        val icon = LeboncoinIcons.RocketOutline
         val tagText = "available"
 
         tag(

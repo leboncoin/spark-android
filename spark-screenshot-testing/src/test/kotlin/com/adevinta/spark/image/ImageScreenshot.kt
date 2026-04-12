@@ -65,8 +65,8 @@ import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.image.SparkImage
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.SparkIcons
-import com.adevinta.spark.icons.Tattoo
+import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.Tablet
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.screenshot.testing.R
 import com.adevinta.spark.sparkSnapshot
@@ -116,7 +116,7 @@ internal class ImageScreenshot {
             val states = ImageState.entries
             val context = LocalContext.current
             val imageRequest = ImageRequest.Builder(context).data(Unit).build()
-            val painter = painterResource(SparkIcons.Tattoo.drawableId)
+            val painter = painterResource(LeboncoinIcons.Tablet.drawableId)
 
             states.forEach { state ->
                 Column(
@@ -135,7 +135,7 @@ internal class ImageScreenshot {
                                     state = state,
                                     painter = painter,
                                     imageRequest = imageRequest,
-                                    drawable = context.getDrawable(SparkIcons.Tattoo.drawableId)!!,
+                                    drawable = context.getDrawable(LeboncoinIcons.Tablet.drawableId)!!,
                                 )
                             }
                         }

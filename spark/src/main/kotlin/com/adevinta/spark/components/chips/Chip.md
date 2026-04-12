@@ -42,7 +42,7 @@ To draw a chip with an optional leading icon and text.
 ```kotlin
 ChipOutlined(
     text = "default chip",
-    leadingIcon = SparkIcons.CalendarOutline,
+    leadingIcon = LeboncoinIcons.CalendarOutline,
     onClick = {},
 )
 ```
@@ -55,7 +55,7 @@ ChipSelectable(
 ) {
     Text(text = "Animals")
     Icon(
-        sparkIcon = SparkIcons.ArrowHorizontalUp,
+        sparkIcon = LeboncoinIcons.ArrowHorizontalUp,
         modifier = Modifier.size(12.dp),
         contentDescription = null,
         tint = LocalContentColor.current,
@@ -116,7 +116,7 @@ FlowRow(
         ChipSelectable(
             text = filter.name,
             selected = selected,
-            leadingIcon = if (selected) SparkIcons.Check else null,
+            leadingIcon = if (selected) LeboncoinIcons.Check else null,
             onClick = {
                 unionSelected = if (selected) {
                     selectedFilters - filter

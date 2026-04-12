@@ -42,8 +42,8 @@ import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.ArrowRight
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.dim3
 
 @ExperimentalSparkApi
@@ -97,7 +97,7 @@ public fun IconPickerItem(
                 }
 
                 Icon(
-                    sparkIcon = SparkIcons.ArrowRight,
+                    sparkIcon = LeboncoinIcons.ArrowRight,
                     contentDescription = null,
                     modifier = Modifier.size(16.dp),
                     tint = SparkTheme.colors.onSurface.dim3,

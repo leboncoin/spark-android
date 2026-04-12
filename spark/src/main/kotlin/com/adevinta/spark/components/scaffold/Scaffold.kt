@@ -54,7 +54,7 @@ import com.adevinta.spark.components.icons.IconButton
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.BurgerMenu
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.tokens.contentColorFor
 import androidx.compose.material3.Scaffold as MaterialScaffold
 
@@ -149,7 +149,7 @@ private fun ScaffoldPreview() {
                         IconButton(
                             onClick = { /* "Open nav drawer" */ },
                         ) {
-                            Icon(SparkIcons.BurgerMenu, contentDescription = "Localized description")
+                            Icon(LeboncoinIcons.BurgerMenu, contentDescription = "Localized description")
                         }
                     },
                 )

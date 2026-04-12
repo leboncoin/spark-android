@@ -31,7 +31,7 @@ import com.adevinta.spark.components.buttons.IconSide
 import com.adevinta.spark.components.text.TextLink
 import com.adevinta.spark.components.text.TextLinkButton
 import com.adevinta.spark.icons.InfoOutline
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.res.annotatedStringResource
 import com.adevinta.spark.screenshot.testing.R
@@ -53,7 +53,7 @@ internal class TextLinkScreenshot {
                     Row {
                         TextLinkButton(
                             text = "Click me",
-                            icon = SparkIcons.InfoOutline,
+                            icon = LeboncoinIcons.InfoOutline,
                             intent = ButtonIntent.Accent,
                             iconSide = iconSide,
                             onClick = {},
@@ -83,7 +83,7 @@ internal class TextLinkScreenshot {
                     Row {
                         TextLinkButton(
                             text = stringResource(id = R.string.spark_text_link_button_example),
-                            icon = SparkIcons.InfoOutline,
+                            icon = LeboncoinIcons.InfoOutline,
                             intent = ButtonIntent.Accent,
                             iconSide = iconSide,
                             onClick = {},
