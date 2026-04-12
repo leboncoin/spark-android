@@ -258,13 +258,13 @@ jobs:
           DD_API_KEY: ${{ secrets.DD_API_KEY }}
 
       - name: Download AARs
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: aar-release
           path: aar-output/
 
       - name: Download APK
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: apk-release
           path: apk-output/
