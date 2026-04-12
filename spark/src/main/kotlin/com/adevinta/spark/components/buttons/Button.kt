@@ -248,7 +248,8 @@ public object SparkButtonDefaults {
     )
 
     /**
-     * The default shape of Button
+     * The fallback shape of Button when rebranding is not active.
+     * Use [ButtonTokens.shape] or [ButtonTokens.buttonShape] to get the flag-resolved shape.
      */
     internal val DefaultShape = ButtonShape.Rounded
 

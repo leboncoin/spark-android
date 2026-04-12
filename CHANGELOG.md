@@ -19,6 +19,15 @@ Added `KelpInlayPreview` inner classes to `SparkColors`, `SparkShapes`, `SparkTy
 
 Chips, icon buttons, and text fields now participate in the rebranding shape changes introduced in 2.1.0. The feature flag `SparkFeatureFlag.useNewButtonAndTagsShapes` has been renamed to `useRebrandedShapes` to reflect the broader scope.
 
+#### ♻️ Component token objects for shape resolution
+
+Shape (and spacing) resolution for Button, Chip, Tag, TextField, and IconButton components is now centralised in dedicated token objects — `ButtonTokens`, `ChipTokens`, `TagTokens`, `TextFieldTokens`, and `IconButtonTokens` — rather than scattered inline `if (LocalSparkFeatureFlag.current.useRebrandedShapes)` checks inside each composable. No behaviour change; the objects are public so consumers can reference the resolved values directly.
+
+`TextFieldTokens` exposes a `shape` property. `IconButtonTokens` exposes `resolveShape(fallback)` and `resolveFullShape(fallback)` functions rather than plain properties because icon button composables accept a caller-supplied shape as the legacy fallback, which the token object cannot know without the argument.
+
+> [!NOTE]
+> This is the initial foundation of a broader component token layer. The pattern is not yet generalised to all components — further components will be migrated in follow-up changes.
+
 ## [2.1.1]
 
 _2026-03-31_

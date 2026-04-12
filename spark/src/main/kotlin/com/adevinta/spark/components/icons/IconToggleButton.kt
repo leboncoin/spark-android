@@ -33,9 +33,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
-import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.buttons.ButtonShape
+import com.adevinta.spark.components.iconbuttons.IconButtonTokens
 import com.adevinta.spark.tokens.contentColorFor
 import androidx.compose.material3.FilledIconToggleButton as MaterialFilledIconToggleButton
 import androidx.compose.material3.FilledTonalIconToggleButton as MaterialFilledTonalIconToggleButton
@@ -130,11 +130,7 @@ public fun FilledIconToggleButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
-    val shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
-        SparkTheme.shapes.full
-    } else {
-        shape
-    }
+    val shape = IconButtonTokens.resolveFullShape(shape)
     MaterialFilledIconToggleButton(
         checked = checked,
         onCheckedChange = onCheckedChange,
@@ -194,17 +190,13 @@ public fun FilledTonalIconToggleButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
-    val shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
-        ButtonShape.Pill
-    } else {
-        shape
-    }
+    val resolvedShape = IconButtonTokens.resolveShape(shape.shape)
     MaterialFilledTonalIconToggleButton(
         checked = checked,
         onCheckedChange = onCheckedChange,
         modifier = modifier,
         enabled = enabled,
-        shape = shape.shape,
+        shape = resolvedShape,
         colors = colors,
         interactionSource = interactionSource,
         content = content,
@@ -254,11 +246,7 @@ public fun OutlinedIconToggleButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
-    val shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
-        SparkTheme.shapes.full
-    } else {
-        shape
-    }
+    val shape = IconButtonTokens.resolveFullShape(shape)
     MaterialOutlinedIconToggleButton(
         checked = checked,
         onCheckedChange = onCheckedChange,

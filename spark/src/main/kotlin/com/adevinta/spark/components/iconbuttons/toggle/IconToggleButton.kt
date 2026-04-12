@@ -42,13 +42,13 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.InternalSparkApi
-import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.buttons.ButtonShape
 import com.adevinta.spark.components.iconbuttons.IconButtonColors
 import com.adevinta.spark.components.iconbuttons.IconButtonDefaults
 import com.adevinta.spark.components.iconbuttons.IconButtonIntent
 import com.adevinta.spark.components.iconbuttons.IconButtonSize
+import com.adevinta.spark.components.iconbuttons.IconButtonTokens
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.popover.PlainTooltip
 import com.adevinta.spark.components.popover.TooltipBox
@@ -118,11 +118,7 @@ internal fun SparkIconToggleButton(
                 positioning = TooltipAnchorPosition.Above,
             ),
         ) {
-            val shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
-                ButtonShape.Pill
-            } else {
-                shape
-            }
+            val shape = IconButtonTokens.resolveShape(shape.shape)
             Surface(
                 checked = checked,
                 onCheckedChange = onCheckedChange,
@@ -131,7 +127,7 @@ internal fun SparkIconToggleButton(
                     .sparkUsageOverlay()
                     .semantics { role = Role.Checkbox },
                 enabled = enabled,
-                shape = shape.shape,
+                shape = shape,
                 border = border,
                 color = colors.containerColor(enabled).value,
                 contentColor = colors.contentColor(enabled).value,
