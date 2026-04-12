@@ -25,7 +25,8 @@ Shape (and spacing) resolution for Button, Chip, Tag, TextField, and IconButton 
 
 `TextFieldTokens` exposes a `shape` property. `IconButtonTokens` exposes `resolveShape(fallback)` and `resolveFullShape(fallback)` functions rather than plain properties because icon button composables accept a caller-supplied shape as the legacy fallback, which the token object cannot know without the argument.
 
-> **Note:** This is the initial foundation of a broader component token layer. The pattern is not yet generalised to all components — further components will be migrated in follow-up changes.
+> [!NOTE]
+> This is the initial foundation of a broader component token layer. The pattern is not yet generalised to all components — further components will be migrated in follow-up changes.
 
 ## [2.1.1]
 
