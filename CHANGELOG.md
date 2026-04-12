@@ -6,6 +6,7 @@
 
 ### Spark
 
+- 🐛 Fix `ButtonFilled` disabled content colour using the wrong token (`dim3` instead of `disabled`), causing the disabled state to appear too faint on non-white backgrounds
 - 🎨 Refactor `contrastLevel()` to remove a redundant `isContrastLevelAvailable` guard that was already ensured by the outer branch
 - 🎨 Refactor `ButtonFilled` and `ButtonTinted` to resolve `intent.colors()` once per composition instead of multiple times, reducing redundant allocations per recomposition
 - 🗑️ `Basic` intent has been deprecated across all components (`ButtonIntent`, `BadgeIntent`, `ChipIntent`, `TagIntent`, `ToggleIntent`, etc.) and replaced with `Support`, which was already identical in value. Usages of `Basic` will produce a compile error with an automatic migration hint to `Support`.
