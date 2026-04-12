@@ -47,7 +47,6 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.InternalSparkApi
-import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.chips.ChipDefaults.LeadingIconEndSpacing
@@ -82,11 +81,7 @@ internal fun BaseSparkTag(
     modifier: Modifier = Modifier,
     border: BorderStroke? = null,
     leadingContent: (@Composable () -> Unit)? = null,
-    shape: Shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
-        SparkTheme.shapes.extraSmall
-    } else {
-        SparkTheme.shapes.full
-    },
+    shape: Shape = TagTokens.shape,
     size: TagSize = TagSize.Medium,
     content: @Composable RowScope.() -> Unit,
 ) {

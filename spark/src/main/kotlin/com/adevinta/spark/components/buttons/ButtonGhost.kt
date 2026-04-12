@@ -97,11 +97,7 @@ public fun ButtonGhost(
         onClick = onClick,
         modifier = modifier,
         size = size,
-        shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
-            SparkTheme.shapes.full
-        } else {
-            shape.shape
-        },
+        shape = ButtonTokens.shape,
         enabled = enabled,
         elevation = ButtonDefaults.buttonElevation(),
         colors = colors,
@@ -170,11 +166,7 @@ public fun ButtonGhost(
         text = text,
         modifier = modifier,
         size = size,
-        shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
-            ButtonShape.Pill
-        } else {
-            shape
-        },
+        shape = ButtonTokens.buttonShape,
         enabled = enabled,
         elevation = ButtonDefaults.buttonElevation(),
         colors = colors,
@@ -242,11 +234,7 @@ public fun ButtonGhost(
         text = text,
         modifier = modifier,
         size = size,
-        shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
-            ButtonShape.Pill
-        } else {
-            shape
-        },
+        shape = ButtonTokens.buttonShape,
         enabled = enabled,
         elevation = ButtonDefaults.buttonElevation(),
         colors = colors,

@@ -63,7 +63,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.offset
 import androidx.compose.ui.util.fastFirstOrNull
 import com.adevinta.spark.InternalSparkApi
-import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.SparkTheme.colors
@@ -113,11 +112,7 @@ private fun SparkChip(
 ) {
     @Suppress("NAME_SHADOWING")
     val interactionSource = interactionSource ?: remember { MutableInteractionSource() }
-    val shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
-        SparkTheme.shapes.large
-    } else {
-        SparkTheme.shapes.small
-    }
+    val shape = ChipTokens.shape
     Surface(
         onClick = onClick,
         modifier = modifier
@@ -168,11 +163,7 @@ private fun SparkChipSelectable(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
-    val shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
-        SparkTheme.shapes.large
-    } else {
-        SparkTheme.shapes.small
-    }
+    val shape = ChipTokens.shape
     Surface(
         onClick = onClick,
         modifier = modifier
@@ -508,11 +499,7 @@ private fun ChipContent(
         LocalContentColor provides contentColor,
         LocalTextStyle provides SparkTheme.typography.body2,
     ) {
-        val shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
-            SparkTheme.shapes.large
-        } else {
-            SparkTheme.shapes.small
-        }
+        val shape = ChipTokens.shape
         Layout(
             modifier = Modifier
                 .ifTrue(style == ChipStyles.Dashed) {
@@ -540,11 +527,7 @@ private fun ChipContent(
                     )
                 }
                 if (label != null) {
-                    val spacing = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
-                        8.dp
-                    } else {
-                        4.dp
-                    }
+                    val spacing = ChipTokens.leadingIconSpacing
                     Row(
                         modifier = Modifier
                             .layoutId(LabelLayoutId)

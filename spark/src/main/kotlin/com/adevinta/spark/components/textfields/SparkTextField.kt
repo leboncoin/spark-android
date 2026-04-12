@@ -82,7 +82,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.InternalSparkApi
-import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.R
 import com.adevinta.spark.SparkTheme
@@ -117,11 +116,7 @@ internal fun SparkTextField(
     maxLines: Int,
     minLines: Int,
     modifier: Modifier = Modifier,
-    shape: Shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
-        SparkTheme.shapes.full
-    } else {
-        SparkTheme.shapes.large
-    },
+    shape: Shape = TextFieldTokens.shape,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     val colors = sparkOutlinedTextFieldColors()
@@ -227,11 +222,7 @@ internal fun SparkTextField(
     maxLines: Int,
     minLines: Int,
     modifier: Modifier = Modifier,
-    shape: Shape = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
-        SparkTheme.shapes.full
-    } else {
-        SparkTheme.shapes.large
-    },
+    shape: Shape = TextFieldTokens.shape,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     val colors = sparkOutlinedTextFieldColors()
