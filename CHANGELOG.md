@@ -6,16 +6,16 @@
 
 ## [Unreleased]
 
+## [2.2.0-alpha01]
+
+_2026-04-13_
+
 ### Spark
 
 - 🐛 Fix `ButtonFilled` disabled content colour using the wrong token (`dim3` instead of `disabled`), causing the disabled state to appear too faint on non-white backgrounds
 - 🎨 Refactor `contrastLevel()` to remove a redundant `isContrastLevelAvailable` guard that was already ensured by the outer branch
 - 🎨 Refactor `ButtonFilled` and `ButtonTinted` to resolve `intent.colors()` once per composition instead of multiple times, reducing redundant allocations per recomposition
 - 🗑️ `Basic` intent has been deprecated across all components (`ButtonIntent`, `BadgeIntent`, `ChipIntent`, `TagIntent`, `ToggleIntent`, etc.) and replaced with `Support`, which was already identical in value. Usages of `Basic` will produce a compile error with an automatic migration hint to `Support`.
-
-### Icons
-
-- ♻️ `spark-icons` is now a Kotlin Multiplatform module — icons are available to JVM/desktop targets in addition to Android
 
 #### 🔧 Kelp IDE plugin support
 
@@ -33,6 +33,10 @@ Shape (and spacing) resolution for Button, Chip, Tag, TextField, and IconButton 
 
 > [!NOTE]
 > This is the initial foundation of a broader component token layer. The pattern is not yet generalised to all components — further components will be migrated in follow-up changes.
+
+### Icons
+
+- ♻️ `spark-icons` is now a Kotlin Multiplatform module — icons are available to JVM/desktop targets in addition to Android
 
 ## [2.1.1]
 
@@ -1253,7 +1257,9 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/2.1.1...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/2.2.0-alpha01...HEAD
+
+[2.2.0-alpha01]: https://github.com/leboncoin/spark-android/compare/2.1.1...2.2.0-alpha01
 
 [2.1.1]: https://github.com/leboncoin/spark-android/compare/2.1.0...2.1.1
 
