@@ -6,7 +6,7 @@
 
 ## [Unreleased]
 
-## [2.2.0-alpha02]
+## [2.2.0-alpha03]
 
 _2026-04-13_
 
@@ -37,8 +37,6 @@ Shape (and spacing) resolution for Button, Chip, Tag, TextField, and IconButton 
 ### Icons
 
 - ♻️ `spark-icons` is now a Kotlin Multiplatform module — icons are available to JVM/desktop targets in addition to Android
-
-## [2.2.0-alpha01]
 
 ## [2.1.1]
 
@@ -936,7 +934,7 @@ _2024-10-07_
 ### CI
 - Icons screenshot are not bound to the theme colors anymore to reduce invalidation not related to the icons themselves.
 
-## 0.11.0
+## [0.11.0]
 
 _2024-08-13_
 
@@ -1259,15 +1257,15 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/2.2.0-alpha01...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/2.2.0-alpha03...HEAD
 
-[2.2.0-alpha01]: https://github.com/leboncoin/spark-android/compare/2.1.1...2.2.0-alpha01
+[2.2.0-alpha03]: https://github.com/leboncoin/spark-android/compare/2.1.1...2.2.0-alpha03
 
 [2.1.1]: https://github.com/leboncoin/spark-android/compare/2.1.0...2.1.1
 
 [2.1.0]: https://github.com/leboncoin/spark-android/compare/2.0.1...2.1.0
 
-[2.1.0-alpha01]: https://github.com/leboncoin/spark-android/compare/2.0.1...2.1.0-alpha01 https://github.com/leboncoin/spark-android/compare/2.0.1...2.1.0-alpha01
+[2.1.0-alpha01]: https://github.com/leboncoin/spark-android/compare/2.0.1...2.1.0-alpha01
 
 [2.0.1]: https://github.com/leboncoin/spark-android/compare/2.0.0...2.0.1
 

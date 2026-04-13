@@ -92,9 +92,8 @@ internal object SparkPublication {
                 afterEvaluate {
                     publications.withType(MavenPublication::class.java) {
                         configurePom()
+                        artifact(dokkaJavadocJar)
                     }
-                    (publications.findByName("kotlinMultiplatform") as? MavenPublication)
-                        ?.artifact(dokkaJavadocJar)
                 }
             } else {
                 register<MavenPublication>("maven") {
