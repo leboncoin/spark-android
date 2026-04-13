@@ -84,13 +84,21 @@ internal object SparkPublication {
             if (isKotlinMultiplatform) {
                 // KMP auto-generates per-target publications (kotlinMultiplatform, android, jvm…).
                 // Don't register a competing "maven" publication — just configure what KMP created.
-                val dokkaJavadocJar = tasks.register<Jar>("dokkaHtmlJar") {
-                    description = "A javadoc JAR containing Dokka HTML documentation"
-                    from(tasks.named<DokkaGenerateTask>("dokkaGeneratePublicationHtml").flatMap { it.outputDirectory })
-                    archiveClassifier.set("javadoc")
-                }
+                //
+                // Each publication gets its own javadoc jar task to avoid signing task ordering
+                // conflicts: a shared task produces one .asc file, but each publication's sign
+                // task references it, creating an implicit dependency that Gradle cannot resolve.
                 afterEvaluate {
                     publications.withType(MavenPublication::class.java) {
+                        val pubName = name.replaceFirstChar { it.uppercaseChar() }
+                        val dokkaJavadocJar = tasks.register<Jar>("dokkaHtmlJarFor$pubName") {
+                            description = "Javadoc JAR for $pubName publication"
+                            from(tasks.named<DokkaGenerateTask>("dokkaGeneratePublicationHtml").flatMap { it.outputDirectory })
+                            archiveClassifier.set("javadoc")
+                            // Disambiguate the output file per publication so signing produces
+                            // separate .asc files with no cross-publication conflicts.
+                            archiveAppendix.set(pubName.lowercase())
+                        }
                         configurePom()
                         artifact(dokkaJavadocJar)
                     }

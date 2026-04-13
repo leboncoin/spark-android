@@ -6,7 +6,7 @@
 
 ## [Unreleased]
 
-## [2.2.0-alpha03]
+## [2.2.0-alpha04]
 
 _2026-04-13_
 
@@ -1257,9 +1257,9 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/2.2.0-alpha03...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/2.2.0-alpha04...HEAD
 
-[2.2.0-alpha03]: https://github.com/leboncoin/spark-android/compare/2.1.1...2.2.0-alpha03
+[2.2.0-alpha04]: https://github.com/leboncoin/spark-android/compare/2.1.1...2.2.0-alpha04
 
 [2.1.1]: https://github.com/leboncoin/spark-android/compare/2.1.0...2.1.1
 
