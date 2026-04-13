@@ -46,9 +46,12 @@ kotlin {
             api(libs.compose.animation)
         }
         androidMain.dependencies {
-            implementation(libs.androidx.compose.ui.tooling)
+            implementation(libs.androidx.compose.ui.tooling.preview)
         }
     }
+}
+dependencies {
+    androidRuntimeClasspath(libs.androidx.compose.ui.tooling)
 }
 
 compose.resources {

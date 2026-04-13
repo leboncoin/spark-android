@@ -40,7 +40,6 @@ internal class SparkMultiplatformLibraryPlugin : Plugin<Project> {
                     }
 
                     optimization {
-                        minify = true
                         consumerKeepRules.publish = true
                     }
                     aarMetadata.minCompileSdk = spark().versions.minCompileSdk.toString().toInt()

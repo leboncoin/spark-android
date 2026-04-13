@@ -41,14 +41,14 @@ public class SparkMultiplatformPlugin : Plugin<Project> {
             applyDefaultHierarchyTemplate()
 
             jvm()
-            if (isAndroid) {
-                androidTarget()
-                if (isAndroidMultiplatformLibrary) {
-                    androidLibrary {
-                        experimentalProperties["android.experimental.kmp.enableAndroidResources"] = true
-                    }
-                }
-            }
+            // Android target is configured via:
+            // - androidTarget() for modules using legacy com.android.library
+            // - android {} in SparkMultiplatformLibraryPlugin for modules using
+            //   com.android.kotlin.multiplatform.library (AGP-KMP plugin)
+            // These are mutually exclusive - using both causes empty classes.jar in AAR.
+//            if (isAndroid && !isAndroidMultiplatformLibrary) {
+//                androidTarget()
+//            }
 
             compilerOptions {
                 if (hasSparkInternalAnnotations) {

@@ -81,14 +81,30 @@ internal object SparkPublication {
 
     private fun Project.registerPublication() = configure<PublishingExtension> {
         publications {
-            register<MavenPublication>("maven") {
-                when {
-                    isAndroidLibrary -> configureAndroidPublication(this)
-                    isKotlinMultiplatform -> configureKmpPublication(this)
-                    isJavaPlatform -> from(components["javaPlatform"])
-                    else -> TODO("Unsupported project type $this")
+            if (isKotlinMultiplatform) {
+                // KMP auto-generates per-target publications (kotlinMultiplatform, android, jvm…).
+                // Don't register a competing "maven" publication — just configure what KMP created.
+                val dokkaJavadocJar = tasks.register<Jar>("dokkaHtmlJar") {
+                    description = "A javadoc JAR containing Dokka HTML documentation"
+                    from(tasks.named<DokkaGenerateTask>("dokkaGeneratePublicationHtml").flatMap { it.outputDirectory })
+                    archiveClassifier.set("javadoc")
                 }
-                configurePom()
+                afterEvaluate {
+                    publications.withType(MavenPublication::class.java) {
+                        configurePom()
+                    }
+                    (publications.findByName("kotlinMultiplatform") as? MavenPublication)
+                        ?.artifact(dokkaJavadocJar)
+                }
+            } else {
+                register<MavenPublication>("maven") {
+                    when {
+                        isAndroidLibrary -> configureAndroidPublication(this)
+                        isJavaPlatform -> from(components["javaPlatform"])
+                        else -> TODO("Unsupported project type $this")
+                    }
+                    configurePom()
+                }
             }
         }
     }
@@ -109,20 +125,6 @@ internal object SparkPublication {
         // AGP creates software components during the afterEvaluate callback step...
         afterEvaluate {
             publication.from(components.getByName("release"))
-            publication.artifact(dokkaJavadocJar)
-        }
-    }
-
-    private fun Project.configureKmpPublication(publication: MavenPublication) {
-        val dokkaJavadocJar = tasks.register<Jar>("dokkaHtmlJar") {
-            description = "A javadoc JAR containing Dokka HTML documentation"
-            from(tasks.named<DokkaGenerateTask>("dokkaGeneratePublicationHtml").flatMap { it.outputDirectory })
-            archiveClassifier.set("javadoc")
-        }
-        // The kotlinMultiplatform component is registered during afterEvaluate when using
-        // com.android.kotlin.multiplatform.library, so we must defer resolution similarly to AGP.
-        afterEvaluate {
-            publication.from(components["kotlin"])
             publication.artifact(dokkaJavadocJar)
         }
     }
