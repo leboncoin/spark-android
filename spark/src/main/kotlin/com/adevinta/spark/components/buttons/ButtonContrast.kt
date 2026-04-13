@@ -50,6 +50,8 @@ import com.adevinta.spark.tokens.disabled
  * isn’t visible.
  * This button style is often used inside other components like snackbars, dialogs, and cards.
  *
+ * ![Button Contrast](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_ButtonDocumentationScreenshots_buttonContrast.png)
+ *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
  * @param size The size of the button

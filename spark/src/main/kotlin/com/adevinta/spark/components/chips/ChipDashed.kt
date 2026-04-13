@@ -45,6 +45,8 @@ import com.adevinta.spark.tools.modifiers.ifTrue
 /**
  * Outlined chip with dashed border.
  *
+ * ![Chip Dashed](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.chips_ChipDocumentationScreenshots_chipDashed.png)
+ *
  * @sample com.adevinta.spark.samples.components.chips.ChipsKind
  * @param intent The [ChipIntent] colors that will be used for the content and background of this chip in
  * different states.

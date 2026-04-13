@@ -50,6 +50,8 @@ import com.adevinta.spark.tokens.disabled
  * The minimal usage of the component is the text of the button but you can add an icon or indicate a loading state
  * after a click action for example.
  *
+ * ![Button Ghost](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_ButtonDocumentationScreenshots_buttonGhost.png)
+ *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
  * @param size The size of the button

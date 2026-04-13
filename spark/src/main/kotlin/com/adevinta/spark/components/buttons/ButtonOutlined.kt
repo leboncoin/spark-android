@@ -47,6 +47,8 @@ import com.adevinta.spark.tokens.disabled
  *
  * Be aware that it's not advised to use it on top of images since it will be hard to see.
  *
+ * ![Button Outlined](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_ButtonDocumentationScreenshots_buttonOutlined.png)
+ *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
  * @param size The size of the button

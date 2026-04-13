@@ -48,6 +48,8 @@ import com.adevinta.spark.tokens.disabled
  *
  * It's best paired with either a filled button or a outlined button.
  *
+ * ![Button Tinted](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_ButtonDocumentationScreenshots_buttonTinted.png)
+ *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
  * @param size The size of the button

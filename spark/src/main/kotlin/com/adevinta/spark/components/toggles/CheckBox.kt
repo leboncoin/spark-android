@@ -120,6 +120,8 @@ public fun Checkbox(
  *  - Toggle a single item on or off.
  *  - Require another action to activate or deactivate something.
  *
+ * ![Checkbox States](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.toggles_CheckboxDocumentationScreenshots_checkboxStates.png)
+ *
  * @see [SparkCheckbox] if you require support for an indeterminate state, or more advanced
  * color customization between states. Be aware that this is still an internal composable so if you need such
  * state contact the Spark team.

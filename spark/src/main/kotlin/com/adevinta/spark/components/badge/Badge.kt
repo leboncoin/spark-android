@@ -97,6 +97,9 @@ internal fun SparkBadge(
  *
  * A badge is a visual indicator for numeric values such as tallies and scores.
  *
+ * ![Badge Count](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.badge_BadgeDocumentationScreenshots_badgeCount.png)
+ * ![Badge Dot](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.badge_BadgeDocumentationScreenshots_badgeDot.png)
+ *
  * @param count to use inside the label
  * @param modifier the Modifier to be applied to this badge
  * @param badgeStyle style of the badge which defines its size

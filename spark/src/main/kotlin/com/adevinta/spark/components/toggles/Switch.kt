@@ -138,6 +138,8 @@ public fun Switch(
  * It is usually used as an element to add services, activate functionalities or adjust settings.
  * It is also used to control binary options (On/Off or True/False).
  *
+ * ![Switch States](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.toggles_SwitchDocumentationScreenshots_switchStates.png)
+ *
  * @param checked whether or not this component is checked
  * @param onCheckedChange callback to be invoked when Switch is being clicked, therefore the change of checked state is requested. If null, then this is passive and relies entirely on a higher-level component to control the "checked" state.
  * @param modifier Modifier to be applied to  switch layout

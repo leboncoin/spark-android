@@ -119,7 +119,7 @@ internal fun SparkBadgedBox(
  *
  * A badge represents dynamic information such as a number of pending requests in a navigation bar.
  *
- * ![BadgedBox image](https://developer.android.com/images/reference/androidx/compose/material3/badge.png)
+ * ![Badge Over Icon](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.badge_BadgeDocumentationScreenshots_badgeOverIcon.png)
  *
  * @param badge the badge to be displayed - typically a Badge
  * @param modifier the Modifier to be applied to this BadgedBox

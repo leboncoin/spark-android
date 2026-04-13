@@ -44,6 +44,9 @@ import com.adevinta.spark.tools.modifiers.ifTrue
 
 /**
  * A chip with no background but having a border
+ *
+ * ![Chip Outlined](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.chips_ChipDocumentationScreenshots_chipOutlined.png)
+ *
  * @param text The label for this chip
  * @param intent The [ChipIntent] colors that will be used for the content and background of this chip in
  * different states.

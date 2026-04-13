@@ -121,6 +121,8 @@ public fun RadioButton(
  *  - Present a list showing all available options. If available options can be collapsed, consider using a dropdown
  *  menu because it uses less space.
  *
+ * ![Radio Button States](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.toggles_RadioButtonDocumentationScreenshots_radioButtonStates.png)
+ *
  * @see [SparkRadioButton] if you require color customization between states. Be aware that this is still an internal
  * composable so if you need such state contact the Spark team
  *
