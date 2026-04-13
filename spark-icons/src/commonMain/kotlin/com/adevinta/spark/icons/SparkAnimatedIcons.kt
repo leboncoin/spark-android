@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.icons
 
-import androidx.annotation.RestrictTo
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -368,7 +367,6 @@ public fun LeboncoinAnimatedIcons.messageIcon(): SparkIcon.AnimatedPainter = Spa
 
 // TODO: Replace with internal annotation when core its moved to core module
 // @InternalSparkApi
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public data class AnimatedIconMetadata(
     val name: String,
     val iconProvider: () -> SparkIcon.AnimatedPainter,
@@ -378,7 +376,6 @@ public data class AnimatedIconMetadata(
 
 // TODO: Replace with internal annotation when core its moved to core module
 // @InternalSparkApi
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public val allAnimatedIconsMetadata: List<AnimatedIconMetadata> = listOf(
     AnimatedIconMetadata(
         name = "CollapseExpand",
@@ -425,8 +422,6 @@ public val allAnimatedIconsMetadata: List<AnimatedIconMetadata> = listOf(
 )
 
 // TODO: Replace with internal annotation when core its moved to core module
-// @InternalSparkApi
-@delegate:RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public val allAnimatedIcons: Set<SparkIcon.AnimatedPainter> by lazy {
     allAnimatedIconsMetadata.map { it.iconProvider() }.toSet()
 }
