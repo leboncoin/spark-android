@@ -18,7 +18,7 @@ import kotlin.io.path.useLines
 private val SERVICE_NAME = "library-metrics"
 
 // Module source paths - relative to project root
-private val ICONS_FILE = "spark-icons/src/main/kotlin/com/adevinta/spark/icons/LeboncoinIcons.kt"
+private val ICONS_FILE = "spark-icons/src/androidMain/kotlin/com/adevinta/spark/icons/LeboncoinIcons.android.kt"
 private val COMPONENTS_DIR = "spark/src/main/kotlin/com/adevinta/spark/components"
 
 class LibraryMetrics : CliktCommand("library-metrics.main.kts") {
