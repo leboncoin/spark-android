@@ -6,13 +6,15 @@
 
 ## [Unreleased]
 
+- ✨ New LeboncoinIcons alternative for their deprecated SparkIcons
+
 ## [2.2.0-alpha05]
 
 _2026-04-14_
 
 - 🐛 Fix `USerAvatar` using wrong icons for its empty states
 
-## [2.2.0-alpha05]
+## [2.2.0-alpha04]
 
 _2026-04-13_
 
@@ -145,7 +147,7 @@ _2026-02-24_
 
 _2026-02-20_
 
-#### 🆕 LeboncoinIcons
+### 🆕 LeboncoinIcons
 Add `LeboncoinIcons` object as namespace for new static icons from Spark for leboncoin. This object provides access to all static vector icons as drawable resources, similar to `SparkIcons` but specifically for leboncoin-branded icons.
 
 ### Spark
@@ -404,7 +406,7 @@ _2025-10-29_
 
 - 🐛 `SparkAnimatedIcons.searchIcon` was set to filled in its start state instead of outlined.
 
-- ## [1.5.0-beta01]
+## [1.5.0-beta01]
 
 _2025-10-28_
 
@@ -901,8 +903,8 @@ _2024-12-11_
 ### Spark
 
 - ⬆️ Upgrade Compose BOM to `2024.11.00` since it only contains bugfixes changes.
--
-- ## [1.0.1]
+
+ ## [1.0.1]
 
 _2024-11-07_
 
