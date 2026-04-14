@@ -93,7 +93,11 @@ internal object SparkPublication {
                         val pubName = name.replaceFirstChar { it.uppercaseChar() }
                         val dokkaJavadocJar = tasks.register<Jar>("dokkaHtmlJarFor$pubName") {
                             description = "Javadoc JAR for $pubName publication"
-                            from(tasks.named<DokkaGenerateTask>("dokkaGeneratePublicationHtml").flatMap { it.outputDirectory })
+                            from(
+                                tasks.named<DokkaGenerateTask>("dokkaGeneratePublicationHtml").flatMap {
+                                    it.outputDirectory
+                                },
+                            )
                             archiveClassifier.set("javadoc")
                             // Disambiguate the output file per publication so signing produces
                             // separate .asc files with no cross-publication conflicts.
