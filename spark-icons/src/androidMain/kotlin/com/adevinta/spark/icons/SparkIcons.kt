@@ -161,10 +161,16 @@ public val SparkIcons.AllDirection: DrawableRes get() = DrawableRes(R.drawable.s
 @Deprecated("Animals has no equivalent in LeboncoinIcons and has been removed from the icon set")
 public val SparkIcons.Animals: DrawableRes get() = DrawableRes(R.drawable.spark_icons_animals)
 
-@Deprecated("Apartment has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "Apartment has been renamed Building",
+    ReplaceWith("LeboncoinIcons.Building", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.Apartment: DrawableRes get() = DrawableRes(R.drawable.spark_icons_apartment)
 
-@Deprecated("Appearance has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "Appearance has been renamed ListItemSelected",
+    ReplaceWith("LeboncoinIcons.ListItemSelected", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.Appearance: DrawableRes get() = DrawableRes(R.drawable.spark_icons_appearance)
 
 @Deprecated("Arrival has no equivalent in LeboncoinIcons and has been removed from the icon set")
@@ -269,7 +275,10 @@ public val SparkIcons.BankOutline: DrawableRes get() = DrawableRes(R.drawable.sp
 @Deprecated("Basement has no equivalent in LeboncoinIcons and has been removed from the icon set")
 public val SparkIcons.Basement: DrawableRes get() = DrawableRes(R.drawable.spark_icons_basement)
 
-@Deprecated("BatchPurchase has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "BatchPurchase has been renamed Boxes",
+    ReplaceWith("LeboncoinIcons.Boxes", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.BatchPurchase: DrawableRes get() = DrawableRes(R.drawable.spark_icons_batch_purchase)
 
 @Deprecated(
@@ -359,7 +368,10 @@ public val SparkIcons.Brand: DrawableRes get() = DrawableRes(R.drawable.spark_ic
 @Deprecated("Breakfast has no equivalent in LeboncoinIcons and has been removed from the icon set")
 public val SparkIcons.Breakfast: DrawableRes get() = DrawableRes(R.drawable.spark_icons_breakfast)
 
-@Deprecated("Bump has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "Bump has been renamed LargeArrowUp",
+    ReplaceWith("LeboncoinIcons.LargeArrowUp", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.Bump: DrawableRes get() = DrawableRes(R.drawable.spark_icons_bump)
 
 @Deprecated(
@@ -515,7 +527,10 @@ public val SparkIcons.CarWarrantyFill: DrawableRes get() = DrawableRes(R.drawabl
 )
 public val SparkIcons.CarWarrantyOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_car_warranty_outline)
 
-@Deprecated("Card has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "Card has been renamed CardBrand",
+    ReplaceWith("LeboncoinIcons.CardBrand", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.Card: DrawableRes get() = DrawableRes(R.drawable.spark_icons_card)
 
 @Deprecated(
@@ -530,7 +545,10 @@ public val SparkIcons.CardFill: DrawableRes get() = DrawableRes(R.drawable.spark
 )
 public val SparkIcons.CardOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_card_outline)
 
-@Deprecated("CategoriesClothes has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "CategoriesClothes has been renamed Tshirt",
+    ReplaceWith("LeboncoinIcons.Tshirt", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.CategoriesClothes: DrawableRes get() = DrawableRes(R.drawable.spark_icons_categories_clothes)
 
 @Deprecated(
@@ -644,10 +662,16 @@ public val SparkIcons.CopyOutline: DrawableRes get() = DrawableRes(R.drawable.sp
 )
 public val SparkIcons.Couch: DrawableRes get() = DrawableRes(R.drawable.spark_icons_couch)
 
-@Deprecated("CountryFill has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "CountryFill has been renamed FranceFill",
+    ReplaceWith("LeboncoinIcons.FranceFill", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.CountryFill: DrawableRes get() = DrawableRes(R.drawable.spark_icons_country_fill)
 
-@Deprecated("CountryOutline has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "CountryOutline has been renamed FranceOutline",
+    ReplaceWith("LeboncoinIcons.FranceOutline", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.CountryOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_country_outline)
 
 @Deprecated(
@@ -674,7 +698,10 @@ public val SparkIcons.CvOutline: DrawableRes get() = DrawableRes(R.drawable.spar
 )
 public val SparkIcons.Cylindrical: DrawableRes get() = DrawableRes(R.drawable.spark_icons_cylindrical)
 
-@Deprecated("DarkMode has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "DarkMode has been renamed MoonStar",
+    ReplaceWith("LeboncoinIcons.MoonStar", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.DarkMode: DrawableRes get() = DrawableRes(R.drawable.spark_icons_dark_mode)
 
 @Deprecated(
@@ -755,10 +782,16 @@ public val SparkIcons.Digicode: DrawableRes get() = DrawableRes(R.drawable.spark
 )
 public val SparkIcons.Directory: DrawableRes get() = DrawableRes(R.drawable.spark_icons_directory)
 
-@Deprecated("DissatisfiedFill has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "DissatisfiedFill has been renamed DissatisfiedFaceFill",
+    ReplaceWith("LeboncoinIcons.DissatisfiedFaceFill", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.DissatisfiedFill: DrawableRes get() = DrawableRes(R.drawable.spark_icons_dissatisfied_fill)
 
-@Deprecated("DissatisfiedOutline has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "DissatisfiedOutline has been renamed DissatisfiedFaceOutline",
+    ReplaceWith("LeboncoinIcons.DissatisfiedFaceOutline", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.DissatisfiedOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_dissatisfied_outline)
 
 @Deprecated("DiyProduct has no equivalent in LeboncoinIcons and has been removed from the icon set")
@@ -770,7 +803,10 @@ public val SparkIcons.DiyType: DrawableRes get() = DrawableRes(R.drawable.spark_
 @Deprecated("Donate has no equivalent in LeboncoinIcons and has been removed from the icon set")
 public val SparkIcons.Donate: DrawableRes get() = DrawableRes(R.drawable.spark_icons_donate)
 
-@Deprecated("Donation has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "Donation has been renamed HandGift",
+    ReplaceWith("LeboncoinIcons.HandGift", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.Donation: DrawableRes get() = DrawableRes(R.drawable.spark_icons_donation)
 
 @Deprecated(
@@ -827,7 +863,10 @@ public val SparkIcons.Energy: DrawableRes get() = DrawableRes(R.drawable.spark_i
 @Deprecated("EngineStart has no equivalent in LeboncoinIcons and has been removed from the icon set")
 public val SparkIcons.EngineStart: DrawableRes get() = DrawableRes(R.drawable.spark_icons_engine_start)
 
-@Deprecated("Equipment has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "Equipment has been renamed Tractor",
+    ReplaceWith("LeboncoinIcons.Tractor", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.Equipment: DrawableRes get() = DrawableRes(R.drawable.spark_icons_equipment)
 
 @Deprecated("EquipmentBaby has no equivalent in LeboncoinIcons and has been removed from the icon set")
@@ -980,10 +1019,16 @@ public val SparkIcons.FlagFill: DrawableRes get() = DrawableRes(R.drawable.spark
 )
 public val SparkIcons.FlagOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_flag_outline)
 
-@Deprecated("FlashFill has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "FlashFill has been renamed LightningFill",
+    ReplaceWith("LeboncoinIcons.LightningFill", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.FlashFill: DrawableRes get() = DrawableRes(R.drawable.spark_icons_flash_fill)
 
-@Deprecated("FlashOutline has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "FlashOutline has been renamed LightningOutline",
+    ReplaceWith("LeboncoinIcons.LightningOutline", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.FlashOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_flash_outline)
 
 @Deprecated(
@@ -1100,7 +1145,10 @@ public val SparkIcons.GraphFill: DrawableRes get() = DrawableRes(R.drawable.spar
 )
 public val SparkIcons.GraphOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_graph_outline)
 
-@Deprecated("Ground has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "Ground has been renamed Plant",
+    ReplaceWith("LeboncoinIcons.Plant", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.Ground: DrawableRes get() = DrawableRes(R.drawable.spark_icons_ground)
 
 @Deprecated(
@@ -1133,16 +1181,28 @@ public val SparkIcons.Headlight: DrawableRes get() = DrawableRes(R.drawable.spar
 )
 public val SparkIcons.Highlight: DrawableRes get() = DrawableRes(R.drawable.spark_icons_highlight)
 
-@Deprecated("Hobby has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "Hobby has been renamed Ball",
+    ReplaceWith("LeboncoinIcons.Ball", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.Hobby: DrawableRes get() = DrawableRes(R.drawable.spark_icons_hobby)
 
-@Deprecated("HolidayFill has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "HolidayFill has been renamed ParasolFill",
+    ReplaceWith("LeboncoinIcons.ParasolFill", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.HolidayFill: DrawableRes get() = DrawableRes(R.drawable.spark_icons_holiday_fill)
 
-@Deprecated("HolidayOutline has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "HolidayOutline has been renamed ParasolOutline",
+    ReplaceWith("LeboncoinIcons.ParasolOutline", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.HolidayOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_holiday_outline)
 
-@Deprecated("Holidays has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "Holidays has been renamed SunnyHouse",
+    ReplaceWith("LeboncoinIcons.SunnyHouse", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.Holidays: DrawableRes get() = DrawableRes(R.drawable.spark_icons_holidays)
 
 @Deprecated("HolidaysGarden has no equivalent in LeboncoinIcons and has been removed from the icon set")
@@ -1268,7 +1328,10 @@ public val SparkIcons.Janitor: DrawableRes get() = DrawableRes(R.drawable.spark_
 )
 public val SparkIcons.Jewels: DrawableRes get() = DrawableRes(R.drawable.spark_icons_jewels)
 
-@Deprecated("Job has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "Job has been renamed Briefcase",
+    ReplaceWith("LeboncoinIcons.Briefcase", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.Job: DrawableRes get() = DrawableRes(R.drawable.spark_icons_job)
 
 @Deprecated("JobType has no equivalent in LeboncoinIcons and has been removed from the icon set")
@@ -1292,7 +1355,10 @@ public val SparkIcons.KeyOutline: DrawableRes get() = DrawableRes(R.drawable.spa
 )
 public val SparkIcons.KeylessAccess: DrawableRes get() = DrawableRes(R.drawable.spark_icons_keyless_access)
 
-@Deprecated("Land has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "Land has been renamed TreeFence",
+    ReplaceWith("LeboncoinIcons.TreeFence", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.Land: DrawableRes get() = DrawableRes(R.drawable.spark_icons_land)
 
 @Deprecated(
@@ -1595,10 +1661,16 @@ public val SparkIcons.Multimedia: DrawableRes get() = DrawableRes(R.drawable.spa
 )
 public val SparkIcons.MultimediaSystem: DrawableRes get() = DrawableRes(R.drawable.spark_icons_multimedia_system)
 
-@Deprecated("NeutralFill has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "NeutralFill has been renamed NeutralFaceFill",
+    ReplaceWith("LeboncoinIcons.NeutralFaceFill", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.NeutralFill: DrawableRes get() = DrawableRes(R.drawable.spark_icons_neutral_fill)
 
-@Deprecated("NeutralOutline has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "NeutralOutline has been renamed NeutralFaceOutline",
+    ReplaceWith("LeboncoinIcons.NeutralFaceOutline", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.NeutralOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_neutral_outline)
 
 @Deprecated(
@@ -1823,10 +1895,16 @@ public val SparkIcons.ProCursorFill: DrawableRes get() = DrawableRes(R.drawable.
 )
 public val SparkIcons.ProCursorOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_pro_cursor_outline)
 
-@Deprecated("ProFill has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "ProFill has been renamed BuildingCircle",
+    ReplaceWith("LeboncoinIcons.BuildingCircle", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.ProFill: DrawableRes get() = DrawableRes(R.drawable.spark_icons_pro_fill)
 
-@Deprecated("ProOutline has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "ProOutline has been renamed BuildingSquare",
+    ReplaceWith("LeboncoinIcons.BuildingSquare", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.ProOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_pro_outline)
 
 @Deprecated(
@@ -1907,7 +1985,10 @@ public val SparkIcons.RemoveOutline: DrawableRes get() = DrawableRes(R.drawable.
 @Deprecated("Renovation has no equivalent in LeboncoinIcons and has been removed from the icon set")
 public val SparkIcons.Renovation: DrawableRes get() = DrawableRes(R.drawable.spark_icons_renovation)
 
-@Deprecated("Rental has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "Rental has been renamed KeyHouse",
+    ReplaceWith("LeboncoinIcons.KeyHouse", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.Rental: DrawableRes get() = DrawableRes(R.drawable.spark_icons_rental)
 
 @Deprecated(
@@ -1931,10 +2012,16 @@ public val SparkIcons.Rooms: DrawableRes get() = DrawableRes(R.drawable.spark_ic
 )
 public val SparkIcons.RotateImage: DrawableRes get() = DrawableRes(R.drawable.spark_icons_rotate_image)
 
-@Deprecated("SadFill has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "SadFill has been renamed SadFaceFill",
+    ReplaceWith("LeboncoinIcons.SadFaceFill", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.SadFill: DrawableRes get() = DrawableRes(R.drawable.spark_icons_sad_fill)
 
-@Deprecated("SadOutline has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "SadOutline has been renamed SadFaceOutline",
+    ReplaceWith("LeboncoinIcons.SadFaceOutline", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.SadOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_sad_outline)
 
 @Deprecated("Salary has no equivalent in LeboncoinIcons and has been removed from the icon set")
@@ -1943,10 +2030,16 @@ public val SparkIcons.Salary: DrawableRes get() = DrawableRes(R.drawable.spark_i
 @Deprecated("SaleType has no equivalent in LeboncoinIcons and has been removed from the icon set")
 public val SparkIcons.SaleType: DrawableRes get() = DrawableRes(R.drawable.spark_icons_sale_type)
 
-@Deprecated("SatisfiedFill has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "SatisfiedFill has been renamed HappyFaceFill",
+    ReplaceWith("LeboncoinIcons.HappyFaceFill", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.SatisfiedFill: DrawableRes get() = DrawableRes(R.drawable.spark_icons_satisfied_fill)
 
-@Deprecated("SatisfiedOutline has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "SatisfiedOutline has been renamed HappyFaceOutline",
+    ReplaceWith("LeboncoinIcons.HappyFaceOutline", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.SatisfiedOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_satisfied_outline)
 
 @Deprecated(
@@ -1994,10 +2087,16 @@ public val SparkIcons.Seats: DrawableRes get() = DrawableRes(R.drawable.spark_ic
 @Deprecated("Sector has no equivalent in LeboncoinIcons and has been removed from the icon set")
 public val SparkIcons.Sector: DrawableRes get() = DrawableRes(R.drawable.spark_icons_sector)
 
-@Deprecated("SecurityFill has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "SecurityFill has been renamed EuroShieldFill",
+    ReplaceWith("LeboncoinIcons.EuroShieldFill", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.SecurityFill: DrawableRes get() = DrawableRes(R.drawable.spark_icons_security_fill)
 
-@Deprecated("SecurityOutline has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "SecurityOutline has been renamed EuroShieldOutline",
+    ReplaceWith("LeboncoinIcons.EuroShieldOutline", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.SecurityOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_security_outline)
 
 @Deprecated("SecurityProfileAccountFill has no equivalent in LeboncoinIcons and has been removed from the icon set")
@@ -2029,7 +2128,10 @@ public val SparkIcons.Seller: DrawableRes get() = DrawableRes(R.drawable.spark_i
 )
 public val SparkIcons.SendFill: DrawableRes get() = DrawableRes(R.drawable.spark_icons_send_fill)
 
-@Deprecated("SendHorizontal has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "SendHorizontal has been renamed FoldedEnvelopeOutline",
+    ReplaceWith("LeboncoinIcons.FoldedEnvelopeOutline", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.SendHorizontal: DrawableRes get() = DrawableRes(R.drawable.spark_icons_send_horizontal)
 
 @Deprecated(
@@ -2038,7 +2140,10 @@ public val SparkIcons.SendHorizontal: DrawableRes get() = DrawableRes(R.drawable
 )
 public val SparkIcons.SendOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_send_outline)
 
-@Deprecated("Service has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "Service has been renamed HeartHandshake",
+    ReplaceWith("LeboncoinIcons.HeartHandshake", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.Service: DrawableRes get() = DrawableRes(R.drawable.spark_icons_service)
 
 @Deprecated(
@@ -2221,7 +2326,10 @@ public val SparkIcons.SupportOutline: DrawableRes get() = DrawableRes(R.drawable
 )
 public val SparkIcons.SupportSmileFill: DrawableRes get() = DrawableRes(R.drawable.spark_icons_support_smile_fill)
 
-@Deprecated("SupportSmileOutline has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "SupportSmileOutline has been renamed HeadphoneSmileOutline",
+    ReplaceWith("LeboncoinIcons.HeadphoneSmileOutline", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.SupportSmileOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_support_smile_outline)
 
 @Deprecated("Surface has no equivalent in LeboncoinIcons and has been removed from the icon set")
@@ -2281,7 +2389,10 @@ public val SparkIcons.Time: DrawableRes get() = DrawableRes(R.drawable.spark_ico
 )
 public val SparkIcons.Tools: DrawableRes get() = DrawableRes(R.drawable.spark_icons_tools)
 
-@Deprecated("TopAd has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "TopAd has been renamed Thumbtack",
+    ReplaceWith("LeboncoinIcons.Thumbtack", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.TopAd: DrawableRes get() = DrawableRes(R.drawable.spark_icons_top_ad)
 
 @Deprecated("Toy has no equivalent in LeboncoinIcons and has been removed from the icon set")
@@ -2392,10 +2503,16 @@ public val SparkIcons.UnlockFill: DrawableRes get() = DrawableRes(R.drawable.spa
 )
 public val SparkIcons.UnlockOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_unlock_outline)
 
-@Deprecated("UrgentFill has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "UrgentFill has been renamed SandglassFill",
+    ReplaceWith("LeboncoinIcons.SandglassFill", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.UrgentFill: DrawableRes get() = DrawableRes(R.drawable.spark_icons_urgent_fill)
 
-@Deprecated("UrgentOutline has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "UrgentOutline has been renamed SandglassOutline",
+    ReplaceWith("LeboncoinIcons.SandglassOutline", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.UrgentOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_urgent_outline)
 
 @Deprecated(
@@ -2431,10 +2548,16 @@ public val SparkIcons.VehicleWeight: DrawableRes get() = DrawableRes(R.drawable.
 @Deprecated("Vehicles has no equivalent in LeboncoinIcons and has been removed from the icon set")
 public val SparkIcons.Vehicles: DrawableRes get() = DrawableRes(R.drawable.spark_icons_vehicles)
 
-@Deprecated("VerifiedFill has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "VerifiedFill has been renamed VerifiedShieldFill",
+    ReplaceWith("LeboncoinIcons.VerifiedShieldFill", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.VerifiedFill: DrawableRes get() = DrawableRes(R.drawable.spark_icons_verified_fill)
 
-@Deprecated("VerifiedOutline has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "VerifiedOutline has been renamed VerifiedShieldOutline",
+    ReplaceWith("LeboncoinIcons.VerifiedShieldOutline", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.VerifiedOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_verified_outline)
 
 @Deprecated(
@@ -2443,16 +2566,28 @@ public val SparkIcons.VerifiedOutline: DrawableRes get() = DrawableRes(R.drawabl
 )
 public val SparkIcons.View: DrawableRes get() = DrawableRes(R.drawable.spark_icons_view)
 
-@Deprecated("VoiceFill has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "VoiceFill has been renamed MicrophoneFill",
+    ReplaceWith("LeboncoinIcons.MicrophoneFill", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.VoiceFill: DrawableRes get() = DrawableRes(R.drawable.spark_icons_voice_fill)
 
-@Deprecated("VoiceOffFill has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "VoiceOffFill has been renamed MicrophoneOffFill",
+    ReplaceWith("LeboncoinIcons.MicrophoneOffFill", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.VoiceOffFill: DrawableRes get() = DrawableRes(R.drawable.spark_icons_voice_off_fill)
 
-@Deprecated("VoiceOffOutline has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "VoiceOffOutline has been renamed MicrophoneOffOutline",
+    ReplaceWith("LeboncoinIcons.MicrophoneOffOutline", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.VoiceOffOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_voice_off_outline)
 
-@Deprecated("VoiceOutline has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "VoiceOutline has been renamed MicrophoneOutline",
+    ReplaceWith("LeboncoinIcons.MicrophoneOutline", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.VoiceOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_voice_outline)
 
 @Deprecated(
@@ -2491,10 +2626,16 @@ public val SparkIcons.WarningFill: DrawableRes get() = DrawableRes(R.drawable.sp
 )
 public val SparkIcons.WarningOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_warning_outline)
 
-@Deprecated("WarningSecurityFill has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "WarningSecurityFill has been renamed WarningShieldFill",
+    ReplaceWith("LeboncoinIcons.WarningShieldFill", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.WarningSecurityFill: DrawableRes get() = DrawableRes(R.drawable.spark_icons_warning_security_fill)
 
-@Deprecated("WarningSecurityOutline has no equivalent in LeboncoinIcons and has been removed from the icon set")
+@Deprecated(
+    "WarningSecurityOutline has been renamed WarningShieldOutline",
+    ReplaceWith("LeboncoinIcons.WarningShieldOutline", "com.adevinta.spark.icons.LeboncoinIcons"),
+)
 public val SparkIcons.WarningSecurityOutline: DrawableRes
     get() =
         DrawableRes(R.drawable.spark_icons_warning_security_outline)
