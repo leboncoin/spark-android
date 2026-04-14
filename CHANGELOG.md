@@ -6,7 +6,38 @@
 
 ## [Unreleased]
 
-- ✨ New LeboncoinIcons alternative for their deprecated SparkIcons
+## [2.2.0]
+
+_2026-04-14_
+
+### Spark
+
+- 🐛 Fix `ButtonFilled` disabled content colour using the wrong token (`dim3` instead of `disabled`), causing the disabled state to appear too faint on non-white backgrounds
+- 🎨 Refactor `contrastLevel()` to remove a redundant `isContrastLevelAvailable` guard that was already ensured by the outer branch
+- 🎨 Refactor `ButtonFilled` and `ButtonTinted` to resolve `intent.colors()` once per composition instead of multiple times, reducing redundant allocations per recomposition
+- 🗑️ `Basic` intent has been deprecated across all components (`ButtonIntent`, `BadgeIntent`, `ChipIntent`, `TagIntent`, `ToggleIntent`, etc.) and replaced with `Support`, which was already identical in value. Usages of `Basic` will produce a compile error with an automatic migration hint to `Support`.
+
+#### 🔧 Kelp IDE plugin support
+
+Added `KelpInlayPreview` inner classes to `SparkColors`, `SparkShapes`, `SparkTypography`, and `ElevationTokens` so the [Kelp](https://github.com/ozontech/kelp) Android Studio plugin can render color swatches, corner-radius, font-size, and elevation inlay hints directly in the editor. Also added a `.idea/kelp/config.json` configuration file to enable Kelp out of the box for contributors.
+
+#### 💄 Rebranded shapes extended to more components
+
+Chips, icon buttons, and text fields now participate in the rebranding shape changes introduced in 2.1.0. The feature flag `SparkFeatureFlag.useNewButtonAndTagsShapes` has been renamed to `useRebrandedShapes` to reflect the broader scope.
+
+#### ♻️ Component token objects for shape resolution
+
+Shape (and spacing) resolution for Button, Chip, Tag, TextField, and IconButton components is now centralised in dedicated token objects — `ButtonTokens`, `ChipTokens`, `TagTokens`, `TextFieldTokens`, and `IconButtonTokens` — rather than scattered inline `if (LocalSparkFeatureFlag.current.useRebrandedShapes)` checks inside each composable. No behaviour change; the objects are public so consumers can reference the resolved values directly.
+
+`TextFieldTokens` exposes a `shape` property. `IconButtonTokens` exposes `resolveShape(fallback)` and `resolveFullShape(fallback)` functions rather than plain properties because icon button composables accept a caller-supplied shape as the legacy fallback, which the token object cannot know without the argument.
+
+> [!NOTE]
+> This is the initial foundation of a broader component token layer. The pattern is not yet generalised to all components — further components will be migrated in follow-up changes.
+
+### Icons
+
+- ♻️ `spark-icons` is now a Kotlin Multiplatform module — icons are available to JVM/desktop targets in addition to Android
+- ✨ New `LeboncoinIcons` alternative `DeprecateWith` for their deprecated `SparkIcons` counterparts
 
 ## [2.2.0-alpha05]
 
@@ -1265,7 +1296,9 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/2.2.0-alpha05...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/2.2.0...HEAD
+
+[2.2.0-alpha05]: https://github.com/leboncoin/spark-android/compare/2.2.0-alpha05...2.2.0
 
 [2.2.0-alpha05]: https://github.com/leboncoin/spark-android/compare/2.2.0-alpha04...2.2.0-alpha05
 
