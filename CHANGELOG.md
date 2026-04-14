@@ -6,7 +6,13 @@
 
 ## [Unreleased]
 
-## [2.2.0-alpha04]
+## [2.2.0-alpha05]
+
+_2026-04-14_
+
+- 🐛 Fix `USerAvatar` using wrong icons for its empty states
+
+## [2.2.0-alpha05]
 
 _2026-04-13_
 
@@ -1257,7 +1263,9 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/2.2.0-alpha04...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/2.2.0-alpha05...HEAD
+
+[2.2.0-alpha05]: https://github.com/leboncoin/spark-android/compare/2.2.0-alpha04...2.2.0-alpha05
 
 [2.2.0-alpha04]: https://github.com/leboncoin/spark-android/compare/2.1.1...2.2.0-alpha04
 

@@ -45,9 +45,9 @@ import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.R
 import com.adevinta.spark.SparkTheme
-import com.adevinta.spark.icons.Building
+import com.adevinta.spark.icons.BuildingCircle
 import com.adevinta.spark.icons.LeboncoinIcons
-import com.adevinta.spark.icons.ProfileFill
+import com.adevinta.spark.icons.UserCircleFill
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
 @InternalSparkApi
@@ -65,7 +65,7 @@ internal fun SparkUserAvatar(
 ) {
     val emptyIcon = @Composable {
         ImageIconState(
-            sparkIcon = if (isPro) LeboncoinIcons.Building else LeboncoinIcons.ProfileFill,
+            sparkIcon = if (isPro) LeboncoinIcons.BuildingCircle else LeboncoinIcons.UserCircleFill,
             color = color,
             size = null,
         )
