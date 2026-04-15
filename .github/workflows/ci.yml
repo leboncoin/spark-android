@@ -57,7 +57,7 @@ jobs:
       - uses: ./.github/actions/setup-gradle-properties
       - name: 👷 Build
         id: build
-        run: ./gradlew assembleRelease
+        run: ./gradlew assembleRelease jvmJar
       - name: 📦 Archive APKs
         uses: actions/upload-artifact@v7
         with:
@@ -72,7 +72,10 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: jar-release
-          path: '**/build/libs/*-jvm-[0-9]*.jar'
+          path: |
+            **/build/libs/*-jvm-[0-9]*.jar
+            !**/build/libs/*-sources.jar
+            !**/build/libs/*-javadoc.jar
       - name: 📢 Diffuse reports
         if: ${{ always() && github.event_name == 'pull_request' && steps.build.outcome == 'success' }}
         uses: ./.github/actions/diffuse-aar
