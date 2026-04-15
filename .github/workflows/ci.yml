@@ -291,7 +291,7 @@ jobs:
           "$diffuse" info --apk $(find apk-output -name "*-release.apk" | head -1) > apk.txt
           "$diffuse" info --aar $(find aar-output -name "spark-release.aar" | head -1) > spark.txt
           "$diffuse" info --aar $(find aar-output -name "spark-icons-release.aar" | head -1) > spark-icons.txt
-          "$diffuse" info --jar $(find jar-output -name "*-jvm-[0-9]*.jar" | head -1) > spark-icons-jvm.txt
+          "$diffuse" info --jar $(find jar-output -name "*-jvm-*.jar" | head -1) > spark-icons-jvm.txt
 
       - name: Submit artifact metrics
         run: >
