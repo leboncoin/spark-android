@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 /*
  * Copyright (c) 2023 Adevinta
  *
@@ -36,6 +38,9 @@ kotlin {
         namespace = "com.adevinta.spark.icons"
         // Doesn't seem to be available for kmp?
 //        resourcePrefix = "spark_icons_"
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_11)
+        }
     }
     sourceSets {
         commonMain.dependencies {
