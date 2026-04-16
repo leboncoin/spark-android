@@ -41,6 +41,17 @@ CheckboxLabelled(
 ) { Text("CheckBox On") }
 ```
 
+When the label content is taller than the checkbox (e.g. multi-line text), use `verticalAlignment`
+to control how the checkbox widget aligns within the row. The default is `Alignment.Top`.
+
+```kotlin
+CheckboxLabelled(
+    state = checkedState,
+    onClick = {},
+    verticalAlignment = Alignment.CenterVertically,
+) { Text("A long label that wraps across\nmultiple lines") }
+```
+
 ### Styles
 
 The `CheckBox` and `CheckboxLabelled` can have an error style by passing `error = true` to its parameters.

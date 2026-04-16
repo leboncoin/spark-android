@@ -39,7 +39,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.tools.modifiers.minimumTouchTargetSize
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
 @SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
@@ -195,6 +194,7 @@ public fun RadioButtonLabelled(
     intent: ToggleIntent,
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
+    verticalAlignment: Alignment.Vertical = Alignment.Top,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     contentSide: ContentSide = ContentSide.End,
@@ -204,7 +204,9 @@ public fun RadioButtonLabelled(
         state = ToggleableState(selected),
         toggle = {
             RadioButton(
-                modifier = it.minimumTouchTargetSize(),
+                modifier = it.align(
+                    verticalAlignment,
+                ),
                 intent = intent,
                 selected = selected,
                 onClick = null,
@@ -238,6 +240,8 @@ public fun RadioButtonLabelled(
  * @param onClick callback to be invoked when the RadioButton is clicked. If null, then this RadioButton will not
  * handle input events, and only act as a visual indicator of selected state
  * @param modifier Modifier to be applied to the layout of the checkbox
+ * @param verticalAlignment how the radio button widget aligns vertically when the label content is taller than the
+ * radio button, e.g. with multi-line text. Defaults to [Alignment.Top].
  * @param error whether the radio button is in an error state
  * @param enabled whether the component is enabled or grayed out
  * @param interactionSource the [MutableInteractionSource] representing the stream of
@@ -252,6 +256,7 @@ public fun RadioButtonLabelled(
     selected: Boolean,
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
+    verticalAlignment: Alignment.Vertical = Alignment.Top,
     enabled: Boolean = true,
     error: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -262,8 +267,8 @@ public fun RadioButtonLabelled(
         state = ToggleableState(selected),
         toggle = {
             RadioButton(
-                modifier = it.minimumTouchTargetSize().align(
-                    Alignment.Top
+                modifier = it.align(
+                    verticalAlignment,
                 ),
                 selected = selected,
                 onClick = null,
@@ -320,4 +325,11 @@ private fun ColumnScope.RadioButtonStates(isError: Boolean) {
         onClick = {},
         error = isError,
     ) { Text("RadioButton Off") }
+    RadioButtonLabelled(
+        enabled = true,
+        selected = true,
+        onClick = {},
+        verticalAlignment = Alignment.Top,
+        error = isError,
+    ) { Text("RadioButton On\nSecond line of label") }
 }

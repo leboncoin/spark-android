@@ -83,7 +83,6 @@ internal fun SparkSwitch(
         thumbContent = icon,
         colors = intent.toSwitchDefaultsColors(),
         modifier = modifier
-            .minimumTouchTargetSize()
             .padding(horizontal = 8.dp)
             .sparkUsageOverlay(),
     )
@@ -125,7 +124,7 @@ public fun Switch(
     SparkSwitch(
         checked = checked,
         onCheckedChange = onCheckedChange,
-        modifier = modifier,
+        modifier = modifier.minimumTouchTargetSize(),
         enabled = enabled,
         intent = intent,
         icons = icons,
@@ -163,7 +162,7 @@ public fun Switch(
     SparkSwitch(
         checked = checked,
         onCheckedChange = onCheckedChange,
-        modifier = modifier,
+        modifier = modifier.minimumTouchTargetSize(),
         enabled = enabled,
         icons = icons,
         interactionSource = interactionSource,
@@ -183,7 +182,7 @@ public fun Switch(
  * @param onCheckedChange callback to be invoked when Switch is being clicked, therefore the change of checked state is requested. If null, then this is passive and relies entirely on a higher-level component to control the "checked" state.
  * @param modifier Modifier to be applied to the layout of the switch layout
  * @param verticalAlignment how the switch widget aligns vertically when the label content is taller
- * than the switch, e.g. with multi-line text. Defaults to [Alignment.CenterVertically].
+ * than the switch, e.g. with multi-line text. Defaults to [Alignment.Top].
  * @param enabled whether the component is enabled or grayed out
  * @param intent The [ToggleIntent] to use to draw the component
  * @param icons represents the pair of icons to use for check/unchecked states
@@ -209,7 +208,7 @@ public fun SwitchLabelled(
     onCheckedChange: ((Boolean) -> Unit)?,
     intent: ToggleIntent,
     modifier: Modifier = Modifier,
-    verticalAlignment: Alignment.Vertical = Alignment.CenterVertically,
+    verticalAlignment: Alignment.Vertical = Alignment.Top,
     enabled: Boolean = true,
     icons: SwitchIcons? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -226,8 +225,8 @@ public fun SwitchLabelled(
                 enabled = enabled,
                 intent = intent,
                 icons = icons,
-                modifier = Modifier.minimumTouchTargetSize().align(
-                    verticalAlignment
+                modifier = it.align(
+                    verticalAlignment,
                 ),
             )
         },
@@ -257,7 +256,7 @@ public fun SwitchLabelled(
  * @param onCheckedChange callback to be invoked when Switch is being clicked, therefore the change of checked state is requested. If null, then this is passive and relies entirely on a higher-level component to control the "checked" state.
  * @param modifier Modifier to be applied to the layout of the switch layout
  * @param verticalAlignment how the switch widget aligns vertically when the label content is taller
- * than the switch, e.g. with multi-line text. Defaults to [Alignment.CenterVertically].
+ * than the switch, e.g. with multi-line text. Defaults to [Alignment.Top].
  * @param enabled whether the component is enabled or grayed out
  * @param icons represents the pair of icons to use for check/unchecked states
  * @param interactionSource the [MutableInteractionSource] representing the stream of
@@ -271,7 +270,7 @@ public fun SwitchLabelled(
     checked: Boolean,
     onCheckedChange: ((Boolean) -> Unit)?,
     modifier: Modifier = Modifier,
-    verticalAlignment: Alignment.Vertical = Alignment.CenterVertically,
+    verticalAlignment: Alignment.Vertical = Alignment.Top,
     enabled: Boolean = true,
     icons: SwitchIcons? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -342,13 +341,14 @@ private fun AllStatesSwitchLabelledPreview() {
         SwitchLabelled(
             enabled = true,
             checked = false,
+            verticalAlignment = Alignment.CenterVertically,
             onCheckedChange = {},
             icons = icons,
         ) { Text("Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label") }
         SwitchLabelled(
             enabled = true,
             checked = false,
-            verticalAlignment = Alignment.Top, 
+            verticalAlignment = Alignment.Top,
             onCheckedChange = {},
             icons = icons,
         ) { Text("Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label") }

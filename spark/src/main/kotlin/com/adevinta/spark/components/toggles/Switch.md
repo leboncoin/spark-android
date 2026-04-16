@@ -34,7 +34,7 @@ SwitchLabelled(
 ```
 
 When the label content is taller than the switch (e.g. multi-line text), use `verticalAlignment`
-to control how the switch widget aligns within the row. The default is `Alignment.CenterVertically`.
+to control how the switch widget aligns within the row. The default is `Alignment.Top`.
 
 ```kotlin
 SwitchLabelled(

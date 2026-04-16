@@ -26,6 +26,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.DefaultTestDevices
 import com.adevinta.spark.components.text.Text
@@ -47,6 +48,30 @@ class RadioButtonScreenshot {
             Row {
                 RadioButtonStates(isError = false)
                 RadioButtonStates(isError = true)
+            }
+        }
+    }
+
+    @Test
+    fun vertical_alignment() {
+        paparazzi.sparkSnapshotNightMode {
+            val longLabel = "First line\nSecond line\nThird line"
+            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                RadioButtonLabelled(
+                    selected = true,
+                    onClick = {},
+                    verticalAlignment = Alignment.Top,
+                ) { Text(longLabel) }
+                RadioButtonLabelled(
+                    selected = true,
+                    onClick = {},
+                    verticalAlignment = Alignment.CenterVertically,
+                ) { Text(longLabel) }
+                RadioButtonLabelled(
+                    selected = true,
+                    onClick = {},
+                    verticalAlignment = Alignment.Bottom,
+                ) { Text(longLabel) }
             }
         }
     }
@@ -81,5 +106,15 @@ private fun RadioButtonStates(isError: Boolean) {
             onClick = {},
             error = isError,
         ) { Text("Nonon") }
+        RadioButtonLabelled(
+            enabled = true,
+            selected = true,
+            onClick = {},
+            error = isError,
+        ) {
+            Text(
+                "This is an example of a multi-line text which is very long and in which the user should read all the information.",
+            )
+        }
     }
 }
