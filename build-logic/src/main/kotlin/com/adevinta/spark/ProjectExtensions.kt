@@ -38,7 +38,9 @@ import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinBaseExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompilerOptions
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.dsl.abi.AbiValidationExtension
 import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
 
@@ -112,6 +114,7 @@ internal inline fun <reified T : KotlinBaseExtension> Project.configureKotlin(
         val kotlin = when (this) {
             is KotlinAndroidProjectExtension -> this
             is KotlinJvmProjectExtension -> this
+            is KotlinMultiplatformExtension -> this
             else -> TODO("Unsupported project extension $path ${T::class}")
         }
         // https://youtrack.jetbrains.com/issue/KT-83410
@@ -119,8 +122,15 @@ internal inline fun <reified T : KotlinBaseExtension> Project.configureKotlin(
             @OptIn(ExperimentalAbiValidation::class)
             enabled = true
         }
-        kotlin.compilerOptions {
-            jvmTarget = JvmTarget.JVM_11
+        compilerOptions {
+            (this as? KotlinJvmCompilerOptions)?.jvmTarget?.set(JvmTarget.JVM_11)
+            freeCompilerArgs.addAll(
+                // https://kotlinlang.org/docs/whatsnew22.html#new-defaulting-rules-for-use-site-annotation-targets
+                "-Xannotation-default-target=param-property",
+                // Note: Stable in Kotlin 2.4
+                // https://kotlinlang.org/docs/whatsnew22.html#preview-of-context-parameters
+                "-Xcontext-parameters",
+            )
             allWarningsAsErrors = true
         }
         explicitApi()

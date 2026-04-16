@@ -23,9 +23,9 @@ package com.adevinta.spark
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompileCommon
@@ -37,20 +37,20 @@ public class SparkMultiplatformPlugin : Plugin<Project> {
             apply("org.jetbrains.kotlin.multiplatform")
         }
 
-        extensions.configure<KotlinMultiplatformExtension> {
+        configureKotlin<KotlinMultiplatformExtension> {
             applyDefaultHierarchyTemplate()
 
-            jvm()
-            // Android target is configured via:
-            // - androidTarget() for modules using legacy com.android.library
-            // - android {} in SparkMultiplatformLibraryPlugin for modules using
-            //   com.android.kotlin.multiplatform.library (AGP-KMP plugin)
-            // These are mutually exclusive - using both causes empty classes.jar in AAR.
-//            if (isAndroid && !isAndroidMultiplatformLibrary) {
-//                androidTarget()
-//            }
+            jvm {
+                compilerOptions {
+                    jvmTarget.set(JvmTarget.JVM_11)
+                }
+            }
 
             compilerOptions {
+                freeCompilerArgs.addAll(
+                    // Suppress warning: The feature "multi platform projects" is experimental and should be enabled explicitly
+                    "-Xmulti-platform",
+                )
                 if (hasSparkInternalAnnotations) {
                     freeCompilerArgs.addAll(
                         listOf(
