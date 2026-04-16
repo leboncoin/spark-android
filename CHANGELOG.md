@@ -6,6 +6,14 @@
 
 ## [Unreleased]
 
+## [2.2.1]
+
+_2026-04-16_
+
+### Icons
+
+- 🐛 Fix `spark-icons` JVM target not explicitly set for KMP Android compilation, causing the Compose Preview renderer to reject the class files with "Unsupported class file major version 69"
+
 ## [2.2.0]
 
 _2026-04-14_
@@ -1296,7 +1304,11 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/2.2.0...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/2.2.1...HEAD
+
+[2.2.1]: https://github.com/leboncoin/spark-android/compare/2.2.0...2.2.1
+
+[2.2.0]: https://github.com/leboncoin/spark-android/compare/2.2.0-alpha05...2.2.0
 
 [2.2.0-alpha05]: https://github.com/leboncoin/spark-android/compare/2.2.0-alpha05...2.2.0
 
