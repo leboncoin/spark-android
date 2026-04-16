@@ -32,6 +32,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
@@ -181,6 +182,8 @@ public fun Switch(
  * @param checked whether or not this component is checked
  * @param onCheckedChange callback to be invoked when Switch is being clicked, therefore the change of checked state is requested. If null, then this is passive and relies entirely on a higher-level component to control the "checked" state.
  * @param modifier Modifier to be applied to the layout of the switch layout
+ * @param verticalAlignment how the switch widget aligns vertically when the label content is taller
+ * than the switch, e.g. with multi-line text. Defaults to [Alignment.CenterVertically].
  * @param enabled whether the component is enabled or grayed out
  * @param intent The [ToggleIntent] to use to draw the component
  * @param icons represents the pair of icons to use for check/unchecked states
@@ -206,6 +209,7 @@ public fun SwitchLabelled(
     onCheckedChange: ((Boolean) -> Unit)?,
     intent: ToggleIntent,
     modifier: Modifier = Modifier,
+    verticalAlignment: Alignment.Vertical = Alignment.CenterVertically,
     enabled: Boolean = true,
     icons: SwitchIcons? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -222,7 +226,9 @@ public fun SwitchLabelled(
                 enabled = enabled,
                 intent = intent,
                 icons = icons,
-                modifier = Modifier.minimumTouchTargetSize(),
+                modifier = Modifier.minimumTouchTargetSize().align(
+                    verticalAlignment
+                ),
             )
         },
         role = Role.Switch,
@@ -250,6 +256,8 @@ public fun SwitchLabelled(
  * @param checked whether or not this component is checked
  * @param onCheckedChange callback to be invoked when Switch is being clicked, therefore the change of checked state is requested. If null, then this is passive and relies entirely on a higher-level component to control the "checked" state.
  * @param modifier Modifier to be applied to the layout of the switch layout
+ * @param verticalAlignment how the switch widget aligns vertically when the label content is taller
+ * than the switch, e.g. with multi-line text. Defaults to [Alignment.CenterVertically].
  * @param enabled whether the component is enabled or grayed out
  * @param icons represents the pair of icons to use for check/unchecked states
  * @param interactionSource the [MutableInteractionSource] representing the stream of
@@ -263,6 +271,7 @@ public fun SwitchLabelled(
     checked: Boolean,
     onCheckedChange: ((Boolean) -> Unit)?,
     modifier: Modifier = Modifier,
+    verticalAlignment: Alignment.Vertical = Alignment.CenterVertically,
     enabled: Boolean = true,
     icons: SwitchIcons? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -274,6 +283,7 @@ public fun SwitchLabelled(
         intent = ToggleIntent.Support,
         checked = checked,
         onCheckedChange = onCheckedChange,
+        verticalAlignment = verticalAlignment,
         modifier = modifier,
         enabled = enabled,
         icons = icons,
@@ -334,7 +344,14 @@ private fun AllStatesSwitchLabelledPreview() {
             checked = false,
             onCheckedChange = {},
             icons = icons,
-        ) { Text("Label") }
+        ) { Text("Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label") }
+        SwitchLabelled(
+            enabled = true,
+            checked = false,
+            verticalAlignment = Alignment.Top, 
+            onCheckedChange = {},
+            icons = icons,
+        ) { Text("Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label Label") }
         SwitchLabelled(
             enabled = false,
             checked = true,

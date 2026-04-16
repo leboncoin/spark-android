@@ -6,6 +6,10 @@
 
 ## [Unreleased]
 
+### Spark
+
+- 🆕 `SwitchLabelled` now accepts a `verticalAlignment` parameter (`Alignment.Vertical`, defaults to `Alignment.CenterVertically`) to control how the switch widget aligns when the label content is taller than the switch, e.g. with multi-line text.
+
 ## [2.2.1]
 
 _2026-04-16_

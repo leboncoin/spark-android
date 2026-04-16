@@ -33,6 +33,17 @@ SwitchLabelled(
 ) { Text(text = "Switch On") }
 ```
 
+When the label content is taller than the switch (e.g. multi-line text), use `verticalAlignment`
+to control how the switch widget aligns within the row. The default is `Alignment.CenterVertically`.
+
+```kotlin
+SwitchLabelled(
+    checked = checked,
+    onCheckedChange = { checked = it },
+    verticalAlignment = Alignment.Top,
+) { Text("A long label that wraps across\nmultiple lines") }
+```
+
 ### Styles
 
 The `Switch` and `SwitchLabelled` now only have one style: **"Support"**.

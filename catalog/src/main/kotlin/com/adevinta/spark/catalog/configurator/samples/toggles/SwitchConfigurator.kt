@@ -28,6 +28,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,7 +37,9 @@ import com.adevinta.spark.catalog.icons.IconPickerItem
 import com.adevinta.spark.catalog.model.Configurator
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
+import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.components.textfields.Dropdown
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.Switch
 import com.adevinta.spark.components.toggles.SwitchIcons
@@ -55,6 +58,12 @@ public val SwitchConfigurator: Configurator = Configurator(
     SwitchSample()
 }
 
+private val verticalAlignmentOptions = listOf(
+    "CenterVertically" to Alignment.CenterVertically,
+    "Top" to Alignment.Top,
+    "Bottom" to Alignment.Bottom,
+)
+
 @Composable
 private fun ColumnScope.SwitchSample() {
     var isEnabled by remember { mutableStateOf(true) }
@@ -62,6 +71,7 @@ private fun ColumnScope.SwitchSample() {
     var iconOff: SparkIcon? by remember { mutableStateOf(LeboncoinIcons.Cross) }
     var label: String? by remember { mutableStateOf(null) }
     var state by remember { mutableStateOf(false) }
+    var verticalAlignment by remember { mutableStateOf(verticalAlignmentOptions.first()) }
     val onClick = { checked: Boolean -> state = checked }
     ConfiguredSwitch(
         label = label,
@@ -73,6 +83,7 @@ private fun ColumnScope.SwitchSample() {
         },
         checked = state,
         isEnabled = isEnabled,
+        verticalAlignment = verticalAlignment.second,
     )
     SwitchLabelled(
         checked = isEnabled,
@@ -85,6 +96,27 @@ private fun ColumnScope.SwitchSample() {
             modifier = Modifier.fillMaxWidth(),
         )
     }
+
+    var alignmentExpanded by remember { mutableStateOf(false) }
+    Dropdown(
+        modifier = Modifier.fillMaxWidth(),
+        value = verticalAlignment.first,
+        label = "Vertical Alignment",
+        expanded = alignmentExpanded,
+        onExpandedChange = { alignmentExpanded = !alignmentExpanded },
+        onDismissRequest = { alignmentExpanded = false },
+        dropdownContent = {
+            verticalAlignmentOptions.forEach { option ->
+                DropdownMenuItem(
+                    text = { Text(option.first) },
+                    onClick = {
+                        verticalAlignment = option
+                        alignmentExpanded = false
+                    },
+                )
+            }
+        },
+    )
 
     IconPickerItem(
         label = "On Icon",
@@ -122,6 +154,7 @@ private fun ConfiguredSwitch(
     checked: Boolean,
     icons: SwitchIcons?,
     isEnabled: Boolean,
+    verticalAlignment: Alignment.Vertical,
 ) {
     if (label.isNullOrBlank().not()) {
         SwitchLabelled(
@@ -130,6 +163,7 @@ private fun ConfiguredSwitch(
             checked = checked,
             icons = icons,
             onCheckedChange = onClick,
+            verticalAlignment = verticalAlignment,
         ) { Text(text = label) }
     } else {
         Switch(

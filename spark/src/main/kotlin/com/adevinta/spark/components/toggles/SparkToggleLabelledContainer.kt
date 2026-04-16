@@ -47,7 +47,7 @@ import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 @Composable
 internal fun SparkToggleLabelledContainer(
     state: ToggleableState,
-    toggle: @Composable (Modifier) -> Unit,
+    toggle: @Composable RowScope.(Modifier) -> Unit,
     role: Role,
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
