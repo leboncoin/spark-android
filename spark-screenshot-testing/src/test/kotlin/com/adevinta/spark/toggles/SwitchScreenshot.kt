@@ -24,6 +24,7 @@ package com.adevinta.spark.toggles
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.DefaultTestDevices
 import com.adevinta.spark.components.text.Text
@@ -48,6 +49,37 @@ class SwitchScreenshot {
     fun all_states() {
         paparazzi.sparkSnapshotNightMode {
             SwitchStates()
+        }
+    }
+
+    @Test
+    fun vertical_alignment() {
+        paparazzi.sparkSnapshotNightMode {
+            val longLabel = "First line\nSecond line\nThird line"
+            val icons = SwitchIcons(
+                checked = LeboncoinIcons.BellOnFill,
+                unchecked = LeboncoinIcons.BellOffFill,
+            )
+            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                SwitchLabelled(
+                    checked = true,
+                    onCheckedChange = {},
+                    icons = icons,
+                    verticalAlignment = Alignment.Top,
+                ) { Text(longLabel) }
+                SwitchLabelled(
+                    checked = true,
+                    onCheckedChange = {},
+                    icons = icons,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) { Text(longLabel) }
+                SwitchLabelled(
+                    checked = true,
+                    onCheckedChange = {},
+                    icons = icons,
+                    verticalAlignment = Alignment.Bottom,
+                ) { Text(longLabel) }
+            }
         }
     }
 }
@@ -114,6 +146,12 @@ private fun SwitchStates() {
             onCheckedChange = {},
             icons = icons,
             contentSide = ContentSide.End,
+        ) { Text(text) }
+        SwitchLabelled(
+            enabled = true,
+            checked = true,
+            onCheckedChange = {},
+            icons = icons,
         ) { Text(text) }
     }
 }

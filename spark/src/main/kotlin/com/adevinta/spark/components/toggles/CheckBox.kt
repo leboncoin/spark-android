@@ -32,6 +32,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
@@ -41,7 +42,6 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.tools.modifiers.minimumTouchTargetSize
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
 @Composable
@@ -194,6 +194,7 @@ public fun CheckboxLabelled(
     onClick: (() -> Unit)?,
     intent: ToggleIntent,
     modifier: Modifier = Modifier,
+    verticalAlignment: Alignment.Vertical = Alignment.Top,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     contentSide: ContentSide = ContentSide.End,
@@ -203,7 +204,9 @@ public fun CheckboxLabelled(
         state = state,
         toggle = {
             Checkbox(
-                modifier = it.minimumTouchTargetSize(),
+                modifier = it.align(
+                    verticalAlignment,
+                ),
                 state = state,
                 onClick = null,
                 interactionSource = interactionSource,
@@ -236,6 +239,8 @@ public fun CheckboxLabelled(
  * therefore the change of checked state in requested.  If null, then this is passive
  * and relies entirely on a higher-level component to control the "checked" state.
  * @param modifier Modifier to be applied to the layout of the checkbox
+ * @param verticalAlignment how the checkbox widget aligns vertically when the label content is taller than the
+ * checkbox, e.g. with multi-line text. Defaults to [Alignment.Top].
  * @param enabled whether the component is enabled or grayed out
  * @param interactionSource the [MutableInteractionSource] representing the stream of
  * [Interaction]s for this Checkbox. You can create and pass in your own remembered
@@ -250,6 +255,7 @@ public fun CheckboxLabelled(
     state: ToggleableState,
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
+    verticalAlignment: Alignment.Vertical = Alignment.Top,
     enabled: Boolean = true,
     error: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -260,7 +266,9 @@ public fun CheckboxLabelled(
         state = state,
         toggle = {
             Checkbox(
-                modifier = it.minimumTouchTargetSize(),
+                modifier = it.align(
+                    verticalAlignment,
+                ),
                 state = state,
                 onClick = null,
                 interactionSource = interactionSource,
@@ -333,5 +341,12 @@ private fun CheckboxStates(isError: Boolean) {
             onClick = {},
             error = isError,
         ) { Text("CheckBox Off") }
+        CheckboxLabelled(
+            enabled = true,
+            state = ToggleableState.On,
+            onClick = {},
+            verticalAlignment = Alignment.Top,
+            error = isError,
+        ) { Text("CheckBox On\nSecond line of label") }
     }
 }

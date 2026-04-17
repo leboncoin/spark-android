@@ -49,6 +49,17 @@ RadioButtonLabelled(
 ) { Text("RadioButton On") }
 ```
 
+When the label content is taller than the radio button (e.g. multi-line text), use `verticalAlignment`
+to control how the radio button widget aligns within the row. The default is `Alignment.Top`.
+
+```kotlin
+RadioButtonLabelled(
+    selected = selected,
+    onClick = { selected = !selected },
+    verticalAlignment = Alignment.CenterVertically,
+) { Text("A long label that wraps across\nmultiple lines") }
+```
+
 ### Styles
 
 The `RadioButton` and `RadioButtonLabelled` can have an error style by passing `error = true` to its

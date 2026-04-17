@@ -25,6 +25,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.DefaultTestDevices
@@ -47,6 +48,30 @@ class CheckboxScreenshot {
             Row {
                 CheckboxStates(isError = false)
                 CheckboxStates(isError = true)
+            }
+        }
+    }
+
+    @Test
+    fun vertical_alignment() {
+        paparazzi.sparkSnapshotNightMode {
+            val longLabel = "First line\nSecond line\nThird line"
+            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                CheckboxLabelled(
+                    state = ToggleableState.On,
+                    onClick = {},
+                    verticalAlignment = Alignment.Top,
+                ) { Text(longLabel) }
+                CheckboxLabelled(
+                    state = ToggleableState.On,
+                    onClick = {},
+                    verticalAlignment = Alignment.CenterVertically,
+                ) { Text(longLabel) }
+                CheckboxLabelled(
+                    state = ToggleableState.On,
+                    onClick = {},
+                    verticalAlignment = Alignment.Bottom,
+                ) { Text(longLabel) }
             }
         }
     }
@@ -93,5 +118,15 @@ private fun CheckboxStates(isError: Boolean) {
             onClick = {},
             error = isError,
         ) { Text("Grenoble") }
+        CheckboxLabelled(
+            enabled = true,
+            state = ToggleableState.On,
+            onClick = {},
+            error = isError,
+        ) {
+            Text(
+                "This is an example of a multi-line text which is very long and in which the user should read all the information.",
+            )
+        }
     }
 }

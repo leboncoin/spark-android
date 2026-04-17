@@ -59,4 +59,12 @@ internal class SwitchDocumentationScreenshots {
             )
         }
     }
+
+    @Test
+    fun standalone_switch_minimum_touch_target() = paparazzi.sparkDocSnapshot {
+        Switch(
+            checked = false,
+            onCheckedChange = null,
+        )
+    }
 }

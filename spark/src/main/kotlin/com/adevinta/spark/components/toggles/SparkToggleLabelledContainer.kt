@@ -47,7 +47,7 @@ import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 @Composable
 internal fun SparkToggleLabelledContainer(
     state: ToggleableState,
-    toggle: @Composable (Modifier) -> Unit,
+    toggle: @Composable RowScope.(Modifier) -> Unit,
     role: Role,
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
@@ -90,7 +90,7 @@ internal fun SparkToggleLabelledContainer(
             HorizontalSpacer(32.dp)
         }
 
-        toggle(Modifier)
+        toggle(Modifier.minimumTouchTargetSize())
 
         if (contentSide == ContentSide.End) {
             label()
@@ -119,7 +119,7 @@ internal fun TogglesLabelledSlotPreview() {
             state = ToggleableState(true),
             toggle = {
                 RadioButton(
-                    modifier = it.minimumTouchTargetSize(),
+                    modifier = it,
                     selected = true,
                     onClick = null,
                 )
@@ -138,7 +138,7 @@ internal fun TogglesLabelledSlotPreview() {
             state = ToggleableState(true),
             toggle = {
                 RadioButton(
-                    modifier = it.minimumTouchTargetSize(),
+                    modifier = it,
                     selected = true,
                     onClick = null,
                 )
@@ -157,7 +157,7 @@ internal fun TogglesLabelledSlotPreview() {
             state = ToggleableState(true),
             toggle = {
                 Checkbox(
-                    modifier = it.minimumTouchTargetSize(),
+                    modifier = it,
                     state = ToggleableState(true),
                     onClick = null,
                 )

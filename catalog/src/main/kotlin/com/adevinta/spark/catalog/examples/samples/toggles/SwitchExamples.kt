@@ -29,6 +29,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.adevinta.spark.catalog.R
@@ -93,6 +94,14 @@ public val SwitchExamples: ImmutableList<Example> = persistentListOf(
     ) {
         LabeledSwitchGroupExample(ContentSide.Start)
     },
+    Example(
+        id = "vertical-alignment",
+        name = "Vertical alignment",
+        description = SwitchExampleDescription,
+        sourceUrl = SwitchExampleSourceUrl,
+    ) {
+        VerticalAlignmentExample()
+    },
 )
 
 @Composable
@@ -119,6 +128,58 @@ private fun LabeledSwitchGroupExample(
                     modifier = Modifier.fillMaxWidth(),
                 )
             }
+        }
+    }
+}
+
+@Composable
+private fun VerticalAlignmentExample() {
+    val shortLabel = "Short label"
+    val longLabel = "This is a much longer label that spans multiple lines to demonstrate " +
+        "how vertical alignment affects the switch position relative to the text content."
+    Column {
+        // Short label with CenterVertically (default)
+        var checked1 by remember { mutableStateOf(false) }
+        SwitchLabelled(
+            modifier = Modifier.fillMaxWidth(),
+            checked = checked1,
+            onCheckedChange = { checked1 = it },
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(text = shortLabel, modifier = Modifier.fillMaxWidth())
+        }
+
+        // Short label with Top alignment
+        var checked2 by remember { mutableStateOf(false) }
+        SwitchLabelled(
+            modifier = Modifier.fillMaxWidth(),
+            checked = checked2,
+            onCheckedChange = { checked2 = it },
+            verticalAlignment = Alignment.Top,
+        ) {
+            Text(text = shortLabel, modifier = Modifier.fillMaxWidth())
+        }
+
+        // Long label with CenterVertically (default)
+        var checked3 by remember { mutableStateOf(false) }
+        SwitchLabelled(
+            modifier = Modifier.fillMaxWidth(),
+            checked = checked3,
+            onCheckedChange = { checked3 = it },
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(text = longLabel, modifier = Modifier.fillMaxWidth())
+        }
+
+        // Long label with Top alignment
+        var checked4 by remember { mutableStateOf(false) }
+        SwitchLabelled(
+            modifier = Modifier.fillMaxWidth(),
+            checked = checked4,
+            onCheckedChange = { checked4 = it },
+            verticalAlignment = Alignment.Top,
+        ) {
+            Text(text = longLabel, modifier = Modifier.fillMaxWidth())
         }
     }
 }

@@ -6,6 +6,16 @@
 
 ## [Unreleased]
 
+## [2.3.0-alpha01]
+
+_2026-04-16_
+
+### Spark
+
+- 🆕 `SwitchLabelled` now accepts a `verticalAlignment` parameter (`Alignment.Vertical`, defaults to `Alignment.CenterVertically`) to control how the switch widget aligns when the label content is taller than the switch, e.g. with multi-line text.
+- 🆕 `RadioButtonLabelled` now accepts a `verticalAlignment` parameter (`Alignment.Vertical`, defaults to `Alignment.Top`) to control how the radio button widget aligns when the label content is taller than the widget, e.g. with multi-line text.
+- 🆕 `CheckboxLabelled` now accepts a `verticalAlignment` parameter (`Alignment.Vertical`, defaults to `Alignment.Top`) to control how the checkbox widget aligns when the label content is taller than the widget, e.g. with multi-line text.
+
 ## [2.2.1]
 
 _2026-04-16_
