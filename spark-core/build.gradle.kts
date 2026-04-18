@@ -46,13 +46,13 @@ kotlin {
             implementation(libs.compose.material3.adaptive)
             implementation(libs.compose.material.ripple)
             implementation(libs.compose.animation)
+            implementation(libs.kotlinx.collections.immutable)
         }
         androidMain.dependencies {
             implementation(libs.androidx.core)
             implementation(libs.accompanist.drawablepainter)
             implementation(libs.androidx.compose.animation.graphics)
             implementation(libs.androidx.appCompat)
-            implementation(libs.kotlinx.collections.immutable)
         }
     }
 }

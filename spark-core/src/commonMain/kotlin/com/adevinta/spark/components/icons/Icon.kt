@@ -26,6 +26,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,6 +41,7 @@ import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.tools.modifiers.ifNotNull
 import com.adevinta.spark.tools.modifiers.ifTrue
+import org.jetbrains.compose.resources.stringResource
 import androidx.compose.material3.Icon as MaterialIcon
 
 /**
@@ -50,7 +52,7 @@ import androidx.compose.material3.Icon as MaterialIcon
  * @param contentDescription text used by accessibility services to describe what this icon
  * represents. This should always be provided unless this icon is used for decorative purposes,
  * and does not represent a meaningful action that a user can take. This text should be
- * localized, such as by using [androidx.compose.ui.res.stringResource] or similar
+ * localized, such as by using [stringResource] or similar
  * @param modifier optional [Modifier] for this Icon
  * @param tint to be applied to [sparkIcon]. If no tint is provided, then a default is used.
  * @param size one of [IconSize] to be applied as size of the icon.
@@ -85,7 +87,7 @@ public fun Icon(
  * @param contentDescription text used by accessibility services to describe what this icon
  * represents. This should always be provided unless this icon is used for decorative purposes,
  * and does not represent a meaningful action that a user can take. This text should be
- * localized, such as by using [androidx.compose.ui.res.stringResource] or similar
+ * localized, such as by using [stringResource] or similar
  * @param modifier optional [Modifier] for this Icon
  * @param tint to be applied to [imageVector]. If no intent is provided, then a default is used.
  * @param size one of [IconSize] to be applied as size of the icon.
@@ -118,7 +120,7 @@ public fun Icon(
  * @param contentDescription text used by accessibility services to describe what this icon
  * represents. This should always be provided unless this icon is used for decorative purposes,
  * and does not represent a meaningful action that a user can take. This text should be
- * localized, such as by using [androidx.compose.ui.res.stringResource] or similar
+ * localized, such as by using [stringResource] or similar
  * @param modifier optional [Modifier] for this Icon
  * @param tint to be applied to [bitmap]. If no intent is provided, then a default is used
  * @param size one of [IconSize] to be applied as size of the icon.
@@ -151,7 +153,7 @@ public fun Icon(
  * @param contentDescription text used by accessibility services to describe what this icon
  * represents. This should always be provided unless this icon is used for decorative purposes,
  * and does not represent a meaningful action that a user can take. This text should be
- * localized, such as by using [androidx.compose.ui.res.stringResource] or similar
+ * localized, such as by using [stringResource] or similar
  * @param modifier optional [Modifier] for this Icon
  * @param tint to be applied to [painter]. If no intent is provided, then a default is used
  * @param size one of [IconSize] to be applied as size of the icon.
