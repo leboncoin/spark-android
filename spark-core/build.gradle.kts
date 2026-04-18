@@ -19,6 +19,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.spark.multiplatform)
     alias(libs.plugins.spark.multiplatform.library)
@@ -33,26 +35,38 @@ kotlin {
         freeCompilerArgs.add("-Xannotation-default-target=param-property")
     }
     android {
-        namespace = "com.adevinta.spark.icons"
+        namespace = "com.adevinta.spark.core"
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_11)
+        }
     }
     sourceSets {
         commonMain.dependencies {
             api(project.dependencies.platform(projects.sparkBom))
-            implementation(projects.sparkAnnotation)
+            api(projects.sparkIcons)
+            api(projects.sparkAnnotation)
             implementation(libs.compose.ui)
             implementation(libs.compose.runtime)
             implementation(libs.compose.components.resources)
-            api(libs.compose.animation)
             implementation(libs.compose.ui.tooling.preview)
+            implementation(libs.compose.foundation)
+            implementation(libs.compose.material3)
+            implementation(libs.compose.material3.adaptive)
+            implementation(libs.compose.material.ripple)
+            implementation(libs.compose.animation)
+        }
+        androidMain.dependencies {
+            implementation(libs.androidx.core)
+            implementation(libs.accompanist.drawablepainter)
+            implementation(libs.androidx.compose.animation.graphics)
+            implementation(libs.androidx.appCompat)
+            implementation(libs.kotlinx.collections.immutable)
         }
     }
-}
-dependencies {
-    androidRuntimeClasspath(libs.compose.ui.tooling)
 }
 
 compose.resources {
     publicResClass = true
-    packageOfResClass = "com.adevinta.spark.icons"
+    packageOfResClass = "com.adevinta.spark.core"
     generateResClass = always
 }

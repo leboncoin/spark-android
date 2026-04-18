@@ -54,14 +54,6 @@ internal val Project.isKotlinMultiplatform: Boolean get() = pluginManager.hasPlu
     "org.jetbrains.kotlin.multiplatform",
 )
 
-/**
- * True for modules that declare [com.adevinta.spark.InternalSparkApi] and
- * [com.adevinta.spark.ExperimentalSparkApi]. Modules that don't define these annotations (e.g.
- * spark-icons) must not opt-in to them at the compiler level.
- */
-internal val Project.hasSparkInternalAnnotations: Boolean
-    get() = name != "spark-icons"
-
 internal val Project.isAndroidTest: Boolean get() = pluginManager.hasPlugin("com.android.test")
 internal val Project.isAndroid: Boolean get() = pluginManager.hasPlugin("com.android.base")
 internal val Project.isJavaPlatform: Boolean get() = pluginManager.hasPlugin("org.gradle.java-platform")
