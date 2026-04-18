@@ -19,16 +19,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-plugins {
-    `java-platform`
-    alias(libs.plugins.spark.publishing)
-}
+package com.adevinta.spark.tokens
 
-dependencies {
-    constraints {
-        // Declare the dependencies to include in the BoM
-        api("com.adevinta.spark:spark:$version")
-        api("com.adevinta.spark:spark-core:$version")
-        api("com.adevinta.spark:spark-icons:$version")
-    }
-}
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import com.adevinta.spark.core.R
+
+@Composable
+internal actual fun nunitoFontFamily(): FontFamily = FontFamily(
+    Font(resId = R.font.nunito_sans_regular, weight = FontWeight.Normal),
+    Font(resId = R.font.nunito_sans_italic, weight = FontWeight.Normal, style = FontStyle.Italic),
+    Font(resId = R.font.nunito_sans_semi_bold, weight = FontWeight.SemiBold),
+    Font(resId = R.font.nunito_sans_semi_bold_italic, weight = FontWeight.SemiBold, style = FontStyle.Italic),
+    Font(resId = R.font.nunito_sans_bold, weight = FontWeight.Bold),
+    Font(resId = R.font.nunito_sans_bold_italic, weight = FontWeight.Bold, style = FontStyle.Italic),
+)
