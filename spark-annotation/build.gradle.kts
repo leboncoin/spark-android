@@ -19,12 +19,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.spark.multiplatform)
     alias(libs.plugins.spark.multiplatform.library)
-    alias(libs.plugins.spark.compose.multiplatform)
     alias(libs.plugins.spark.dokka)
     alias(libs.plugins.spark.publishing)
     alias(libs.plugins.spark.dependencyGuard)
@@ -36,20 +34,5 @@ kotlin {
     }
     android {
         namespace = "com.adevinta.spark.annotation"
-    }
-    sourceSets {
-        commonMain.dependencies {
-            api(project.dependencies.platform(projects.sparkBom))
-            api(projects.sparkIcons)
-            implementation(libs.compose.ui)
-            implementation(libs.compose.runtime)
-            implementation(libs.compose.components.resources)
-            implementation(libs.compose.ui.tooling.preview)
-            implementation(libs.compose.foundation)
-            implementation(libs.compose.material3)
-            implementation(libs.compose.material3.adaptive)
-            implementation(libs.compose.material.ripple)
-            implementation(libs.compose.animation)
-        }
     }
 }
