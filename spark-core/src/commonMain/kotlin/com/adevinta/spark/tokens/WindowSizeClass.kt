@@ -19,16 +19,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-plugins {
-    `java-platform`
-    alias(libs.plugins.spark.publishing)
-}
+package com.adevinta.spark.tokens
 
-dependencies {
-    constraints {
-        // Declare the dependencies to include in the BoM
-        api("com.adevinta.spark:spark:$version")
-        api("com.adevinta.spark:spark-core:$version")
-        api("com.adevinta.spark:spark-icons:$version")
-    }
+import androidx.compose.runtime.ProvidableCompositionLocal
+import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.window.core.layout.WindowSizeClass
+
+/**
+ * CompositionLocal used to pass [WindowSizeClass] down the tree.
+ *
+ * This allows components to access window size information for responsive layouts.
+ * Use [currentWindowAdaptiveInfo] to calculate the current window's adaptive info.
+ */
+public val LocalWindowSizeClass: ProvidableCompositionLocal<WindowSizeClass> = staticCompositionLocalOf {
+    error("No WindowSizeClass available")
 }
