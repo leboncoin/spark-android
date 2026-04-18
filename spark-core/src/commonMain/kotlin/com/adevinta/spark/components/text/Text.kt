@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.text
 
-import androidx.annotation.RestrictTo
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.material3.LocalContentColor
@@ -95,7 +94,6 @@ internal fun SparkText(
 }
 
 @InternalSparkApi
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 @Composable
 public fun SparkText(
     text: AnnotatedString,
