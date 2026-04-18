@@ -39,6 +39,8 @@ internal class SparkMultiplatformLibraryPlugin : Plugin<Project> {
                         enable = true
                     }
 
+                    jvmToolchain(21)
+
                     optimization {
                         consumerKeepRules.publish = true
                     }

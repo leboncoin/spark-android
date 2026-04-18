@@ -83,8 +83,8 @@ internal fun Project.configureAndroid(
     configure: CommonExtension.() -> Unit,
 ) = android {
     compileOptions.apply {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     configure()
 }
@@ -99,8 +99,8 @@ internal inline fun <reified T : KotlinBaseExtension> Project.configureKotlin(
     crossinline configure: T.() -> Unit = {},
 ) {
     configure<JavaPluginExtension> {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     configure<T> {
         val kotlin = when (this) {
@@ -115,7 +115,7 @@ internal inline fun <reified T : KotlinBaseExtension> Project.configureKotlin(
             enabled = true
         }
         compilerOptions {
-            (this as? KotlinJvmCompilerOptions)?.jvmTarget?.set(JvmTarget.JVM_11)
+            (this as? KotlinJvmCompilerOptions)?.jvmTarget?.set(JvmTarget.JVM_21)
             freeCompilerArgs.addAll(
                 // https://kotlinlang.org/docs/whatsnew22.html#new-defaulting-rules-for-use-site-annotation-targets
                 "-Xannotation-default-target=param-property",
