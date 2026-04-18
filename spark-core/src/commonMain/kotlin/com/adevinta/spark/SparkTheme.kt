@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark
 
-import androidx.annotation.RestrictTo
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -236,7 +235,6 @@ public fun PreviewWrapper(
 
 @Suppress("ComposeModifierMissing") // It's okay since it’s a base theme
 @InternalSparkApi
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 @Composable
 public fun PreviewTheme(
     useDarkColors: Boolean = LocalInspectionMode.current && isSystemInDarkTheme(),
@@ -291,7 +289,6 @@ public val LocalSparkExceptionHandler: ProvidableCompositionLocal<SparkException
     }
 
 @InternalSparkApi
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public val LocalSparkFeatureFlag: ProvidableCompositionLocal<SparkFeatureFlag> = staticCompositionLocalOf {
     error("SparkFeatureFlag not provided. This likely means that you are using a Component without a SparkTheme")
 }
