@@ -32,6 +32,7 @@ import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.tokens.contentColorFor
 import kotlin.math.ln
 
 /**
