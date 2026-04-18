@@ -22,7 +22,6 @@
 package com.adevinta.spark.components.menu
 
 import android.annotation.SuppressLint
-import androidx.annotation.RestrictTo
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.Interaction
@@ -297,7 +296,6 @@ public sealed interface SingleChoiceDropdownItemColumnScope : DropdownMenuItemCo
 public sealed interface MultiChoiceDropdownItemColumnScope : DropdownMenuItemColumnScope
 
 // Needed to be able to test Group Item in screenshots
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 @InternalSparkApi
 public class DropdownMenuItemWrapper(scope: ColumnScope) :
     DropdownMenuItemColumnScope,

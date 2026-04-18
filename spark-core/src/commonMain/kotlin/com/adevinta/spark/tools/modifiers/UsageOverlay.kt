@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.tools.modifiers
 
-import androidx.annotation.RestrictTo
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
@@ -45,7 +44,6 @@ import com.adevinta.spark.SparkTheme
  * A [Modifier.Element] that adds a draw layer to identify spark components easily.
  */
 @InternalSparkApi
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 @Stable
 public fun Modifier.sparkUsageOverlay(overlayColor: Color = Color.Red): Modifier =
     this then SparkUsageOverlayElement(overlayColor)
@@ -77,7 +75,6 @@ private class SparkUsageOverlayElement(val overlayColor: Color) : ModifierNodeEl
 /**
  * A Composable that hides its content and draw a dashed border to identify slot areas.
  */
-@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 @InternalSparkApi
 @Composable
 public fun SlotArea(
