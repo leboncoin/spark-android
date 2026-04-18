@@ -48,26 +48,20 @@ public class SparkMultiplatformPlugin : Plugin<Project> {
 
             compilerOptions {
                 freeCompilerArgs.addAll(
-                    // Suppress warning: The feature "multi platform projects" is experimental and should be enabled explicitly
-                    "-Xmulti-platform",
+                    listOf(
+                        // Suppress warning: The feature "multi platform projects" is experimental and should be enabled explicitly
+                        "-Xmulti-platform",
+                        "-Xexpect-actual-classes",
+                        "-opt-in=com.adevinta.spark.InternalSparkApi",
+                        "-opt-in=com.adevinta.spark.ExperimentalSparkApi",
+                    ),
                 )
-                if (hasSparkInternalAnnotations) {
-                    freeCompilerArgs.addAll(
-                        listOf(
-                            "-Xexpect-actual-classes",
-                            "-opt-in=com.adevinta.spark.InternalSparkApi",
-                            "-opt-in=com.adevinta.spark.ExperimentalSparkApi",
-                        ),
-                    )
-                }
                 allWarningsAsErrors.set(true)
             }
 
-            if (hasSparkInternalAnnotations) {
-                sourceSets.all {
-                    languageSettings.optIn("com.adevinta.spark.InternalSparkApi")
-                    languageSettings.optIn("com.adevinta.spark.ExperimentalSparkApi")
-                }
+            sourceSets.all {
+                languageSettings.optIn("com.adevinta.spark.InternalSparkApi")
+                languageSettings.optIn("com.adevinta.spark.ExperimentalSparkApi")
             }
 
             metadata {
