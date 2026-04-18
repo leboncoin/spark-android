@@ -19,8 +19,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
     alias(libs.plugins.spark.multiplatform)
     alias(libs.plugins.spark.multiplatform.library)
@@ -31,14 +29,8 @@ plugins {
 }
 
 kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xannotation-default-target=param-property")
-    }
     android {
         namespace = "com.adevinta.spark.core"
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
-        }
     }
     sourceSets {
         commonMain.dependencies {
