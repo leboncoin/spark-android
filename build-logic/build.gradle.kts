@@ -60,6 +60,7 @@ dependencies {
     implementation(plugin(libs.plugins.dokka))
     implementation(plugin(libs.plugins.kotlin.jvm))
     implementation(plugin(libs.plugins.nmcp))
+    implementation(plugin(libs.plugins.tapmoc))
     implementation(plugin(libs.plugins.paparazzi))
     implementation(plugin(libs.plugins.spotless))
     implementation(plugin(libs.plugins.kotlin.multiplatform))
