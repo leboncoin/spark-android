@@ -23,10 +23,13 @@ package com.adevinta.spark
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompileCommon
+import tapmoc.TapmocExtension
 
 @OptIn(ExperimentalKotlinGradlePluginApi::class)
 /* Configures Kotlin Multiplatform targets, source sets, and compiler options for Spark modules. */
@@ -34,16 +37,17 @@ public class SparkMultiplatformPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         with(pluginManager) {
             apply("org.jetbrains.kotlin.multiplatform")
+            apply("com.gradleup.tapmoc")
+        }
+        extensions.configure<TapmocExtension> {
+            java(11)
+            kotlin(spark().versions.kotlin.requiredVersion)
         }
 
         configureKotlin<KotlinMultiplatformExtension> {
             applyDefaultHierarchyTemplate()
 
-            jvm {
-                compilerOptions {
-                    jvmTarget.set(JvmTarget.JVM_21)
-                }
-            }
+            jvm()
 
             compilerOptions {
                 freeCompilerArgs.addAll(
