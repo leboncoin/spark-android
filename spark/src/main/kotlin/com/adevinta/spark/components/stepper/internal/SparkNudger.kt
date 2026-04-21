@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.stepper.internal
 
-import androidx.annotation.OpenForTesting
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -29,33 +28,31 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.stateDescription
-import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.iconbuttons.IconButtonTokens
 import com.adevinta.spark.components.stepper.StepperDefaults
+import com.adevinta.spark.components.stepper.applyStep
+import com.adevinta.spark.components.stepper.canDecrement
+import com.adevinta.spark.components.stepper.canIncrement
 import com.adevinta.spark.components.stepper.stepperSemantics
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.Minus
 import com.adevinta.spark.icons.Plus
-import com.adevinta.spark.tools.modifiers.ifFalse
 import com.adevinta.spark.tools.modifiers.ifTrue
 import com.adevinta.spark.tools.modifiers.invisibleSemantic
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
 @Composable
-internal fun SparkStepper(
-    value: Int,
+internal fun SparkNudger(
+    value: Int?,
     onValueChange: (Int) -> Unit,
     modifier: Modifier = Modifier,
     range: IntRange = 0..10,
@@ -69,17 +66,17 @@ internal fun SparkStepper(
 ) {
     stepperInputValidator(step, range)
     val colors = StepperDefaults.stepperColors()
-    val coerced = value.coerceIn(range)
-    fun setValue(value: Int) =
-        onValueChange(value.coerceIn(range))
+
+    val canDecrement = enabled && canDecrement(value, range)
+    val canIncrement = enabled && canIncrement(value, range)
 
     Row(
         modifier = modifier
             .height(IntrinsicSize.Min)
             .ifTrue(allowSemantics) {
                 stepperSemantics(
-                    value = coerced,
-                    onValueChange = ::setValue,
+                    value = value,
+                    onValueChange = onValueChange,
                     range = range,
                     step = step,
                     suffix = suffix,
@@ -93,122 +90,64 @@ internal fun SparkStepper(
             .sparkUsageOverlay(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        IconButton(
+        RepeatableIconButton(
             modifier = Modifier
                 .fillMaxHeight()
                 .generateStepperTestTag(testTag, "Decrement"),
             sparkIcon = LeboncoinIcons.Minus,
             contentDescription = "", // handled by semantics modifier
-            enabled = enabled && coerced > range.first,
+            enabled = canDecrement,
             colors = colors,
-            shape = SparkTheme.shapes.large,
+            shape = IconButtonTokens.resolveFullShape(SparkTheme.shapes.large) as CornerBasedShape,
             interactionSource = interactionSource,
-            onClick = { setValue(coerced - step) },
+            onClick = { onValueChange(applyStep(value, -step, range)) },
         )
 
         MiddleText(
             modifier = Modifier
-                .ifTrue(flexible) {
-                    weight(1.0f)
-                }
-                .ifFalse(flexible) {
-                    widthIn(min = 48.dp)
-                }
+                .then(
+                    if (flexible) {
+                        Modifier.weight(1.0f)
+                    } else {
+                        Modifier.widthIn(min = 48.dp)
+                    },
+                )
                 .fillMaxHeight()
                 .invisibleSemantic(),
-            value = coerced,
+            value = value,
             suffix = suffix,
             enabled = enabled,
             colors = colors,
         )
 
-        IconButton(
+        RepeatableIconButton(
             modifier = Modifier
                 .fillMaxHeight()
                 .generateStepperTestTag(testTag, "Increment"),
             sparkIcon = LeboncoinIcons.Plus,
             contentDescription = "", // handled by semantics modifier
-            enabled = enabled && coerced < range.last,
+            enabled = canIncrement,
             colors = colors,
-            shape = SparkTheme.shapes.large,
+            shape = IconButtonTokens.resolveFullShape(SparkTheme.shapes.large) as CornerBasedShape,
             interactionSource = interactionSource,
-            onClick = {
-                setValue(coerced + step)
-            },
+            onClick = { onValueChange(applyStep(value, step, range)) },
         )
     }
 }
-
-/**
- * Validates the input parameters for a stepper operation.
- *
- * This function ensures that the provided step value is positive and that both the start and end
- * of the given range are multiples of the step. This is crucial for stepper operations where
- * values are incremented or decremented by a fixed step size.
- *
- * @param step The step value used for incrementing or decrementing. Must be a positive integer.
- * @param range The range of values allowed, represented as an [IntRange]. Both the start and
- *              end of this range must be multiples of the step value.
- * @throws IllegalArgumentException If the step is not positive, or if the start or end of the
- *                                  range are not multiples of the step. The exception message will
- *                                  indicate the specific violation.
- *
- * Example Usage:
- * ```kotlin
- * // Valid input: step of 2, range from 0 to 10 (both multiples of 2)
- * stepperInputValidator(2, 0..10)
- *
- * // Invalid input: step of -1 (not positive)
- * try {
- *     stepperInputValidator(-1, 0..10)
- * } catch (e: IllegalArgumentException) {
- *     println(e.message) // Output: A step can only be a positive integer, but was -1
- * }
- *
- * // Invalid input: range start 1 (not multiple of 2)
- * try {
- *     stepperInputValidator(2, 1..10)
- * } catch (e: IllegalArgumentException) {
- *      println(e.message) // Output: The min range must be a multiple of the step, but has 1  remaining
- * }
- *
- * // Invalid input: range end 9 (not multiple of 2)
- * try {
- *     stepperInputValidator(2, 0..9)
- * } catch (e: IllegalArgumentException) {
- *      println(e.message) // Output: The max range must be a multiple of the step, but has 1  remaining
- * }
- * ```
- */
-@OpenForTesting
-public fun stepperInputValidator(step: Int, range: IntRange) {
-    require(step > 0) { "A step can only be a positive integer, but was $step" }
-    require(range.last % step == 0) {
-        "The max range must be a multiple of the step, but has ${range.last % step}  remaining"
-    }
-    require(range.first % step == 0) {
-        "The min range must be a multiple of the step, but has ${range.first % step}  remaining"
-    }
-}
-
-@OptIn(ExperimentalComposeUiApi::class)
-private fun Modifier.generateStepperTestTag(testTag: String?, action: String): Modifier = testTag?.let {
-    semantics {
-        contentDescription = "" // handled by semantics modifier
-        stateDescription = "" // handled by semantics modifier
-        testTagsAsResourceId = true
-    }.testTag("${testTag}$action")
-} ?: this
 
 @Preview
 @Composable
-private fun PreviewSparkStepper() {
+private fun PreviewSparkNudger() {
     PreviewTheme {
-        SparkStepper(
+        SparkNudger(
             value = 1234,
             onValueChange = {},
         )
-        SparkStepper(
+        SparkNudger(
+            value = null,
+            onValueChange = {},
+        )
+        SparkNudger(
             value = 1234,
             onValueChange = {},
             enabled = false,

@@ -93,6 +93,11 @@
     </plurals>
     <!--endregion-->
 
+    <!--region Stepper-->
+    <string name="spark_stepper_increment_a11y">Augmenter</string>
+    <string name="spark_stepper_decrement_a11y">Diminuer</string>
+    <!--endregion-->
+
     <!--region FileUpload-->
     <string name="spark_groupSeparator">\u00A0</string>
     <string name="spark_decimalSymbol">,</string>

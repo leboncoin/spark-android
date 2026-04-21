@@ -29,10 +29,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.progressSemantics
+import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.foundation.text.input.delete
+import androidx.compose.foundation.text.input.insert
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -59,8 +63,12 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.R
 import com.adevinta.spark.SparkTheme
-import com.adevinta.spark.components.stepper.internal.SparkStepper
+import com.adevinta.spark.components.stepper.internal.SparkNudger
+import com.adevinta.spark.components.stepper.internal.SparkStepperInput
+import com.adevinta.spark.components.stepper.internal.formatInteger
 import com.adevinta.spark.components.stepper.internal.stepperInputValidator
+import com.adevinta.spark.components.stepper.internal.stepperStateDescription
+import com.adevinta.spark.components.stepper.internal.stripGroupingSeparators
 import com.adevinta.spark.components.stepper.internal.supportText
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.FormFieldStatus
@@ -75,107 +83,438 @@ import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 import kotlin.math.roundToInt
 
 /**
- * [Stepper] come with decrease and increase buttons on either side of the selected value. A minimum and maximum value
- * need to be provided
- * @param value Value of the quantity picker
- * @param onValueChange The callback to be called when [value] has been incremented or decremented
- * @param modifier The [Modifier] to be applied to the component
- * @param range The min/max accepted value by the [Stepper] until it blocks increments and decrements
- * @param suffix optional string displayed after [value]
- * @param step the quantity to be increased/decreased on each increment/decrement
- * @param enabled True controls the enabled state of the [Stepper]. When `false`, the stepper will
- * be neither editable nor focusable, visually stepper will appear in the disabled UI state
- * @param status indicates the validation state of the stepper. The outline is tinted by the state color
- * @param flexible if true, component will fill max width, otherwise get default width
- * @param testTag A test tag to find the internal [Stepper] inside the [StepperForm] in a test
- * @param allowSemantics dictate if the specific stepper semantics should be applied or not
+ * Stepper variants for quantity picking with decrease and increase buttons.
+ *
+ * Variants: [Nudger], [NudgerForm], [Input], [InputForm].
  */
-@Composable
-public fun Stepper(
-    value: Int,
-    onValueChange: (Int) -> Unit,
-    modifier: Modifier = Modifier,
-    range: IntRange = 0..10,
-    suffix: String = "",
-    step: Int = 1,
-    enabled: Boolean = true,
-    status: FormFieldStatus? = null,
-    flexible: Boolean = false,
-    testTag: String? = null,
-    allowSemantics: Boolean = true,
-) {
-    SparkStepper(
-        value = value,
-        onValueChange = onValueChange,
-        modifier = modifier,
-        range = range,
-        suffix = suffix,
-        step = step,
-        enabled = enabled,
-        flexible = flexible,
-        testTag = testTag,
-        allowSemantics = allowSemantics,
-    )
+public object Stepper {
+
+    /**
+     * Nudger stepper with decrease and increase buttons on either side of the selected value.
+     *
+     * @param value Value of the quantity picker, or `null` for an empty state
+     * @param onValueChange The callback to be called when [value] has been incremented or decremented
+     * @param modifier The [Modifier] to be applied to the component
+     * @param range The min/max accepted value by the stepper until it blocks increments and decrements
+     * @param suffix optional string displayed after [value]
+     * @param step the quantity to be increased/decreased on each increment/decrement
+     * @param enabled True controls the enabled state of the stepper. When `false`, the stepper will
+     * be neither editable nor focusable, visually stepper will appear in the disabled UI state
+     * @param flexible if true, component will fill max width, otherwise get default width
+     * @param testTag A test tag to find the internal stepper in a test
+     * @param allowSemantics dictate if the specific stepper semantics should be applied or not
+     */
+    @Composable
+    public fun Nudger(
+        value: Int?,
+        onValueChange: (Int) -> Unit,
+        modifier: Modifier = Modifier,
+        range: IntRange = 0..10,
+        suffix: String = "",
+        step: Int = 1,
+        enabled: Boolean = true,
+        flexible: Boolean = false,
+        testTag: String? = null,
+        allowSemantics: Boolean = true,
+    ) {
+        SparkNudger(
+            value = value,
+            onValueChange = onValueChange,
+            modifier = modifier,
+            range = range,
+            suffix = suffix,
+            step = step,
+            enabled = enabled,
+            flexible = flexible,
+            testTag = testTag,
+            allowSemantics = allowSemantics,
+        )
+    }
+
+    /**
+     * Nudger stepper driven by a [StepperState] holder.
+     *
+     * @param state The [StepperState] that holds the current value, range, and step
+     * @param modifier The [Modifier] to be applied to the component
+     * @param suffix optional string displayed after the value
+     * @param enabled True controls the enabled state of the stepper
+     * @param flexible if true, component will fill max width, otherwise get default width
+     * @param testTag A test tag to find the internal stepper in a test
+     * @param allowSemantics dictate if the specific stepper semantics should be applied or not
+     */
+    @Composable
+    public fun Nudger(
+        state: StepperState,
+        modifier: Modifier = Modifier,
+        suffix: String = "",
+        enabled: Boolean = true,
+        flexible: Boolean = false,
+        testTag: String? = null,
+        allowSemantics: Boolean = true,
+    ) {
+        SparkNudger(
+            value = state.value,
+            onValueChange = { state.value = it },
+            modifier = modifier,
+            range = state.range,
+            suffix = suffix,
+            step = state.step,
+            enabled = enabled,
+            flexible = flexible,
+            testTag = testTag,
+            allowSemantics = allowSemantics,
+        )
+    }
+
+    /**
+     * Nudger stepper with a label and helper text.
+     *
+     * @param value Value of the quantity picker, or `null` for an empty state
+     * @param onValueChange The callback to be called when [value] has been incremented or decremented
+     * @param label the label to be displayed
+     * @param helper The optional helper text to be displayed at the bottom outside the text input container
+     * @param modifier The [Modifier] to be applied to the component
+     * @param range The min/max accepted value by the stepper until it blocks increments and decrements
+     * @param suffix optional string displayed after [value]
+     * @param step the quantity to be increased/decreased on each increment/decrement
+     * @param enabled True controls the enabled state of the stepper
+     * @param required add an asterisk to the label to indicate that this field is required
+     * @param status indicates the validation state of the stepper
+     * @param statusMessage the optional state text to be displayed at the helper position
+     * @param flexible if true, component will fill max width, otherwise get default width
+     * @param testTag A test tag to find the internal stepper in a test
+     */
+    @Composable
+    public fun NudgerForm(
+        value: Int?,
+        onValueChange: (Int) -> Unit,
+        label: String,
+        helper: String?,
+        modifier: Modifier = Modifier,
+        range: IntRange = 0..10,
+        suffix: String = "",
+        step: Int = 1,
+        enabled: Boolean = true,
+        required: Boolean = false,
+        status: FormFieldStatus? = null,
+        statusMessage: String? = null,
+        flexible: Boolean = false,
+        testTag: String? = null,
+    ) {
+        StepperFormScaffold(
+            label = label,
+            helper = helper,
+            required = required,
+            status = status,
+            statusMessage = statusMessage,
+            enabled = enabled,
+            modifier = modifier
+                .stepperSemantics(value, onValueChange, range, step, suffix, enabled)
+                .sparkUsageOverlay(overlayColor = Color.Green),
+        ) {
+            SparkNudger(
+                value = value,
+                onValueChange = onValueChange,
+                range = range,
+                enabled = enabled,
+                suffix = suffix,
+                step = step,
+                flexible = flexible,
+                testTag = testTag,
+                allowSemantics = false,
+            )
+        }
+    }
+
+    /**
+     * Nudger stepper with a label and helper text, driven by a [StepperState] holder.
+     *
+     * @param state The [StepperState] that holds the current value, range, and step
+     * @param label the label to be displayed
+     * @param helper The optional helper text to be displayed at the bottom outside the text input container
+     * @param modifier The [Modifier] to be applied to the component
+     * @param suffix optional string displayed after the value
+     * @param enabled True controls the enabled state of the stepper
+     * @param required add an asterisk to the label to indicate that this field is required
+     * @param status indicates the validation state of the stepper
+     * @param statusMessage the optional state text to be displayed at the helper position
+     * @param flexible if true, component will fill max width, otherwise get default width
+     * @param testTag A test tag to find the internal stepper in a test
+     */
+    @Composable
+    public fun NudgerForm(
+        state: StepperState,
+        label: String,
+        helper: String?,
+        modifier: Modifier = Modifier,
+        suffix: String = "",
+        enabled: Boolean = true,
+        required: Boolean = false,
+        status: FormFieldStatus? = null,
+        statusMessage: String? = null,
+        flexible: Boolean = false,
+        testTag: String? = null,
+    ) {
+        NudgerForm(
+            value = state.value,
+            onValueChange = { state.value = it },
+            label = label,
+            helper = helper,
+            modifier = modifier,
+            range = state.range,
+            suffix = suffix,
+            step = state.step,
+            enabled = enabled,
+            required = required,
+            status = status,
+            statusMessage = statusMessage,
+            flexible = flexible,
+            testTag = testTag,
+        )
+    }
+
+    /**
+     * Input stepper with an editable text field between decrease and increase buttons.
+     *
+     * @param value Value of the stepper, or `null` for an empty state
+     * @param onValueChange Called when the value changes (button press or blur commit)
+     * @param modifier The [Modifier] to be applied to the component
+     * @param range The min/max accepted value by the stepper
+     * @param suffix optional string displayed after the value
+     * @param step the quantity to be increased/decreased on each increment/decrement
+     * @param enabled True controls the enabled state of the stepper
+     * @param status indicates the validation state of the stepper
+     * @param flexible if true, component will fill max width
+     * @param testTag A test tag to find the internal stepper in a test
+     */
+    @Composable
+    public fun Input(
+        value: Int?,
+        onValueChange: (Int?) -> Unit,
+        modifier: Modifier = Modifier,
+        range: IntRange = 0..10,
+        suffix: String = "",
+        step: Int = 1,
+        enabled: Boolean = true,
+        status: FormFieldStatus? = null,
+        flexible: Boolean = false,
+        testTag: String? = null,
+    ) {
+        val textFieldState = remember { TextFieldState(value?.formatInteger().orEmpty()) }
+        val currentInput = { textFieldState.text.toString().stripGroupingSeparators().toIntOrNull() }
+
+        LaunchedEffect(value) {
+            if (currentInput() != value) {
+                textFieldState.edit {
+                    delete(0, length)
+                    insert(0, value?.formatInteger().orEmpty())
+                }
+            }
+        }
+
+        SparkStepperInput(
+            textFieldState = textFieldState,
+            value = value,
+            onIncrement = { onValueChange(applyStep(currentInput(), step, range)) },
+            onDecrement = { onValueChange(applyStep(currentInput(), -step, range)) },
+            onCommit = { onValueChange(currentInput()?.coerceIn(range)) },
+            modifier = modifier,
+            range = range,
+            suffix = suffix,
+            step = step,
+            enabled = enabled,
+            status = status,
+            flexible = flexible,
+            testTag = testTag,
+        )
+    }
+
+    /**
+     * Input stepper driven by a [StepperInputState] holder.
+     *
+     * @param state The [StepperInputState] that holds the text field state
+     * @param modifier The [Modifier] to be applied to the component
+     * @param range The min/max accepted value by the stepper
+     * @param suffix optional string displayed after the value
+     * @param step the quantity to be increased/decreased on each increment/decrement
+     * @param enabled True controls the enabled state of the stepper
+     * @param status indicates the validation state of the stepper
+     * @param flexible if true, component will fill max width
+     * @param testTag A test tag to find the internal stepper in a test
+     */
+    @Composable
+    public fun Input(
+        state: StepperInputState,
+        modifier: Modifier = Modifier,
+        range: IntRange = 0..10,
+        suffix: String = "",
+        step: Int = 1,
+        enabled: Boolean = true,
+        status: FormFieldStatus? = null,
+        flexible: Boolean = false,
+        testTag: String? = null,
+    ) {
+        SparkStepperInput(
+            textFieldState = state.textFieldState,
+            value = state.value,
+            onIncrement = { state.increment(step, range) },
+            onDecrement = { state.decrement(step, range) },
+            onCommit = { state.commitValue(range) },
+            modifier = modifier,
+            range = range,
+            suffix = suffix,
+            step = step,
+            enabled = enabled,
+            status = status,
+            flexible = flexible,
+            testTag = testTag,
+        )
+    }
+
+    /**
+     * Input stepper with a label and helper text.
+     *
+     * @param value Value of the stepper, or `null` for an empty state
+     * @param onValueChange Called when the value changes (button press or blur commit)
+     * @param label the label to be displayed
+     * @param helper The optional helper text to be displayed below the stepper
+     * @param modifier The [Modifier] to be applied to the component
+     * @param range The min/max accepted value by the stepper
+     * @param suffix optional string displayed after the value
+     * @param step the quantity to be increased/decreased on each increment/decrement
+     * @param enabled True controls the enabled state of the stepper
+     * @param required add an asterisk to the label to indicate that this field is required
+     * @param status indicates the validation state of the stepper
+     * @param statusMessage the optional state text to be displayed at the helper position
+     * @param flexible if true, component will fill max width
+     * @param testTag A test tag to find the internal stepper in a test
+     */
+    @Composable
+    public fun InputForm(
+        value: Int?,
+        onValueChange: (Int?) -> Unit,
+        label: String,
+        helper: String?,
+        modifier: Modifier = Modifier,
+        range: IntRange = 0..10,
+        suffix: String = "",
+        step: Int = 1,
+        enabled: Boolean = true,
+        required: Boolean = false,
+        status: FormFieldStatus? = null,
+        statusMessage: String? = null,
+        flexible: Boolean = false,
+        testTag: String? = null,
+    ) {
+        StepperFormScaffold(
+            label = label,
+            helper = helper,
+            required = required,
+            status = status,
+            statusMessage = statusMessage,
+            enabled = enabled,
+            modifier = modifier.sparkUsageOverlay(),
+        ) {
+            Input(
+                value = value,
+                onValueChange = onValueChange,
+                range = range,
+                enabled = enabled,
+                status = status,
+                suffix = suffix,
+                step = step,
+                flexible = flexible,
+                testTag = testTag,
+            )
+        }
+    }
+
+    /**
+     * Input stepper with a label and helper text, driven by a [StepperInputState] holder.
+     *
+     * @param state The [StepperInputState] that holds the text field state
+     * @param label the label to be displayed
+     * @param helper The optional helper text to be displayed below the stepper
+     * @param modifier The [Modifier] to be applied to the component
+     * @param range The min/max accepted value by the stepper
+     * @param suffix optional string displayed after the value
+     * @param step the quantity to be increased/decreased on each increment/decrement
+     * @param enabled True controls the enabled state of the stepper
+     * @param required add an asterisk to the label to indicate that this field is required
+     * @param status indicates the validation state of the stepper
+     * @param statusMessage the optional state text to be displayed at the helper position
+     * @param flexible if true, component will fill max width
+     * @param testTag A test tag to find the internal stepper in a test
+     */
+    @Composable
+    public fun InputForm(
+        state: StepperInputState,
+        label: String,
+        helper: String?,
+        modifier: Modifier = Modifier,
+        range: IntRange = 0..10,
+        suffix: String = "",
+        step: Int = 1,
+        enabled: Boolean = true,
+        required: Boolean = false,
+        status: FormFieldStatus? = null,
+        statusMessage: String? = null,
+        flexible: Boolean = false,
+        testTag: String? = null,
+    ) {
+        StepperFormScaffold(
+            label = label,
+            helper = helper,
+            required = required,
+            status = status,
+            statusMessage = statusMessage,
+            enabled = enabled,
+            modifier = modifier.sparkUsageOverlay(),
+        ) {
+            Input(
+                state = state,
+                range = range,
+                enabled = enabled,
+                status = status,
+                suffix = suffix,
+                step = step,
+                flexible = flexible,
+                testTag = testTag,
+            )
+        }
+    }
 }
 
 /**
- * Variant of [Stepper] that insert it with a label and a helper.
- * @param value Value of the quantity picker
- * @param onValueChange The callback to be called when [value] has been incremented or decremented
- * @param modifier The [Modifier] to be applied to the component
- * @param label the optional label to be displayed
- * @param helper The optional helper text to be displayed at the bottom outside the text input container that give some
- * information about expected text
- * @param range The min/max accepted value by the [Stepper] until it blocks increments and decrements
- * @param suffix optional string displayed after [value]
- * @param step the quantity to be increased/decreased on each increment/decrement
- * @param enabled True controls the enabled state of the [Stepper]. When `false`, the stepper will
- * be neither editable nor focusable, visually stepper will appear in the disabled UI state
- * @param required add an asterisk to the label to indicate that this field is required and read it as
- * "label mandatory field"
- * but doesn't do anything else so it's up to the developer to handle the behavior
- * @param status indicates the validation state of the stepper. The outline is tinted by the state color
- * @param statusMessage the optional state text to be displayed at the helper position that give more information about
- * the status, it's displayed only when [status] is not null.
- * @param flexible if true, component will fill max width, otherwise get default width
- * @param testTag A test tag to find the internal [Stepper] inside the [StepperForm] in a test
+ * Shared form layout for the stepper form variants: a label row, the stepper [content], and a
+ * helper/status line. The caller supplies [modifier] with the accessibility semantics and overlay
+ * already applied; the scaffold adds the label text semantics.
  */
 @Composable
-public fun StepperForm(
-    value: Int,
-    onValueChange: (Int) -> Unit,
+private fun StepperFormScaffold(
     label: String,
     helper: String?,
+    required: Boolean,
+    status: FormFieldStatus?,
+    statusMessage: String?,
+    enabled: Boolean,
     modifier: Modifier = Modifier,
-    range: IntRange = 0..10,
-    suffix: String = "",
-    step: Int = 1,
-    enabled: Boolean = true,
-    required: Boolean = false,
-    status: FormFieldStatus? = null,
-    statusMessage: String? = null,
-    flexible: Boolean = false,
-    testTag: String? = null,
+    content: @Composable () -> Unit,
 ) {
     val colors = StepperDefaults.stepperColors()
     val mandatoryDescription = if (required) {
-        stringResource(
-            id = R.string.spark_textfield_mandatory_content_description,
-        )
+        stringResource(id = R.string.spark_textfield_mandatory_content_description)
     } else {
         null
     }
     val interactionSource = remember { MutableInteractionSource() }
 
     Column(
-        modifier = modifier
-            .stepperSemantics(value, onValueChange, range, step, suffix, enabled)
-            .semantics {
-                text = listOfNotNull(label, mandatoryDescription, helper)
-                    .joinToString(separator = " ")
-                    .let(::AnnotatedString)
-            }
-            .sparkUsageOverlay(overlayColor = Color.Green),
+        modifier = modifier.semantics {
+            text = listOfNotNull(label, mandatoryDescription, helper)
+                .joinToString(separator = " ")
+                .let(::AnnotatedString)
+        },
     ) {
         Row(modifier = Modifier.invisibleSemantic()) {
             Text(
@@ -196,17 +535,7 @@ public fun StepperForm(
             }
         }
 
-        SparkStepper(
-            value = value,
-            onValueChange = onValueChange,
-            range = range,
-            enabled = enabled,
-            suffix = suffix,
-            step = step,
-            flexible = flexible,
-            testTag = testTag,
-            allowSemantics = false,
-        )
+        content()
 
         val stateIcon = TextFieldDefault.getStatusIcon(state = status)
         val color by colors.supportingTextColor(enabled, status, interactionSource)
@@ -224,6 +553,100 @@ public fun StepperForm(
         }
     }
 }
+
+// region Deprecated top-level functions
+
+/**
+ * @deprecated Use [Stepper.Nudger] instead.
+ */
+@Deprecated(
+    message = "Use Stepper.Nudger instead",
+    replaceWith = ReplaceWith(
+        "Stepper.Nudger(value = value, onValueChange = onValueChange, modifier = modifier, range = range, " +
+            "suffix = suffix, step = step, enabled = enabled, flexible = flexible, " +
+            "testTag = testTag, allowSemantics = allowSemantics)",
+        "com.adevinta.spark.components.stepper.Stepper",
+    ),
+    level = DeprecationLevel.WARNING,
+)
+@Composable
+public fun Stepper(
+    value: Int,
+    onValueChange: (Int) -> Unit,
+    modifier: Modifier = Modifier,
+    range: IntRange = 0..10,
+    suffix: String = "",
+    step: Int = 1,
+    enabled: Boolean = true,
+    @Suppress("UNUSED_PARAMETER") status: FormFieldStatus? = null,
+    flexible: Boolean = false,
+    testTag: String? = null,
+    allowSemantics: Boolean = true,
+) {
+    Stepper.Nudger(
+        value = value,
+        onValueChange = onValueChange,
+        modifier = modifier,
+        range = range,
+        suffix = suffix,
+        step = step,
+        enabled = enabled,
+        flexible = flexible,
+        testTag = testTag,
+        allowSemantics = allowSemantics,
+    )
+}
+
+/**
+ * @deprecated Use [Stepper.NudgerForm] instead.
+ */
+@Deprecated(
+    message = "Use Stepper.NudgerForm instead",
+    replaceWith = ReplaceWith(
+        "Stepper.NudgerForm(value = value, onValueChange = onValueChange, label = label, helper = helper, " +
+            "modifier = modifier, range = range, suffix = suffix, step = step, enabled = enabled, " +
+            "required = required, status = status, statusMessage = statusMessage, flexible = flexible, " +
+            "testTag = testTag)",
+        "com.adevinta.spark.components.stepper.Stepper",
+    ),
+    level = DeprecationLevel.WARNING,
+)
+@Composable
+public fun StepperForm(
+    value: Int,
+    onValueChange: (Int) -> Unit,
+    label: String,
+    helper: String?,
+    modifier: Modifier = Modifier,
+    range: IntRange = 0..10,
+    suffix: String = "",
+    step: Int = 1,
+    enabled: Boolean = true,
+    required: Boolean = false,
+    status: FormFieldStatus? = null,
+    statusMessage: String? = null,
+    flexible: Boolean = false,
+    testTag: String? = null,
+) {
+    Stepper.NudgerForm(
+        value = value,
+        onValueChange = onValueChange,
+        label = label,
+        helper = helper,
+        modifier = modifier,
+        range = range,
+        suffix = suffix,
+        step = step,
+        enabled = enabled,
+        required = required,
+        status = status,
+        statusMessage = statusMessage,
+        flexible = flexible,
+        testTag = testTag,
+    )
+}
+
+// endregion
 
 /**
  * Adds semantics to a [Stepper] component, enabling accessibility features from TalkBack.
@@ -268,23 +691,13 @@ public fun StepperForm(
  */
 // TODO-scott.rayapoulle.ext (30-01-2025): Move to spark a11y lib once it's initiated
 public fun Modifier.stepperSemantics(
-    value: Int,
+    value: Int?,
     onValueChange: (Int) -> Unit,
     range: IntRange,
     step: Int,
     suffix: String?,
     enabled: Boolean,
 ): Modifier = semantics(mergeDescendants = true) {
-    require(step > 0) { "Step must be a positive integer, but was $step" }
-    require(range.last % step == 0) {
-        "The upper bound of the range ($range) must be a multiple of the step ($step), but has a remainder " +
-            "of ${range.last % step}"
-    }
-    require(range.first % step == 0) {
-        "The lower bound of the range ($range) must be a multiple of the step ($step), but has a remainder " +
-            "of ${range.first % step}"
-    }
-
     stepperInputValidator(step = step, range = range)
     // this is needed to use volume keys or slide up / down
     setProgress { targetValue ->
@@ -301,13 +714,13 @@ public fun Modifier.stepperSemantics(
     }
 
     // override describing percents
-    stateDescription = value.toString() + suffix
+    stateDescription = stepperStateDescription(value, suffix, emptyText = "")
 
     if (!enabled) disabled()
 }
     .progressSemantics(
         // this is needed to use volume keys or slide up / down
-        value = value.toFloat(),
+        value = (value ?: range.first).toFloat(),
         valueRange = range.first.toFloat()..range.last.toFloat(),
         steps = (range.last - range.first) / step,
     )
@@ -320,8 +733,8 @@ public fun Modifier.stepperSemantics(
         val isShiftOnlyPressed = it.isShiftPressed && !it.isCtrlPressed && !it.isAltPressed && !it.isMetaPressed
         if (it.type == KeyEventType.KeyDown && isShiftOnlyPressed) {
             when {
-                isUpKey -> onValueChange((value + step).coerceIn(range))
-                isDownKey -> onValueChange((value - step).coerceIn(range))
+                isUpKey -> onValueChange(applyStep(value, step, range))
+                isDownKey -> onValueChange(applyStep(value, -step, range))
                 else -> return@onKeyEvent false
             }
             true
@@ -344,6 +757,7 @@ public object StepperDefaults {
     )
 }
 
+@Suppress("DEPRECATION")
 @Preview
 @Composable
 private fun StepperPreview() {
@@ -359,19 +773,70 @@ private fun StepperPreview() {
             label = "Label",
             helper = "helper message",
         )
-        StepperForm(
-            value = -1,
+    }
+}
+
+@Preview
+@Composable
+private fun NudgerPreview() {
+    PreviewTheme {
+        Stepper.Nudger(
+            value = 1234,
+            onValueChange = {},
+        )
+        Stepper.Nudger(
+            value = null,
+            onValueChange = {},
+        )
+        Stepper.NudgerForm(
+            value = 1,
+            onValueChange = {},
+            status = FormFieldStatus.Error,
+            label = "Label",
+            helper = "helper message",
+        )
+        Stepper.NudgerForm(
+            value = null,
             onValueChange = {},
             status = FormFieldStatus.Alert,
             label = "Label",
             helper = "helper message",
         )
-        StepperForm(
+        Stepper.NudgerForm(
             value = -1234,
             onValueChange = {},
             status = FormFieldStatus.Success,
             label = "Label",
             helper = "helper message",
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun InputPreview() {
+    PreviewTheme {
+        Stepper.Input(
+            value = 1234,
+            onValueChange = {},
+        )
+        Stepper.Input(
+            value = null,
+            onValueChange = {},
+        )
+        Stepper.InputForm(
+            value = 5,
+            onValueChange = {},
+            label = "Quantity",
+            helper = "Enter a value",
+        )
+        Stepper.InputForm(
+            value = null,
+            onValueChange = {},
+            status = FormFieldStatus.Error,
+            statusMessage = "Required field",
+            label = "Quantity",
+            helper = "Enter a value",
         )
     }
 }

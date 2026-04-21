@@ -24,6 +24,9 @@ package com.adevinta.spark.animation
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.SizeTransform
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.FiniteAnimationSpec
+import androidx.compose.animation.core.VisibilityThreshold
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
@@ -33,12 +36,18 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableDoubleStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.IntOffset
 import com.adevinta.spark.components.text.Text
 
 /**
@@ -53,6 +62,7 @@ import com.adevinta.spark.components.text.Text
  * @param style Text style for rendering each character.
  * @param color Text color.
  * @param textAlign Text alignment within the available space.
+ * @param animationSpec Slide animation spec for each character transition.
  */
 @Composable
 public fun AnimatedCounterText(
@@ -61,30 +71,34 @@ public fun AnimatedCounterText(
     style: TextStyle = LocalTextStyle.current,
     color: Color = LocalContentColor.current,
     textAlign: TextAlign = TextAlign.Center,
+    animationSpec: FiniteAnimationSpec<IntOffset> = spring(visibilityThreshold = IntOffset.VisibilityThreshold),
 ) {
+    val number = text.extractNumber()
+    var previousNumber by remember { mutableDoubleStateOf(number) }
+    val increasing = number >= previousNumber
+    SideEffect { previousNumber = number }
+
     Row(
         modifier = modifier.animateContentSize(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        text.mapIndexed { index, char ->
-            AnimatedDigit(char = char, fullText = text, index = index)
-        }.forEach { digit ->
+        text.forEachIndexed { index, char ->
             AnimatedContent(
-                targetState = digit,
+                targetState = char,
                 transitionSpec = {
-                    if (targetState > initialState) {
-                        slideInVertically { -it } + fadeIn() togetherWith
-                            slideOutVertically { it } + fadeOut()
+                    if (increasing) {
+                        slideInVertically(animationSpec) { -it } + fadeIn() togetherWith
+                            slideOutVertically(animationSpec) { it } + fadeOut()
                     } else {
-                        slideInVertically { it } + fadeIn() togetherWith
-                            slideOutVertically { -it } + fadeOut()
+                        slideInVertically(animationSpec) { it } + fadeIn() togetherWith
+                            slideOutVertically(animationSpec) { -it } + fadeOut()
                     }.using(SizeTransform(clip = false))
                 },
                 contentAlignment = Alignment.Center,
                 label = "AnimatedDigit",
             ) { target ->
                 Text(
-                    text = "${target.char}",
+                    text = "$target",
                     style = style,
                     color = color,
                     textAlign = textAlign,
@@ -95,19 +109,6 @@ public fun AnimatedCounterText(
         }
     }
 }
-
-private data class AnimatedDigit(val char: Char, val fullText: String, val index: Int) {
-    override fun equals(other: Any?): Boolean {
-        if (other !is AnimatedDigit) return false
-        return char == other.char
-    }
-
-    override fun hashCode(): Int = char.hashCode()
-}
-
-private operator fun AnimatedDigit.compareTo(other: AnimatedDigit): Int = fullText.extractNumber().compareTo(
-    other.fullText.extractNumber(),
-)
 
 private fun String.extractNumber(): Double = filter { it.isDigit() || it == '.' || it == '-' }
     .toDoubleOrNull() ?: 0.0

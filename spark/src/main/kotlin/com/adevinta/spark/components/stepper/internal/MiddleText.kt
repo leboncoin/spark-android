@@ -21,13 +21,6 @@
  */
 package com.adevinta.spark.components.stepper.internal
 
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.SizeTransform
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
-import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -48,17 +41,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.animation.AnimatedCounterText
 import com.adevinta.spark.components.stepper.StepperDefaults
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.DefaultSparkTextFieldColors
 import com.adevinta.spark.components.textfields.sparkOutlinedTextFieldColors
 import com.adevinta.spark.tokens.dim3
-import java.text.NumberFormat
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun MiddleText(
-    value: Int,
+    value: Int?,
     enabled: Boolean,
     colors: DefaultSparkTextFieldColors,
     modifier: Modifier = Modifier,
@@ -83,44 +76,11 @@ internal fun MiddleText(
                 ),
                 horizontalArrangement = Arrangement.Center,
             ) {
-                AnimatedContent(
-                    targetState = value,
-                    contentAlignment = Alignment.Center,
-                    transitionSpec = {
-                        // Compare the incoming number with the previous number.
-                        if (targetState < initialState) {
-                            // If the target number is larger, it slides up and fades in
-                            // while the initial (smaller) number slides up and fades out.
-                            slideInVertically(
-                                StepperDefaults.textAnimationSpec,
-                            ) { height -> height } +
-                                fadeIn() togetherWith slideOutVertically(
-                                    StepperDefaults.textAnimationSpec,
-                                ) { height -> -height } +
-                                fadeOut()
-                        } else {
-                            // If the target number is smaller, it slides down and fades in
-                            // while the initial number slides down and fades out.
-                            slideInVertically(
-                                StepperDefaults.textAnimationSpec,
-                            ) { height -> -height } +
-                                fadeIn() togetherWith slideOutVertically(
-                                    StepperDefaults.textAnimationSpec,
-                                ) { height -> height } +
-                                fadeOut()
-                        }.using(
-                            // Disable clipping since the faded slide-in/out should
-                            // be displayed out of bounds.
-                            SizeTransform(clip = false),
-                        )
-                    },
-                ) { count ->
-                    Text(
-                        text = numberFormat.format(count),
-                        textAlign = TextAlign.Center,
-                        maxLines = 1,
-                    )
-                }
+                AnimatedCounterText(
+                    text = value?.formatInteger().orEmpty(),
+                    textAlign = TextAlign.Center,
+                    animationSpec = StepperDefaults.textAnimationSpec,
+                )
                 if (suffix.isNotEmpty()) {
                     Text(
                         text = suffix,
@@ -133,16 +93,18 @@ internal fun MiddleText(
     }
 }
 
-private val numberFormat: NumberFormat = NumberFormat.getIntegerInstance().apply {
-    isParseIntegerOnly = true
-}
-
 @Preview
 @Composable
 private fun MiddleTextFieldPreview() {
     PreviewTheme {
         MiddleText(
             value = 1,
+            enabled = true,
+            suffix = "€",
+            colors = sparkOutlinedTextFieldColors(),
+        )
+        MiddleText(
+            value = null,
             enabled = true,
             suffix = "€",
             colors = sparkOutlinedTextFieldColors(),
