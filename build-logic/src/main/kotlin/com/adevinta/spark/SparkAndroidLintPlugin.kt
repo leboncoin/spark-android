@@ -27,11 +27,16 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
+import tapmoc.TapmocExtension
 
 internal class SparkAndroidLintPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             apply(plugin = "com.android.lint")
+            pluginManager.apply("com.gradleup.tapmoc")
+            extensions.configure<TapmocExtension> {
+                java(11)
+            }
 
             configureKotlin<KotlinJvmProjectExtension>()
 

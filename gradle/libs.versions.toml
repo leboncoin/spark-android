@@ -133,6 +133,7 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 nmcp = "com.gradleup.nmcp:1.6.1"
 paparazzi = "app.cash.paparazzi:2.0.0-alpha04"
+tapmoc = "com.gradleup.tapmoc:0.4.2"
 spotless = "com.diffplug.spotless:8.8.0"
 
 
