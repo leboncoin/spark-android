@@ -25,20 +25,16 @@ import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.dsl.LibraryExtension
 import com.android.build.api.dsl.TestExtension
-import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension
-import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.findByType
 import org.gradle.kotlin.dsl.getByType
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinBaseExtension
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompilerOptions
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.dsl.abi.AbiValidationExtension
@@ -82,10 +78,6 @@ internal fun Project.androidTest(
 internal fun Project.configureAndroid(
     configure: CommonExtension.() -> Unit,
 ) = android {
-    compileOptions.apply {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
-    }
     configure()
 }
 
@@ -98,10 +90,6 @@ internal fun Project.getVersionsCatalog(): VersionCatalog = runCatching {
 internal inline fun <reified T : KotlinBaseExtension> Project.configureKotlin(
     crossinline configure: T.() -> Unit = {},
 ) {
-    configure<JavaPluginExtension> {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
-    }
     configure<T> {
         val kotlin = when (this) {
             is KotlinAndroidProjectExtension -> this
@@ -115,7 +103,6 @@ internal inline fun <reified T : KotlinBaseExtension> Project.configureKotlin(
             enabled = true
         }
         compilerOptions {
-            (this as? KotlinJvmCompilerOptions)?.jvmTarget?.set(JvmTarget.JVM_21)
             freeCompilerArgs.addAll(
                 // https://kotlinlang.org/docs/whatsnew22.html#new-defaulting-rules-for-use-site-annotation-targets
                 "-Xannotation-default-target=param-property",
