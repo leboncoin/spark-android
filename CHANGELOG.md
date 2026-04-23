@@ -6,6 +6,8 @@
 
 ## [Unreleased]
 
+- Expose as Experimental the SegmentedButton component for testing in some screens
+
 ## [2.3.0-alpha01]
 
 _2026-04-16_
