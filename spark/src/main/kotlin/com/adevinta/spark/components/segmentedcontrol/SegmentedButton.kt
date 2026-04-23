@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.adevinta.spark.catalog.themes
+package com.adevinta.spark.components.segmentedcontrol
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
@@ -58,14 +58,35 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
+import com.adevinta.spark.ExperimentalSparkApi
+import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
-import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.highlight
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
+import kotlin.enums.enumEntries
 
+@ExperimentalSparkApi
 @Composable
-internal fun SegmentedButton(
-    options: List<String>,
+public inline fun <reified T : Enum<T>> SegmentedButton(
+    selectedOption: T,
+    crossinline onOptionSelect: (T) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    SegmentedButton(
+        options = enumEntries<T>().map { it.name }.toImmutableList(),
+        selectedOption = selectedOption.name,
+        onOptionSelect = { onOptionSelect(enumValueOf<T>(it)) },
+        modifier = Modifier.fillMaxWidth(),
+    )
+}
+
+@ExperimentalSparkApi
+@Composable
+public fun SegmentedButton(
+    options: ImmutableList<String>,
     selectedOption: String,
     onOptionSelect: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -217,7 +238,7 @@ internal class MultiSelectorStateImpl(options: List<String>, selectedOption: Str
 
 @Composable
 internal fun rememberMultiSelectorState(
-    options: List<String>,
+    options: ImmutableList<String>,
     selectedOption: String,
 ) = remember {
     MultiSelectorStateImpl(
@@ -235,11 +256,11 @@ internal enum class MultiSelectorOption {
 @Composable
 private fun PreviewMultiSelector() {
     PreviewTheme {
-        val options1 = listOf("Day", "Week", "Month")
+        val options1 = persistentListOf("Day", "Week", "Month")
         var selectedOption1 by remember {
             mutableStateOf(options1.first())
         }
-        val options2 = listOf("Sit", "Amet", "Consectetur", "Elit", "Quis")
+        val options2 = persistentListOf("Sit", "Amet", "Consectetur", "Elit", "Quis")
         var selectedOption2 by remember {
             mutableStateOf(options2.first())
         }

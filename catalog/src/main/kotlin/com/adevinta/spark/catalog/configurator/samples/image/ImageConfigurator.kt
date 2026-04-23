@@ -90,6 +90,7 @@ import com.adevinta.spark.res.annotatedStringResource
 import com.adevinta.spark.tokens.LocalWindowSizeClass
 import com.adevinta.spark.tools.modifiers.ifTrue
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
+import kotlinx.collections.immutable.toImmutableList
 
 public val ImageConfigurator: Configurator = Configurator(
     id = "image",
@@ -242,7 +243,7 @@ private fun ColumnScope.ImageSample() {
     ButtonGroup(
         title = "Aspect Ratio",
         selectedOption = aspectRatio.label,
-        options = ImageAspectRatio.entries.map(ImageAspectRatio::label),
+        options = ImageAspectRatio.entries.map(ImageAspectRatio::label).toImmutableList(),
         onOptionSelect = { option ->
             aspectRatio = ImageAspectRatio.entries.firstOrNull {
                 option == it.label
