@@ -118,13 +118,11 @@ public fun ThemePicker(
             contentType = ThemePickerContentType.ButtonGroup,
         ) {
             Column {
-                val themeModes = ThemeMode.entries
-                val themeModesLabel = themeModes.map { it.name }
+                ThemeMode.entries
                 ButtonGroup(
                     title = stringResource(id = R.string.theme_picker_mode_title),
-                    selectedOption = theme.themeMode.name,
-                    onOptionSelect = { onThemeChange(theme.copy(themeMode = ThemeMode.valueOf(it))) },
-                    options = themeModesLabel,
+                    selectedOption = theme.themeMode,
+                    onOptionSelect = { onThemeChange(theme.copy(themeMode = it)) },
                 )
                 HelperText(text = stringResource(id = R.string.theme_picker_mode_helper))
             }
@@ -137,15 +135,12 @@ public fun ThemePicker(
                 verticalArrangement = spacedBy(RelatedItemSpacing),
             ) {
                 Column {
-                    val colorModes = ColorMode.entries
-                    val colorModesLabel = colorModes.map { it.name }
                     ButtonGroup(
                         title = stringResource(id = R.string.theme_picker_theme_title),
-                        selectedOption = theme.colorMode.name,
+                        selectedOption = theme.colorMode,
                         onOptionSelect = {
-                            onThemeChange(theme.copy(colorMode = ColorMode.valueOf(it)))
+                            onThemeChange(theme.copy(colorMode = it))
                         },
-                        options = colorModesLabel,
                     )
                     HelperText(text = stringResource(id = R.string.theme_picker_theme_helper))
                 }
@@ -154,13 +149,10 @@ public fun ThemePicker(
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                 ) {
                     Column {
-                        val userModes = UserMode.entries
-                        val userModesLabel = userModes.map { it.name }
                         ButtonGroup(
                             title = stringResource(id = R.string.theme_picker_theme_title),
-                            selectedOption = theme.userMode.name,
-                            onOptionSelect = { onThemeChange(theme.copy(userMode = UserMode.valueOf(it))) },
-                            options = userModesLabel,
+                            selectedOption = theme.userMode,
+                            onOptionSelect = { onThemeChange(theme.copy(userMode = it)) },
                         )
                         HelperText(text = stringResource(id = R.string.theme_picker_pro_theme_helper))
                     }
@@ -191,15 +183,12 @@ public fun ThemePicker(
                 verticalArrangement = spacedBy(RelatedItemSpacing),
             ) {
                 Column {
-                    val fontScaleModes = FontScaleMode.entries
-                    val fontModesLabel = fontScaleModes.map { it.name }
                     ButtonGroup(
                         title = stringResource(id = R.string.theme_picker_font_scale_title),
-                        selectedOption = theme.fontScaleMode.name,
+                        selectedOption = theme.fontScaleMode,
                         onOptionSelect = {
-                            onThemeChange(theme.copy(fontScaleMode = FontScaleMode.valueOf(it)))
+                            onThemeChange(theme.copy(fontScaleMode = it))
                         },
-                        options = fontModesLabel,
                     )
                     HelperText(text = stringResource(id = R.string.theme_picker_font_scale_helper))
                 }
@@ -223,15 +212,12 @@ public fun ThemePicker(
             contentType = ThemePickerContentType.ButtonGroup,
         ) {
             Column {
-                val textDirections = TextDirection.entries
-                val textDirectionsLabel = textDirections.map { it.name }
                 ButtonGroup(
                     title = stringResource(id = R.string.theme_picker_text_direction_title),
-                    selectedOption = theme.textDirection.name,
+                    selectedOption = theme.textDirection,
                     onOptionSelect = {
-                        onThemeChange(theme.copy(textDirection = TextDirection.valueOf(it)))
+                        onThemeChange(theme.copy(textDirection = it))
                     },
-                    options = textDirectionsLabel,
                 )
                 HelperText(text = stringResource(id = R.string.theme_picker_text_direction_helper))
             }

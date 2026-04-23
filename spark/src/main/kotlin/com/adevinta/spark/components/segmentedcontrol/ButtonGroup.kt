@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.adevinta.spark.catalog.ui
+package com.adevinta.spark.components.segmentedcontrol
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,10 +29,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
-import com.adevinta.spark.components.segmentedcontrol.SegmentedButton
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.highlight
 import kotlinx.collections.immutable.ImmutableList
+import kotlin.enums.enumEntries
 
 @Composable
 private fun ButtonGroupLayout(
@@ -63,7 +63,7 @@ internal inline fun <reified T : Enum<T>> ButtonGroup(
     ) {
         SegmentedButton(
             selectedOption = selectedOption,
-            onOptionSelect = onOptionSelect,
+            onOptionSelect = { onOptionSelect(it) },
             modifier = Modifier.fillMaxWidth(),
         )
     }
