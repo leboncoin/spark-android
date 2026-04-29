@@ -45,6 +45,7 @@ import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.dim1
 import com.adevinta.spark.tokens.highlight
+import kotlinx.collections.immutable.toImmutableList
 import org.intellij.lang.annotations.Language
 import kotlin.math.roundToInt
 
@@ -105,7 +106,7 @@ public fun ColumnScope.ColorBlindSetting(
     )
 
     Column {
-        val colorBlindOptions = ColorBlindNessType.entries.map { it.displayName }
+        val colorBlindOptions = ColorBlindNessType.entries.map { it.displayName }.toImmutableList()
         ButtonGroup(
             title = stringResource(id = R.string.color_blindness_type_title),
             selectedOption = colorBlindNessType.displayName,
@@ -123,7 +124,7 @@ public fun ColumnScope.ColorBlindSetting(
             ColorBlindNessType.Tritanomaly -> R.string.color_blindness_tritanomaly_description
             ColorBlindNessType.None -> R.string.color_blindness_none_description
         }
-        com.adevinta.spark.components.text.Text(
+        Text(
             text = stringResource(id = helperTextResId),
             style = SparkTheme.typography.caption,
             color = LocalContentColor.current.dim1,
