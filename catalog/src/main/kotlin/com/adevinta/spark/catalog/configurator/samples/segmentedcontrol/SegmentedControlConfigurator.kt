@@ -41,25 +41,28 @@ import com.adevinta.spark.catalog.ui.ButtonGroup
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControl
+import com.adevinta.spark.components.segmentedcontrol.SegmentedControlDefaults
+import com.adevinta.spark.components.segmentedcontrol.SegmentedControlScope
+import com.adevinta.spark.components.segmentedcontrol.SegmentedControlShape
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.SwitchLabelled
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.ShoppingCartOutline
-import com.adevinta.spark.icons.SparkIcons
+import kotlinx.collections.immutable.toImmutableList
 
 public val SegmentedControlConfigurator: Configurator = Configurator(
     id = "segmented-control",
     name = "Segmented Control",
     description = "Segmented Control configuration",
     sourceUrl = "$SampleSourceUrl/SegmentedControlConfigurator.kt",
-) {
-    SegmentedControlSample(it)
+) { snackbarHostState, _ ->
+    SegmentedControlSample(snackbarHostState)
 }
 
 @Composable
 private fun ColumnScope.SegmentedControlSample(snackbarHostState: com.adevinta.spark.components.snackbars.SnackbarHostState) {
-    var layoutType by remember { mutableStateOf(LayoutType.Horizontal) }
     var segmentCount by remember { mutableIntStateOf(3) }
     var selectedIndex by remember { mutableIntStateOf(1) }
     var title by remember { mutableStateOf("Filter") }
@@ -70,34 +73,16 @@ private fun ColumnScope.SegmentedControlSample(snackbarHostState: com.adevinta.s
 
     ConfigedSegmentedControl(
         modifier = Modifier.align(Alignment.CenterHorizontally),
-        layoutType = layoutType,
         segmentCount = segmentCount,
         selectedIndex = selectedIndex,
-        onSegmentSelected = { selectedIndex = it },
+        onSegmentSelect = { selectedIndex = it },
         title = if (showTitle) title else null,
         linkText = if (showLink) linkText else null,
         onLinkClick = if (showLink) { {} } else null,
         enabled = enabled,
     )
 
-    ButtonGroup(
-        title = "Layout Type",
-        selectedOption = layoutType,
-        onOptionSelect = { newType ->
-            layoutType = newType
-            // Adjust segment count if needed
-            val maxSegments = if (newType == LayoutType.Horizontal) 4 else 8
-            if (segmentCount > maxSegments) {
-                segmentCount = maxSegments
-            }
-            if (selectedIndex >= segmentCount) {
-                selectedIndex = segmentCount - 1
-            }
-        },
-    )
-
-    val maxSegments = if (layoutType == LayoutType.Horizontal) 4 else 8
-    val segmentCountOptions = (2..maxSegments).map { it.toString() }
+    val segmentCountOptions = (2..8).map { it.toString() }.toImmutableList()
     ButtonGroup(
         title = "Number of Segments",
         selectedOption = segmentCount.toString(),
@@ -110,7 +95,7 @@ private fun ColumnScope.SegmentedControlSample(snackbarHostState: com.adevinta.s
         options = segmentCountOptions,
     )
 
-    val selectedIndexOptions = (0 until segmentCount).map { it.toString() }
+    val selectedIndexOptions = (0 until segmentCount).map { it.toString() }.toImmutableList()
     ButtonGroup(
         title = "Selected Index",
         selectedOption = selectedIndex.toString(),
@@ -163,10 +148,9 @@ private fun ColumnScope.SegmentedControlSample(snackbarHostState: com.adevinta.s
 @Composable
 private fun ConfigedSegmentedControl(
     modifier: Modifier = Modifier,
-    layoutType: LayoutType,
     segmentCount: Int,
     selectedIndex: Int,
-    onSegmentSelected: (Int) -> Unit,
+    onSegmentSelect: (Int) -> Unit,
     title: String?,
     linkText: String?,
     onLinkClick: (() -> Unit)?,
@@ -179,54 +163,40 @@ private fun ConfigedSegmentedControl(
         Box(
             modifier = Modifier.padding(16.dp),
         ) {
-            when (layoutType) {
-                LayoutType.Horizontal -> {
-                    SegmentedControl.Horizontal(
-                        selectedIndex = selectedIndex,
-                        onSegmentSelect = onSegmentSelected,
-                        title = title,
-                        linkText = linkText,
-                        onLinkClick = onLinkClick,
-                        enabled = enabled,
-                    ) {
-                        repeat(segmentCount) { index ->
-                            when (index % 4) {
-                                0 -> SingleLine("Option ${index + 1}")
-                                1 -> TwoLine("Title ${index + 1}", "Subtitle")
-                                2 -> Icon(SparkIcons.ShoppingCartOutline)
-                                3 -> IconText(SparkIcons.ShoppingCartOutline, "Item ${index + 1}")
-                            }
-                        }
-                    }
-                }
-
-                LayoutType.Vertical -> {
-                    SegmentedControl.Vertical(
-                        selectedIndex = selectedIndex,
-                        onSegmentSelect = onSegmentSelected,
-                        title = title,
-                        linkText = linkText,
-                        onLinkClick = onLinkClick,
-                        enabled = enabled,
-                    ) {
-                        repeat(segmentCount) { index ->
-                            when (index % 4) {
-                                0 -> SingleLine("Option ${index + 1}")
-                                1 -> TwoLine("Title ${index + 1}", "Subtitle")
-                                2 -> Icon(SparkIcons.ShoppingCartOutline)
-                                3 -> IconText(SparkIcons.ShoppingCartOutline, "Item ${index + 1}")
-                            }
-                        }
+            val segmentContent: @Composable SegmentedControlScope.() -> Unit = {
+                repeat(segmentCount) { index ->
+                    when (index % 4) {
+                        0 -> SingleLine("Option ${index + 1}")
+                        1 -> TwoLine("Title ${index + 1}", "Subtitle")
+                        2 -> Icon(LeboncoinIcons.ShoppingCartOutline)
+                        3 -> IconText(LeboncoinIcons.ShoppingCartOutline, "Item ${index + 1}")
                     }
                 }
             }
+            if (segmentCount <= SegmentedControlDefaults.MaxHorizontalSegments) {
+                SegmentedControl.Horizontal(
+                    selectedIndex = selectedIndex,
+                    onSegmentSelect = onSegmentSelect,
+                    title = title,
+                    linkText = linkText,
+                    onLinkClick = onLinkClick,
+                    enabled = enabled,
+                    content = segmentContent,
+                )
+            } else {
+                SegmentedControl.Vertical(
+                    selectedIndex = selectedIndex,
+                    onSegmentSelect = onSegmentSelect,
+                    title = title,
+                    linkText = linkText,
+                    onLinkClick = onLinkClick,
+                    enabled = enabled,
+                    shape = SegmentedControlShape.Rounded,
+                    content = segmentContent,
+                )
+            }
         }
     }
-}
-
-private enum class LayoutType {
-    Horizontal,
-    Vertical,
 }
 
 @Preview

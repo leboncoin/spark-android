@@ -21,6 +21,8 @@
  */
 package com.adevinta.spark.catalog.examples.samples.segmentedcontrol
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -31,13 +33,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.lerp
 import androidx.compose.ui.unit.dp
+import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
+import com.adevinta.spark.components.segmentedcontrol.LocalSegmentSelected
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControl
+import com.adevinta.spark.components.segmentedcontrol.SegmentedControlScope
+import com.adevinta.spark.components.segmentedcontrol.SegmentedControlShape
 import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.ShoppingCartOutline
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.tokens.dim1
+import com.adevinta.spark.tokens.highlight
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
@@ -45,20 +54,20 @@ private const val SegmentedControlExampleSourceUrl = "$SampleSourceUrl/Segmented
 
 public val SegmentedControlExamples: ImmutableList<Example> = persistentListOf(
     Example(
-        id = "horizontal-basic",
-        name = "Horizontal - Basic",
-        description = "Basic horizontal segmented control with 2-4 segments",
+        id = "single-row",
+        name = "Single Row (2-4 segments)",
+        description = "Single-select segmented control with adaptive single-row layout",
         sourceUrl = SegmentedControlExampleSourceUrl,
     ) {
-        HorizontalBasicExample()
+        SingleRowExample()
     },
     Example(
-        id = "vertical-basic",
-        name = "Vertical - Basic",
-        description = "Basic vertical segmented control with 5-8 segments",
+        id = "multi-row",
+        name = "Multi-Row (5-8 segments)",
+        description = "Single-select segmented control with adaptive multi-row layout",
         sourceUrl = SegmentedControlExampleSourceUrl,
     ) {
-        VerticalBasicExample()
+        MultiRowExample()
     },
     Example(
         id = "content-types",
@@ -77,12 +86,12 @@ public val SegmentedControlExamples: ImmutableList<Example> = persistentListOf(
         WithTitleAndLinkExample()
     },
     Example(
-        id = "custom-colors",
-        name = "Custom Colors - Energy Rating",
-        description = "Using custom colors for value scales like energy ratings",
+        id = "energy-rating",
+        name = "Energy Rating Scale",
+        description = "Using segmented control for value scales like energy ratings",
         sourceUrl = SegmentedControlExampleSourceUrl,
     ) {
-        CustomColorsExample()
+        EnergyRatingExample()
     },
     Example(
         id = "real-world-filter",
@@ -95,7 +104,7 @@ public val SegmentedControlExamples: ImmutableList<Example> = persistentListOf(
 )
 
 @Composable
-private fun HorizontalBasicExample() {
+private fun SingleRowExample() {
     Column(
         modifier = Modifier.padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -136,7 +145,7 @@ private fun HorizontalBasicExample() {
 }
 
 @Composable
-private fun VerticalBasicExample() {
+private fun MultiRowExample() {
     Column(
         modifier = Modifier.padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -146,6 +155,7 @@ private fun VerticalBasicExample() {
         SegmentedControl.Vertical(
             selectedIndex = selectedIndex1,
             onSegmentSelect = { selectedIndex1 = it },
+            shape = SegmentedControlShape.Pill,
         ) {
             SingleLine("Option 1")
             SingleLine("Option 2")
@@ -159,6 +169,7 @@ private fun VerticalBasicExample() {
         SegmentedControl.Vertical(
             selectedIndex = selectedIndex2,
             onSegmentSelect = { selectedIndex2 = it },
+            shape = SegmentedControlShape.Pill,
         ) {
             SingleLine("1")
             SingleLine("2")
@@ -186,8 +197,8 @@ private fun ContentTypesExample() {
         ) {
             SingleLine("Text")
             TwoLine("Title", "Subtitle")
-            Icon(SparkIcons.ShoppingCartOutline)
-            IconText(SparkIcons.ShoppingCartOutline, "Cart")
+            Icon(LeboncoinIcons.ShoppingCartOutline)
+            IconText(LeboncoinIcons.ShoppingCartOutline, "Cart")
         }
 
         Text("Numbers")
@@ -212,7 +223,7 @@ private fun ContentTypesExample() {
             Custom(selectedBackgroundColor = Color(0xFF4CAF50)) {
                 Column {
                     Text("Premium")
-                    Text("★", style = com.adevinta.spark.SparkTheme.typography.caption)
+                    Text("★", style = SparkTheme.typography.caption)
                 }
             }
         }
@@ -252,35 +263,79 @@ private fun WithTitleAndLinkExample() {
 }
 
 @Composable
-private fun CustomColorsExample() {
+private fun EnergyRatingExample() {
     Column(
         modifier = Modifier.padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Text("Energy Rating Scale")
-        listOf(
-            Color(0xFF4CAF50), // A - Green
-            Color(0xFF8BC34A), // B - Light Green
-            Color(0xFFCDDC39), // C - Yellow Green
-            Color(0xFFFFEB3B), // D - Yellow
-            Color(0xFFFFC107), // E - Amber
-            Color(0xFFFF9800), // F - Orange
-            Color(0xFFF44336), // G - Red
-        )
-
-        var selectedIndex by remember { mutableIntStateOf(3) }
+        var selectedIndex by remember { mutableIntStateOf(7) }
         SegmentedControl.Vertical(
             selectedIndex = selectedIndex,
             onSegmentSelect = { selectedIndex = it },
+            shape = SegmentedControlShape.Pill,
         ) {
-            SingleLine("A")
-            SingleLine("B")
-            SingleLine("C")
-            SingleLine("D")
-            SingleLine("E")
-            SingleLine("F")
-            SingleLine("G")
+            DPE(
+                "A",
+                color = Color(0xFF009424),
+                contentColor = Color.White,
+            )
+            DPE(
+                "B",
+                color = Color(0xFF3ACC31),
+                contentColor = Color.White,
+            )
+            DPE(
+                "C",
+                color = Color(0xFFCDFD32),
+                contentColor = Color.Black,
+            )
+            DPE(
+                "D",
+                color = Color(0xFFFBEA49),
+                contentColor = Color.Black,
+            )
+            DPE(
+                "E",
+                color = Color(0xFFFCCB2F),
+                contentColor = Color.Black,
+            )
+            DPE(
+                "F",
+                color = Color(0xFFFB9C34),
+                contentColor = Color.Black,
+            )
+            DPE(
+                "G",
+                color = Color(0xFFFA1C1F),
+                contentColor = Color.White,
+            )
+            SingleLine("Vierge")
         }
+    }
+}
+
+@Composable
+private fun SegmentedControlScope.DPE(
+    text: String,
+    color: Color,
+    contentColor: Color,
+) {
+    Custom(
+        selectedBackgroundColor = color,
+    ) {
+        val selected = LocalSegmentSelected.current
+        val labelColor by animateColorAsState(
+            if (selected) contentColor else SparkTheme.colors.onSurface.dim1,
+        )
+
+        val labelProgress by animateFloatAsState(if (selected) 1f else 0f)
+        val textStyle = lerp(
+            SparkTheme.typography.body2,
+            SparkTheme.typography.body2.highlight,
+            labelProgress,
+        )
+        Text(text, color = labelColor, style = textStyle)
     }
 }
 
@@ -308,9 +363,9 @@ private fun FilterExample() {
             selectedIndex = selectedSortIndex,
             onSegmentSelect = { selectedSortIndex = it },
         ) {
-            IconText(SparkIcons.ShoppingCartOutline, "Price")
-            IconText(SparkIcons.ShoppingCartOutline, "Date")
-            IconText(SparkIcons.ShoppingCartOutline, "Rating")
+            IconText(LeboncoinIcons.ShoppingCartOutline, "Price")
+            IconText(LeboncoinIcons.ShoppingCartOutline, "Date")
+            IconText(LeboncoinIcons.ShoppingCartOutline, "Rating")
         }
     }
 }

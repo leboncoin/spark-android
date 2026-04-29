@@ -21,50 +21,46 @@
  */
 package com.adevinta.spark.components.segmentedcontrol
 
+import androidx.compose.foundation.shape.CornerBasedShape
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.adevinta.spark.SparkTheme
 
-/**
- * Default values used by [SegmentedControl] components.
- */
 public object SegmentedControlDefaults {
-    /**
-     * Maximum number of segments allowed in a horizontal layout.
-     */
-    public const val MaxHorizontalSegments: Int = 4
-
-    /**
-     * Maximum number of segments allowed in a vertical layout.
-     */
-    public const val MaxVerticalSegments: Int = 8
-
-    /**
-     * Minimum number of segments required.
-     */
+    /** Minimum segments for both variants. */
     public const val MinSegments: Int = 2
 
-    /**
-     * Border width for the segmented control container.
-     */
+    /** Minimum segments required for the Vertical variant. */
+    public const val MinVerticalSegments: Int = 4
+
+    /** Maximum segments for the Horizontal (single-row) variant. */
+    public const val MaxHorizontalSegments: Int = 5
+
+    /** Maximum segments for the Vertical (two-row) variant. */
+    public const val MaxVerticalSegments: Int = 8
+
     public val BorderWidth: Dp = 1.dp
-
-    /**
-     * Divider width between segments.
-     */
     public val DividerWidth: Dp = 1.dp
-
-    /**
-     * Corner radius percentage for fully rounded corners (at edges).
-     */
-    public const val FullCornerRadiusPercent: Int = 50
-
-    /**
-     * Corner radius percentage for less rounded corners (in middle).
-     */
-    public const val MediumCornerRadiusPercent: Int = 15
-
-    /**
-     * Minimum touch target size for segments.
-     */
     public val MinTouchTargetSize: Dp = 48.dp
+}
+
+public enum class SegmentedControlShape {
+
+    Rounded {
+        override val shape: CornerBasedShape
+            @Composable
+            @ReadOnlyComposable
+            get() = SparkTheme.shapes.large
+    },
+    Pill {
+        override val shape: CornerBasedShape
+            @Composable
+            @ReadOnlyComposable
+            get() = SparkTheme.shapes.full
+    };
+
+    public abstract val shape: CornerBasedShape
+        @Composable @ReadOnlyComposable get
 }

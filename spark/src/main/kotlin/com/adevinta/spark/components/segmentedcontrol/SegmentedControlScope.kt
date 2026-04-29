@@ -22,43 +22,36 @@
 package com.adevinta.spark.components.segmentedcontrol
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.adevinta.spark.icons.SparkIcon
 
 /**
+ * Whether the segment currently being composed is selected.
+ *
+ * Available inside any segment content block — including [SegmentedControlScope.Custom] —
+ * so callers can adapt icons, text weight, or colours to the selection state.
+ */
+public val LocalSegmentSelected: ProvidableCompositionLocal<Boolean> = compositionLocalOf { false }
+
+/**
  * Scope interface for adding segments to a [SegmentedControl].
  *
- * This scope provides methods to add different types of segments:
- * - [SingleLine] - Single line of text
- * - [TwoLine] - Two lines (title and subtitle)
- * - [Icon] - Icon only
- * - [IconText] - Icon with text
- * - [Number] - Number display
- * - [Custom] - Custom content with customizable selected background color
+ * Inside any content block you can read [LocalSegmentSelected] to adapt the
+ * visual appearance based on whether the segment is currently selected.
  */
 @Stable
 public interface SegmentedControlScope {
-    /**
-     * Adds a single-line text segment.
-     *
-     * @param text The text to display in the segment
-     * @param modifier Optional modifier to apply to the segment
-     */
+
     @Composable
     public fun SingleLine(
         text: String,
         modifier: Modifier = Modifier,
     )
 
-    /**
-     * Adds a two-line text segment with title and subtitle.
-     *
-     * @param title The title text displayed on the first line
-     * @param subtitle The subtitle text displayed on the second line
-     * @param modifier Optional modifier to apply to the segment
-     */
     @Composable
     public fun TwoLine(
         title: String,
@@ -66,25 +59,12 @@ public interface SegmentedControlScope {
         modifier: Modifier = Modifier,
     )
 
-    /**
-     * Adds an icon-only segment.
-     *
-     * @param icon The icon to display
-     * @param modifier Optional modifier to apply to the segment
-     */
     @Composable
     public fun Icon(
         icon: SparkIcon,
         modifier: Modifier = Modifier,
     )
 
-    /**
-     * Adds a segment with an icon and text.
-     *
-     * @param icon The icon to display
-     * @param text The text to display alongside the icon
-     * @param modifier Optional modifier to apply to the segment
-     */
     @Composable
     public fun IconText(
         icon: SparkIcon,
@@ -92,25 +72,12 @@ public interface SegmentedControlScope {
         modifier: Modifier = Modifier,
     )
 
-    /**
-     * Adds a number segment.
-     *
-     * @param number The number to display
-     * @param modifier Optional modifier to apply to the segment
-     */
     @Composable
     public fun Number(
         number: Int,
         modifier: Modifier = Modifier,
     )
 
-    /**
-     * Adds a custom segment with a content slot and customizable selected background color.
-     *
-     * @param selectedBackgroundColor The background color to use when this segment is selected
-     * @param modifier Optional modifier to apply to the segment
-     * @param content The custom content to display in the segment
-     */
     @Composable
     public fun Custom(
         selectedBackgroundColor: Color,

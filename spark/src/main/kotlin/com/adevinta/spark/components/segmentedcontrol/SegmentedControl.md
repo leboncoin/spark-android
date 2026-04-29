@@ -7,48 +7,33 @@
 - Selecting a single option from 2-8 choices
 - Filtering or sorting content
 - Switching between different views or modes
-- Displaying value scales (e.g., energy ratings A-G)
 
 ## API Overview
 
 ```kotlin
 object SegmentedControl {
     @Composable
-    fun Horizontal(
+    fun SingleSelect(
         selectedIndex: Int,
-        onSegmentSelected: (Int) -> Unit,
+        onSegmentSelect: (Int) -> Unit,
         modifier: Modifier = Modifier,
         title: String? = null,
         linkText: String? = null,
         onLinkClick: (() -> Unit)? = null,
-        customSelectedColors: List<Color>? = null,
-        enabled: Boolean = true,
-        content: @Composable SegmentedControlScope.() -> Unit,
-    )
-
-    @Composable
-    fun Vertical(
-        selectedIndex: Int,
-        onSegmentSelected: (Int) -> Unit,
-        modifier: Modifier = Modifier,
-        title: String? = null,
-        linkText: String? = null,
-        onLinkClick: (() -> Unit)? = null,
-        customSelectedColors: List<Color>? = null,
         enabled: Boolean = true,
         content: @Composable SegmentedControlScope.() -> Unit,
     )
 }
 ```
 
-## Variants
+## Adaptive Layout
 
-The component supports two layout variants:
+The component adapts its layout based on segment count:
 
-| Variant   | Max Segments | Layout                    |
-|-----------|--------------|---------------------------|
-| Horizontal| 4            | Single row                |
-| Vertical  | 8            | Multi-row (typically 2x4) |
+| Segments | Layout                    |
+|----------|---------------------------|
+| 2-4      | Single row                |
+| 5-8      | Multi-row (two balanced rows) |
 
 ## Segment Types
 
@@ -59,18 +44,18 @@ Each segment can contain different content types:
 - **Icon** - Icon only
 - **IconText** - Icon with text
 - **Number** - Number display
-- **Custom** - Custom content with customizable selected background color
+- **Custom** - Custom content with customisable selected background colour
 
 ## Usage Examples
 
-### Basic Horizontal Usage
+### Basic Usage
 
 ```kotlin
 var selectedIndex by remember { mutableIntStateOf(0) }
 
-SegmentedControl.Horizontal(
+SegmentedControl.SingleSelect(
     selectedIndex = selectedIndex,
-    onSegmentSelected = { selectedIndex = it },
+    onSegmentSelect = { selectedIndex = it },
 ) {
     SingleLine("Option 1")
     SingleLine("Option 2")
@@ -82,9 +67,9 @@ SegmentedControl.Horizontal(
 ### With Title and Link
 
 ```kotlin
-SegmentedControl.Horizontal(
+SegmentedControl.SingleSelect(
     selectedIndex = selectedIndex,
-    onSegmentSelected = { selectedIndex = it },
+    onSegmentSelect = { selectedIndex = it },
     title = "Filter",
     linkText = "Learn more",
     onLinkClick = { /* Show help */ }
@@ -98,35 +83,24 @@ SegmentedControl.Horizontal(
 ### Different Content Types
 
 ```kotlin
-SegmentedControl.Horizontal(
+SegmentedControl.SingleSelect(
     selectedIndex = selectedIndex,
-    onSegmentSelected = { selectedIndex = it },
+    onSegmentSelect = { selectedIndex = it },
 ) {
     SingleLine("Text")
     TwoLine("Title", "Subtitle")
-    Icon(SparkIcons.ShoppingBag)
-    IconText(SparkIcons.ShoppingBag, "Cart")
+    Icon(LeboncoinIcons.ShoppingCartOutline)
+    IconText(LeboncoinIcons.ShoppingCartOutline, "Cart")
     Number(42)
 }
 ```
 
-### Custom Colors for Value Scales
+### Multi-Row (5+ segments)
 
 ```kotlin
-val energyColors = listOf(
-    Color(0xFF4CAF50), // A - Green
-    Color(0xFF8BC34A), // B - Light Green
-    Color(0xFFCDDC39), // C - Yellow Green
-    Color(0xFFFFEB3B), // D - Yellow
-    Color(0xFFFFC107), // E - Amber
-    Color(0xFFFF9800), // F - Orange
-    Color(0xFFF44336), // G - Red
-)
-
-SegmentedControl.Vertical(
+SegmentedControl.SingleSelect(
     selectedIndex = selectedIndex,
-    onSegmentSelected = { selectedIndex = it },
-    customSelectedColors = energyColors,
+    onSegmentSelect = { selectedIndex = it },
 ) {
     SingleLine("A")
     SingleLine("B")
@@ -141,14 +115,14 @@ SegmentedControl.Vertical(
 ### Custom Segment
 
 ```kotlin
-SegmentedControl.Horizontal(
+SegmentedControl.SingleSelect(
     selectedIndex = selectedIndex,
-    onSegmentSelected = { selectedIndex = it },
+    onSegmentSelect = { selectedIndex = it },
 ) {
     SingleLine("Standard")
     Custom(selectedBackgroundColor = Color.Green) {
         Row {
-            Icon(SparkIcons.Star, contentDescription = null)
+            Icon(LeboncoinIcons.Star, contentDescription = null)
             Text("Premium")
         }
     }
@@ -157,7 +131,7 @@ SegmentedControl.Horizontal(
 
 ## Accessibility
 
-- Proper semantics for radio button group
+- Tab role semantics for each segment
 - Content descriptions for icons
 - State announcements when selection changes
 - Keyboard navigation support
