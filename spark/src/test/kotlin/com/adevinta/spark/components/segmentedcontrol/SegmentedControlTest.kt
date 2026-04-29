@@ -23,22 +23,19 @@ package com.adevinta.spark.components.segmentedcontrol
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher
-import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
-import androidx.compose.ui.test.hasRole
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onAllNodesWithRole
-import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.ShoppingCartOutline
 import com.adevinta.spark.PreviewTheme
 import org.junit.Rule
 import org.junit.Test
@@ -51,8 +48,10 @@ class SegmentedControlTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
+    private fun withRole(role: Role) = SemanticsMatcher.expectValue(SemanticsProperties.Role, role)
+
     @Test
-    fun horizontal_selection_changes_correctly() {
+    fun selection_changes_correctly() {
         var selectedIndex by mutableIntStateOf(0)
         var callbackInvoked = false
         var callbackIndex = -1
@@ -61,7 +60,7 @@ class SegmentedControlTest {
             PreviewTheme {
                 SegmentedControl.Horizontal(
                     selectedIndex = selectedIndex,
-                    onSegmentSelected = {
+                    onSegmentSelect = {
                         callbackInvoked = true
                         callbackIndex = it
                         selectedIndex = it
@@ -75,10 +74,9 @@ class SegmentedControlTest {
             }
         }
 
-        val segments = composeTestRule.onAllNodesWithRole(Role.RadioButton)
+        val segments = composeTestRule.onAllNodes(withRole(Role.Tab))
         assert(segments.fetchSemanticsNodes().size == 3)
 
-        // Click second segment
         segments[1].performClick()
 
         assert(callbackInvoked)
@@ -95,7 +93,7 @@ class SegmentedControlTest {
             PreviewTheme {
                 SegmentedControl.Vertical(
                     selectedIndex = selectedIndex,
-                    onSegmentSelected = {
+                    onSegmentSelect = {
                         callbackInvoked = true
                         selectedIndex = it
                     },
@@ -110,10 +108,9 @@ class SegmentedControlTest {
             }
         }
 
-        val segments = composeTestRule.onAllNodesWithRole(Role.RadioButton)
+        val segments = composeTestRule.onAllNodes(withRole(Role.Tab))
         assert(segments.fetchSemanticsNodes().size == 5)
 
-        // Click third segment
         segments[2].performClick()
 
         assert(callbackInvoked)
@@ -128,7 +125,7 @@ class SegmentedControlTest {
             PreviewTheme {
                 SegmentedControl.Horizontal(
                     selectedIndex = selectedIndex,
-                    onSegmentSelected = { selectedIndex = it },
+                    onSegmentSelect = { selectedIndex = it },
                     enabled = false,
                     modifier = Modifier.testTag("segmented-control"),
                 ) {
@@ -138,19 +135,20 @@ class SegmentedControlTest {
             }
         }
 
-        val segments = composeTestRule.onAllNodesWithRole(Role.RadioButton)
-        segments.forEach { segment ->
-            segment.assertIsNotEnabled()
+        val segments = composeTestRule.onAllNodes(withRole(Role.Tab))
+        val count = segments.fetchSemanticsNodes().size
+        for (i in 0 until count) {
+            segments[i].assertIsNotEnabled()
         }
     }
 
     @Test
-    fun segments_have_correct_semantics() {
+    fun segments_have_tab_role() {
         composeTestRule.setContent {
             PreviewTheme {
                 SegmentedControl.Horizontal(
                     selectedIndex = 1,
-                    onSegmentSelected = { },
+                    onSegmentSelect = { },
                     modifier = Modifier.testTag("segmented-control"),
                 ) {
                     SingleLine("Option 1")
@@ -160,13 +158,11 @@ class SegmentedControlTest {
             }
         }
 
-        val segments = composeTestRule.onAllNodesWithRole(Role.RadioButton)
-        assert(segments.fetchSemanticsNodes().size == 3)
+        val tabs = composeTestRule.onAllNodes(withRole(Role.Tab))
+        assert(tabs.fetchSemanticsNodes().size == 3)
 
-        // Check that segments have radio button role
-        segments.forEach { segment ->
-            segment.assert(hasRole(Role.RadioButton))
-        }
+        val radioButtons = composeTestRule.onAllNodes(withRole(Role.RadioButton))
+        assert(radioButtons.fetchSemanticsNodes().isEmpty())
     }
 
     @Test
@@ -176,19 +172,15 @@ class SegmentedControlTest {
                 PreviewTheme {
                     SegmentedControl.Horizontal(
                         selectedIndex = 0,
-                        onSegmentSelected = { },
+                        onSegmentSelect = { },
                     ) {
-                        SingleLine("1")
-                        SingleLine("2")
-                        SingleLine("3")
-                        SingleLine("4")
-                        SingleLine("5") // Should fail - max 4
+                        repeat(6) { SingleLine("Option $it") }
                     }
                 }
             }
             assert(false) { "Should have thrown IllegalArgumentException" }
         } catch (e: IllegalArgumentException) {
-            assert(e.message?.contains("4") == true)
+            assert(e.message?.contains("5") == true)
         }
     }
 
@@ -199,11 +191,9 @@ class SegmentedControlTest {
                 PreviewTheme {
                     SegmentedControl.Vertical(
                         selectedIndex = 0,
-                        onSegmentSelected = { },
+                        onSegmentSelect = { },
                     ) {
-                        repeat(9) { // Should fail - max 8
-                            SingleLine("Option $it")
-                        }
+                        repeat(9) { SingleLine("Option $it") }
                     }
                 }
             }
@@ -220,9 +210,9 @@ class SegmentedControlTest {
                 PreviewTheme {
                     SegmentedControl.Horizontal(
                         selectedIndex = 0,
-                        onSegmentSelected = { },
+                        onSegmentSelect = { },
                     ) {
-                        SingleLine("Only one") // Should fail - min 2
+                        SingleLine("Only one")
                     }
                 }
             }
@@ -233,13 +223,34 @@ class SegmentedControlTest {
     }
 
     @Test
+    fun vertical_min_segments_validation() {
+        try {
+            composeTestRule.setContent {
+                PreviewTheme {
+                    SegmentedControl.Vertical(
+                        selectedIndex = 0,
+                        onSegmentSelect = { },
+                    ) {
+                        SingleLine("1")
+                        SingleLine("2")
+                        SingleLine("3")
+                    }
+                }
+            }
+            assert(false) { "Should have thrown IllegalArgumentException" }
+        } catch (e: IllegalArgumentException) {
+            assert(e.message?.contains("4") == true)
+        }
+    }
+
+    @Test
     fun invalid_selected_index_validation() {
         try {
             composeTestRule.setContent {
                 PreviewTheme {
                     SegmentedControl.Horizontal(
-                        selectedIndex = 5, // Invalid - only 3 segments
-                        onSegmentSelected = { },
+                        selectedIndex = 5,
+                        onSegmentSelect = { },
                     ) {
                         SingleLine("1")
                         SingleLine("2")
@@ -259,22 +270,53 @@ class SegmentedControlTest {
             PreviewTheme {
                 SegmentedControl.Horizontal(
                     selectedIndex = 0,
-                    onSegmentSelected = { },
+                    onSegmentSelect = { },
                     modifier = Modifier.testTag("segmented-control"),
                 ) {
                     SingleLine("Text")
                     TwoLine("Title", "Subtitle")
-                    Icon(com.adevinta.spark.icons.SparkIcons.ShoppingBagOutline)
-                    IconText(com.adevinta.spark.icons.SparkIcons.ShoppingBagOutline, "Cart")
+                    Icon(LeboncoinIcons.ShoppingCartOutline)
+                    IconText(LeboncoinIcons.ShoppingCartOutline, "Cart")
                 }
             }
         }
 
-        val segments = composeTestRule.onAllNodesWithRole(Role.RadioButton)
+        val segments = composeTestRule.onAllNodes(withRole(Role.Tab))
         assert(segments.fetchSemanticsNodes().size == 4)
-        segments.forEach { segment ->
-            segment.assertIsDisplayed()
-            segment.assertIsEnabled()
+        for (i in 0 until 4) {
+            segments[i].assertIsDisplayed()
+            segments[i].assertIsEnabled()
         }
+    }
+
+    @Test
+    fun vertical_cross_row_selection_fires_correct_index() {
+        var selectedIndex by mutableIntStateOf(0)
+        var lastCallbackIndex = -1
+
+        composeTestRule.setContent {
+            PreviewTheme {
+                SegmentedControl.Vertical(
+                    selectedIndex = selectedIndex,
+                    onSegmentSelect = {
+                        lastCallbackIndex = it
+                        selectedIndex = it
+                    },
+                ) {
+                    SingleLine("1")
+                    SingleLine("2")
+                    SingleLine("3")
+                    SingleLine("4")
+                    SingleLine("5")
+                    SingleLine("6")
+                }
+            }
+        }
+
+        val segments = composeTestRule.onAllNodes(withRole(Role.Tab))
+        segments[5].performClick()
+
+        assert(lastCallbackIndex == 5)
+        assert(selectedIndex == 5)
     }
 }

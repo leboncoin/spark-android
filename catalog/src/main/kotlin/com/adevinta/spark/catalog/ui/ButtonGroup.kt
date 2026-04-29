@@ -57,7 +57,7 @@ internal inline fun <reified T : Enum<T>> ButtonGroup(
     crossinline onOptionSelect: (T) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val options = enumEntries<T>().map { it.name }
+    val options = enumValues<T>().map { it.name }
     val selectedIndex = options.indexOf(selectedOption.name)
 
     ButtonGroupLayout(
