@@ -25,6 +25,7 @@ import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -68,7 +69,7 @@ internal fun SparkIllustration(
         is ImageBitmap -> FoundationImage(
             bitmap = data,
             contentDescription = contentDescription,
-            modifier = modifier.sparkUsageOverlay(),
+            modifier = modifier.sparkUsageOverlay().requiredSize(0.dp),
             alignment = alignment,
             contentScale = contentScale,
             alpha = alpha,
@@ -79,7 +80,7 @@ internal fun SparkIllustration(
         is ImageVector -> FoundationImage(
             imageVector = data,
             contentDescription = contentDescription,
-            modifier = modifier.sparkUsageOverlay(),
+            modifier = modifier.sparkUsageOverlay().requiredSize(0.dp),
             alignment = alignment,
             contentScale = contentScale,
             alpha = alpha,
@@ -89,7 +90,7 @@ internal fun SparkIllustration(
         is Painter -> FoundationImage(
             painter = data,
             contentDescription = contentDescription,
-            modifier = modifier.sparkUsageOverlay(),
+            modifier = modifier.sparkUsageOverlay().requiredSize(0.dp),
             alignment = alignment,
             contentScale = contentScale,
             alpha = alpha,
@@ -98,7 +99,7 @@ internal fun SparkIllustration(
 
         is SparkIcon -> FoundationImage(
             painter = rememberSparkIconPainter(data),
-            modifier = modifier.sparkUsageOverlay(),
+            modifier = modifier.sparkUsageOverlay().requiredSize(0.dp),
             contentDescription = contentDescription,
             alignment = alignment,
             contentScale = contentScale,
