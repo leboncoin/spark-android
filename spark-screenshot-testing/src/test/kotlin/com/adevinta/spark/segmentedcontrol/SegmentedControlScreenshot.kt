@@ -31,18 +31,16 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.DefaultTestDevices
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControl
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.ShoppingBagOutline
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.ShoppingCartOutline
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshotNightMode
-import com.android.ide.common.rendering.api.SessionParams
 import com.android.ide.common.rendering.api.SessionParams.RenderingMode.V_SCROLL
 import org.junit.Rule
 import org.junit.Test
@@ -56,25 +54,25 @@ internal class SegmentedControlScreenshot {
     )
 
     @Test
-    fun horizontalSegments() {
+    fun singleRowSegments() {
         paparazzi.sparkSnapshotNightMode {
             Surface(
                 color = SparkTheme.colors.backgroundVariant,
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                HorizontalSegments()
+                SingleRowSegments()
             }
         }
     }
 
     @Test
-    fun verticalSegments() {
+    fun multiRowSegments() {
         paparazzi.sparkSnapshotNightMode {
             Surface(
                 color = SparkTheme.colors.backgroundVariant,
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                VerticalSegments()
+                MultiRowSegments()
             }
         }
     }
@@ -104,18 +102,6 @@ internal class SegmentedControlScreenshot {
     }
 
     @Test
-    fun customColors() {
-        paparazzi.sparkSnapshotNightMode {
-            Surface(
-                color = SparkTheme.colors.backgroundVariant,
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                CustomColors()
-            }
-        }
-    }
-
-    @Test
     fun disabled() {
         paparazzi.sparkSnapshotNightMode {
             Surface(
@@ -128,32 +114,32 @@ internal class SegmentedControlScreenshot {
     }
 
     @Composable
-    private fun HorizontalSegments() {
+    private fun SingleRowSegments() {
         Column(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             Text(
-                text = "Horizontal - 2 segments",
+                text = "Single row - 2 segments",
                 style = SparkTheme.typography.headline2,
             )
             var selectedIndex1 by remember { mutableIntStateOf(0) }
             SegmentedControl.Horizontal(
                 selectedIndex = selectedIndex1,
-                onSegmentSelected = { selectedIndex1 = it },
+                onSegmentSelect = { selectedIndex1 = it },
             ) {
                 SingleLine("Option 1")
                 SingleLine("Option 2")
             }
 
             Text(
-                text = "Horizontal - 3 segments",
+                text = "Single row - 3 segments",
                 style = SparkTheme.typography.headline2,
             )
             var selectedIndex2 by remember { mutableIntStateOf(1) }
             SegmentedControl.Horizontal(
                 selectedIndex = selectedIndex2,
-                onSegmentSelected = { selectedIndex2 = it },
+                onSegmentSelect = { selectedIndex2 = it },
             ) {
                 SingleLine("Option 1")
                 SingleLine("Option 2")
@@ -161,13 +147,13 @@ internal class SegmentedControlScreenshot {
             }
 
             Text(
-                text = "Horizontal - 4 segments",
+                text = "Single row - 4 segments",
                 style = SparkTheme.typography.headline2,
             )
             var selectedIndex3 by remember { mutableIntStateOf(2) }
             SegmentedControl.Horizontal(
                 selectedIndex = selectedIndex3,
-                onSegmentSelected = { selectedIndex3 = it },
+                onSegmentSelect = { selectedIndex3 = it },
             ) {
                 SingleLine("Option 1")
                 SingleLine("Option 2")
@@ -178,19 +164,19 @@ internal class SegmentedControlScreenshot {
     }
 
     @Composable
-    private fun VerticalSegments() {
+    private fun MultiRowSegments() {
         Column(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             Text(
-                text = "Vertical - 5 segments",
+                text = "Multi-row - 5 segments",
                 style = SparkTheme.typography.headline2,
             )
             var selectedIndex1 by remember { mutableIntStateOf(0) }
             SegmentedControl.Vertical(
                 selectedIndex = selectedIndex1,
-                onSegmentSelected = { selectedIndex1 = it },
+                onSegmentSelect = { selectedIndex1 = it },
             ) {
                 SingleLine("Option 1")
                 SingleLine("Option 2")
@@ -200,13 +186,13 @@ internal class SegmentedControlScreenshot {
             }
 
             Text(
-                text = "Vertical - 8 segments",
+                text = "Multi-row - 8 segments",
                 style = SparkTheme.typography.headline2,
             )
             var selectedIndex2 by remember { mutableIntStateOf(4) }
             SegmentedControl.Vertical(
                 selectedIndex = selectedIndex2,
-                onSegmentSelected = { selectedIndex2 = it },
+                onSegmentSelect = { selectedIndex2 = it },
             ) {
                 SingleLine("1")
                 SingleLine("2")
@@ -234,18 +220,18 @@ internal class SegmentedControlScreenshot {
             var selectedIndex1 by remember { mutableIntStateOf(0) }
             SegmentedControl.Horizontal(
                 selectedIndex = selectedIndex1,
-                onSegmentSelected = { selectedIndex1 = it },
+                onSegmentSelect = { selectedIndex1 = it },
             ) {
                 SingleLine("Text")
                 TwoLine("Title", "Subtitle")
-                Icon(SparkIcons.ShoppingBagOutline)
-                IconText(SparkIcons.ShoppingBagOutline, "Cart")
+                Icon(LeboncoinIcons.ShoppingCartOutline)
+                IconText(LeboncoinIcons.ShoppingCartOutline, "Cart")
             }
 
             var selectedIndex2 by remember { mutableIntStateOf(0) }
             SegmentedControl.Horizontal(
                 selectedIndex = selectedIndex2,
-                onSegmentSelected = { selectedIndex2 = it },
+                onSegmentSelect = { selectedIndex2 = it },
             ) {
                 Number(1)
                 Number(2)
@@ -264,7 +250,7 @@ internal class SegmentedControlScreenshot {
             var selectedIndex by remember { mutableIntStateOf(1) }
             SegmentedControl.Horizontal(
                 selectedIndex = selectedIndex,
-                onSegmentSelected = { selectedIndex = it },
+                onSegmentSelect = { selectedIndex = it },
                 title = "Filter",
                 linkText = "Learn more",
                 onLinkClick = { },
@@ -272,44 +258,6 @@ internal class SegmentedControlScreenshot {
                 SingleLine("All")
                 SingleLine("Active")
                 SingleLine("Completed")
-            }
-        }
-    }
-
-    @Composable
-    private fun CustomColors() {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            Text(
-                text = "Energy Rating Scale",
-                style = SparkTheme.typography.headline2,
-            )
-
-            val energyColors = listOf(
-                Color(0xFF4CAF50), // A - Green
-                Color(0xFF8BC34A), // B - Light Green
-                Color(0xFFCDDC39), // C - Yellow Green
-                Color(0xFFFFEB3B), // D - Yellow
-                Color(0xFFFFC107), // E - Amber
-                Color(0xFFFF9800), // F - Orange
-                Color(0xFFF44336), // G - Red
-            )
-
-            var selectedIndex by remember { mutableIntStateOf(3) }
-            SegmentedControl.Vertical(
-                selectedIndex = selectedIndex,
-                onSegmentSelected = { selectedIndex = it },
-                customSelectedColors = energyColors,
-            ) {
-                SingleLine("A")
-                SingleLine("B")
-                SingleLine("C")
-                SingleLine("D")
-                SingleLine("E")
-                SingleLine("F")
-                SingleLine("G")
             }
         }
     }
@@ -327,7 +275,7 @@ internal class SegmentedControlScreenshot {
 
             SegmentedControl.Horizontal(
                 selectedIndex = 1,
-                onSegmentSelected = { },
+                onSegmentSelect = { },
                 enabled = false,
             ) {
                 SingleLine("Option 1")
