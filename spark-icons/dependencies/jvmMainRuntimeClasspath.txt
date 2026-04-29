@@ -68,10 +68,10 @@ org.jetbrains.compose.ui:ui-unit:1.10.3
 org.jetbrains.compose.ui:ui-util-desktop:1.10.3
 org.jetbrains.compose.ui:ui-util:1.10.3
 org.jetbrains.compose.ui:ui:1.10.3
-org.jetbrains.kotlin:kotlin-bom:2.3.20
-org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.3.20
-org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.3.20
-org.jetbrains.kotlin:kotlin-stdlib:2.3.20
+org.jetbrains.kotlin:kotlin-bom:2.3.21
+org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.3.21
+org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.3.21
+org.jetbrains.kotlin:kotlin-stdlib:2.3.21
 org.jetbrains.kotlinx:atomicfu-jvm:0.23.2
 org.jetbrains.kotlinx:atomicfu:0.23.2
 org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.9.0
