@@ -72,6 +72,10 @@ compose-runtime = { module ="org.jetbrains.compose.ui:ui", version.ref = "compos
 compose-ui = { module ="org.jetbrains.compose.runtime:runtime", version.ref = "compose-multiplatform" }
 compose-components-resources = { module ="org.jetbrains.compose.components:components-resources", version.ref = "compose-multiplatform" }
 compose-animation = { module ="org.jetbrains.compose.animation:animation", version.ref = "compose-multiplatform" }
+compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "compose-multiplatform" }
+compose-material3 = { module = "org.jetbrains.compose.material3:material3", version = "1.9.0" }
+compose-material3-adaptive = { module = "org.jetbrains.compose.material3.adaptive:adaptive", version = "1.2.0" }
+compose-material-ripple = { module = "org.jetbrains.compose.material:material-ripple", version.ref = "compose-multiplatform" }
 compose-ui-tooling = { module = "org.jetbrains.compose.ui:ui-tooling", version.ref = "compose-multiplatform" }
 compose-ui-tooling-preview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "compose-multiplatform" }
 
@@ -140,6 +144,7 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 nmcp = "com.gradleup.nmcp:1.4.4"
 paparazzi = "app.cash.paparazzi:2.0.0-alpha04"
+tapmoc = "com.gradleup.tapmoc:0.4.1"
 spotless = "com.diffplug.spotless:8.4.0"
 
 
