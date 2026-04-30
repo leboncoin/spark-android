@@ -318,7 +318,6 @@ public val LeboncoinIcons.ListItemSelected: DrawableRes get() = DrawableRes(R.dr
 public val LeboncoinIcons.ListingCriteria: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_listing_criteria)
 public val LeboncoinIcons.LocalisationCriteria: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_localisation_criteria)
 public val LeboncoinIcons.LockFill: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_lock_fill)
-public val LeboncoinIcons.LockOutilne: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_lock_outilne)
 public val LeboncoinIcons.LockOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_lock_outline)
 public val LeboncoinIcons.LockerFill: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_locker_fill)
 public val LeboncoinIcons.LockerOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_lbc_locker_outline)
