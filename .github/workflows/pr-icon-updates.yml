@@ -34,6 +34,8 @@ jobs:
       - run: |
           mkdir -p spark-icons/src/androidMain/res/drawable
           mkdir -p spark-icons/src/nonAndroidMain/composeResources/drawable
+          find spark-icons/src/androidMain/res/drawable -name "spark_icons_lbc_*" -delete
+          find spark-icons/src/nonAndroidMain/composeResources/drawable -name "spark_icons_lbc_*" -delete
           cp -r spark-icons/icons/. spark-icons/src/androidMain/res/drawable/
           cp -r spark-icons/icons/. spark-icons/src/nonAndroidMain/composeResources/drawable/
           rm -rf spark-icons/icons
