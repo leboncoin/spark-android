@@ -92,6 +92,7 @@ dependencies {
 
     implementation(libs.androidx.activity)
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.appCompat)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.material.motion)

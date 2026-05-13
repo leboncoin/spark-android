@@ -24,7 +24,7 @@ package com.adevinta.spark.catalog.datastore.theme
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
 import com.adevinta.spark.catalog.themes.Theme
@@ -64,8 +64,8 @@ internal class ThemePropertiesHandler(context: Context) {
 }
 
 @Composable
-internal fun Flow<Theme>.collectAsStateWithDefault(context: Context): State<Theme> = collectAsState(
-    initial = ThemeProperties.DEFAULT.copy(
+internal fun Flow<Theme>.collectAsStateWithDefault(context: Context): State<Theme> = collectAsStateWithLifecycle(
+    initialValue = ThemeProperties.DEFAULT.copy(
         fontScale = context.resources.configuration.fontScale,
     ).toTheme(),
 )
