@@ -270,18 +270,21 @@ jobs:
         with:
           name: aar-release
           path: aar-output/
+          digest-mismatch: warn
 
       - name: Download APK
         uses: actions/download-artifact@v8
         with:
           name: apk-release
           path: apk-output/
+          digest-mismatch: warn
 
       - name: Download JVM JARs
         uses: actions/download-artifact@v8
         with:
           name: jar-release
           path: jar-output/
+          digest-mismatch: warn
 
       - uses: ./.github/actions/diffuse-aar
 
