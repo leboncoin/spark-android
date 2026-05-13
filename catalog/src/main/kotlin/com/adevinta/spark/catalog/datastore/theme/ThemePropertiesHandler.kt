@@ -24,9 +24,9 @@ package com.adevinta.spark.catalog.datastore.theme
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.adevinta.spark.catalog.themes.Theme
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
