@@ -1506,10 +1506,10 @@ public val SparkIcons.MailOpenFill: DrawableRes get() = DrawableRes(R.drawable.s
 public val SparkIcons.MailOpenOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_mail_open_outline)
 
 @Deprecated(
-    "MailOutline has been renamed MailBoxOpenOutline",
-    ReplaceWith("LeboncoinIcons.MailBoxOpenOutline", "com.adevinta.spark.icons.LeboncoinIcons"),
+    "MailOutline has been renamed LetterOutline",
+    ReplaceWith("LeboncoinIcons.LetterOutline", "com.adevinta.spark.icons.LeboncoinIcons"),
 )
-public val SparkIcons.MailOutline: DrawableRes get() = DrawableRes(R.drawable.spark_icons_mail_outline)
+public val SparkIcons.MailOutline: DrawableRes get() = LeboncoinIcons.LetterOutline
 
 @Deprecated(
     "MapCursorFill has been renamed CursorFill",
