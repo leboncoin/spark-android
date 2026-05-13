@@ -40,6 +40,7 @@ import com.adevinta.spark.catalog.model.Configurator
 import com.adevinta.spark.catalog.ui.ButtonGroup
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
+import com.adevinta.spark.components.segmentedcontrol.SegmentedButtonItem
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControl
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControlDefaults
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControlScope
@@ -71,6 +72,7 @@ private fun ColumnScope.SegmentedControlSample(snackbarHostState: com.adevinta.s
     var showLink by remember { mutableStateOf(false) }
     var enabled by remember { mutableStateOf(true) }
 
+    val noOpLinkClick = remember { {} }
     ConfigedSegmentedControl(
         modifier = Modifier.align(Alignment.CenterHorizontally),
         segmentCount = segmentCount,
@@ -78,7 +80,7 @@ private fun ColumnScope.SegmentedControlSample(snackbarHostState: com.adevinta.s
         onSegmentSelect = { selectedIndex = it },
         title = if (showTitle) title else null,
         linkText = if (showLink) linkText else null,
-        onLinkClick = if (showLink) { {} } else null,
+        onLinkClick = if (showLink) noOpLinkClick else null,
         enabled = enabled,
     )
 
@@ -163,20 +165,23 @@ private fun ConfigedSegmentedControl(
         Box(
             modifier = Modifier.padding(16.dp),
         ) {
-            val segmentContent: @Composable SegmentedControlScope.() -> Unit = {
-                repeat(segmentCount) { index ->
-                    when (index % 4) {
-                        0 -> SingleLine("Option ${index + 1}")
-                        1 -> TwoLine("Title ${index + 1}", "Subtitle")
-                        2 -> Icon(LeboncoinIcons.ShoppingCartOutline)
-                        3 -> IconText(LeboncoinIcons.ShoppingCartOutline, "Item ${index + 1}")
+            val segmentContent: @Composable SegmentedControlScope.(SegmentedButtonItem) -> Unit = remember(segmentCount, selectedIndex, onSegmentSelect) {
+                {
+                    repeat(segmentCount) { index ->
+                        val selected = index == selectedIndex
+                        val onClick = { onSegmentSelect(index) }
+                        when (index % 4) {
+                            0 -> SingleLine("Option ${index + 1}", selected = selected, onClick = onClick)
+                            1 -> TwoLine("Title ${index + 1}", "Subtitle", selected = selected, onClick = onClick)
+                            2 -> Icon(LeboncoinIcons.ShoppingCartOutline, selected = selected, onClick = onClick)
+                            3 -> IconText(LeboncoinIcons.ShoppingCartOutline, "Item ${index + 1}", selected = selected, onClick = onClick)
+                        }
                     }
                 }
             }
             if (segmentCount <= SegmentedControlDefaults.MaxHorizontalSegments) {
                 SegmentedControl.Horizontal(
                     selectedIndex = selectedIndex,
-                    onSegmentSelect = onSegmentSelect,
                     title = title,
                     linkText = linkText,
                     onLinkClick = onLinkClick,
@@ -186,7 +191,6 @@ private fun ConfigedSegmentedControl(
             } else {
                 SegmentedControl.Vertical(
                     selectedIndex = selectedIndex,
-                    onSegmentSelect = onSegmentSelect,
                     title = title,
                     linkText = linkText,
                     onLinkClick = onLinkClick,
