@@ -190,7 +190,7 @@ private val FilteringComboBox = Example(
         }
     }
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(state) {
         snapshotFlow { state.text }
             .debounce(300.milliseconds)
             .onEach { queryText ->
@@ -256,7 +256,7 @@ private val SuggestionComboBox = Example(
         }
     }
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(state) {
         snapshotFlow { state.text }
             .collectLatest { queryText ->
                 searchText = queryText.toString()
