@@ -57,7 +57,7 @@ jobs:
       - uses: ./.github/actions/setup-gradle-properties
       - name: 👷 Build
         id: build
-        run: ./gradlew assembleRelease jvmJar
+        run: ./gradlew assembleRelease :spark-icons:assembleAndroidMain jvmJar
       - name: 📦 Archive APKs
         uses: actions/upload-artifact@v7
         with:
