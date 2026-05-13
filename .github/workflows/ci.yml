@@ -68,8 +68,7 @@ jobs:
         with:
           name: aar-release
           path: |
-            **/build/outputs/aar/*-release.aar
-            **/build/outputs/aar/spark-icons.aar
+            **/build/outputs/aar/*.aar
       - name: 📦 Archive JVM JARs
         uses: actions/upload-artifact@v7
         with:
