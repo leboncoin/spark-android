@@ -25,6 +25,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
@@ -57,8 +58,8 @@ internal inline fun <reified T : Enum<T>> ButtonGroup(
     crossinline onOptionSelect: (T) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val options = enumValues<T>().map { it.name }
-    val selectedIndex = options.indexOf(selectedOption.name)
+    val options = remember { enumValues<T>() }
+    val selectedIndex = remember(options, selectedOption) { options.indexOfFirst { it.name == selectedOption.name } }
 
     ButtonGroupLayout(
         title = title,
@@ -66,13 +67,14 @@ internal inline fun <reified T : Enum<T>> ButtonGroup(
     ) {
         SegmentedControl.Horizontal(
             selectedIndex = selectedIndex,
-            onSegmentSelect = { index ->
-                onOptionSelect(enumValueOf<T>(options[index]))
-            },
             modifier = Modifier.fillMaxWidth(),
         ) {
-            options.forEach { option ->
-                SingleLine(option)
+            options.forEachIndexed { index, option ->
+                SingleLine(
+                    text = option.name,
+                    selected = index == selectedIndex,
+                    onClick = { onOptionSelect(option) },
+                )
             }
         }
     }
@@ -94,13 +96,14 @@ internal fun ButtonGroup(
     ) {
         SegmentedControl.Horizontal(
             selectedIndex = selectedIndex,
-            onSegmentSelect = { index ->
-                onOptionSelect(options[index])
-            },
             modifier = Modifier.fillMaxWidth(),
         ) {
             options.forEach { option ->
-                SingleLine(option)
+                SingleLine(
+                    text = option,
+                    selected = option == selectedOption,
+                    onClick = { onOptionSelect(option) },
+                )
             }
         }
     }

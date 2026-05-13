@@ -21,20 +21,21 @@
  */
 package com.adevinta.spark.segmentedcontrol
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.DefaultTestDevices
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControl
+import com.adevinta.spark.components.segmentedcontrol.SegmentedControlShape
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.LeboncoinIcons
@@ -102,6 +103,30 @@ internal class SegmentedControlScreenshot {
     }
 
     @Test
+    fun customSegmentAndIndicator() {
+        paparazzi.sparkSnapshotNightMode {
+            Surface(
+                color = SparkTheme.colors.backgroundVariant,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                CustomSegmentAndIndicator()
+            }
+        }
+    }
+
+    @Test
+    fun verticalPillShape() {
+        paparazzi.sparkSnapshotNightMode {
+            Surface(
+                color = SparkTheme.colors.backgroundVariant,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                VerticalPillShape()
+            }
+        }
+    }
+
+    @Test
     fun disabled() {
         paparazzi.sparkSnapshotNightMode {
             Surface(
@@ -114,51 +139,114 @@ internal class SegmentedControlScreenshot {
     }
 
     @Composable
+    private fun CustomSegmentAndIndicator() {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            Text(text = "Custom segments with custom indicator", style = SparkTheme.typography.headline2)
+            SegmentedControl.Horizontal(
+                selectedIndex = 1,
+                indicatorContent = {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(4.dp)
+                            .background(SparkTheme.colors.warningContainer, SparkTheme.shapes.full),
+                    )
+                },
+            ) {
+                Custom(selected = false, onClick = {}, rippleColor = SparkTheme.colors.warning) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(SparkTheme.colors.errorContainer),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Text("A", color = SparkTheme.colors.onErrorContainer)
+                    }
+                }
+                Custom(selected = true, onClick = {}, rippleColor = SparkTheme.colors.warning) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(SparkTheme.colors.successContainer),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Text("B", color = SparkTheme.colors.onSuccessContainer)
+                    }
+                }
+                Custom(selected = false, onClick = {}, rippleColor = SparkTheme.colors.warning) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(SparkTheme.colors.infoContainer),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Text("C", color = SparkTheme.colors.onInfoContainer)
+                    }
+                }
+            }
+        }
+    }
+
+    @Composable
+    private fun VerticalPillShape() {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            Text(text = "Vertical - Pill shape", style = SparkTheme.typography.headline2)
+            SegmentedControl.Vertical(
+                selectedIndex = 2,
+                shape = SegmentedControlShape.Pill,
+            ) {
+                SingleLine("Option 1", selected = false, onClick = {})
+                SingleLine("Option 2", selected = false, onClick = {})
+                SingleLine("Option 3", selected = true, onClick = {})
+                SingleLine("Option 4", selected = false, onClick = {})
+                SingleLine("Option 5", selected = false, onClick = {})
+            }
+
+            Text(text = "Vertical - Rounded shape (default)", style = SparkTheme.typography.headline2)
+            SegmentedControl.Vertical(
+                selectedIndex = 2,
+                shape = SegmentedControlShape.Rounded,
+            ) {
+                SingleLine("Option 1", selected = false, onClick = {})
+                SingleLine("Option 2", selected = false, onClick = {})
+                SingleLine("Option 3", selected = true, onClick = {})
+                SingleLine("Option 4", selected = false, onClick = {})
+                SingleLine("Option 5", selected = false, onClick = {})
+            }
+        }
+    }
+
+    @Composable
     private fun SingleRowSegments() {
         Column(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            Text(
-                text = "Single row - 2 segments",
-                style = SparkTheme.typography.headline2,
-            )
-            var selectedIndex1 by remember { mutableIntStateOf(0) }
-            SegmentedControl.Horizontal(
-                selectedIndex = selectedIndex1,
-                onSegmentSelect = { selectedIndex1 = it },
-            ) {
-                SingleLine("Option 1")
-                SingleLine("Option 2")
+            Text(text = "Single row - 2 segments", style = SparkTheme.typography.headline2)
+            SegmentedControl.Horizontal(selectedIndex = 0) {
+                SingleLine("Option 1", selected = true, onClick = {})
+                SingleLine("Option 2", selected = false, onClick = {})
             }
 
-            Text(
-                text = "Single row - 3 segments",
-                style = SparkTheme.typography.headline2,
-            )
-            var selectedIndex2 by remember { mutableIntStateOf(1) }
-            SegmentedControl.Horizontal(
-                selectedIndex = selectedIndex2,
-                onSegmentSelect = { selectedIndex2 = it },
-            ) {
-                SingleLine("Option 1")
-                SingleLine("Option 2")
-                SingleLine("Option 3")
+            Text(text = "Single row - 3 segments", style = SparkTheme.typography.headline2)
+            SegmentedControl.Horizontal(selectedIndex = 1) {
+                SingleLine("Option 1", selected = false, onClick = {})
+                SingleLine("Option 2", selected = true, onClick = {})
+                SingleLine("Option 3", selected = false, onClick = {})
             }
 
-            Text(
-                text = "Single row - 4 segments",
-                style = SparkTheme.typography.headline2,
-            )
-            var selectedIndex3 by remember { mutableIntStateOf(2) }
-            SegmentedControl.Horizontal(
-                selectedIndex = selectedIndex3,
-                onSegmentSelect = { selectedIndex3 = it },
-            ) {
-                SingleLine("Option 1")
-                SingleLine("Option 2")
-                SingleLine("Option 3")
-                SingleLine("Option 4")
+            Text(text = "Single row - 4 segments", style = SparkTheme.typography.headline2)
+            SegmentedControl.Horizontal(selectedIndex = 2) {
+                SingleLine("Option 1", selected = false, onClick = {})
+                SingleLine("Option 2", selected = false, onClick = {})
+                SingleLine("Option 3", selected = true, onClick = {})
+                SingleLine("Option 4", selected = false, onClick = {})
             }
         }
     }
@@ -169,39 +257,25 @@ internal class SegmentedControlScreenshot {
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            Text(
-                text = "Multi-row - 5 segments",
-                style = SparkTheme.typography.headline2,
-            )
-            var selectedIndex1 by remember { mutableIntStateOf(0) }
-            SegmentedControl.Vertical(
-                selectedIndex = selectedIndex1,
-                onSegmentSelect = { selectedIndex1 = it },
-            ) {
-                SingleLine("Option 1")
-                SingleLine("Option 2")
-                SingleLine("Option 3")
-                SingleLine("Option 4")
-                SingleLine("Option 5")
+            Text(text = "Multi-row - 5 segments", style = SparkTheme.typography.headline2)
+            SegmentedControl.Vertical(selectedIndex = 0) {
+                SingleLine("Option 1", selected = true, onClick = {})
+                SingleLine("Option 2", selected = false, onClick = {})
+                SingleLine("Option 3", selected = false, onClick = {})
+                SingleLine("Option 4", selected = false, onClick = {})
+                SingleLine("Option 5", selected = false, onClick = {})
             }
 
-            Text(
-                text = "Multi-row - 8 segments",
-                style = SparkTheme.typography.headline2,
-            )
-            var selectedIndex2 by remember { mutableIntStateOf(4) }
-            SegmentedControl.Vertical(
-                selectedIndex = selectedIndex2,
-                onSegmentSelect = { selectedIndex2 = it },
-            ) {
-                SingleLine("1")
-                SingleLine("2")
-                SingleLine("3")
-                SingleLine("4")
-                SingleLine("5")
-                SingleLine("6")
-                SingleLine("7")
-                SingleLine("8")
+            Text(text = "Multi-row - 8 segments", style = SparkTheme.typography.headline2)
+            SegmentedControl.Vertical(selectedIndex = 4) {
+                SingleLine("1", selected = false, onClick = {})
+                SingleLine("2", selected = false, onClick = {})
+                SingleLine("3", selected = false, onClick = {})
+                SingleLine("4", selected = false, onClick = {})
+                SingleLine("5", selected = true, onClick = {})
+                SingleLine("6", selected = false, onClick = {})
+                SingleLine("7", selected = false, onClick = {})
+                SingleLine("8", selected = false, onClick = {})
             }
         }
     }
@@ -212,31 +286,20 @@ internal class SegmentedControlScreenshot {
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            Text(
-                text = "Content Types",
-                style = SparkTheme.typography.headline2,
-            )
+            Text(text = "Content Types", style = SparkTheme.typography.headline2)
 
-            var selectedIndex1 by remember { mutableIntStateOf(0) }
-            SegmentedControl.Horizontal(
-                selectedIndex = selectedIndex1,
-                onSegmentSelect = { selectedIndex1 = it },
-            ) {
-                SingleLine("Text")
-                TwoLine("Title", "Subtitle")
-                Icon(LeboncoinIcons.ShoppingCartOutline)
-                IconText(LeboncoinIcons.ShoppingCartOutline, "Cart")
+            SegmentedControl.Horizontal(selectedIndex = 0) {
+                SingleLine("Text", selected = true, onClick = {})
+                TwoLine("Title", "Subtitle", selected = false, onClick = {})
+                Icon(LeboncoinIcons.ShoppingCartOutline, selected = false, onClick = {})
+                IconText(LeboncoinIcons.ShoppingCartOutline, "Cart", selected = false, onClick = {})
             }
 
-            var selectedIndex2 by remember { mutableIntStateOf(0) }
-            SegmentedControl.Horizontal(
-                selectedIndex = selectedIndex2,
-                onSegmentSelect = { selectedIndex2 = it },
-            ) {
-                Number(1)
-                Number(2)
-                Number(3)
-                Number(4)
+            SegmentedControl.Horizontal(selectedIndex = 0) {
+                Number(1, selected = true, onClick = {})
+                Number(2, selected = false, onClick = {})
+                Number(3, selected = false, onClick = {})
+                Number(4, selected = false, onClick = {})
             }
         }
     }
@@ -247,17 +310,15 @@ internal class SegmentedControlScreenshot {
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            var selectedIndex by remember { mutableIntStateOf(1) }
             SegmentedControl.Horizontal(
-                selectedIndex = selectedIndex,
-                onSegmentSelect = { selectedIndex = it },
+                selectedIndex = 1,
                 title = "Filter",
                 linkText = "Learn more",
-                onLinkClick = { },
+                onLinkClick = {},
             ) {
-                SingleLine("All")
-                SingleLine("Active")
-                SingleLine("Completed")
+                SingleLine("All", selected = false, onClick = {})
+                SingleLine("Active", selected = true, onClick = {})
+                SingleLine("Completed", selected = false, onClick = {})
             }
         }
     }
@@ -268,19 +329,15 @@ internal class SegmentedControlScreenshot {
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            Text(
-                text = "Disabled",
-                style = SparkTheme.typography.headline2,
-            )
+            Text(text = "Disabled", style = SparkTheme.typography.headline2)
 
             SegmentedControl.Horizontal(
                 selectedIndex = 1,
-                onSegmentSelect = { },
                 enabled = false,
             ) {
-                SingleLine("Option 1")
-                SingleLine("Option 2")
-                SingleLine("Option 3")
+                SingleLine("Option 1", selected = false, onClick = {})
+                SingleLine("Option 2", selected = true, onClick = {})
+                SingleLine("Option 3", selected = false, onClick = {})
             }
         }
     }
