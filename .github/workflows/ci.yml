@@ -232,7 +232,7 @@ jobs:
   datadog-ci:
     name: 📊 Datadog CI Metrics
     needs: [finish]
-    # if: ${{ !cancelled() && needs.finish.result == 'success' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    if: ${{ !cancelled() && needs.finish.result == 'success' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
