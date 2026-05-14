@@ -39,7 +39,7 @@ internal class SparkMultiplatformLibraryPlugin : Plugin<Project> {
             extensions.configure<KotlinMultiplatformExtension> {
                 targets.withType<KotlinMultiplatformAndroidLibraryTarget>().configureEach {
                     compilerOptions {
-                        jvmTarget.set(JvmTarget.JVM_11)
+                        jvmTarget.set(JvmTarget.JVM_21)
                     }
                 }
                 extensions.configure<KotlinMultiplatformAndroidLibraryExtension> {
