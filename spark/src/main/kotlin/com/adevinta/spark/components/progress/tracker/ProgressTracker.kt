@@ -660,6 +660,7 @@ private fun PreviewProgressIndicator() {
         )
         items.forEachIndexed { index, progressStep ->
             val isDone = index < selectedStep
+            val interactionSource = remember { MutableInteractionSource() }
             StepIndicator(
                 colors = ProgressTrackerIntent.Support.colors(),
                 size = ProgressSizes.Large,
@@ -672,7 +673,7 @@ private fun PreviewProgressIndicator() {
                 done = isDone,
                 hasIndicatorContent = true,
                 onClick = {},
-                interactionSource = MutableInteractionSource(),
+                interactionSource = interactionSource,
             )
         }
     }
