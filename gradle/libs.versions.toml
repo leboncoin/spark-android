@@ -119,12 +119,12 @@ material-motion = "io.github.fornewid:material-motion-compose-core:2.0.1"
 # https://github.com/robolectric/robolectric
 robolectric = "org.robolectric:robolectric:4.16.1"
 
-slack-lint-compose = "com.slack.lint.compose:compose-lint-checks:1.4.2"
+slack-lint-compose = "com.slack.lint.compose:compose-lint-checks:1.4.3"
 
 # https://github.com/google/TestParameterInjector
 testParameterInjector = "com.google.testparameterinjector:test-parameter-injector:1.22"
 
-unstyled = "com.composables:composeunstyled:1.49.6"
+unstyled-disclosure = "com.composables:composeunstyled-disclosure:2.1.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -46,6 +46,7 @@ import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.android.asCoroutineDispatcher
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -170,7 +171,10 @@ private class ComposeLayoutPreviewHelper(val view: AbstractComposeView) {
 
                     Lifecycle.Event.ON_STOP -> pausableClock?.pause()
 
-                    Lifecycle.Event.ON_DESTROY -> recomposer.cancel()
+                    Lifecycle.Event.ON_DESTROY -> {
+                        recomposer.cancel()
+                        runRecomposeScope.cancel()
+                    }
 
                     Lifecycle.Event.ON_RESUME,
                     Lifecycle.Event.ON_PAUSE,

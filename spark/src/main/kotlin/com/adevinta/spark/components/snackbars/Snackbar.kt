@@ -42,6 +42,8 @@ import androidx.compose.material3.TooltipAnchorPosition
 import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.movableContentOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -95,6 +97,8 @@ internal fun SparkSnackbar(
         .padding(8.dp)
         .fillMaxWidth()
 
+    val contentSlot = remember { movableContentOf { content() } }
+
     Surface(
         modifier = modifier
             .heightIn(min = 60.dp)
@@ -117,7 +121,7 @@ internal fun SparkSnackbar(
                         backgroundColor = backgroundColor,
                         title = title,
                         onDismissClick = onDismissClick,
-                        content = content,
+                        content = contentSlot,
                     )
                     SnackbarAction(
                         modifier = Modifier.align(Alignment.End),
@@ -134,7 +138,7 @@ internal fun SparkSnackbar(
                 backgroundColor = backgroundColor,
                 title = title,
                 onDismissClick = onDismissClick,
-                content = content,
+                content = contentSlot,
             )
         }
     }
