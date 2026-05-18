@@ -114,7 +114,6 @@ public fun rememberFileUploadPattern(
     onFilesSelect: (ImmutableList<UploadedFile>) -> Unit,
     type: FileUploadType = FileUploadType.File(),
     mode: FileUploadMode = FileUploadMode.Single,
-    title: String? = null,
     directory: PlatformFile? = null,
     dialogSettings: FileKitDialogSettings = FileKitDialogSettings.createDefault(),
 ): FileUploadPatternState {
@@ -127,7 +126,6 @@ public fun rememberFileUploadPattern(
         // Single mode: callback receives PlatformFile? directly
         rememberFilePickerLauncher(
             type = fileKitType,
-            title = title,
             directory = directory,
             dialogSettings = dialogSettings,
         ) { pickedFile ->
@@ -139,7 +137,6 @@ public fun rememberFileUploadPattern(
         rememberFilePickerLauncher(
             type = fileKitType,
             mode = FileKitMode.Multiple(maxItems = maxFiles),
-            title = title,
             directory = directory,
             dialogSettings = dialogSettings,
         ) { result ->
