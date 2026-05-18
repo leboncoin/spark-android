@@ -36,7 +36,7 @@ import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.isNotFocusable
-import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performKeyInput
 import androidx.compose.ui.test.performSemanticsAction
@@ -45,7 +45,6 @@ import androidx.compose.ui.test.requestFocus
 import androidx.compose.ui.test.withKeyDown
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.stepper.Stepper
-import com.ibm.icu.impl.SimpleFormatterImpl.IterInternal.step
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
