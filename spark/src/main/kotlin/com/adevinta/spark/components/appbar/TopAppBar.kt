@@ -63,6 +63,8 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.movableContentOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -190,13 +192,14 @@ public fun MediumTopAppBar(
     colors: TopAppBarColors = TopAppBarSparkDefaults.mediumTopAppBarColors(),
     scrollBehavior: TopAppBarScrollBehavior? = null,
 ) {
+    val titleSlot = remember { movableContentOf { title() } }
     TwoRowsTopAppBar(
         modifier = modifier,
-        title = title,
+        title = titleSlot,
         titleTextStyle = SparkTheme.typography.display3,
         smallTitleTextStyle = SparkTheme.typography.headline1,
         titleBottomPadding = MediumTitleBottomPadding,
-        smallTitle = title,
+        smallTitle = titleSlot,
         navigationIcon = navigationIcon,
         actions = actions,
         colors = colors,
@@ -245,12 +248,13 @@ public fun LargeTopAppBar(
     colors: TopAppBarColors = TopAppBarSparkDefaults.largeTopAppBarColors(),
     scrollBehavior: TopAppBarScrollBehavior? = null,
 ) {
+    val titleSlot = remember { movableContentOf { title() } }
     TwoRowsTopAppBar(
-        title = title,
+        title = titleSlot,
         titleTextStyle = SparkTheme.typography.display2.copy(fontWeight = FontWeight.Normal),
         smallTitleTextStyle = SparkTheme.typography.headline1,
         titleBottomPadding = LargeTitleBottomPadding,
-        smallTitle = title,
+        smallTitle = titleSlot,
         modifier = modifier,
         navigationIcon = navigationIcon,
         actions = actions,
