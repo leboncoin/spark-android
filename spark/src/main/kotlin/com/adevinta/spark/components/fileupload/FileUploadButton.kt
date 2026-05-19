@@ -89,7 +89,6 @@ internal fun FileUploadSingleButton(
     val pattern = rememberFileUploadPattern(
         type = type,
         mode = FileUploadMode.Single,
-        title = title,
         directory = directory,
         dialogSettings = dialogSettings,
         onFilesSelect = { files -> onResult(files.firstOrNull()) },
@@ -156,7 +155,6 @@ internal fun FileUploadButton(
     val pattern = rememberFileUploadPattern(
         type = type,
         mode = FileUploadMode.Multiple(maxFiles),
-        title = title,
         directory = directory,
         dialogSettings = dialogSettings,
         onFilesSelect = onResult,
