@@ -221,6 +221,7 @@ public val LeboncoinIcons.FlagFill: Resource get() = Resource(Res.drawable.spark
 public val LeboncoinIcons.FlagOutline: Resource get() = Resource(Res.drawable.spark_icons_lbc_flag_outline)
 public val LeboncoinIcons.FlashlightFill: Resource get() = Resource(Res.drawable.spark_icons_lbc_flashlight_fill)
 public val LeboncoinIcons.FlashlightOutline: Resource get() = Resource(Res.drawable.spark_icons_lbc_flashlight_outline)
+public val LeboncoinIcons.FloorPlan: Resource get() = Resource(Res.drawable.spark_icons_lbc_floor_plan)
 public val LeboncoinIcons.FlowerCriteria: Resource get() = Resource(Res.drawable.spark_icons_lbc_flower_criteria)
 public val LeboncoinIcons.FoldedEnvelopFill: Resource get() = Resource(Res.drawable.spark_icons_lbc_folded_envelop_fill)
 public val LeboncoinIcons.FoldedEnvelopOutline: Resource get() = Resource(Res.drawable.spark_icons_lbc_folded_envelop_outline)
