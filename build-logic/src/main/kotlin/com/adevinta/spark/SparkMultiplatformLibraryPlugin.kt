@@ -39,13 +39,13 @@ internal class SparkMultiplatformLibraryPlugin : Plugin<Project> {
             apply(plugin = "com.android.kotlin.multiplatform.library")
             pluginManager.apply("com.gradleup.tapmoc")
             extensions.configure<TapmocExtension> {
-                java(21)
+                java(11)
                 kotlin(spark().versions.kotlin.requiredVersion)
             }
             extensions.configure<KotlinMultiplatformExtension> {
                 targets.withType<KotlinMultiplatformAndroidLibraryTarget>().configureEach {
                     compilerOptions {
-                        jvmTarget.set(JvmTarget.JVM_21)
+                        jvmTarget.set(JvmTarget.JVM_11)
                     }
                 }
                 extensions.configure<KotlinMultiplatformAndroidLibraryExtension> {
