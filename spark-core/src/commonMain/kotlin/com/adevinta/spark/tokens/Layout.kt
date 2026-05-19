@@ -44,6 +44,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.isFinite
@@ -61,47 +62,38 @@ public object Layout {
         @Composable get() = LocalWindowSizeClass.current
 
     public val bodyMargin: Dp
-        @Composable get() {
-            val windowWidthDp = windowSize.minWidthDp
-            return when {
-                windowWidthDp >= WIDTH_DP_EXPANDED_LOWER_BOUND -> 64.dp
-                windowWidthDp >= WIDTH_DP_MEDIUM_LOWER_BOUND -> 32.dp
-                else -> 16.dp
-            }
+        @Composable get() = when {
+            windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_EXPANDED_LOWER_BOUND) -> 64.dp
+            windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_MEDIUM_LOWER_BOUND) -> 32.dp
+            else -> 16.dp
         }
 
     public val gutter: Dp
-        @Composable get() {
-            val windowWidthDp = windowSize.minWidthDp
-            return when {
-                windowWidthDp >= WIDTH_DP_EXPANDED_LOWER_BOUND -> 24.dp
-                windowWidthDp >= WIDTH_DP_MEDIUM_LOWER_BOUND -> 16.dp
+        @Composable get() =
+            when {
+                windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_EXPANDED_LOWER_BOUND) -> 24.dp
+                windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_MEDIUM_LOWER_BOUND) -> 16.dp
                 else -> 8.dp
             }
-        }
 
     public val columns: Int
-        @Composable get() {
-            val windowWidthDp = windowSize.minWidthDp
-            return when {
-                windowWidthDp >= WIDTH_DP_EXPANDED_LOWER_BOUND -> 12
-                windowWidthDp >= WIDTH_DP_MEDIUM_LOWER_BOUND -> 8
+        @Composable get() =
+            when {
+                windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_EXPANDED_LOWER_BOUND) -> 12
+                windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_MEDIUM_LOWER_BOUND) -> 8
                 else -> 4
             }
-        }
 
     public val bodyMaxWidth: Dp
-        @Composable get() {
-            val windowWidthDp = windowSize.minWidthDp
-            return when {
-//                windowWidthDp >= WIDTH_DP_EXTRA_LARGE_LOWER_BOUND -> 1040.dp
-//                windowWidthDp >= WIDTH_DP_LARGE_LOWER_BOUND -> 840.dp
-                windowWidthDp >= WIDTH_DP_EXPANDED_LOWER_BOUND -> 840.dp
+        @Composable get() = when {
+            // Not yet available in CMP
+//            windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_EXTRA_LARGE_LOWER_BOUND) -> 1040.dp
+//            windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_LARGE_LOWER_BOUND) -> 840.dp
+            windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_EXPANDED_LOWER_BOUND) -> 840.dp
 
-                windowWidthDp >= WIDTH_DP_MEDIUM_LOWER_BOUND -> Dp.Infinity
+            windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_MEDIUM_LOWER_BOUND) -> Dp.Infinity
 
-                else -> Dp.Infinity
-            }
+            else -> Dp.Infinity
         }
 }
 
@@ -123,7 +115,7 @@ public fun Modifier.bodyWidth(): Modifier = fillMaxWidth()
     }
 
 @Composable
-// @DevicePreviews
+@PreviewScreenSizes
 internal fun LayoutPreview() {
     PreviewTheme(
         padding = PaddingValues(0.dp),
