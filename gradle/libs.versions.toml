@@ -30,7 +30,7 @@ androidx-appCompat-resources = { module = "androidx.appcompat:appcompat-resource
 
 androidx-compose-animation-core = { module = "androidx.compose.animation:animation-core" }
 androidx-compose-animation-graphics = { module = "androidx.compose.animation:animation-graphics" }
-androidx-compose-bom = "androidx.compose:compose-bom:2026.05.00"
+androidx-compose-bom = "androidx.compose:compose-bom:2026.05.01"
 androidx-compose-foundation = { module = "androidx.compose.foundation:foundation" }
 androidx-compose-foundation-layout = { module = "androidx.compose.foundation:foundation-layout" }
 androidx-compose-material-iconsExtended = { module = "androidx.compose.material:material-icons-extended" }
@@ -62,7 +62,7 @@ androidx-metrics =  "androidx.metrics:metrics-performance:1.0.0"
 
 androidx-navigation-compose = "androidx.navigation:navigation-compose:2.9.8"
 
-androidx-savedstate = "androidx.savedstate:savedstate-ktx:1.4.0"
+androidx-savedstate = "androidx.savedstate:savedstate-ktx:1.5.0"
 
 androidx-test-runner = "androidx.test:runner:1.7.0"
 androidx-test-truth = "androidx.test.ext:truth:1.7.0"
