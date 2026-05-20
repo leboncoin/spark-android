@@ -1,0 +1,38 @@
+name: 'Release Please'
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    if: github.repository == 'leboncoin/spark-android'
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          token: ${{ secrets.PAT_SPARK }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  trigger-dokka:
+    needs: release-please
+    if: needs.release-please.outputs.release_created == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Trigger Dokka publish'
+        run: |
+          gh workflow run dokka.yml \
+            --repo ${{ github.repository }} \
+            --field ref=${{ needs.release-please.outputs.tag_name }}
+        env:
+          GH_TOKEN: ${{ secrets.PAT_SPARK }}
