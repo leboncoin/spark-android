@@ -104,11 +104,11 @@ androidx.navigationevent:navigationevent:1.0.0
 androidx.print:print:1.0.0
 androidx.profileinstaller:profileinstaller:1.4.1
 androidx.resourceinspection:resourceinspection-annotation:1.0.1
-androidx.savedstate:savedstate-android:1.4.0
-androidx.savedstate:savedstate-compose-android:1.4.0
-androidx.savedstate:savedstate-compose:1.4.0
-androidx.savedstate:savedstate-ktx:1.4.0
-androidx.savedstate:savedstate:1.4.0
+androidx.savedstate:savedstate-android:1.5.0
+androidx.savedstate:savedstate-compose-android:1.5.0
+androidx.savedstate:savedstate-compose:1.5.0
+androidx.savedstate:savedstate-ktx:1.5.0
+androidx.savedstate:savedstate:1.5.0
 androidx.startup:startup-runtime:1.2.0
 androidx.tracing:tracing:1.2.0
 androidx.transition:transition:1.6.0
