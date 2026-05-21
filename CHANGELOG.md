@@ -16,6 +16,16 @@ _2026-04-16_
 - 🆕 `RadioButtonLabelled` now accepts a `verticalAlignment` parameter (`Alignment.Vertical`, defaults to `Alignment.Top`) to control how the radio button widget aligns when the label content is taller than the widget, e.g. with multi-line text.
 - 🆕 `CheckboxLabelled` now accepts a `verticalAlignment` parameter (`Alignment.Vertical`, defaults to `Alignment.Top`) to control how the checkbox widget aligns when the label content is taller than the widget, e.g. with multi-line text.
 
+## [2.2.2]
+
+_2026-05-20_
+
+### Icons
+
+- ✨ New `LeboncoinIcons`: `ThumbDownFill`, `ThumbDownOutline`, `BannedFill`, `BannedOutline`, `PaintPaletteCriteria`, `PeopleCriteria`, `PhoneCallSuccessFill`, `PhoneCallSuccessOutline`, `FloorPlan`
+- 🐛 Fix typo in `LockOutline` icon file name (`lock_outilne` → `lock_outline`)
+- 🐛 Fix `SparkIcons.MailOutline` `replaceWith` annotation pointing to `MailBoxOpenOutline` instead of `LetterOutline`
+
 ## [2.2.1]
 
 _2026-04-16_
@@ -1314,7 +1324,9 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/2.2.1...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/2.2.2...HEAD
+
+[2.2.2]: https://github.com/leboncoin/spark-android/compare/2.2.1...2.2.2
 
 [2.2.1]: https://github.com/leboncoin/spark-android/compare/2.2.0...2.2.1
 
