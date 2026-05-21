@@ -124,7 +124,7 @@ slack-lint-compose = "com.slack.lint.compose:compose-lint-checks:1.4.3"
 # https://github.com/google/TestParameterInjector
 testParameterInjector = "com.google.testparameterinjector:test-parameter-injector:1.22"
 
-unstyled-disclosure = "com.composables:composeunstyled-disclosure:2.1.0"
+unstyled-disclosure = "com.composables:composeunstyled-disclosure:2.3.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
