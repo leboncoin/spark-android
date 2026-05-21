@@ -10,7 +10,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - if: ${{ hashFiles('**/build/paparazzi/failures/**.png') != '' }}
+    - if: ${{ hashFiles('**/build/paparazzi/failures/**/*.png') != '' }}
       shell: bash
       run: |
         ( \
