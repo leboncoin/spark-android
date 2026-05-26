@@ -1,35 +1,30 @@
 package com.adevinta.spark.catalog.baselineprofile
 
+import android.content.Intent
 import androidx.benchmark.macro.junit4.BaselineProfileRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.Direction
+import androidx.test.uiautomator.Until
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * This test class generates a basic startup baseline profile for the target package.
+ * Generates baseline and startup profiles for the Spark catalog.
  *
- * We recommend you start with this but add important user flows to the profile to improve their performance.
- * Refer to the [baseline profile documentation](https://d.android.com/topic/performance/baselineprofiles)
- * for more information.
+ * - [startup]: minimal cold-start journey → included in startup profile (DEX layout optimisation)
+ * - [componentJourneys]: launches BenchmarkActivity showing all components → baseline profile only
+ * - [iconJourneys]: launches BenchmarkIconsActivity showing all icons → baseline profile only
  *
- * You can run the generator with the "Generate Baseline Profile" run configuration in Android Studio or
- * the equivalent `generateBaselineProfile` gradle task:
+ * Run with:
  * ```
  * ./gradlew :catalog:generateReleaseBaselineProfile
  * ```
- * The run configuration runs the Gradle task and applies filtering to run only the generators.
- *
- * Check [documentation](https://d.android.com/topic/performance/benchmarking/macrobenchmark-instrumentation-args)
- * for more information about available instrumentation arguments.
- *
- * After you run the generator, you can verify the improvements running the [StartupBenchmarks] benchmark.
  *
  * When using this class to generate a baseline profile, only API 33+ or rooted API 28+ are supported.
- *
- * The minimum required version of androidx.benchmark to generate a baseline profile is 1.2.0.
  **/
 @RunWith(AndroidJUnit4::class)
 @LargeTest
@@ -38,31 +33,70 @@ internal class BaselineProfileGenerator {
     @get:Rule
     internal val rule: BaselineProfileRule = BaselineProfileRule()
 
+    private val packageName: String
+        get() = InstrumentationRegistry.getArguments().getString("targetAppId")
+            ?: throw Exception("targetAppId not passed as instrumentation runner arg")
+
     @Test
-    internal fun generate() {
-        // The application id for the running build variant is read from the instrumentation arguments.
+    internal fun startup() {
         rule.collect(
-            packageName = InstrumentationRegistry.getArguments().getString("targetAppId")
-                ?: throw Exception("targetAppId not passed as instrumentation runner arg"),
-
-            // See: https://d.android.com/topic/performance/baselineprofiles/dex-layout-optimizations
-            includeInStartupProfile = true
+            packageName = packageName,
+            includeInStartupProfile = true,
         ) {
-            // This block defines the app's critical user journey. Here we are interested in
-            // optimizing for app startup. But you can also navigate and scroll through your most important UI.
-
-            // Start default activity for your app
             pressHome()
             startActivityAndWait()
+        }
+    }
 
-            // TODO Write more interactions to optimize advanced journeys of your app.
-            // For example:
-            // 1. Wait until the content is asynchronously loaded
-            // 2. Scroll the feed content
-            // 3. Navigate to detail screen
+    @Test
+    internal fun componentJourneys() {
+        rule.collect(
+            packageName = packageName,
+            includeInStartupProfile = false,
+        ) {
+            startActivityAndWait(Intent().apply {
+                setPackage(packageName)
+                setAction("com.adevinta.spark.catalog.BENCHMARK")
+            })
 
-            // Check UiAutomator documentation for more information how to interact with the app.
-            // https://d.android.com/training/testing/other-components/ui-automator
+            device.wait(Until.hasObject(By.res("benchmark_list")), 5_000)
+
+            val list = device.findObject(By.res("benchmark_list")) ?: return@collect
+            list.setGestureMargin(device.displayWidth / 4)
+
+            repeat(5) {
+                list.scroll(Direction.DOWN, 2f)
+                device.waitForIdle()
+            }
+            repeat(5) {
+                list.scroll(Direction.UP, 2f)
+                device.waitForIdle()
+            }
+        }
+    }
+
+    @Test
+    internal fun iconJourneys() {
+        rule.collect(
+            packageName = packageName,
+            includeInStartupProfile = false,
+        ) {
+            startActivityAndWait(Intent().apply {
+                setPackage(packageName)
+                setAction("com.adevinta.spark.catalog.BENCHMARK_ICONS")
+            })
+
+            device.wait(Until.hasObject(By.res("benchmark_icons_grid")), 5_000)
+
+            val grid = device.findObject(By.res("benchmark_icons_grid")) ?: return@collect
+            grid.setGestureMargin(device.displayWidth / 4)
+
+            // Scroll to the bottom to render all icons
+            var canScroll = true
+            while (canScroll) {
+                canScroll = grid.scroll(Direction.DOWN, 2f)
+                device.waitForIdle()
+            }
         }
     }
 }

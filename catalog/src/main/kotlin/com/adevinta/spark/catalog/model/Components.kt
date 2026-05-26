@@ -90,6 +90,7 @@ import com.adevinta.spark.catalog.examples.samples.tokens.TokensExamples
 import com.adevinta.spark.catalog.util.ComponentGuidelinesUrl
 import com.adevinta.spark.catalog.util.PackageSummaryUrl
 import com.adevinta.spark.catalog.util.SparkSourceUrl
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
 public data class Component(
@@ -520,38 +521,41 @@ private val ColorSelectorTest = Component(
 )
 
 /** Components for the catalog, ordered alphabetically by name. */
-public val Components: List<Component> = listOf(
-    Animations,
-    Tokens,
-    Badges,
-    BottomSheets,
-    Buttons,
-    Cards,
-    ColorSelectorTest,
-    ComboBox,
-    Checkboxes,
-    Chips,
-    Dialogs,
-    Dividers,
-    Dropdowns,
-    Icons,
-    IconButtons,
-    IconToggleButtons,
-    Image,
-    FileUpload,
-    Popovers,
-    Progressbars,
-    ProgressTracker,
-    RadioButtons,
-    Rating,
-    SegmentedGauge,
-    Skeletons,
-    Sliders,
-    Snackbars,
-    Stepper,
-    Switches,
-    Tabs,
-    Tags,
-    TextFields,
-    TextLinks,
-)
+public val Components: ImmutableList<Component> by lazy(mode = LazyThreadSafetyMode.NONE) {
+
+    persistentListOf(
+        Animations,
+        Tokens,
+        Badges,
+        BottomSheets,
+        Buttons,
+        Cards,
+        ColorSelectorTest,
+        ComboBox,
+        Checkboxes,
+        Chips,
+        Dialogs,
+        Dividers,
+        Dropdowns,
+        Icons,
+        IconButtons,
+        IconToggleButtons,
+        Image,
+        FileUpload,
+        Popovers,
+        Progressbars,
+        ProgressTracker,
+        RadioButtons,
+        Rating,
+        SegmentedGauge,
+        Skeletons,
+        Sliders,
+        Snackbars,
+        Stepper,
+        Switches,
+        Tabs,
+        Tags,
+        TextFields,
+        TextLinks,
+    )
+}

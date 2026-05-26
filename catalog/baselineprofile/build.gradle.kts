@@ -14,6 +14,7 @@ android {
         targetSdk = 36
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments["androidx.benchmark.fullTracing.enable"] = "true"
     }
 
     compileOptions {
@@ -22,7 +23,7 @@ android {
     }
 
 
-    testOptions.managedDevices.devices {
+    testOptions.managedDevices.allDevices {
         create<com.android.build.api.dsl.ManagedVirtualDevice>("pixel6Api33") {
             device = "Pixel 6"
             apiLevel = 33
@@ -49,6 +50,7 @@ dependencies {
     implementation(libs.androidx.uiautomator)
     implementation(libs.androidx.benchmark.macro.junit4)
     implementation(libs.androidx.tracing.perfetto)
+    // binary must stay in this test-only module — do NOT add to :catalog or :spark production deps
     implementation(libs.androidx.tracing.perfetto.binary)
 }
 

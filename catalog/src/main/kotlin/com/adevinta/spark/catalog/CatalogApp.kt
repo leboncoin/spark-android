@@ -27,6 +27,7 @@ import android.net.Uri
 import android.os.Build
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.LocalActivity
+import androidx.activity.compose.ReportDrawnWhen
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -126,6 +127,8 @@ internal fun ComponentActivity.CatalogApp(
 
     val shapes = themeProvider.shapes()
     val typography = themeProvider.typography()
+
+    ReportDrawnWhen { components.isNotEmpty() }
 
     SparkTheme(
         colors = colors,
@@ -269,7 +272,7 @@ internal fun ComponentActivity.CatalogApp(
                         HorizontalPager(
                             state = pagerState,
                             flingBehavior = PagerDefaults.flingBehavior(state = pagerState),
-                            beyondViewportPageCount = 1,
+                            beyondViewportPageCount = 0,
                             key = {
                                 when (it) {
                                     0 -> CatalogHomeScreen.Examples

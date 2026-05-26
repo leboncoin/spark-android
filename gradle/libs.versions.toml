@@ -4,8 +4,9 @@ agp = "9.2.1"
 compose-multiplatform = "1.11.0"
 androidx-activity = "1.13.0"
 androidx-appCompat = "1.7.1"
-androidx-benchmark = "1.4.1"
-androidx-tracing = "1.0.0"
+androidx-benchmark = "1.5.0-alpha06"
+androidx-tracing = "2.0.0-alpha08"
+androidx-tracing-perfetto = "1.0.1"
 compileSdk = "36"
 dokka = "2.2.0"
 filekit = "0.14.1"
@@ -69,8 +70,8 @@ androidx-metrics =  "androidx.metrics:metrics-performance:1.0.0"
 androidx-navigation-compose = "androidx.navigation:navigation-compose:2.9.8"
 
 androidx-savedstate = "androidx.savedstate:savedstate-ktx:1.5.0"
-androidx-tracing-perfetto = { module = "androidx.tracing:tracing-perfetto", version.ref = "androidx-tracing" }
-androidx-tracing-perfetto-binary = { module = "androidx.tracing:tracing-perfetto-binary", version.ref = "androidx-tracing" }
+androidx-tracing-perfetto = { module = "androidx.tracing:tracing-perfetto", version.ref = "androidx-tracing-perfetto" }
+androidx-tracing-perfetto-binary = { module = "androidx.tracing:tracing-perfetto-binary", version.ref = "androidx-tracing-perfetto" }
 
 androidx-test-runner = "androidx.test:runner:1.7.0"
 androidx-benchmark-macro-junit4 = { module = "androidx.benchmark:benchmark-macro-junit4", version.ref = "androidx-benchmark" }
