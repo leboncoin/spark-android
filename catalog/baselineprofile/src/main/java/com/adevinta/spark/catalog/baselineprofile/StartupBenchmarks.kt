@@ -2,6 +2,10 @@ package com.adevinta.spark.catalog.baselineprofile
 
 import androidx.benchmark.macro.BaselineProfileMode
 import androidx.benchmark.macro.CompilationMode
+import androidx.benchmark.macro.ExperimentalMetricApi
+import androidx.benchmark.macro.FrameTimingMetric
+import androidx.benchmark.macro.MemoryUsageMetric
+import androidx.benchmark.macro.PowerMetric
 import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
@@ -46,13 +50,16 @@ internal class StartupBenchmarks {
     fun startupCompilationBaselineProfiles() =
         benchmark(CompilationMode.Partial(BaselineProfileMode.Require))
 
-    @Test
-    fun startupFullyPrecompiled() = benchmark(CompilationMode.Full())
-
+    @OptIn(ExperimentalMetricApi::class)
     private fun benchmark(compilationMode: CompilationMode) = rule.measureRepeated(
         packageName = InstrumentationRegistry.getArguments().getString("targetAppId")
             ?: throw Exception("targetAppId not passed as instrumentation runner arg"),
-        metrics = listOf(StartupTimingMetric()),
+        metrics = listOf(
+            StartupTimingMetric(),
+            FrameTimingMetric(),
+            MemoryUsageMetric(MemoryUsageMetric.Mode.Last),
+            PowerMetric(PowerMetric.Type.Battery()),
+        ),
         compilationMode = compilationMode,
         startupMode = StartupMode.COLD,
         iterations = 20,
@@ -61,15 +68,6 @@ internal class StartupBenchmarks {
         },
         measureBlock = {
             startActivityAndWait()
-
-            // TODO Add interactions to wait for when your app is fully drawn.
-            // The app is fully drawn when Activity.reportFullyDrawn is called.
-            // For Jetpack Compose, you can use ReportDrawn, ReportDrawnWhen and ReportDrawnAfter
-            // from the AndroidX Activity library.
-
-            // Check the UiAutomator documentation for more information on how to
-            // interact with the app.
-            // https://d.android.com/training/testing/other-components/ui-automator
         },
     )
 }

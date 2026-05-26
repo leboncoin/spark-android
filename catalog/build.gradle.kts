@@ -66,6 +66,7 @@ android {
         matchingFallbacks += listOf("release")
         isDebuggable = false
         signingConfig = signingConfigs.getByName("debug")
+        proguardFiles("benchmark-rules.pro")
     }
 }
 
@@ -111,6 +112,8 @@ dependencies {
     coreLibraryDesugaring(libs.desugarJdkLibs)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
+
+    implementation(libs.androidx.profileinstaller)
 
     baselineProfile(project(":catalog:baselineprofile"))
 }

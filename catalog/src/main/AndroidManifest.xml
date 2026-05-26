@@ -41,6 +41,20 @@
 
         <profileable android:shell="true" tools:targetApi="29" />
 
+        <!-- tracing-perfetto:1.0.1 bundles stale compose-animation classes (ScaleToBoundsImpl
+             renamed to RemeasureImpl in newer Compose) causing a VerifyError at startup when
+             StartupTracingInitializer runs via AppInitializer. Removing auto-init here; the
+             macrobenchmark runner enables tracing via broadcast instead. -->
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="androidx.tracing.perfetto.StartupTracingInitializer"
+                tools:node="remove" />
+        </provider>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -57,6 +71,24 @@
 
                 <data
                     android:scheme="spark" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".BenchmarkActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.adevinta.spark.catalog.BENCHMARK" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".BenchmarkIconsActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.adevinta.spark.catalog.BENCHMARK_ICONS" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 

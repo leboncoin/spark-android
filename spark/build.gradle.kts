@@ -112,5 +112,6 @@ baselineProfile {
     filter {
         include("com.adevinta.spark.**")
         exclude("com.adevinta.spark.catalog.**")
+        exclude("com.adevinta.spark.icons.**")
     }
 }
