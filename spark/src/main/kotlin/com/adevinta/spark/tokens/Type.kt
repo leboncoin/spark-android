@@ -44,7 +44,7 @@ internal val display1Type = TextStyle(
     fontWeight = FontWeight.Bold,
     lineHeight = 56.sp,
 
-    )
+)
 
 internal val display2Type = TextStyle(
     fontFamily = FontFamily.Default,
@@ -52,7 +52,7 @@ internal val display2Type = TextStyle(
     fontWeight = FontWeight.Bold,
     lineHeight = 44.sp,
 
-    )
+)
 
 internal val display3Type = TextStyle(
     fontFamily = FontFamily.Default,

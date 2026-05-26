@@ -43,12 +43,12 @@ import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.selectable
-import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.movableContentOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -84,7 +84,6 @@ import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.tokens.dim1
 import com.adevinta.spark.tokens.highlight
 import com.adevinta.spark.tokens.ripple
-
 
 /**
  * Marker interface returned by every [SegmentedControlScope] segment function.
@@ -318,7 +317,8 @@ private object SegmentedControlScopeImpl : SegmentedControlScope {
 
     @Composable
     override fun Icon(
-        icon: SparkIcon, selected: Boolean,
+        icon: SparkIcon,
+        selected: Boolean,
         onClick: () -> Unit,
         modifier: Modifier,
     ): SegmentedButtonItem {
@@ -436,10 +436,7 @@ private object SegmentedControlScopeImpl : SegmentedControlScope {
 }
 
 @Stable
-private data class SegmentItemInfo(
-    val shape: Shape,
-    val enabled: Boolean,
-)
+private data class SegmentItemInfo(val shape: Shape, val enabled: Boolean)
 
 private val LocalSegmentItemInfo = compositionLocalOf {
     SegmentItemInfo(shape = RectangleShape, enabled = true)
@@ -464,7 +461,10 @@ private fun SegmentedControlImpl(
 
     val segmentCountState = remember { mutableIntStateOf(0) }
 
-    val animSpec = remember { spring<Dp>(stiffness = Spring.StiffnessMediumLow, dampingRatio = Spring.DampingRatioLowBouncy) }
+    val animSpec =
+        remember { spring<Dp>(stiffness = Spring.StiffnessMediumLow, dampingRatio = Spring.DampingRatioLowBouncy) }
+
+    val indicatorSlot = remember { movableContentOf<Int> { indicatorContent(it) } }
 
     Column(modifier = modifier) {
         if (title != null || linkText != null) {
@@ -517,7 +517,12 @@ private fun SegmentedControlImpl(
 
             val segMeasurables = subcompose(SegmentSlot.Segments) {
                 CompositionLocalProvider(
-                    LocalSegmentItemInfo provides remember(shape, enabled) { SegmentItemInfo(shape = shape, enabled = enabled) },
+                    LocalSegmentItemInfo provides remember(shape, enabled) {
+                        SegmentItemInfo(
+                            shape = shape,
+                            enabled = enabled,
+                        )
+                    },
                 ) {
                     SegmentedControlScopeImpl.content(SegmentedButtonItemImpl)
                 }
@@ -560,7 +565,7 @@ private fun SegmentedControlImpl(
                                 layout(w, h) { placeable.placeRelative(0, 0) }
                             },
                     ) {
-                        indicatorContent(selectedIndex)
+                        indicatorSlot(selectedIndex)
                     }
                 }.single().measure(Constraints())
 
@@ -623,7 +628,7 @@ private fun SegmentedControlImpl(
                                 layout(w, h) { placeable.placeRelative(0, 0) }
                             },
                     ) {
-                        indicatorContent(selectedIndex)
+                        indicatorSlot(selectedIndex)
                     }
                 }.single().measure(Constraints())
 

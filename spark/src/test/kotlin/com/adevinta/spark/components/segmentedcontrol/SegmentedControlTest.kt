@@ -33,15 +33,15 @@ import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
-import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.assertIsNotSelected
+import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.ShoppingCartOutline
-import com.adevinta.spark.PreviewTheme
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

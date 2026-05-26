@@ -115,9 +115,10 @@ public enum class SegmentedControlShape {
             @Composable
             @ReadOnlyComposable
             get() = SparkTheme.shapes.full
-    };
+    }, ;
 
     /** Resolved [CornerBasedShape] from the current [SparkTheme]. */
     public abstract val shape: CornerBasedShape
-        @Composable @ReadOnlyComposable get
+        @Composable @ReadOnlyComposable
+        get
 }
