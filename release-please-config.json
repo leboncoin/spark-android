@@ -7,9 +7,6 @@
       "extra-files": [
         { "type": "generic", "path": "gradle.properties" }
       ],
-      "versioning": "prerelease",
-      "prerelease-type": "alpha",
-      "prerelease": true,
       "include-v-in-tag": false,
       "include-component-in-tag": false,
       "changelog-type": "default",
