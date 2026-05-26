@@ -27,6 +27,7 @@ import android.net.Uri
 import android.os.Build
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.LocalActivity
+import androidx.activity.compose.ReportDrawnWhen
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -199,6 +200,8 @@ internal fun ComponentActivity.CatalogApp(
                     initialPage = initialPage.ordinal,
                     pageCount = { homeScreenValues.size },
                 )
+
+                ReportDrawnWhen { pagerState.layoutInfo.visiblePagesInfo.isNotEmpty() }
 
                 BackdropScaffold(
                     scaffoldState = rememberBackdropScaffoldState(BackdropValue.Concealed),
