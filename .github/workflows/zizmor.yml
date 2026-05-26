@@ -10,6 +10,7 @@ permissions: {}
 
 jobs:
   zizmor:
+    if: github.repository == 'leboncoin/spark-android'
     name: '🌈 zizmor'
     runs-on: ubuntu-latest
     permissions:
