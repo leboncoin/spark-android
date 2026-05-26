@@ -25,7 +25,6 @@ import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.updateTransition
-import androidx.compose.runtime.Immutable
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -33,6 +32,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -255,11 +255,7 @@ private fun WithTitleAndLinkExample() {
 }
 
 @Immutable
-private data class EnergyRatingData(
-    val text: String,
-    val color: Color,
-    val contentColor: Color,
-)
+private data class EnergyRatingData(val text: String, val color: Color, val contentColor: Color)
 
 private val EnergyRatingDataFake: ImmutableList<EnergyRatingData> = persistentListOf(
     EnergyRatingData("A", Color(0xFF009424), Color.White),
@@ -271,7 +267,6 @@ private val EnergyRatingDataFake: ImmutableList<EnergyRatingData> = persistentLi
     EnergyRatingData("G", Color(0xFFFA1C1F), Color.White),
     EnergyRatingData("Vierge", Color.Unspecified, Color.Unspecified),
 )
-
 
 @Composable
 private fun EnergyRatingExample() {
@@ -291,7 +286,11 @@ private fun EnergyRatingExample() {
                     if (d.color.isSpecified) d.color else SparkTheme.colors.neutralContainer
                 }
                 val borderColor = transition.animateColor(label = "indicatorBorderColor") { d ->
-                    if (d.color.isSpecified) SparkTheme.colors.outlineHigh.transparent else SparkTheme.colors.outlineHigh
+                    if (d.color.isSpecified) {
+                        SparkTheme.colors.outlineHigh.transparent
+                    } else {
+                        SparkTheme.colors.outlineHigh
+                    }
                 }
                 val borderSize = transition.animateDp(label = "indicatorBorderSize") { d ->
                     if (d.color.isSpecified) 0.dp else 2.dp

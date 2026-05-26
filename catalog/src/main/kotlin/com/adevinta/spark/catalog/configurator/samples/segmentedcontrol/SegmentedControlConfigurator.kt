@@ -63,7 +63,9 @@ public val SegmentedControlConfigurator: Configurator = Configurator(
 }
 
 @Composable
-private fun ColumnScope.SegmentedControlSample(snackbarHostState: com.adevinta.spark.components.snackbars.SnackbarHostState) {
+private fun ColumnScope.SegmentedControlSample(
+    snackbarHostState: com.adevinta.spark.components.snackbars.SnackbarHostState,
+) {
     var segmentCount by remember { mutableIntStateOf(3) }
     var selectedIndex by remember { mutableIntStateOf(1) }
     var title by remember { mutableStateOf("Filter") }
@@ -165,16 +167,26 @@ private fun ConfigedSegmentedControl(
         Box(
             modifier = Modifier.padding(16.dp),
         ) {
-            val segmentContent: @Composable SegmentedControlScope.(SegmentedButtonItem) -> Unit = remember(segmentCount, selectedIndex, onSegmentSelect) {
+            val segmentContent: @Composable SegmentedControlScope.(
+                SegmentedButtonItem,
+            ) -> Unit = remember(segmentCount, selectedIndex, onSegmentSelect) {
                 {
                     repeat(segmentCount) { index ->
                         val selected = index == selectedIndex
                         val onClick = { onSegmentSelect(index) }
                         when (index % 4) {
                             0 -> SingleLine("Option ${index + 1}", selected = selected, onClick = onClick)
+
                             1 -> TwoLine("Title ${index + 1}", "Subtitle", selected = selected, onClick = onClick)
+
                             2 -> Icon(LeboncoinIcons.ShoppingCartOutline, selected = selected, onClick = onClick)
-                            3 -> IconText(LeboncoinIcons.ShoppingCartOutline, "Item ${index + 1}", selected = selected, onClick = onClick)
+
+                            3 -> IconText(
+                                LeboncoinIcons.ShoppingCartOutline,
+                                "Item ${index + 1}",
+                                selected = selected,
+                                onClick = onClick,
+                            )
                         }
                     }
                 }

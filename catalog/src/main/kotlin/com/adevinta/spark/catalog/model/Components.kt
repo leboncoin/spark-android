@@ -42,8 +42,8 @@ import com.adevinta.spark.catalog.configurator.samples.popover.PopoverConfigurat
 import com.adevinta.spark.catalog.configurator.samples.progressbar.ProgressbarConfigurator
 import com.adevinta.spark.catalog.configurator.samples.progresstracker.ProgressTrackerConfigurator
 import com.adevinta.spark.catalog.configurator.samples.rating.RatingsConfigurator
-import com.adevinta.spark.catalog.configurator.samples.slider.SlidersConfigurator
 import com.adevinta.spark.catalog.configurator.samples.segmentedcontrol.SegmentedControlConfigurator
+import com.adevinta.spark.catalog.configurator.samples.slider.SlidersConfigurator
 import com.adevinta.spark.catalog.configurator.samples.snackbar.SnackbarConfigurator
 import com.adevinta.spark.catalog.configurator.samples.stepper.StepperConfigurators
 import com.adevinta.spark.catalog.configurator.samples.tabs.TabsConfigurator
