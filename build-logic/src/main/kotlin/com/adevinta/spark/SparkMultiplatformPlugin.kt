@@ -23,51 +23,47 @@ package com.adevinta.spark
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompileCommon
+import tapmoc.TapmocExtension
 
 @OptIn(ExperimentalKotlinGradlePluginApi::class)
 public class SparkMultiplatformPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         with(pluginManager) {
             apply("org.jetbrains.kotlin.multiplatform")
+            apply("com.gradleup.tapmoc")
+        }
+        extensions.configure<TapmocExtension> {
+            java(11)
+            kotlin(spark().versions.kotlin.requiredVersion)
         }
 
         configureKotlin<KotlinMultiplatformExtension> {
             applyDefaultHierarchyTemplate()
 
-            jvm {
-                compilerOptions {
-                    jvmTarget.set(JvmTarget.JVM_11)
-                }
-            }
+            jvm()
 
             compilerOptions {
                 freeCompilerArgs.addAll(
-                    // Suppress warning: The feature "multi platform projects" is experimental and should be enabled explicitly
-                    "-Xmulti-platform",
+                    listOf(
+                        // Suppress warning: The feature "multi platform projects" is experimental and should be enabled explicitly
+                        "-Xmulti-platform",
+                        "-Xexpect-actual-classes",
+                        "-opt-in=com.adevinta.spark.InternalSparkApi",
+                        "-opt-in=com.adevinta.spark.ExperimentalSparkApi",
+                    ),
                 )
-                if (hasSparkInternalAnnotations) {
-                    freeCompilerArgs.addAll(
-                        listOf(
-                            "-Xexpect-actual-classes",
-                            "-opt-in=com.adevinta.spark.InternalSparkApi",
-                            "-opt-in=com.adevinta.spark.ExperimentalSparkApi",
-                        ),
-                    )
-                }
                 allWarningsAsErrors.set(true)
             }
 
-            if (hasSparkInternalAnnotations) {
-                sourceSets.all {
-                    languageSettings.optIn("com.adevinta.spark.InternalSparkApi")
-                    languageSettings.optIn("com.adevinta.spark.ExperimentalSparkApi")
-                }
+            sourceSets.all {
+                languageSettings.optIn("com.adevinta.spark.InternalSparkApi")
+                languageSettings.optIn("com.adevinta.spark.ExperimentalSparkApi")
             }
 
             metadata {
