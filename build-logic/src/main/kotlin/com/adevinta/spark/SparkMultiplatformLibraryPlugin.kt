@@ -30,7 +30,6 @@ import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import java.io.File
 
 internal class SparkMultiplatformLibraryPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -59,16 +58,7 @@ internal class SparkMultiplatformLibraryPlugin : Plugin<Project> {
                             excludes += "/META-INF/{AL2.0,LGPL2.1}"
                         }
                     }
-                    lint {
-                        checkDependencies = true
-                        warningsAsErrors = true
-                        sarifReport = true
-                        informational += "AndroidGradlePluginVersion"
-                        informational += "GradleDependency"
-                        informational += "NewerVersionAvailable"
-                        informational += "OldTargetApi"
-                        lintConfig = file("lint.xml").takeIf(File::exists)
-                    }
+                    SparkLint.configure(target, lint)
                 }
             }
         }

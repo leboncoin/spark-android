@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Adevinta
+ * Copyright (c) 2026 Adevinta
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,30 +19,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 package com.adevinta.spark
 
-import org.gradle.api.Plugin
+import com.android.build.api.dsl.Lint
 import org.gradle.api.Project
-import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
+import java.io.File
 
-public class SparkAndroidPlugin : Plugin<Project> {
-    override fun apply(target: Project) {
-        with(target) {
-            configureKotlin<KotlinAndroidProjectExtension>()
-
-            configureAndroid {
-                compileSdk = spark().versions.compileSdk.toString().toInt()
-                defaultConfig.minSdk = spark().versions.minCompileSdk.toString().toInt()
-                packaging.apply {
-                    resources {
-                        excludes += "/META-INF/{AL2.0,LGPL2.1}"
-                    }
-                }
-                SparkLint.configure(target, lint)
-            }
-
-            addKotlinBom()
-            SparkUnitTests.configureSubproject(this)
-        }
+internal object SparkLint {
+    fun configure(project: Project, lint: Lint) = lint.apply {
+        checkDependencies = true
+        warningsAsErrors = true
+        sarifReport = true
+        disable += listOf(
+            "AndroidGradlePluginVersion",
+            "GradleDependency",
+            "NewerVersionAvailable",
+            "OldTargetApi",
+        )
+        lintConfig = project.file("lint.xml").takeIf(File::exists)
     }
 }
