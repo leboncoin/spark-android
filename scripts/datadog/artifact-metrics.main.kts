@@ -1,5 +1,25 @@
 #!/usr/bin/env kotlin
-
+/*
+ * Copyright (c) 2026 Adevinta
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 @file:Repository("https://repo1.maven.org/maven2/")
 @file:DependsOn("com.github.ajalt.clikt:clikt-jvm:5.1.0")
 @file:Import("../utils/clikt.main.kts")
@@ -16,11 +36,13 @@ private val SERVICE_NAME = "artifact-metrics"
 // Regex to extract the size table block (APK/AAR section before DEX/JAR stats).
 // Diffuse output has a size table with "compressed │ uncompressed" header, then a DEX/JAR stats table.
 // We capture only the size table by matching from the header through the total row.
-private val DIFFUSE_SIZE_TABLE = Regex("""compressed.*?total[^\n]*\n""", setOf(RegexOption.DOT_MATCHES_ALL, RegexOption.IGNORE_CASE))
+private val DIFFUSE_SIZE_TABLE =
+    Regex("""compressed.*?total[^\n]*\n""", setOf(RegexOption.DOT_MATCHES_ALL, RegexOption.IGNORE_CASE))
 
 // Regex to parse a size row: section │ compressed │ uncompressed
 // Matches: "      dex │    2,9 MiB │      6,5 MiB" or "  jar │  2,400,000 │  2,500,000"
-private val DIFFUSE_SIZE_ROW = Regex("""^\s*(\w+)\s*[│|]\s*([\d,. ]+(?:KiB|MiB|B)?)\s*[│|]\s*([\d,. ]+(?:KiB|MiB|B)?)""", RegexOption.MULTILINE)
+private val DIFFUSE_SIZE_ROW =
+    Regex("""^\s*(\w+)\s*[│|]\s*([\d,. ]+(?:KiB|MiB|B)?)\s*[│|]\s*([\d,. ]+(?:KiB|MiB|B)?)""", RegexOption.MULTILINE)
 
 // Regex to parse count rows from DEX/JAR stats tables.
 // AAR JAR: " classes │   779"         (two columns - captures first count)
@@ -126,12 +148,12 @@ class ArtifactMetrics : CliktCommand("artifact-metrics.main.kts") {
     /**
      * Parses count rows (classes, methods, fields) from diffuse output.
      */
-    private fun parseCountTable(output: String): Map<String, Double> {
-        return DIFFUSE_COUNT_ROW.findAll(output).associate { match ->
-            val stat = match.groupValues[1]
-            val count = match.groupValues[2].replace(",", "").toDouble()
-            stat to count
-        }
+    private fun parseCountTable(
+        output: String,
+    ): Map<String, Double> = DIFFUSE_COUNT_ROW.findAll(output).associate { match ->
+        val stat = match.groupValues[1]
+        val count = match.groupValues[2].replace(",", "").toDouble()
+        stat to count
     }
 
     /**
@@ -148,13 +170,21 @@ class ArtifactMetrics : CliktCommand("artifact-metrics.main.kts") {
         // A single comma in "2,9" is a decimal; multiple commas in "2,900" are thousands separators —
         // but MiB/KiB values from diffuse are always < 1000, so at most one comma, always decimal.
         fun decimalNormalise(s: String) = s.replace(",", ".")
+
         // Strip thousands-separator commas from integer values.
         fun intNormalise(s: String) = s.replace(",", "")
 
         return when {
-            value.endsWith("MiB") -> (decimalNormalise(value.removeSuffix("MiB").trim()).toDouble() * 1024 * 1024).toLong().toDouble()
-            value.endsWith("KiB") -> (decimalNormalise(value.removeSuffix("KiB").trim()).toDouble() * 1024).toLong().toDouble()
+            value.endsWith(
+                "MiB",
+            ) -> (decimalNormalise(value.removeSuffix("MiB").trim()).toDouble() * 1024 * 1024).toLong().toDouble()
+
+            value.endsWith(
+                "KiB",
+            ) -> (decimalNormalise(value.removeSuffix("KiB").trim()).toDouble() * 1024).toLong().toDouble()
+
             value.endsWith("B") -> intNormalise(value.removeSuffix("B").trim()).toDouble()
+
             else -> intNormalise(value).toDouble()
         }
     }

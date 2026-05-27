@@ -1,5 +1,4 @@
 #!/usr/bin/env kotlin
-
 /*
  * Copyright (c) 2023 Adevinta
  *
@@ -21,7 +20,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 @file:Repository("https://repo1.maven.org/maven2/")
 @file:Repository("https://maven.google.com")
 @file:DependsOn("org.jetbrains.kotlin:kotlin-stdlib:2.3.20")
@@ -51,9 +49,10 @@ import kotlin.io.path.readText
  * - `androidMain/kotlin/.../LeboncoinIcons.android.kt` using `DrawableRes(R.drawable.x)`
  * - `nonAndroidMain/kotlin/.../LeboncoinIcons.nonandroid.kt` using `Resource(Res.drawable.x)`
  */
-class LeboncoinIcons : CliktCommand(
-    name = "spark-icons-kt.main.kts",
-) {
+class LeboncoinIcons :
+    CliktCommand(
+        name = "spark-icons-kt.main.kts",
+    ) {
     override fun help(context: Context) = "⚙️ LeboncoinIcons: Generate KMP icon Kotlin files for all source sets"
 
     private val input: Path by option("-i", "--in", help = "AVD assets input directory")
@@ -86,7 +85,9 @@ class LeboncoinIcons : CliktCommand(
             importLine = "import com.adevinta.spark.icons.SparkIcon.DrawableRes",
             icons = icons,
             copyrightHeader = copyrightHeader,
-        ) { name, resource -> """public val LeboncoinIcons.$name: DrawableRes get() = DrawableRes(R.drawable.$resource)""" }
+        ) { name, resource ->
+            """public val LeboncoinIcons.$name: DrawableRes get() = DrawableRes(R.drawable.$resource)"""
+        }
 
         generateFile(
             subPath = "nonAndroidMain/kotlin/$packagePath/LeboncoinIcons.nonandroid.kt",
@@ -97,8 +98,16 @@ class LeboncoinIcons : CliktCommand(
 
         if (!quiet) {
             echo("\n✅ Generated ${icons.size} icon properties in:")
-            echo("   - ${outputDir.resolve("androidMain/kotlin/$packagePath/LeboncoinIcons.android.kt").absolutePathString()}")
-            echo("   - ${outputDir.resolve("nonAndroidMain/kotlin/$packagePath/LeboncoinIcons.nonandroid.kt").absolutePathString()}")
+            echo(
+                "   - ${outputDir.resolve(
+                    "androidMain/kotlin/$packagePath/LeboncoinIcons.android.kt",
+                ).absolutePathString()}",
+            )
+            echo(
+                "   - ${outputDir.resolve(
+                    "nonAndroidMain/kotlin/$packagePath/LeboncoinIcons.nonandroid.kt",
+                ).absolutePathString()}",
+            )
         }
     }
 
