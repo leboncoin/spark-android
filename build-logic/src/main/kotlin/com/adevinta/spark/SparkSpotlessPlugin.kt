@@ -49,11 +49,7 @@ internal class SparkSpotlessPlugin : Plugin<Project> {
                     ktlint(ktlint.toString())
                     trimTrailingWhitespace()
                     endWithNewline()
-                    licenseHeaderFile(
-                        licenseHeader,
-                        "(package |import |plugins|pluginManagement|rootProject|dependencyResolutionManagement|//|#!|@)",
-                    ).skipLinesMatching("^#!.+?\$") // shebang
-
+                    licenseHeaderFile(licenseHeader, "(^(?![\\/ ]\\*).*$)").skipLinesMatching("^#!.+?\$") // shebang
                     targetExclude("spotless/*.kt")
                     // Auto-generated files
                     if (target.path == ":spark-icons") targetExclude("src/**/LeboncoinIcons.*.kt")

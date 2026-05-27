@@ -19,8 +19,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-// spotless marker for license header
-
 inline fun <reified T : Any> Any?.cast(): T = this as T
 
 @Suppress("UNCHECKED_CAST")
