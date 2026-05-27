@@ -92,4 +92,23 @@
     <string name="spark_gigabyte_symbol">GB</string>
     <string name="spark_terabyte_symbol">TB</string>
     <!--endregion-->
+
+    <!--region InputOTP-->
+    <plurals name="spark_inputotp_content_description">
+        <item quantity="one">Enter %1$d character code</item>
+        <item quantity="other">Enter %1$d characters code</item>
+    </plurals>
+    <plurals name="spark_inputotp_progress_description">
+        <item quantity="one">%1$d of %2$d character entered</item>
+        <item quantity="other">%1$d of %2$d characters entered</item>
+    </plurals>
+    <string name="spark_inputotp_complete_description">Code complete</string>
+    <string name="spark_inputotp_cell_numeric_description">Digit %1$d of %2$d</string>
+    <string name="spark_inputotp_cell_alphanumeric_description">Character %1$d of %2$d, alphanumeric</string>
+    <string name="spark_inputotp_cell_alphabetic_description">Character %1$d of %2$d, alphabetic</string>
+    <string name="spark_inputotp_cell_filled_state">Filled</string>
+    <string name="spark_inputotp_state_error">Error</string>
+    <string name="spark_inputotp_state_success">Success</string>
+    <string name="spark_inputotp_state_alert">Warning</string>
+    <!--endregion-->
 </resources>
