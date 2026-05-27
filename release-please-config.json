@@ -1,13 +1,12 @@
 {
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
-  "bootstrap-sha": "a8871ed901006362e344f9a6680febc59099241e",
+  "bootstrap-sha": "8c30c1a2ad97c4e73afcd8ac6efc52de8ce065bb",
   "packages": {
     ".": {
       "release-type": "simple",
-      "version-file": "gradle.properties",
-      "versioning": "prerelease",
-      "prerelease-type": "alpha",
-      "prerelease": true,
+      "extra-files": [
+        { "type": "generic", "path": "gradle.properties" }
+      ],
       "include-v-in-tag": false,
       "include-component-in-tag": false,
       "changelog-type": "default",
