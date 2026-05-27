@@ -52,7 +52,7 @@ public interface SegmentedControlScope {
      * @param modifier Modifier applied to this segment's touch-target box.
      */
     @Composable
-    public fun SingleLine(
+    public fun singleLine(
         text: String,
         selected: Boolean,
         onClick: () -> Unit,
@@ -70,7 +70,7 @@ public interface SegmentedControlScope {
      * @param modifier Modifier applied to this segment's touch-target box.
      */
     @Composable
-    public fun TwoLine(
+    public fun twoLine(
         title: String,
         subtitle: String,
         selected: Boolean,
@@ -90,7 +90,7 @@ public interface SegmentedControlScope {
      * @param modifier Modifier applied to this segment's touch-target box.
      */
     @Composable
-    public fun Icon(
+    public fun icon(
         icon: SparkIcon,
         selected: Boolean,
         onClick: () -> Unit,
@@ -102,7 +102,7 @@ public interface SegmentedControlScope {
      *
      * The icon colour animates between [SparkTheme.colors.support] when unselected and
      * [SparkTheme.colors.supportVariant] when selected. The text uses the same animated style as
-     * [SingleLine].
+     * [singleLine].
      *
      * @param icon Icon rendered above the label.
      * @param text Label displayed below the icon, truncated with ellipsis.
@@ -111,7 +111,7 @@ public interface SegmentedControlScope {
      * @param modifier Modifier applied to this segment's touch-target box.
      */
     @Composable
-    public fun IconText(
+    public fun iconText(
         icon: SparkIcon,
         text: String,
         selected: Boolean,
@@ -120,7 +120,7 @@ public interface SegmentedControlScope {
     ): SegmentedButtonItem
 
     /**
-     * Segment showing an integer label. Equivalent to [SingleLine] with [number] converted to
+     * Segment showing an integer label. Equivalent to [singleLine] with [number] converted to
      * a string. Useful for compact numeric scales (e.g. ratings 1–5).
      *
      * @param number Value to display.
@@ -129,7 +129,7 @@ public interface SegmentedControlScope {
      * @param modifier Modifier applied to this segment's touch-target box.
      */
     @Composable
-    public fun Number(
+    public fun number(
         number: Int,
         selected: Boolean,
         onClick: () -> Unit,
@@ -152,7 +152,7 @@ public interface SegmentedControlScope {
      * @param content Composable content rendered inside the segment.
      */
     @Composable
-    public fun Custom(
+    public fun custom(
         selected: Boolean,
         onClick: () -> Unit,
         modifier: Modifier = Modifier,

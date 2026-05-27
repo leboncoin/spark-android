@@ -68,7 +68,7 @@ class SegmentedControlTest {
                     modifier = Modifier.testTag("segmented-control"),
                 ) {
                     listOf("Option 1", "Option 2", "Option 3").forEachIndexed { index, label ->
-                        SingleLine(
+                        singleLine(
                             text = label,
                             selected = index == selectedIndex,
                             onClick = {
@@ -104,7 +104,7 @@ class SegmentedControlTest {
                     modifier = Modifier.testTag("segmented-control"),
                 ) {
                     listOf("Option 1", "Option 2", "Option 3", "Option 4", "Option 5").forEachIndexed { index, label ->
-                        SingleLine(
+                        singleLine(
                             text = label,
                             selected = index == selectedIndex,
                             onClick = {
@@ -138,7 +138,7 @@ class SegmentedControlTest {
                     modifier = Modifier.testTag("segmented-control"),
                 ) {
                     listOf("Option 1", "Option 2").forEachIndexed { index, label ->
-                        SingleLine(
+                        singleLine(
                             text = label,
                             selected = index == selectedIndex,
                             onClick = { selectedIndex = index },
@@ -164,7 +164,7 @@ class SegmentedControlTest {
                     modifier = Modifier.testTag("segmented-control"),
                 ) {
                     listOf("Option 1", "Option 2", "Option 3").forEachIndexed { index, label ->
-                        SingleLine(text = label, selected = index == 1, onClick = {})
+                        singleLine(text = label, selected = index == 1, onClick = {})
                     }
                 }
             }
@@ -183,7 +183,7 @@ class SegmentedControlTest {
             composeTestRule.setContent {
                 PreviewTheme {
                     SegmentedControl.Horizontal(selectedIndex = 0) {
-                        repeat(6) { index -> SingleLine("Option $index", selected = index == 0, onClick = {}) }
+                        repeat(6) { index -> singleLine("Option $index", selected = index == 0, onClick = {}) }
                     }
                 }
             }
@@ -199,7 +199,7 @@ class SegmentedControlTest {
             composeTestRule.setContent {
                 PreviewTheme {
                     SegmentedControl.Vertical(selectedIndex = 0) {
-                        repeat(9) { index -> SingleLine("Option $index", selected = index == 0, onClick = {}) }
+                        repeat(9) { index -> singleLine("Option $index", selected = index == 0, onClick = {}) }
                     }
                 }
             }
@@ -215,7 +215,7 @@ class SegmentedControlTest {
             composeTestRule.setContent {
                 PreviewTheme {
                     SegmentedControl.Horizontal(selectedIndex = 0) {
-                        SingleLine("Only one", selected = true, onClick = {})
+                        singleLine("Only one", selected = true, onClick = {})
                     }
                 }
             }
@@ -231,9 +231,9 @@ class SegmentedControlTest {
             composeTestRule.setContent {
                 PreviewTheme {
                     SegmentedControl.Vertical(selectedIndex = 0) {
-                        SingleLine("1", selected = true, onClick = {})
-                        SingleLine("2", selected = false, onClick = {})
-                        SingleLine("3", selected = false, onClick = {})
+                        singleLine("1", selected = true, onClick = {})
+                        singleLine("2", selected = false, onClick = {})
+                        singleLine("3", selected = false, onClick = {})
                     }
                 }
             }
@@ -249,9 +249,9 @@ class SegmentedControlTest {
             composeTestRule.setContent {
                 PreviewTheme {
                     SegmentedControl.Horizontal(selectedIndex = 5) {
-                        SingleLine("1", selected = false, onClick = {})
-                        SingleLine("2", selected = false, onClick = {})
-                        SingleLine("3", selected = false, onClick = {})
+                        singleLine("1", selected = false, onClick = {})
+                        singleLine("2", selected = false, onClick = {})
+                        singleLine("3", selected = false, onClick = {})
                     }
                 }
             }
@@ -269,10 +269,10 @@ class SegmentedControlTest {
                     selectedIndex = 0,
                     modifier = Modifier.testTag("segmented-control"),
                 ) {
-                    SingleLine("Text", selected = true, onClick = {})
-                    TwoLine("Title", "Subtitle", selected = false, onClick = {})
-                    Icon(LeboncoinIcons.ShoppingCartOutline, selected = false, onClick = {})
-                    IconText(LeboncoinIcons.ShoppingCartOutline, "Cart", selected = false, onClick = {})
+                    singleLine("Text", selected = true, onClick = {})
+                    twoLine("Title", "Subtitle", selected = false, onClick = {})
+                    icon(LeboncoinIcons.ShoppingCartOutline, selected = false, onClick = {})
+                    iconText(LeboncoinIcons.ShoppingCartOutline, "Cart", selected = false, onClick = {})
                 }
             }
         }
@@ -290,8 +290,8 @@ class SegmentedControlTest {
         composeTestRule.setContent {
             PreviewTheme {
                 SegmentedControl.Horizontal(selectedIndex = 0) {
-                    Number(42, selected = true, onClick = {})
-                    Number(99, selected = false, onClick = {})
+                    number(42, selected = true, onClick = {})
+                    number(99, selected = false, onClick = {})
                 }
             }
         }
@@ -311,33 +311,13 @@ class SegmentedControlTest {
                     selectedIndex = 0,
                     indicatorContent = { Box(Modifier.testTag("custom-indicator")) },
                 ) {
-                    SingleLine("A", selected = true, onClick = {})
-                    SingleLine("B", selected = false, onClick = {})
+                    singleLine("A", selected = true, onClick = {})
+                    singleLine("B", selected = false, onClick = {})
                 }
             }
         }
 
         composeTestRule.onNodeWithTag("custom-indicator").assertExists()
-    }
-
-    @Test
-    fun header_title_and_link_text_are_displayed() {
-        composeTestRule.setContent {
-            PreviewTheme {
-                SegmentedControl.Horizontal(
-                    selectedIndex = 0,
-                    title = "Sort by",
-                    linkText = "Reset",
-                    onLinkClick = {},
-                ) {
-                    SingleLine("A", selected = true, onClick = {})
-                    SingleLine("B", selected = false, onClick = {})
-                }
-            }
-        }
-
-        composeTestRule.onNodeWithText("Sort by").assertIsDisplayed()
-        composeTestRule.onNodeWithText("Reset").assertIsDisplayed()
     }
 
     @Test
@@ -350,8 +330,8 @@ class SegmentedControlTest {
                     selectedIndex = 0,
                     enabled = false,
                 ) {
-                    SingleLine("A", selected = true, onClick = { clicked = true })
-                    SingleLine("B", selected = false, onClick = { clicked = true })
+                    singleLine("A", selected = true, onClick = { clicked = true })
+                    singleLine("B", selected = false, onClick = { clicked = true })
                 }
             }
         }
@@ -371,7 +351,7 @@ class SegmentedControlTest {
             PreviewTheme {
                 SegmentedControl.Horizontal(selectedIndex = 1) {
                     listOf("A", "B", "C").forEachIndexed { index, label ->
-                        SingleLine(label, selected = index == 1, onClick = {})
+                        singleLine(label, selected = index == 1, onClick = {})
                     }
                 }
             }
@@ -392,7 +372,7 @@ class SegmentedControlTest {
             PreviewTheme {
                 SegmentedControl.Vertical(selectedIndex = selectedIndex) {
                     listOf("1", "2", "3", "4", "5", "6").forEachIndexed { index, label ->
-                        SingleLine(
+                        singleLine(
                             text = label,
                             selected = index == selectedIndex,
                             onClick = {

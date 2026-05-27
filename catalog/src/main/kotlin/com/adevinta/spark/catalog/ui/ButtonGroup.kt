@@ -70,7 +70,7 @@ internal inline fun <reified T : Enum<T>> ButtonGroup(
             modifier = Modifier.fillMaxWidth(),
         ) {
             options.forEachIndexed { index, option ->
-                SingleLine(
+                singleLine(
                     text = option.name,
                     selected = index == selectedIndex,
                     onClick = { onOptionSelect(option) },
@@ -99,7 +99,7 @@ internal fun ButtonGroup(
             modifier = Modifier.fillMaxWidth(),
         ) {
             options.forEach { option ->
-                SingleLine(
+                singleLine(
                     text = option,
                     selected = option == selectedOption,
                     onClick = { onOptionSelect(option) },
