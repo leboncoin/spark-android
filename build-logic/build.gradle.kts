@@ -20,12 +20,11 @@
  * SOFTWARE.
  */
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import kotlin.reflect.KProperty
 
 plugins {
     `kotlin-dsl`
-    alias(libs.plugins.spotless)
 }
+
 java {
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
@@ -86,41 +85,4 @@ fun NamedDomainObjectContainer<PluginDeclaration>.create(
 ) = create(name) {
     this.id = id
     this.implementationClass = implementationClass
-}
-
-private operator fun VersionCatalog.getValue(
-    thisRef: Any?,
-    property: KProperty<*>,
-) = findVersion(property.name).orElseThrow {
-    IllegalStateException("Missing catalog version ${property.name}")
-}
-
-val ktlint = extensions.getByType<VersionCatalogsExtension>()
-    .named("libs")
-    .findLibrary("ktlint-bom").orElseThrow()
-
-// This block is a copy of SparkSpotlessPlugin since this included build can't use it's own plugins...
-spotless {
-    val licenseHeader = rootProject.file("./../spotless/spotless.kt")
-    format("misc") {
-        target("*.md", "src/**/*.md", ".gitignore")
-        targetExclude("dependencies/*.txt")
-        endWithNewline()
-    }
-    kotlin {
-        target("src/**/*.kt")
-        ktlint(ktlint.get().version)
-        trimTrailingWhitespace()
-        endWithNewline()
-        licenseHeaderFile(licenseHeader)
-    }
-    kotlinGradle {
-        ktlint(ktlint.get().version)
-        trimTrailingWhitespace()
-        endWithNewline()
-        licenseHeaderFile(
-            licenseHeader,
-            "(import |plugins|pluginManagement|rootProject|dependencyResolutionManagement|//)",
-        )
-    }
 }

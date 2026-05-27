@@ -1,5 +1,4 @@
 #!/usr/bin/env kotlin
-
 /*
  * Copyright (c) 2025 Adevinta
  *
@@ -21,7 +20,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 @file:Repository("https://repo1.maven.org/maven2/")
 @file:Repository("https://maven.google.com")
 @file:DependsOn("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10")
@@ -69,10 +67,7 @@ private fun String.applySubstitutions(substitutions: Map<String, String>): Strin
 private fun validateTemplatesExist(templateDir: Path, templateFiles: List<String>): List<Path> =
     templateFiles.map { templateDir.resolve(it) }.filter { !it.exists() }
 
-private data class ComponentNames(
-    val componentName: String,
-    val packageName: String,
-) {
+private data class ComponentNames(val componentName: String, val packageName: String) {
     val componentNameLower: String get() = componentName.lowercase()
     val sparkComponentName: String get() = "Spark$componentName"
     val componentNameScreenshot: String get() = "${componentName}Screenshot"
@@ -135,7 +130,7 @@ TODO: Add description for $variant variant.
 ```kotlin
 $componentName.$variant()
 ```
-""".trimIndent()
+        """.trimIndent()
     }
 
 private fun buildTemplateMappings(
@@ -189,9 +184,10 @@ private fun buildExamplesContent(names: ComponentNames, variantList: List<String
 /**
  * Component Generator creates the complete file structure for new Spark components.
  */
-class GenerateComponent : SuspendingCliktCommand(
-    name = "generate-component.main.kts",
-) {
+class GenerateComponent :
+    SuspendingCliktCommand(
+        name = "generate-component.main.kts",
+    ) {
     private val componentName: String by option(
         help = "Component name in PascalCase (e.g., Card)",
     ).prompt("Enter component name (PascalCase)")
@@ -216,7 +212,8 @@ class GenerateComponent : SuspendingCliktCommand(
             }
         }
     private val variants: List<String>? by option(
-        "--variants", "-v",
+        "--variants",
+        "-v",
         help = "Variant names (can be specified multiple times, e.g., -v Elevated -v Outlined)",
     ).varargValues()
 
@@ -304,7 +301,7 @@ class GenerateComponent : SuspendingCliktCommand(
                             targetPath
                         }
                     } catch (e: Exception) {
-                        echo("❌ Error processing ${templateFile}: ${e.message}")
+                        echo("❌ Error processing $templateFile: ${e.message}")
                         null
                     }
                 }
@@ -319,8 +316,14 @@ private fun buildSummaryMessage(dryRun: Boolean, generatedCount: Int): String {
     val prefix = "\n"
     return when {
         generatedCount == 0 && dryRun -> "⚠️  No new files would be generated (all files already exist)."
+
         generatedCount == 0 -> "⚠️  No files were generated."
-        dryRun -> "🔍 Would generate $generatedCount file(s) (dry-run mode).\n   Run without --dry-run to actually create the files."
+
+        dryRun -> """
+            🔍 Would generate $generatedCount file(s) (dry-run mode).
+            Run without --dry-run to actually create the files.
+        """.trimIndent()
+
         else -> "✅ Successfully generated $generatedCount file(s)!"
     }.let { prefix + it }
 }
