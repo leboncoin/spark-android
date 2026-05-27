@@ -87,14 +87,6 @@ public val SegmentedControlExamples: ImmutableList<Example> = persistentListOf(
         ContentTypesExample()
     },
     Example(
-        id = "with-title-link",
-        name = "With Title and Link",
-        description = "Segmented control with optional title and link",
-        sourceUrl = SegmentedControlExampleSourceUrl,
-    ) {
-        WithTitleAndLinkExample()
-    },
-    Example(
         id = "energy-rating",
         name = "Energy Rating Scale",
         description = "Using segmented control for value scales like energy ratings",
@@ -123,8 +115,8 @@ private fun SingleRowExample() {
         SegmentedControl.Horizontal(
             selectedIndex = selectedIndex1,
         ) {
-            SingleLine("Day", selected = selectedIndex1 == 0, onClick = { selectedIndex1 = 0 })
-            SingleLine("Week", selected = selectedIndex1 == 1, onClick = { selectedIndex1 = 1 })
+            singleLine("Day", selected = selectedIndex1 == 0, onClick = { selectedIndex1 = 0 })
+            singleLine("Week", selected = selectedIndex1 == 1, onClick = { selectedIndex1 = 1 })
         }
 
         Text("3 Segments")
@@ -132,9 +124,9 @@ private fun SingleRowExample() {
         SegmentedControl.Horizontal(
             selectedIndex = selectedIndex2,
         ) {
-            SingleLine("Option 1", selected = selectedIndex2 == 0, onClick = { selectedIndex2 = 0 })
-            SingleLine("Option 2", selected = selectedIndex2 == 1, onClick = { selectedIndex2 = 1 })
-            SingleLine("Option 3", selected = selectedIndex2 == 2, onClick = { selectedIndex2 = 2 })
+            singleLine("Option 1", selected = selectedIndex2 == 0, onClick = { selectedIndex2 = 0 })
+            singleLine("Option 2", selected = selectedIndex2 == 1, onClick = { selectedIndex2 = 1 })
+            singleLine("Option 3", selected = selectedIndex2 == 2, onClick = { selectedIndex2 = 2 })
         }
 
         Text("4 Segments")
@@ -142,10 +134,10 @@ private fun SingleRowExample() {
         SegmentedControl.Horizontal(
             selectedIndex = selectedIndex3,
         ) {
-            SingleLine("All", selected = selectedIndex3 == 0, onClick = { selectedIndex3 = 0 })
-            SingleLine("Active", selected = selectedIndex3 == 1, onClick = { selectedIndex3 = 1 })
-            SingleLine("Pending", selected = selectedIndex3 == 2, onClick = { selectedIndex3 = 2 })
-            SingleLine("Done", selected = selectedIndex3 == 3, onClick = { selectedIndex3 = 3 })
+            singleLine("All", selected = selectedIndex3 == 0, onClick = { selectedIndex3 = 0 })
+            singleLine("Active", selected = selectedIndex3 == 1, onClick = { selectedIndex3 = 1 })
+            singleLine("Pending", selected = selectedIndex3 == 2, onClick = { selectedIndex3 = 2 })
+            singleLine("Done", selected = selectedIndex3 == 3, onClick = { selectedIndex3 = 3 })
         }
     }
 }
@@ -162,11 +154,11 @@ private fun MultiRowExample() {
             selectedIndex = selectedIndex1,
             shape = SegmentedControlShape.Pill,
         ) {
-            SingleLine("Option 1", selected = selectedIndex1 == 0, onClick = { selectedIndex1 = 0 })
-            SingleLine("Option 2", selected = selectedIndex1 == 1, onClick = { selectedIndex1 = 1 })
-            SingleLine("Option 3", selected = selectedIndex1 == 2, onClick = { selectedIndex1 = 2 })
-            SingleLine("Option 4", selected = selectedIndex1 == 3, onClick = { selectedIndex1 = 3 })
-            SingleLine("Option 5", selected = selectedIndex1 == 4, onClick = { selectedIndex1 = 4 })
+            singleLine("Option 1", selected = selectedIndex1 == 0, onClick = { selectedIndex1 = 0 })
+            singleLine("Option 2", selected = selectedIndex1 == 1, onClick = { selectedIndex1 = 1 })
+            singleLine("Option 3", selected = selectedIndex1 == 2, onClick = { selectedIndex1 = 2 })
+            singleLine("Option 4", selected = selectedIndex1 == 3, onClick = { selectedIndex1 = 3 })
+            singleLine("Option 5", selected = selectedIndex1 == 4, onClick = { selectedIndex1 = 4 })
         }
 
         Text("8 Segments")
@@ -175,14 +167,14 @@ private fun MultiRowExample() {
             selectedIndex = selectedIndex2,
             shape = SegmentedControlShape.Rounded,
         ) {
-            SingleLine("1", selected = selectedIndex2 == 0, onClick = { selectedIndex2 = 0 })
-            SingleLine("2", selected = selectedIndex2 == 1, onClick = { selectedIndex2 = 1 })
-            SingleLine("3", selected = selectedIndex2 == 2, onClick = { selectedIndex2 = 2 })
-            SingleLine("4", selected = selectedIndex2 == 3, onClick = { selectedIndex2 = 3 })
-            SingleLine("5", selected = selectedIndex2 == 4, onClick = { selectedIndex2 = 4 })
-            SingleLine("6", selected = selectedIndex2 == 5, onClick = { selectedIndex2 = 5 })
-            SingleLine("7", selected = selectedIndex2 == 6, onClick = { selectedIndex2 = 6 })
-            SingleLine("8", selected = selectedIndex2 == 7, onClick = { selectedIndex2 = 7 })
+            singleLine("1", selected = selectedIndex2 == 0, onClick = { selectedIndex2 = 0 })
+            singleLine("2", selected = selectedIndex2 == 1, onClick = { selectedIndex2 = 1 })
+            singleLine("3", selected = selectedIndex2 == 2, onClick = { selectedIndex2 = 2 })
+            singleLine("4", selected = selectedIndex2 == 3, onClick = { selectedIndex2 = 3 })
+            singleLine("5", selected = selectedIndex2 == 4, onClick = { selectedIndex2 = 4 })
+            singleLine("6", selected = selectedIndex2 == 5, onClick = { selectedIndex2 = 5 })
+            singleLine("7", selected = selectedIndex2 == 6, onClick = { selectedIndex2 = 6 })
+            singleLine("8", selected = selectedIndex2 == 7, onClick = { selectedIndex2 = 7 })
         }
     }
 }
@@ -198,10 +190,10 @@ private fun ContentTypesExample() {
         SegmentedControl.Horizontal(
             selectedIndex = selectedIndex1,
         ) {
-            SingleLine("Text", selected = selectedIndex1 == 0, onClick = { selectedIndex1 = 0 })
-            TwoLine("Title", "Subtitle", selected = selectedIndex1 == 1, onClick = { selectedIndex1 = 1 })
-            Icon(LeboncoinIcons.ShoppingCartOutline, selected = selectedIndex1 == 2, onClick = { selectedIndex1 = 2 })
-            IconText(
+            singleLine("Text", selected = selectedIndex1 == 0, onClick = { selectedIndex1 = 0 })
+            twoLine("Title", "Subtitle", selected = selectedIndex1 == 1, onClick = { selectedIndex1 = 1 })
+            icon(LeboncoinIcons.ShoppingCartOutline, selected = selectedIndex1 == 2, onClick = { selectedIndex1 = 2 })
+            iconText(
                 LeboncoinIcons.ShoppingCartOutline,
                 "Cart",
                 selected = selectedIndex1 == 3,
@@ -214,42 +206,10 @@ private fun ContentTypesExample() {
         SegmentedControl.Horizontal(
             selectedIndex = selectedIndex2,
         ) {
-            Number(1, selected = selectedIndex2 == 0, onClick = { selectedIndex2 = 0 })
-            Number(2, selected = selectedIndex2 == 1, onClick = { selectedIndex2 = 1 })
-            Number(3, selected = selectedIndex2 == 2, onClick = { selectedIndex2 = 2 })
-            Number(4, selected = selectedIndex2 == 3, onClick = { selectedIndex2 = 3 })
-        }
-
-        // TODO: Custom segment type - pending rework
-    }
-}
-
-@Composable
-private fun WithTitleAndLinkExample() {
-    Column(
-        modifier = Modifier.padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-    ) {
-        var selectedIndex by remember { mutableIntStateOf(1) }
-        SegmentedControl.Horizontal(
-            selectedIndex = selectedIndex,
-            title = "Filter",
-            linkText = "Learn more",
-            onLinkClick = { },
-        ) {
-            SingleLine("All", selected = selectedIndex == 0, onClick = { selectedIndex = 0 })
-            SingleLine("Active", selected = selectedIndex == 1, onClick = { selectedIndex = 1 })
-            SingleLine("Completed", selected = selectedIndex == 2, onClick = { selectedIndex = 2 })
-        }
-
-        var selectedIndex2 by remember { mutableIntStateOf(0) }
-        SegmentedControl.Horizontal(
-            selectedIndex = selectedIndex2,
-            title = "View Mode",
-        ) {
-            SingleLine("List", selected = selectedIndex2 == 0, onClick = { selectedIndex2 = 0 })
-            SingleLine("Grid", selected = selectedIndex2 == 1, onClick = { selectedIndex2 = 1 })
-            SingleLine("Map", selected = selectedIndex2 == 2, onClick = { selectedIndex2 = 2 })
+            number(1, selected = selectedIndex2 == 0, onClick = { selectedIndex2 = 0 })
+            number(2, selected = selectedIndex2 == 1, onClick = { selectedIndex2 = 1 })
+            number(3, selected = selectedIndex2 == 2, onClick = { selectedIndex2 = 2 })
+            number(4, selected = selectedIndex2 == 3, onClick = { selectedIndex2 = 3 })
         }
     }
 }
@@ -316,7 +276,7 @@ private fun EnergyRatingExample() {
                         onClick = { selectedIndex = index },
                     )
                 } else {
-                    SingleLine(data.text, selected = selectedIndex == index, onClick = { selectedIndex = index })
+                    singleLine(data.text, selected = selectedIndex == index, onClick = { selectedIndex = index })
                 }
             }
         }
@@ -331,7 +291,7 @@ private fun SegmentedControlScope.DPE(
     selected: Boolean,
     onClick: () -> Unit,
 ) {
-    Custom(
+    custom(
         selected = selected,
         onClick = onClick,
         rippleColor = color,
@@ -360,11 +320,10 @@ private fun FilterExample() {
         var selectedIndex by remember { mutableIntStateOf(0) }
         SegmentedControl.Horizontal(
             selectedIndex = selectedIndex,
-            title = "Show",
         ) {
-            SingleLine("All", selected = selectedIndex == 0, onClick = { selectedIndex = 0 })
-            SingleLine("Active", selected = selectedIndex == 1, onClick = { selectedIndex = 1 })
-            SingleLine("Archived", selected = selectedIndex == 2, onClick = { selectedIndex = 2 })
+            singleLine("All", selected = selectedIndex == 0, onClick = { selectedIndex = 0 })
+            singleLine("Active", selected = selectedIndex == 1, onClick = { selectedIndex = 1 })
+            singleLine("Archived", selected = selectedIndex == 2, onClick = { selectedIndex = 2 })
         }
 
         Text("Sort By")
@@ -372,19 +331,19 @@ private fun FilterExample() {
         SegmentedControl.Horizontal(
             selectedIndex = selectedSortIndex,
         ) {
-            IconText(
+            iconText(
                 LeboncoinIcons.ShoppingCartOutline,
                 "Price",
                 selected = selectedSortIndex == 0,
                 onClick = { selectedSortIndex = 0 },
             )
-            IconText(
+            iconText(
                 LeboncoinIcons.ShoppingCartOutline,
                 "Date",
                 selected = selectedSortIndex == 1,
                 onClick = { selectedSortIndex = 1 },
             )
-            IconText(
+            iconText(
                 LeboncoinIcons.ShoppingCartOutline,
                 "Rating",
                 selected = selectedSortIndex == 2,

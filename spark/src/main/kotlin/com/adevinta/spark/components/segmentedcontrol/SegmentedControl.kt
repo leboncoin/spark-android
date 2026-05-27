@@ -31,11 +31,9 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -51,6 +49,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.movableContentOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -62,24 +61,26 @@ import androidx.compose.ui.layout.layout
 import androidx.compose.ui.semantics.CollectionInfo
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.collectionInfo
-import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.selectableGroup
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.lerp
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconSize
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControl.Horizontal
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControl.Vertical
 import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.ShoppingCartOutline
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.tokens.dim1
 import com.adevinta.spark.tokens.highlight
@@ -125,14 +126,10 @@ public object SegmentedControl {
      *
      * @param selectedIndex Zero-based index of the currently selected segment. Must be in
      *   `0 until segmentCount`; throws [IllegalArgumentException] otherwise.
+     * @param role The [Role] used for the segments. Defaults to [Role.RadioButton] to represent single selection but
+     * if you use the [SegmentedControl] to completely change the layout use bellow it then use [Role.Tab]
      * @param modifier Modifier applied to the outermost [Column] that wraps the optional header
      *   and the control track.
-     * @param title Optional bold label rendered above the control. When both [title] and
-     *   [linkText] are provided they appear on the same row.
-     * @param linkText Optional underlined link rendered to the right of [title]. Ignored when
-     *   [onLinkClick] is `null`.
-     * @param onLinkClick Callback invoked when [linkText] is tapped. When `null` the link text
-     *   is not rendered even if [linkText] is non-null.
      * @param enabled When `false` all segments ignore input and their ripple is suppressed.
      * @param indicatorContent Composable that draws the selection indicator. Receives the current
      *   [selectedIndex] so callers can vary the appearance per selection — useful for value scales
@@ -145,9 +142,7 @@ public object SegmentedControl {
     public fun Horizontal(
         selectedIndex: Int,
         modifier: Modifier = Modifier,
-        title: String? = null,
-        linkText: String? = null,
-        onLinkClick: (() -> Unit)? = null,
+        role: Role = Role.RadioButton,
         enabled: Boolean = true,
         indicatorContent: @Composable (selectedIndex: Int) -> Unit = DefaultHorizontalIndicator,
         content: @Composable SegmentedControlScope.(SegmentedButtonItem) -> Unit,
@@ -155,9 +150,7 @@ public object SegmentedControl {
         SegmentedControlImpl(
             selectedIndex = selectedIndex,
             modifier = modifier,
-            title = title,
-            linkText = linkText,
-            onLinkClick = onLinkClick,
+            role = role,
             enabled = enabled,
             isHorizontal = true,
             minSegments = SegmentedControlDefaults.MinSegments,
@@ -178,12 +171,8 @@ public object SegmentedControl {
      *   Must be in `0 until segmentCount`; throws [IllegalArgumentException] otherwise.
      * @param modifier Modifier applied to the outermost [Column] that wraps the optional header
      *   and the control track.
-     * @param title Optional bold label rendered above the control. When both [title] and
-     *   [linkText] are provided they appear on the same row, left- and right-aligned.
-     * @param linkText Optional underlined link rendered to the right of [title]. Ignored when
-     *   [onLinkClick] is `null`.
-     * @param onLinkClick Callback invoked when [linkText] is tapped. When `null` the link text
-     *   is not rendered even if [linkText] is non-null.
+     * @param role The [Role] used for the segments. Defaults to [Role.RadioButton] to represent single selection but
+     * if you use the [SegmentedControl] to completely change the layout use bellow it then use [Role.Tab]
      * @param enabled When `false` all segments ignore input and their ripple is suppressed.
      * @param shape Shape applied to each segment's touch target and to the animated indicator.
      *   Defaults to [SegmentedControlShape.Rounded]. Use [SegmentedControlShape.Pill] for a fully
@@ -199,9 +188,7 @@ public object SegmentedControl {
     public fun Vertical(
         selectedIndex: Int,
         modifier: Modifier = Modifier,
-        title: String? = null,
-        linkText: String? = null,
-        onLinkClick: (() -> Unit)? = null,
+        role: Role = Role.RadioButton,
         enabled: Boolean = true,
         shape: SegmentedControlShape = SegmentedControlShape.Rounded,
         indicatorContent: @Composable (selectedIndex: Int) -> Unit = {
@@ -212,9 +199,7 @@ public object SegmentedControl {
         SegmentedControlImpl(
             selectedIndex = selectedIndex,
             modifier = modifier,
-            title = title,
-            linkText = linkText,
-            onLinkClick = onLinkClick,
+            role = role,
             enabled = enabled,
             isHorizontal = false,
             minSegments = SegmentedControlDefaults.MinVerticalSegments,
@@ -256,7 +241,7 @@ private enum class SegmentSlot { Segments, Indicator, Dividers }
 private object SegmentedControlScopeImpl : SegmentedControlScope {
 
     @Composable
-    override fun SingleLine(
+    override fun singleLine(
         text: String,
         selected: Boolean,
         onClick: () -> Unit,
@@ -280,7 +265,7 @@ private object SegmentedControlScopeImpl : SegmentedControlScope {
     }
 
     @Composable
-    override fun TwoLine(
+    override fun twoLine(
         title: String,
         subtitle: String,
         selected: Boolean,
@@ -316,7 +301,7 @@ private object SegmentedControlScopeImpl : SegmentedControlScope {
     }
 
     @Composable
-    override fun Icon(
+    override fun icon(
         icon: SparkIcon,
         selected: Boolean,
         onClick: () -> Unit,
@@ -342,7 +327,7 @@ private object SegmentedControlScopeImpl : SegmentedControlScope {
     }
 
     @Composable
-    override fun IconText(
+    override fun iconText(
         icon: SparkIcon,
         text: String,
         selected: Boolean,
@@ -371,7 +356,7 @@ private object SegmentedControlScopeImpl : SegmentedControlScope {
     }
 
     @Composable
-    override fun Number(
+    override fun number(
         number: Int,
         selected: Boolean,
         onClick: () -> Unit,
@@ -389,7 +374,7 @@ private object SegmentedControlScopeImpl : SegmentedControlScope {
     }
 
     @Composable
-    override fun Custom(
+    override fun custom(
         selected: Boolean,
         onClick: () -> Unit,
         modifier: Modifier,
@@ -422,7 +407,7 @@ private object SegmentedControlScopeImpl : SegmentedControlScope {
                 .clip(itemInfo.shape)
                 .selectable(
                     selected = selected,
-                    role = Role.Tab,
+                    role = itemInfo.role,
                     enabled = itemInfo.enabled,
                     indication = ripple(color = rippleColor),
                     interactionSource = null,
@@ -436,18 +421,16 @@ private object SegmentedControlScopeImpl : SegmentedControlScope {
 }
 
 @Stable
-private data class SegmentItemInfo(val shape: Shape, val enabled: Boolean)
+private data class SegmentItemInfo(val shape: Shape, val enabled: Boolean, val role: Role)
 
 private val LocalSegmentItemInfo = compositionLocalOf {
-    SegmentItemInfo(shape = RectangleShape, enabled = true)
+    SegmentItemInfo(shape = RectangleShape, enabled = true, role = Role.RadioButton)
 }
 
 @Composable
 private fun SegmentedControlImpl(
     selectedIndex: Int,
-    title: String?,
-    linkText: String?,
-    onLinkClick: (() -> Unit)?,
+    role: Role,
     enabled: Boolean,
     isHorizontal: Boolean,
     minSegments: Int,
@@ -466,204 +449,238 @@ private fun SegmentedControlImpl(
 
     val indicatorSlot = remember { movableContentOf<Int> { indicatorContent(it) } }
 
-    Column(modifier = modifier) {
-        if (title != null || linkText != null) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
+    SubcomposeLayout(
+        modifier = modifier
+            .fillMaxWidth()
+            .sizeIn(minWidth = SegmentedControlDefaults.MinTouchTargetSize, minHeight = 52.dp)
+            .clip(containerShape)
+            .semantics {
+                val count = segmentCountState.intValue
+                collectionInfo = CollectionInfo(
+                    rowCount = if (isHorizontal) 1 else 2,
+                    columnCount = if (isHorizontal) count else row0Count(count),
+                )
+                isTraversalGroup = true
+                selectableGroup()
+            }
+            .border(
+                width = SegmentedControlDefaults.BorderWidth,
+                color = SparkTheme.colors.outline,
+                shape = containerShape,
+            ),
+    ) { constraints ->
+        val dividerWidth = SegmentedControlDefaults.DividerWidth.roundToPx()
+
+        val segMeasurables = subcompose(SegmentSlot.Segments) {
+            CompositionLocalProvider(
+                LocalSegmentItemInfo provides remember(shape, enabled) {
+                    SegmentItemInfo(
+                        shape = shape,
+                        enabled = enabled,
+                        role = role,
+                    )
+                },
             ) {
-                if (title != null) {
-                    Text(
-                        text = title,
-                        style = SparkTheme.typography.body2.highlight,
-                        modifier = Modifier.padding(bottom = 8.dp),
+                SegmentedControlScopeImpl.content(SegmentedButtonItemImpl)
+            }
+        }
+        val segmentCount = segMeasurables.size
+        segmentCountState.intValue = segmentCount
+
+        require(segmentCount >= minSegments) {
+            "SegmentedControl.${if (isHorizontal) "Horizontal" else "Vertical"} requires at least $minSegments segments, got $segmentCount"
+        }
+        require(segmentCount <= maxSegments) {
+            "SegmentedControl.${if (isHorizontal) "Horizontal" else "Vertical"} supports at most $maxSegments segments, got $segmentCount"
+        }
+        require(selectedIndex in 0 until segmentCount) {
+            "selectedIndex $selectedIndex is out of bounds for $segmentCount segments"
+        }
+
+        if (isHorizontal) {
+            val segWidth = (constraints.maxWidth - dividerWidth * (segmentCount - 1)) / segmentCount
+            val rowHeight = maxOf(
+                segMeasurables.maxOfOrNull { it.maxIntrinsicHeight(segWidth) } ?: 0,
+                constraints.minHeight,
+            )
+            val segPlaceables = segMeasurables.map { it.measure(Constraints.fixed(segWidth, rowHeight)) }
+
+            val indicatorXDp = (selectedIndex * (segWidth + dividerWidth)).toDp()
+            val segWidthDp = segWidth.toDp()
+            val rowHeightDp = rowHeight.toDp()
+            val indicatorPlaceable = subcompose(SegmentSlot.Indicator) {
+                val animX = animateDpAsState(indicatorXDp, animSpec, label = "indicatorX")
+                val animWidth = animateDpAsState(segWidthDp, animSpec, label = "indicatorWidth")
+                val animHeight = animateDpAsState(rowHeightDp, animSpec, label = "indicatorHeight")
+                Box(
+                    modifier = Modifier
+                        .offset { IntOffset(animX.value.roundToPx(), 0) }
+                        .layout { measurable, _ ->
+                            val w = animWidth.value.roundToPx()
+                            val h = animHeight.value.roundToPx()
+                            val placeable = measurable.measure(Constraints.fixed(w, h))
+                            layout(w, h) { placeable.placeRelative(0, 0) }
+                        },
+                ) {
+                    indicatorSlot(selectedIndex)
+                }
+            }.single().measure(Constraints())
+
+            val dividerPlaceables = subcompose(SegmentSlot.Dividers) {
+                repeat(segmentCount - 1) {
+                    Box(
+                        modifier = Modifier
+                            .width(SegmentedControlDefaults.DividerWidth)
+                            .requiredHeight(24.dp)
+                            .background(SparkTheme.colors.outline),
                     )
                 }
-                if (linkText != null && onLinkClick != null) {
-                    Text(
-                        text = linkText,
-                        style = SparkTheme.typography.body2.copy(textDecoration = TextDecoration.Underline),
+            }.map { it.measure(Constraints.fixed(dividerWidth, rowHeight)) }
+
+            layout(constraints.maxWidth, rowHeight) {
+                indicatorPlaceable.placeRelative(0, 0)
+                var x = 0
+                segPlaceables.forEachIndexed { i, p ->
+                    p.placeRelative(x, 0)
+                    x += segWidth
+                    if (i < dividerPlaceables.size) {
+                        dividerPlaceables[i].placeRelative(x, 0)
+                        x += dividerWidth
+                    }
+                }
+            }
+        } else {
+            val r0Count = row0Count(segmentCount)
+            val row1Count = segmentCount / 2
+            val row0SegWidth = (constraints.maxWidth - dividerWidth * (r0Count - 1)) / r0Count
+            val row1SegWidth = (constraints.maxWidth - dividerWidth * (row1Count - 1)) / row1Count
+            val row0Height = segMeasurables.take(r0Count).maxOfOrNull { it.maxIntrinsicHeight(row0SegWidth) } ?: 0
+            val row1Height = segMeasurables.drop(r0Count).maxOfOrNull { it.maxIntrinsicHeight(row1SegWidth) } ?: 0
+            val rowHeight = maxOf(row0Height, row1Height, constraints.minHeight)
+
+            val selectedRow = if (selectedIndex < r0Count) 0 else 1
+            val selectedCol = if (selectedRow == 0) selectedIndex else selectedIndex - r0Count
+            val selectedSegWidth = if (selectedRow == 0) row0SegWidth else row1SegWidth
+
+            val segPlaceables = segMeasurables.mapIndexed { i, m ->
+                m.measure(Constraints.fixed(if (i < r0Count) row0SegWidth else row1SegWidth, rowHeight))
+            }
+
+            val indicatorXDp = (selectedCol * (selectedSegWidth + dividerWidth)).toDp()
+            val indicatorYDp = (selectedRow * rowHeight).toDp()
+            val indicatorWidthDp = selectedSegWidth.toDp()
+            val rowHeightDp = rowHeight.toDp()
+            val indicatorPlaceable = subcompose(SegmentSlot.Indicator) {
+                val animX = animateDpAsState(indicatorXDp, animSpec, label = "indicatorX")
+                val animY = animateDpAsState(indicatorYDp, animSpec, label = "indicatorY")
+                val animWidth = animateDpAsState(indicatorWidthDp, animSpec, label = "indicatorWidth")
+                val animHeight = animateDpAsState(rowHeightDp, animSpec, label = "indicatorHeight")
+                Box(
+                    modifier = Modifier
+                        .offset { IntOffset(animX.value.roundToPx(), animY.value.roundToPx()) }
+                        .layout { measurable, _ ->
+                            val w = animWidth.value.roundToPx()
+                            val h = animHeight.value.roundToPx()
+                            val placeable = measurable.measure(Constraints.fixed(w, h))
+                            layout(w, h) { placeable.placeRelative(0, 0) }
+                        },
+                ) {
+                    indicatorSlot(selectedIndex)
+                }
+            }.single().measure(Constraints())
+
+            val dividerPlaceables = subcompose(SegmentSlot.Dividers) {
+                repeat(segmentCount - 1) {
+                    Box(
                         modifier = Modifier
-                            .padding(bottom = 8.dp)
-                            .clickable(onClickLabel = linkText, onClick = onLinkClick),
+                            .width(SegmentedControlDefaults.DividerWidth)
+                            .requiredHeight(24.dp)
+                            .background(SparkTheme.colors.outline),
                     )
+                }
+            }.map { it.measure(Constraints.fixed(dividerWidth, rowHeight)) }
+
+            layout(constraints.maxWidth, rowHeight * 2) {
+                indicatorPlaceable.placeRelative(0, 0)
+                var segIdx = 0
+                var divIdx = 0
+                for (row in 0 until 2) {
+                    val countInRow = if (row == 0) r0Count else row1Count
+                    var x = 0
+                    for (col in 0 until countInRow) {
+                        if (segIdx < segPlaceables.size) {
+                            segPlaceables[segIdx].placeRelative(x, row * rowHeight)
+                            x += if (row == 0) row0SegWidth else row1SegWidth
+                            if (col < countInRow - 1) {
+                                dividerPlaceables[divIdx].placeRelative(x, row * rowHeight)
+                                x += dividerWidth
+                                divIdx++
+                            }
+                            segIdx++
+                        }
+                    }
                 }
             }
         }
+    }
+}
 
-        SubcomposeLayout(
-            modifier = Modifier
-                .fillMaxWidth()
-                .sizeIn(minWidth = SegmentedControlDefaults.MinTouchTargetSize, minHeight = 52.dp)
-                .clip(containerShape)
-                .semantics {
-                    val count = segmentCountState.intValue
-                    collectionInfo = CollectionInfo(
-                        rowCount = if (isHorizontal) 1 else 2,
-                        columnCount = if (isHorizontal) count else row0Count(count),
-                    )
-                    isTraversalGroup = true
-                    selectableGroup()
-                    if (title != null) contentDescription = title
-                }
-                .border(
-                    width = SegmentedControlDefaults.BorderWidth,
-                    color = SparkTheme.colors.outline,
-                    shape = containerShape,
-                ),
-        ) { constraints ->
-            val dividerWidth = SegmentedControlDefaults.DividerWidth.roundToPx()
-
-            val segMeasurables = subcompose(SegmentSlot.Segments) {
-                CompositionLocalProvider(
-                    LocalSegmentItemInfo provides remember(shape, enabled) {
-                        SegmentItemInfo(
-                            shape = shape,
-                            enabled = enabled,
-                        )
-                    },
-                ) {
-                    SegmentedControlScopeImpl.content(SegmentedButtonItemImpl)
-                }
-            }
-            val segmentCount = segMeasurables.size
-            segmentCountState.intValue = segmentCount
-
-            require(segmentCount >= minSegments) {
-                "SegmentedControl.${if (isHorizontal) "Horizontal" else "Vertical"} requires at least $minSegments segments, got $segmentCount"
-            }
-            require(segmentCount <= maxSegments) {
-                "SegmentedControl.${if (isHorizontal) "Horizontal" else "Vertical"} supports at most $maxSegments segments, got $segmentCount"
-            }
-            require(selectedIndex in 0 until segmentCount) {
-                "selectedIndex $selectedIndex is out of bounds for $segmentCount segments"
-            }
-
-            if (isHorizontal) {
-                val segWidth = (constraints.maxWidth - dividerWidth * (segmentCount - 1)) / segmentCount
-                val rowHeight = maxOf(
-                    segMeasurables.maxOfOrNull { it.maxIntrinsicHeight(segWidth) } ?: 0,
-                    constraints.minHeight,
+@Preview
+@Composable
+private fun PreviewSegmentedControl() {
+    PreviewTheme {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            Text("Mixed Content Types")
+            var selectedIndex1 by remember { mutableIntStateOf(0) }
+            Horizontal(
+                selectedIndex = selectedIndex1,
+            ) {
+                singleLine("Text", selected = selectedIndex1 == 0, onClick = { selectedIndex1 = 0 })
+                twoLine("Title", "Subtitle", selected = selectedIndex1 == 1, onClick = { selectedIndex1 = 1 })
+                icon(
+                    LeboncoinIcons.ShoppingCartOutline,
+                    selected = selectedIndex1 == 2,
+                    onClick = { selectedIndex1 = 2 },
                 )
-                val segPlaceables = segMeasurables.map { it.measure(Constraints.fixed(segWidth, rowHeight)) }
+                iconText(
+                    LeboncoinIcons.ShoppingCartOutline,
+                    "Cart",
+                    selected = selectedIndex1 == 3,
+                    onClick = { selectedIndex1 = 3 },
+                )
+            }
 
-                val indicatorXDp = (selectedIndex * (segWidth + dividerWidth)).toDp()
-                val segWidthDp = segWidth.toDp()
-                val rowHeightDp = rowHeight.toDp()
-                val indicatorPlaceable = subcompose(SegmentSlot.Indicator) {
-                    val animX = animateDpAsState(indicatorXDp, animSpec, label = "indicatorX")
-                    val animWidth = animateDpAsState(segWidthDp, animSpec, label = "indicatorWidth")
-                    val animHeight = animateDpAsState(rowHeightDp, animSpec, label = "indicatorHeight")
-                    Box(
-                        modifier = Modifier
-                            .offset { IntOffset(animX.value.roundToPx(), 0) }
-                            .layout { measurable, _ ->
-                                val w = animWidth.value.roundToPx()
-                                val h = animHeight.value.roundToPx()
-                                val placeable = measurable.measure(Constraints.fixed(w, h))
-                                layout(w, h) { placeable.placeRelative(0, 0) }
-                            },
-                    ) {
-                        indicatorSlot(selectedIndex)
-                    }
-                }.single().measure(Constraints())
+            Vertical(
+                selectedIndex = selectedIndex1,
+                enabled = false
+            ) {
+                singleLine("Text", selected = selectedIndex1 == 0, onClick = { selectedIndex1 = 0 })
+                twoLine("Title", "Subtitle", selected = selectedIndex1 == 1, onClick = { selectedIndex1 = 1 })
+                icon(
+                    LeboncoinIcons.ShoppingCartOutline,
+                    selected = selectedIndex1 == 2,
+                    onClick = { selectedIndex1 = 2 },
+                )
+                iconText(
+                    LeboncoinIcons.ShoppingCartOutline,
+                    "Cart",
+                    selected = selectedIndex1 == 3,
+                    onClick = { selectedIndex1 = 3 },
+                )
+            }
 
-                val dividerPlaceables = subcompose(SegmentSlot.Dividers) {
-                    repeat(segmentCount - 1) {
-                        Box(
-                            modifier = Modifier
-                                .width(SegmentedControlDefaults.DividerWidth)
-                                .requiredHeight(24.dp)
-                                .background(SparkTheme.colors.outline),
-                        )
-                    }
-                }.map { it.measure(Constraints.fixed(dividerWidth, rowHeight)) }
-
-                layout(constraints.maxWidth, rowHeight) {
-                    indicatorPlaceable.placeRelative(0, 0)
-                    var x = 0
-                    segPlaceables.forEachIndexed { i, p ->
-                        p.placeRelative(x, 0)
-                        x += segWidth
-                        if (i < dividerPlaceables.size) {
-                            dividerPlaceables[i].placeRelative(x, 0)
-                            x += dividerWidth
-                        }
-                    }
-                }
-            } else {
-                val r0Count = row0Count(segmentCount)
-                val row1Count = segmentCount / 2
-                val row0SegWidth = (constraints.maxWidth - dividerWidth * (r0Count - 1)) / r0Count
-                val row1SegWidth = (constraints.maxWidth - dividerWidth * (row1Count - 1)) / row1Count
-                val row0Height = segMeasurables.take(r0Count).maxOfOrNull { it.maxIntrinsicHeight(row0SegWidth) } ?: 0
-                val row1Height = segMeasurables.drop(r0Count).maxOfOrNull { it.maxIntrinsicHeight(row1SegWidth) } ?: 0
-                val rowHeight = maxOf(row0Height, row1Height, constraints.minHeight)
-
-                val selectedRow = if (selectedIndex < r0Count) 0 else 1
-                val selectedCol = if (selectedRow == 0) selectedIndex else selectedIndex - r0Count
-                val selectedSegWidth = if (selectedRow == 0) row0SegWidth else row1SegWidth
-
-                val segPlaceables = segMeasurables.mapIndexed { i, m ->
-                    m.measure(Constraints.fixed(if (i < r0Count) row0SegWidth else row1SegWidth, rowHeight))
-                }
-
-                val indicatorXDp = (selectedCol * (selectedSegWidth + dividerWidth)).toDp()
-                val indicatorYDp = (selectedRow * rowHeight).toDp()
-                val indicatorWidthDp = selectedSegWidth.toDp()
-                val rowHeightDp = rowHeight.toDp()
-                val indicatorPlaceable = subcompose(SegmentSlot.Indicator) {
-                    val animX = animateDpAsState(indicatorXDp, animSpec, label = "indicatorX")
-                    val animY = animateDpAsState(indicatorYDp, animSpec, label = "indicatorY")
-                    val animWidth = animateDpAsState(indicatorWidthDp, animSpec, label = "indicatorWidth")
-                    val animHeight = animateDpAsState(rowHeightDp, animSpec, label = "indicatorHeight")
-                    Box(
-                        modifier = Modifier
-                            .offset { IntOffset(animX.value.roundToPx(), animY.value.roundToPx()) }
-                            .layout { measurable, _ ->
-                                val w = animWidth.value.roundToPx()
-                                val h = animHeight.value.roundToPx()
-                                val placeable = measurable.measure(Constraints.fixed(w, h))
-                                layout(w, h) { placeable.placeRelative(0, 0) }
-                            },
-                    ) {
-                        indicatorSlot(selectedIndex)
-                    }
-                }.single().measure(Constraints())
-
-                val dividerPlaceables = subcompose(SegmentSlot.Dividers) {
-                    repeat(segmentCount - 1) {
-                        Box(
-                            modifier = Modifier
-                                .width(SegmentedControlDefaults.DividerWidth)
-                                .requiredHeight(24.dp)
-                                .background(SparkTheme.colors.outline),
-                        )
-                    }
-                }.map { it.measure(Constraints.fixed(dividerWidth, rowHeight)) }
-
-                layout(constraints.maxWidth, rowHeight * 2) {
-                    indicatorPlaceable.placeRelative(0, 0)
-                    var segIdx = 0
-                    var divIdx = 0
-                    for (row in 0 until 2) {
-                        val countInRow = if (row == 0) r0Count else row1Count
-                        var x = 0
-                        for (col in 0 until countInRow) {
-                            if (segIdx < segPlaceables.size) {
-                                segPlaceables[segIdx].placeRelative(x, row * rowHeight)
-                                x += if (row == 0) row0SegWidth else row1SegWidth
-                                if (col < countInRow - 1) {
-                                    dividerPlaceables[divIdx].placeRelative(x, row * rowHeight)
-                                    x += dividerWidth
-                                    divIdx++
-                                }
-                                segIdx++
-                            }
-                        }
-                    }
-                }
+            Text("Numbers")
+            var selectedIndex2 by remember { mutableIntStateOf(0) }
+            Horizontal(
+                selectedIndex = selectedIndex2,
+            ) {
+                number(1, selected = selectedIndex2 == 0, onClick = { selectedIndex2 = 0 })
+                number(2, selected = selectedIndex2 == 1, onClick = { selectedIndex2 = 1 })
+                number(3, selected = selectedIndex2 == 2, onClick = { selectedIndex2 = 2 })
+                number(4, selected = selectedIndex2 == 3, onClick = { selectedIndex2 = 3 })
             }
         }
     }

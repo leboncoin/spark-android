@@ -47,7 +47,6 @@ import com.adevinta.spark.components.segmentedcontrol.SegmentedControlScope
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControlShape
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.ShoppingCartOutline
@@ -68,21 +67,13 @@ private fun ColumnScope.SegmentedControlSample(
 ) {
     var segmentCount by remember { mutableIntStateOf(3) }
     var selectedIndex by remember { mutableIntStateOf(1) }
-    var title by remember { mutableStateOf("Filter") }
-    var linkText by remember { mutableStateOf("Learn more") }
-    var showTitle by remember { mutableStateOf(true) }
-    var showLink by remember { mutableStateOf(false) }
     var enabled by remember { mutableStateOf(true) }
 
-    val noOpLinkClick = remember { {} }
     ConfigedSegmentedControl(
         modifier = Modifier.align(Alignment.CenterHorizontally),
         segmentCount = segmentCount,
         selectedIndex = selectedIndex,
         onSegmentSelect = { selectedIndex = it },
-        title = if (showTitle) title else null,
-        linkText = if (showLink) linkText else null,
-        onLinkClick = if (showLink) noOpLinkClick else null,
         enabled = enabled,
     )
 
@@ -110,38 +101,6 @@ private fun ColumnScope.SegmentedControlSample(
     )
 
     SwitchLabelled(
-        checked = showTitle,
-        onCheckedChange = { showTitle = it },
-    ) {
-        Text(text = "Show Title", modifier = Modifier.fillMaxWidth())
-    }
-
-    if (showTitle) {
-        TextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = title,
-            onValueChange = { title = it },
-            label = "Title",
-        )
-    }
-
-    SwitchLabelled(
-        checked = showLink,
-        onCheckedChange = { showLink = it },
-    ) {
-        Text(text = "Show Link", modifier = Modifier.fillMaxWidth())
-    }
-
-    if (showLink) {
-        TextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = linkText,
-            onValueChange = { linkText = it },
-            label = "Link Text",
-        )
-    }
-
-    SwitchLabelled(
         checked = enabled,
         onCheckedChange = { enabled = it },
     ) {
@@ -155,9 +114,6 @@ private fun ConfigedSegmentedControl(
     segmentCount: Int,
     selectedIndex: Int,
     onSegmentSelect: (Int) -> Unit,
-    title: String?,
-    linkText: String?,
-    onLinkClick: (() -> Unit)?,
     enabled: Boolean,
 ) {
     Surface(
@@ -175,13 +131,13 @@ private fun ConfigedSegmentedControl(
                         val selected = index == selectedIndex
                         val onClick = { onSegmentSelect(index) }
                         when (index % 4) {
-                            0 -> SingleLine("Option ${index + 1}", selected = selected, onClick = onClick)
+                            0 -> singleLine("Option ${index + 1}", selected = selected, onClick = onClick)
 
-                            1 -> TwoLine("Title ${index + 1}", "Subtitle", selected = selected, onClick = onClick)
+                            1 -> twoLine("Title ${index + 1}", "Subtitle", selected = selected, onClick = onClick)
 
-                            2 -> Icon(LeboncoinIcons.ShoppingCartOutline, selected = selected, onClick = onClick)
+                            2 -> icon(LeboncoinIcons.ShoppingCartOutline, selected = selected, onClick = onClick)
 
-                            3 -> IconText(
+                            3 -> iconText(
                                 LeboncoinIcons.ShoppingCartOutline,
                                 "Item ${index + 1}",
                                 selected = selected,
@@ -194,18 +150,12 @@ private fun ConfigedSegmentedControl(
             if (segmentCount <= SegmentedControlDefaults.MaxHorizontalSegments) {
                 SegmentedControl.Horizontal(
                     selectedIndex = selectedIndex,
-                    title = title,
-                    linkText = linkText,
-                    onLinkClick = onLinkClick,
                     enabled = enabled,
                     content = segmentContent,
                 )
             } else {
                 SegmentedControl.Vertical(
                     selectedIndex = selectedIndex,
-                    title = title,
-                    linkText = linkText,
-                    onLinkClick = onLinkClick,
                     enabled = enabled,
                     shape = SegmentedControlShape.Rounded,
                     content = segmentContent,

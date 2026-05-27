@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Adevinta
+ * Copyright (c) 2026 Adevinta
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +25,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -42,7 +43,7 @@ import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.ShoppingCartOutline
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshotNightMode
-import com.android.ide.common.rendering.api.SessionParams.RenderingMode.V_SCROLL
+import com.android.ide.common.rendering.api.SessionParams
 import org.junit.Rule
 import org.junit.Test
 
@@ -51,100 +52,147 @@ internal class SegmentedControlScreenshot {
     @get:Rule
     val paparazzi = paparazziRule(
         deviceConfig = DefaultTestDevices.Tablet,
-        renderingMode = V_SCROLL,
+        renderingMode = SessionParams.RenderingMode.SHRINK,
     )
 
     @Test
-    fun singleRowSegments() {
+    fun segmentedControl() {
         paparazzi.sparkSnapshotNightMode {
             Surface(
                 color = SparkTheme.colors.backgroundVariant,
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                SingleRowSegments()
-            }
-        }
-    }
-
-    @Test
-    fun multiRowSegments() {
-        paparazzi.sparkSnapshotNightMode {
-            Surface(
-                color = SparkTheme.colors.backgroundVariant,
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                MultiRowSegments()
-            }
-        }
-    }
-
-    @Test
-    fun contentTypes() {
-        paparazzi.sparkSnapshotNightMode {
-            Surface(
-                color = SparkTheme.colors.backgroundVariant,
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                ContentTypes()
-            }
-        }
-    }
-
-    @Test
-    fun withTitleAndLink() {
-        paparazzi.sparkSnapshotNightMode {
-            Surface(
-                color = SparkTheme.colors.backgroundVariant,
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                WithTitleAndLink()
-            }
-        }
-    }
-
-    @Test
-    fun customSegmentAndIndicator() {
-        paparazzi.sparkSnapshotNightMode {
-            Surface(
-                color = SparkTheme.colors.backgroundVariant,
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                CustomSegmentAndIndicator()
-            }
-        }
-    }
-
-    @Test
-    fun verticalPillShape() {
-        paparazzi.sparkSnapshotNightMode {
-            Surface(
-                color = SparkTheme.colors.backgroundVariant,
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                VerticalPillShape()
-            }
-        }
-    }
-
-    @Test
-    fun disabled() {
-        paparazzi.sparkSnapshotNightMode {
-            Surface(
-                color = SparkTheme.colors.backgroundVariant,
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                Disabled()
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(24.dp),
+                ) {
+                    HorizontalVariants()
+                    VerticalVariants()
+                    ContentTypesSection()
+                    DisabledSection()
+                    CustomSection()
+                }
             }
         }
     }
 
     @Composable
-    private fun CustomSegmentAndIndicator() {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            Text(text = "Custom segments with custom indicator", style = SparkTheme.typography.headline2)
+    private fun HorizontalVariants() {
+        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            SegmentedControl.Horizontal(selectedIndex = 0, modifier = Modifier.weight(1f)) {
+                singleLine("Day", selected = true, onClick = {})
+                singleLine("Week", selected = false, onClick = {})
+            }
+
+            SegmentedControl.Horizontal(selectedIndex = 1,modifier = Modifier.weight(1f)) {
+                singleLine("All", selected = false, onClick = {})
+                singleLine("Active", selected = true, onClick = {})
+                singleLine("Done", selected = false, onClick = {})
+            }
+
+            SegmentedControl.Horizontal(selectedIndex = 2,modifier = Modifier.weight(1f)) {
+                singleLine("Mon", selected = false, onClick = {})
+                singleLine("Tue", selected = false, onClick = {})
+                singleLine("Wed", selected = true, onClick = {})
+                singleLine("Thu", selected = false, onClick = {})
+            }
+
+            SegmentedControl.Horizontal(selectedIndex = 4,modifier = Modifier.weight(1f)) {
+                singleLine("A", selected = false, onClick = {})
+                singleLine("B", selected = false, onClick = {})
+                singleLine("C", selected = false, onClick = {})
+                singleLine("D", selected = false, onClick = {})
+                singleLine("E", selected = true, onClick = {})
+            }
+
+        }
+    }
+
+    @Composable
+    private fun VerticalVariants() {
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Text("Vertical", style = SparkTheme.typography.headline2)
+
+            Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    Text("5 segments — Pill", style = SparkTheme.typography.body2)
+                    SegmentedControl.Vertical(selectedIndex = 2, shape = SegmentedControlShape.Pill) {
+                        singleLine("Option 1", selected = false, onClick = {})
+                        singleLine("Option 2", selected = false, onClick = {})
+                        singleLine("Option 3", selected = true, onClick = {})
+                        singleLine("Option 4", selected = false, onClick = {})
+                        singleLine("Option 5", selected = false, onClick = {})
+                    }
+                }
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    Text("8 segments — Rounded", style = SparkTheme.typography.body2)
+                    SegmentedControl.Vertical(selectedIndex = 3, shape = SegmentedControlShape.Rounded) {
+                        singleLine("1", selected = false, onClick = {})
+                        singleLine("2", selected = false, onClick = {})
+                        singleLine("3", selected = false, onClick = {})
+                        singleLine("4", selected = true, onClick = {})
+                        singleLine("5", selected = false, onClick = {})
+                        singleLine("6", selected = false, onClick = {})
+                        singleLine("7", selected = false, onClick = {})
+                        singleLine("8", selected = false, onClick = {})
+                    }
+                }
+            }
+        }
+    }
+
+    @Composable
+    private fun ContentTypesSection() {
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Text("Content types", style = SparkTheme.typography.headline2)
+
+            SegmentedControl.Horizontal(selectedIndex = 0) {
+                singleLine("Text", selected = true, onClick = {})
+                twoLine("Title", "Subtitle", selected = false, onClick = {})
+                icon(LeboncoinIcons.ShoppingCartOutline, selected = false, onClick = {})
+                iconText(LeboncoinIcons.ShoppingCartOutline, "Cart", selected = false, onClick = {})
+            }
+
+            SegmentedControl.Horizontal(selectedIndex = 2) {
+                number(1, selected = false, onClick = {})
+                number(2, selected = false, onClick = {})
+                number(3, selected = true, onClick = {})
+                number(4, selected = false, onClick = {})
+            }
+        }
+    }
+
+    @Composable
+    private fun DisabledSection() {
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Text("Disabled", style = SparkTheme.typography.headline2)
+
+            SegmentedControl.Horizontal(selectedIndex = 1, enabled = false) {
+                singleLine("Option 1", selected = false, onClick = {})
+                singleLine("Option 2", selected = true, onClick = {})
+                singleLine("Option 3", selected = false, onClick = {})
+            }
+
+            SegmentedControl.Vertical(selectedIndex = 1, enabled = false) {
+                singleLine("Option 1", selected = false, onClick = {})
+                singleLine("Option 2", selected = true, onClick = {})
+                singleLine("Option 3", selected = false, onClick = {})
+                singleLine("Option 4", selected = false, onClick = {})
+            }
+        }
+    }
+
+    @Composable
+    private fun CustomSection() {
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Text("Custom indicator and segments", style = SparkTheme.typography.headline2)
+
             SegmentedControl.Horizontal(
                 selectedIndex = 1,
                 indicatorContent = {
@@ -152,192 +200,34 @@ internal class SegmentedControlScreenshot {
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(4.dp)
-                            .background(SparkTheme.colors.warningContainer, SparkTheme.shapes.full),
+                            .background(SparkTheme.colors.alertContainer, SparkTheme.shapes.full),
                     )
                 },
             ) {
-                Custom(selected = false, onClick = {}, rippleColor = SparkTheme.colors.warning) {
+                custom(selected = false, onClick = {}, rippleColor = SparkTheme.colors.alert) {
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
                             .background(SparkTheme.colors.errorContainer),
                         contentAlignment = Alignment.Center,
-                    ) {
-                        Text("A", color = SparkTheme.colors.onErrorContainer)
-                    }
+                    ) { Text("A", color = SparkTheme.colors.onErrorContainer) }
                 }
-                Custom(selected = true, onClick = {}, rippleColor = SparkTheme.colors.warning) {
+                custom(selected = true, onClick = {}, rippleColor = SparkTheme.colors.alert) {
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
                             .background(SparkTheme.colors.successContainer),
                         contentAlignment = Alignment.Center,
-                    ) {
-                        Text("B", color = SparkTheme.colors.onSuccessContainer)
-                    }
+                    ) { Text("B", color = SparkTheme.colors.onSuccessContainer) }
                 }
-                Custom(selected = false, onClick = {}, rippleColor = SparkTheme.colors.warning) {
+                custom(selected = false, onClick = {}, rippleColor = SparkTheme.colors.alert) {
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
                             .background(SparkTheme.colors.infoContainer),
                         contentAlignment = Alignment.Center,
-                    ) {
-                        Text("C", color = SparkTheme.colors.onInfoContainer)
-                    }
+                    ) { Text("C", color = SparkTheme.colors.onInfoContainer) }
                 }
-            }
-        }
-    }
-
-    @Composable
-    private fun VerticalPillShape() {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            Text(text = "Vertical - Pill shape", style = SparkTheme.typography.headline2)
-            SegmentedControl.Vertical(
-                selectedIndex = 2,
-                shape = SegmentedControlShape.Pill,
-            ) {
-                SingleLine("Option 1", selected = false, onClick = {})
-                SingleLine("Option 2", selected = false, onClick = {})
-                SingleLine("Option 3", selected = true, onClick = {})
-                SingleLine("Option 4", selected = false, onClick = {})
-                SingleLine("Option 5", selected = false, onClick = {})
-            }
-
-            Text(text = "Vertical - Rounded shape (default)", style = SparkTheme.typography.headline2)
-            SegmentedControl.Vertical(
-                selectedIndex = 2,
-                shape = SegmentedControlShape.Rounded,
-            ) {
-                SingleLine("Option 1", selected = false, onClick = {})
-                SingleLine("Option 2", selected = false, onClick = {})
-                SingleLine("Option 3", selected = true, onClick = {})
-                SingleLine("Option 4", selected = false, onClick = {})
-                SingleLine("Option 5", selected = false, onClick = {})
-            }
-        }
-    }
-
-    @Composable
-    private fun SingleRowSegments() {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            Text(text = "Single row - 2 segments", style = SparkTheme.typography.headline2)
-            SegmentedControl.Horizontal(selectedIndex = 0) {
-                SingleLine("Option 1", selected = true, onClick = {})
-                SingleLine("Option 2", selected = false, onClick = {})
-            }
-
-            Text(text = "Single row - 3 segments", style = SparkTheme.typography.headline2)
-            SegmentedControl.Horizontal(selectedIndex = 1) {
-                SingleLine("Option 1", selected = false, onClick = {})
-                SingleLine("Option 2", selected = true, onClick = {})
-                SingleLine("Option 3", selected = false, onClick = {})
-            }
-
-            Text(text = "Single row - 4 segments", style = SparkTheme.typography.headline2)
-            SegmentedControl.Horizontal(selectedIndex = 2) {
-                SingleLine("Option 1", selected = false, onClick = {})
-                SingleLine("Option 2", selected = false, onClick = {})
-                SingleLine("Option 3", selected = true, onClick = {})
-                SingleLine("Option 4", selected = false, onClick = {})
-            }
-        }
-    }
-
-    @Composable
-    private fun MultiRowSegments() {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            Text(text = "Multi-row - 5 segments", style = SparkTheme.typography.headline2)
-            SegmentedControl.Vertical(selectedIndex = 0) {
-                SingleLine("Option 1", selected = true, onClick = {})
-                SingleLine("Option 2", selected = false, onClick = {})
-                SingleLine("Option 3", selected = false, onClick = {})
-                SingleLine("Option 4", selected = false, onClick = {})
-                SingleLine("Option 5", selected = false, onClick = {})
-            }
-
-            Text(text = "Multi-row - 8 segments", style = SparkTheme.typography.headline2)
-            SegmentedControl.Vertical(selectedIndex = 4) {
-                SingleLine("1", selected = false, onClick = {})
-                SingleLine("2", selected = false, onClick = {})
-                SingleLine("3", selected = false, onClick = {})
-                SingleLine("4", selected = false, onClick = {})
-                SingleLine("5", selected = true, onClick = {})
-                SingleLine("6", selected = false, onClick = {})
-                SingleLine("7", selected = false, onClick = {})
-                SingleLine("8", selected = false, onClick = {})
-            }
-        }
-    }
-
-    @Composable
-    private fun ContentTypes() {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            Text(text = "Content Types", style = SparkTheme.typography.headline2)
-
-            SegmentedControl.Horizontal(selectedIndex = 0) {
-                SingleLine("Text", selected = true, onClick = {})
-                TwoLine("Title", "Subtitle", selected = false, onClick = {})
-                Icon(LeboncoinIcons.ShoppingCartOutline, selected = false, onClick = {})
-                IconText(LeboncoinIcons.ShoppingCartOutline, "Cart", selected = false, onClick = {})
-            }
-
-            SegmentedControl.Horizontal(selectedIndex = 0) {
-                Number(1, selected = true, onClick = {})
-                Number(2, selected = false, onClick = {})
-                Number(3, selected = false, onClick = {})
-                Number(4, selected = false, onClick = {})
-            }
-        }
-    }
-
-    @Composable
-    private fun WithTitleAndLink() {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            SegmentedControl.Horizontal(
-                selectedIndex = 1,
-                title = "Filter",
-                linkText = "Learn more",
-                onLinkClick = {},
-            ) {
-                SingleLine("All", selected = false, onClick = {})
-                SingleLine("Active", selected = true, onClick = {})
-                SingleLine("Completed", selected = false, onClick = {})
-            }
-        }
-    }
-
-    @Composable
-    private fun Disabled() {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            Text(text = "Disabled", style = SparkTheme.typography.headline2)
-
-            SegmentedControl.Horizontal(
-                selectedIndex = 1,
-                enabled = false,
-            ) {
-                SingleLine("Option 1", selected = false, onClick = {})
-                SingleLine("Option 2", selected = true, onClick = {})
-                SingleLine("Option 3", selected = false, onClick = {})
             }
         }
     }
