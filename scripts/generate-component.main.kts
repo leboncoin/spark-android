@@ -320,7 +320,10 @@ private fun buildSummaryMessage(dryRun: Boolean, generatedCount: Int): String {
     return when {
         generatedCount == 0 && dryRun -> "⚠️  No new files would be generated (all files already exist)."
         generatedCount == 0 -> "⚠️  No files were generated."
-        dryRun -> "🔍 Would generate $generatedCount file(s) (dry-run mode).\n   Run without --dry-run to actually create the files."
+        dryRun -> """
+            🔍 Would generate $generatedCount file(s) (dry-run mode).
+            Run without --dry-run to actually create the files.
+        """.trimIndent()
         else -> "✅ Successfully generated $generatedCount file(s)!"
     }.let { prefix + it }
 }

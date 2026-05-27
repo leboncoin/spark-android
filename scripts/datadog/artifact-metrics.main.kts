@@ -45,7 +45,8 @@ private val DIFFUSE_COUNT_ROW = Regex("""^\s*(classes|methods|fields)\s*[│|]\s
  */
 class ArtifactMetrics : CliktCommand("artifact-metrics.main.kts") {
 
-    override fun help(context: Context) = "Submits artifact size and composition metrics to Datadog from diffuse output files."
+    override fun help(context: Context) =
+        "Submits artifact size and composition metrics to Datadog from diffuse output files."
 
     private val dryRun by dryRun()
     private val verbose by verbose()

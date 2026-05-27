@@ -36,26 +36,27 @@ internal class SparkSpotlessPlugin : Plugin<Project> {
             configure<SpotlessExtension> {
                 val licenseHeader = rootProject.file("spotless/spotless.kt")
                 format("misc") {
-                    target("*.md", "src/**/*.md", ".gitignore")
+                    target("*.md", "src/**/*.md", "*.xml", "src/**/*.xml", ".gitignore")
                     targetExclude("dependencies/*.txt")
                     endWithNewline()
                 }
                 kotlin {
-                    target("src/**/*.kt")
-                    ktlint(ktlint.toString())
-                    trimTrailingWhitespace()
-                    endWithNewline()
-                    licenseHeaderFile(licenseHeader)
-                    targetExclude("spotless/*.kt")
-                }
-                kotlinGradle {
+                    if (target == rootProject) {
+                        target("build-logic/*.gradle.kts", "build-logic/src/**/*.kt", "scripts/**/*.main.kts")
+                    } else {
+                        target("*.gradle.kts", "src/**/*.kt")
+                    }
                     ktlint(ktlint.toString())
                     trimTrailingWhitespace()
                     endWithNewline()
                     licenseHeaderFile(
                         licenseHeader,
-                        "(import |plugins|pluginManagement|rootProject|dependencyResolutionManagement|//)",
-                    )
+                        "(package |import |plugins|pluginManagement|rootProject|dependencyResolutionManagement|//|#!|@)",
+                    ).skipLinesMatching("^#!.+?\$") // shebang
+
+                    targetExclude("spotless/*.kt")
+                    // Auto-generated files
+                    if (target.path == ":spark-icons") targetExclude("src/**/LeboncoinIcons.*.kt")
                 }
             }
         }

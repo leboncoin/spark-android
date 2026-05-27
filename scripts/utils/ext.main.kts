@@ -1,3 +1,4 @@
+// spotless marker for license header
 
 inline fun <reified T : Any> Any?.cast(): T = this as T
 
