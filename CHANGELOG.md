@@ -2,6 +2,19 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [2.4.2](https://github.com/leboncoin/spark-android/compare/2.4.1...2.4.2) (2026-05-28)
+
+
+### Miscellaneous
+
+* **merge:** hotfix release 2.4.1 ([36e2b46](https://github.com/leboncoin/spark-android/commit/36e2b461d8e43629a3e334c453026fefa8bd55e8))
+* **merge:** hotfix release 2.4.1 ([#1997](https://github.com/leboncoin/spark-android/issues/1997)) ([0b4aeb5](https://github.com/leboncoin/spark-android/commit/0b4aeb558fab3ab515c1bbd8e882abc4c741f775))
+
+
+### Documentation
+
+* **release:** require merge commit for hotfix merge-back ([#1999](https://github.com/leboncoin/spark-android/issues/1999)) ([978e3a7](https://github.com/leboncoin/spark-android/commit/978e3a7682386afc9f5d5daffca84419b2e8d109))
+
 ## [2.4.1](https://github.com/leboncoin/spark-android/compare/2.4.0...2.4.1) (2026-05-28)
 
 
