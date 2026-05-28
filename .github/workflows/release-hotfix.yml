@@ -3,6 +3,12 @@ name: '🚀 Release (Hotfix)'
 on:
   push:
     branches: ['hotfix/*']
+  workflow_dispatch:
+    inputs:
+      release-as:
+        description: 'Explicit version override (e.g. 1.2.3)'
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -24,3 +30,4 @@ jobs:
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
           target-branch: ${{ github.ref_name }}
+          release-as: ${{ inputs.release-as }}

@@ -48,7 +48,6 @@ import com.adevinta.spark.components.stepper.stepperSemantics
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.Minus
 import com.adevinta.spark.icons.Plus
-import com.adevinta.spark.tools.modifiers.ifFalse
 import com.adevinta.spark.tools.modifiers.ifTrue
 import com.adevinta.spark.tools.modifiers.invisibleSemantic
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
@@ -108,12 +107,13 @@ internal fun SparkStepper(
 
         MiddleText(
             modifier = Modifier
-                .ifTrue(flexible) {
-                    weight(1.0f)
-                }
-                .ifFalse(flexible) {
-                    widthIn(min = 48.dp)
-                }
+                .then(
+                    if (flexible) {
+                        modifier.weight(1.0f)
+                    } else {
+                        modifier.widthIn(min = 48.dp)
+                    },
+                )
                 .fillMaxHeight()
                 .invisibleSemantic(),
             value = coerced,
