@@ -111,6 +111,16 @@ jobs:
         env:
           GROUPS: ${{ inputs.group || 'all' }}
 
+      - name: '📎 Upload APK to GitHub Release'
+        if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
+        run: |
+          gh release upload "$TAG" \
+            catalog/build/outputs/apk/release/catalog-release.apk \
+            --clobber
+        env:
+          GH_TOKEN: ${{ secrets.PAT_SPARK }}
+          TAG: ${{ github.ref_name }}
+
       - name: '♻️ Cleanup'
         if: ${{ success() || failure() }}
         continue-on-error: true
