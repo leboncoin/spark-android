@@ -41,4 +41,4 @@ The `!` suffix tells release-please this is a breaking change and triggers a maj
    ```
 3. This creates a Release PR targeting the hotfix branch.
 4. Merge the Release PR. The tag and publish workflows fire automatically.
-5. Open a PR to merge `hotfix/X.Y.Z+1` back into `main`.
+5. Open a PR to merge `hotfix/X.Y.Z+1` back into `main`. **Must use a merge commit** (not squash). Release-please needs the hotfix tag to be reachable from main's history to correctly scope the next changelog. A squash merge breaks this ancestry and causes release-please to scan the full history.
