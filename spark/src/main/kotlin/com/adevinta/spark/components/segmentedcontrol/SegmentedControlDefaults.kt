@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.segmentedcontrol
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -35,6 +36,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.tokens.disabled
 
 /**
  * Default values and constants for [SegmentedControl].
@@ -78,17 +80,30 @@ public object SegmentedControlDefaults {
     @Composable
     public fun Indicator(
         shape: Shape,
+        enabled: Boolean,
         modifier: Modifier = Modifier,
     ) {
-        val background = SparkTheme.colors.neutralContainer
-        val borderColor = SparkTheme.colors.outlineHigh
+        val background = animateColorAsState(
+            if (enabled) {
+                SparkTheme.colors.neutralContainer
+            } else {
+                SparkTheme.colors.surface
+            },
+        )
+        val borderColor = animateColorAsState(
+            if (enabled) {
+                SparkTheme.colors.outlineHigh
+            } else {
+                SparkTheme.colors.outlineHigh.disabled
+            },
+        )
         Box(
             modifier = modifier
                 .fillMaxSize()
                 .padding(4.dp)
                 .clip(shape)
-                .border(2.dp, borderColor, shape)
-                .drawBehind { drawRect(background) },
+                .border(2.dp, borderColor.value, shape)
+                .drawBehind { drawRect(background.value ) },
         )
     }
 }
@@ -115,7 +130,8 @@ public enum class SegmentedControlShape {
             @Composable
             @ReadOnlyComposable
             get() = SparkTheme.shapes.full
-    }, ;
+    },
+    ;
 
     /** Resolved [CornerBasedShape] from the current [SparkTheme]. */
     public abstract val shape: CornerBasedShape

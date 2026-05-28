@@ -54,6 +54,7 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.ShoppingCartOutline
 import com.adevinta.spark.tokens.dim1
+import com.adevinta.spark.tokens.disabled
 import com.adevinta.spark.tokens.highlight
 import com.adevinta.spark.tokens.transparent
 import kotlinx.collections.immutable.ImmutableList
@@ -239,17 +240,21 @@ private fun EnergyRatingExample() {
         SegmentedControl.Vertical(
             selectedIndex = selectedIndex,
             shape = SegmentedControlShape.Pill,
-            indicatorContent = { selectedIndex ->
+            indicatorContent = { selectedIndex, enabled ->
                 val data = EnergyRatingDataFake[selectedIndex]
                 val transition = updateTransition(data, label = "indicator")
                 val background = transition.animateColor(label = "indicatorBackground") { d ->
-                    if (d.color.isSpecified) d.color else SparkTheme.colors.neutralContainer
+                    if (d.color.isSpecified) {
+                        if(enabled) d.color else d.color.disabled
+                    } else {
+                        if(enabled) SparkTheme.colors.neutralContainer else SparkTheme.colors.surface
+                    }
                 }
                 val borderColor = transition.animateColor(label = "indicatorBorderColor") { d ->
                     if (d.color.isSpecified) {
                         SparkTheme.colors.outlineHigh.transparent
                     } else {
-                        SparkTheme.colors.outlineHigh
+                        if(enabled) SparkTheme.colors.outlineHigh else SparkTheme.colors.outlineHigh.disabled
                     }
                 }
                 val borderSize = transition.animateDp(label = "indicatorBorderSize") { d ->

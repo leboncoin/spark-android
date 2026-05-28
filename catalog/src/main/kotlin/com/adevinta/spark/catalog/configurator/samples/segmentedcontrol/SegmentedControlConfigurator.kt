@@ -21,7 +21,8 @@
  */
 package com.adevinta.spark.catalog.configurator.samples.segmentedcontrol
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -120,8 +121,9 @@ private fun ConfigedSegmentedControl(
         modifier = modifier,
         color = SparkTheme.colors.backgroundVariant,
     ) {
-        Box(
+        Column(
             modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             val segmentContent: @Composable SegmentedControlScope.(
                 SegmentedButtonItem,
@@ -153,7 +155,8 @@ private fun ConfigedSegmentedControl(
                     enabled = enabled,
                     content = segmentContent,
                 )
-            } else {
+            }
+            if (segmentCount >= SegmentedControlDefaults.MinVerticalSegments) {
                 SegmentedControl.Vertical(
                     selectedIndex = selectedIndex,
                     enabled = enabled,
