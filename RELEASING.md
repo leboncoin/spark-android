@@ -30,7 +30,15 @@ The `!` suffix tells release-please this is a breaking change and triggers a maj
 
 ## Hotfix Workflow
 
-1. Push fix commits to a `hotfix/X.Y.Z` branch (the `hotfix/` prefix is required).
-2. Dispatch `.github/workflows/release-hotfix.yml` with `release-as: X.Y.Z`. This creates a Release PR targeting the hotfix branch.
-3. Merge the Release PR. The tag and publish workflows fire automatically.
-4. Open a PR to merge `hotfix/X.Y.Z` back into `main`.
+1. Create the hotfix branch from the release tag:
+   ```bash
+   git branch hotfix/X.Y.Z+1 refs/tags/X.Y.Z
+   git push origin hotfix/X.Y.Z+1
+   ```
+2. Create a working branch, commit fixes, and open a PR targeting `hotfix/X.Y.Z+1`:
+   ```bash
+   git switch --create fix-hotfix-X.Y.Z+1 hotfix/X.Y.Z+1
+   ```
+3. This creates a Release PR targeting the hotfix branch.
+4. Merge the Release PR. The tag and publish workflows fire automatically.
+5. Open a PR to merge `hotfix/X.Y.Z+1` back into `main`.
