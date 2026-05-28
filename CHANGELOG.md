@@ -2,6 +2,18 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [2.4.1](https://github.com/leboncoin/spark-android/compare/2.4.0...2.4.1) (2026-05-28)
+
+
+### Bug Fixes
+
+* **stepper:** the modifier is reused on the middle text ([#1995](https://github.com/leboncoin/spark-android/issues/1995)) ([6448239](https://github.com/leboncoin/spark-android/commit/6448239bab8cbd8c4512d96dc2025a23a7d55765))
+
+
+### Miscellaneous
+
+* **release:** remove dispatch capability from hotfix release workflow ([b24eda4](https://github.com/leboncoin/spark-android/commit/b24eda4bab860ef890c9809ae963b21c52414cbd))
+
 ## [2.4.0](https://github.com/leboncoin/spark-android/compare/2.3.0...2.4.0) (2026-05-28)
 
 
