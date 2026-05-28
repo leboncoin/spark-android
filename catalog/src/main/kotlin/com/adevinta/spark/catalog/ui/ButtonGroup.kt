@@ -31,6 +31,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControl
+import com.adevinta.spark.components.segmentedcontrol.SegmentedControlDefaults
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.highlight
 import kotlinx.collections.immutable.ImmutableList
@@ -65,16 +66,32 @@ internal inline fun <reified T : Enum<T>> ButtonGroup(
         title = title,
         modifier = modifier,
     ) {
-        SegmentedControl.Horizontal(
-            selectedIndex = selectedIndex,
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            options.forEachIndexed { index, option ->
-                singleLine(
-                    text = option.name,
-                    selected = index == selectedIndex,
-                    onClick = { onOptionSelect(option) },
-                )
+        val isHorizontal = options.size <= SegmentedControlDefaults.MaxHorizontalSegments
+        if (isHorizontal) {
+            SegmentedControl.Horizontal(
+                selectedIndex = selectedIndex,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                options.forEach { option ->
+                    singleLine(
+                        text = option.name,
+                        selected = option == selectedOption,
+                        onClick = { onOptionSelect(option) },
+                    )
+                }
+            }
+        } else {
+            SegmentedControl.Vertical(
+                selectedIndex = selectedIndex,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                options.forEach { option ->
+                    singleLine(
+                        text = option.name,
+                        selected = option == selectedOption,
+                        onClick = { onOptionSelect(option) },
+                    )
+                }
             }
         }
     }
@@ -94,16 +111,32 @@ internal fun ButtonGroup(
         title = title,
         modifier = modifier,
     ) {
-        SegmentedControl.Horizontal(
-            selectedIndex = selectedIndex,
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            options.forEach { option ->
-                singleLine(
-                    text = option,
-                    selected = option == selectedOption,
-                    onClick = { onOptionSelect(option) },
-                )
+        val isHorizontal = options.size <= SegmentedControlDefaults.MaxHorizontalSegments
+        if (isHorizontal) {
+            SegmentedControl.Horizontal(
+                selectedIndex = selectedIndex,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                options.forEach { option ->
+                    singleLine(
+                        text = option,
+                        selected = option == selectedOption,
+                        onClick = { onOptionSelect(option) },
+                    )
+                }
+            }
+        } else {
+            SegmentedControl.Vertical(
+                selectedIndex = selectedIndex,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                options.forEach { option ->
+                    singleLine(
+                        text = option,
+                        selected = option == selectedOption,
+                        onClick = { onOptionSelect(option) },
+                    )
+                }
             }
         }
     }

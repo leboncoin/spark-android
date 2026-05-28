@@ -24,11 +24,12 @@ package com.adevinta.spark.components.segmentedcontrol
 import android.annotation.SuppressLint
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.rememberTransition
 import androidx.compose.animation.core.spring
-import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -78,11 +79,13 @@ import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconSize
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControl.Horizontal
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControl.Vertical
+import com.adevinta.spark.components.spacer.VerticalSpacer
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.ShoppingCartOutline
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.tokens.dim1
+import com.adevinta.spark.tokens.disabled
 import com.adevinta.spark.tokens.highlight
 import com.adevinta.spark.tokens.ripple
 
@@ -144,7 +147,7 @@ public object SegmentedControl {
         modifier: Modifier = Modifier,
         role: Role = Role.RadioButton,
         enabled: Boolean = true,
-        indicatorContent: @Composable (selectedIndex: Int) -> Unit = DefaultHorizontalIndicator,
+        indicatorContent: @Composable (selectedIndex: Int, enabled: Boolean) -> Unit = DefaultHorizontalIndicator,
         content: @Composable SegmentedControlScope.(SegmentedButtonItem) -> Unit,
     ) {
         SegmentedControlImpl(
@@ -191,8 +194,8 @@ public object SegmentedControl {
         role: Role = Role.RadioButton,
         enabled: Boolean = true,
         shape: SegmentedControlShape = SegmentedControlShape.Rounded,
-        indicatorContent: @Composable (selectedIndex: Int) -> Unit = {
-            SegmentedControlDefaults.Indicator(shape = shape.shape)
+        indicatorContent: @Composable (selectedIndex: Int, enabled: Boolean) -> Unit = { _, enabled ->
+            SegmentedControlDefaults.Indicator(shape = shape.shape, enabled = enabled)
         },
         content: @Composable SegmentedControlScope.(SegmentedButtonItem) -> Unit,
     ) {
@@ -214,21 +217,32 @@ public object SegmentedControl {
 @Stable
 private data class SegmentLabelStyle(val color: Color, val textStyle: TextStyle)
 
+private data class SegmentLabelAnimationState(val selected: Boolean, val enabled: Boolean)
+
 @Composable
-private fun segmentLabelStyle(selected: Boolean): SegmentLabelStyle {
-    val transition = updateTransition(selected, label = "segmentLabel")
+private fun segmentLabelStyle(
+    selected: Boolean,
+    enabled: Boolean = LocalSegmentItemInfo.current.enabled,
+): SegmentLabelStyle {
+    val animationState =
+        remember(selected, enabled) { MutableTransitionState(SegmentLabelAnimationState(selected, enabled)) }
+    val transition = rememberTransition(transitionState = animationState, label = "segmentLabel")
     val color by transition.animateColor(label = "labelColor") {
-        if (it) SparkTheme.colors.onSurface else SparkTheme.colors.onSurface.dim1
+        when {
+            it.enabled && it.selected -> SparkTheme.colors.onSurface
+            it.enabled && !it.selected -> SparkTheme.colors.onSurface.dim1
+            else -> SparkTheme.colors.onSurface.disabled
+        }
     }
-    val progress by transition.animateFloat(label = "labelProgress") { if (it) 1f else 0f }
+    val progress by transition.animateFloat(label = "labelProgress") { if (it.selected) 1f else 0f }
     val textStyle = lerp(SparkTheme.typography.body2, SparkTheme.typography.body2.highlight, progress)
     return SegmentLabelStyle(color, textStyle)
 }
 
 private object SegmentedButtonItemImpl : SegmentedButtonItem
 
-private val DefaultHorizontalIndicator: @Composable (Int) -> Unit = {
-    SegmentedControlDefaults.Indicator(shape = SegmentedControlShape.Pill.shape)
+private val DefaultHorizontalIndicator: @Composable (Int, Boolean) -> Unit = { _, enabled ->
+    SegmentedControlDefaults.Indicator(shape = SegmentedControlShape.Pill.shape, enabled = enabled)
 }
 
 private fun row0Count(segmentCount: Int): Int = (segmentCount + 1) / 2
@@ -312,8 +326,14 @@ private object SegmentedControlScopeImpl : SegmentedControlScope {
             selected = selected,
             onClick = onClick,
         ) {
+            val enabled = LocalSegmentItemInfo.current.enabled
             val iconColor by animateColorAsState(
-                if (selected) SparkTheme.colors.supportVariant else SparkTheme.colors.support,
+                when {
+                    enabled && selected -> SparkTheme.colors.supportVariant
+                    enabled && !selected -> SparkTheme.colors.support
+                    !enabled && selected -> SparkTheme.colors.supportVariant.disabled
+                    else -> SparkTheme.colors.supportVariant.disabled
+                },
                 label = "iconColor",
             )
             Icon(
@@ -339,8 +359,14 @@ private object SegmentedControlScopeImpl : SegmentedControlScope {
             selected = selected,
             onClick = onClick,
         ) {
+            val enabled = LocalSegmentItemInfo.current.enabled
             val iconColor by animateColorAsState(
-                if (selected) SparkTheme.colors.supportVariant else SparkTheme.colors.support,
+                when {
+                    enabled && selected -> SparkTheme.colors.supportVariant
+                    enabled && !selected -> SparkTheme.colors.support
+                    !enabled && selected -> SparkTheme.colors.supportVariant.disabled
+                    else -> SparkTheme.colors.supportVariant.disabled
+                },
                 label = "iconColor",
             )
             val (labelColor, textStyle) = segmentLabelStyle(selected)
@@ -349,6 +375,7 @@ private object SegmentedControlScopeImpl : SegmentedControlScope {
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Icon(sparkIcon = icon, contentDescription = null, size = IconSize.Medium, tint = iconColor)
+                VerticalSpacer(4.dp)
                 Text(text = text, maxLines = 1, overflow = TextOverflow.Ellipsis, color = labelColor, style = textStyle)
             }
         }
@@ -412,7 +439,8 @@ private object SegmentedControlScopeImpl : SegmentedControlScope {
                     indication = ripple(color = rippleColor),
                     interactionSource = null,
                     onClick = onClick,
-                ),
+                )
+                .padding(8.dp),
             contentAlignment = Alignment.Center,
         ) {
             content()
@@ -436,7 +464,7 @@ private fun SegmentedControlImpl(
     minSegments: Int,
     maxSegments: Int,
     shape: Shape,
-    indicatorContent: @Composable (selectedIndex: Int) -> Unit,
+    indicatorContent: @Composable (selectedIndex: Int, enabled: Boolean) -> Unit,
     modifier: Modifier = Modifier,
     content: @Composable SegmentedControlScope.(SegmentedButtonItem) -> Unit,
 ) {
@@ -447,7 +475,8 @@ private fun SegmentedControlImpl(
     val animSpec =
         remember { spring<Dp>(stiffness = Spring.StiffnessMediumLow, dampingRatio = Spring.DampingRatioLowBouncy) }
 
-    val indicatorSlot = remember { movableContentOf<Int> { indicatorContent(it) } }
+    val indicatorSlot =
+        remember { movableContentOf<Int, Boolean> { index, enabled -> indicatorContent(index, enabled) } }
 
     SubcomposeLayout(
         modifier = modifier
@@ -487,14 +516,11 @@ private fun SegmentedControlImpl(
         val segmentCount = segMeasurables.size
         segmentCountState.intValue = segmentCount
 
-        require(segmentCount >= minSegments) {
-            "SegmentedControl.${if (isHorizontal) "Horizontal" else "Vertical"} requires at least $minSegments segments, got $segmentCount"
-        }
-        require(segmentCount <= maxSegments) {
-            "SegmentedControl.${if (isHorizontal) "Horizontal" else "Vertical"} supports at most $maxSegments segments, got $segmentCount"
+        require(segmentCount in minSegments..maxSegments) {
+            "SegmentedControl.${if (isHorizontal) "Horizontal" else "Vertical"} requires $minSegments–$maxSegments segments, got $segmentCount"
         }
         require(selectedIndex in 0 until segmentCount) {
-            "selectedIndex $selectedIndex is out of bounds for $segmentCount segments"
+            "SegmentedControl.${if (isHorizontal) "Horizontal" else "Vertical"}: selectedIndex $selectedIndex is out of bounds for $segmentCount segments"
         }
 
         if (isHorizontal) {
@@ -522,7 +548,7 @@ private fun SegmentedControlImpl(
                             layout(w, h) { placeable.placeRelative(0, 0) }
                         },
                 ) {
-                    indicatorSlot(selectedIndex)
+                    indicatorSlot(selectedIndex, enabled)
                 }
             }.single().measure(Constraints())
 
@@ -585,7 +611,7 @@ private fun SegmentedControlImpl(
                             layout(w, h) { placeable.placeRelative(0, 0) }
                         },
                 ) {
-                    indicatorSlot(selectedIndex)
+                    indicatorSlot(selectedIndex, enabled)
                 }
             }.single().measure(Constraints())
 
@@ -637,6 +663,7 @@ private fun PreviewSegmentedControl() {
             var selectedIndex1 by remember { mutableIntStateOf(0) }
             Horizontal(
                 selectedIndex = selectedIndex1,
+                enabled = false,
             ) {
                 singleLine("Text", selected = selectedIndex1 == 0, onClick = { selectedIndex1 = 0 })
                 twoLine("Title", "Subtitle", selected = selectedIndex1 == 1, onClick = { selectedIndex1 = 1 })
@@ -654,8 +681,8 @@ private fun PreviewSegmentedControl() {
             }
 
             Vertical(
-                selectedIndex = selectedIndex1,
-                enabled = false
+                selectedIndex = 3,
+                enabled = false,
             ) {
                 singleLine("Text", selected = selectedIndex1 == 0, onClick = { selectedIndex1 = 0 })
                 twoLine("Title", "Subtitle", selected = selectedIndex1 == 1, onClick = { selectedIndex1 = 1 })
