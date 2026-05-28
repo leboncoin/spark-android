@@ -2,6 +2,23 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [2.4.0](https://github.com/leboncoin/spark-android/compare/2.3.0...2.4.0) (2026-05-28)
+
+
+### Features
+
+* **release:** use the github release description as a app distribution release note ([#1992](https://github.com/leboncoin/spark-android/issues/1992)) ([d5c4ed4](https://github.com/leboncoin/spark-android/commit/d5c4ed436113c3c8aaa4a88515eb3209ace4366d))
+
+
+### Bug Fixes
+
+* **ci:** update icons PR creation command to use convention commit  prefix ([#1991](https://github.com/leboncoin/spark-android/issues/1991)) ([8cdcec3](https://github.com/leboncoin/spark-android/commit/8cdcec3177bd5ddc4ae24f5e43e7d8501ea591aa))
+
+
+### Documentation
+
+* **release:** update the releasing documentation for the new process to create a release and a hotfix ([#1993](https://github.com/leboncoin/spark-android/issues/1993)) ([9e60780](https://github.com/leboncoin/spark-android/commit/9e60780f506187f0cec1ff72b758e2b57314cddc))
+
 ## [2.3.0](https://github.com/leboncoin/spark-android/compare/2.2.2...2.3.0) (2026-05-28)
 
 
