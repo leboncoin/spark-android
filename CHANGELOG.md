@@ -2,8 +2,6 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
-<!-- Don't forget to update links at the end of this page! -->
-
 ## [2.3.0](https://github.com/leboncoin/spark-android/compare/2.2.2...2.3.0) (2026-05-28)
 
 
@@ -31,8 +29,6 @@
 * **deps:** bump zizmorcore/zizmor-action from 0.5.2 to 0.5.6 in /.github/workflows ([#1983](https://github.com/leboncoin/spark-android/issues/1983)) ([6a9dbe6](https://github.com/leboncoin/spark-android/commit/6a9dbe6bcdc0c30f44870789619cfb37b9ab23e2))
 * **lint:** extract lint configuration ([#1985](https://github.com/leboncoin/spark-android/issues/1985)) ([6306f57](https://github.com/leboncoin/spark-android/commit/6306f579643f05d67fe0543735e26e85cfe22e1b))
 * merge hotfix 2.2.2 back to main ([a8871ed](https://github.com/leboncoin/spark-android/commit/a8871ed901006362e344f9a6680febc59099241e))
-
-## [Unreleased]
 
 ## [2.3.0-alpha01]
 
