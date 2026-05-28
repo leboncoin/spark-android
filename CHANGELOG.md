@@ -2,6 +2,34 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [2.3.0](https://github.com/leboncoin/spark-android/compare/2.2.2...2.3.0) (2026-05-28)
+
+
+### Features
+
+* **ci:** add zizmor GitHub Actions security analysis ([#1899](https://github.com/leboncoin/spark-android/issues/1899)) ([38b63dc](https://github.com/leboncoin/spark-android/commit/38b63dcc522f81373a92522b11c6ee799445ba50))
+* **spotless:** proper configuration ([#1986](https://github.com/leboncoin/spark-android/issues/1986)) ([23abc5d](https://github.com/leboncoin/spark-android/commit/23abc5dcd2a5bf8dbd70fd745c0097f913586708))
+* **zizmor:** allow ref-pin on github-provided actions ([#1982](https://github.com/leboncoin/spark-android/issues/1982)) ([4ccdee2](https://github.com/leboncoin/spark-android/commit/4ccdee2746f281d79906b5157b1c72f4e1b280e7))
+
+
+### Bug Fixes
+
+* change the sha to try to improve the changelog ([6f1a9a8](https://github.com/leboncoin/spark-android/commit/6f1a9a8aa05a728beb87e0570dbb1d4ee20253da))
+* **ci:** run zizmor workflow only on the upstream repo ([515e142](https://github.com/leboncoin/spark-android/commit/515e1428f8ddfe597c302da221f3f52309ed6a3e))
+* **ci:** use release-please block markers in gradle.properties ([eec33cc](https://github.com/leboncoin/spark-android/commit/eec33cc7270161a81c6e8fadad97a2e61fc5b80c))
+
+
+### Miscellaneous
+
+* bump version to 2.3.0-alpha03 ([7eb6bc3](https://github.com/leboncoin/spark-android/commit/7eb6bc32ae7a8c34e1546e68ee2577749360b359))
+* **deps:** bump com.composables:composeunstyled-disclosure from 2.1.0 to 2.3.0 ([#1965](https://github.com/leboncoin/spark-android/issues/1965)) ([471b13f](https://github.com/leboncoin/spark-android/commit/471b13f10279f8023a8d427d277b4861e2718c00))
+* **deps:** bump com.composables:composeunstyled-disclosure from 2.3.0 to 2.4.0 ([#1974](https://github.com/leboncoin/spark-android/issues/1974)) ([f5ca3df](https://github.com/leboncoin/spark-android/commit/f5ca3df8e7a279f7d26c2cfc715c3a564a7adfeb))
+* **deps:** bump com.diffplug.spotless from 8.5.1 to 8.6.0 ([#1987](https://github.com/leboncoin/spark-android/issues/1987)) ([1037149](https://github.com/leboncoin/spark-android/commit/1037149d1350a1a16bf67610eef183f3475ce2c7))
+* **deps:** bump googleapis/release-please-action from 4 to 5 in /.github/workflows ([#1971](https://github.com/leboncoin/spark-android/issues/1971)) ([a95849e](https://github.com/leboncoin/spark-android/commit/a95849e1a64ef6ad65657d387ee18a2fa87a8b43))
+* **deps:** bump zizmorcore/zizmor-action from 0.5.2 to 0.5.6 in /.github/workflows ([#1983](https://github.com/leboncoin/spark-android/issues/1983)) ([6a9dbe6](https://github.com/leboncoin/spark-android/commit/6a9dbe6bcdc0c30f44870789619cfb37b9ab23e2))
+* **lint:** extract lint configuration ([#1985](https://github.com/leboncoin/spark-android/issues/1985)) ([6306f57](https://github.com/leboncoin/spark-android/commit/6306f579643f05d67fe0543735e26e85cfe22e1b))
+* merge hotfix 2.2.2 back to main ([a8871ed](https://github.com/leboncoin/spark-android/commit/a8871ed901006362e344f9a6680febc59099241e))
+
 ## [2.3.0-alpha01]
 
 _2026-04-16_
