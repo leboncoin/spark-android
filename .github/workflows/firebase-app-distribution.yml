@@ -90,9 +90,10 @@ jobs:
 
       - name: '📋 Prepare release note for tagged build'
         if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
-        run: gh release view "${{ github.ref_name }}" --json body --jq .body >> release-notes.txt
+        run: gh release view "$TAG" --json body --jq .body >> release-notes.txt
         env:
           GH_TOKEN: ${{ secrets.PAT_SPARK }}
+          TAG: ${{ github.ref_name }}
 
       - name: '📦 Archive release-notes.txt'
         uses: actions/upload-artifact@v7
