@@ -2,10 +2,6 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
-<!-- Don't forget to update links at the end of this page! -->
-
-## [Unreleased]
-
 ## [2.3.0-alpha01]
 
 _2026-04-16_
