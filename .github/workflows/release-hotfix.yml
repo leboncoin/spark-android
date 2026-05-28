@@ -1,0 +1,33 @@
+name: '🚀 Release (Hotfix)'
+
+on:
+  push:
+    branches: ['hotfix/*']
+  workflow_dispatch:
+    inputs:
+      release-as:
+        description: 'Explicit version override (e.g. 1.2.3)'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    if: github.repository == 'leboncoin/spark-android'
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+    steps:
+      - uses: googleapis/release-please-action@v5
+        id: release
+        with:
+          token: ${{ secrets.PAT_SPARK }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+          target-branch: ${{ github.ref_name }}
+          release-as: ${{ inputs.release-as }}
