@@ -25,14 +25,16 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
-import com.adevinta.spark.catalog.themes.SegmentedButton
+import com.adevinta.spark.components.segmentedcontrol.SegmentedControl
+import com.adevinta.spark.components.segmentedcontrol.SegmentedControlDefaults
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.highlight
-import kotlin.enums.enumEntries
+import kotlinx.collections.immutable.ImmutableList
 
 @Composable
 private fun ButtonGroupLayout(
@@ -57,16 +59,41 @@ internal inline fun <reified T : Enum<T>> ButtonGroup(
     crossinline onOptionSelect: (T) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val options = remember { enumValues<T>() }
+    val selectedIndex = remember(options, selectedOption) { options.indexOfFirst { it.name == selectedOption.name } }
+
     ButtonGroupLayout(
         title = title,
         modifier = modifier,
     ) {
-        SegmentedButton(
-            options = enumEntries<T>().map { it.name },
-            selectedOption = selectedOption.name,
-            onOptionSelect = { onOptionSelect(enumValueOf<T>(it)) },
-            modifier = Modifier.fillMaxWidth(),
-        )
+        val isHorizontal = options.size <= SegmentedControlDefaults.MaxHorizontalSegments
+        if (isHorizontal) {
+            SegmentedControl.Horizontal(
+                selectedIndex = selectedIndex,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                options.forEach { option ->
+                    singleLine(
+                        text = option.name,
+                        selected = option == selectedOption,
+                        onClick = { onOptionSelect(option) },
+                    )
+                }
+            }
+        } else {
+            SegmentedControl.Vertical(
+                selectedIndex = selectedIndex,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                options.forEach { option ->
+                    singleLine(
+                        text = option.name,
+                        selected = option == selectedOption,
+                        onClick = { onOptionSelect(option) },
+                    )
+                }
+            }
+        }
     }
 }
 
@@ -75,18 +102,42 @@ internal fun ButtonGroup(
     title: String,
     selectedOption: String,
     onOptionSelect: (String) -> Unit,
-    options: List<String>,
+    options: ImmutableList<String>,
     modifier: Modifier = Modifier,
 ) {
+    val selectedIndex = options.indexOf(selectedOption)
+
     ButtonGroupLayout(
         title = title,
         modifier = modifier,
     ) {
-        SegmentedButton(
-            options = options,
-            selectedOption = selectedOption,
-            onOptionSelect = onOptionSelect,
-            modifier = Modifier.fillMaxWidth(),
-        )
+        val isHorizontal = options.size <= SegmentedControlDefaults.MaxHorizontalSegments
+        if (isHorizontal) {
+            SegmentedControl.Horizontal(
+                selectedIndex = selectedIndex,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                options.forEach { option ->
+                    singleLine(
+                        text = option,
+                        selected = option == selectedOption,
+                        onClick = { onOptionSelect(option) },
+                    )
+                }
+            }
+        } else {
+            SegmentedControl.Vertical(
+                selectedIndex = selectedIndex,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                options.forEach { option ->
+                    singleLine(
+                        text = option,
+                        selected = option == selectedOption,
+                        onClick = { onOptionSelect(option) },
+                    )
+                }
+            }
+        }
     }
 }

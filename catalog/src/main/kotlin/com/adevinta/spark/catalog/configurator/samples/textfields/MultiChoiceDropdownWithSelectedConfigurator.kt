@@ -46,6 +46,7 @@ import com.adevinta.spark.components.textfields.SelectedChoice
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.textfields.TextFieldState
 import com.adevinta.spark.components.toggles.SwitchLabelled
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toPersistentList
 
 @OptIn(ExperimentalSparkApi::class)
@@ -170,7 +171,7 @@ private fun ColumnScope.MultiChoiceDropdownWithSelectedSample() {
 
     val textFieldStates: MutableSet<TextFieldState?> =
         TextFieldState.entries.toMutableSet<TextFieldState?>().apply { add(null) }
-    val buttonStylesLabel = textFieldStates.map { it?.run { name } ?: "Default" }
+    val buttonStylesLabel = textFieldStates.map { it?.run { name } ?: "Default" }.toImmutableList()
     ButtonGroup(
         title = "State",
         selectedOption = state?.name ?: "Default",
