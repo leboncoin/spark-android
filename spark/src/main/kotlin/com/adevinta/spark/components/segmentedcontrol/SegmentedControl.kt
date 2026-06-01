@@ -84,9 +84,6 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.ShoppingCartOutline
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.tokens.dim1
-import com.adevinta.spark.tokens.disabled
-import com.adevinta.spark.tokens.highlight
 import com.adevinta.spark.tokens.ripple
 
 /**
@@ -110,8 +107,8 @@ public interface SegmentedButtonItem
  * ```kotlin
  * var selected by remember { mutableIntStateOf(0) }
  * SegmentedControl.Horizontal(selectedIndex = selected) {
- *     SingleLine("Day",  selected = selected == 0, onClick = { selected = 0 })
- *     SingleLine("Week", selected = selected == 1, onClick = { selected = 1 })
+ *     singleLine("Day",  selected = selected == 0, onClick = { selected = 0 })
+ *     singleLine("Week", selected = selected == 1, onClick = { selected = 1 })
  * }
  * ```
  *
@@ -145,7 +142,7 @@ public object SegmentedControl {
     public fun Horizontal(
         selectedIndex: Int,
         modifier: Modifier = Modifier,
-        role: Role = Role.RadioButton,
+        role: Role = SegmentedControlDefaults.SemanticRole,
         enabled: Boolean = true,
         indicatorContent: @Composable (selectedIndex: Int, enabled: Boolean) -> Unit = DefaultHorizontalIndicator,
         content: @Composable SegmentedControlScope.(SegmentedButtonItem) -> Unit,
@@ -156,8 +153,8 @@ public object SegmentedControl {
             role = role,
             enabled = enabled,
             isHorizontal = true,
-            minSegments = SegmentedControlDefaults.MinSegments,
-            maxSegments = SegmentedControlDefaults.MaxHorizontalSegments,
+            minSegments = SegmentedControlTokens.MinSegments,
+            maxSegments = SegmentedControlTokens.MaxHorizontalSegments,
             shape = SegmentedControlShape.Pill.shape,
             indicatorContent = indicatorContent,
             content = content,
@@ -191,7 +188,7 @@ public object SegmentedControl {
     public fun Vertical(
         selectedIndex: Int,
         modifier: Modifier = Modifier,
-        role: Role = Role.RadioButton,
+        role: Role = SegmentedControlDefaults.SemanticRole,
         enabled: Boolean = true,
         shape: SegmentedControlShape = SegmentedControlShape.Rounded,
         indicatorContent: @Composable (selectedIndex: Int, enabled: Boolean) -> Unit = { _, enabled ->
@@ -205,8 +202,8 @@ public object SegmentedControl {
             role = role,
             enabled = enabled,
             isHorizontal = false,
-            minSegments = SegmentedControlDefaults.MinVerticalSegments,
-            maxSegments = SegmentedControlDefaults.MaxVerticalSegments,
+            minSegments = SegmentedControlTokens.MinVerticalSegments,
+            maxSegments = SegmentedControlTokens.MaxVerticalSegments,
             shape = shape.shape,
             indicatorContent = indicatorContent,
             content = content,
@@ -229,13 +226,14 @@ private fun segmentLabelStyle(
     val transition = rememberTransition(transitionState = animationState, label = "segmentLabel")
     val color by transition.animateColor(label = "labelColor") {
         when {
-            it.enabled && it.selected -> SparkTheme.colors.onSurface
-            it.enabled && !it.selected -> SparkTheme.colors.onSurface.dim1
-            else -> SparkTheme.colors.onSurface.disabled
+            it.enabled && it.selected -> SegmentedControlTokens.SegmentTextColorSelected
+            it.enabled && !it.selected -> SegmentedControlTokens.SegmentTextColor
+            else -> SegmentedControlTokens.SegmentTextColorDisabled
         }
     }
     val progress by transition.animateFloat(label = "labelProgress") { if (it.selected) 1f else 0f }
-    val textStyle = lerp(SparkTheme.typography.body2, SparkTheme.typography.body2.highlight, progress)
+    val textStyle =
+        lerp(SegmentedControlTokens.SegmentTextStyle, SegmentedControlTokens.SegmentTextStyleSelected, progress)
     return SegmentLabelStyle(color, textStyle)
 }
 
@@ -329,17 +327,17 @@ private object SegmentedControlScopeImpl : SegmentedControlScope {
             val enabled = LocalSegmentItemInfo.current.enabled
             val iconColor by animateColorAsState(
                 when {
-                    enabled && selected -> SparkTheme.colors.supportVariant
-                    enabled && !selected -> SparkTheme.colors.support
-                    !enabled && selected -> SparkTheme.colors.supportVariant.disabled
-                    else -> SparkTheme.colors.supportVariant.disabled
+                    enabled && selected -> SegmentedControlTokens.SegmentIconSelectedColor
+                    enabled && !selected -> SegmentedControlTokens.SegmentIconColor
+                    !enabled && selected -> SegmentedControlTokens.SegmentIconDisabledSelectedColor
+                    else -> SegmentedControlTokens.SegmentIconDisabledColor
                 },
                 label = "iconColor",
             )
             Icon(
                 sparkIcon = icon,
                 contentDescription = null,
-                size = IconSize.Medium,
+                size = SegmentedControlTokens.SegmentIconSize,
                 tint = iconColor,
             )
         }
@@ -362,10 +360,10 @@ private object SegmentedControlScopeImpl : SegmentedControlScope {
             val enabled = LocalSegmentItemInfo.current.enabled
             val iconColor by animateColorAsState(
                 when {
-                    enabled && selected -> SparkTheme.colors.supportVariant
-                    enabled && !selected -> SparkTheme.colors.support
-                    !enabled && selected -> SparkTheme.colors.supportVariant.disabled
-                    else -> SparkTheme.colors.supportVariant.disabled
+                    enabled && selected -> SegmentedControlTokens.SegmentIconSelectedColor
+                    enabled && !selected -> SegmentedControlTokens.SegmentIconColor
+                    !enabled && selected -> SegmentedControlTokens.SegmentIconDisabledSelectedColor
+                    else -> SegmentedControlTokens.SegmentIconDisabledColor
                 },
                 label = "iconColor",
             )
@@ -468,7 +466,12 @@ private fun SegmentedControlImpl(
     modifier: Modifier = Modifier,
     content: @Composable SegmentedControlScope.(SegmentedButtonItem) -> Unit,
 ) {
-    val containerShape = if (isHorizontal) SparkTheme.shapes.full else SparkTheme.shapes.large
+    val containerShape =
+        if (isHorizontal) {
+            SegmentedControlTokens.ContainerHorizontalShape
+        } else {
+            SegmentedControlTokens.ContainerVerticalShape
+        }
 
     val segmentCountState = remember { mutableIntStateOf(0) }
 
@@ -481,7 +484,7 @@ private fun SegmentedControlImpl(
     SubcomposeLayout(
         modifier = modifier
             .fillMaxWidth()
-            .sizeIn(minWidth = SegmentedControlDefaults.MinTouchTargetSize, minHeight = 52.dp)
+            .sizeIn(minWidth = SegmentedControlTokens.MinTouchTargetSize, minHeight = SegmentedControlTokens.MinHeight)
             .clip(containerShape)
             .semantics {
                 val count = segmentCountState.intValue
@@ -493,12 +496,12 @@ private fun SegmentedControlImpl(
                 selectableGroup()
             }
             .border(
-                width = SegmentedControlDefaults.BorderWidth,
-                color = SparkTheme.colors.outline,
+                width = SegmentedControlTokens.BorderWidth,
+                color = SegmentedControlTokens.BorderColor,
                 shape = containerShape,
             ),
     ) { constraints ->
-        val dividerWidth = SegmentedControlDefaults.DividerWidth.roundToPx()
+        val dividerWidth = SegmentedControlTokens.DividerWidth.roundToPx()
 
         val segMeasurables = subcompose(SegmentSlot.Segments) {
             CompositionLocalProvider(
@@ -556,9 +559,9 @@ private fun SegmentedControlImpl(
                 repeat(segmentCount - 1) {
                     Box(
                         modifier = Modifier
-                            .width(SegmentedControlDefaults.DividerWidth)
-                            .requiredHeight(24.dp)
-                            .background(SparkTheme.colors.outline),
+                            .width(SegmentedControlTokens.DividerWidth)
+                            .requiredHeight(SegmentedControlTokens.DividerHeight)
+                            .background(SegmentedControlTokens.DividerColor),
                     )
                 }
             }.map { it.measure(Constraints.fixed(dividerWidth, rowHeight)) }
@@ -619,9 +622,9 @@ private fun SegmentedControlImpl(
                 repeat(segmentCount - 1) {
                     Box(
                         modifier = Modifier
-                            .width(SegmentedControlDefaults.DividerWidth)
-                            .requiredHeight(24.dp)
-                            .background(SparkTheme.colors.outline),
+                            .width(SegmentedControlTokens.DividerWidth)
+                            .requiredHeight(SegmentedControlTokens.DividerHeight)
+                            .background(SegmentedControlTokens.DividerColor),
                     )
                 }
             }.map { it.measure(Constraints.fixed(dividerWidth, rowHeight)) }

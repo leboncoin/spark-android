@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
@@ -46,30 +47,14 @@ import com.adevinta.spark.tokens.disabled
  * layout limits.
  */
 public object SegmentedControlDefaults {
-    /** Minimum number of segments accepted by [SegmentedControl.Horizontal]. */
-    public const val MinSegments: Int = 2
-
-    /** Minimum number of segments accepted by [SegmentedControl.Vertical]. */
-    public const val MinVerticalSegments: Int = 4
-
-    /** Maximum number of segments accepted by [SegmentedControl.Horizontal]. */
-    public const val MaxHorizontalSegments: Int = 5
-
-    /** Maximum number of segments accepted by [SegmentedControl.Vertical]. */
-    public const val MaxVerticalSegments: Int = 8
-
-    /** Width of the outer border drawn around the control track. */
-    public val BorderWidth: Dp = 1.dp
-
-    /** Width of the divider line drawn between adjacent segments. */
-    public val DividerWidth: Dp = 1.dp
 
     /** Minimum width and height applied to the control track to satisfy touch-target guidelines. */
     public val MinTouchTargetSize: Dp = 48.dp
 
+    public val SemanticRole: Role = Role.RadioButton
+
     /**
-     * Default selection indicator: a box clipped to [shape] with an animated
-     * [SparkTheme.colors.neutralContainer] fill and a 2 dp [SparkTheme.colors.outlineHigh] border.
+     * Default selection indicator: a box clipped to [shape] with an animated background and border.
      *
      * Pass this — or a custom composable with the same signature — to the `indicatorContent`
      * parameter of [SegmentedControl.Horizontal] or [SegmentedControl.Vertical].
@@ -102,7 +87,7 @@ public object SegmentedControlDefaults {
                 .fillMaxSize()
                 .padding(4.dp)
                 .clip(shape)
-                .border(2.dp, borderColor.value, shape)
+                .border(SegmentedControlTokens.IndicatorBorderWidth, borderColor.value, shape)
                 .drawBehind { drawRect(background.value ) },
         )
     }
