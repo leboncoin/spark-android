@@ -2,6 +2,18 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [2.5.0](https://github.com/leboncoin/spark-android/compare/2.4.2...2.5.0) (2026-06-01)
+
+
+### Features
+
+* **button:** add temporary restricted tertiary variant for A/B testing ([#2003](https://github.com/leboncoin/spark-android/issues/2003)) ([12ab81a](https://github.com/leboncoin/spark-android/commit/12ab81ab355ed03ccae465c7290d3e58e21b9ec6))
+
+
+### Miscellaneous
+
+* **deps:** bump com.composables:composeunstyled-disclosure from 2.4.0 to 2.5.0 ([#2001](https://github.com/leboncoin/spark-android/issues/2001)) ([e42cf52](https://github.com/leboncoin/spark-android/commit/e42cf5255b6e65c5d8bf6418df43d24633153714))
+
 ## [2.4.2](https://github.com/leboncoin/spark-android/compare/2.4.1...2.4.2) (2026-05-28)
 
 
