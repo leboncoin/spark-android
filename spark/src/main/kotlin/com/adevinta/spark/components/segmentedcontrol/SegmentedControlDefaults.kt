@@ -88,7 +88,7 @@ public object SegmentedControlDefaults {
                 .padding(4.dp)
                 .clip(shape)
                 .border(SegmentedControlTokens.IndicatorBorderWidth, borderColor.value, shape)
-                .drawBehind { drawRect(background.value ) },
+                .drawBehind { drawRect(background.value) },
         )
     }
 }

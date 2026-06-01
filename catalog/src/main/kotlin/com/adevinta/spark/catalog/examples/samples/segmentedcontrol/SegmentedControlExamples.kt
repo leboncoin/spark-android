@@ -245,16 +245,16 @@ private fun EnergyRatingExample() {
                 val transition = updateTransition(data, label = "indicator")
                 val background = transition.animateColor(label = "indicatorBackground") { d ->
                     if (d.color.isSpecified) {
-                        if(enabled) d.color else d.color.disabled
+                        if (enabled) d.color else d.color.disabled
                     } else {
-                        if(enabled) SparkTheme.colors.neutralContainer else SparkTheme.colors.surface
+                        if (enabled) SparkTheme.colors.neutralContainer else SparkTheme.colors.surface
                     }
                 }
                 val borderColor = transition.animateColor(label = "indicatorBorderColor") { d ->
                     if (d.color.isSpecified) {
                         SparkTheme.colors.outlineHigh.transparent
                     } else {
-                        if(enabled) SparkTheme.colors.outlineHigh else SparkTheme.colors.outlineHigh.disabled
+                        if (enabled) SparkTheme.colors.outlineHigh else SparkTheme.colors.outlineHigh.disabled
                     }
                 }
                 val borderSize = transition.animateDp(label = "indicatorBorderSize") { d ->

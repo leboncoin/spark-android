@@ -84,27 +84,26 @@ internal class SegmentedControlScreenshot {
                 singleLine("Week", selected = false, onClick = {})
             }
 
-            SegmentedControl.Horizontal(selectedIndex = 1,modifier = Modifier.weight(1f)) {
+            SegmentedControl.Horizontal(selectedIndex = 1, modifier = Modifier.weight(1f)) {
                 singleLine("All", selected = false, onClick = {})
                 singleLine("Active", selected = true, onClick = {})
                 singleLine("Done", selected = false, onClick = {})
             }
 
-            SegmentedControl.Horizontal(selectedIndex = 2,modifier = Modifier.weight(1f)) {
+            SegmentedControl.Horizontal(selectedIndex = 2, modifier = Modifier.weight(1f)) {
                 singleLine("Mon", selected = false, onClick = {})
                 singleLine("Tue", selected = false, onClick = {})
                 singleLine("Wed", selected = true, onClick = {})
                 singleLine("Thu", selected = false, onClick = {})
             }
 
-            SegmentedControl.Horizontal(selectedIndex = 4,modifier = Modifier.weight(1f)) {
+            SegmentedControl.Horizontal(selectedIndex = 4, modifier = Modifier.weight(1f)) {
                 singleLine("A", selected = false, onClick = {})
                 singleLine("B", selected = false, onClick = {})
                 singleLine("C", selected = false, onClick = {})
                 singleLine("D", selected = false, onClick = {})
                 singleLine("E", selected = true, onClick = {})
             }
-
         }
     }
 

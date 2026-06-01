@@ -75,13 +75,13 @@ public object SegmentedControlTokens {
 
     /** Width of the divider line drawn between adjacent segments. */
     public val DividerWidth: Dp = 1.dp
+
     /** Height of the divider line drawn between adjacent segments. */
     public val DividerHeight: Dp = 24.dp
     public val DividerColor: Color
         @Composable
         @ReadOnlyComposable
         get() = SparkTheme.colors.outline
-
 
     /** Minimum width and height applied to the control track to satisfy touch-target guidelines. */
     public val MinTouchTargetSize: Dp = 48.dp
