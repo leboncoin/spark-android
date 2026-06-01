@@ -66,6 +66,7 @@ internal class ColorsScreenshot {
                     listOf(::error, ::errorContainer),
                     listOf(::info, ::infoContainer),
                     listOf(::neutral, ::neutralContainer),
+                    listOf(::ai, ::aiContainer),
                 ),
                 listOf(
                     listOf(::background, ::backgroundVariant),
