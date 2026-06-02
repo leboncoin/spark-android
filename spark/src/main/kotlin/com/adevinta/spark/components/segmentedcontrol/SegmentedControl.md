@@ -45,7 +45,9 @@ SegmentedControl.Horizontal(
     modifier: Modifier = Modifier,
     role: Role = Role.RadioButton,
     enabled: Boolean = true,
-    indicatorContent: @Composable (selectedIndex: Int) -> Unit = { SegmentedControlDefaults.Indicator(shape = SegmentedControlShape.Pill.shape) },
+    indicatorContent: @Composable (selectedIndex: Int, enabled: Boolean) -> Unit = { _, enabled ->
+        SegmentedControlDefaults.Indicator(shape = SegmentedControlShape.Pill.shape, enabled = enabled)
+    },
     content: @Composable SegmentedControlScope.(SegmentedButtonItem) -> Unit,
 )
 ```
@@ -59,7 +61,9 @@ SegmentedControl.Vertical(
     role: Role = Role.RadioButton,
     enabled: Boolean = true,
     shape: SegmentedControlShape = SegmentedControlShape.Rounded,
-    indicatorContent: @Composable (selectedIndex: Int) -> Unit = { SegmentedControlDefaults.Indicator(shape = shape.shape) },
+    indicatorContent: @Composable (selectedIndex: Int, enabled: Boolean) -> Unit = { _, enabled ->
+        SegmentedControlDefaults.Indicator(shape = shape.shape, enabled = enabled)
+    },
     content: @Composable SegmentedControlScope.(SegmentedButtonItem) -> Unit,
 )
 ```
@@ -85,7 +89,7 @@ Segments are declared inside the `content` block via `SegmentedControlScope`. Ev
 |----------|---------|
 | `singleLine(text, selected, onClick)` | Single line of text |
 | `twoLine(title, subtitle, selected, onClick)` | Title + caption |
-| `icon(icon, selected, onClick)` | Icon only |
+| `icon(icon, contentDescription, selected, onClick)` | Icon only |
 | `iconText(icon, text, selected, onClick)` | Icon above label |
 | `number(number, selected, onClick)` | Integer label |
 | `custom(selected, onClick, rippleColor, content)` | Fully custom content |
@@ -93,6 +97,10 @@ Segments are declared inside the `content` block via `SegmentedControlScope`. Ev
 Icon colour animates between `SparkTheme.colors.support` (unselected) and `SparkTheme.colors.supportVariant` (selected). Text weight and colour animate on all variants.
 
 ![Content types](../../images/com.adevinta.spark.segmentedcontrol_SegmentedControlDocumentationScreenshots_horizontalContentTypes.png)
+
+| Single Line | Two Line | Icon | Icon + Text | Number |
+|-------------|----------|------|-------------|--------|
+| ![Single Line](../../images/com.adevinta.spark.segmentedcontrol_SegmentedControlDocumentationScreenshots_singleLine.png) | ![Two Line](../../images/com.adevinta.spark.segmentedcontrol_SegmentedControlDocumentationScreenshots_twoLine.png) | ![Icon](../../images/com.adevinta.spark.segmentedcontrol_SegmentedControlDocumentationScreenshots_icon.png) | ![Icon + Text](../../images/com.adevinta.spark.segmentedcontrol_SegmentedControlDocumentationScreenshots_iconText.png) | ![Number](../../images/com.adevinta.spark.segmentedcontrol_SegmentedControlDocumentationScreenshots_number.png) |
 
 ## Usage Examples
 
@@ -114,7 +122,7 @@ SegmentedControl.Horizontal(selectedIndex = selected) {
 SegmentedControl.Horizontal(selectedIndex = selected) {
     singleLine("Text",    selected = selected == 0, onClick = { selected = 0 })
     twoLine("Title", "Subtitle", selected = selected == 1, onClick = { selected = 1 })
-    icon(SparkIcons.Heart, selected = selected == 2, onClick = { selected = 2 })
+    icon(SparkIcons.Heart, contentDescription = "Favourites", selected = selected == 2, onClick = { selected = 2 })
     iconText(SparkIcons.Heart, "Saved", selected = selected == 3, onClick = { selected = 3 })
 }
 ```
@@ -224,10 +232,37 @@ SegmentedControl.Vertical(
 ## Accessibility
 
 - Each segment defaults to `Role.RadioButton` semantics; pass `Role.Tab` when switching content regions. The container uses `selectableGroup`.
-- The container carries `CollectionInfo` with accurate row and column counts.
-- Icon-only segments should use a `contentDescription` via a Modifier if the icon meaning is not self-evident.
+- `icon()` requires a mandatory `contentDescription` parameter. The `selectable` modifier merges descendant semantics, so this label is what TalkBack announces for the segment.
+- `iconText()` uses the `Text` child as its merged accessible label; the icon is decorative.
+- `custom()` callers must ensure their content provides semantic text (via `Text` or a `contentDescription`).
 - Minimum touch target: 48 dp.
-- `enabled = false` suppresses all input and ripple.
+- `enabled = false` suppresses all input and ripple; TalkBack announces each segment as "Disabled".
+
+### Example — Icon-only segments
+
+```kotlin
+var selected by remember { mutableIntStateOf(0) }
+
+SegmentedControl.Horizontal(selectedIndex = selected) {
+    icon(
+        icon = LeboncoinIcons.List,
+        contentDescription = "List view",
+        selected = selected == 0,
+        onClick = { selected = 0 },
+    )
+    icon(
+        icon = LeboncoinIcons.Map,
+        contentDescription = "Map view",
+        selected = selected == 1,
+        onClick = { selected = 1 },
+    )
+}
+// TalkBack reads: "List view, Selected, Radio button, 1 of 2"
+```
+
+### Tabs vs. radio buttons
+
+Use `role = Role.Tab` when the segmented control drives a content region. This changes the TalkBack announcement from "Radio button, 1 of 3" to "Tab, 1 of 3".
 
 ## Design Guidelines
 

@@ -101,7 +101,7 @@ public object SegmentedControlDefaults {
  */
 public enum class SegmentedControlShape {
 
-    /** Large-radius rounded rectangle — [SparkTheme.shapes.large]. */
+    /** Large-radius rounded rectangle — [com.adevinta.spark.tokens.SparkShapes.large]. */
     Rounded {
         override val shape: CornerBasedShape
             @Composable
@@ -109,7 +109,7 @@ public enum class SegmentedControlShape {
             get() = SparkTheme.shapes.large
     },
 
-    /** Fully rounded pill — [SparkTheme.shapes.full]. */
+    /** Fully rounded pill — [com.adevinta.spark.tokens.SparkShapes.full]. */
     Pill {
         override val shape: CornerBasedShape
             @Composable

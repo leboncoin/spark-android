@@ -33,8 +33,8 @@ import com.adevinta.spark.icons.SparkIcon
  *
  * Each function adds one segment in declaration order. The return type [SegmentedButtonItem] is a
  * marker; callers discard it. All variants animate label weight and colour between the selected and
- * unselected states; icons additionally animate between [SparkTheme.colors.support] (unselected)
- * and [SparkTheme.colors.supportVariant] (selected).
+ * unselected states; icons additionally animate between [com.adevinta.spark.tokens.SparkColors.support] (unselected)
+ * and [com.adevinta.spark.tokens.SparkColors.supportVariant] (selected).
  *
  * Enabled state and indicator shape are inherited from the enclosing [SegmentedControl] and cannot
  * be overridden per segment.
@@ -45,6 +45,8 @@ public interface SegmentedControlScope {
     /**
      * Segment showing a single line of text, truncated with ellipsis when the segment is too
      * narrow.
+     *
+     * ![Single line segment](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.segmentedcontrol_SegmentedControlDocumentationScreenshots_singleLine.png)
      *
      * @param text Label displayed in the segment.
      * @param selected Whether this segment is currently selected.
@@ -63,8 +65,10 @@ public interface SegmentedControlScope {
      * Segment showing a bold primary line and a smaller caption below it. Both lines are
      * single-line, truncated with ellipsis.
      *
-     * @param title Primary label, styled as [SparkTheme.typography.body2].
-     * @param subtitle Secondary label, styled as [SparkTheme.typography.caption].
+     * ![Two line segment](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.segmentedcontrol_SegmentedControlDocumentationScreenshots_twoLine.png)
+     *
+     * @param title Primary label, styled as [com.adevinta.spark.tokens.SparkTypography.body2].
+     * @param subtitle Secondary label, styled as [com.adevinta.spark.tokens.SparkTypography.caption].
      * @param selected Whether this segment is currently selected.
      * @param onClick Called when the user taps this segment.
      * @param modifier Modifier applied to this segment's touch-target box.
@@ -81,10 +85,18 @@ public interface SegmentedControlScope {
     /**
      * Segment showing a single medium-sized [SparkIcon].
      *
-     * The icon colour animates between [SparkTheme.colors.support] when unselected and
-     * [SparkTheme.colors.supportVariant] when selected.
+     * ![Icon segment](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.segmentedcontrol_SegmentedControlDocumentationScreenshots_icon.png)
+     *
+     * The icon colour animates between [com.adevinta.spark.tokens.SparkColors.support] when unselected and
+     * [com.adevinta.spark.tokens.SparkColors.supportVariant] when selected.
+     *
+     * Because the icon carries no visible text, [contentDescription] is required so that screen
+     * readers can identify the segment. It is also shown as a plain tooltip on long-press.
      *
      * @param icon Icon to render.
+     * @param contentDescription Accessible label for the segment, announced by TalkBack and shown
+     *   as a tooltip. Must describe the action or selection represented by the icon
+     *   (e.g. "List view", "Map view").
      * @param selected Whether this segment is currently selected.
      * @param onClick Called when the user taps this segment.
      * @param modifier Modifier applied to this segment's touch-target box.
@@ -92,6 +104,7 @@ public interface SegmentedControlScope {
     @Composable
     public fun icon(
         icon: SparkIcon,
+        contentDescription: String,
         selected: Boolean,
         onClick: () -> Unit,
         modifier: Modifier = Modifier,
@@ -100,8 +113,10 @@ public interface SegmentedControlScope {
     /**
      * Segment showing a medium-sized [SparkIcon] above a single line of text.
      *
-     * The icon colour animates between [SparkTheme.colors.support] when unselected and
-     * [SparkTheme.colors.supportVariant] when selected. The text uses the same animated style as
+     * ![Icon + text segment](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.segmentedcontrol_SegmentedControlDocumentationScreenshots_iconText.png)
+     *
+     * The icon colour animates between [com.adevinta.spark.tokens.SparkColors.support] when unselected and
+     * [com.adevinta.spark.tokens.SparkColors.supportVariant] when selected. The text uses the same animated style as
      * [singleLine].
      *
      * @param icon Icon rendered above the label.
@@ -122,6 +137,8 @@ public interface SegmentedControlScope {
     /**
      * Segment showing an integer label. Equivalent to [singleLine] with [number] converted to
      * a string. Useful for compact numeric scales (e.g. ratings 1–5).
+     *
+     * ![Number segment](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.segmentedcontrol_SegmentedControlDocumentationScreenshots_number.png)
      *
      * @param number Value to display.
      * @param selected Whether this segment is currently selected.
@@ -144,10 +161,15 @@ public interface SegmentedControlScope {
      * The [content] lambda is centred inside the segment's touch target. Enabled state and indicator
      * shape are still controlled by the enclosing [SegmentedControl].
      *
+     * **Accessibility:** [content] must produce at least one composable that contributes text
+     * semantics (e.g. [com.adevinta.spark.components.text.Text], or a composable with a non-null
+     * `contentDescription`). If the content is purely visual, add a label via
+     * `modifier = Modifier.semantics { contentDescription = "…" }`.
+     *
      * @param selected Whether this segment is currently selected.
      * @param onClick Called when the user taps this segment.
      * @param modifier Modifier applied to this segment's touch-target box.
-     * @param rippleColor Colour of the tap ripple. Defaults to [SparkTheme.colors.outlineHigh];
+     * @param rippleColor Colour of the tap ripple. Defaults to [com.adevinta.spark.tokens.SparkColors.outlineHigh];
      *   override to match a segment's custom background.
      * @param content Composable content rendered inside the segment.
      */

@@ -51,8 +51,17 @@ import com.adevinta.spark.components.segmentedcontrol.SegmentedControl
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControlScope
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControlShape
 import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.icons.Building
+import com.adevinta.spark.icons.CalendarTextOutline
+import com.adevinta.spark.icons.EuroSymbol
+import com.adevinta.spark.icons.House
 import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.List
+import com.adevinta.spark.icons.PaperMapFill
+import com.adevinta.spark.icons.ParasolOutline
+import com.adevinta.spark.icons.PeopleCriteria
 import com.adevinta.spark.icons.ShoppingCartOutline
+import com.adevinta.spark.icons.StarFill
 import com.adevinta.spark.tokens.dim1
 import com.adevinta.spark.tokens.disabled
 import com.adevinta.spark.tokens.highlight
@@ -108,7 +117,7 @@ public val SegmentedControlExamples: ImmutableList<Example> = persistentListOf(
 @Composable
 private fun SingleRowExample() {
     Column(
-        modifier = Modifier.padding(16.dp),
+        modifier = Modifier.padding(vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Text("2 Segments")
@@ -146,7 +155,7 @@ private fun SingleRowExample() {
 @Composable
 private fun MultiRowExample() {
     Column(
-        modifier = Modifier.padding(16.dp),
+        modifier = Modifier.padding(vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Text("5 Segments")
@@ -183,7 +192,7 @@ private fun MultiRowExample() {
 @Composable
 private fun ContentTypesExample() {
     Column(
-        modifier = Modifier.padding(16.dp),
+        modifier = Modifier.padding(vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Text("Mixed Content Types")
@@ -191,9 +200,19 @@ private fun ContentTypesExample() {
         SegmentedControl.Horizontal(
             selectedIndex = selectedIndex1,
         ) {
-            singleLine("Text", selected = selectedIndex1 == 0, onClick = { selectedIndex1 = 0 })
-            twoLine("Title", "Subtitle", selected = selectedIndex1 == 1, onClick = { selectedIndex1 = 1 })
-            icon(LeboncoinIcons.ShoppingCartOutline, selected = selectedIndex1 == 2, onClick = { selectedIndex1 = 2 })
+            singleLine(text = "Text", selected = selectedIndex1 == 0, onClick = { selectedIndex1 = 0 })
+            twoLine(
+                title = "Title",
+                subtitle = "Subtitle",
+                selected = selectedIndex1 == 1,
+                onClick = { selectedIndex1 = 1 },
+            )
+            icon(
+                icon = LeboncoinIcons.ShoppingCartOutline,
+                contentDescription = "cart",
+                selected = selectedIndex1 == 2,
+                onClick = { selectedIndex1 = 2 },
+            )
             iconText(
                 LeboncoinIcons.ShoppingCartOutline,
                 "Cart",
@@ -202,15 +221,85 @@ private fun ContentTypesExample() {
             )
         }
 
-        Text("Numbers")
+        Text("Single line")
         var selectedIndex2 by remember { mutableIntStateOf(0) }
+        SegmentedControl.Horizontal(selectedIndex = selectedIndex2) {
+            singleLine(text = "Je vends", selected = selectedIndex2 == 0, onClick = { selectedIndex2 = 0 })
+            singleLine(text = "Je donne", selected = selectedIndex2 == 1, onClick = { selectedIndex2 = 1 })
+        }
+
+        Text("Two line")
+        var selectedIndex3 by remember { mutableIntStateOf(0) }
+        SegmentedControl.Horizontal(selectedIndex = selectedIndex3) {
+            twoLine(
+                title = "Offre",
+                subtitle = "Je vends",
+                selected = selectedIndex3 == 0,
+                onClick = { selectedIndex3 = 0 },
+            )
+            twoLine(
+                title = "Demande",
+                subtitle = "Je recherche",
+                selected = selectedIndex3 == 1,
+                onClick = { selectedIndex3 = 1 },
+            )
+        }
+
+        Text("Icon")
+        var selectedIndex4 by remember { mutableIntStateOf(0) }
+        SegmentedControl.Horizontal(selectedIndex = selectedIndex4) {
+            icon(
+                icon = LeboncoinIcons.List,
+                contentDescription = "List",
+                selected = selectedIndex4 == 0,
+                onClick = { selectedIndex4 = 0 },
+            )
+            icon(
+                icon = LeboncoinIcons.PaperMapFill,
+                contentDescription = "Map",
+                selected = selectedIndex4 == 1,
+                onClick = { selectedIndex4 = 1 },
+            )
+        }
+
+        Text("Icon Text")
+        var selectedIndex5 by remember { mutableIntStateOf(0) }
+        SegmentedControl.Vertical(selectedIndex = selectedIndex5) {
+            iconText(
+                icon = LeboncoinIcons.House,
+                text = "Vente immobilière",
+                selected = selectedIndex5 == 0,
+                onClick = { selectedIndex5 = 0 },
+            )
+            iconText(
+                icon = LeboncoinIcons.Building,
+                text = "Location",
+                selected = selectedIndex5 == 1,
+                onClick = { selectedIndex5 = 1 },
+            )
+            iconText(
+                icon = LeboncoinIcons.ParasolOutline,
+                text = "Location Saisonnière",
+                selected = selectedIndex5 == 2,
+                onClick = { selectedIndex5 = 2 },
+            )
+            iconText(
+                icon = LeboncoinIcons.PeopleCriteria,
+                text = "Colocation",
+                selected = selectedIndex5 == 3,
+                onClick = { selectedIndex5 = 3 },
+            )
+        }
+
+        Text("Numbers")
+        var selectedIndex6 by remember { mutableIntStateOf(0) }
         SegmentedControl.Horizontal(
-            selectedIndex = selectedIndex2,
+            selectedIndex = selectedIndex6,
         ) {
-            number(1, selected = selectedIndex2 == 0, onClick = { selectedIndex2 = 0 })
-            number(2, selected = selectedIndex2 == 1, onClick = { selectedIndex2 = 1 })
-            number(3, selected = selectedIndex2 == 2, onClick = { selectedIndex2 = 2 })
-            number(4, selected = selectedIndex2 == 3, onClick = { selectedIndex2 = 3 })
+            number(1, selected = selectedIndex6 == 0, onClick = { selectedIndex6 = 0 })
+            number(2, selected = selectedIndex6 == 1, onClick = { selectedIndex6 = 1 })
+            number(3, selected = selectedIndex6 == 2, onClick = { selectedIndex6 = 2 })
+            number(4, selected = selectedIndex6 == 3, onClick = { selectedIndex6 = 3 })
         }
     }
 }
@@ -232,7 +321,7 @@ private val EnergyRatingDataFake: ImmutableList<EnergyRatingData> = persistentLi
 @Composable
 private fun EnergyRatingExample() {
     Column(
-        modifier = Modifier.padding(16.dp),
+        modifier = Modifier.padding(vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Text("Energy Rating Scale")
@@ -337,19 +426,19 @@ private fun FilterExample() {
             selectedIndex = selectedSortIndex,
         ) {
             iconText(
-                LeboncoinIcons.ShoppingCartOutline,
+                LeboncoinIcons.EuroSymbol,
                 "Price",
                 selected = selectedSortIndex == 0,
                 onClick = { selectedSortIndex = 0 },
             )
             iconText(
-                LeboncoinIcons.ShoppingCartOutline,
+                LeboncoinIcons.CalendarTextOutline,
                 "Date",
                 selected = selectedSortIndex == 1,
                 onClick = { selectedSortIndex = 1 },
             )
             iconText(
-                LeboncoinIcons.ShoppingCartOutline,
+                LeboncoinIcons.StarFill,
                 "Rating",
                 selected = selectedSortIndex == 2,
                 onClick = { selectedSortIndex = 2 },

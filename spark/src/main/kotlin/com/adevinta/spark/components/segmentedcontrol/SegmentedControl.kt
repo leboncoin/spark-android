@@ -30,6 +30,7 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.rememberTransition
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -42,6 +43,10 @@ import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TooltipAnchorPosition
+import androidx.compose.material3.TooltipDefaults
+import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Stable
@@ -62,6 +67,7 @@ import androidx.compose.ui.layout.layout
 import androidx.compose.ui.semantics.CollectionInfo
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.collectionInfo
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.selectableGroup
 import androidx.compose.ui.semantics.semantics
@@ -77,6 +83,8 @@ import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconSize
+import com.adevinta.spark.components.popover.PlainTooltip
+import com.adevinta.spark.components.popover.TooltipBox
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControl.Horizontal
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControl.Vertical
 import com.adevinta.spark.components.spacer.VerticalSpacer
@@ -85,6 +93,8 @@ import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.ShoppingCartOutline
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.tokens.ripple
+import com.adevinta.spark.tokens.transparent
+import com.adevinta.spark.tools.modifiers.invisibleSemantic
 
 /**
  * Marker interface returned by every [SegmentedControlScope] segment function.
@@ -113,7 +123,7 @@ public interface SegmentedButtonItem
  * ```
  *
  * The component throws [IllegalArgumentException] at composition time if the segment count falls
- * outside the allowed range for the chosen variant, or if [selectedIndex] is out of bounds.
+ * outside the allowed range for the chosen variant, or if `selectedIndex` is out of bounds.
  */
 public object SegmentedControl {
 
@@ -221,8 +231,9 @@ private fun segmentLabelStyle(
     selected: Boolean,
     enabled: Boolean = LocalSegmentItemInfo.current.enabled,
 ): SegmentLabelStyle {
-    val animationState =
-        remember(selected, enabled) { MutableTransitionState(SegmentLabelAnimationState(selected, enabled)) }
+    val animationState = remember(selected, enabled) {
+        MutableTransitionState(SegmentLabelAnimationState(selected, enabled))
+    }
     val transition = rememberTransition(transitionState = animationState, label = "segmentLabel")
     val color by transition.animateColor(label = "labelColor") {
         when {
@@ -232,8 +243,11 @@ private fun segmentLabelStyle(
         }
     }
     val progress by transition.animateFloat(label = "labelProgress") { if (it.selected) 1f else 0f }
-    val textStyle =
-        lerp(SegmentedControlTokens.SegmentTextStyle, SegmentedControlTokens.SegmentTextStyleSelected, progress)
+    val textStyle = lerp(
+        start = SegmentedControlTokens.SegmentTextStyle,
+        stop = SegmentedControlTokens.SegmentTextStyleSelected,
+        fraction = progress,
+    )
     return SegmentLabelStyle(color, textStyle)
 }
 
@@ -245,7 +259,7 @@ private val DefaultHorizontalIndicator: @Composable (Int, Boolean) -> Unit = { _
 
 private fun row0Count(segmentCount: Int): Int = (segmentCount + 1) / 2
 
-private enum class SegmentSlot { Segments, Indicator, Dividers }
+private enum class SegmentSlot { Segments, Indicator, Dividers, RowDivider }
 
 // We suppress the content emmiter with returning values as we use it to enforce which composable we accept inside the
 // segemented control slot
@@ -313,15 +327,17 @@ private object SegmentedControlScopeImpl : SegmentedControlScope {
         return SegmentedButtonItemImpl
     }
 
+    @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
     @Composable
     override fun icon(
         icon: SparkIcon,
+        contentDescription: String,
         selected: Boolean,
         onClick: () -> Unit,
         modifier: Modifier,
     ): SegmentedButtonItem {
         SegmentWrapper(
-            modifier = modifier,
+            modifier = modifier.semantics { this.contentDescription = contentDescription },
             selected = selected,
             onClick = onClick,
         ) {
@@ -335,12 +351,22 @@ private object SegmentedControlScopeImpl : SegmentedControlScope {
                 },
                 label = "iconColor",
             )
-            Icon(
-                sparkIcon = icon,
-                contentDescription = null,
-                size = SegmentedControlTokens.SegmentIconSize,
-                tint = iconColor,
-            )
+            TooltipBox(
+                positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Above),
+                tooltip = {
+                    PlainTooltip { Text(contentDescription) }
+                },
+                state = rememberTooltipState(),
+                modifier = Modifier.invisibleSemantic(),
+                focusable = false,
+            ) {
+                Icon(
+                    sparkIcon = icon,
+                    contentDescription = null,
+                    size = SegmentedControlTokens.SegmentIconSize,
+                    tint = iconColor,
+                )
+            }
         }
         return SegmentedButtonItemImpl
     }
@@ -467,12 +493,11 @@ private fun SegmentedControlImpl(
     modifier: Modifier = Modifier,
     content: @Composable SegmentedControlScope.(SegmentedButtonItem) -> Unit,
 ) {
-    val containerShape =
-        if (isHorizontal) {
-            SegmentedControlTokens.ContainerHorizontalShape
-        } else {
-            SegmentedControlTokens.ContainerVerticalShape
-        }
+    val containerShape = if (isHorizontal) {
+        SegmentedControlTokens.ContainerHorizontalShape
+    } else {
+        SegmentedControlTokens.ContainerVerticalShape
+    }
 
     val segmentCountState = remember { mutableIntStateOf(0) }
 
@@ -489,9 +514,13 @@ private fun SegmentedControlImpl(
             .clip(containerShape)
             .semantics {
                 val count = segmentCountState.intValue
+                // We're unable to cleanly get the items position so we can't provide the row here otherwise the user
+                // would get incoorrect information. So instead we rely only on the traversal semantic feature.
                 collectionInfo = CollectionInfo(
-                    rowCount = if (isHorizontal) 1 else 2,
-                    columnCount = if (isHorizontal) count else row0Count(count),
+//                    rowCount = if (isHorizontal) 1 else 2,
+                    rowCount = 1,
+//                    columnCount = if (isHorizontal) count else row0Count(count),
+                    columnCount = count,
                 )
                 isTraversalGroup = true
                 selectableGroup()
@@ -557,12 +586,22 @@ private fun SegmentedControlImpl(
             }.single().measure(Constraints())
 
             val dividerPlaceables = subcompose(SegmentSlot.Dividers) {
-                repeat(segmentCount - 1) {
+                repeat(segmentCount - 1) { index ->
+                    // Hide dividers adjacent to the selected segment
+                    val hidden = index == selectedIndex || index == selectedIndex - 1
+                    val color by animateColorAsState(
+                        if (hidden) {
+                            SegmentedControlTokens.DividerColor.transparent
+                        } else {
+                            SegmentedControlTokens.DividerColor
+                        },
+                        label = "dividerColor",
+                    )
                     Box(
                         modifier = Modifier
                             .width(SegmentedControlTokens.DividerWidth)
                             .requiredHeight(SegmentedControlTokens.DividerHeight)
-                            .background(SegmentedControlTokens.DividerColor),
+                            .background(color),
                     )
                 }
             }.map { it.measure(Constraints.fixed(dividerWidth, rowHeight)) }
@@ -596,8 +635,9 @@ private fun SegmentedControlImpl(
                 m.measure(Constraints.fixed(if (i < r0Count) row0SegWidth else row1SegWidth, rowHeight))
             }
 
+            val rowDividerHeight = SegmentedControlTokens.DividerWidth.roundToPx()
             val indicatorXDp = (selectedCol * (selectedSegWidth + dividerWidth)).toDp()
-            val indicatorYDp = (selectedRow * rowHeight).toDp()
+            val indicatorYDp = (selectedRow * (rowHeight + rowDividerHeight)).toDp()
             val indicatorWidthDp = selectedSegWidth.toDp()
             val rowHeightDp = rowHeight.toDp()
             val indicatorPlaceable = subcompose(SegmentSlot.Indicator) {
@@ -620,29 +660,53 @@ private fun SegmentedControlImpl(
             }.single().measure(Constraints())
 
             val dividerPlaceables = subcompose(SegmentSlot.Dividers) {
-                repeat(segmentCount - 1) {
-                    Box(
-                        modifier = Modifier
-                            .width(SegmentedControlTokens.DividerWidth)
-                            .requiredHeight(SegmentedControlTokens.DividerHeight)
-                            .background(SegmentedControlTokens.DividerColor),
-                    )
+                for (row in 0 until 2) {
+                    val countInRow = if (row == 0) r0Count else row1Count
+                    repeat(countInRow - 1) { col ->
+                        // Hide dividers adjacent to the selected segment
+                        val hidden = row == selectedRow &&
+                            (col == selectedCol || col == selectedCol - 1)
+                        val color by animateColorAsState(
+                            if (hidden) {
+                                SegmentedControlTokens.DividerColor.transparent
+                            } else {
+                                SegmentedControlTokens.DividerColor
+                            },
+                            label = "dividerColor",
+                        )
+                        Box(
+                            modifier = Modifier
+                                .width(SegmentedControlTokens.DividerWidth)
+                                .requiredHeight(SegmentedControlTokens.DividerHeight)
+                                .background(color),
+                        )
+                    }
                 }
             }.map { it.measure(Constraints.fixed(dividerWidth, rowHeight)) }
 
-            layout(constraints.maxWidth, rowHeight * 2) {
+            val rowDividerPlaceable = subcompose(SegmentSlot.RowDivider) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .requiredHeight(SegmentedControlTokens.DividerWidth)
+                        .background(SegmentedControlTokens.DividerColor),
+                )
+            }.single().measure(Constraints.fixed(constraints.maxWidth, rowDividerHeight))
+
+            layout(constraints.maxWidth, rowHeight * 2 + rowDividerHeight) {
                 indicatorPlaceable.placeRelative(0, 0)
                 var segIdx = 0
                 var divIdx = 0
                 for (row in 0 until 2) {
                     val countInRow = if (row == 0) r0Count else row1Count
+                    val rowY = row * rowHeight + row * rowDividerHeight
                     var x = 0
                     for (col in 0 until countInRow) {
                         if (segIdx < segPlaceables.size) {
-                            segPlaceables[segIdx].placeRelative(x, row * rowHeight)
+                            segPlaceables[segIdx].placeRelative(x, rowY)
                             x += if (row == 0) row0SegWidth else row1SegWidth
                             if (col < countInRow - 1) {
-                                dividerPlaceables[divIdx].placeRelative(x, row * rowHeight)
+                                dividerPlaceables[divIdx].placeRelative(x, rowY)
                                 x += dividerWidth
                                 divIdx++
                             }
@@ -650,6 +714,7 @@ private fun SegmentedControlImpl(
                         }
                     }
                 }
+                rowDividerPlaceable.placeRelative(0, rowHeight)
             }
         }
     }
@@ -674,6 +739,7 @@ private fun PreviewSegmentedControl() {
                 icon(
                     LeboncoinIcons.ShoppingCartOutline,
                     selected = selectedIndex1 == 2,
+                    contentDescription = "Cart",
                     onClick = { selectedIndex1 = 2 },
                 )
                 iconText(
@@ -693,6 +759,7 @@ private fun PreviewSegmentedControl() {
                 icon(
                     LeboncoinIcons.ShoppingCartOutline,
                     selected = selectedIndex1 == 2,
+                    contentDescription = "Cart",
                     onClick = { selectedIndex1 = 2 },
                 )
                 iconText(

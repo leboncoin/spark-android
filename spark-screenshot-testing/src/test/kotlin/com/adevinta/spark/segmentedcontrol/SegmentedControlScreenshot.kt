@@ -154,7 +154,7 @@ internal class SegmentedControlScreenshot {
             SegmentedControl.Horizontal(selectedIndex = 0) {
                 singleLine("Text", selected = true, onClick = {})
                 twoLine("Title", "Subtitle", selected = false, onClick = {})
-                icon(LeboncoinIcons.ShoppingCartOutline, selected = false, onClick = {})
+                icon(LeboncoinIcons.ShoppingCartOutline, contentDescription = "Cart", selected = false, onClick = {})
                 iconText(LeboncoinIcons.ShoppingCartOutline, "Cart", selected = false, onClick = {})
             }
 
@@ -194,7 +194,7 @@ internal class SegmentedControlScreenshot {
 
             SegmentedControl.Horizontal(
                 selectedIndex = 1,
-                indicatorContent = {
+                indicatorContent = { _, _ ->
                     Box(
                         modifier = Modifier
                             .fillMaxSize()

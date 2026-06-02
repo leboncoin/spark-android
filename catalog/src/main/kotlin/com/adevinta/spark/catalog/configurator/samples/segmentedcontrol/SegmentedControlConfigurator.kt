@@ -137,7 +137,12 @@ private fun ConfigedSegmentedControl(
 
                             1 -> twoLine("Title ${index + 1}", "Subtitle", selected = selected, onClick = onClick)
 
-                            2 -> icon(LeboncoinIcons.ShoppingCartOutline, selected = selected, onClick = onClick)
+                            2 -> icon(
+                                LeboncoinIcons.ShoppingCartOutline,
+                                contentDescription = "Cart",
+                                selected = selected,
+                                onClick = onClick,
+                            )
 
                             3 -> iconText(
                                 LeboncoinIcons.ShoppingCartOutline,
