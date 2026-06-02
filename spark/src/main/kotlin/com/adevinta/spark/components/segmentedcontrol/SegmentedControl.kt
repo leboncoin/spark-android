@@ -249,7 +249,7 @@ private enum class SegmentSlot { Segments, Indicator, Dividers }
 
 // We suppress the content emmiter with returning values as we use it to enforce which composable we accept inside the
 // segemented control slot
-@SuppressLint("ComposeContentEmitterReturningValues", "ComposeNamingLowercase")
+@SuppressLint("ComposeContentEmitterReturningValues")
 private object SegmentedControlScopeImpl : SegmentedControlScope {
 
     @Composable
@@ -305,6 +305,7 @@ private object SegmentedControlScopeImpl : SegmentedControlScope {
                     text = subtitle,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
+                    color = labelColor,
                     style = SparkTheme.typography.caption,
                 )
             }

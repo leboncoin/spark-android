@@ -43,9 +43,9 @@ import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.segmentedcontrol.SegmentedButtonItem
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControl
-import com.adevinta.spark.components.segmentedcontrol.SegmentedControlDefaults
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControlScope
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControlShape
+import com.adevinta.spark.components.segmentedcontrol.SegmentedControlTokens
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.toggles.SwitchLabelled
@@ -149,14 +149,14 @@ private fun ConfigedSegmentedControl(
                     }
                 }
             }
-            if (segmentCount <= SegmentedControlDefaults.MaxHorizontalSegments) {
+            if (segmentCount <= SegmentedControlTokens.MaxHorizontalSegments) {
                 SegmentedControl.Horizontal(
                     selectedIndex = selectedIndex,
                     enabled = enabled,
                     content = segmentContent,
                 )
             }
-            if (segmentCount >= SegmentedControlDefaults.MinVerticalSegments) {
+            if (segmentCount >= SegmentedControlTokens.MinVerticalSegments) {
                 SegmentedControl.Vertical(
                     selectedIndex = selectedIndex,
                     enabled = enabled,
