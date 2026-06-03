@@ -333,7 +333,7 @@ class SegmentedControlTest {
             PreviewTheme {
                 SegmentedControl.Horizontal(
                     selectedIndex = 0,
-                    indicatorContent = { _,_ -> Box(Modifier.testTag("custom-indicator")) },
+                    indicatorContent = { _, _ -> Box(Modifier.testTag("custom-indicator")) },
                 ) {
                     singleLine("A", selected = true, onClick = {})
                     singleLine("B", selected = false, onClick = {})
