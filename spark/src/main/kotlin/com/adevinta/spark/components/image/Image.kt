@@ -109,10 +109,11 @@ public fun SparkImage(
         movableContentOf(emptyIcon)
     }
     val exceptionHandler = LocalSparkExceptionHandler.current
+    val compositionTrace = remember { Throwable("SparkImage was composed here") }
     SubcomposeAsyncImage(
         modifier = modifier
             .layout { measurable, constraints ->
-                constraints.checkThatImageHasDefinedSize(exceptionHandler, model)
+                constraints.checkThatImageHasDefinedSize(exceptionHandler, model, compositionTrace)
 
                 val placeable = measurable.measure(constraints)
                 layout(placeable.width, placeable.height) {
@@ -270,7 +271,11 @@ internal fun ImageIconState(
     }
 }
 
-private fun Constraints.checkThatImageHasDefinedSize(exceptionHandler: SparkExceptionHandler, model: Any?) {
+private fun Constraints.checkThatImageHasDefinedSize(
+    exceptionHandler: SparkExceptionHandler,
+    model: Any?,
+    compositionTrace: Throwable,
+) {
     val isWidthBounded = hasBoundedWidth
     val isHeightBounded = hasBoundedHeight
     val hasMinWidth = minWidth != 0
@@ -279,6 +284,7 @@ private fun Constraints.checkThatImageHasDefinedSize(exceptionHandler: SparkExce
         exceptionHandler.handleException(
             IllegalStateException(
                 "Image must have a bounded width but was hasBoundedWidth: $isWidthBounded for model: $model",
+                compositionTrace,
             ),
         )
     }
@@ -286,17 +292,24 @@ private fun Constraints.checkThatImageHasDefinedSize(exceptionHandler: SparkExce
         exceptionHandler.handleException(
             IllegalStateException(
                 "Image must have a bounded height but was hasBoundedHeight: $isHeightBounded for model: $model",
+                compositionTrace,
             ),
         )
     }
     if (!hasMinWidth) {
         exceptionHandler.handleException(
-            IllegalStateException("Image must have a minimum width but has minWidth: $minWidth for model: $model"),
+            IllegalStateException(
+                "Image must have a minimum width but has minWidth: $minWidth for model: $model",
+                compositionTrace,
+            ),
         )
     }
     if (!hasMinHeight) {
         exceptionHandler.handleException(
-            IllegalStateException("Image must have a minimum height but has minHeight: $minHeight for model: $model"),
+            IllegalStateException(
+                "Image must have a minimum height but has minHeight: $minHeight for model: $model",
+                compositionTrace,
+            ),
         )
     }
 }

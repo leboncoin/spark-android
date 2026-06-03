@@ -37,6 +37,8 @@ public class CatalogApplication : Application() {
         setStrictModePolicy()
         if (isDebuggable()) {
             Composer.setDiagnosticStackTraceMode(ComposeStackTraceMode.SourceInformation)
+        } else {
+            Composer.setDiagnosticStackTraceMode(ComposeStackTraceMode.Auto)
         }
     }
 
