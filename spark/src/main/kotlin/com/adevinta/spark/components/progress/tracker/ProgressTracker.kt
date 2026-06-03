@@ -47,6 +47,7 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -286,6 +287,7 @@ internal enum class LayoutOrientation {
 }
 
 @Composable
+@ReadOnlyComposable
 internal fun progressTrackerMeasurePolicy(
     orientation: LayoutOrientation,
     indicatorSize: TextUnit,

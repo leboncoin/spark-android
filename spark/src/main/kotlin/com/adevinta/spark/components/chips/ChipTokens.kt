@@ -22,6 +22,7 @@
 package com.adevinta.spark.components.chips
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -49,7 +50,9 @@ public object ChipTokens {
      * The resolved spacing between the leading icon and the label.
      */
     public val leadingIconSpacing: Dp
-        @Composable get() = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
+        @Composable
+        @ReadOnlyComposable
+        get() = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
             8.dp
         } else {
             4.dp

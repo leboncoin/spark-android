@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.dialog
 
+import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -49,6 +50,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.movableContentOf
 import androidx.compose.runtime.movableContentWithReceiverOf
 import androidx.compose.runtime.remember
@@ -124,8 +126,8 @@ public fun ModalScaffold(
     contentPadding: PaddingValues = DialogPadding,
     contentWindowInsets: WindowInsets = ScaffoldDefaults.contentWindowInsets,
     snackbarHost: @Composable () -> Unit = {},
-    mainButton: (@Composable (Modifier) -> Unit)? = null,
-    supportButton: (@Composable (Modifier) -> Unit)? = null,
+    @SuppressLint("SlotReused") mainButton: (@Composable (Modifier) -> Unit)? = null,
+    @SuppressLint("SlotReused") supportButton: (@Composable (Modifier) -> Unit)? = null,
     title: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
     inEdgeToEdge: Boolean = LocalSparkFeatureFlag.current.isContainingActivityEdgeToEdge,
@@ -466,6 +468,7 @@ private fun CloseIconButton(onClose: () -> Unit) {
 
 @Suppress("DEPRECATION")
 @Composable
+@ReadOnlyComposable
 private fun SetUpEdgeToEdgeDialog() {
     val window = (LocalView.current.parent as DialogWindowProvider).window
     window.statusBarColor = Color.Transparent.toArgb()

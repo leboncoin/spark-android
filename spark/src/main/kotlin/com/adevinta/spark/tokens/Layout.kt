@@ -41,6 +41,7 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -62,7 +63,9 @@ import com.adevinta.spark.tools.preview.DevicePreviews
 public object Layout {
 
     public val windowSize: WindowSizeClass
-        @Composable get() = LocalWindowSizeClass.current
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalWindowSizeClass.current
 
     public val bodyMargin: Dp
         @Composable get() = when {

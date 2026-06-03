@@ -77,13 +77,9 @@ public object SegmentedControlTokens {
         get() = SparkTheme.shapes.extraLarge
 
     public val ItemHorizontalShape: Shape
-        @Composable
-        @ReadOnlyComposable
         get() = RoundedCornerShape(24.0.dp)
 
     public val ContainerVerticalShape: Shape
-        @Composable
-        @ReadOnlyComposable
         get() = RoundedCornerShape(20.0.dp)
     public val IndicatorBorderWidth: Dp = 2.dp
 
