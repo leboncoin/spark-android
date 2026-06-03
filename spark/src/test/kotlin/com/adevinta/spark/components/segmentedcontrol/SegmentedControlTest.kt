@@ -35,7 +35,7 @@ import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertIsNotSelected
 import androidx.compose.ui.test.assertIsSelected
-import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -82,7 +82,7 @@ class SegmentedControlTest {
             }
         }
 
-        val segments = composeTestRule.onAllNodes(withRole(Role.Tab))
+        val segments = composeTestRule.onAllNodes(withRole(Role.RadioButton))
         assert(segments.fetchSemanticsNodes().size == 3)
 
         segments[1].performClick()
@@ -117,7 +117,7 @@ class SegmentedControlTest {
             }
         }
 
-        val segments = composeTestRule.onAllNodes(withRole(Role.Tab))
+        val segments = composeTestRule.onAllNodes(withRole(Role.RadioButton))
         assert(segments.fetchSemanticsNodes().size == 5)
 
         segments[2].performClick()
@@ -148,7 +148,7 @@ class SegmentedControlTest {
             }
         }
 
-        val segments = composeTestRule.onAllNodes(withRole(Role.Tab))
+        val segments = composeTestRule.onAllNodes(withRole(Role.RadioButton))
         val count = segments.fetchSemanticsNodes().size
         for (i in 0 until count) {
             segments[i].assertIsNotEnabled()
@@ -156,12 +156,35 @@ class SegmentedControlTest {
     }
 
     @Test
-    fun segments_have_tab_role() {
+    fun segments_have_default_radiobutton_role() {
         composeTestRule.setContent {
             PreviewTheme {
                 SegmentedControl.Horizontal(
                     selectedIndex = 1,
                     modifier = Modifier.testTag("segmented-control"),
+                ) {
+                    listOf("Option 1", "Option 2", "Option 3").forEachIndexed { index, label ->
+                        singleLine(text = label, selected = index == 1, onClick = {})
+                    }
+                }
+            }
+        }
+
+        val tabs = composeTestRule.onAllNodes(withRole(Role.RadioButton))
+        assert(tabs.fetchSemanticsNodes().size == 3)
+
+        val radioButtons = composeTestRule.onAllNodes(withRole(Role.Tab))
+        assert(radioButtons.fetchSemanticsNodes().isEmpty())
+    }
+
+    @Test
+    fun segments_have_specified_tab_role() {
+        composeTestRule.setContent {
+            PreviewTheme {
+                SegmentedControl.Horizontal(
+                    selectedIndex = 1,
+                    modifier = Modifier.testTag("segmented-control"),
+                    role = Role.Tab,
                 ) {
                     listOf("Option 1", "Option 2", "Option 3").forEachIndexed { index, label ->
                         singleLine(text = label, selected = index == 1, onClick = {})
@@ -278,7 +301,7 @@ class SegmentedControlTest {
             }
         }
 
-        val segments = composeTestRule.onAllNodes(withRole(Role.Tab))
+        val segments = composeTestRule.onAllNodes(withRole(Role.RadioButton))
         assert(segments.fetchSemanticsNodes().size == 4)
         for (i in 0 until 4) {
             segments[i].assertIsDisplayed()
@@ -297,7 +320,7 @@ class SegmentedControlTest {
             }
         }
 
-        val tabs = composeTestRule.onAllNodes(withRole(Role.Tab))
+        val tabs = composeTestRule.onAllNodes(withRole(Role.RadioButton))
         assert(tabs.fetchSemanticsNodes().size == 2)
         tabs[0].assertIsEnabled()
         composeTestRule.onNodeWithText("42").assertIsDisplayed()
@@ -310,7 +333,7 @@ class SegmentedControlTest {
             PreviewTheme {
                 SegmentedControl.Horizontal(
                     selectedIndex = 0,
-                    indicatorContent = { Box(Modifier.testTag("custom-indicator")) },
+                    indicatorContent = { _,_ -> Box(Modifier.testTag("custom-indicator")) },
                 ) {
                     singleLine("A", selected = true, onClick = {})
                     singleLine("B", selected = false, onClick = {})
@@ -337,7 +360,7 @@ class SegmentedControlTest {
             }
         }
 
-        val tabs = composeTestRule.onAllNodes(withRole(Role.Tab))
+        val tabs = composeTestRule.onAllNodes(withRole(Role.RadioButton))
         val count = tabs.fetchSemanticsNodes().size
         for (i in 0 until count) {
             tabs[i].performClick()
@@ -358,7 +381,7 @@ class SegmentedControlTest {
             }
         }
 
-        val tabs = composeTestRule.onAllNodes(withRole(Role.Tab))
+        val tabs = composeTestRule.onAllNodes(withRole(Role.RadioButton))
         tabs[0].assertIsNotSelected()
         tabs[1].assertIsSelected()
         tabs[2].assertIsNotSelected()
@@ -386,7 +409,7 @@ class SegmentedControlTest {
             }
         }
 
-        val segments = composeTestRule.onAllNodes(withRole(Role.Tab))
+        val segments = composeTestRule.onAllNodes(withRole(Role.RadioButton))
         segments[5].performClick()
 
         assert(lastCallbackIndex == 5)
