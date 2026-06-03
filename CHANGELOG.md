@@ -84,6 +84,8 @@
 * **lint:** extract lint configuration ([#1985](https://github.com/leboncoin/spark-android/issues/1985)) ([6306f57](https://github.com/leboncoin/spark-android/commit/6306f579643f05d67fe0543735e26e85cfe22e1b))
 * merge hotfix 2.2.2 back to main ([a8871ed](https://github.com/leboncoin/spark-android/commit/a8871ed901006362e344f9a6680febc59099241e))
 
+- Expose as Experimental the SegmentedButton component for testing in some screens
+
 ## [2.3.0-alpha01]
 
 _2026-04-16_
