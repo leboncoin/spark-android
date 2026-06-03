@@ -2,6 +2,20 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [2.6.0](https://github.com/leboncoin/spark-android/compare/2.5.0...2.6.0) (2026-06-03)
+
+
+### Features
+
+* **rebranding:** add segmented control component ([#1821](https://github.com/leboncoin/spark-android/issues/1821)) ([8e235ec](https://github.com/leboncoin/spark-android/commit/8e235ec62f7ab1aaab85311189d5efead6160d2e))
+* **tokens:** add new ai color token group ([#2004](https://github.com/leboncoin/spark-android/issues/2004)) ([6f5e6b9](https://github.com/leboncoin/spark-android/commit/6f5e6b9e945e6386c1fd1c39bc56a5877fdb7131))
+
+
+### Bug Fixes
+
+* **image:** attempt to add composition stacktrace when no size is defined ([#2007](https://github.com/leboncoin/spark-android/issues/2007)) ([75a8415](https://github.com/leboncoin/spark-android/commit/75a841584b052deea9fa598d098e1df0bd86deaf))
+* **release:** adjust the generated PR description message ([#2008](https://github.com/leboncoin/spark-android/issues/2008)) ([383ebf0](https://github.com/leboncoin/spark-android/commit/383ebf0ae1aaa36287cce50316069372309efa38))
+
 ## [2.5.0](https://github.com/leboncoin/spark-android/compare/2.4.2...2.5.0) (2026-06-01)
 
 
