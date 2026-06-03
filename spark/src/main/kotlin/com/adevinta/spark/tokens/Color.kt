@@ -164,6 +164,10 @@ public fun lightSparkColors(
     onNeutral: Color = Color.White,
     neutralContainer: Color = NightShade100,
     onNeutralContainer: Color = NightShade700,
+    ai: Color = Blueberry700,
+    onAi: Color = Color.White,
+    aiContainer: Color = Blueberry200,
+    onAiContainer: Color = Blueberry700,
     background: Color = Color.White,
     onBackground: Color = Blueberry900,
     backgroundVariant: Color = Blueberry50,
@@ -221,6 +225,10 @@ public fun lightSparkColors(
     onNeutral = onNeutral,
     neutralContainer = neutralContainer,
     onNeutralContainer = onNeutralContainer,
+    ai = ai,
+    onAi = onAi,
+    aiContainer = aiContainer,
+    onAiContainer = onAiContainer,
     background = background,
     onBackground = onBackground,
     backgroundVariant = backgroundVariant,
@@ -281,6 +289,10 @@ public fun darkSparkColors(
     onNeutral: Color = NightShade900,
     neutralContainer: Color = NightShade700,
     onNeutralContainer: Color = NightShade50,
+    ai: Color = Blueberry300,
+    onAi: Color = Blueberry900,
+    aiContainer: Color = Blueberry700,
+    onAiContainer: Color = Blueberry50,
     background: Color = NightShade900,
     onBackground: Color = NightShade50,
     backgroundVariant: Color = Color.Black,
@@ -339,6 +351,10 @@ public fun darkSparkColors(
     onNeutral = onNeutral,
     neutralContainer = neutralContainer,
     onNeutralContainer = onNeutralContainer,
+    ai = ai,
+    onAi = onAi,
+    aiContainer = aiContainer,
+    onAiContainer = onAiContainer,
     background = background,
     onBackground = onBackground,
     backgroundVariant = backgroundVariant,
@@ -399,6 +415,10 @@ public fun lightHighContrastSparkColors(
     onNeutral: Color = DarkLight,
     neutralContainer: Color = DarkMedium,
     onNeutralContainer: Color = DarkBold,
+    ai: Color = DarkRegular,
+    onAi: Color = DarkLight,
+    aiContainer: Color = DarkMedium,
+    onAiContainer: Color = DarkBold,
     background: Color = DarkLight,
     onBackground: Color = DarkBold,
     backgroundVariant: Color = DarkMedium,
@@ -456,6 +476,10 @@ public fun lightHighContrastSparkColors(
     onNeutral = onNeutral,
     neutralContainer = neutralContainer,
     onNeutralContainer = onNeutralContainer,
+    ai = ai,
+    onAi = onAi,
+    aiContainer = aiContainer,
+    onAiContainer = onAiContainer,
     background = background,
     onBackground = onBackground,
     backgroundVariant = backgroundVariant,
@@ -515,6 +539,10 @@ public fun darkHighContrastSparkColors(
     onNeutral: Color = DarkBold,
     neutralContainer: Color = LightMid,
     onNeutralContainer: Color = LightLight,
+    ai: Color = LightGray,
+    onAi: Color = DarkBold,
+    aiContainer: Color = LightMid,
+    onAiContainer: Color = LightLight,
     background: Color = DarkSemiBold,
     onBackground: Color = LightLight,
     backgroundVariant: Color = Color(0xff3c3c3c),
@@ -571,6 +599,10 @@ public fun darkHighContrastSparkColors(
     onNeutral = onNeutral,
     neutralContainer = neutralContainer,
     onNeutralContainer = onNeutralContainer,
+    ai = ai,
+    onAi = onAi,
+    aiContainer = aiContainer,
+    onAiContainer = onAiContainer,
     background = background,
     onBackground = onBackground,
     backgroundVariant = backgroundVariant,
@@ -648,6 +680,10 @@ public fun darkHighContrastSparkColors(
  * @property onNeutral Color used for text and icons displayed on top of the [neutral] color.
  * @property neutralContainer The preferred tonal color of neutral containers.
  * @property onNeutralContainer Color used for text and icons displayed on top of the [neutralContainer] color.
+ * @property ai An emphasis color used to identify AI-generated content or features.
+ * @property onAi Color used for text and icons displayed on top of the [ai] color.
+ * @property aiContainer The preferred tonal color of AI containers.
+ * @property onAiContainer Color used for text and icons displayed on top of the [aiContainer] color.
  * @property background The background color that appears behind scrollable content.
  * @property onBackground Color used for text and icons displayed on top of the background color.
  * @property backgroundVariant The background color that appears behind scrollable content.
@@ -711,6 +747,10 @@ public class SparkColors(
     onNeutral: Color,
     neutralContainer: Color,
     onNeutralContainer: Color,
+    ai: Color,
+    onAi: Color,
+    aiContainer: Color,
+    onAiContainer: Color,
     background: Color,
     onBackground: Color,
     backgroundVariant: Color,
@@ -889,6 +929,16 @@ public class SparkColors(
     public var onNeutralContainer: Color by mutableStateOf(onNeutralContainer, structuralEqualityPolicy())
         internal set
 
+    @Order(12)
+    public var ai: Color by mutableStateOf(ai, structuralEqualityPolicy())
+        internal set
+    public var onAi: Color by mutableStateOf(onAi, structuralEqualityPolicy())
+        internal set
+    public var aiContainer: Color by mutableStateOf(aiContainer, structuralEqualityPolicy())
+        internal set
+    public var onAiContainer: Color by mutableStateOf(onAiContainer, structuralEqualityPolicy())
+        internal set
+
     public var dim1: Float by mutableFloatStateOf(dimContent1)
         internal set
     public var dim2: Float by mutableFloatStateOf(dimContent2)
@@ -956,6 +1006,10 @@ public class SparkColors(
         onNeutral: Color = this.onNeutral,
         neutralContainer: Color = this.neutralContainer,
         onNeutralContainer: Color = this.onNeutralContainer,
+        ai: Color = this.ai,
+        onAi: Color = this.onAi,
+        aiContainer: Color = this.aiContainer,
+        onAiContainer: Color = this.onAiContainer,
         dimContent1: Float = this.dim1,
         dimContent2: Float = this.dim2,
         dimContent3: Float = this.dim3,
@@ -1014,6 +1068,10 @@ public class SparkColors(
         onNeutral = onNeutral,
         neutralContainer = neutralContainer,
         onNeutralContainer = onNeutralContainer,
+        ai = ai,
+        onAi = onAi,
+        aiContainer = aiContainer,
+        onAiContainer = onAiContainer,
         dimContent1 = dimContent1,
         dimContent2 = dimContent2,
         dimContent3 = dimContent3,
@@ -1107,6 +1165,12 @@ public class SparkColors(
         val onNeutral_FFFFFFFF_FF202730 = Unit
         val neutralContainer_FFF0F2F5_FF3A4757 = Unit
         val onNeutralContainer_FF3A4757_FFF6F8F9 = Unit
+
+        // AI
+        val ai_FF0C5291_FF9FCEF7 = Unit
+        val onAi_FFFFFFFF_FF152233 = Unit
+        val aiContainer_FFC2E0FA_FF094171 = Unit
+        val onAiContainer_FF0C5291_FFF4F9FE = Unit
     }
 
     override fun toString(): String = buildString {
@@ -1159,6 +1223,10 @@ public class SparkColors(
         append("onNeutral=$onNeutral, ")
         append("neutralContainer=$neutralContainer, ")
         append("onNeutralContainer=$onNeutralContainer, ")
+        append("ai=$ai, ")
+        append("onAi=$onAi, ")
+        append("aiContainer=$aiContainer, ")
+        append("onAiContainer=$onAiContainer, ")
         append("dim1=$dim1, ")
         append("dim2=$dim2, ")
         append("dim3=$dim3, ")
@@ -1373,6 +1441,8 @@ public fun SparkColors.contentColorFor(backgroundColor: Color): Color = when (ba
     infoContainer -> onInfoContainer
     neutral -> onNeutral
     neutralContainer -> onNeutralContainer
+    ai -> onAi
+    aiContainer -> onAiContainer
     else -> Color.Unspecified
 }
 
@@ -1519,6 +1589,10 @@ internal fun SparkColors.updateColorsFrom(other: SparkColors) {
     onNeutral = other.onNeutral
     neutralContainer = other.neutralContainer
     onNeutralContainer = other.onNeutralContainer
+    ai = other.ai
+    onAi = other.onAi
+    aiContainer = other.aiContainer
+    onAiContainer = other.onAiContainer
     dim1 = other.dim1
     dim2 = other.dim2
     dim3 = other.dim3
@@ -1648,6 +1722,10 @@ public fun debugColors(
     onNeutral = onDebugColor,
     neutralContainer = debugColor,
     onNeutralContainer = onDebugColor,
+    ai = debugColor,
+    onAi = onDebugColor,
+    aiContainer = debugColor,
+    onAiContainer = onDebugColor,
     background = Color.Blue,
     onBackground = onDebugColor,
     backgroundVariant = Color.Blue,
@@ -1741,6 +1819,7 @@ private val previewColors
                 listOf(::error, ::errorContainer),
                 listOf(::info, ::infoContainer),
                 listOf(::neutral, ::neutralContainer),
+                listOf(::ai, ::aiContainer),
             ),
             listOf(
                 listOf(::background, ::backgroundVariant),
