@@ -186,7 +186,6 @@ public object CardDefaults {
         disabledElevation = disabledElevation,
     )
 
-    @Composable
     public fun paddingValues(hasHeading: Boolean): PaddingValues = if (hasHeading) {
         PaddingValues(
             top = 8.dp,

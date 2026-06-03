@@ -625,7 +625,6 @@ private fun MenuItemColors.textColor(
  *
  * @param enabled whether the menu item is enabled
  */
-@Composable
 private fun MenuItemColors.leadingIconColor(enabled: Boolean): Color =
     if (enabled) leadingIconColor else disabledLeadingIconColor
 
@@ -634,7 +633,6 @@ private fun MenuItemColors.leadingIconColor(enabled: Boolean): Color =
  *
  * @param enabled whether the menu item is enabled
  */
-@Composable
 private fun MenuItemColors.trailingIconColor(enabled: Boolean): Color =
     if (enabled) trailingIconColor else disabledTrailingIconColor
 

@@ -1516,12 +1516,11 @@ public val Color.disabled: Color
 
 /**
  * Extension property to get a [Color] that apply an alpha of zero to the color.
- * This is useful when you want to animate fro ma transparent color to a colored one
+ * This is useful when you want to animate from a transparent color to a colored one
  * since using  [Color.Transparent] will start with a black background.
  */
-@get:SuppressLint("ComposeUnstableReceiver") // https://github.com/slackhq/compose-lints/issues/326
 public val Color.transparent: Color
-    @Composable get() = this.copy(alpha = 0f)
+    get() = this.copy(alpha = 0f)
 
 /**
  * Updates the internal values of the given [SparkColors] with values from the [other] [SparkColors]. This

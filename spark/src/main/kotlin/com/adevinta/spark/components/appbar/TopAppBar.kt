@@ -976,7 +976,6 @@ private fun TopAppBarLayout(
  *
  * @param elevationTransitionFraction a `0.0` to `1.0` value that represents a color transition percentage
  */
-@Composable
 private fun containerElevation(elevationTransitionFraction: Float): Dp = lerp(
     ElevationTokens.Level0,
     ElevationTokens.Level2,
