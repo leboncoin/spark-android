@@ -33,7 +33,6 @@ import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.findByType
 import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
@@ -41,7 +40,6 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinBaseExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompilerOptions
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import org.jetbrains.kotlin.gradle.dsl.abi.AbiValidationExtension
 import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
 
 internal val Project.isAndroidApplication: Boolean get() = pluginManager.hasPlugin("com.android.application")
@@ -117,14 +115,14 @@ internal inline fun <reified T : KotlinBaseExtension> Project.configureKotlin(
             is KotlinMultiplatformExtension -> this
             else -> TODO("Unsupported project extension $path ${T::class}")
         }
-        // https://youtrack.jetbrains.com/issue/KT-83410
-        @OptIn(ExperimentalAbiValidation::class)
-        kotlin.extensions.findByType<AbiValidationExtension>()?.apply {
-            abiValidation()
-        }
         compilerOptions {
             (this as? KotlinJvmCompilerOptions)?.jvmTarget?.set(JvmTarget.JVM_11)
             allWarningsAsErrors = true
+        }
+        // https://youtrack.jetbrains.com/issue/KT-83410
+        @OptIn(ExperimentalAbiValidation::class)
+        abiValidation {
+            referenceDumpDir.set(projectDir.resolve("api"))
         }
         explicitApi()
         configure()

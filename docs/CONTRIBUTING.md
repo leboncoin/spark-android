@@ -549,10 +549,10 @@ Alternatively, use the `🔎 Lint` run configuration.
 
 ```bash
 # Check for binary compatibility issues
-./gradlew checkLegacyAbi
+./gradlew checkKotlinAbi
 
 # Update reference ABI files
-./gradlew updateLegacyAbi
+./gradlew updateKotlinAbi
 ```
 
 ### Architecture Compliance
