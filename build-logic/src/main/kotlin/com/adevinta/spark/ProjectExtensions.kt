@@ -124,11 +124,6 @@ internal inline fun <reified T : KotlinBaseExtension> Project.configureKotlin(
         }
         compilerOptions {
             (this as? KotlinJvmCompilerOptions)?.jvmTarget?.set(JvmTarget.JVM_11)
-            freeCompilerArgs.addAll(
-                // Note: Stable in Kotlin 2.4
-                // https://kotlinlang.org/docs/whatsnew22.html#preview-of-context-parameters
-                "-Xcontext-parameters",
-            )
             allWarningsAsErrors = true
         }
         explicitApi()
