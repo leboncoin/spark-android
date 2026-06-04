@@ -29,9 +29,6 @@ plugins {
 }
 
 kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xannotation-default-target=param-property")
-    }
     android {
         namespace = "com.adevinta.spark.icons"
         // Doesn't seem to be available for kmp?

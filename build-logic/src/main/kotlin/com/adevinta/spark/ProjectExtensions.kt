@@ -125,8 +125,6 @@ internal inline fun <reified T : KotlinBaseExtension> Project.configureKotlin(
         compilerOptions {
             (this as? KotlinJvmCompilerOptions)?.jvmTarget?.set(JvmTarget.JVM_11)
             freeCompilerArgs.addAll(
-                // https://kotlinlang.org/docs/whatsnew22.html#new-defaulting-rules-for-use-site-annotation-targets
-                "-Xannotation-default-target=param-property",
                 // Note: Stable in Kotlin 2.4
                 // https://kotlinlang.org/docs/whatsnew22.html#preview-of-context-parameters
                 "-Xcontext-parameters",
