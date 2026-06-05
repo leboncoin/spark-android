@@ -27,7 +27,7 @@ import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.meter.Meter
 import com.adevinta.spark.components.meter.MeterIntent
-import com.adevinta.spark.components.meter.MeterSize
+import com.adevinta.spark.components.meter.circular.CircleMeterSize
 import com.adevinta.spark.components.meter.circular.CircularMeterContent
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -57,17 +57,17 @@ public val MeterExamples: ImmutableList<Example> = persistentListOf(
 @Composable
 private fun ColumnScope.CircularMeterExample() {
     Meter.Circular(
-        progress = 0.7f,
-        content = CircularMeterContent.ValueLabel("70%", "Label"),
+        value = 70f,
+        content = CircularMeterContent.ValueLabel("70%", label = "Label"),
         intent = MeterIntent.Support,
-        size = MeterSize.Large,
+        size = CircleMeterSize.Large,
     )
 }
 
 @Composable
 private fun ColumnScope.CircularSmallMeterExample() {
     Meter.CircularSmall(
-        progress = 0.7f,
+        value = 70f,
         intent = MeterIntent.Support,
     )
 }

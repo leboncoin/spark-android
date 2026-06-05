@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.meter.circular
 
+import android.content.Context
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
@@ -30,29 +31,33 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.ProgressBarRangeInfo
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.progressBarRangeInfo
 import androidx.compose.ui.semantics.semantics
 import com.adevinta.spark.InternalSparkApi
-import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.R
 import com.adevinta.spark.components.meter.MeterDefaults
 import com.adevinta.spark.components.meter.MeterIntent
-import com.adevinta.spark.components.meter.MeterSize
-import com.adevinta.spark.tokens.dim1
-import com.adevinta.spark.tokens.highlight
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
 @InternalSparkApi
 @Composable
 internal fun SparkCircularMeter(
-    progress: Float,
+    value: Float,
+    range: ClosedFloatingPointRange<Float>,
     intent: MeterIntent,
-    size: MeterSize,
+    size: CircleMeterSize,
     content: CircularMeterContent?,
     modifier: Modifier = Modifier,
+    overrideContentDescription: String? = null,
 ) {
-    val clampedProgress = progress.coerceIn(0f, 1f)
+    val normalizedProgress = ((value - range.start) / (range.endInclusive - range.start)).coerceIn(0f, 1f)
+
     val animatedProgress = animateFloatAsState(
-        targetValue = clampedProgress,
+        targetValue = normalizedProgress,
         animationSpec = MeterDefaults.AnimationSpec,
         label = "MeterProgress",
     )
@@ -62,37 +67,33 @@ internal fun SparkCircularMeter(
     val trackColor = intentColors.containerColor
 
     val styling = CircularMeterStyling(
-        valueStyle = when (size) {
-            MeterSize.Small -> SparkTheme.typography.body2.highlight
-            MeterSize.Medium -> SparkTheme.typography.body2.highlight
-            MeterSize.Large -> SparkTheme.typography.body1.highlight
-            MeterSize.XLarge -> SparkTheme.typography.display3
-        },
-        labelStyle = when (size) {
-            MeterSize.Small -> SparkTheme.typography.body2
-            MeterSize.Medium -> SparkTheme.typography.small
-            MeterSize.Large -> SparkTheme.typography.caption
-            MeterSize.XLarge -> SparkTheme.typography.body2
-        },
-        valueColor = SparkTheme.colors.onSurface,
-        labelColor = SparkTheme.colors.onSurface.dim1,
         indicatorColor = indicatorColor,
-        iconSize = size.iconSize,
+        size = size,
     )
 
-    val semanticDescription = buildSemanticDescription(content, clampedProgress)
+    val context = LocalContext.current
+    val semanticDescription = overrideContentDescription
+        ?: buildSemanticDescription(content, normalizedProgress, context)
 
     CompositionLocalProvider(LocalCircularMeterStyling provides styling) {
         Box(
             modifier = modifier
                 .sparkUsageOverlay()
                 .size(size.diameter)
-                .semantics { contentDescription = semanticDescription },
+                .semantics(mergeDescendants = true) {
+                    contentDescription = semanticDescription
+                    progressBarRangeInfo = ProgressBarRangeInfo(
+                        current = value.coerceIn(range),
+                        range = range,
+                    )
+                },
             contentAlignment = Alignment.Center,
         ) {
             CircularProgressIndicator(
                 progress = { animatedProgress.value },
-                modifier = Modifier.size(size.diameter),
+                modifier = Modifier
+                    .size(size.diameter)
+                    .clearAndSetSemantics {},
                 color = indicatorColor,
                 trackColor = trackColor,
                 strokeWidth = size.strokeWidth,
@@ -103,15 +104,34 @@ internal fun SparkCircularMeter(
     }
 }
 
-private fun buildSemanticDescription(content: CircularMeterContent?, progress: Float): String {
-    val percentText = "${(progress * 100).toInt()} percent"
-    val label = when (content) {
-        is CircularMeterContent.Value -> content.text
+private fun buildSemanticDescription(
+    content: CircularMeterContent?,
+    progress: Float,
+    context: Context,
+): String {
+    val percentText = context.getString(R.string.spark_meter_a11y, (progress * 100).toInt())
+    return when (content) {
+        is CircularMeterContent.Value -> "${content.text}, $percentText"
         is CircularMeterContent.ValueLabel -> "${content.text}, ${content.label}"
-        is CircularMeterContent.Icon -> content.contentDescription
-        is CircularMeterContent.Image -> ""
-        is CircularMeterContent.Custom -> ""
-        null -> ""
+        is CircularMeterContent.Icon -> {
+            val parts = listOfNotNull(
+                content.contentDescription.takeIf { it.isNotEmpty() },
+                content.label,
+                percentText,
+            )
+            parts.joinToString(", ")
+        }
+
+        is CircularMeterContent.Image -> {
+            val desc = content.contentDescription.takeIf { it.isNotEmpty() }
+            if (desc != null) "$desc, $percentText" else percentText
+        }
+
+        is CircularMeterContent.Custom -> {
+            val desc = content.contentDescription?.takeIf { it.isNotEmpty() }
+            if (desc != null) "$desc, $percentText" else percentText
+        }
+
+        null -> percentText
     }
-    return if (label.isNotEmpty()) "$label, $percentText" else percentText
 }

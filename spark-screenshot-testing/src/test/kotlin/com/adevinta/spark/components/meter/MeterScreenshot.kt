@@ -23,6 +23,7 @@ package com.adevinta.spark.components.meter
 
 import com.adevinta.spark.DefaultTestDevices
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.meter.circular.CircleMeterSize
 import com.adevinta.spark.components.meter.circular.CircularMeterContent
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkDocSnapshot
@@ -45,10 +46,10 @@ internal class MeterScreenshot {
         paparazzi.sparkSnapshotNightMode {
             SparkTheme {
                 Meter.Circular(
-                    progress = 0.7f,
-                    content = CircularMeterContent.ValueLabel("70%", "Label"),
+                    value = 70f,
+                    content = CircularMeterContent.ValueLabel("70%", label = "Label"),
                     intent = MeterIntent.Support,
-                    size = MeterSize.Large,
+                    size = CircleMeterSize.Large,
                 )
             }
         }
@@ -58,24 +59,24 @@ internal class MeterScreenshot {
     fun allSizes() {
         paparazzi.sparkSnapshotNightMode {
             SparkTheme {
-                Meter.CircularSmall(progress = 0.5f, intent = MeterIntent.Main)
+                Meter.CircularSmall(value = 50f, intent = MeterIntent.Main)
                 Meter.Circular(
-                    progress = 0.5f,
+                    value = 50f,
                     content = CircularMeterContent.Value("50%"),
                     intent = MeterIntent.Main,
-                    size = MeterSize.Medium,
+                    size = CircleMeterSize.Medium,
                 )
                 Meter.Circular(
-                    progress = 0.5f,
-                    content = CircularMeterContent.ValueLabel("50%", "Label"),
+                    value = 50f,
+                    content = CircularMeterContent.ValueLabel("50%", label = "Label"),
                     intent = MeterIntent.Main,
-                    size = MeterSize.Large,
+                    size = CircleMeterSize.Large,
                 )
                 Meter.Circular(
-                    progress = 0.5f,
-                    content = CircularMeterContent.ValueLabel("50%", "Label"),
+                    value = 50f,
+                    content = CircularMeterContent.ValueLabel("50%", label = "Label"),
                     intent = MeterIntent.Main,
-                    size = MeterSize.XLarge,
+                    size = CircleMeterSize.XLarge,
                 )
             }
         }
@@ -87,10 +88,10 @@ internal class MeterScreenshot {
             SparkTheme {
                 MeterIntent.entries.forEach { intent ->
                     Meter.Circular(
-                        progress = 0.7f,
+                        value = 70f,
                         content = CircularMeterContent.Value("70%"),
                         intent = intent,
-                        size = MeterSize.Medium,
+                        size = CircleMeterSize.Medium,
                     )
                 }
             }
@@ -109,15 +110,15 @@ internal class MeterDocumentationScreenshots {
     @Test
     fun circular() = paparazzi.sparkDocSnapshot {
         Meter.Circular(
-            progress = 0.7f,
-            content = CircularMeterContent.ValueLabel("70%", "Label"),
+            value = 70f,
+            content = CircularMeterContent.ValueLabel("70%", label = "Label"),
             intent = MeterIntent.Support,
-            size = MeterSize.Large,
+            size = CircleMeterSize.Large,
         )
     }
 
     @Test
     fun circularSmall() = paparazzi.sparkDocSnapshot {
-        Meter.CircularSmall(progress = 0.7f, intent = MeterIntent.Support)
+        Meter.CircularSmall(value = 70f, intent = MeterIntent.Support)
     }
 }

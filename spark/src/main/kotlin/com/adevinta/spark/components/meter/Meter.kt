@@ -21,20 +21,29 @@
  */
 package com.adevinta.spark.components.meter
 
-import androidx.annotation.FloatRange
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.ProgressBarRangeInfo
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.progressBarRangeInfo
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.PreviewTheme
+import com.adevinta.spark.R
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.meter.circular.CircleMeterSize
 import com.adevinta.spark.components.meter.circular.CircularMeterContent
 import com.adevinta.spark.components.meter.circular.SparkCircularMeter
 import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.VerifiedShieldFill
 import com.adevinta.spark.tokens.highlight
 
 public object Meter {
@@ -42,59 +51,76 @@ public object Meter {
     /**
      * A circular meter displaying progress with content inside the ring.
      *
-     * Content is a [CircularMeterContent] subtype — pick the variant that fits:
-     * [CircularMeterContent.Value], [CircularMeterContent.ValueLabel],
-     * [CircularMeterContent.Icon], [CircularMeterContent.Image], or [CircularMeterContent.Custom].
-     *
-     * @param progress Progress value between 0.0 and 1.0.
+     * @param value Current value within [range].
      * @param content Content displayed inside the ring.
      * @param modifier Modifier applied to the meter.
-     * @param intent Colour intent for the indicator and track.
+     * @param range The value range (e.g. `0f..100f` for percentage, `0f..200f` for euros).
+     * @param intent Color intent for the indicator and track.
      * @param size Size of the meter (Medium, Large, or XLarge).
+     * @param contentDescription Overrides the accessibility announcement for the entire meter.
      */
     @Composable
     public fun Circular(
-        @FloatRange(from = 0.0, to = 1.0) progress: Float,
+        value: Float,
         content: CircularMeterContent,
         modifier: Modifier = Modifier,
+        range: ClosedFloatingPointRange<Float> = MeterDefaults.Range,
         intent: MeterIntent = MeterDefaults.Intent,
-        size: MeterSize = MeterDefaults.Size,
+        size: CircleMeterSize = MeterDefaults.Size,
+        contentDescription: String? = null,
     ) {
         SparkCircularMeter(
-            progress = progress,
+            value = value,
+            range = range,
             intent = intent,
             size = size,
             content = content,
             modifier = modifier,
+            overrideContentDescription = contentDescription,
         )
     }
 
     /**
      * A small circular meter (24dp) that renders the progress value text outside the ring.
      *
-     * @param progress Progress value between 0.0 and 1.0.
+     * @param value Current value within [range].
      * @param modifier Modifier applied to the meter row.
-     * @param intent Colour intent for the indicator and track.
+     * @param range The value range (defaults to `0f..100f`).
+     * @param intent Color intent for the indicator and track.
      */
     @Composable
     public fun CircularSmall(
-        @FloatRange(from = 0.0, to = 1.0) progress: Float,
+        value: Float,
         modifier: Modifier = Modifier,
+        range: ClosedFloatingPointRange<Float> = MeterDefaults.Range,
         intent: MeterIntent = MeterDefaults.Intent,
     ) {
+        val normalizedProgress = ((value - range.start) / (range.endInclusive - range.start)).coerceIn(0f, 1f)
+        val percentDescription = stringResource(
+            R.string.spark_meter_a11y,
+            (normalizedProgress * 100).toInt(),
+        )
         Row(
-            modifier = modifier,
+            modifier = modifier.semantics(mergeDescendants = true) {
+                this.contentDescription = percentDescription
+                progressBarRangeInfo = ProgressBarRangeInfo(
+                    current = value.coerceIn(range),
+                    range = range,
+                )
+            },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             SparkCircularMeter(
-                progress = progress,
+                value = value,
+                range = range,
                 intent = intent,
-                size = MeterSize.Small,
+                size = CircleMeterSize.Small,
                 content = null,
+                modifier = Modifier.clearAndSetSemantics {},
             )
             Text(
-                text = "${(progress.coerceIn(0f, 1f) * 100).toInt()}%",
+                text = "${(normalizedProgress * 100).toInt()}%",
                 style = SparkTheme.typography.body2.highlight,
                 color = SparkTheme.colors.onSurface,
                 textAlign = TextAlign.Start,
@@ -112,23 +138,37 @@ public object Meter {
 private fun PreviewCircularMeter() {
     PreviewTheme {
         Meter.Circular(
-            progress = 0.7f,
-            content = CircularMeterContent.ValueLabel("70%", "Label"),
+            value = 70f,
+            content = CircularMeterContent.ValueLabel("70%", label = "Label"),
             intent = MeterIntent.Support,
-            size = MeterSize.Large,
+            size = CircleMeterSize.Large,
         )
         Meter.Circular(
-            progress = 0.5f,
+            value = 50f,
             content = CircularMeterContent.Value("50%"),
             intent = MeterIntent.Main,
-            size = MeterSize.Medium,
+            size = CircleMeterSize.Medium,
         )
         Meter.Circular(
-            progress = 1.0f,
-            content = CircularMeterContent.ValueLabel("100%", "Complete"),
+            value = 100f,
+            content = CircularMeterContent.ValueLabel("100%", label = "Complete"),
             intent = MeterIntent.Success,
-            size = MeterSize.XLarge,
+            size = CircleMeterSize.XLarge,
         )
-        Meter.CircularSmall(progress = 0.3f, intent = MeterIntent.Info)
+        Meter.Circular(
+            value = 0f,
+            content = CircularMeterContent.Icon(LeboncoinIcons.VerifiedShieldFill, "100%", label = "Complete"),
+            intent = MeterIntent.Success,
+            size = CircleMeterSize.XLarge,
+        )
+        Meter.Circular(
+            value = 23f,
+            content = CircularMeterContent.Image(
+                "100%", model = com.adevinta.spark.icons.R.drawable.spark_icons_baby,
+            ),
+            intent = MeterIntent.Success,
+            size = CircleMeterSize.XLarge,
+        )
+        Meter.CircularSmall(value = 30f, intent = MeterIntent.Info)
     }
 }

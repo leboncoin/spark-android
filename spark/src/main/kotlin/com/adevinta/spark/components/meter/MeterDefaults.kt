@@ -23,28 +23,17 @@ package com.adevinta.spark.components.meter
 
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
+import com.adevinta.spark.components.meter.circular.CircleMeterSize
 
 public object MeterDefaults {
-    public val Size: MeterSize = MeterSize.Large
+    public val Size: CircleMeterSize = CircleMeterSize.Large
     public val Intent: MeterIntent = MeterIntent.Support
+    public val Range: ClosedFloatingPointRange<Float> = 0f..100f
 
     internal val AnimationSpec = spring<Float>(
         dampingRatio = Spring.DampingRatioNoBouncy,
-        stiffness = Spring.StiffnessMedium,
+        stiffness = Spring.StiffnessLow,
     )
-
-    internal const val StartAngle = 270f
 }
 
-public enum class MeterSize(
-    public val diameter: Dp,
-    public val strokeWidth: Dp,
-    public val iconSize: Dp,
-) {
-    Small(diameter = 24.dp, strokeWidth = 3.dp, iconSize = 0.dp),
-    Medium(diameter = 64.dp, strokeWidth = 5.dp, iconSize = 24.dp),
-    Large(diameter = 96.dp, strokeWidth = 8.dp, iconSize = 32.dp),
-    XLarge(diameter = 128.dp, strokeWidth = 10.dp, iconSize = 40.dp),
-}
+

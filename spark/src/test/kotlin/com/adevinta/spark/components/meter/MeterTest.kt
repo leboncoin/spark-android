@@ -21,10 +21,12 @@
  */
 package com.adevinta.spark.components.meter
 
+import androidx.compose.ui.semantics.ProgressBarRangeInfo
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import com.adevinta.spark.PreviewTheme
+import com.adevinta.spark.components.meter.circular.CircleMeterSize
 import com.adevinta.spark.components.meter.circular.CircularMeterContent
 import org.junit.Rule
 import org.junit.Test
@@ -38,21 +40,41 @@ class MeterTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun circular_meter_displays_value_label_semantics() {
+    fun circular_value_announces_text_and_percent() {
         composeTestRule.setContent {
             PreviewTheme {
                 Meter.Circular(
-                    progress = 0.75f,
-                    content = CircularMeterContent.ValueLabel("75%", "Complete"),
+                    value = 75f,
+                    content = CircularMeterContent.Value("75%"),
                     intent = MeterIntent.Support,
-                    size = MeterSize.Large,
+                    size = CircleMeterSize.Large,
                 )
             }
         }
         composeTestRule.onNode(
             SemanticsMatcher.expectValue(
                 SemanticsProperties.ContentDescription,
-                listOf("75%, Complete, 75 percent"),
+                listOf("75%, 75 percent"),
+            ),
+        ).assertExists()
+    }
+
+    @Test
+    fun circular_value_label_announces_value_and_label_without_percent() {
+        composeTestRule.setContent {
+            PreviewTheme {
+                Meter.Circular(
+                    value = 75f,
+                    content = CircularMeterContent.ValueLabel("75%", label = "Complete"),
+                    intent = MeterIntent.Support,
+                    size = CircleMeterSize.Large,
+                )
+            }
+        }
+        composeTestRule.onNode(
+            SemanticsMatcher.expectValue(
+                SemanticsProperties.ContentDescription,
+                listOf("75%, Complete"),
             ),
         ).assertExists()
     }
@@ -61,7 +83,7 @@ class MeterTest {
     fun circular_small_renders_with_accessibility_description() {
         composeTestRule.setContent {
             PreviewTheme {
-                Meter.CircularSmall(progress = 0.5f, intent = MeterIntent.Main)
+                Meter.CircularSmall(value = 50f, intent = MeterIntent.Main)
             }
         }
         composeTestRule.onNode(
@@ -73,14 +95,14 @@ class MeterTest {
     }
 
     @Test
-    fun progress_above_one_is_clamped() {
+    fun value_above_range_is_clamped() {
         composeTestRule.setContent {
             PreviewTheme {
                 Meter.Circular(
-                    progress = 1.5f,
+                    value = 150f,
                     content = CircularMeterContent.Value("100%"),
                     intent = MeterIntent.Support,
-                    size = MeterSize.Large,
+                    size = CircleMeterSize.Large,
                 )
             }
         }
@@ -88,6 +110,68 @@ class MeterTest {
             SemanticsMatcher.expectValue(
                 SemanticsProperties.ContentDescription,
                 listOf("100%, 100 percent"),
+            ),
+        ).assertExists()
+    }
+
+    @Test
+    fun circular_custom_content_description_overrides_default() {
+        composeTestRule.setContent {
+            PreviewTheme {
+                Meter.Circular(
+                    value = 120f,
+                    range = 0f..200f,
+                    content = CircularMeterContent.Value("€120"),
+                    contentDescription = "€120 of €200, budget spent",
+                    intent = MeterIntent.Main,
+                    size = CircleMeterSize.Large,
+                )
+            }
+        }
+        composeTestRule.onNode(
+            SemanticsMatcher.expectValue(
+                SemanticsProperties.ContentDescription,
+                listOf("€120 of €200, budget spent"),
+            ),
+        ).assertExists()
+    }
+
+    @Test
+    fun custom_range_normalizes_correctly() {
+        composeTestRule.setContent {
+            PreviewTheme {
+                Meter.CircularSmall(
+                    value = 50f,
+                    range = 0f..200f,
+                    intent = MeterIntent.Main,
+                )
+            }
+        }
+        composeTestRule.onNode(
+            SemanticsMatcher.expectValue(
+                SemanticsProperties.ContentDescription,
+                listOf("25 percent"),
+            ),
+        ).assertExists()
+    }
+
+    @Test
+    fun progress_bar_range_info_exposes_value_and_range() {
+        composeTestRule.setContent {
+            PreviewTheme {
+                Meter.Circular(
+                    value = 120f,
+                    range = 0f..200f,
+                    content = CircularMeterContent.Value("€120"),
+                    intent = MeterIntent.Main,
+                    size = CircleMeterSize.Large,
+                )
+            }
+        }
+        composeTestRule.onNode(
+            SemanticsMatcher.expectValue(
+                SemanticsProperties.ProgressBarRangeInfo,
+                ProgressBarRangeInfo(current = 120f, range = 0f..200f),
             ),
         ).assertExists()
     }
