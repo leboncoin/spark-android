@@ -170,7 +170,7 @@ private fun PreviewCircularMeter() {
             value = 23f,
             content = CircularMeterContent.Image(
                 "100%",
-                model = com.adevinta.spark.icons.R.drawable.spark_icons_baby,
+                model = com.adevinta.spark.icons.R.drawable.spark_icons_lbc_sun,
             ),
             intent = MeterIntent.Success,
             size = CircleMeterSize.XLarge,
