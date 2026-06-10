@@ -107,21 +107,26 @@ private fun ColumnScope.MeterSample() {
     } else {
         val suffixOrNull = suffix.takeIf { it.isNotEmpty() }
         val content = when (contentType) {
-            MeterContentType.Value -> CircularMeterContent.Value(valueText, valueSuffix = suffixOrNull)
+            MeterContentType.Value -> CircularMeterContent.Value(
+                formatValue = { v -> "${v.toInt()}${suffixOrNull.orEmpty()}" },
+            )
+
             MeterContentType.ValueLabel -> CircularMeterContent.ValueLabel(
-                valueText,
-                valueSuffix = suffixOrNull,
+                formatValue = { v -> "${v.toInt()}${suffixOrNull.orEmpty()}" },
                 label = "of ${range.endInclusive.toInt()}",
             )
+
             MeterContentType.Icon -> CircularMeterContent.Icon(
                 icon = LeboncoinIcons.VerifiedShieldFill,
                 contentDescription = "$normalizedPercent%",
                 label = "$normalizedPercent%",
             )
+
             MeterContentType.Image -> CircularMeterContent.Image(
                 contentDescription = "$valueText of ${range.endInclusive.toInt()}",
                 model = R.drawable.img_wide_image_configurator,
             )
+
             MeterContentType.Custom -> CircularMeterContent.Custom { Text(text = "$normalizedPercent%") }
         }
         Meter.Circular(

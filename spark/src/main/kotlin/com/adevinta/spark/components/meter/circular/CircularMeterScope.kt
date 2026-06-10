@@ -46,12 +46,8 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.tokens.dim1
 
-internal data class CircularMeterStyling(
-    val indicatorColor: Color,
-    val size: CircleMeterSize,
-)
+internal data class CircularMeterStyling(val indicatorColor: Color, val size: CircleMeterSize)
 
-@Suppress("ComposeCompositionLocalUsage")
 internal val LocalCircularMeterStyling = compositionLocalOf<CircularMeterStyling> {
     error("No CircularMeterStyling provided")
 }
@@ -59,22 +55,30 @@ internal val LocalCircularMeterStyling = compositionLocalOf<CircularMeterStyling
 @Stable
 public sealed interface CircularMeterContent {
     @Composable
-    public fun Content(modifier: Modifier = Modifier)
+    public fun Content(
+        value: Float,
+        modifier: Modifier = Modifier,
+    )
 
     /**
      * Display a formatted value text centred in the ring.
      *
-     * @param text The formatted value string (e.g. "70%").
+     * ![Value](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.meter_MeterDocumentationScreenshots_contentValue.png)
+     *
+     * @param formatValue Converts the raw [Meter.Circular] value to the display string (e.g. `{ "${it.toInt()}%" }`).
      */
-    public data class Value(
-        val text: String,
-        val valueSuffix: String? = null,
-    ) : CircularMeterContent {
+    @Stable
+    public data class Value(val formatValue: (Float) -> String = { it.toInt().toString() + "%" }) :
+        CircularMeterContent {
+        @Suppress("ModifierDefaultValue")
         @Composable
-        override fun Content(modifier: Modifier) {
+        override fun Content(
+            value: Float,
+            modifier: Modifier,
+        ) {
             val styling = LocalCircularMeterStyling.current
             AnimatedCounterText(
-                text = text + valueSuffix.orEmpty(),
+                text = formatValue(value),
                 style = styling.size.valueTextStyle,
                 textAlign = TextAlign.Center,
                 modifier = modifier,
@@ -85,20 +89,26 @@ public sealed interface CircularMeterContent {
     /**
      * Display a formatted value with a label below it, both centred in the ring.
      *
-     * @param text The formatted value string (e.g. "70%").
+     * ![ValueLabel](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.meter_MeterDocumentationScreenshots_contentValueLabel.png)
+     *
+     * @param formatValue Converts the raw value to the display string (e.g. `{ "${it.toInt()}%" }`).
      * @param label Secondary label displayed below the value.
      */
+    @Stable
     public data class ValueLabel(
-        val text: String,
-        val valueSuffix: String? = null,
+        val formatValue: (Float) -> String = { it.toInt().toString() + "%" },
         val label: String,
     ) : CircularMeterContent {
+        @Suppress("ModifierDefaultValue")
         @Composable
-        override fun Content(modifier: Modifier) {
+        override fun Content(
+            value: Float,
+            modifier: Modifier,
+        ) {
             val styling = LocalCircularMeterStyling.current
             Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = modifier) {
                 AnimatedCounterText(
-                    text = text + valueSuffix.orEmpty(),
+                    text = formatValue(value),
                     style = styling.size.valueTextStyle,
                     textAlign = TextAlign.Center,
                 )
@@ -117,17 +127,20 @@ public sealed interface CircularMeterContent {
     /**
      * Display an icon centred in the ring, optionally with a label below.
      *
+     * ![Icon](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.meter_MeterDocumentationScreenshots_contentIcon.png)
+     *
      * @param icon The [SparkIcon] to render.
      * @param contentDescription Accessible description for the icon.
      * @param label Optional label displayed below the icon.
      */
-    public data class Icon(
-        val icon: SparkIcon,
-        val contentDescription: String,
-        val label: String? = null,
-    ) : CircularMeterContent {
+    public data class Icon(val icon: SparkIcon, val contentDescription: String, val label: String? = null) :
+        CircularMeterContent {
+        @Suppress("ModifierDefaultValue")
         @Composable
-        override fun Content(modifier: Modifier) {
+        override fun Content(
+            value: Float,
+            modifier: Modifier,
+        ) {
             val styling = LocalCircularMeterStyling.current
             Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = modifier) {
                 Icon(
@@ -153,15 +166,18 @@ public sealed interface CircularMeterContent {
     /**
      * Display a composable image centred in the ring.
      *
+     * ![Image](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.meter_MeterDocumentationScreenshots_contentImage.png)
+     *
      * @param contentDescription Accessible description for the image content.
      * @param model The image composable to render.
      */
-    public data class Image(
-        val contentDescription: String,
-        val model: Any?,
-    ) : CircularMeterContent {
+    public data class Image(val contentDescription: String, val model: Any?) : CircularMeterContent {
+        @Suppress("ModifierDefaultValue")
         @Composable
-        override fun Content(modifier: Modifier) {
+        override fun Content(
+            value: Float,
+            modifier: Modifier,
+        ) {
             val styling = LocalCircularMeterStyling.current
             Box(modifier = modifier, contentAlignment = Alignment.Center) {
                 SparkImage(
@@ -178,17 +194,19 @@ public sealed interface CircularMeterContent {
     }
 
     /**
-     * Display fully custom content centred in the ring.
+     * Display fully custom content centred in the ring. Callers are responsible for
+     * attaching any required semantics (e.g. `Modifier.semantics { contentDescription = "…" }`)
+     * inside the [content] block.
      *
-     * @param contentDescription Optional accessible description for the custom content.
      * @param content The composable content to render.
      */
-    public data class Custom(
-        val contentDescription: String? = null,
-        val content: @Composable BoxScope.() -> Unit,
-    ) : CircularMeterContent {
+    public data class Custom(val content: @Composable BoxScope.() -> Unit) : CircularMeterContent {
+        @Suppress("ModifierDefaultValue")
         @Composable
-        override fun Content(modifier: Modifier) {
+        override fun Content(
+            value: Float,
+            modifier: Modifier,
+        ) {
             Box(modifier = modifier, contentAlignment = Alignment.Center) {
                 content()
             }

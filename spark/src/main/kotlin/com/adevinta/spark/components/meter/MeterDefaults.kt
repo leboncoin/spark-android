@@ -35,5 +35,3 @@ public object MeterDefaults {
         stiffness = Spring.StiffnessLow,
     )
 }
-
-

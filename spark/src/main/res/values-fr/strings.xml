@@ -86,7 +86,11 @@
     <!--endregion-->
 
     <!--region Meter-->
-    <string name="spark_meter_a11y">%1$d pour cent</string>
+    <plurals name="spark_meter_a11y">
+        <item quantity="one">%d pour cent</item>
+        <item quantity="many">%d de pour cent</item>
+        <item quantity="other">%d pour cent</item>
+    </plurals>
     <!--endregion-->
 
     <!--region FileUpload-->

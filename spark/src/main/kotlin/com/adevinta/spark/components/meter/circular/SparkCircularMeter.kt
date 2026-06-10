@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.meter.circular
 
-import android.content.Context
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
@@ -31,14 +30,12 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.ProgressBarRangeInfo
 import androidx.compose.ui.semantics.clearAndSetSemantics
-import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.progressBarRangeInfo
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import com.adevinta.spark.InternalSparkApi
-import com.adevinta.spark.R
 import com.adevinta.spark.components.meter.MeterDefaults
 import com.adevinta.spark.components.meter.MeterIntent
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
@@ -52,7 +49,7 @@ internal fun SparkCircularMeter(
     size: CircleMeterSize,
     content: CircularMeterContent?,
     modifier: Modifier = Modifier,
-    overrideContentDescription: String? = null,
+    suffix: String? = null,
 ) {
     val normalizedProgress = ((value - range.start) / (range.endInclusive - range.start)).coerceIn(0f, 1f)
 
@@ -71,9 +68,7 @@ internal fun SparkCircularMeter(
         size = size,
     )
 
-    val context = LocalContext.current
-    val semanticDescription = overrideContentDescription
-        ?: buildSemanticDescription(content, normalizedProgress, context)
+    val coercedValue = value.coerceIn(range)
 
     CompositionLocalProvider(LocalCircularMeterStyling provides styling) {
         Box(
@@ -81,10 +76,22 @@ internal fun SparkCircularMeter(
                 .sparkUsageOverlay()
                 .size(size.diameter)
                 .semantics(mergeDescendants = true) {
-                    contentDescription = semanticDescription
+                    when (content) {
+                        is CircularMeterContent.Value ->
+                            stateDescription = content.formatValue(coercedValue) + suffix.orEmpty()
+
+                        is CircularMeterContent.ValueLabel -> {
+                            val label = if (content.label.isNotBlank()) ", ${content.label}" else ""
+                            stateDescription = content.formatValue(coercedValue) + label + suffix.orEmpty()
+                        }
+
+                        else -> if (suffix != null) {
+                            stateDescription = "${(normalizedProgress * 100).toInt()}%$suffix"
+                        }
+                    }
                     progressBarRangeInfo = ProgressBarRangeInfo(
-                        current = value.coerceIn(range),
-                        range = range,
+                        current = coercedValue,
+                        range = range.start..range.endInclusive,
                     )
                 },
             contentAlignment = Alignment.Center,
@@ -99,39 +106,9 @@ internal fun SparkCircularMeter(
                 strokeWidth = size.strokeWidth,
                 strokeCap = StrokeCap.Round,
             )
-            content?.Content()
+            Box(modifier = Modifier.clearAndSetSemantics {}) {
+                content?.Content(value = coercedValue)
+            }
         }
-    }
-}
-
-private fun buildSemanticDescription(
-    content: CircularMeterContent?,
-    progress: Float,
-    context: Context,
-): String {
-    val percentText = context.getString(R.string.spark_meter_a11y, (progress * 100).toInt())
-    return when (content) {
-        is CircularMeterContent.Value -> "${content.text}, $percentText"
-        is CircularMeterContent.ValueLabel -> "${content.text}, ${content.label}"
-        is CircularMeterContent.Icon -> {
-            val parts = listOfNotNull(
-                content.contentDescription.takeIf { it.isNotEmpty() },
-                content.label,
-                percentText,
-            )
-            parts.joinToString(", ")
-        }
-
-        is CircularMeterContent.Image -> {
-            val desc = content.contentDescription.takeIf { it.isNotEmpty() }
-            if (desc != null) "$desc, $percentText" else percentText
-        }
-
-        is CircularMeterContent.Custom -> {
-            val desc = content.contentDescription?.takeIf { it.isNotEmpty() }
-            if (desc != null) "$desc, $percentText" else percentText
-        }
-
-        null -> percentText
     }
 }

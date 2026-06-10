@@ -105,11 +105,9 @@ private data class AnimatedDigit(val char: Char, val fullText: String, val index
     override fun hashCode(): Int = char.hashCode()
 }
 
-private operator fun AnimatedDigit.compareTo(other: AnimatedDigit): Int {
-    return fullText.extractNumber().compareTo(other.fullText.extractNumber())
-}
+private operator fun AnimatedDigit.compareTo(other: AnimatedDigit): Int = fullText.extractNumber().compareTo(
+    other.fullText.extractNumber(),
+)
 
-private fun String.extractNumber(): Double {
-    return filter { it.isDigit() || it == '.' || it == '-' }
-        .toDoubleOrNull() ?: 0.0
-}
+private fun String.extractNumber(): Double = filter { it.isDigit() || it == '.' || it == '-' }
+    .toDoubleOrNull() ?: 0.0

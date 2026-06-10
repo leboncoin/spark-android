@@ -26,18 +26,17 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.tokens.highlight
 
-public enum class CircleMeterSize(
-    public val diameter: Dp,
-    public val strokeWidth: Dp,
-    public val iconSize: Dp,
-) {
+public enum class CircleMeterSize(public val diameter: Dp, public val strokeWidth: Dp, public val iconSize: Dp) {
     /**
      * Used preferably in small spaces like list items, table cells or sticky bottom
      */
+    @InternalSparkApi
     Small(diameter = 24.dp, strokeWidth = 3.dp, iconSize = 0.dp),
+
     /**
      * Used preferably in KPI cards
      */
@@ -47,6 +46,7 @@ public enum class CircleMeterSize(
             @ReadOnlyComposable
             get() = SparkTheme.typography.small
     },
+
     /**
      * Used preferably in dashboards or for hero KPI
      */
@@ -65,7 +65,7 @@ public enum class CircleMeterSize(
             @Composable
             @ReadOnlyComposable
             get() = SparkTheme.typography.display3
-    };
+    }, ;
 
     public open val valueTextStyle: TextStyle
         @Composable

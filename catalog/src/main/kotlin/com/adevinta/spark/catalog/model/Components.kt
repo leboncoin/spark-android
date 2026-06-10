@@ -36,8 +36,8 @@ import com.adevinta.spark.catalog.configurator.samples.colorselector.ColorSelect
 import com.adevinta.spark.catalog.configurator.samples.divider.DividerConfigurator
 import com.adevinta.spark.catalog.configurator.samples.fileupload.FileUploadConfigurator
 import com.adevinta.spark.catalog.configurator.samples.gauge.GaugesConfigurator
-import com.adevinta.spark.catalog.configurator.samples.meter.MeterConfigurator
 import com.adevinta.spark.catalog.configurator.samples.image.ImageConfigurator
+import com.adevinta.spark.catalog.configurator.samples.meter.MeterConfigurator
 import com.adevinta.spark.catalog.configurator.samples.modal.ModalConfigurator
 import com.adevinta.spark.catalog.configurator.samples.popover.PopoverConfigurator
 import com.adevinta.spark.catalog.configurator.samples.progressbar.ProgressbarConfigurator
@@ -70,8 +70,8 @@ import com.adevinta.spark.catalog.examples.samples.dialog.DialogsExamples
 import com.adevinta.spark.catalog.examples.samples.divider.DividerExamples
 import com.adevinta.spark.catalog.examples.samples.fileupload.FileUploadExamples
 import com.adevinta.spark.catalog.examples.samples.gauge.SegmentedGaugeExamples
-import com.adevinta.spark.catalog.examples.samples.meter.MeterExamples
 import com.adevinta.spark.catalog.examples.samples.icons.IconsExamples
+import com.adevinta.spark.catalog.examples.samples.meter.MeterExamples
 import com.adevinta.spark.catalog.examples.samples.placeholder.PlaceholderExamples
 import com.adevinta.spark.catalog.examples.samples.popover.PopoverExamples
 import com.adevinta.spark.catalog.examples.samples.progressbar.ProgressbarExamples
@@ -327,7 +327,7 @@ private val Meter = Component(
     id = "meter",
     name = "Meter",
     description = R.string.component_meter_description,
-    guidelinesUrl = "$ComponentGuidelinesUrl/p/62526-4082-meter",
+    guidelinesUrl = "$ComponentGuidelinesUrl/p/35093b-circular-meter",
     docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.meter/index.html",
     sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/meter/Meter.kt",
     examples = MeterExamples,

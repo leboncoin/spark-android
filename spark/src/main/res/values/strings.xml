@@ -84,7 +84,10 @@
     <!--endregion-->
 
     <!--region Meter-->
-    <string name="spark_meter_a11y" description="Accessibility description for meter progress [CHAR_LIMIT=NONE]">%1$d percent</string>
+    <plurals name="spark_meter_a11y" description="Accessibility description for meter progress [CHAR_LIMIT=NONE]">
+        <item quantity="one">%d percent</item>
+        <item quantity="other">%d percent</item>
+    </plurals>
     <!--endregion-->
 
     <!--region FileUpload-->

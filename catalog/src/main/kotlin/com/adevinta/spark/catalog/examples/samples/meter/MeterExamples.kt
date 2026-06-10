@@ -58,7 +58,7 @@ public val MeterExamples: ImmutableList<Example> = persistentListOf(
 private fun ColumnScope.CircularMeterExample() {
     Meter.Circular(
         value = 70f,
-        content = CircularMeterContent.ValueLabel("70%", label = "Label"),
+        content = CircularMeterContent.ValueLabel(label = "Label"),
         intent = MeterIntent.Support,
         size = CircleMeterSize.Large,
     )

@@ -24,6 +24,7 @@ package com.adevinta.spark.components.meter
 import androidx.compose.ui.semantics.ProgressBarRangeInfo
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.hasProgressBarRangeInfo
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.meter.circular.CircleMeterSize
@@ -40,42 +41,36 @@ class MeterTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun circular_value_announces_text_and_percent() {
+    fun circular_value_announces_formatted_value_as_state_description() {
         composeTestRule.setContent {
             PreviewTheme {
                 Meter.Circular(
                     value = 75f,
-                    content = CircularMeterContent.Value("75%"),
+                    content = CircularMeterContent.Value(),
                     intent = MeterIntent.Support,
                     size = CircleMeterSize.Large,
                 )
             }
         }
         composeTestRule.onNode(
-            SemanticsMatcher.expectValue(
-                SemanticsProperties.ContentDescription,
-                listOf("75%, 75 percent"),
-            ),
+            SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, "75%"),
         ).assertExists()
     }
 
     @Test
-    fun circular_value_label_announces_value_and_label_without_percent() {
+    fun circular_value_label_announces_value_and_label() {
         composeTestRule.setContent {
             PreviewTheme {
                 Meter.Circular(
                     value = 75f,
-                    content = CircularMeterContent.ValueLabel("75%", label = "Complete"),
+                    content = CircularMeterContent.ValueLabel(label = "Complete"),
                     intent = MeterIntent.Support,
                     size = CircleMeterSize.Large,
                 )
             }
         }
         composeTestRule.onNode(
-            SemanticsMatcher.expectValue(
-                SemanticsProperties.ContentDescription,
-                listOf("75%, Complete"),
-            ),
+            SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, "75%, Complete"),
         ).assertExists()
     }
 
@@ -100,44 +95,19 @@ class MeterTest {
             PreviewTheme {
                 Meter.Circular(
                     value = 150f,
-                    content = CircularMeterContent.Value("100%"),
+                    content = CircularMeterContent.Value(),
                     intent = MeterIntent.Support,
                     size = CircleMeterSize.Large,
                 )
             }
         }
         composeTestRule.onNode(
-            SemanticsMatcher.expectValue(
-                SemanticsProperties.ContentDescription,
-                listOf("100%, 100 percent"),
-            ),
+            SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, "100%"),
         ).assertExists()
     }
 
     @Test
-    fun circular_custom_content_description_overrides_default() {
-        composeTestRule.setContent {
-            PreviewTheme {
-                Meter.Circular(
-                    value = 120f,
-                    range = 0f..200f,
-                    content = CircularMeterContent.Value("€120"),
-                    contentDescription = "€120 of €200, budget spent",
-                    intent = MeterIntent.Main,
-                    size = CircleMeterSize.Large,
-                )
-            }
-        }
-        composeTestRule.onNode(
-            SemanticsMatcher.expectValue(
-                SemanticsProperties.ContentDescription,
-                listOf("€120 of €200, budget spent"),
-            ),
-        ).assertExists()
-    }
-
-    @Test
-    fun custom_range_normalizes_correctly() {
+    fun circular_small_custom_range_announces_correct_percent() {
         composeTestRule.setContent {
             PreviewTheme {
                 Meter.CircularSmall(
@@ -162,17 +132,51 @@ class MeterTest {
                 Meter.Circular(
                     value = 120f,
                     range = 0f..200f,
-                    content = CircularMeterContent.Value("€120"),
+                    content = CircularMeterContent.Value(formatValue = { "€${it.toInt()}" }),
                     intent = MeterIntent.Main,
                     size = CircleMeterSize.Large,
                 )
             }
         }
         composeTestRule.onNode(
-            SemanticsMatcher.expectValue(
-                SemanticsProperties.ProgressBarRangeInfo,
-                ProgressBarRangeInfo(current = 120f, range = 0f..200f),
-            ),
+            hasProgressBarRangeInfo(ProgressBarRangeInfo(current = 120f, range = 0f..200f)),
+        ).assertExists()
+    }
+
+    @Test
+    fun circular_value_with_suffix_announces_value_and_suffix() {
+        composeTestRule.setContent {
+            PreviewTheme {
+                Meter.Circular(
+                    value = 120f,
+                    range = 0f..200f,
+                    content = CircularMeterContent.Value(formatValue = { "${it.toInt()}" }),
+                    suffix = " euros",
+                    intent = MeterIntent.Main,
+                    size = CircleMeterSize.Large,
+                )
+            }
+        }
+        composeTestRule.onNode(
+            SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, "120 euros"),
+        ).assertExists()
+    }
+
+    @Test
+    fun circular_value_no_double_announcement_on_non_hundred_range() {
+        composeTestRule.setContent {
+            PreviewTheme {
+                Meter.Circular(
+                    value = 70f,
+                    range = 0f..79f,
+                    content = CircularMeterContent.Value(),
+                    intent = MeterIntent.Support,
+                    size = CircleMeterSize.Large,
+                )
+            }
+        }
+        composeTestRule.onNode(
+            SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, "70%"),
         ).assertExists()
     }
 }

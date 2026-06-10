@@ -21,15 +21,19 @@
  */
 package com.adevinta.spark.components.meter
 
+import androidx.compose.foundation.layout.Arrangement.spacedBy
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.ui.unit.dp
 import com.adevinta.spark.DefaultTestDevices
-import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.meter.circular.CircleMeterSize
 import com.adevinta.spark.components.meter.circular.CircularMeterContent
+import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.VerifiedShieldFill
 import com.adevinta.spark.paparazziRule
-import com.adevinta.spark.sparkDocSnapshot
+import com.adevinta.spark.screenshot.testing.R
 import com.adevinta.spark.sparkSnapshotNightMode
 import com.android.ide.common.rendering.api.SessionParams.RenderingMode.SHRINK
-import com.android.ide.common.rendering.api.SessionParams.RenderingMode.V_SCROLL
 import org.junit.Rule
 import org.junit.Test
 
@@ -37,88 +41,54 @@ internal class MeterScreenshot {
 
     @get:Rule
     val paparazzi = paparazziRule(
-        renderingMode = V_SCROLL,
+        renderingMode = SHRINK,
         deviceConfig = DefaultTestDevices.Tablet,
     )
 
     @Test
     fun default() {
         paparazzi.sparkSnapshotNightMode {
-            SparkTheme {
-                Meter.Circular(
-                    value = 70f,
-                    content = CircularMeterContent.ValueLabel("70%", label = "Label"),
-                    intent = MeterIntent.Support,
-                    size = CircleMeterSize.Large,
-                )
-            }
-        }
-    }
-
-    @Test
-    fun allSizes() {
-        paparazzi.sparkSnapshotNightMode {
-            SparkTheme {
-                Meter.CircularSmall(value = 50f, intent = MeterIntent.Main)
-                Meter.Circular(
-                    value = 50f,
-                    content = CircularMeterContent.Value("50%"),
-                    intent = MeterIntent.Main,
-                    size = CircleMeterSize.Medium,
-                )
-                Meter.Circular(
-                    value = 50f,
-                    content = CircularMeterContent.ValueLabel("50%", label = "Label"),
-                    intent = MeterIntent.Main,
-                    size = CircleMeterSize.Large,
-                )
-                Meter.Circular(
-                    value = 50f,
-                    content = CircularMeterContent.ValueLabel("50%", label = "Label"),
-                    intent = MeterIntent.Main,
-                    size = CircleMeterSize.XLarge,
-                )
-            }
-        }
-    }
-
-    @Test
-    fun allIntents() {
-        paparazzi.sparkSnapshotNightMode {
-            SparkTheme {
+            Row(horizontalArrangement = spacedBy(4.dp)) {
                 MeterIntent.entries.forEach { intent ->
-                    Meter.Circular(
-                        value = 70f,
-                        content = CircularMeterContent.Value("70%"),
-                        intent = intent,
-                        size = CircleMeterSize.Medium,
-                    )
+                    Column(verticalArrangement = spacedBy(4.dp)) {
+                        Meter.CircularSmall(
+                            value = 50f,
+                            intent = intent,
+                        )
+                        Meter.Circular(
+                            value = 70f,
+                            content = CircularMeterContent.Value(),
+                            intent = intent,
+                            size = CircleMeterSize.Medium,
+                        )
+                        Meter.Circular(
+                            value = 50f,
+                            content = CircularMeterContent.ValueLabel(label = "Label"),
+                            intent = intent,
+                            size = CircleMeterSize.Large,
+                        )
+                        Meter.Circular(
+                            value = 3f,
+                            range = 0f..4f,
+                            content = CircularMeterContent.Icon(
+                                icon = LeboncoinIcons.VerifiedShieldFill,
+                                contentDescription = "Label",
+                            ),
+                            intent = intent,
+                            size = CircleMeterSize.XLarge,
+                        )
+                        Meter.Circular(
+                            value = 50f,
+                            content = CircularMeterContent.Image(
+                                model = R.drawable.spark_img_narrow_image_configurator,
+                                contentDescription = "Label",
+                            ),
+                            intent = intent,
+                            size = CircleMeterSize.XLarge,
+                        )
+                    }
                 }
             }
         }
-    }
-}
-
-internal class MeterDocumentationScreenshots {
-
-    @get:Rule
-    val paparazzi = paparazziRule(
-        renderingMode = SHRINK,
-        deviceConfig = DefaultTestDevices.DocPhone,
-    )
-
-    @Test
-    fun circular() = paparazzi.sparkDocSnapshot {
-        Meter.Circular(
-            value = 70f,
-            content = CircularMeterContent.ValueLabel("70%", label = "Label"),
-            intent = MeterIntent.Support,
-            size = CircleMeterSize.Large,
-        )
-    }
-
-    @Test
-    fun circularSmall() = paparazzi.sparkDocSnapshot {
-        Meter.CircularSmall(value = 70f, intent = MeterIntent.Support)
     }
 }
