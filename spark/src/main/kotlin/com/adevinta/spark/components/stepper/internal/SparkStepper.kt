@@ -101,7 +101,7 @@ internal fun SparkStepper(
             contentDescription = "", // handled by semantics modifier
             enabled = enabled && coerced > range.first,
             colors = colors,
-            shape = SparkTheme.shapes.large,
+            shape = SparkTheme.shapes.full,
             interactionSource = interactionSource,
             onClick = { setValue(coerced - step) },
         )
@@ -130,7 +130,7 @@ internal fun SparkStepper(
             contentDescription = "", // handled by semantics modifier
             enabled = enabled && coerced < range.last,
             colors = colors,
-            shape = SparkTheme.shapes.large,
+            shape = SparkTheme.shapes.full,
             interactionSource = interactionSource,
             onClick = {
                 setValue(coerced + step)
