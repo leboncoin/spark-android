@@ -2,6 +2,32 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [2.7.0](https://github.com/leboncoin/spark-android/compare/2.6.0...2.7.0) (2026-06-12)
+
+
+### Features
+
+* **meter:** add circular meter component ([#2020](https://github.com/leboncoin/spark-android/issues/2020)) ([a31ed7b](https://github.com/leboncoin/spark-android/commit/a31ed7b54dcec93009fa0eaf62e777344686e976))
+
+
+### Bug Fixes
+
+* **ci:** improve size parsing logic ([#2022](https://github.com/leboncoin/spark-android/issues/2022)) ([09b4a0d](https://github.com/leboncoin/spark-android/commit/09b4a0df65aeef5628b8d93eff4404dd8d863e9c))
+* remove duplicated `<hr>` in release-please configuration ([#2014](https://github.com/leboncoin/spark-android/issues/2014)) ([e280da4](https://github.com/leboncoin/spark-android/commit/e280da4262761d860f720d8ceb626c0b51a33202))
+
+
+### Miscellaneous
+
+* **deps:** bump com.composables:composeunstyled-disclosure from 2.5.0 to 2.6.0 ([#2024](https://github.com/leboncoin/spark-android/issues/2024)) ([c4847fb](https://github.com/leboncoin/spark-android/commit/c4847fb4732dff918efa37068777bebb506fa93b))
+* **deps:** bump com.github.skydoves:colorpicker-compose from 1.1.4 to 1.2.0 ([#2015](https://github.com/leboncoin/spark-android/issues/2015)) ([92d2906](https://github.com/leboncoin/spark-android/commit/92d290662122f400b9c7a42a2ed4a9efc500229e))
+* **deps:** bump compose-multiplatform from 1.11.0 to 1.11.1 ([#2010](https://github.com/leboncoin/spark-android/issues/2010)) ([fc723bc](https://github.com/leboncoin/spark-android/commit/fc723bcc814094bd3e5aa79f3cf089bf27b1b48c))
+* **deps:** bump gradle/actions from 6.1.0 to 6.1.1 in /.github/actions/setup-gradle ([#2019](https://github.com/leboncoin/spark-android/issues/2019)) ([abc77b0](https://github.com/leboncoin/spark-android/commit/abc77b0b3783fcd18184dff0ddf25c7a8e451325))
+
+
+### Refactoring
+
+* **icons:** completly remove SparkIcons object and associated icons ([#2017](https://github.com/leboncoin/spark-android/issues/2017)) ([d84c700](https://github.com/leboncoin/spark-android/commit/d84c700162aa8fae6d940dcb44ef5fd825d9c97b))
+
 ## [2.6.0](https://github.com/leboncoin/spark-android/compare/2.5.0...2.6.0) (2026-06-03)
 
 
