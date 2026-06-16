@@ -23,7 +23,6 @@ package com.adevinta.spark.catalog.examples.samples.toggles
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -36,7 +35,6 @@ import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.components.toggles.ContentSide
 import com.adevinta.spark.components.toggles.Switch
 import com.adevinta.spark.components.toggles.SwitchDefaults
 import com.adevinta.spark.components.toggles.SwitchIcons
@@ -80,19 +78,11 @@ public val SwitchExamples: ImmutableList<Example> = persistentListOf(
     },
     Example(
         id = "labeled",
-        name = "Labeled switch content side End",
+        name = "A Swicth with a associated label at his end side",
         description = SwitchExampleDescription,
         sourceUrl = SwitchExampleSourceUrl,
     ) {
-        LabeledSwitchGroupExample(ContentSide.End)
-    },
-    Example(
-        id = "labeled-start",
-        name = "Labeled switch content side Start",
-        description = SwitchExampleDescription,
-        sourceUrl = SwitchExampleSourceUrl,
-    ) {
-        LabeledSwitchGroupExample(ContentSide.Start)
+        LabeledSwitchGroupExample()
     },
     Example(
         id = "vertical-alignment",
@@ -105,9 +95,7 @@ public val SwitchExamples: ImmutableList<Example> = persistentListOf(
 )
 
 @Composable
-private fun LabeledSwitchGroupExample(
-    contentSide: ContentSide,
-) {
+private fun LabeledSwitchGroupExample() {
     val labels = listOf(
         stringResource(id = R.string.component_checkbox_group_example_option1_label),
         stringResource(id = R.string.component_checkbox_group_example_option2_label),
