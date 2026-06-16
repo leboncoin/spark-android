@@ -23,11 +23,8 @@ package com.adevinta.spark.components.dialog
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.AlertDialogDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -40,7 +37,9 @@ import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.buttons.ButtonGhost
 import com.adevinta.spark.components.buttons.IconSide
+import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.icons.CopyFill
+import com.adevinta.spark.icons.HeartFill
 import com.adevinta.spark.icons.LeboncoinIcons
 
 @ExperimentalSparkApi
@@ -153,7 +152,7 @@ internal fun AlertDialogPreview() {
                 // button. If you want to disable that functionality, simply use an empty
                 // onDismissRequest.
             },
-            icon = { Icon(Icons.Filled.Favorite, contentDescription = null) },
+            icon = { Icon(LeboncoinIcons.HeartFill, contentDescription = null) },
             title = {
                 Text(
                     modifier = Modifier
