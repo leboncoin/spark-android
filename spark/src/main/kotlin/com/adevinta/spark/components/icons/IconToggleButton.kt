@@ -50,7 +50,7 @@ import androidx.compose.material3.OutlinedIconToggleButton as MaterialOutlinedIc
  *
  * ![Standard icon toggle button image](https://developer.android.com/images/reference/androidx/compose/material3/standard-icon-toggle-button.png)
  *
- * [content] should typically be an [Icon] (see [androidx.compose.material.icons.Icons]). If using a
+ * [content] should typically be an [Icon]. If using a
  * custom icon, note that the typical size for the internal icon is 24 x 24 dp.
  * This icon button has an overall minimum touch target size of 48 x 48dp, to meet accessibility
  * guidelines.
@@ -98,7 +98,7 @@ public fun IconToggleButton(
  *
  * ![Filled icon toggle button image](https://developer.android.com/images/reference/androidx/compose/material3/filled-icon-toggle-button.png)
  *
- * [content] should typically be an [Icon] (see [androidx.compose.material.icons.Icons]). If using a
+ * [content] should typically be an [Icon]. If using a
  * custom icon, note that the typical size for the internal icon is 24 x 24 dp.
  * This icon button has an overall minimum touch target size of 48 x 48dp, to meet accessibility
  * guidelines.
@@ -156,7 +156,7 @@ public fun FilledIconToggleButton(
  * They can be used in contexts where the lower-priority icon button requires slightly more emphasis
  * than an outline would give.
  *
- * [content] should typically be an [Icon] (see [androidx.compose.material.icons.Icons]). If using a
+ * [content] should typically be an [Icon]. If using a
  * custom icon, note that the typical size for the internal icon is 24 x 24 dp.
  * This icon button has an overall minimum touch target size of 48 x 48dp, to meet accessibility
  * guidelines.
@@ -211,7 +211,7 @@ public fun FilledTonalIconToggleButton(
  *
  * ![Outlined icon toggle button image](https://developer.android.com/images/reference/androidx/compose/material3/outlined-icon-toggle-button.png)
  *
- * [content] should typically be an [Icon] (see [androidx.compose.material.icons.Icons]). If using a
+ * [content] should typically be an [Icon]. If using a
  * custom icon, note that the typical size for the internal icon is 24 x 24 dp.
  * This icon button has an overall minimum touch target size of 48 x 48dp, to meet accessibility
  * guidelines.

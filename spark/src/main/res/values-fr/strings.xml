@@ -85,6 +85,14 @@
     <string name="spark_tag_highlight_new_label">Nouveau !</string>
     <!--endregion-->
 
+    <!--region Meter-->
+    <plurals name="spark_meter_a11y">
+        <item quantity="one">%d pour cent</item>
+        <item quantity="many">%d de pour cent</item>
+        <item quantity="other">%d pour cent</item>
+    </plurals>
+    <!--endregion-->
+
     <!--region FileUpload-->
     <string name="spark_groupSeparator">\u00A0</string>
     <string name="spark_decimalSymbol">,</string>

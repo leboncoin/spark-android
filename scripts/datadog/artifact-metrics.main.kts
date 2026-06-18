@@ -28,6 +28,8 @@
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.Context
 import com.github.ajalt.clikt.core.main
+import java.text.NumberFormat
+import java.util.Locale
 import kotlin.io.path.nameWithoutExtension
 import kotlin.io.path.readText
 
@@ -159,33 +161,18 @@ class ArtifactMetrics : CliktCommand("artifact-metrics.main.kts") {
     /**
      * Converts a diffuse size string to bytes.
      *
-     * Diffuse uses the JVM default locale for formatting, which on some systems uses comma as a
-     * decimal separator (e.g. French locale: "2,9 MiB"). For unit-suffixed values the comma is
-     * always a decimal separator; for bare integers it is always a thousands separator.
-     *
-     * Examples: "2,9 MiB" -> 3040870, "313,2 KiB" -> 320716, "882 B" -> 882, "2,400,000" -> 2400000
+     * Diffuse runs on GitHub-hosted Linux (en_US.UTF-8), so output is always English format:
+     * comma as thousands separator, period as decimal (e.g. "1,024.5 KiB", "2,400,000").
      */
     private fun parseSize(value: String): Double {
-        // Normalise decimal comma to dot for floating-point suffixed values.
-        // A single comma in "2,9" is a decimal; multiple commas in "2,900" are thousands separators —
-        // but MiB/KiB values from diffuse are always < 1000, so at most one comma, always decimal.
-        fun decimalNormalise(s: String) = s.replace(",", ".")
-
-        // Strip thousands-separator commas from integer values.
-        fun intNormalise(s: String) = s.replace(",", "")
+        val fmt = NumberFormat.getInstance(Locale.ENGLISH)
+        fun parseNumber(s: String) = fmt.parse(s)!!.toDouble()
 
         return when {
-            value.endsWith(
-                "MiB",
-            ) -> (decimalNormalise(value.removeSuffix("MiB").trim()).toDouble() * 1024 * 1024).toLong().toDouble()
-
-            value.endsWith(
-                "KiB",
-            ) -> (decimalNormalise(value.removeSuffix("KiB").trim()).toDouble() * 1024).toLong().toDouble()
-
-            value.endsWith("B") -> intNormalise(value.removeSuffix("B").trim()).toDouble()
-
-            else -> intNormalise(value).toDouble()
+            value.endsWith("MiB") -> (parseNumber(value.removeSuffix("MiB").trim()) * 1024 * 1024).toLong().toDouble()
+            value.endsWith("KiB") -> (parseNumber(value.removeSuffix("KiB").trim()) * 1024).toLong().toDouble()
+            value.endsWith("B") -> parseNumber(value.removeSuffix("B").trim())
+            else -> parseNumber(value)
         }
     }
 }

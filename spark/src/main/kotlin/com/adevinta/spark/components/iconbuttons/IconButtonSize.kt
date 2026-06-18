@@ -39,7 +39,7 @@ public enum class IconButtonSize {
      */
     Medium {
         override val height: Dp = 44.dp
-        override val iconSize: IconSize = IconSize.Small
+        override val iconSize: IconSize = IconSize.Medium
     },
 
     /**
