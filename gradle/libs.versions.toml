@@ -124,7 +124,7 @@ slack-lint-compose = "com.slack.lint.compose:compose-lint-checks:1.4.3"
 # https://github.com/google/TestParameterInjector
 testParameterInjector = "com.google.testparameterinjector:test-parameter-injector:1.22"
 
-unstyled-disclosure = "com.composables:composeunstyled-disclosure:2.5.0"
+unstyled-disclosure = "com.composables:composeunstyled-disclosure:2.6.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -141,7 +141,7 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 nmcp = "com.gradleup.nmcp:1.5.0"
 paparazzi = "app.cash.paparazzi:2.0.0-alpha04"
-spotless = "com.diffplug.spotless:8.6.0"
+spotless = "com.diffplug.spotless:8.7.0"
 
 
 # Plugins defined by this project

@@ -50,7 +50,7 @@ import androidx.compose.material3.OutlinedIconButton as MaterialOutlinedIconButt
  *
  * ![Standard icon button image](https://developer.android.com/images/reference/androidx/compose/material3/standard-icon-button.png)
  *
- * [content] should typically be an [Icon] (see [androidx.compose.material.icons.Icons]). If using a
+ * [content] should typically be an [Icon]. If using a
  * custom icon, note that the typical size for the internal icon is 24 x 24 dp.
  * This icon button has an overall minimum touch target size of 48 x 48dp, to meet accessibility
  * guidelines.
@@ -96,7 +96,7 @@ public fun IconButton(
  *
  * ![Filled icon button image](https://developer.android.com/images/reference/androidx/compose/material3/filled-icon-button.png)
  *
- * [content] should typically be an [Icon] (see [androidx.compose.material.icons.Icons]). If using a
+ * [content] should typically be an [Icon]. If using a
  * custom icon, note that the typical size for the internal icon is 24 x 24 dp.
  * This icon button has an overall minimum touch target size of 48 x 48dp, to meet accessibility
  * guidelines.
@@ -151,7 +151,7 @@ public fun FilledIconButton(
  * They can be used in contexts where the lower-priority icon button requires slightly more emphasis
  * than an outline would give.
  *
- * [content] should typically be an [Icon] (see [androidx.compose.material.icons.Icons]). If using a
+ * [content] should typically be an [Icon]. If using a
  * custom icon, note that the typical size for the internal icon is 24 x 24 dp.
  * This icon button has an overall minimum touch target size of 48 x 48dp, to meet accessibility
  * guidelines.
@@ -209,7 +209,7 @@ public fun FilledTonalIconButton(
  * Use this "contained" icon button when the component requires more visual separation from the
  * background.
  *
- * [content] should typically be an [Icon] (see [androidx.compose.material.icons.Icons]). If using a
+ * [content] should typically be an [Icon]. If using a
  * custom icon, note that the typical size for the internal icon is 24 x 24 dp.
  * The outlined icon button has an overall minimum touch target size of 48 x 48dp, to meet
  * accessibility guidelines.

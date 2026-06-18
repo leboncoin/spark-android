@@ -28,10 +28,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Face
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.DismissibleDrawerSheet
 import androidx.compose.material3.DrawerDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -51,6 +47,11 @@ import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.icons.HappyFaceFill
+import com.adevinta.spark.icons.HeartFill
+import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.LetterFill
+import com.adevinta.spark.res.resources
 import com.adevinta.spark.tokens.contentColorFor
 
 @SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
@@ -123,7 +124,7 @@ internal fun DismissibleDrawerSheetPreview() {
         padding = PaddingValues(0.dp),
     ) {
         // icons to mimic drawer destinations
-        val items = listOf(Icons.Default.Favorite, Icons.Default.Face, Icons.Default.Email)
+        val items = listOf(LeboncoinIcons.HeartFill, LeboncoinIcons.HappyFaceFill, LeboncoinIcons.LetterFill)
         val selectedItem = remember { mutableStateOf(items[0]) }
 
         DismissibleDrawerSheet {
@@ -131,7 +132,7 @@ internal fun DismissibleDrawerSheetPreview() {
             items.forEach { item ->
                 NavigationDrawerItem(
                     icon = { Icon(item, contentDescription = null) },
-                    label = { Text(item.name) },
+                    label = { Text(resources().getResourceName(item.drawableId).substringAfterLast("/")) },
                     selected = item == selectedItem.value,
                     onClick = {
                         selectedItem.value = item
