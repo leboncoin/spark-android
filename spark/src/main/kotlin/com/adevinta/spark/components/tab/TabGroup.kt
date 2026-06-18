@@ -364,8 +364,6 @@ private fun TabGroupPreview() {
                     trailingContent = {
                         if (unread > 0) {
                             Badge(count = unread)
-                        } else {
-                            Unit
                         }
                     },
                     contentDescription = if (tab.first == null) "icon content description" else null,
@@ -400,8 +398,6 @@ private fun TabGroupFixedSizePreview() {
                     trailingContent = {
                         if (unread > 0) {
                             Badge(count = unread)
-                        } else {
-                            Unit
                         }
                     },
                 )
