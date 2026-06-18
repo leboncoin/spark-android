@@ -45,7 +45,6 @@ internal class MeterScreenshot {
         deviceConfig = DefaultTestDevices.Tablet,
     )
 
-
     @Test
     fun default() {
         paparazzi.sparkSnapshotNightMode {
