@@ -24,6 +24,7 @@ package com.adevinta.spark.components.meter
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.DefaultTestDevices
 import com.adevinta.spark.components.meter.circular.CircleMeterSize
@@ -31,7 +32,6 @@ import com.adevinta.spark.components.meter.circular.CircularMeterContent
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.VerifiedShieldFill
 import com.adevinta.spark.paparazziRule
-import com.adevinta.spark.screenshot.testing.R
 import com.adevinta.spark.sparkSnapshotNightMode
 import com.android.ide.common.rendering.api.SessionParams.RenderingMode.SHRINK
 import org.junit.Rule
@@ -44,6 +44,7 @@ internal class MeterScreenshot {
         renderingMode = SHRINK,
         deviceConfig = DefaultTestDevices.Tablet,
     )
+
 
     @Test
     fun default() {
@@ -80,7 +81,7 @@ internal class MeterScreenshot {
                         Meter.Circular(
                             value = 50f,
                             content = CircularMeterContent.Image(
-                                model = R.drawable.spark_img_narrow_image_configurator,
+                                model = Color.Red, // should show the error state
                                 contentDescription = "Label",
                             ),
                             intent = intent,
