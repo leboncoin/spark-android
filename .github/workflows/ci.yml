@@ -25,6 +25,8 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: ./.github/actions/check-git-lfs
       - uses: ./.github/actions/setup-java
       - uses: ./.github/actions/setup-gradle
@@ -36,6 +38,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: ./.github/actions/setup-java
       - uses: ./.github/actions/setup-gradle
       - uses: ./.github/actions/setup-gradle-properties
@@ -50,6 +54,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: ./.github/actions/setup-java
       - uses: ./.github/actions/setup-gradle
         with:
@@ -90,6 +96,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           lfs: true
+          persist-credentials: false
       - uses: ./.github/actions/setup-java
       - uses: ./.github/actions/setup-gradle
         with:
@@ -121,6 +128,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: ./.github/actions/setup-java
       - uses: ./.github/actions/setup-gradle
         with:
@@ -165,6 +174,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: ./.github/actions/setup-java
       - uses: ./.github/actions/setup-gradle
       - uses: ./.github/actions/setup-gradle-properties
@@ -201,6 +212,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: 🌋 Run Lava Vulnerability Scanner
         uses: adevinta/lava-action@ddeeddd8ccf45b403741359471a5627644a0c5f6 # v0.3.4
         with:
@@ -237,6 +250,8 @@ jobs:
     continue-on-error: true
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: ./.github/actions/setup-java
 
       - name: Fetch job durations via GitHub API

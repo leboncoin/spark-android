@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: ./.github/actions/setup-java
       - uses: ./.github/actions/setup-gradle
       - uses: ./.github/actions/setup-gradle-properties
@@ -40,6 +42,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - uses: ./.github/actions/setup-java
 
