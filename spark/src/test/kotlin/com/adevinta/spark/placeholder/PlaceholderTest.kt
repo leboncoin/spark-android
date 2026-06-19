@@ -50,7 +50,7 @@ import org.robolectric.shadows.ShadowPixelCopy
         "androidx.loader.content",
     ],
     shadows = [ShadowPixelCopy::class],
-    sdk = [33],
+    sdk = [36],
 )
 class PlaceholderTest {
     @get:Rule
