@@ -92,8 +92,6 @@ private fun TabSimpleSample() {
                 trailingContent = {
                     if (unread > 0) {
                         Badge(count = unread)
-                    } else {
-                        Unit
                     }
                 },
             )
@@ -120,8 +118,6 @@ private fun TabWithBadgeSample() {
                 trailingContent = {
                     if (unread > 0) {
                         Badge(count = unread)
-                    } else {
-                        Unit
                     }
                 },
             )
@@ -151,8 +147,6 @@ private fun ScrollableTabsSample() {
                 trailingContent = {
                     if (unread > 0) {
                         Badge(count = unread)
-                    } else {
-                        Unit
                     }
                 },
             )
@@ -182,8 +176,6 @@ private fun IconsTabsSample() {
                 trailingContent = {
                     if (unread > 0) {
                         Badge(count = unread)
-                    } else {
-                        Unit
                     }
                 },
             )
