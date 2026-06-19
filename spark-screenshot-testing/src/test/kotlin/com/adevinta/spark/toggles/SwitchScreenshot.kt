@@ -28,7 +28,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.DefaultTestDevices
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.components.toggles.ContentSide
 import com.adevinta.spark.components.toggles.SwitchIcons
 import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.icons.BellOffFill
@@ -112,14 +111,12 @@ private fun SwitchStates() {
             checked = true,
             onCheckedChange = {},
             icons = icons,
-            contentSide = ContentSide.End,
         ) { Text(text = "Exia") }
         SwitchLabelled(
             enabled = true,
             checked = false,
             onCheckedChange = {},
             icons = icons,
-            contentSide = ContentSide.End,
         ) { Text("Aerial") }
         SwitchLabelled(
             enabled = false,
@@ -138,14 +135,12 @@ private fun SwitchStates() {
             checked = true,
             onCheckedChange = {},
             icons = icons,
-            contentSide = ContentSide.End,
         ) { Text(text) }
         SwitchLabelled(
             enabled = false,
             checked = false,
             onCheckedChange = {},
             icons = icons,
-            contentSide = ContentSide.End,
         ) { Text(text) }
         SwitchLabelled(
             enabled = true,

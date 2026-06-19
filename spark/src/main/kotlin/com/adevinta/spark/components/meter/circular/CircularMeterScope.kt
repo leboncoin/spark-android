@@ -41,7 +41,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.animation.AnimatedCounterText
 import com.adevinta.spark.components.icons.Icon
-import com.adevinta.spark.components.image.SparkImage
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.tokens.dim1
@@ -180,7 +179,7 @@ public sealed interface CircularMeterContent {
         ) {
             val styling = LocalCircularMeterStyling.current
             Box(modifier = modifier, contentAlignment = Alignment.Center) {
-                SparkImage(
+                com.adevinta.spark.components.image.Image(
                     model = model,
                     modifier = Modifier
                         .padding(styling.size.strokeWidth * 2)

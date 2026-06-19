@@ -35,10 +35,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
-import com.adevinta.spark.components.spacer.HorizontalSpacer
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tools.modifiers.SlotArea
 import com.adevinta.spark.tools.modifiers.minimumTouchTargetSize
@@ -52,7 +50,6 @@ internal fun SparkToggleLabelledContainer(
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    contentSide: ContentSide = ContentSide.End,
     content: @Composable RowScope.() -> Unit,
 ) {
     val toggleableModifier = if (onClick != null) {
@@ -84,27 +81,10 @@ internal fun SparkToggleLabelledContainer(
             }
         }
 
-        @Suppress("DEPRECATION")
-        if (contentSide == ContentSide.Start) {
-            label()
-            HorizontalSpacer(32.dp)
-        }
-
         toggle(Modifier.minimumTouchTargetSize())
 
-        if (contentSide == ContentSide.End) {
-            label()
-        }
+        label()
     }
-}
-
-public enum class ContentSide {
-    @Deprecated(
-        message = "ContentSide will be removed if a few releases, only the End content side will be used",
-        replaceWith = ReplaceWith("ContentSide.End"),
-    )
-    Start,
-    End,
 }
 
 @Preview(
@@ -126,7 +106,6 @@ internal fun TogglesLabelledSlotPreview() {
             },
             role = Role.Checkbox,
             onClick = {},
-            contentSide = ContentSide.Start,
             content = {
                 SlotArea(color = LocalContentColor.current) {
                     Text("CheckBox On")
@@ -145,7 +124,6 @@ internal fun TogglesLabelledSlotPreview() {
             },
             role = Role.Checkbox,
             onClick = {},
-            contentSide = ContentSide.End,
             content = {
                 SlotArea(color = LocalContentColor.current) {
                     Text("CheckBox On")
@@ -164,7 +142,6 @@ internal fun TogglesLabelledSlotPreview() {
             },
             role = Role.Checkbox,
             onClick = {},
-            contentSide = ContentSide.End,
             content = {
                 SlotArea(color = LocalContentColor.current) {
                     Text("CheckBox On")

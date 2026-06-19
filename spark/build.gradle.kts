@@ -46,7 +46,6 @@ android {
                 "com.adevinta.spark.InternalSparkApi",
                 "com.adevinta.spark.ExperimentalSparkApi",
             )
-            freeCompilerArgs.add("-Xannotation-default-target=param-property")
         }
     }
 }
@@ -71,7 +70,6 @@ dependencies {
 
     api(libs.androidx.compose.animation.graphics)
     api(libs.androidx.compose.foundation)
-    implementation(libs.androidx.compose.material.iconsExtended)
     api(libs.androidx.compose.material3)
     api(libs.androidx.compose.material3.adaptive)
     api(libs.androidx.compose.ui)

@@ -101,8 +101,6 @@ private fun ColumnScope.TabSample() {
                 trailingContent = {
                     if (unread > 0) {
                         Badge(count = unread)
-                    } else {
-                        Unit
                     }
                 },
             )
