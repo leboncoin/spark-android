@@ -56,6 +56,8 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.Switch
 import com.adevinta.spark.components.toggles.SwitchLabelled
+import com.adevinta.spark.icons.Building
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.tokens.highlight
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
@@ -102,6 +104,7 @@ private fun ColumnScope.ProgressTrackerSample() {
         },
         selectedStep = selectedStep,
     )
+    LeboncoinIcons.Building.drawableId
 
     Text(
         text = "Vertical Progress Tracker",
@@ -177,7 +180,7 @@ private fun ColumnScope.ProgressTrackerSample() {
                 text = "Add Step",
                 onClick = {
                     if (items.size < 6) {
-                        items = items.add(ProgressStep("New Step", true))
+                        items = items.adding(ProgressStep("New Step", true))
                     }
                 },
                 modifier = Modifier.weight(1f),
@@ -198,15 +201,15 @@ private fun ColumnScope.ProgressTrackerSample() {
                     value = progressStep.label.toString(),
                     label = "Step $index",
                     onValueChange = {
-                        items = items.set(index, progressStep.copy(label = it))
+                        items = items.replacingAt(index, progressStep.copy(label = it))
                     },
                 )
                 Switch(
                     checked = progressStep.enabled,
                     onCheckedChange = {
-                        items = items.set(
+                        items = items.replacingAt(
                             index,
-                            progressStep.copy(enabled = it),
+                            progressStep.copy(enabled = it)
                         )
                     },
                 )

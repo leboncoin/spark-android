@@ -154,7 +154,7 @@ internal class ComboBoxScreenshot {
                                 selectedChoices = if (selectedChoices.any { it.id == choice.id }) {
                                     selectedChoices.filter { it.id != choice.id }.toPersistentList()
                                 } else {
-                                    selectedChoices.add(choice)
+                                    selectedChoices.adding(choice)
                                 }
                             },
                             checked = selectedChoices.any { it.label == book.title },
@@ -186,7 +186,7 @@ internal class ComboBoxScreenshot {
                                 selectedChoices = if (selectedChoices.any { it.id == choice.id }) {
                                     selectedChoices.filter { it.id != choice.id }.toPersistentList()
                                 } else {
-                                    selectedChoices.add(choice)
+                                    selectedChoices.adding(choice)
                                 }
                             },
                             checked = selectedChoices.any { it.label == book.title },
