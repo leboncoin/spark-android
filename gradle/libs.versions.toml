@@ -11,7 +11,7 @@ kotlin = "2.4.0"
 lint = "32.2.1"
 material3 = "1.4.0"
 minCompileSdk = "24"
-targetSdk = "36"
+targetSdk = "37"
 
 [libraries]
 accompanist-drawablepainter = { module = "com.google.accompanist:accompanist-drawablepainter", version.ref = "accompanist" }
