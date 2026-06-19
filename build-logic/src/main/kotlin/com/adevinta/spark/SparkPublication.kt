@@ -32,7 +32,6 @@ import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.get
-import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.register
 import org.gradle.kotlin.dsl.the
 import org.gradle.plugins.signing.SigningExtension
@@ -162,8 +161,8 @@ internal object SparkPublication {
     }
 
     private fun Project.configureSigning() = configure<SigningExtension> signing@{
-        val signingKey: String? by project
-        val signingPassword: String? by project
+        val signingKey = project.findProperty("signingKey") as? String
+        val signingPassword = project.findProperty("signingPassword") as? String
         if (signingKey == null || signingPassword == null) return@signing
         useInMemoryPgpKeys(signingKey, signingPassword)
         sign(the<PublishingExtension>().publications)
