@@ -35,7 +35,6 @@ import org.robolectric.annotation.Config
 import kotlin.intArrayOf
 
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [36])
 class ButtonTest {
 
     @get:Rule
