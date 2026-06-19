@@ -119,7 +119,7 @@ material-motion = "io.github.fornewid:material-motion-compose-core:2.0.1"
 # https://github.com/robolectric/robolectric
 robolectric = "org.robolectric:robolectric:4.16.1"
 
-slack-lint-compose = "com.slack.lint.compose:compose-lint-checks:1.4.3"
+slack-lint-compose = "com.slack.lint.compose:compose-lint-checks:1.5.2"
 
 # https://github.com/google/TestParameterInjector
 testParameterInjector = "com.google.testparameterinjector:test-parameter-injector:1.22"
