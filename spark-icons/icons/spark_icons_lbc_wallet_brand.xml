@@ -1,0 +1,33 @@
+<!--
+  Copyright (c) 2023 Adevinta
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <path
+      android:pathData="M8.888,13.81q0,0.126 0.012,0.251l0.025,0.238h2.927a0.51,0.51 0,0 1,0.401 0.196,0.48 0.48,0 0,1 -0.101,0.684 0.5,0.5 0,0 1,-0.3 0.098H9.206a2.87,2.87 0,0 0,2.658 1.692,2.96 2.96,0 0,0 1.97,-0.736 0.545,0.545 0,0 1,0.855 0.22,0.51 0.51,0 0,1 -0.153,0.58 4.4,4.4 0,0 1,-1.036 0.641,4.1 4.1,0 0,1 -1.636,0.332 4.16,4.16 0,0 1,-2.435 -0.74,3.9 3.9,0 0,1 -1.492,-1.99h-0.82a0.5,0.5 0,0 1,-0.354 -0.143,0.48 0.48,0 0,1 0,-0.69 0.5,0.5 0,0 1,0.354 -0.144h0.6q-0.014,-0.18 -0.02,-0.286c-0.004,-0.069 0,-0.138 0,-0.202v-0.203c0,-0.071 0.01,-0.167 0.02,-0.286h-0.6a0.5,0.5 0,0 1,-0.354 -0.143,0.48 0.48,0 0,1 0,-0.691 0.5,0.5 0,0 1,0.354 -0.143h0.82a3.9,3.9 0,0 1,1.492 -1.996,4.14 4.14,0 0,1 2.435,-0.745 4.07,4.07 0,0 1,2.542 0.871,0.52 0.52,0 0,1 0.195,0.368 0.5,0.5 0,0 1,-0.144 0.39,0.545 0.545,0 0,1 -0.73,0.052 3.3,3.3 0,0 0,-0.677 -0.396,2.9 2.9,0 0,0 -1.186,-0.248 2.86,2.86 0,0 0,-2.655 1.704h3.233a0.51,0.51 0,0 1,0.402 0.196,0.48 0.48,0 0,1 -0.101,0.684 0.5,0.5 0,0 1,-0.3 0.097H8.927l-0.025,0.239q-0.015,0.124 -0.015,0.25m12.223,0.203h-0.453a0.5,0.5 0,0 1,-0.354 -0.143,0.48 0.48,0 0,1 0,-0.69 0.5,0.5 0,0 1,0.354 -0.142h0.454c0.133,0 0.26,0.051 0.354,0.143a0.48,0.48 0,0 1,0 0.69,0.5 0.5,0 0,1 -0.354,0.142"
+      android:fillColor="#3a4757"/>
+  <path
+      android:pathData="M21.898,11.185v-5.85c0,-1.047 -0.858,-1.95 -1.933,-1.95h-5.004l-0.356,-0.76A1.1,1.1 0,0 0,13.562 2a1.1,1.1 0,0 0,-0.418 0.098L10.27,3.384L2,3.384a2.08,2.08 0,0 0,-1.402 0.584A1.97,1.97 0,0 0,0 5.334v14.783C0,21.164 0.93,22 2.002,22h17.963a2,2 0,0 0,0.741 -0.141c0.235,-0.094 0.449,-0.233 0.629,-0.408a1.85,1.85 0,0 0,0.563 -1.334v-4.249a2.44,2.44 0,0 0,1.502 -0.786c0.387,-0.431 0.6,-0.984 0.6,-1.556s-0.213,-1.124 -0.6,-1.555c-0.386,-0.43 -0.92,-0.71 -1.502,-0.786m-8.34,-8.197a0.1,0.1 0,0 1,0.077 0,0.1 0.1,0 0,1 0.057,0.052l1.557,3.312L6.038,6.352zM1.826,4.386l6.257,-0.022L4.622,5.91l-1.001,0.433L1.039,6.343L1.039,5.152a0.77,0.77 0,0 1,0.233 -0.54,0.8 0.8,0 0,1 0.554,-0.226M20.843,20.22a0.77,0.77 0,0 1,-0.233 0.54,0.8 0.8,0 0,1 -0.555,0.227L1.826,20.987a0.8,0.8 0,0 1,-0.554 -0.227,0.77 0.77,0 0,1 -0.233,-0.54L1.039,7.328h17.64c0.132,0 0.26,-0.052 0.354,-0.143a0.48,0.48 0,0 0,0 -0.69,0.5 0.5,0 0,0 -0.354,-0.142h-2.323l-0.927,-1.972h4.496c0.43,0 0.849,0.534 0.849,0.952L20.774,6.6l0.054,4.563h-1.354c-0.387,0 -0.757,0.15 -1.03,0.416a1.4,1.4 0,0 0,-0.427 1.003v1.89c0,0.377 0.154,0.737 0.427,1.003 0.274,0.266 0.644,0.415 1.03,0.416h1.368zM21.577,14.911h-2.102a0.46,0.46 0,0 1,-0.322 -0.13,0.44 0.44,0 0,1 -0.134,-0.313v-1.886c0,-0.118 0.048,-0.23 0.134,-0.313a0.46,0.46 0,0 1,0.322 -0.13h2.102a1.46,1.46 0,0 1,1.033 0.393q0.207,0.197 0.32,0.455a1.36,1.36 0,0 1,-0.32 1.536,1.46 1.46,0 0,1 -1.034,0.393z"
+      android:fillColor="#3a4757"/>
+</vector>
