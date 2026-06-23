@@ -1,5 +1,4 @@
 [versions]
-accompanist = "0.36.0"
 agp = "9.2.1"
 compose-multiplatform = "1.11.1"
 androidx-activity = "1.13.0"
@@ -14,11 +13,7 @@ minCompileSdk = "24"
 targetSdk = "37"
 
 [libraries]
-accompanist-drawablepainter = { module = "com.google.accompanist:accompanist-drawablepainter", version.ref = "accompanist" }
-accompanist-flowlayout = { module = "com.google.accompanist:accompanist-flowlayout", version.ref = "accompanist" }
-accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanist" }
-accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
-accompanist-swiperefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanist" }
+accompanist-drawablepainter = "com.google.accompanist:accompanist-drawablepainter:0.36.0"
 
 android-gradle = { module = "com.android.tools.build:gradle-api", version.ref = "agp" }
 
@@ -28,17 +23,12 @@ androidx-activity-compose = { module = "androidx.activity:activity-compose", ver
 androidx-appCompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appCompat" }
 androidx-appCompat-resources = { module = "androidx.appcompat:appcompat-resources", version.ref = "androidx-appCompat" }
 
-androidx-compose-animation-core = { module = "androidx.compose.animation:animation-core" }
 androidx-compose-animation-graphics = { module = "androidx.compose.animation:animation-graphics" }
 androidx-compose-bom = "androidx.compose:compose-bom:2026.06.00"
 androidx-compose-foundation = { module = "androidx.compose.foundation:foundation" }
-androidx-compose-foundation-layout = { module = "androidx.compose.foundation:foundation-layout" }
 androidx-compose-material-iconsExtended = { module = "androidx.compose.material:material-icons-extended" }
 androidx-compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3"}
-androidx-compose-material3-windowSizeClass = { module = "androidx.compose.material3:material3-window-size-class"}
 androidx-compose-material3-adaptive = { module = "androidx.compose.material3.adaptive:adaptive"}
-androidx-compose-runtime = { module = "androidx.compose.runtime:runtime" }
-androidx-compose-runtime-livedata = { module = "androidx.compose.runtime:runtime-livedata" }
 androidx-compose-ui = { module = "androidx.compose.ui:ui" }
 androidx-compose-ui-test = { module = "androidx.compose.ui:ui-test" }
 androidx-compose-ui-testJUnit = { module = "androidx.compose.ui:ui-test-junit4" }
@@ -91,7 +81,6 @@ androidx-datastore = "androidx.datastore:datastore:1.2.1"
 desugarJdkLibs = "com.android.tools:desugar_jdk_libs:2.1.5"
 
 dokka-android-documentation-plugin = { module = "org.jetbrains.dokka:android-documentation-plugin", version.ref = "dokka" }
-dokka-base = { module = "org.jetbrains.dokka:dokka-base", version.ref = "dokka" }
 
 filekit = { module = "io.github.vinceglb:filekit-core", version.ref = "filekit"}
 filekit-dialogs = { module = "io.github.vinceglb:filekit-dialogs-compose", version.ref = "filekit"}
