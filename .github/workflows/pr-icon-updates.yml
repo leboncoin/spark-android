@@ -40,6 +40,7 @@ jobs:
           cp -r spark-icons/icons/. spark-icons/src/androidMain/res/drawable/
           cp -r spark-icons/icons/. spark-icons/src/nonAndroidMain/composeResources/drawable/
           rm -rf spark-icons/icons
+      - uses: ./.github/actions/setup-kotlin
       - run: |
           ./scripts/spark-icons-kt/spark-icons-kt.main.kts \
             --in=spark-icons/src/androidMain/res/drawable \
