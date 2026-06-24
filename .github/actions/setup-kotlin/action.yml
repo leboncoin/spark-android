@@ -22,7 +22,7 @@ runs:
       shell: bash
       run: |
         mkdir --parents ~/.kotlin
-        wget --no-verbose -O "$KOTLIN_ZIP" "$KOTLIN_URL"
+        wget --https-only --no-verbose -O "$KOTLIN_ZIP" "$KOTLIN_URL"
         unzip "$KOTLIN_ZIP" -d ~/.kotlin
       env:
         KOTLIN_URL: https://github.com/JetBrains/kotlin/releases/download/v${{ inputs.kotlin-version }}/kotlin-compiler-${{ inputs.kotlin-version }}.zip
@@ -30,4 +30,5 @@ runs:
 
     - name: 'Add Kotlin to PATH'
       shell: bash
+      # zizmor: ignore[github-env] -- path is hardcoded, no external input reaches it
       run: echo "$HOME/.kotlin/kotlinc/bin" >> $GITHUB_PATH
