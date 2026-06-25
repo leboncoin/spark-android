@@ -25,4 +25,5 @@
     <issue id="VectorPath">
         <ignore path="src/androidMain/res/drawable/*.xml" />
     </issue>
+    <issue id="SparkIconInstantiation" severity="ignore" />
 </lint>
