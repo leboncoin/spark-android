@@ -52,7 +52,6 @@ import com.adevinta.spark.icons.HappyFaceFill
 import com.adevinta.spark.icons.HeartFill
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.LetterFill
-import com.adevinta.spark.res.resources
 import com.adevinta.spark.tokens.contentColorFor
 
 @SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
