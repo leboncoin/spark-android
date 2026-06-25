@@ -113,6 +113,14 @@ public enum class IconButtonIntent {
         @Composable
         override fun colors(): IntentColor = IntentColors.Neutral.colors()
     },
+
+    /**
+     * Used for AI-generated content or features.
+     */
+    Ai {
+        @Composable
+        override fun colors(): IntentColor = IntentColors.Ai.colors()
+    },
     ;
 
     @Composable
