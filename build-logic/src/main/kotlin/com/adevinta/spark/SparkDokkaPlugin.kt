@@ -72,6 +72,8 @@ internal class SparkDokkaPlugin : Plugin<Project> {
             }
             dependencies {
                 add("dokka", project(":spark"))
+                add("dokka", project(":spark-annotation"))
+                add("dokka", project(":spark-core"))
                 add("dokka", project(":spark-icons"))
             }
         }
