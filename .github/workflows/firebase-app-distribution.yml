@@ -35,10 +35,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           ref: ${{ inputs.ref || github.ref }}
           fetch-depth: 0
+          persist-credentials: false
       - uses: ./.github/actions/setup-java
       - uses: ./.github/actions/setup-gradle
       - uses: ./.github/actions/setup-gradle-properties
@@ -66,7 +67,7 @@ jobs:
         run: ./gradlew :catalog:assembleRelease
 
       - name: '📦 Archive APKs'
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: apk
           path: '**/build/outputs/apk/**/*.apk'
@@ -90,16 +91,16 @@ jobs:
 
       - name: '📋 Prepare release note for tagged build'
         if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
-        run: |
-          from="$(git for-each-ref --sort=-v:refname --count=2 --format='%(tag)' refs/tags | tail -n +2)"
-          to="$(git for-each-ref --sort=-v:refname --count=1 --format='%(tag)' refs/tags)"
-          git log --no-merges --topo-order --format="• %s" "$from..$to" >> release-notes.txt
+        run: gh release view "$TAG" --json body --jq .body >> release-notes.txt
+        env:
+          GH_TOKEN: ${{ secrets.PAT_SPARK }}
+          TAG: ${{ github.ref_name }}
 
       - name: '📦 Archive release-notes.txt'
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
-          name: release-notes.txt
           path: 'release-notes.txt'
+          archive: false
 
       - name: '🚀 Publish'
         run: >-
@@ -110,6 +111,16 @@ jobs:
           --release-notes-file "release-notes.txt"
         env:
           GROUPS: ${{ inputs.group || 'all' }}
+
+      - name: '📎 Upload APK to GitHub Release'
+        if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
+        run: |
+          gh release upload "$TAG" \
+            catalog/build/outputs/apk/release/catalog-release.apk \
+            --clobber
+        env:
+          GH_TOKEN: ${{ secrets.PAT_SPARK }}
+          TAG: ${{ github.ref_name }}
 
       - name: '♻️ Cleanup'
         if: ${{ success() || failure() }}

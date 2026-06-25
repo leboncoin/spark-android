@@ -4,10 +4,6 @@
 Provides a descriptive message or Info for an Anchor. 
 Popover that is invoked when the anchor is pressed/long pressed:
 
-| Light                                                                                                                  | Dark                                                                                                                  |
-|------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_popoverbutton_popoverbuttonfilledsmall_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_popoverbutton_popoverbuttonfilledsmall_dark.png) |
-
 The minimal usage of the component is the content and the anchor.
 
 ```kotlin

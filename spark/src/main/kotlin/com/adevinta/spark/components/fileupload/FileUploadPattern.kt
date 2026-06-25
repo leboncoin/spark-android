@@ -25,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
@@ -114,12 +115,25 @@ public fun rememberFileUploadPattern(
     onFilesSelect: (ImmutableList<UploadedFile>) -> Unit,
     type: FileUploadType = FileUploadType.File(),
     mode: FileUploadMode = FileUploadMode.Single,
-    title: String? = null,
     directory: PlatformFile? = null,
     dialogSettings: FileKitDialogSettings = FileKitDialogSettings.createDefault(),
 ): FileUploadPatternState {
     val isSingleMode = mode is FileUploadMode.Single
     val maxFiles = if (mode is FileUploadMode.Multiple) mode.maxFiles else null
+
+    // No ActivityResultRegistryOwner in Paparazzi/Preview — return a no-op state.
+    if (LocalInspectionMode.current) {
+        return remember(isSingleMode, maxFiles) {
+            FileUploadPatternState(
+                launchFilePicker = {},
+                launchCameraPicker = {},
+                launchGalleryPicker = {},
+                launchPicker = {},
+                isSingleMode = isSingleMode,
+                maxFiles = maxFiles,
+            )
+        }
+    }
 
     // File picker launcher (for gallery/file selection)
     val fileKitType = type.toFileKitType()
@@ -127,7 +141,6 @@ public fun rememberFileUploadPattern(
         // Single mode: callback receives PlatformFile? directly
         rememberFilePickerLauncher(
             type = fileKitType,
-            title = title,
             directory = directory,
             dialogSettings = dialogSettings,
         ) { pickedFile ->
@@ -139,7 +152,6 @@ public fun rememberFileUploadPattern(
         rememberFilePickerLauncher(
             type = fileKitType,
             mode = FileKitMode.Multiple(maxItems = maxFiles),
-            title = title,
             directory = directory,
             dialogSettings = dialogSettings,
         ) { result ->

@@ -60,7 +60,7 @@ public val ChipsConfigurator: Configurator = Configurator(
 private fun ColumnScope.ChipSample() {
     var icon: SparkIcon? by remember { mutableStateOf(null) }
     var style by remember { mutableStateOf(ChipStyles.Outlined) }
-    var intent by remember { mutableStateOf(ChipIntent.Basic) }
+    var intent by remember { mutableStateOf(ChipIntent.Support) }
     var enabled by remember { mutableStateOf(true) }
     var closable by remember { mutableStateOf(false) }
     var selected by remember { mutableStateOf(false) }

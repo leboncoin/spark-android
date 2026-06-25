@@ -81,6 +81,7 @@
     <string name="component_animation_description">Animations provide visual feedback and enhance user experience through motion. The pulse animation creates a pulsating effect that draws attention to interactive elements.</string>
     <string name="component_badge_description">Badges are visual indicators for numeric values such as tallies and scores, or to highlight status information.</string>
     <string name="component_bottomsheets_description">A bottom sheet is a UI component commonly used in mobile applications to present additional content or options from the bottom of the screen.</string>
+    <string name="component_card_description">Cards contain content and actions that relate information about a subject. They provide visual separation and can be static or interactive.</string>
     <!--region Icon button-->
     <string name="component_iconbutton_description">Icon buttons help people take supplementary actions with a single tap. They’re used when a compact button is required, such as in a toolbar or image list.</string>
     <!--endregion-->
@@ -125,6 +126,9 @@
     <string name="component_slider_description">A slider is an interactive component that allows users to set values by moving a handle within a defined range.</string>
 
     <string name="component_segmentedgauge_description">The Segmented Gauge is a non-interactive visual indicator made up of colored segments. It shows a level or value along a scale (e.g., from “low” to “high”).</string>
+    <string name="component_segmentedcontrol_description">The Segmented Control allows users to select a single option from a small set of choices, while maintaining an immediate overview of the available alternatives.</string>
+
+    <string name="component_meter_description">The Meter displays a quantified value as a circular progress ring, used for completion states, scores, or measured quantities.</string>
 
     <string name="configurator_component_screen_title">Components configurations</string>
     <string name="configurator_component_screen_description">The Configurator allows to visualise a component in every possible state available by customising every property for each component.</string>

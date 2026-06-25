@@ -23,10 +23,12 @@ package com.adevinta.spark
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.apply
 
 internal class SparkRootPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
+            apply<SparkSpotlessPlugin>()
             SparkUnitTests.configureRootProject(project)
             SparkPublication.configureRootProject(project)
         }

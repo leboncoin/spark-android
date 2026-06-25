@@ -39,7 +39,6 @@ import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.icons.IdentityCardOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.tokens.dim3
 import com.adevinta.spark.tokens.disabled
 
 /**
@@ -48,6 +47,8 @@ import com.adevinta.spark.tokens.disabled
  *
  * The minimal usage of the component is the text of the button but you can add an icon or indicate a loading state
  * after a click action for example.
+ *
+ * ![Button Filled](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_ButtonDocumentationScreenshots_buttonFilled.png)
  *
  * @sample com.adevinta.spark.samples.components.ButtonSample
  *
@@ -79,25 +80,26 @@ public fun ButtonFilled(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.() -> Unit,
 ) {
+    val intentColors = intent.colors()
     val backgroundColor by animateColorAsState(
-        targetValue = intent.colors().color,
+        targetValue = intentColors.color,
         label = "background color",
     )
     val contentColor by animateColorAsState(
-        targetValue = intent.colors().onColor,
+        targetValue = intentColors.onColor,
         label = "content color",
     )
     val colors = ButtonDefaults.buttonColors(
         containerColor = backgroundColor,
         contentColor = contentColor,
         disabledContainerColor = backgroundColor.disabled,
-        disabledContentColor = contentColor.dim3,
+        disabledContentColor = contentColor.disabled,
     )
     BaseSparkButton(
         onClick = onClick,
         modifier = modifier,
         size = size,
-        shape = shape.shape,
+        shape = ButtonTokens.shape,
         enabled = enabled,
         elevation = ButtonDefaults.buttonElevation(),
         colors = colors,
@@ -148,12 +150,13 @@ public fun ButtonFilled(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
 ) {
+    val intentColors = intent.colors()
     val backgroundColor by animateColorAsState(
-        targetValue = intent.colors().color,
+        targetValue = intentColors.color,
         label = "background color",
     )
     val contentColor by animateColorAsState(
-        targetValue = intent.colors().onColor,
+        targetValue = intentColors.onColor,
         label = "content color",
     )
     val colors = ButtonDefaults.buttonColors(
@@ -167,7 +170,7 @@ public fun ButtonFilled(
         text = text,
         modifier = modifier,
         size = size,
-        shape = shape,
+        shape = ButtonTokens.buttonShape,
         enabled = enabled,
         elevation = ButtonDefaults.buttonElevation(),
         colors = colors,
@@ -215,23 +218,27 @@ public fun ButtonFilled(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
 ) {
+    val intentColors = intent.colors()
     val backgroundColor by animateColorAsState(
-        targetValue = intent.colors().color,
+        targetValue = intentColors.color,
         label = "background color",
     )
     val contentColor by animateColorAsState(
-        targetValue = intent.colors().onColor,
+        targetValue = intentColors.onColor,
         label = "content color",
     )
     val colors = ButtonDefaults.buttonColors(
         containerColor = backgroundColor,
         contentColor = contentColor,
+        disabledContainerColor = backgroundColor.disabled,
+        disabledContentColor = contentColor.disabled,
     )
     SparkButton(
         onClick = onClick,
         text = text,
         modifier = modifier,
         size = size,
+        shape = ButtonTokens.buttonShape,
         enabled = enabled,
         elevation = ButtonDefaults.buttonElevation(),
         colors = colors,

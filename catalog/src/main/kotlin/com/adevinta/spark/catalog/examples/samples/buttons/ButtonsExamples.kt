@@ -46,7 +46,6 @@ import com.adevinta.spark.components.buttons.IconSide
 import com.adevinta.spark.icons.HeartFill
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 

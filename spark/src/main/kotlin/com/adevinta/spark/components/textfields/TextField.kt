@@ -271,7 +271,6 @@ public fun TextField(
  * and would execute the default behavior for a received IME Action e.g., [ImeAction.Done] would
  * close the keyboard, [ImeAction.Next] would switch the focus to the next focusable item on the
  * screen.
- * @param lineLimits the limits for the number of lines in the text field
  * @param onTextLayout callback that is executed when the text layout is calculated
  * @param interactionSource the [MutableInteractionSource] representing the stream of
  * [Interaction]s for this TextField. You can create and pass in your own remembered
@@ -280,7 +279,7 @@ public fun TextField(
  * @param outputTransformation transforms the output text before it is displayed
  * @param scrollState the scroll state for the text field
  *
- * @see BasicTextField
+ * @see androidx.compose.foundation.text.BasicTextField
  */
 @Composable
 public fun TextField(

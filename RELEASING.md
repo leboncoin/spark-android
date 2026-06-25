@@ -1,69 +1,44 @@
 # Releasing
 
-## Pre-release
+Releases are automated via [release-please](https://github.com/googleapis/release-please). Manual tagging, changelog editing, and version bumps are no longer required.
 
-> [!NOTE]
-> This process will apply for the versions starting 1.4.0.
+## How It Works
 
-Before each release, we will publish one or more alpha versions and publish pre-releases on [Github Release page](https://github.com/leboncoin/spark-android/releases).
+Every push to `main` triggers `.github/workflows/release.yml`, which runs release-please. It opens (or updates) a **Release PR** that:
 
-Consumers will be able to test new features and report breaking changes & bugs that can be fixed before it’s considered for a stable release.
+- Bumps the version in `gradle.properties`
+- Updates `CHANGELOG.md` based on conventional commits since the last release
 
-Using the Github pre-release feature will allow Spark users to be notified that a new release is being prepared and test against it.
-For example, they could set up hooks to post the changelog in their monitoring Slack channel or trigger a CI build to validate that this new release doesn’t break their build.
+Merging the Release PR creates a git tag and GitHub Release. That tag then triggers:
 
-1. [Create a draft release](https://github.com/leboncoin/spark-android/releases/new?tag=X.Y.Z-alpha01&title=X.Y.Z-alpha01&prerelease=1) with a `*.*.*-alpha01` version tag.
-2. Click on `Generate release notes` to automatically add all the merged pull requests from this diff and contributors of this release.
-3. Remove logs from `@dependabot` except if they mention big version upgrades for libraries used by our consumers (like Compose or Kotlin). 
-4. Reformat the changelog to be as close as possible to the format we describe in the [CHANGELOG STYLE GUIDE](./docs/CHANGELOG%20STYLE%20GUIDE.md).
-5. If we’re satisfied with the draft, release it but make sure **`⚠️ Set as a pre-release`** is checked.
-6. If we need to create a fix from feedbacks, then this cycle repeats.
-7. Otherwise, follow the [stable release process](./RELEASING.md#Release)
+- `.github/workflows/publish.yml` — publishes to Maven Central
+- `.github/workflows/firebase-app-distribution.yml` — distributes the catalog APK to Firebase and attaches it to the GitHub Release
 
-## Release
+Conventional commit prefixes control the version bump: `feat:` bumps minor, `fix:` bumps patch, `feat!:` / `fix!:` (breaking change) bumps major. Commits without a recognised prefix are ignored for versioning.
 
-1. Update the `version` in [gradle.properties](gradle.properties) to a non-`alpha`.
-2. Update [CHANGELOG.md](CHANGELOG.md)
-   - Add the new version section and move the *unreleased changes* into it.
-   - Update the links at the end of the page.
-3. Commit and push the changes to a new PR
-   ```bash
-   git commit -am "chore: prepare version X.Y.X"
-   git push
-   ```
-4. Once the PR is merged, tag the release on the `main` branch
-   ```bash
-   git fetch
-   git tag X.Y.Z origin/main
-   git push origin X.Y.Z
-   ```
-5. Wait for the [publishing workflow](https://github.com/leboncoin/spark-android/actions/workflows/publish.yml) to build and publish the release.
-6. Update the `version` in [gradle.properties](gradle.properties) to the next `alpha` version.
-7. Commit and push the changes to a new PR
-  ```bash
-  git commit -am "chore: prepare next development version"
-  ```
-8. Trigger the manual workflow [![📋 Publish Dokka to GitHub Pages](https://github.com/leboncoin/spark-android/actions/workflows/dokka.yml/badge.svg)](https://github.com/leboncoin/spark-android/actions/workflows/dokka.yml) with the version tag.
-9. Draft a [new release](https://github.com/leboncoin/spark-android/releases/new) with the version tag, add the corresponding [CHANGELOG.md](CHANGELOG.md) entries, and publish it when ready.
+## Icon Updates
 
----
+Icon changes are automated via `.github/workflows/pr-icon-updates.yml`, which opens a PR titled `feat(icons): update icons`. By default this is treated as a minor bump (new icons added).
 
-## Hotfix
+If the update contains a breaking change (icon removal, rename, or visual change to an existing icon), the reviewer must edit the PR title before merging to signal a breaking change:
 
-Hotfixes can sometimes be a bit tricky to do right. Please follow these steps carefully:
+```
+feat(icons)!: update icons
+```
 
-1. Create the hotfix remote branch (the `hotfix` prefix is important)
+The `!` suffix tells release-please this is a breaking change and triggers a major version bump.
+
+## Hotfix Workflow
+
+1. Create the hotfix branch from the release tag:
    ```bash
    git branch hotfix/X.Y.Z+1 refs/tags/X.Y.Z
    git push origin hotfix/X.Y.Z+1
    ```
-2. Create a local hotfix PR branch
+2. Create a working branch, commit fixes, and open a PR targeting `hotfix/X.Y.Z+1`:
    ```bash
-   git switch --create patch-hotfix-X.Y.Z+1 refs/tags/X.Y.Z
+   git switch --create fix-hotfix-X.Y.Z+1 hotfix/X.Y.Z+1
    ```
-3. Commit the necessary changes and open a PR targeting the hotfix branch.
-4. Once the PR is merged, you can continue with the regular release process described above.
-5. Finally, merge these changes back to the main branch with a new PR
-   ```bash
-   git merge --no-ff refs/tags/X.Y.Z+1
-   ```
+3. This creates a Release PR targeting the hotfix branch.
+4. Merge the Release PR. The tag and publish workflows fire automatically.
+5. Open a PR to merge `hotfix/X.Y.Z+1` back into `main`. **Must use a merge commit** (not squash). Release-please needs the hotfix tag to be reachable from main's history to correctly scope the next changelog. A squash merge breaks this ancestry and causes release-please to scan the full history.

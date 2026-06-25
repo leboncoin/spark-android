@@ -45,9 +45,10 @@ import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.stepper.StepperDefaults
 import com.adevinta.spark.components.stepper.stepperSemantics
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.Minus
 import com.adevinta.spark.icons.Plus
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.tools.modifiers.ifFalse
 import com.adevinta.spark.tools.modifiers.ifTrue
 import com.adevinta.spark.tools.modifiers.invisibleSemantic
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
@@ -96,24 +97,23 @@ internal fun SparkStepper(
             modifier = Modifier
                 .fillMaxHeight()
                 .generateStepperTestTag(testTag, "Decrement"),
-            sparkIcon = SparkIcons.Minus,
+            sparkIcon = LeboncoinIcons.Minus,
             contentDescription = "", // handled by semantics modifier
             enabled = enabled && coerced > range.first,
             colors = colors,
-            shape = SparkTheme.shapes.large,
+            shape = SparkTheme.shapes.full,
             interactionSource = interactionSource,
             onClick = { setValue(coerced - step) },
         )
 
         MiddleText(
             modifier = Modifier
-                .then(
-                    if (flexible) {
-                        modifier.weight(1.0f)
-                    } else {
-                        modifier.widthIn(min = 48.dp)
-                    },
-                )
+                .ifTrue(flexible) {
+                    weight(1.0f)
+                }
+                .ifFalse(flexible) {
+                    widthIn(min = 48.dp)
+                }
                 .fillMaxHeight()
                 .invisibleSemantic(),
             value = coerced,
@@ -126,11 +126,11 @@ internal fun SparkStepper(
             modifier = Modifier
                 .fillMaxHeight()
                 .generateStepperTestTag(testTag, "Increment"),
-            sparkIcon = SparkIcons.Plus,
+            sparkIcon = LeboncoinIcons.Plus,
             contentDescription = "", // handled by semantics modifier
             enabled = enabled && coerced < range.last,
             colors = colors,
-            shape = SparkTheme.shapes.large,
+            shape = SparkTheme.shapes.full,
             interactionSource = interactionSource,
             onClick = {
                 setValue(coerced + step)

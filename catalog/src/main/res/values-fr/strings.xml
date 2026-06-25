@@ -79,6 +79,7 @@
     <string name="component_tokens_description">Les tokens/jetons sont la base de ce système de design et permettent à chaque marque de choisir ses couleurs, formes, typos et icônes.</string>
     <string name="component_popovers_description">Fournit un message descriptif ou une information pour un élément d’ancrage.</string>
     <string name="component_bottomsheets_description">Une Bottom sheet est un composant d’interface utilisateur couramment utilisé dans les applications mobiles pour présenter du contenu ou des options supplémentaires à partir du bas de l’écran.</string>
+    <string name="component_card_description">Les cartes contiennent du contenu et des actions qui concernent les informations sur un sujet. Elles offrent une séparation visuelle et peuvent être statiques ou interactives.</string>
     <!--region Icon button-->
     <string name="component_iconbutton_description">Les icône boutons aident les utilisateurs à effectuer des actions supplémentaires d’un simple toucher. Elles sont utilisées lorsqu’un bouton compact est nécessaire, par exemple dans une barre d’outils ou une liste d’images.</string>
     <!--endregion-->
@@ -125,6 +126,8 @@
     <string name="component_badge_description">Les badges sont des indicateurs visuels pour les valeurs numériques telles que les totaux et les scores, ou pour mettre en évidence les informations de statut.</string>
     <string name="component_placeholder_description">Les squelettes fournissent un retour visuel pendant les états de chargement, affichant une interface utilisateur qui imite la structure du contenu réel évitant les sauts de pages une fois les élements chargés</string>
     <string name="component_segmentedgauge_description">La Jauge Segmenté est un indicateur visuel non interactif composée de cellules coloré. Elle affiche un niveau ou une valeur sur une echelle (par ex. de “bas” à “haut” )</string>
+    <string name="component_segmentedcontrol_description">Le Segmented Control permet à l’utilisateur de sélectionner une seule option parmi un petit ensemble de choix, tout en gardant une vue d’ensemble immédiate des alternatives disponibles.</string>
+    <string name="component_meter_description">Le Compteur affiche une valeur quantifiée sous forme d’anneau de progression circulaire, utilisé pour les états d’achèvement, les scores ou les quantités mesurées.</string>
 
     <string name="configurator_component_screen_title">Configurations des composants</string>
     <string name="configurator_component_screen_description">Le configurateur permet de visualiser un composant dans tous les états possibles disponibles en personnalisant chaque propriété pour chaque composant.</string>

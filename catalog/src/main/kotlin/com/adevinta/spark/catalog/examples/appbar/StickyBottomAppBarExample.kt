@@ -31,7 +31,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -48,13 +47,13 @@ import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.buttons.ButtonOutlined
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconButton
+import com.adevinta.spark.components.scaffold.Scaffold
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.Check
 import com.adevinta.spark.icons.ChevronHorizontalDown
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.PenOutline
-import com.adevinta.spark.icons.SparkIcons
 
 /**
  * Example demonstrating BottomAppBar with sticky behavior and elevation
@@ -85,7 +84,7 @@ private fun StickyBottomAppBarExample() {
                     actions = {
                         IconButton(onClick = { /* Handle action */ }) {
                             Icon(
-                                sparkIcon = SparkIcons.Check,
+                                sparkIcon = LeboncoinIcons.Check,
                                 contentDescription = "Action",
                             )
                         }
@@ -204,13 +203,13 @@ private fun BottomAppBarWithIconsExample() {
                     actions = {
                         IconButton(onClick = { /* Handle action */ }) {
                             Icon(
-                                sparkIcon = SparkIcons.Check,
+                                sparkIcon = LeboncoinIcons.Check,
                                 contentDescription = "Action 1",
                             )
                         }
                         IconButton(onClick = { /* Handle action */ }) {
                             Icon(
-                                sparkIcon = SparkIcons.PenOutline,
+                                sparkIcon = LeboncoinIcons.PenOutline,
                                 contentDescription = "Action 2",
                             )
                         }
@@ -300,13 +299,13 @@ private fun BottomAppBarMinimalContentExample() {
                     actions = {
                         IconButton(onClick = { /* Handle action */ }) {
                             Icon(
-                                sparkIcon = SparkIcons.Check,
+                                sparkIcon = LeboncoinIcons.Check,
                                 contentDescription = "Confirm",
                             )
                         }
                         IconButton(onClick = { /* Handle action */ }) {
                             Icon(
-                                sparkIcon = SparkIcons.PenOutline,
+                                sparkIcon = LeboncoinIcons.PenOutline,
                                 contentDescription = "Edit",
                             )
                         }

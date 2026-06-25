@@ -51,7 +51,6 @@ import androidx.compose.material3.BottomAppBarState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.LocalContentColor
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.rememberBottomAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -72,6 +71,7 @@ import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.buttons.FloatingActionButton
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconButton
+import com.adevinta.spark.components.scaffold.Scaffold
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.Check
@@ -79,8 +79,8 @@ import com.adevinta.spark.icons.GearOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.PenOutline
 import com.adevinta.spark.icons.Plus
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.ElevationTokens
+import com.adevinta.spark.tokens.SparkColors
 import com.adevinta.spark.tokens.applyTonalElevation
 import com.adevinta.spark.tokens.contentColorFor
 
@@ -225,7 +225,7 @@ public class SparkBottomAppBarScrollBehavior(
  * @param contentColor the preferred color for content inside this BottomAppBar. Defaults to either
  * the matching content color for [containerColor], or to the current [LocalContentColor] if
  * [containerColor] is not a color from the theme.
- * @param elevation when [containerColor] is [ColorScheme.surface], a translucent main color
+ * @param elevation when [containerColor] is [SparkColors.surface], a translucent main color
  * overlay is applied on top of the container. A higher tonal elevation value will result in a
  * darker color in light theme and lighter color in dark theme. See also: [Surface].
  * @param contentPadding the padding applied to the content of this BottomAppBar
@@ -243,7 +243,7 @@ public fun BottomAppBar(
     modifier: Modifier = Modifier,
     floatingActionButton: @Composable (() -> Unit)? = null,
     containerColor: Color = BottomAppBarDefaults.containerColor,
-    contentColor: Color = androidx.compose.material3.contentColorFor(containerColor),
+    contentColor: Color = contentColorFor(containerColor),
     elevation: Dp = BottomAppBarDefaults.ContainerElevation,
     contentPadding: PaddingValues = BottomAppBarDefaults.ContentPadding,
     windowInsets: WindowInsets = BottomAppBarDefaults.windowInsets,
@@ -291,7 +291,7 @@ public fun BottomAppBar(
  * @param contentColor the preferred color for content inside this BottomAppBar. Defaults to either
  * the matching content color for [containerColor], or to the current [LocalContentColor] if
  * [containerColor] is not a color from the theme.
- * @param elevation when [containerColor] is [ColorScheme.surface], a translucent main color
+ * @param elevation when [containerColor] is [SparkColors.surface], a translucent main color
  * overlay is applied on top of the container. A higher tonal elevation value will result in a
  * darker color in light theme and lighter color in dark theme. See also: [Surface].
  * @param contentPadding the padding applied to the content of this BottomAppBar
@@ -436,13 +436,13 @@ internal fun BottomAppBarPreview() {
                 IconButton(onClick = { /* doSomething() */ }) {
                     Icon(
                         modifier = Modifier.size(24.dp),
-                        sparkIcon = SparkIcons.Check,
+                        sparkIcon = LeboncoinIcons.Check,
                         contentDescription = "Localized description",
                     )
                 }
                 IconButton(onClick = { /* doSomething() */ }) {
                     Icon(
-                        SparkIcons.PenOutline,
+                        LeboncoinIcons.PenOutline,
                         contentDescription = "Localized description",
                     )
                 }
@@ -452,7 +452,7 @@ internal fun BottomAppBarPreview() {
                     onClick = { /* do something */ },
                     containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
                     elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation(),
-                    icon = SparkIcons.Plus,
+                    icon = LeboncoinIcons.Plus,
                     contentDescription = "Localized description",
                 )
             },
@@ -482,13 +482,13 @@ internal fun BottomAppBarScrollablePreview() {
                     actions = {
                         IconButton(onClick = { /* doSomething() */ }) {
                             Icon(
-                                sparkIcon = SparkIcons.Check,
+                                sparkIcon = LeboncoinIcons.Check,
                                 contentDescription = "Action 1",
                             )
                         }
                         IconButton(onClick = { /* doSomething() */ }) {
                             Icon(
-                                sparkIcon = SparkIcons.PenOutline,
+                                sparkIcon = LeboncoinIcons.PenOutline,
                                 contentDescription = "Action 2",
                             )
                         }

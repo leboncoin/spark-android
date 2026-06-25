@@ -49,6 +49,9 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.movableContentOf
+import androidx.compose.runtime.movableContentWithReceiverOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -87,7 +90,6 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.Cross
 import com.adevinta.spark.icons.ImageFill
 import com.adevinta.spark.icons.LeboncoinIcons
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.ThreeDotsVertical
 import com.adevinta.spark.tokens.Layout
 import com.adevinta.spark.tokens.LocalWindowSizeClass
@@ -142,17 +144,22 @@ public fun ModalScaffold(
     val dialogPaneDescription = stringResource(R.string.spark_dialog_pane_a11y)
     val dialogModifier = modifier.then(Modifier.semantics { paneTitle = dialogPaneDescription })
 
+    val snackbarHostSlot = remember { movableContentOf { snackbarHost() } }
+    val titleSlot = remember { movableContentOf { title() } }
+    val actionsSlot = remember { movableContentWithReceiverOf<RowScope> { actions() } }
+    val contentSlot = remember { movableContentOf<PaddingValues> { content(it) } }
+
     when {
         isFoldableOrTablet -> DialogScaffold(
             modifier = dialogModifier,
             onClose = onClose,
             contentPadding = contentPadding,
-            snackbarHost = snackbarHost,
+            snackbarHost = snackbarHostSlot,
             mainButton = mainButton,
             supportButton = supportButton,
-            title = title,
-            actions = actions,
-            content = content,
+            title = titleSlot,
+            actions = actionsSlot,
+            content = contentSlot,
         )
 
         isPhoneLandscape -> PhoneLandscapeModalScaffold(
@@ -160,14 +167,14 @@ public fun ModalScaffold(
             properties = properties,
             contentPadding = contentPadding,
             onClose = onClose,
-            snackbarHost = snackbarHost,
+            snackbarHost = snackbarHostSlot,
             mainButton = mainButton,
             supportButton = supportButton,
-            title = title,
-            actions = actions,
+            title = titleSlot,
+            actions = actionsSlot,
             contentWindowInsets = contentWindowInsets,
             inEdgeToEdge = inEdgeToEdge,
-            content = content,
+            content = contentSlot,
         )
 
         else ->
@@ -176,14 +183,14 @@ public fun ModalScaffold(
                 properties = properties,
                 contentPadding = contentPadding,
                 onClose = onClose,
-                snackbarHost = snackbarHost,
+                snackbarHost = snackbarHostSlot,
                 mainButton = mainButton,
                 supportButton = supportButton,
-                title = title,
-                actions = actions,
+                title = titleSlot,
+                actions = actionsSlot,
                 contentWindowInsets = contentWindowInsets,
                 inEdgeToEdge = inEdgeToEdge,
-                content = content,
+                content = contentSlot,
             )
     }
 }
@@ -319,6 +326,8 @@ private fun BottomBarPortrait(
     scrollBehavior: BottomAppBarScrollBehavior,
 ) {
     if (supportButton == null && mainButton == null) return
+    val mainContent = remember { movableContentOf<Modifier> { mainButton?.invoke(it) } }
+    val supportContent = remember { movableContentOf<Modifier> { supportButton?.invoke(it) } }
     BottomAppBar(
         scrollBehavior = scrollBehavior,
     ) {
@@ -332,16 +341,16 @@ private fun BottomBarPortrait(
                 verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Bottom),
             ) {
                 val buttonModifier = Modifier.fillMaxWidth()
-                mainButton?.invoke(buttonModifier)
-                supportButton?.invoke(buttonModifier)
+                mainContent.invoke(buttonModifier)
+                supportContent.invoke(buttonModifier)
             }
         } else {
             Row(
                 modifier = buttonsLayoutModifier,
                 horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.End),
             ) {
-                supportButton?.invoke(Modifier)
-                mainButton?.invoke(Modifier)
+                supportContent.invoke(Modifier)
+                mainContent.invoke(Modifier)
             }
         }
     }
@@ -506,8 +515,8 @@ private fun ModalPreview() {
                     Text(text = "Title")
                 },
                 actions = {
-                    Icon(sparkIcon = SparkIcons.ImageFill, contentDescription = "")
-                    Icon(sparkIcon = SparkIcons.ImageFill, contentDescription = "")
+                    Icon(sparkIcon = LeboncoinIcons.ImageFill, contentDescription = "")
+                    Icon(sparkIcon = LeboncoinIcons.ImageFill, contentDescription = "")
                     Icon(sparkIcon = LeboncoinIcons.ThreeDotsVertical, contentDescription = "")
                 },
             ) { innerPadding ->

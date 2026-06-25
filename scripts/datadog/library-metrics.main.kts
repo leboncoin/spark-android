@@ -1,0 +1,111 @@
+#!/usr/bin/env kotlin
+/*
+ * Copyright (c) 2026 Adevinta
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+@file:Repository("https://repo1.maven.org/maven2/")
+@file:DependsOn("com.github.ajalt.clikt:clikt-jvm:5.1.0")
+@file:Import("../utils/clikt.main.kts")
+@file:Import("../utils/files.main.kts")
+@file:Import("../utils/datadog.main.kts")
+
+import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.core.Context
+import com.github.ajalt.clikt.core.main
+import java.nio.file.Path
+import kotlin.io.path.isDirectory
+import kotlin.io.path.listDirectoryEntries
+import kotlin.io.path.name
+import kotlin.io.path.useLines
+
+private val SERVICE_NAME = "library-metrics"
+
+// Module source paths - relative to project root
+private val ICONS_FILE = "spark-icons/src/androidMain/kotlin/com/adevinta/spark/icons/LeboncoinIcons.android.kt"
+private val COMPONENTS_DIR = "spark/src/main/kotlin/com/adevinta/spark/components"
+
+class LibraryMetrics : CliktCommand("library-metrics.main.kts") {
+
+    override fun help(context: Context) = "Submits library metrics (icons, docs) to Datadog."
+
+    private val projectDir by projectDir()
+    private val dryRun by dryRun()
+    private val verbose by verbose()
+
+    override fun run() {
+        val metrics = mutableListOf<SparkMetric>()
+
+        // Icon count
+        val iconCount = countIcons(projectDir)
+        if (verbose) echo("Icon count: $iconCount")
+        metrics += SparkMetric(
+            name = "spark.health.icons.count",
+            value = iconCount.toDouble(),
+            tags = listOf("module:spark-icons"),
+        )
+
+        // Docs missing and pages
+        val (docsPages, docsMissing) = countDocs(projectDir)
+        if (verbose) {
+            echo("Docs pages: $docsPages")
+            echo("Docs missing: $docsMissing")
+        }
+        metrics += SparkMetric(
+            name = "spark.health.docs.pages",
+            value = docsPages.toDouble(),
+            tags = listOf("module:spark"),
+        )
+        metrics += SparkMetric(
+            name = "spark.health.docs.missing",
+            value = docsMissing.toDouble(),
+            tags = listOf("module:spark"),
+        )
+
+        submitMetrics(metrics, SERVICE_NAME, dryRun, verbose)
+    }
+
+    private fun countIcons(projectDir: Path): Int {
+        val iconsFile = projectDir.resolve(ICONS_FILE)
+        return iconsFile.useLines { lines -> lines.count { it.startsWith("public val LeboncoinIcons.") } }
+    }
+
+    private fun countDocs(projectDir: Path): Pair<Int, Int> {
+        val componentsDir = projectDir.resolve(COMPONENTS_DIR)
+
+        val componentDirs = componentsDir.listDirectoryEntries()
+            .filter { it.isDirectory() }
+
+        var docsPages = 0
+        var docsMissing = 0
+
+        for (dir in componentDirs) {
+            val mdFiles = dir.listDirectoryEntries("*.md")
+            docsPages += mdFiles.size
+            if (mdFiles.none { it.name == "${dir.name}.md" }) {
+                if (verbose) echo("Missing doc for component: ${dir.name}")
+                docsMissing++
+            }
+        }
+
+        return docsPages to docsMissing
+    }
+}
+
+LibraryMetrics().main(args)

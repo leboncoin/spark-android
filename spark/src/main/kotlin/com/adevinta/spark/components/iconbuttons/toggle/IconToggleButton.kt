@@ -48,6 +48,7 @@ import com.adevinta.spark.components.iconbuttons.IconButtonColors
 import com.adevinta.spark.components.iconbuttons.IconButtonDefaults
 import com.adevinta.spark.components.iconbuttons.IconButtonIntent
 import com.adevinta.spark.components.iconbuttons.IconButtonSize
+import com.adevinta.spark.components.iconbuttons.IconButtonTokens
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.popover.PlainTooltip
 import com.adevinta.spark.components.popover.TooltipBox
@@ -69,7 +70,7 @@ import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
  * and changes @param checked by `true` or `false`
  * @param icons a content to be drawn inside the IconToggleButton,
  * should show one of [IconToggleButtonIcons] values that sets checked and unchecked
- * @param colors [IconButtonColors] that will be used to resolve the colors used for this icon
+ * @param colors `IconButtonColors` that will be used to resolve the colors used for this icon
  * button in different states.
  * @param modifier the [Modifier] to be applied to this icon button
  * @param enabled controls the enabled state of this icon button. When `false`, this component will
@@ -117,6 +118,7 @@ internal fun SparkIconToggleButton(
                 positioning = TooltipAnchorPosition.Above,
             ),
         ) {
+            val shape = IconButtonTokens.resolveShape(shape.shape)
             Surface(
                 checked = checked,
                 onCheckedChange = onCheckedChange,
@@ -125,7 +127,7 @@ internal fun SparkIconToggleButton(
                     .sparkUsageOverlay()
                     .semantics { role = Role.Checkbox },
                 enabled = enabled,
-                shape = shape.shape,
+                shape = shape,
                 border = border,
                 color = colors.containerColor(enabled).value,
                 contentColor = colors.contentColor(enabled).value,
@@ -149,7 +151,7 @@ internal fun SparkIconToggleButton(
 @Composable
 private fun IconToggleButtonPreview() {
     PreviewTheme {
-        val intent = IconButtonIntent.Basic
+        val intent = IconButtonIntent.Support
         var state by remember {
             mutableStateOf(false)
         }

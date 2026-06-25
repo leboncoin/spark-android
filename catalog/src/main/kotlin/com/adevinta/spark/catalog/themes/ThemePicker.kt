@@ -34,6 +34,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.add
@@ -49,10 +50,12 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -75,10 +78,9 @@ import com.adevinta.spark.icons.collapseExpand
 import com.adevinta.spark.tokens.Layout
 import com.adevinta.spark.tokens.dim1
 import com.adevinta.spark.tokens.highlight
+import com.composeunstyled.DisclosedContent
+import com.composeunstyled.DisclosureButton
 import com.composeunstyled.UnstyledDisclosure
-import com.composeunstyled.UnstyledDisclosureHeading
-import com.composeunstyled.UnstyledDisclosurePanel
-import com.composeunstyled.rememberDisclosureState
 import java.text.NumberFormat
 
 @SuppressLint("MaterialComposableHasSparkReplacement")
@@ -118,13 +120,11 @@ public fun ThemePicker(
             contentType = ThemePickerContentType.ButtonGroup,
         ) {
             Column {
-                val themeModes = ThemeMode.entries
-                val themeModesLabel = themeModes.map { it.name }
+                ThemeMode.entries
                 ButtonGroup(
                     title = stringResource(id = R.string.theme_picker_mode_title),
-                    selectedOption = theme.themeMode.name,
-                    onOptionSelect = { onThemeChange(theme.copy(themeMode = ThemeMode.valueOf(it))) },
-                    options = themeModesLabel,
+                    selectedOption = theme.themeMode,
+                    onOptionSelect = { onThemeChange(theme.copy(themeMode = it)) },
                 )
                 HelperText(text = stringResource(id = R.string.theme_picker_mode_helper))
             }
@@ -137,15 +137,12 @@ public fun ThemePicker(
                 verticalArrangement = spacedBy(RelatedItemSpacing),
             ) {
                 Column {
-                    val colorModes = ColorMode.entries
-                    val colorModesLabel = colorModes.map { it.name }
                     ButtonGroup(
                         title = stringResource(id = R.string.theme_picker_theme_title),
-                        selectedOption = theme.colorMode.name,
+                        selectedOption = theme.colorMode,
                         onOptionSelect = {
-                            onThemeChange(theme.copy(colorMode = ColorMode.valueOf(it)))
+                            onThemeChange(theme.copy(colorMode = it))
                         },
-                        options = colorModesLabel,
                     )
                     HelperText(text = stringResource(id = R.string.theme_picker_theme_helper))
                 }
@@ -154,13 +151,10 @@ public fun ThemePicker(
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                 ) {
                     Column {
-                        val userModes = UserMode.entries
-                        val userModesLabel = userModes.map { it.name }
                         ButtonGroup(
                             title = stringResource(id = R.string.theme_picker_theme_title),
-                            selectedOption = theme.userMode.name,
-                            onOptionSelect = { onThemeChange(theme.copy(userMode = UserMode.valueOf(it))) },
-                            options = userModesLabel,
+                            selectedOption = theme.userMode,
+                            onOptionSelect = { onThemeChange(theme.copy(userMode = it)) },
                         )
                         HelperText(text = stringResource(id = R.string.theme_picker_pro_theme_helper))
                     }
@@ -191,15 +185,12 @@ public fun ThemePicker(
                 verticalArrangement = spacedBy(RelatedItemSpacing),
             ) {
                 Column {
-                    val fontScaleModes = FontScaleMode.entries
-                    val fontModesLabel = fontScaleModes.map { it.name }
                     ButtonGroup(
                         title = stringResource(id = R.string.theme_picker_font_scale_title),
-                        selectedOption = theme.fontScaleMode.name,
+                        selectedOption = theme.fontScaleMode,
                         onOptionSelect = {
-                            onThemeChange(theme.copy(fontScaleMode = FontScaleMode.valueOf(it)))
+                            onThemeChange(theme.copy(fontScaleMode = it))
                         },
-                        options = fontModesLabel,
                     )
                     HelperText(text = stringResource(id = R.string.theme_picker_font_scale_helper))
                 }
@@ -223,15 +214,12 @@ public fun ThemePicker(
             contentType = ThemePickerContentType.ButtonGroup,
         ) {
             Column {
-                val textDirections = TextDirection.entries
-                val textDirectionsLabel = textDirections.map { it.name }
                 ButtonGroup(
                     title = stringResource(id = R.string.theme_picker_text_direction_title),
-                    selectedOption = theme.textDirection.name,
+                    selectedOption = theme.textDirection,
                     onOptionSelect = {
-                        onThemeChange(theme.copy(textDirection = TextDirection.valueOf(it)))
+                        onThemeChange(theme.copy(textDirection = it))
                     },
-                    options = textDirectionsLabel,
                 )
                 HelperText(text = stringResource(id = R.string.theme_picker_text_direction_helper))
             }
@@ -295,84 +283,92 @@ public fun ThemePicker(
             key = "developer_options",
             contentType = ThemePickerContentType.SectionHeader,
         ) {
-            val disclosureState = rememberDisclosureState(initiallyExpanded = false)
-            UnstyledDisclosure(state = disclosureState) {
-                UnstyledDisclosureHeading(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = SparkTheme.shapes.small,
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically,
-                    contentPadding = PaddingValues(top = 12.dp, bottom = 12.dp, end = 16.dp),
-
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.theme_picker_section_developer_options),
-                        style = SparkTheme.typography.headline2,
-                    )
-                    Icon(
-                        sparkIcon = SparkAnimatedIcons.collapseExpand(),
-                        contentDescription = null,
-                        modifier = Modifier.size(16.dp),
-                        atEnd = disclosureState.expanded,
-                    )
-                }
-                UnstyledDisclosurePanel(
-                    enter = expandVertically(
-                        spring(
-                            stiffness = Spring.StiffnessMediumLow,
-                            visibilityThreshold = IntSize.VisibilityThreshold,
-                        ),
-                    ),
-                    exit = shrinkVertically(),
-
-                ) {
-                    Column(
-                        verticalArrangement = spacedBy(ItemSpacing),
-                        modifier = Modifier.padding(top = ItemSpacing),
+            var expanded by remember { mutableStateOf(false) }
+            UnstyledDisclosure(
+                expanded = expanded,
+                onExpandedChange = { expanded = it },
+            ) {
+                Column {
+                    DisclosureButton(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(SparkTheme.shapes.small),
+                        contentPadding = PaddingValues(top = 12.dp, bottom = 12.dp, end = 16.dp),
                     ) {
-                        HelperText(text = stringResource(id = R.string.theme_picker_developer_options_helper))
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Text(
+                                text = stringResource(id = R.string.theme_picker_section_developer_options),
+                                style = SparkTheme.typography.headline2,
+                            )
+                            Icon(
+                                sparkIcon = SparkAnimatedIcons.collapseExpand(),
+                                contentDescription = null,
+                                modifier = Modifier.size(16.dp),
+                                atEnd = expanded,
+                            )
+                        }
+                    }
+                    DisclosedContent(
+                        enter = expandVertically(
+                            spring(
+                                stiffness = Spring.StiffnessMediumLow,
+                                visibilityThreshold = IntSize.VisibilityThreshold,
+                            ),
+                        ),
+                        exit = shrinkVertically(),
+                    ) {
+                        Column(
+                            verticalArrangement = spacedBy(ItemSpacing),
+                            modifier = Modifier.padding(top = ItemSpacing),
+                        ) {
+                            HelperText(text = stringResource(id = R.string.theme_picker_developer_options_helper))
 
-                        Column {
-                            DropdownEnum(
-                                title = stringResource(id = R.string.themepicker_navigation_label),
-                                selectedOption = theme.navigationMode,
-                                onOptionSelect = { onThemeChange(theme.copy(navigationMode = it)) },
-                                modifier = Modifier.fillMaxWidth(),
-                            )
-                            HelperText(text = stringResource(id = R.string.theme_picker_navigation_helper))
-                        }
-                        SwitchLabelled(
-                            checked = theme.useLegacyTheme,
-                            onCheckedChange = { checked ->
-                                onThemeChange(theme.copy(useLegacyTheme = checked))
-                            },
-                        ) {
-                            Text(
-                                text = "Use LegacyTheme",
-                                modifier = Modifier.fillMaxWidth(),
-                            )
-                        }
-                        SwitchLabelled(
-                            checked = theme.highlightSparkComponents,
-                            onCheckedChange = { checked ->
-                                onThemeChange(theme.copy(highlightSparkComponents = checked))
-                            },
-                        ) {
-                            Text(
-                                text = "Highlight Spark Components",
-                                modifier = Modifier.fillMaxWidth(),
-                            )
-                        }
-                        SwitchLabelled(
-                            checked = theme.highlightSparkTokens,
-                            onCheckedChange = { checked ->
-                                onThemeChange(theme.copy(highlightSparkTokens = checked))
-                            },
-                        ) {
-                            Text(
-                                text = "Highlight Spark Tokens",
-                                modifier = Modifier.fillMaxWidth(),
-                            )
+                            Column {
+                                DropdownEnum(
+                                    title = stringResource(id = R.string.themepicker_navigation_label),
+                                    selectedOption = theme.navigationMode,
+                                    onOptionSelect = { onThemeChange(theme.copy(navigationMode = it)) },
+                                    modifier = Modifier.fillMaxWidth(),
+                                )
+                                HelperText(text = stringResource(id = R.string.theme_picker_navigation_helper))
+                            }
+                            SwitchLabelled(
+                                checked = theme.highlightSparkComponents,
+                                onCheckedChange = { checked ->
+                                    onThemeChange(theme.copy(highlightSparkComponents = checked))
+                                },
+                            ) {
+                                Text(
+                                    text = "Highlight Spark Components",
+                                    modifier = Modifier.fillMaxWidth(),
+                                )
+                            }
+                            SwitchLabelled(
+                                checked = theme.highlightSparkTokens,
+                                onCheckedChange = { checked ->
+                                    onThemeChange(theme.copy(highlightSparkTokens = checked))
+                                },
+                            ) {
+                                Text(
+                                    text = "Highlight Spark Tokens",
+                                    modifier = Modifier.fillMaxWidth(),
+                                )
+                            }
+                            SwitchLabelled(
+                                checked = theme.useRebrandedShapes,
+                                onCheckedChange = { checked ->
+                                    onThemeChange(theme.copy(useRebrandedShapes = checked))
+                                },
+                            ) {
+                                Text(
+                                    text = "New Button and Tags shape",
+                                    modifier = Modifier.fillMaxWidth(),
+                                )
+                            }
                         }
                     }
                 }

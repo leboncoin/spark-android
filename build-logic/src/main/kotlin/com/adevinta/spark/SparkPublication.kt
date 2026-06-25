@@ -26,15 +26,17 @@ import nmcp.NmcpAggregationExtension
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
+import org.gradle.api.tasks.bundling.Jar
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.get
-import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.register
 import org.gradle.kotlin.dsl.the
 import org.gradle.plugins.signing.SigningExtension
+import org.jetbrains.dokka.gradle.tasks.DokkaGenerateTask
+import org.jetbrains.kotlin.gradle.utils.named
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.toJavaDuration
 
@@ -78,29 +80,62 @@ internal object SparkPublication {
 
     private fun Project.registerPublication() = configure<PublishingExtension> {
         publications {
-            register<MavenPublication>("maven") {
-                when {
-                    isAndroidLibrary -> configureAndroidPublication(this)
-                    isJavaPlatform -> from(components["javaPlatform"])
-                    else -> TODO("Unsupported project type $this")
+            if (isKotlinMultiplatform) {
+                // KMP auto-generates per-target publications (kotlinMultiplatform, android, jvm…).
+                // Don't register a competing "maven" publication — just configure what KMP created.
+                //
+                // Each publication gets its own javadoc jar task to avoid signing task ordering
+                // conflicts: a shared task produces one .asc file, but each publication's sign
+                // task references it, creating an implicit dependency that Gradle cannot resolve.
+                afterEvaluate {
+                    publications.withType(MavenPublication::class.java) {
+                        val pubName = name.replaceFirstChar { it.uppercaseChar() }
+                        val dokkaJavadocJar = tasks.register<Jar>("dokkaHtmlJarFor$pubName") {
+                            description = "Javadoc JAR for $pubName publication"
+                            from(
+                                tasks.named<DokkaGenerateTask>("dokkaGeneratePublicationHtml").flatMap {
+                                    it.outputDirectory
+                                },
+                            )
+                            archiveClassifier.set("javadoc")
+                            // Disambiguate the output file per publication so signing produces
+                            // separate .asc files with no cross-publication conflicts.
+                            archiveAppendix.set(pubName.lowercase())
+                        }
+                        configurePom()
+                        artifact(dokkaJavadocJar)
+                    }
                 }
-                configurePom()
+            } else {
+                register<MavenPublication>("maven") {
+                    when {
+                        isAndroidLibrary -> configureAndroidPublication(this)
+                        isJavaPlatform -> from(components["javaPlatform"])
+                        else -> TODO("Unsupported project type $this")
+                    }
+                    configurePom()
+                }
             }
         }
     }
 
     private fun Project.configureAndroidPublication(publication: MavenPublication) {
+        val dokkaJavadocJar = tasks.register<Jar>("dokkaHtmlJar") {
+            description = "A javadoc JAR containing Dokka HTML documentation"
+            from(tasks.named<DokkaGenerateTask>("dokkaGeneratePublicationHtml").flatMap { it.outputDirectory })
+            archiveClassifier.set("javadoc")
+        }
         configure<LibraryExtension> {
             publishing {
                 singleVariant("release") {
                     withSourcesJar()
-                    withJavadocJar()
                 }
             }
         }
         // AGP creates software components during the afterEvaluate callback step...
         afterEvaluate {
             publication.from(components.getByName("release"))
+            publication.artifact(dokkaJavadocJar)
         }
     }
 
@@ -126,8 +161,8 @@ internal object SparkPublication {
     }
 
     private fun Project.configureSigning() = configure<SigningExtension> signing@{
-        val signingKey: String? by project
-        val signingPassword: String? by project
+        val signingKey = project.findProperty("signingKey") as? String
+        val signingPassword = project.findProperty("signingPassword") as? String
         if (signingKey == null || signingPassword == null) return@signing
         useInMemoryPgpKeys(signingKey, signingPassword)
         sign(the<PublishingExtension>().publications)

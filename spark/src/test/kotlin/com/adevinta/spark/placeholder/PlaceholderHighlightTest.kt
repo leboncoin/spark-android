@@ -22,7 +22,7 @@
 package com.adevinta.spark.placeholder
 
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.junit4.v2.createComposeRule
 import com.adevinta.spark.components.placeholder.PlaceholderHighlight
 import com.adevinta.spark.components.placeholder.fade
 import com.adevinta.spark.components.placeholder.shimmer

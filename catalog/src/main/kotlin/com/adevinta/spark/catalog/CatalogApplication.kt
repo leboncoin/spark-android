@@ -26,6 +26,8 @@ import android.content.pm.ApplicationInfo
 import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
 import android.os.StrictMode.VmPolicy
+import androidx.compose.runtime.Composer
+import androidx.compose.runtime.tooling.ComposeStackTraceMode
 
 public class CatalogApplication : Application() {
 
@@ -33,6 +35,11 @@ public class CatalogApplication : Application() {
         super.onCreate()
 
         setStrictModePolicy()
+        if (isDebuggable()) {
+            Composer.setDiagnosticStackTraceMode(ComposeStackTraceMode.SourceInformation)
+        } else {
+            Composer.setDiagnosticStackTraceMode(ComposeStackTraceMode.Auto)
+        }
     }
 
     /**

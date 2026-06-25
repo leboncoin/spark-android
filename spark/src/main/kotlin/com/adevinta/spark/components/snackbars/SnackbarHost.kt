@@ -42,10 +42,10 @@ import kotlinx.coroutines.sync.withLock
 import kotlin.coroutines.resume
 
 /**
- * Host for [Snackbar]s to be used in [Scaffold] to properly show, hide and dismiss items based
+ * Host for [Snackbar]s to be used in [com.adevinta.spark.components.scaffold.Scaffold] to properly show, hide and dismiss items based
  * on Material specification and the [hostState].
  *
- * This component with default parameters comes build-in with [Scaffold], if you need to show a
+ * This component with default parameters comes build-in with [com.adevinta.spark.components.scaffold.Scaffold], if you need to show a
  * default [Snackbar], use [SnackbarHostState.showSnackbar].
  *
  * @param hostState state of this component to read and show [Snackbar]s accordingly
@@ -82,8 +82,8 @@ public fun SnackbarHost(
  * State of the [SnackbarHost], which controls the queue and the current [Snackbar] being shown
  * inside the [SnackbarHost].
  *
- * This state is usually [remember]ed and used to provide a
- * [SnackbarHost] to a [Scaffold].
+ * This state is usually `remember`ed and used to provide a
+ * [SnackbarHost] to a [com.adevinta.spark.components.scaffold.Scaffold].
  */
 @Stable
 public class SnackbarHostState {
@@ -94,7 +94,7 @@ public class SnackbarHostState {
 
     /**
      * Shows or queues to be shown a [Snackbar] at the bottom of
-     * the [Scaffold] to which this state
+     * the [com.adevinta.spark.components.scaffold.Scaffold] to which this state
      * is attached and suspends until the snackbar has disappeared.
      *
      * [SnackbarHostState] guarantees to show at most one snackbar at a time. If this function is
@@ -103,7 +103,7 @@ public class SnackbarHostState {
      * from display and/or the queue to be displayed.
      *
      * To change the Snackbar appearance, change it in 'snackbarHost'
-     * on the [Scaffold].
+     * on the [com.adevinta.spark.components.scaffold.Scaffold].
      * @param message The message to display in the Snackbar.
      * @param icon An optional icon to override the default intent icon.
      * @param intent The intent of the Snackbar.
@@ -141,7 +141,7 @@ public class SnackbarHostState {
 
     /**
      * Shows or queues to be shown a [Snackbar] at
-     * the bottom of the [Scaffold] to which this state
+     * the bottom of the [com.adevinta.spark.components.scaffold.Scaffold] to which this state
      * is attached and suspends until the snackbar has disappeared.
      *
      * [SnackbarHostState] guarantees to show at most one snackbar at a time. If this function is

@@ -34,7 +34,6 @@ import com.adevinta.spark.components.progress.Spinner
 import com.adevinta.spark.icons.GearOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 
 /**
  * Icon buttons help people take supplementary actions with a single tap. They’re used when a
@@ -43,7 +42,7 @@ import com.adevinta.spark.icons.SparkIcons
  * @param icon a content to be drawn inside the IconButton
  * @param onClick called when this icon button is clicked
  * @param modifier the [Modifier] to be applied to this icon button
- * @param intent one of [IconButtonIntent] values that will be used to determine [IconButtonColors] to be applied
+ * @param intent one of [IconButtonIntent] values that will be used to determine the color to be applied
  * @param enabled controls the enabled state of this icon button. When `false`, this component will
  * not respond to user input, and it will appear visually disabled and disabled to accessibility
  * services.

@@ -12,7 +12,9 @@ jobs:
   paparazzi-golden-images:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: ./.github/actions/paparazzi-golden-images
         with:
           github-token: ${{ secrets.PAT_SPARK || secrets.GITHUB_TOKEN }}

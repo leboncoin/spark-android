@@ -71,9 +71,8 @@ import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.Stack
 import com.adevinta.spark.icons.StrokeImage
-import com.adevinta.spark.icons.Tattoo
 import com.adevinta.spark.icons.WarningImage
 import com.adevinta.spark.tokens.EmphasizeDim2
 import com.adevinta.spark.tools.SparkExceptionHandler
@@ -110,10 +109,11 @@ public fun SparkImage(
         movableContentOf(emptyIcon)
     }
     val exceptionHandler = LocalSparkExceptionHandler.current
+    val compositionTrace = remember { Throwable("SparkImage was composed here") }
     SubcomposeAsyncImage(
         modifier = modifier
             .layout { measurable, constraints ->
-                constraints.checkThatImageHasDefinedSize(exceptionHandler, model)
+                constraints.checkThatImageHasDefinedSize(exceptionHandler, model, compositionTrace)
 
                 val placeable = measurable.measure(constraints)
                 layout(placeable.width, placeable.height) {
@@ -271,7 +271,11 @@ internal fun ImageIconState(
     }
 }
 
-private fun Constraints.checkThatImageHasDefinedSize(exceptionHandler: SparkExceptionHandler, model: Any?) {
+private fun Constraints.checkThatImageHasDefinedSize(
+    exceptionHandler: SparkExceptionHandler,
+    model: Any?,
+    compositionTrace: Throwable,
+) {
     val isWidthBounded = hasBoundedWidth
     val isHeightBounded = hasBoundedHeight
     val hasMinWidth = minWidth != 0
@@ -280,6 +284,7 @@ private fun Constraints.checkThatImageHasDefinedSize(exceptionHandler: SparkExce
         exceptionHandler.handleException(
             IllegalStateException(
                 "Image must have a bounded width but was hasBoundedWidth: $isWidthBounded for model: $model",
+                compositionTrace,
             ),
         )
     }
@@ -287,17 +292,24 @@ private fun Constraints.checkThatImageHasDefinedSize(exceptionHandler: SparkExce
         exceptionHandler.handleException(
             IllegalStateException(
                 "Image must have a bounded height but was hasBoundedHeight: $isHeightBounded for model: $model",
+                compositionTrace,
             ),
         )
     }
     if (!hasMinWidth) {
         exceptionHandler.handleException(
-            IllegalStateException("Image must have a minimum width but has minWidth: $minWidth for model: $model"),
+            IllegalStateException(
+                "Image must have a minimum width but has minWidth: $minWidth for model: $model",
+                compositionTrace,
+            ),
         )
     }
     if (!hasMinHeight) {
         exceptionHandler.handleException(
-            IllegalStateException("Image must have a minimum height but has minHeight: $minHeight for model: $model"),
+            IllegalStateException(
+                "Image must have a minimum height but has minHeight: $minHeight for model: $model",
+                compositionTrace,
+            ),
         )
     }
 }
@@ -386,9 +398,9 @@ private fun AsyncImagePainter.State.asImageState(): State = when (this) {
 @Composable
 private fun ImagePreview() {
     PreviewTheme {
-        val painter = rememberSparkIconPainter(sparkIcon = SparkIcons.Tattoo)
+        val painter = rememberSparkIconPainter(sparkIcon = LeboncoinIcons.Stack)
         val drawable =
-            AppCompatResources.getDrawable(LocalContext.current, SparkIcons.Tattoo.drawableId)!!
+            AppCompatResources.getDrawable(LocalContext.current, LeboncoinIcons.Stack.drawableId)!!
         val imageRequest = ImageRequest.Builder(LocalContext.current).data(Unit).build()
 
         Text("Empty")

@@ -95,7 +95,7 @@ internal class SliderScreenshot {
                 Row {
                     Text(text = "Square Shape")
                     RangeSliders(
-                        intent = SliderIntent.Basic,
+                        intent = SliderIntent.Support,
                         rounded = false,
                     )
                 }

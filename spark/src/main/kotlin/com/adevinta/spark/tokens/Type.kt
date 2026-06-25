@@ -21,15 +21,19 @@
  */
 package com.adevinta.spark.tokens
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
@@ -205,7 +209,28 @@ public data class SparkTypography(
      * Call to actions
      */
     val callout: TextStyle,
-)
+) {
+    /**
+     * Required by the [Kelp](https://github.com/ozontech/kelp) Android Studio plugin to render
+     * font-size/line-height inlay hints next to usages of typography tokens.
+     *
+     * Property naming convention: `name___value`
+     */
+    @Suppress("unused")
+    private class KelpInlayPreview {
+        val display1___40sp = Unit
+        val display2___32sp = Unit
+        val display3___24sp = Unit
+        val headline1___20sp = Unit
+        val headline2___18sp = Unit
+        val subhead___16sp = Unit
+        val body1___16sp = Unit
+        val body2___14sp = Unit
+        val caption___12sp = Unit
+        val small___10sp = Unit
+        val callout___16sp = Unit
+    }
+}
 
 @Suppress("CompositionLocalAllowlist") // We need it to get access to our typo like Material
 internal val LocalSparkTypography = staticCompositionLocalOf { sparkTypography() }
@@ -241,65 +266,104 @@ public val TextStyle.highlight: TextStyle
 @Composable
 private fun TextPreview() {
     PreviewTheme {
-        Text(
-            text = "This is font family text display1",
-            style = SparkTheme.typography.display1,
-        )
-        Text(
-            text = "This is font family text display2",
-            style = SparkTheme.typography.display2,
-        )
-        Text(
-            text = "This is font family text display3",
-            style = SparkTheme.typography.display3,
-        )
-        Text(
-            text = "This is font family text headline1",
-            style = SparkTheme.typography.headline1,
-        )
-        Text(
-            text = "This is font family text headline2",
-            style = SparkTheme.typography.headline2,
-        )
-        Text(
-            text = "This is font family text subhead",
-            style = SparkTheme.typography.subhead,
-        )
-        Text(
-            text = "This is font family text body1",
-            style = SparkTheme.typography.body1,
-        )
-        Text(
-            text = "This is font family text body1 highlight",
-            style = SparkTheme.typography.body1.highlight,
-        )
-        Text(
-            text = "This is font family text body2 (default)",
-            style = SparkTheme.typography.body2,
-        )
-        Text(
-            text = "This is font family text body2 highlight",
-            style = SparkTheme.typography.body2.highlight,
-        )
-        Text(
-            text = "This is font family text caption",
-            style = SparkTheme.typography.caption,
-        )
-        Text(
-            text = "This is font family text caption highlight",
-            style = SparkTheme.typography.caption.highlight,
-        )
-        Text(
-            text = "This is font family text small",
-            style = SparkTheme.typography.small,
-        )
-        Text(
-            text = "This is font family text small highlight",
-            style = SparkTheme.typography.small.highlight,
-        )
-        Text(
-            text = "This is font family text callout",
-            style = SparkTheme.typography.callout,
-        )
+        Column(
+            modifier = Modifier.width(215.dp),
+        ) {
+//            Text(
+//                text = "This is font family text display1",
+//                style = SparkTheme.typography.display1,
+//                letterSpacing = -1.6.sp,
+//            )
+//            Text(
+//                text = "This is font family text display2",
+//                style = SparkTheme.typography.display2,
+//            )
+//            Text(
+//                text = "This is font family text display2",
+//                style = SparkTheme.typography.display2,
+//                letterSpacing = -1.3.sp,
+//            )
+//            Text(
+//                text = "This is font family text display3",
+//                style = SparkTheme.typography.display3,
+//            )
+//            Text(
+//                text = "This is font family text display3",
+//                style = SparkTheme.typography.display3,
+//                letterSpacing = -1.sp,
+//            )
+//            Text(
+//                text = "This is font family text headline1",
+//                style = SparkTheme.typography.headline1,
+//            )
+//            Text(
+//                text = "This is font family text headline1",
+//                style = SparkTheme.typography.headline1,
+//                letterSpacing = -0.9.sp,
+//            )
+//            Text(
+//                text = "This is font family text headline2",
+//                style = SparkTheme.typography.headline2,
+//                letterSpacing = -0.5.sp,
+//            )
+//            Text(
+//                text = "This is font family text subhead",
+//                style = SparkTheme.typography.subhead,
+//            )
+//            Text(
+//                text = "This is font family text subhead",
+//                style = SparkTheme.typography.subhead,
+//                letterSpacing = -0.6.sp,
+//            )
+//            Text(
+//                text = "This is font family text body1",
+//                style = SparkTheme.typography.body1,
+//                letterSpacing = -0.7.sp,
+//            )
+//            Text(
+//                text = "This is font family text body1 highlight",
+//                style = SparkTheme.typography.body1.highlight,
+//                letterSpacing = -1.sp,
+//            )
+//            Text(
+//                text = "This is font family text body2 (default)",
+//                style = SparkTheme.typography.body2,
+//                letterSpacing = -0.8.sp,
+//            )
+//            Text(
+//                text = "This is font family text body2 highlight",
+//                style = SparkTheme.typography.body2.highlight,
+//                letterSpacing = -1.0.sp,
+//            )
+//            Text(
+//                text = "This is font family text caption",
+//                style = SparkTheme.typography.caption,
+//                letterSpacing = -1.0.sp,
+//            )
+//            Text(
+//                text = "This is font family text caption highlight",
+//                style = SparkTheme.typography.caption.highlight,
+//                letterSpacing = -0.5.sp,
+//            )
+            Text(
+                text = "This is font family text small",
+                style = SparkTheme.typography.small,
+                letterSpacing = -0.6.sp,
+            )
+            Text(
+                text = "This is font family text small highlight",
+                style = SparkTheme.typography.small.highlight,
+                letterSpacing = -0.3.sp,
+            )
+            Text(
+                text = "This is font family text callout",
+                style = SparkTheme.typography.callout,
+            )
+            Text(
+                text = "This is font family text callout",
+                style = SparkTheme.typography.callout,
+                letterSpacing = -1.0.sp,
+            )
+        }
     }
 }

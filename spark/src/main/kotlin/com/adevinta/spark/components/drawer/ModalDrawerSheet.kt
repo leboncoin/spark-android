@@ -21,20 +21,13 @@
  */
 package com.adevinta.spark.components.drawer
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Face
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material3.Icon
-import androidx.compose.material3.ModalDrawerSheet
-import androidx.compose.material3.NavigationDrawerItem
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -47,9 +40,15 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.navigation.NavigationDrawerItem
+import com.adevinta.spark.icons.Family
+import com.adevinta.spark.icons.HeartOutline
+import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.MailBoxOpenOutline
 import com.adevinta.spark.tokens.SparkShapes
 import com.adevinta.spark.tokens.contentColorFor
 
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @ExperimentalSparkApi
 @Composable
 internal fun SparkModalDrawerSheet(
@@ -117,15 +116,15 @@ internal fun ModalDrawerSheetPreview() {
         padding = PaddingValues(0.dp),
     ) {
         // icons to mimic drawer destinations
-        val items = listOf(Icons.Default.Favorite, Icons.Default.Face, Icons.Default.Email)
+        val items = listOf(LeboncoinIcons.HeartOutline, LeboncoinIcons.Family, LeboncoinIcons.MailBoxOpenOutline)
         val selectedItem = remember { mutableStateOf(items[0]) }
 
         ModalDrawerSheet {
             Spacer(Modifier.height(12.dp))
             items.forEach { item ->
                 NavigationDrawerItem(
-                    icon = { Icon(item, contentDescription = null) },
-                    label = { Text(item.name) },
+                    icon = item,
+                    label = "item",
                     selected = item == selectedItem.value,
                     onClick = {
                         selectedItem.value = item

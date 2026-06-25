@@ -24,6 +24,7 @@
 
 package com.adevinta.spark.components.scaffold
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -32,17 +33,13 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FabPosition
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.LocalContentColor
-import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.ScaffoldDefaults
-import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -51,11 +48,13 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.appbar.TopAppBar
+import com.adevinta.spark.components.buttons.ExtendedFloatingActionButton
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconButton
 import com.adevinta.spark.components.surface.Surface
+import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.BurgerMenu
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.tokens.contentColorFor
 import androidx.compose.material3.Scaffold as MaterialScaffold
 
@@ -71,7 +70,7 @@ import androidx.compose.material3.Scaffold as MaterialScaffold
  * @param modifier the [Modifier] to be applied to this scaffold
  * @param topBar top app bar of the screen, typically a [TopAppBar]
  * @param bottomBar bottom bar of the screen, typically a [NavigationBar]
- * @param snackbarHost component to host [Snackbar]s that are pushed to be shown via
+ * @param snackbarHost component to host [com.adevinta.spark.components.snackbars.Snackbar]s that are pushed to be shown via
  * [SnackbarHostState.showSnackbar], typically a [SnackbarHost]
  * @param floatingActionButton Main action button of the screen, typically a [FloatingActionButton]
  * @param floatingActionButtonPosition position of the FAB on the screen. See [FabPosition].
@@ -85,10 +84,11 @@ import androidx.compose.material3.Scaffold as MaterialScaffold
  * [bottomBar] are not present, as the scaffold expect [topBar]/[bottomBar] to handle insets
  * instead
  * @param content content of the screen. The lambda receives a [PaddingValues] that should be
- * applied to the content root via [Modifier.padding] and [Modifier.consumeWindowInsets] to
- * properly offset top and bottom bars. If using [Modifier.verticalScroll], apply this modifier to
+ * applied to the content root via `Modifier.padding` and [Modifier.consumeWindowInsets] to
+ * properly offset top and bottom bars. If using `Modifier.verticalScroll`, apply this modifier to
  * the child of the scroll, and not on the scroll itself.
  */
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun Scaffold(
     modifier: Modifier = Modifier,
@@ -103,7 +103,7 @@ public fun Scaffold(
     content: @Composable (PaddingValues) -> Unit,
 ) {
     MaterialScaffold(
-        modifier = modifier,
+        modifier = modifier.padding(),
         topBar = topBar,
         bottomBar = bottomBar,
         snackbarHost = snackbarHost,
@@ -149,7 +149,7 @@ private fun ScaffoldPreview() {
                         IconButton(
                             onClick = { /* "Open nav drawer" */ },
                         ) {
-                            Icon(SparkIcons.BurgerMenu, contentDescription = "Localized description")
+                            Icon(LeboncoinIcons.BurgerMenu, contentDescription = "Localized description")
                         }
                     },
                 )

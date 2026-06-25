@@ -1,0 +1,6 @@
+$copyright
+package com.adevinta.spark.components.$packageName
+
+public object $componentNameDefaults {
+    // TODO: Add default values, helper functions, and constants
+}

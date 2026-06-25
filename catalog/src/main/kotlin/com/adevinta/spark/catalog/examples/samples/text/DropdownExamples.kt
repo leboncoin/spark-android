@@ -233,7 +233,7 @@ private fun CustomItemsDropdown() {
                                 expanded = false
                             },
                             trailingIcon = {
-                                TagFilled(text = "New", intent = TagIntent.Basic)
+                                TagFilled(text = "New", intent = TagIntent.Support)
                             },
                         )
                     }

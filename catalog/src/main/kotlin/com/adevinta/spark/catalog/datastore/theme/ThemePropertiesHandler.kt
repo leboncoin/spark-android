@@ -24,9 +24,9 @@ package com.adevinta.spark.catalog.datastore.theme
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.adevinta.spark.catalog.themes.Theme
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -64,8 +64,8 @@ internal class ThemePropertiesHandler(context: Context) {
 }
 
 @Composable
-internal fun Flow<Theme>.collectAsStateWithDefault(context: Context): State<Theme> = collectAsState(
-    initial = ThemeProperties.DEFAULT.copy(
+internal fun Flow<Theme>.collectAsStateWithDefault(context: Context): State<Theme> = collectAsStateWithLifecycle(
+    initialValue = ThemeProperties.DEFAULT.copy(
         fontScale = context.resources.configuration.fontScale,
     ).toTheme(),
 )
@@ -82,6 +82,7 @@ private fun ThemeProperties.toTheme(): Theme = Theme(
     textDirection = textDirection,
     highlightSparkComponents = highlightSparkComponents,
     highlightSparkTokens = highlightSparkTokens,
+    useRebrandedShapes = useRebrandedShapes,
 )
 
 private fun Theme.toDataStoreThemeProperties(): ThemeProperties = ThemeProperties(
@@ -96,4 +97,5 @@ private fun Theme.toDataStoreThemeProperties(): ThemeProperties = ThemePropertie
     textDirection = textDirection,
     highlightSparkComponents = highlightSparkComponents,
     highlightSparkTokens = highlightSparkTokens,
+    useRebrandedShapes = useRebrandedShapes,
 )

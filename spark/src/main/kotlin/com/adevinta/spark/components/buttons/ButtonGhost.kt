@@ -41,7 +41,6 @@ import com.adevinta.spark.icons.Chain
 import com.adevinta.spark.icons.IdentityCardOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.disabled
 
 /**
@@ -50,6 +49,8 @@ import com.adevinta.spark.tokens.disabled
  *
  * The minimal usage of the component is the text of the button but you can add an icon or indicate a loading state
  * after a click action for example.
+ *
+ * ![Button Ghost](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_ButtonDocumentationScreenshots_buttonGhost.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
@@ -98,7 +99,7 @@ public fun ButtonGhost(
         onClick = onClick,
         modifier = modifier,
         size = size,
-        shape = shape.shape,
+        shape = ButtonTokens.shape,
         enabled = enabled,
         elevation = ButtonDefaults.buttonElevation(),
         colors = colors,
@@ -167,7 +168,7 @@ public fun ButtonGhost(
         text = text,
         modifier = modifier,
         size = size,
-        shape = shape,
+        shape = ButtonTokens.buttonShape,
         enabled = enabled,
         elevation = ButtonDefaults.buttonElevation(),
         colors = colors,
@@ -235,7 +236,7 @@ public fun ButtonGhost(
         text = text,
         modifier = modifier,
         size = size,
-        shape = shape,
+        shape = ButtonTokens.buttonShape,
         enabled = enabled,
         elevation = ButtonDefaults.buttonElevation(),
         colors = colors,

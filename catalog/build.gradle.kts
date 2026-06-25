@@ -67,7 +67,6 @@ kotlin {
             "com.adevinta.spark.InternalSparkApi",
             "com.adevinta.spark.ExperimentalSparkApi",
         )
-        freeCompilerArgs.add("-Xannotation-default-target=param-property")
     }
 }
 
@@ -79,7 +78,7 @@ dependencies {
 
     implementation(libs.accompanist.drawablepainter)
     implementation(libs.colorPicker)
-    implementation(libs.unstyled)
+    implementation(libs.unstyled.disclosure)
 
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.ui)
@@ -92,6 +91,7 @@ dependencies {
 
     implementation(libs.androidx.activity)
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.appCompat)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.material.motion)

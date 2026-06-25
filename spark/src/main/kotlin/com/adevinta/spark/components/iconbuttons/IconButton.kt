@@ -49,7 +49,6 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.GearOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tools.modifiers.minimumTouchTargetSize
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
@@ -58,7 +57,7 @@ import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
  * compact button is required, such as in a toolbar or image list.
  *
  * @param icon a content to be drawn inside the IconButton
- * @param colors [IconButtonColors] that will be used to resolve the colors used for this icon
+ * @param colors `IconButtonColors` that will be used to resolve the colors used for this icon
  * button in different states.
  * @param onClick called when this icon button is clicked
  * @param modifier the [Modifier] to be applied to this icon button
@@ -113,13 +112,14 @@ internal fun SparkIconButton(
             },
             state = rememberTooltipState(),
         ) {
+            val shape = IconButtonTokens.resolveShape(shape.shape)
             Surface(
                 onClick = onClick,
                 modifier = Modifier
                     .minimumTouchTargetSize()
                     .sparkUsageOverlay(),
                 enabled = enabled,
-                shape = shape.shape,
+                shape = shape,
                 color = colors.containerColor(enabled = enabled).value,
                 contentColor = colors.contentColor(enabled).value,
                 border = border,

@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.popover
 
+import android.annotation.SuppressLint
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TooltipBox
 import androidx.compose.material3.TooltipDefaults
@@ -58,6 +59,7 @@ import androidx.compose.material3.TooltipBox as MaterialTooltipBox
  * long press and mouse hover to trigger the tooltip through the state provided.
  * @param content the composable that the tooltip will anchor to.
  */
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 public fun TooltipBox(
@@ -98,6 +100,7 @@ public fun TooltipBox(
  * @param content the composable that will be used to populate the tooltip's content.
  */
 @Composable
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Suppress("ComposeUnstableReceiver") // We don't have access to this api however it's considered stable
 // by the compiler
 @ExperimentalMaterial3Api

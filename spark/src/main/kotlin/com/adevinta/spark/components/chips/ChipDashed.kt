@@ -44,6 +44,10 @@ import com.adevinta.spark.tools.modifiers.ifTrue
 
 /**
  * Outlined chip with dashed border.
+ *
+ * ![Chip Dashed](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.chips_ChipDocumentationScreenshots_chipDashed.png)
+ *
+ * @sample com.adevinta.spark.samples.components.chips.ChipsKind
  * @param intent The [ChipIntent] colors that will be used for the content and background of this chip in
  * different states.
  * @param modifier The [Modifier] to be applied to the component
@@ -59,7 +63,7 @@ import com.adevinta.spark.tools.modifiers.ifTrue
 @Composable
 public fun ChipDashed(
     modifier: Modifier = Modifier,
-    intent: ChipIntent = ChipIntent.Basic,
+    intent: ChipIntent = ChipIntent.Support,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     onClick: () -> Unit = {},
@@ -99,7 +103,7 @@ public fun ChipDashed(
 public fun ChipDashed(
     text: String,
     modifier: Modifier = Modifier,
-    intent: ChipIntent = ChipIntent.Basic,
+    intent: ChipIntent = ChipIntent.Support,
     enabled: Boolean = true,
     leadingIcon: SparkIcon? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -140,7 +144,7 @@ public fun ChipDashed(
     icon: SparkIcon,
     contentDescription: String,
     modifier: Modifier = Modifier,
-    intent: ChipIntent = ChipIntent.Basic,
+    intent: ChipIntent = ChipIntent.Support,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     onClick: () -> Unit = {},

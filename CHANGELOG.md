@@ -1,8 +1,306 @@
 # Changelog
 
-<!-- Don't forget to update links at the end of this page! -->
+> For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
-## [Unreleased]
+## [2.7.0](https://github.com/leboncoin/spark-android/compare/2.6.0...2.7.0) (2026-06-12)
+
+
+### Features
+
+* **meter:** add circular meter component ([#2020](https://github.com/leboncoin/spark-android/issues/2020)) ([a31ed7b](https://github.com/leboncoin/spark-android/commit/a31ed7b54dcec93009fa0eaf62e777344686e976))
+
+
+### Bug Fixes
+
+* **ci:** improve size parsing logic ([#2022](https://github.com/leboncoin/spark-android/issues/2022)) ([09b4a0d](https://github.com/leboncoin/spark-android/commit/09b4a0df65aeef5628b8d93eff4404dd8d863e9c))
+* remove duplicated `<hr>` in release-please configuration ([#2014](https://github.com/leboncoin/spark-android/issues/2014)) ([e280da4](https://github.com/leboncoin/spark-android/commit/e280da4262761d860f720d8ceb626c0b51a33202))
+
+
+### Miscellaneous
+
+* **deps:** bump com.composables:composeunstyled-disclosure from 2.5.0 to 2.6.0 ([#2024](https://github.com/leboncoin/spark-android/issues/2024)) ([c4847fb](https://github.com/leboncoin/spark-android/commit/c4847fb4732dff918efa37068777bebb506fa93b))
+* **deps:** bump com.github.skydoves:colorpicker-compose from 1.1.4 to 1.2.0 ([#2015](https://github.com/leboncoin/spark-android/issues/2015)) ([92d2906](https://github.com/leboncoin/spark-android/commit/92d290662122f400b9c7a42a2ed4a9efc500229e))
+* **deps:** bump compose-multiplatform from 1.11.0 to 1.11.1 ([#2010](https://github.com/leboncoin/spark-android/issues/2010)) ([fc723bc](https://github.com/leboncoin/spark-android/commit/fc723bcc814094bd3e5aa79f3cf089bf27b1b48c))
+* **deps:** bump gradle/actions from 6.1.0 to 6.1.1 in /.github/actions/setup-gradle ([#2019](https://github.com/leboncoin/spark-android/issues/2019)) ([abc77b0](https://github.com/leboncoin/spark-android/commit/abc77b0b3783fcd18184dff0ddf25c7a8e451325))
+
+
+### Refactoring
+
+* **icons:** completly remove SparkIcons object and associated icons ([#2017](https://github.com/leboncoin/spark-android/issues/2017)) ([d84c700](https://github.com/leboncoin/spark-android/commit/d84c700162aa8fae6d940dcb44ef5fd825d9c97b))
+
+## [2.6.0](https://github.com/leboncoin/spark-android/compare/2.5.0...2.6.0) (2026-06-03)
+
+
+### Features
+
+* **rebranding:** add segmented control component ([#1821](https://github.com/leboncoin/spark-android/issues/1821)) ([8e235ec](https://github.com/leboncoin/spark-android/commit/8e235ec62f7ab1aaab85311189d5efead6160d2e))
+* **tokens:** add new ai color token group ([#2004](https://github.com/leboncoin/spark-android/issues/2004)) ([6f5e6b9](https://github.com/leboncoin/spark-android/commit/6f5e6b9e945e6386c1fd1c39bc56a5877fdb7131))
+
+
+### Bug Fixes
+
+* **image:** attempt to add composition stacktrace when no size is defined ([#2007](https://github.com/leboncoin/spark-android/issues/2007)) ([75a8415](https://github.com/leboncoin/spark-android/commit/75a841584b052deea9fa598d098e1df0bd86deaf))
+* **release:** adjust the generated PR description message ([#2008](https://github.com/leboncoin/spark-android/issues/2008)) ([383ebf0](https://github.com/leboncoin/spark-android/commit/383ebf0ae1aaa36287cce50316069372309efa38))
+
+## [2.5.0](https://github.com/leboncoin/spark-android/compare/2.4.2...2.5.0) (2026-06-01)
+
+
+### Features
+
+* **button:** add temporary restricted tertiary variant for A/B testing ([#2003](https://github.com/leboncoin/spark-android/issues/2003)) ([12ab81a](https://github.com/leboncoin/spark-android/commit/12ab81ab355ed03ccae465c7290d3e58e21b9ec6))
+
+
+### Miscellaneous
+
+* **deps:** bump com.composables:composeunstyled-disclosure from 2.4.0 to 2.5.0 ([#2001](https://github.com/leboncoin/spark-android/issues/2001)) ([e42cf52](https://github.com/leboncoin/spark-android/commit/e42cf5255b6e65c5d8bf6418df43d24633153714))
+
+## [2.4.2](https://github.com/leboncoin/spark-android/compare/2.4.1...2.4.2) (2026-05-28)
+
+
+### Miscellaneous
+
+* **merge:** hotfix release 2.4.1 ([36e2b46](https://github.com/leboncoin/spark-android/commit/36e2b461d8e43629a3e334c453026fefa8bd55e8))
+* **merge:** hotfix release 2.4.1 ([#1997](https://github.com/leboncoin/spark-android/issues/1997)) ([0b4aeb5](https://github.com/leboncoin/spark-android/commit/0b4aeb558fab3ab515c1bbd8e882abc4c741f775))
+
+
+### Documentation
+
+* **release:** require merge commit for hotfix merge-back ([#1999](https://github.com/leboncoin/spark-android/issues/1999)) ([978e3a7](https://github.com/leboncoin/spark-android/commit/978e3a7682386afc9f5d5daffca84419b2e8d109))
+
+## [2.4.1](https://github.com/leboncoin/spark-android/compare/2.4.0...2.4.1) (2026-05-28)
+
+
+### Bug Fixes
+
+* **stepper:** the modifier is reused on the middle text ([#1995](https://github.com/leboncoin/spark-android/issues/1995)) ([6448239](https://github.com/leboncoin/spark-android/commit/6448239bab8cbd8c4512d96dc2025a23a7d55765))
+
+
+### Miscellaneous
+
+* **release:** remove dispatch capability from hotfix release workflow ([b24eda4](https://github.com/leboncoin/spark-android/commit/b24eda4bab860ef890c9809ae963b21c52414cbd))
+
+## [2.4.0](https://github.com/leboncoin/spark-android/compare/2.3.0...2.4.0) (2026-05-28)
+
+
+### Features
+
+* **release:** use the github release description as a app distribution release note ([#1992](https://github.com/leboncoin/spark-android/issues/1992)) ([d5c4ed4](https://github.com/leboncoin/spark-android/commit/d5c4ed436113c3c8aaa4a88515eb3209ace4366d))
+
+
+### Bug Fixes
+
+* **ci:** update icons PR creation command to use convention commit  prefix ([#1991](https://github.com/leboncoin/spark-android/issues/1991)) ([8cdcec3](https://github.com/leboncoin/spark-android/commit/8cdcec3177bd5ddc4ae24f5e43e7d8501ea591aa))
+
+
+### Documentation
+
+* **release:** update the releasing documentation for the new process to create a release and a hotfix ([#1993](https://github.com/leboncoin/spark-android/issues/1993)) ([9e60780](https://github.com/leboncoin/spark-android/commit/9e60780f506187f0cec1ff72b758e2b57314cddc))
+
+## [2.3.0](https://github.com/leboncoin/spark-android/compare/2.2.2...2.3.0) (2026-05-28)
+
+
+### Features
+
+* **ci:** add zizmor GitHub Actions security analysis ([#1899](https://github.com/leboncoin/spark-android/issues/1899)) ([38b63dc](https://github.com/leboncoin/spark-android/commit/38b63dcc522f81373a92522b11c6ee799445ba50))
+* **spotless:** proper configuration ([#1986](https://github.com/leboncoin/spark-android/issues/1986)) ([23abc5d](https://github.com/leboncoin/spark-android/commit/23abc5dcd2a5bf8dbd70fd745c0097f913586708))
+* **zizmor:** allow ref-pin on github-provided actions ([#1982](https://github.com/leboncoin/spark-android/issues/1982)) ([4ccdee2](https://github.com/leboncoin/spark-android/commit/4ccdee2746f281d79906b5157b1c72f4e1b280e7))
+
+
+### Bug Fixes
+
+* change the sha to try to improve the changelog ([6f1a9a8](https://github.com/leboncoin/spark-android/commit/6f1a9a8aa05a728beb87e0570dbb1d4ee20253da))
+* **ci:** run zizmor workflow only on the upstream repo ([515e142](https://github.com/leboncoin/spark-android/commit/515e1428f8ddfe597c302da221f3f52309ed6a3e))
+* **ci:** use release-please block markers in gradle.properties ([eec33cc](https://github.com/leboncoin/spark-android/commit/eec33cc7270161a81c6e8fadad97a2e61fc5b80c))
+
+
+### Miscellaneous
+
+* bump version to 2.3.0-alpha03 ([7eb6bc3](https://github.com/leboncoin/spark-android/commit/7eb6bc32ae7a8c34e1546e68ee2577749360b359))
+* **deps:** bump com.composables:composeunstyled-disclosure from 2.1.0 to 2.3.0 ([#1965](https://github.com/leboncoin/spark-android/issues/1965)) ([471b13f](https://github.com/leboncoin/spark-android/commit/471b13f10279f8023a8d427d277b4861e2718c00))
+* **deps:** bump com.composables:composeunstyled-disclosure from 2.3.0 to 2.4.0 ([#1974](https://github.com/leboncoin/spark-android/issues/1974)) ([f5ca3df](https://github.com/leboncoin/spark-android/commit/f5ca3df8e7a279f7d26c2cfc715c3a564a7adfeb))
+* **deps:** bump com.diffplug.spotless from 8.5.1 to 8.6.0 ([#1987](https://github.com/leboncoin/spark-android/issues/1987)) ([1037149](https://github.com/leboncoin/spark-android/commit/1037149d1350a1a16bf67610eef183f3475ce2c7))
+* **deps:** bump googleapis/release-please-action from 4 to 5 in /.github/workflows ([#1971](https://github.com/leboncoin/spark-android/issues/1971)) ([a95849e](https://github.com/leboncoin/spark-android/commit/a95849e1a64ef6ad65657d387ee18a2fa87a8b43))
+* **deps:** bump zizmorcore/zizmor-action from 0.5.2 to 0.5.6 in /.github/workflows ([#1983](https://github.com/leboncoin/spark-android/issues/1983)) ([6a9dbe6](https://github.com/leboncoin/spark-android/commit/6a9dbe6bcdc0c30f44870789619cfb37b9ab23e2))
+* **lint:** extract lint configuration ([#1985](https://github.com/leboncoin/spark-android/issues/1985)) ([6306f57](https://github.com/leboncoin/spark-android/commit/6306f579643f05d67fe0543735e26e85cfe22e1b))
+* merge hotfix 2.2.2 back to main ([a8871ed](https://github.com/leboncoin/spark-android/commit/a8871ed901006362e344f9a6680febc59099241e))
+
+- Expose as Experimental the SegmentedButton component for testing in some screens
+
+## [2.3.0-alpha01]
+
+_2026-04-16_
+
+### Spark
+
+- 🆕 `SwitchLabelled` now accepts a `verticalAlignment` parameter (`Alignment.Vertical`, defaults to `Alignment.CenterVertically`) to control how the switch widget aligns when the label content is taller than the switch, e.g. with multi-line text.
+- 🆕 `RadioButtonLabelled` now accepts a `verticalAlignment` parameter (`Alignment.Vertical`, defaults to `Alignment.Top`) to control how the radio button widget aligns when the label content is taller than the widget, e.g. with multi-line text.
+- 🆕 `CheckboxLabelled` now accepts a `verticalAlignment` parameter (`Alignment.Vertical`, defaults to `Alignment.Top`) to control how the checkbox widget aligns when the label content is taller than the widget, e.g. with multi-line text.
+
+## [2.2.2]
+
+_2026-05-20_
+
+### Icons
+
+- ✨ New `LeboncoinIcons`: `ThumbDownFill`, `ThumbDownOutline`, `BannedFill`, `BannedOutline`, `PaintPaletteCriteria`, `PeopleCriteria`, `PhoneCallSuccessFill`, `PhoneCallSuccessOutline`, `FloorPlan`
+- 🐛 Fix typo in `LockOutline` icon file name (`lock_outilne` → `lock_outline`)
+- 🐛 Fix `SparkIcons.MailOutline` `replaceWith` annotation pointing to `MailBoxOpenOutline` instead of `LetterOutline`
+
+## [2.2.1]
+
+_2026-04-16_
+
+### Icons
+
+- 🐛 Fix `spark-icons` JVM target not explicitly set for KMP Android compilation, causing the Compose Preview renderer to reject the class files with "Unsupported class file major version 69"
+
+## [2.2.0]
+
+_2026-04-14_
+
+### Spark
+
+- 🐛 Fix `ButtonFilled` disabled content colour using the wrong token (`dim3` instead of `disabled`), causing the disabled state to appear too faint on non-white backgrounds
+- 🎨 Refactor `contrastLevel()` to remove a redundant `isContrastLevelAvailable` guard that was already ensured by the outer branch
+- 🎨 Refactor `ButtonFilled` and `ButtonTinted` to resolve `intent.colors()` once per composition instead of multiple times, reducing redundant allocations per recomposition
+- 🗑️ `Basic` intent has been deprecated across all components (`ButtonIntent`, `BadgeIntent`, `ChipIntent`, `TagIntent`, `ToggleIntent`, etc.) and replaced with `Support`, which was already identical in value. Usages of `Basic` will produce a compile error with an automatic migration hint to `Support`.
+
+#### 🔧 Kelp IDE plugin support
+
+Added `KelpInlayPreview` inner classes to `SparkColors`, `SparkShapes`, `SparkTypography`, and `ElevationTokens` so the [Kelp](https://github.com/ozontech/kelp) Android Studio plugin can render color swatches, corner-radius, font-size, and elevation inlay hints directly in the editor. Also added a `.idea/kelp/config.json` configuration file to enable Kelp out of the box for contributors.
+
+#### 💄 Rebranded shapes extended to more components
+
+Chips, icon buttons, and text fields now participate in the rebranding shape changes introduced in 2.1.0. The feature flag `SparkFeatureFlag.useNewButtonAndTagsShapes` has been renamed to `useRebrandedShapes` to reflect the broader scope.
+
+#### ♻️ Component token objects for shape resolution
+
+Shape (and spacing) resolution for Button, Chip, Tag, TextField, and IconButton components is now centralised in dedicated token objects — `ButtonTokens`, `ChipTokens`, `TagTokens`, `TextFieldTokens`, and `IconButtonTokens` — rather than scattered inline `if (LocalSparkFeatureFlag.current.useRebrandedShapes)` checks inside each composable. No behaviour change; the objects are public so consumers can reference the resolved values directly.
+
+`TextFieldTokens` exposes a `shape` property. `IconButtonTokens` exposes `resolveShape(fallback)` and `resolveFullShape(fallback)` functions rather than plain properties because icon button composables accept a caller-supplied shape as the legacy fallback, which the token object cannot know without the argument.
+
+> [!NOTE]
+> This is the initial foundation of a broader component token layer. The pattern is not yet generalised to all components — further components will be migrated in follow-up changes.
+
+### Icons
+
+- ♻️ `spark-icons` is now a Kotlin Multiplatform module — icons are available to JVM/desktop targets in addition to Android
+- ✨ New `LeboncoinIcons` alternative `DeprecateWith` for their deprecated `SparkIcons` counterparts
+
+## [2.2.0-alpha05]
+
+_2026-04-14_
+
+- 🐛 Fix `USerAvatar` using wrong icons for its empty states
+
+## [2.2.0-alpha04]
+
+_2026-04-13_
+
+### Spark
+
+- 🐛 Fix `ButtonFilled` disabled content colour using the wrong token (`dim3` instead of `disabled`), causing the disabled state to appear too faint on non-white backgrounds
+- 🎨 Refactor `contrastLevel()` to remove a redundant `isContrastLevelAvailable` guard that was already ensured by the outer branch
+- 🎨 Refactor `ButtonFilled` and `ButtonTinted` to resolve `intent.colors()` once per composition instead of multiple times, reducing redundant allocations per recomposition
+- 🗑️ `Basic` intent has been deprecated across all components (`ButtonIntent`, `BadgeIntent`, `ChipIntent`, `TagIntent`, `ToggleIntent`, etc.) and replaced with `Support`, which was already identical in value. Usages of `Basic` will produce a compile error with an automatic migration hint to `Support`.
+
+#### 🔧 Kelp IDE plugin support
+
+Added `KelpInlayPreview` inner classes to `SparkColors`, `SparkShapes`, `SparkTypography`, and `ElevationTokens` so the [Kelp](https://github.com/ozontech/kelp) Android Studio plugin can render color swatches, corner-radius, font-size, and elevation inlay hints directly in the editor. Also added a `.idea/kelp/config.json` configuration file to enable Kelp out of the box for contributors.
+
+#### 💄 Rebranded shapes extended to more components
+
+Chips, icon buttons, and text fields now participate in the rebranding shape changes introduced in 2.1.0. The feature flag `SparkFeatureFlag.useNewButtonAndTagsShapes` has been renamed to `useRebrandedShapes` to reflect the broader scope.
+
+#### ♻️ Component token objects for shape resolution
+
+Shape (and spacing) resolution for Button, Chip, Tag, TextField, and IconButton components is now centralised in dedicated token objects — `ButtonTokens`, `ChipTokens`, `TagTokens`, `TextFieldTokens`, and `IconButtonTokens` — rather than scattered inline `if (LocalSparkFeatureFlag.current.useRebrandedShapes)` checks inside each composable. No behaviour change; the objects are public so consumers can reference the resolved values directly.
+
+`TextFieldTokens` exposes a `shape` property. `IconButtonTokens` exposes `resolveShape(fallback)` and `resolveFullShape(fallback)` functions rather than plain properties because icon button composables accept a caller-supplied shape as the legacy fallback, which the token object cannot know without the argument.
+
+> [!NOTE]
+> This is the initial foundation of a broader component token layer. The pattern is not yet generalised to all components — further components will be migrated in follow-up changes.
+
+### Icons
+
+- ♻️ `spark-icons` is now a Kotlin Multiplatform module — icons are available to JVM/desktop targets in addition to Android
+
+## [2.1.1]
+
+_2026-03-31_
+
+### Icons
+
+- 🆕 Add new `GraphicCursor`, `GraphicHand`, `OpenLetterFill`, and `OpenLetterOutline` icons
+- 💄 Fix `LbcAccessoriesCriteria` and `Layer` icons
+
+## [2.1.0]
+
+_2026-03-12_
+
+### Spark
+
+#### 💄 Buttons and Tags have new shapes!
+
+The **buttons** now have a full rounded shape and the **tags** use `SparkTheme.shapes.extraSmall`.
+This change can be toggled via the `SparkFeatureFlag.useNewButtonAndTagsShapes` feature flag (renamed to `useRebrandedShapes` in a subsequent release).
+
+#### 🆕 New Card specs
+
+Card is now defined by clear variants discoverable on the `Card` object. Use `Card.Flat`, `Card.Elevated`, `Card.Outlined`, `Card.HighlightFlat`, or `Card.HighlightElevated` for the different styles.
+
+#### 🆕 Component Generator Script
+
+We now have a helper script to simplify the creation of a new components. To use it invoke it like this `./scripts/generate-component.main.kts [component-name] [package-name] [-v Variant1] [-v Variant2]`
+
+### 📝 Documentation
+
+We're testing new ways to better represent the components in our [documentation](https://leboncoin.github.io/spark-android/) by including dedicated screenshots generated from screenshot tests to ensure that you always get the up to date visuals.
+We're also testing including these new screenshots in the kdoc directly.
+
+## [2.1.0-alpha01]
+
+_2026-03-11_
+
+### Spark
+
+#### 💄 Buttons and Tags have new shapes!
+
+The **buttons** now have a full rounded shape and the **tags** use `SparkTheme.shapes.extraSmall`.
+This change can be toggled via the `SparkFeatureFlag.useNewButtonAndTagsShapes` feature flag (renamed to `useRebrandedShapes` in a subsequent release).
+
+#### 🆕 New Card specs
+
+Card is now defined by clear variants discoverable on the `Card` object. Use `Card.Flat`, `Card.Elevated`, `Card.Outlined`, `Card.HighlightFlat`, or `Card.HighlightElevated` for the different styles.
+
+#### 🆕 Component Generator Script
+
+We now have a helper script to simplify the creation of a new components. To use it invoke it like this `./scripts/generate-component.main.kts [component-name] [package-name] [-v Variant1] [-v Variant2]`
+
+## [2.0.1]
+
+_2026-03-12_
+
+### Icons
+- 🐛 Fix an issue with the generation of `LeboncoinIcons` when new icons are merged in spark-tokens.
+- 💄 Increase the decimal precisions for paths from 2 to 3 to avoid some paths malformations
+- 🆕 Add new stop light icon
+- 💄 Fix Cardboard icon missing the safe padding and the malformation of state criteria
+
+## [2.0.0]
+
+_2026-03-05_
+
+### Spark
+
+#### 🆕 Snackbar (breaking changes)
+
+> [!CAUTION]
+> `SnackbarStyle` (Filled / Tinted) has been **removed**. Snackbars now use a single visual style with a colored border and elevation. `SnackbarIntent` has been reduced from 10 values to **4**: Success, Alert, Error, Info (Neutral, Main, Basic, Support, Accent, SurfaceInverse are removed).
+
+- **New visuals:** Single style with 2dp border using the intent color. Each intent has a default icon (e.g. Success → CircleCheckFill, Alert → WarningFill).
+- **`Snackbar` composable:** `style` and `actionOnNewLine` parameters removed. New optional `title` parameter (displayed above the message). `icon` is now an optional override of the intent's default icon. Dismiss is done via `onDismissClick`.
+- **`showSnackbar`:** `style` and `actionOnNewLine` removed; optional `title` added. Default intent changed from `SnackbarIntent.Neutral` to `SnackbarIntent.Info`.
 
 ## [2.0.0-alpha01]
 
@@ -19,11 +317,16 @@ _2026-02-24_
 - **`Snackbar` composable:** `style` and `actionOnNewLine` parameters removed. New optional `title` parameter (displayed above the message). `icon` is now an optional override of the intent’s default icon. Dismiss is done via `onDismissClick`.
 - **`showSnackbar`:** `style` and `actionOnNewLine` removed; optional `title` added. Default intent changed from `SnackbarIntent.Neutral` to `SnackbarIntent.Info`.
 
+- 🐛 Fix the missing links from the documentation
+- 📝 Add the support for samples inside the documentation
+
+
+
 ## [1.8.0]
 
 _2026-02-20_
 
-#### 🆕 LeboncoinIcons
+### 🆕 LeboncoinIcons
 Add `LeboncoinIcons` object as namespace for new static icons from Spark for leboncoin. This object provides access to all static vector icons as drawable resources, similar to `SparkIcons` but specifically for leboncoin-branded icons.
 
 ### Spark
@@ -282,7 +585,7 @@ _2025-10-29_
 
 - 🐛 `SparkAnimatedIcons.searchIcon` was set to filled in its start state instead of outlined.
 
-- ## [1.5.0-beta01]
+## [1.5.0-beta01]
 
 _2025-10-28_
 
@@ -779,8 +1082,8 @@ _2024-12-11_
 ### Spark
 
 - ⬆️ Upgrade Compose BOM to `2024.11.00` since it only contains bugfixes changes.
--
-- ## [1.0.1]
+
+ ## [1.0.1]
 
 _2024-11-07_
 
@@ -818,7 +1121,7 @@ _2024-10-07_
 ### CI
 - Icons screenshot are not bound to the theme colors anymore to reduce invalidation not related to the icons themselves.
 
-## 0.11.0
+## [0.11.0]
 
 _2024-08-13_
 
@@ -1141,7 +1444,29 @@ _2023-03-29_
 
 <!-- Links -->
 
-[Unreleased]: https://github.com/leboncoin/spark-android/compare/2.0.0-alpha01...HEAD
+[Unreleased]: https://github.com/leboncoin/spark-android/compare/2.2.2...HEAD
+
+[2.2.2]: https://github.com/leboncoin/spark-android/compare/2.2.1...2.2.2
+
+[2.2.1]: https://github.com/leboncoin/spark-android/compare/2.2.0...2.2.1
+
+[2.2.0]: https://github.com/leboncoin/spark-android/compare/2.2.0-alpha05...2.2.0
+
+[2.2.0-alpha05]: https://github.com/leboncoin/spark-android/compare/2.2.0-alpha05...2.2.0
+
+[2.2.0-alpha05]: https://github.com/leboncoin/spark-android/compare/2.2.0-alpha04...2.2.0-alpha05
+
+[2.2.0-alpha04]: https://github.com/leboncoin/spark-android/compare/2.1.1...2.2.0-alpha04
+
+[2.1.1]: https://github.com/leboncoin/spark-android/compare/2.1.0...2.1.1
+
+[2.1.0]: https://github.com/leboncoin/spark-android/compare/2.0.1...2.1.0
+
+[2.1.0-alpha01]: https://github.com/leboncoin/spark-android/compare/2.0.1...2.1.0-alpha01
+
+[2.0.1]: https://github.com/leboncoin/spark-android/compare/2.0.0...2.0.1
+
+[2.0.0]: https://github.com/leboncoin/spark-android/compare/2.0.0-alpha01...2.0.0
 
 [2.0.0-alpha01]: https://github.com/leboncoin/spark-android/releases/tag/2.0.0-alpha01
 

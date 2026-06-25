@@ -8,7 +8,7 @@ Only one snackbar may be displayed at a time.
 
 | Light                                                                                                | Dark                                                                                             |
 |------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark.snackbar_SnackbarDocScreenshot_snackbarDocScreenshot__light.png) | ![](../../images/com.adevinta.spark.snackbar_SnackbarDocScreenshot_snackbarDocScreenshot__dark.png) |
+| ![](../../images/com.adevinta.spark.snackbar_SnackbarDocScreenshot_snackbarDocScreenshot_light.png) | ![](../../images/com.adevinta.spark.snackbar_SnackbarDocScreenshot_snackbarDocScreenshot_dark.png) |
 
 ## Basic Usage
 
@@ -50,7 +50,7 @@ You can override the default intent icon by providing a custom `icon` parameter.
 ```kotlin
 Snackbar(
     intent = SnackbarIntent.Success,
-    icon = SparkIcons.FlashlightFill,
+    icon = LeboncoinIcons.FlashlightFill,
 ) {
     Text("Custom icon snackbar")
 }
@@ -77,7 +77,7 @@ You can combine both `title` and `icon` parameters:
 Snackbar(
     intent = SnackbarIntent.Info,
     title = "Information",
-    icon = SparkIcons.FlashlightFill,
+    icon = LeboncoinIcons.FlashlightFill,
 ) {
     Text("This is an informational message with a custom icon")
 }

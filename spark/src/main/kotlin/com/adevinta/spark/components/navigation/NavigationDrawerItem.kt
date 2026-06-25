@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.navigation
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.size
@@ -47,12 +48,12 @@ import com.adevinta.spark.icons.HeartOutline
 import com.adevinta.spark.icons.House
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.UserFill
 import androidx.compose.material3.NavigationDrawerItem as MaterialNavigationDrawerItem
 import androidx.compose.material3.NavigationDrawerItemColors as MaterialNavigationDrawerItemColors
 import androidx.compose.material3.NavigationDrawerItemDefaults as MaterialNavigationDrawerItemDefaults
 
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @InternalSparkApi
 @Composable
 internal fun SparkNavigationDrawerItem(
@@ -98,7 +99,7 @@ internal fun SparkNavigationDrawerItem(
  * @param modifier the [Modifier] to be applied to this item
  * @param icon optional icon for this item, typically an [Icon]
  * @param badge optional badge to show on this item from the end side
- * item in different states. See [NavigationDrawerItemDefaults.colors].
+ * item in different states.
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this item. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this item in different states.
@@ -158,7 +159,7 @@ private object NavigationDrawerItemDefaults {
 internal fun NavigationDrawerItemPreview() {
     PreviewTheme {
         val items = mutableListOf(
-            Pair("Home", SparkIcons.House),
+            Pair("Home", LeboncoinIcons.House),
             Pair("Favourite", LeboncoinIcons.HeartOutline),
             Pair("Account", LeboncoinIcons.UserFill),
         )

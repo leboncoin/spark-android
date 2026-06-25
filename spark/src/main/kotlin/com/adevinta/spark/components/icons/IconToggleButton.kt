@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.icons
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -32,9 +33,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
-import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.buttons.ButtonShape
+import com.adevinta.spark.components.iconbuttons.IconButtonTokens
 import com.adevinta.spark.tokens.contentColorFor
 import androidx.compose.material3.FilledIconToggleButton as MaterialFilledIconToggleButton
 import androidx.compose.material3.FilledTonalIconToggleButton as MaterialFilledTonalIconToggleButton
@@ -49,7 +50,7 @@ import androidx.compose.material3.OutlinedIconToggleButton as MaterialOutlinedIc
  *
  * ![Standard icon toggle button image](https://developer.android.com/images/reference/androidx/compose/material3/standard-icon-toggle-button.png)
  *
- * [content] should typically be an [Icon] (see [androidx.compose.material.icons.Icons]). If using a
+ * [content] should typically be an [Icon]. If using a
  * custom icon, note that the typical size for the internal icon is 24 x 24 dp.
  * This icon button has an overall minimum touch target size of 48 x 48dp, to meet accessibility
  * guidelines.
@@ -67,7 +68,7 @@ import androidx.compose.material3.OutlinedIconToggleButton as MaterialOutlinedIc
  * [Interaction]s and customize the appearance / behavior of this icon button in different states.
  * @param content the content of this icon button, typically an [Icon]
  */
-
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun IconToggleButton(
     checked: Boolean,
@@ -97,7 +98,7 @@ public fun IconToggleButton(
  *
  * ![Filled icon toggle button image](https://developer.android.com/images/reference/androidx/compose/material3/filled-icon-toggle-button.png)
  *
- * [content] should typically be an [Icon] (see [androidx.compose.material.icons.Icons]). If using a
+ * [content] should typically be an [Icon]. If using a
  * custom icon, note that the typical size for the internal icon is 24 x 24 dp.
  * This icon button has an overall minimum touch target size of 48 x 48dp, to meet accessibility
  * guidelines.
@@ -117,15 +118,7 @@ public fun IconToggleButton(
  * @param content the content of this icon button, typically an [Icon]
  */
 
-@Deprecated(
-    message = "This component is no longer used",
-    replaceWith = ReplaceWith(
-        expression = "IconToggleButtonFilled(icons, onCheckedChange, modifier, checked, enabled, interactionSource)",
-        imports = ["com.adevinta.spark.components.iconbuttons.toggle.IconToggleButtonFilled"],
-    ),
-    level = DeprecationLevel.WARNING,
-)
-@ExperimentalSparkApi
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun FilledIconToggleButton(
     checked: Boolean,
@@ -137,6 +130,7 @@ public fun FilledIconToggleButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
+    val shape = IconButtonTokens.resolveFullShape(shape)
     MaterialFilledIconToggleButton(
         checked = checked,
         onCheckedChange = onCheckedChange,
@@ -162,7 +156,7 @@ public fun FilledIconToggleButton(
  * They can be used in contexts where the lower-priority icon button requires slightly more emphasis
  * than an outline would give.
  *
- * [content] should typically be an [Icon] (see [androidx.compose.material.icons.Icons]). If using a
+ * [content] should typically be an [Icon]. If using a
  * custom icon, note that the typical size for the internal icon is 24 x 24 dp.
  * This icon button has an overall minimum touch target size of 48 x 48dp, to meet accessibility
  * guidelines.
@@ -181,15 +175,7 @@ public fun FilledIconToggleButton(
  * [Interaction]s and customize the appearance / behavior of this icon button in different states.
  * @param content the content of this icon button, typically an [Icon]
  */
-@Deprecated(
-    message = "This component is no longer used",
-    replaceWith = ReplaceWith(
-        expression = "IconToggleButtonTinted(icons, onCheckedChange, modifier, checked, enabled, interactionSource)",
-        imports = ["com.adevinta.spark.components.iconbuttons.toggle.IconToggleButtonTinted"],
-    ),
-    level = DeprecationLevel.WARNING,
-)
-@ExperimentalSparkApi
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun FilledTonalIconToggleButton(
     checked: Boolean,
@@ -204,12 +190,13 @@ public fun FilledTonalIconToggleButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
+    val resolvedShape = IconButtonTokens.resolveShape(shape.shape)
     MaterialFilledTonalIconToggleButton(
         checked = checked,
         onCheckedChange = onCheckedChange,
         modifier = modifier,
         enabled = enabled,
-        shape = shape.shape,
+        shape = resolvedShape,
         colors = colors,
         interactionSource = interactionSource,
         content = content,
@@ -224,7 +211,7 @@ public fun FilledTonalIconToggleButton(
  *
  * ![Outlined icon toggle button image](https://developer.android.com/images/reference/androidx/compose/material3/outlined-icon-toggle-button.png)
  *
- * [content] should typically be an [Icon] (see [androidx.compose.material.icons.Icons]). If using a
+ * [content] should typically be an [Icon]. If using a
  * custom icon, note that the typical size for the internal icon is 24 x 24 dp.
  * This icon button has an overall minimum touch target size of 48 x 48dp, to meet accessibility
  * guidelines.
@@ -246,15 +233,7 @@ public fun FilledTonalIconToggleButton(
  * [Interaction]s and customize the appearance / behavior of this icon button in different states.
  * @param content the content of this icon button, typically an [Icon]
  */
-@Deprecated(
-    message = "This component is no longer used",
-    replaceWith = ReplaceWith(
-        expression = "IconToggleButtonOutlined(icons, onCheckedChange, modifier, checked, enabled, interactionSource)",
-        imports = ["com.adevinta.spark.components.iconbuttons.toggle.IconToggleButtonOutlined"],
-    ),
-    level = DeprecationLevel.WARNING,
-)
-@ExperimentalSparkApi
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun OutlinedIconToggleButton(
     checked: Boolean,
@@ -267,6 +246,7 @@ public fun OutlinedIconToggleButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
+    val shape = IconButtonTokens.resolveFullShape(shape)
     MaterialOutlinedIconToggleButton(
         checked = checked,
         onCheckedChange = onCheckedChange,

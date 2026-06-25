@@ -10,7 +10,9 @@ jobs:
     if: github.repository == 'leboncoin/spark-android'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: ./.github/actions/setup-java
       - uses: ./.github/actions/setup-gradle
       - uses: ./.github/actions/setup-gradle-properties
@@ -25,7 +27,30 @@ jobs:
           ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.GPG_PASSWORD }}
 
       - name: '📦 Upload Maven artifact'
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: maven
           path: build/.m2/repository
+
+  datadog-release:
+    name: 📊 Datadog Release Metrics
+    needs: publish
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: ./.github/actions/setup-java
+      - uses: ./.github/actions/setup-kotlin
+
+      - name: Submit release cadence metric
+        run: |
+          previous=$(gh api repos/${{ github.repository }}/releases --jq '.[0].published_at')
+          kotlin scripts/datadog/release-metrics.main.kts -- --previous-release "$previous"
+        env:
+          DD_API_KEY: ${{ secrets.DD_API_KEY }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

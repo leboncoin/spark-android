@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.textfields
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -69,9 +70,9 @@ import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.EyeFill
 import com.adevinta.spark.icons.EyeOffFill
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.QuestionOutline
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.SparkColors
 import kotlin.random.Random
 import androidx.compose.material3.FilledTonalButton as MaterialButton
@@ -86,6 +87,7 @@ public abstract class AddonScope {
      * A Button that can be used as trailing content for a [TextField]. The button is a custom one as a regular
      * one doesn't fit so it has a more limited api than a Spark button.
      */
+    @SuppressLint("MaterialComposableHasSparkReplacement") // Spark Button can't allow us to do this
     @ExperimentalSparkApi
     @Composable
     public fun Button(
@@ -147,7 +149,7 @@ public abstract class AddonScope {
         modifier: Modifier = Modifier,
     ) {
         Icon(
-            modifier = modifier.size(16.dp),
+            modifier = modifier.size(20.dp),
             sparkIcon = icon,
             contentDescription = contentDescription,
             tint = IconIntent.Neutral.color(),
@@ -352,7 +354,7 @@ private fun TextFieldWithIconPreview() {
             onValueChange = {},
             trailingContent = {
                 TextFieldIcon(
-                    icon = SparkIcons.QuestionOutline,
+                    icon = LeboncoinIcons.QuestionOutline,
                     modifier = Modifier,
                     contentDescription = "",
                 )
@@ -375,7 +377,7 @@ private fun TextFieldWithIconButtonPreview() {
             trailingContent = {
                 TextFieldIconButton(
                     modifier = Modifier,
-                    icon = SparkIcons.EyeOffFill,
+                    icon = LeboncoinIcons.EyeOffFill,
                     contentDescription = "",
                     onClick = { value = Random.nextInt(0, 8000).toString() },
                 )
@@ -399,8 +401,8 @@ private fun TextFieldWithIconToggleButtonPreview() {
                 TextFieldIconToggleButton(
                     modifier = Modifier,
                     checked = checked,
-                    checkedIcon = SparkIcons.EyeFill,
-                    unCheckedIcon = SparkIcons.EyeOffFill,
+                    checkedIcon = LeboncoinIcons.EyeFill,
+                    unCheckedIcon = LeboncoinIcons.EyeOffFill,
                     contentDescription = "",
                     onCheckedChange = { checked = it },
                 )
@@ -414,8 +416,8 @@ private fun TextFieldWithIconToggleButtonPreview() {
                 TextFieldIconToggleButton(
                     modifier = Modifier,
                     checked = !checked,
-                    checkedIcon = SparkIcons.EyeFill,
-                    unCheckedIcon = SparkIcons.EyeOffFill,
+                    checkedIcon = LeboncoinIcons.EyeFill,
+                    unCheckedIcon = LeboncoinIcons.EyeOffFill,
                     contentDescription = "",
                     onCheckedChange = { checked = it },
                 )

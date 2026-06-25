@@ -40,7 +40,6 @@ import com.adevinta.spark.components.iconbuttons.IconButtonSize
 import com.adevinta.spark.components.iconbuttons.IconButtonTinted
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.icons.LeboncoinIcons
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.UserOutline
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshot

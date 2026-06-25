@@ -74,7 +74,6 @@ import com.adevinta.spark.components.menu.SingleChoiceExposedDropdownMenu
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.CircleCrossOutline
 import com.adevinta.spark.icons.LeboncoinIcons
-import com.adevinta.spark.icons.SparkIcons
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
@@ -107,7 +106,8 @@ import kotlinx.collections.immutable.persistentListOf
  * @param scrollState Scroll state for the text field
  * @param dropdownContent Content of the dropdown menu, using [SingleChoiceDropdownItemColumnScope]
  * @see MultiChoiceComboBox for a version that supports multiple selections
- * @sample com.adevinta.spark.components.textfields.ComboBoxPreview
+ * @sample com.adevinta.spark.samples.components.combobox.SingleChoiceComboBoxSample
+ * @sample com.adevinta.spark.samples.components.combobox.SingleChoiceComboBoxFilteringSample
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -226,6 +226,7 @@ public data class SelectedChoice(val id: String, val label: String)
  * @param scrollState Scroll state for the text field
  * @param dropdownContent Content of the dropdown menu, using [MultiChoiceDropdownItemColumnScope]
  * @see SingleChoiceComboBox for a version that supports single selection
+ * @sample com.adevinta.spark.samples.components.combobox.MultiChoiceComboBoxSample
  */
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable

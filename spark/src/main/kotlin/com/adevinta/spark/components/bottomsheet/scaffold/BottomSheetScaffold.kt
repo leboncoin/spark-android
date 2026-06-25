@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.bottomsheet.scaffold
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -65,17 +66,15 @@ import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
  *  @param sheetContent The content of the bottom sheet.
  *  @param modifier The modifier to apply to this layout.
  *  @param scaffoldState The state of the scaffold.
- *  @param showHandle Whether to show the drag handle.
- *  @param sheetContentTopPadding The top padding of the sheet content.
- *  @param screenContentPadding The padding of the screen content.
  *  @param sheetSwipeEnabled Whether the sheet can be swiped.
  *  @param topBar The top bar composable.
  *  @param snackbarHost The snackbar host composable.
  *  @param content The content of the screen.
  *
- *  @sample com.adevinta.spark.components.bottomsheet.scaffold.BottomSheetPreview
+ *  @sample com.adevinta.spark.samples.components.bottomsheet.BottomSheetScaffoldSample
  */
 @Composable
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @ExperimentalMaterial3Api
 public fun BottomSheetScaffold(
     sheetContent: @Composable BoxScope.() -> Unit,

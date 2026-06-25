@@ -38,7 +38,6 @@ import com.adevinta.spark.icons.CameraFill
 import com.adevinta.spark.icons.IdentityCardOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.disabled
 
 /**
@@ -47,6 +46,8 @@ import com.adevinta.spark.tokens.disabled
  * It is recommended to pair it with a button wit more emphasis like the filled button or the tinted button.
  *
  * Be aware that it's not advised to use it on top of images since it will be hard to see.
+ *
+ * ![Button Outlined](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_ButtonDocumentationScreenshots_buttonOutlined.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
@@ -91,7 +92,7 @@ public fun ButtonOutlined(
         onClick = onClick,
         modifier = modifier,
         size = size,
-        shape = shape.shape,
+        shape = ButtonTokens.shape,
         enabled = enabled,
         elevation = null,
         border = SparkButtonDefaults.outlinedBorder(if (enabled) contentColor else disabledContentColor),
@@ -155,7 +156,7 @@ public fun ButtonOutlined(
         text = text,
         modifier = modifier,
         size = size,
-        shape = shape,
+        shape = ButtonTokens.buttonShape,
         enabled = enabled,
         elevation = null,
         border = SparkButtonDefaults.outlinedBorder(if (enabled) contentColor else disabledContentColor),
@@ -215,6 +216,7 @@ public fun ButtonOutlined(
         text = text,
         modifier = modifier,
         size = size,
+        shape = ButtonTokens.buttonShape,
         enabled = enabled,
         elevation = null,
         border = SparkButtonDefaults.outlinedBorder(contentColor),
@@ -234,7 +236,7 @@ public fun ButtonOutlined(
 @Composable
 internal fun ButtonOutlinedPreview() {
     PreviewTheme {
-        val icon = SparkIcons.CameraFill
+        val icon = LeboncoinIcons.CameraFill
         val buttonText = "Support Button"
         ButtonOutlined(
             onClick = {},

@@ -29,17 +29,21 @@ import com.adevinta.spark.catalog.configurator.samples.bottomsheet.BottomSheetCo
 import com.adevinta.spark.catalog.configurator.samples.buttons.ButtonsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.buttons.IconButtonsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.buttons.IconToggleButtonsConfigurator
+import com.adevinta.spark.catalog.configurator.samples.card.CardConfigurator
+import com.adevinta.spark.catalog.configurator.samples.card.CardHighlightedConfigurator
 import com.adevinta.spark.catalog.configurator.samples.chips.ChipsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.colorselector.ColorSelectorTestConfigurator
 import com.adevinta.spark.catalog.configurator.samples.divider.DividerConfigurator
 import com.adevinta.spark.catalog.configurator.samples.fileupload.FileUploadConfigurator
 import com.adevinta.spark.catalog.configurator.samples.gauge.GaugesConfigurator
 import com.adevinta.spark.catalog.configurator.samples.image.ImageConfigurator
+import com.adevinta.spark.catalog.configurator.samples.meter.MeterConfigurator
 import com.adevinta.spark.catalog.configurator.samples.modal.ModalConfigurator
 import com.adevinta.spark.catalog.configurator.samples.popover.PopoverConfigurator
 import com.adevinta.spark.catalog.configurator.samples.progressbar.ProgressbarConfigurator
 import com.adevinta.spark.catalog.configurator.samples.progresstracker.ProgressTrackerConfigurator
 import com.adevinta.spark.catalog.configurator.samples.rating.RatingsConfigurator
+import com.adevinta.spark.catalog.configurator.samples.segmentedcontrol.SegmentedControlConfigurator
 import com.adevinta.spark.catalog.configurator.samples.slider.SlidersConfigurator
 import com.adevinta.spark.catalog.configurator.samples.snackbar.SnackbarConfigurator
 import com.adevinta.spark.catalog.configurator.samples.stepper.StepperConfigurators
@@ -59,6 +63,7 @@ import com.adevinta.spark.catalog.examples.samples.badge.BadgeExamples
 import com.adevinta.spark.catalog.examples.samples.bottomsheet.BottomSheetExamples
 import com.adevinta.spark.catalog.examples.samples.buttons.ButtonsExamples
 import com.adevinta.spark.catalog.examples.samples.buttons.IconButtonsExamples
+import com.adevinta.spark.catalog.examples.samples.card.CardExamples
 import com.adevinta.spark.catalog.examples.samples.chips.ChipsExamples
 import com.adevinta.spark.catalog.examples.samples.combobox.ComboBoxExample
 import com.adevinta.spark.catalog.examples.samples.dialog.DialogsExamples
@@ -66,11 +71,13 @@ import com.adevinta.spark.catalog.examples.samples.divider.DividerExamples
 import com.adevinta.spark.catalog.examples.samples.fileupload.FileUploadExamples
 import com.adevinta.spark.catalog.examples.samples.gauge.SegmentedGaugeExamples
 import com.adevinta.spark.catalog.examples.samples.icons.IconsExamples
+import com.adevinta.spark.catalog.examples.samples.meter.MeterExamples
 import com.adevinta.spark.catalog.examples.samples.placeholder.PlaceholderExamples
 import com.adevinta.spark.catalog.examples.samples.popover.PopoverExamples
 import com.adevinta.spark.catalog.examples.samples.progressbar.ProgressbarExamples
 import com.adevinta.spark.catalog.examples.samples.progresstracker.ProgressTrackerExamples
 import com.adevinta.spark.catalog.examples.samples.rating.RatingExamples
+import com.adevinta.spark.catalog.examples.samples.segmentedcontrol.SegmentedControlExamples
 import com.adevinta.spark.catalog.examples.samples.slider.SlidersExamples
 import com.adevinta.spark.catalog.examples.samples.snackbar.SnackbarExamples
 import com.adevinta.spark.catalog.examples.samples.stepper.StepperExamples
@@ -190,6 +197,18 @@ private val Chips = Component(
     configurators = listOf(ChipsConfigurator),
 )
 
+private val Cards = Component(
+    id = "cards",
+    name = "Cards",
+    illustration = R.drawable.vignette_background,
+    description = R.string.component_card_description,
+    guidelinesUrl = "$ComponentGuidelinesUrl/p/cards",
+    docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.card/index.html",
+    sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/card/Card.kt",
+    examples = CardExamples,
+    configurators = listOf(CardConfigurator, CardHighlightedConfigurator),
+)
+
 private val Dialogs = Component(
     id = "dialogs",
     name = "Dialogs",
@@ -304,6 +323,17 @@ private val FileUpload = Component(
     configurators = listOf(FileUploadConfigurator),
 )
 
+private val Meter = Component(
+    id = "meter",
+    name = "Meter",
+    description = R.string.component_meter_description,
+    guidelinesUrl = "$ComponentGuidelinesUrl/p/35093b-circular-meter",
+    docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.meter/index.html",
+    sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/meter/Meter.kt",
+    examples = MeterExamples,
+    configurators = MeterConfigurator,
+)
+
 private val Popovers = Component(
     id = "popovers",
     name = "Popovers",
@@ -379,6 +409,17 @@ private val SegmentedGauge = Component(
     sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/gauge/SegmentedGauge.kt",
     examples = SegmentedGaugeExamples,
     configurators = listOf(GaugesConfigurator),
+)
+
+private val SegmentedControl = Component(
+    id = "segmented-control",
+    name = "Segmented Control",
+    description = R.string.component_segmentedcontrol_description,
+    guidelinesUrl = "$ComponentGuidelinesUrl/p/segmented-control",
+    docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.segmentedcontrol/index.html",
+    sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/segmentedcontrol/SegmentedControl.kt",
+    examples = SegmentedControlExamples,
+    configurators = listOf(SegmentedControlConfigurator),
 )
 
 private val Skeletons = Component(
@@ -511,6 +552,7 @@ public val Components: List<Component> = listOf(
     Badges,
     BottomSheets,
     Buttons,
+    Cards,
     ColorSelectorTest,
     ComboBox,
     Checkboxes,
@@ -523,11 +565,13 @@ public val Components: List<Component> = listOf(
     IconToggleButtons,
     Image,
     FileUpload,
+    Meter,
     Popovers,
     Progressbars,
     ProgressTracker,
     RadioButtons,
     Rating,
+    SegmentedControl,
     SegmentedGauge,
     Skeletons,
     Sliders,

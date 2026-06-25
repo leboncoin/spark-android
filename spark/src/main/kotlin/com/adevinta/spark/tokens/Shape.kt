@@ -54,10 +54,10 @@ import androidx.compose.material3.Shapes as Material3Shapes
  * - Medium components
  * - Large components
  *
- * @param none A shape style with 4 same-sized corners whose size are equal to [RectangleShape].
+ * @param none A shape style with 4 same-sized corners whose size are equal to [androidx.compose.ui.graphics.RectangleShape].
  * By default app bars, navigation bars, banners, full-screen dialogs, and navigation rails use this shape.
  * @param extraSmall A shape style with 4 same-sized corners whose size are bigger than
- * [RectangleShape] and smaller than [SparkShapes.small]. By default, autocomplete menu, select menu,
+ * [androidx.compose.ui.graphics.RectangleShape] and smaller than [SparkShapes.small]. By default, autocomplete menu, select menu,
  * snackbars, standard menu, and text fields use this shape.
  * @param small A shape style with 4 same-sized corners whose size are bigger than
  * [SparkShapes.extraSmall] and smaller than [SparkShapes.medium]. By default, chips use this shape.
@@ -81,7 +81,24 @@ public data class SparkShapes(
     @Order(4) val large: CornerBasedShape = RoundedCornerShape(16.0.dp),
     @Order(5) val extraLarge: CornerBasedShape = RoundedCornerShape(28.0.dp),
     @Order(6) val full: CornerBasedShape = CircleShape,
-)
+) {
+    /**
+     * Required by the [Kelp](https://github.com/ozontech/kelp) Android Studio plugin to render
+     * corner-radius inlay hints next to usages of shape tokens.
+     *
+     * Property naming convention: `name___value`
+     */
+    @Suppress("unused", "RemoveRedundantBackticks", "IllegalIdentifier", "DANGEROUS_CHARACTERS")
+    private class KelpInlayPreview {
+        val `none___0dp` = Unit
+        val `extraSmall___4dp` = Unit
+        val `small___8dp` = Unit
+        val `medium___12dp` = Unit
+        val `large___16dp` = Unit
+        val `extraLarge___28dp` = Unit
+        val `full___50` = Unit
+    }
+}
 
 public fun sparkShapes(
     none: CornerBasedShape = RoundedCornerShape(0.dp),
@@ -134,8 +151,8 @@ internal val LocalSparkShapes = staticCompositionLocalOf { SparkShapes() }
 @Composable
 internal fun ShapePreview() {
     PreviewTheme {
-        Row {
-            Column {
+        Column {
+            Row {
                 ShapeItem(
                     modifier = Modifier,
                     shape = SparkTheme.shapes.none,
@@ -146,19 +163,21 @@ internal fun ShapePreview() {
                     shape = SparkTheme.shapes.small,
                     text = "small",
                 )
+            }
+            Row {
                 ShapeItem(
                     modifier = Modifier,
                     shape = SparkTheme.shapes.large,
                     text = "large",
                 )
-            }
-            Column {
+
                 ShapeItem(
                     modifier = Modifier,
                     shape = SparkTheme.shapes.extraSmall,
                     text = "extraSmall",
                 )
-
+            }
+            Row {
                 ShapeItem(
                     modifier = Modifier,
                     shape = SparkTheme.shapes.medium,
@@ -171,12 +190,12 @@ internal fun ShapePreview() {
                     text = "extraLarge",
                 )
             }
+            ShapeItem(
+                modifier = Modifier,
+                shape = SparkTheme.shapes.full,
+                text = "full",
+            )
         }
-        ShapeItem(
-            modifier = Modifier,
-            shape = SparkTheme.shapes.full,
-            text = "full",
-        )
     }
 }
 

@@ -49,8 +49,8 @@ import com.adevinta.spark.icons.HeartFill
 import com.adevinta.spark.icons.HeartOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.highlight
+import kotlinx.collections.immutable.toImmutableList
 
 public val TextFieldsConfigurator: Configurator = Configurator(
     id = "textfield",
@@ -141,7 +141,7 @@ private fun ColumnScope.TextFieldSample() {
 
     val textFieldStates: MutableSet<TextFieldState?> =
         TextFieldState.entries.toMutableSet<TextFieldState?>().apply { add(null) }
-    val buttonStylesLabel = textFieldStates.map { it?.run { name } ?: "Default" }
+    val buttonStylesLabel = textFieldStates.map { it?.run { name } ?: "Default" }.toImmutableList()
     ButtonGroup(
         title = "State",
         selectedOption = state?.name ?: "Default",

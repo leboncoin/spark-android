@@ -30,9 +30,14 @@ public enum class IconIntent {
     /**
      * Used to match default color of such UI controls as toggles, Slider, etc.
      */
+    @Deprecated(
+        message = "Basic has been removed with the rebranding, use Support instead",
+        replaceWith = ReplaceWith("IconIntent.Support"),
+        level = DeprecationLevel.ERROR,
+    )
     Basic {
         @Composable
-        override fun color(): Color = SparkTheme.colors.basic
+        override fun color(): Color = SparkTheme.colors.support
     },
 
     /**

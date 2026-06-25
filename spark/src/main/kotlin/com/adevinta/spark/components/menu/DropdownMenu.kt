@@ -49,7 +49,6 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.MenuItemColors
 import androidx.compose.material3.ProvideTextStyle
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
@@ -77,14 +76,14 @@ import com.adevinta.spark.R
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.divider.HorizontalDivider
 import com.adevinta.spark.components.icons.Icon
+import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.MultiChoiceComboBox
 import com.adevinta.spark.components.textfields.SingleChoiceComboBox
 import com.adevinta.spark.icons.Check
 import com.adevinta.spark.icons.GearOutline
 import com.adevinta.spark.icons.LeboncoinIcons
-import com.adevinta.spark.icons.MailOutline
+import com.adevinta.spark.icons.MailBoxOpenOutline
 import com.adevinta.spark.icons.PenFill
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.ElevationTokens
 import com.adevinta.spark.tokens.EmphasizeDim1
 import com.adevinta.spark.tokens.SparkColors
@@ -109,7 +108,7 @@ import androidx.compose.material3.DropdownMenu as MaterialDropdownMenu
  * The [content] of a [DropdownMenu] will typically be [DropdownMenuItem]s, as well as custom
  * content. Using [DropdownMenuItem]s will result in a menu that matches the Material
  * specification for menus. Also note that the [content] is placed inside a scrollable [Column],
- * so using a [LazyColumn] as the root layout inside [content] is unsupported.
+ * so using a [androidx.compose.foundation.lazy.LazyColumn] as the root layout inside [content] is unsupported.
  *
  * [onDismissRequest] will be called when the menu should close for example when there is a
  * tap outside the menu, or when the back key is pressed.
@@ -127,6 +126,7 @@ import androidx.compose.material3.DropdownMenu as MaterialDropdownMenu
  * outside the menu's bounds
  * @param offset [DpOffset] to be added to the position of the menu
  */
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun DropdownMenu(
     expanded: Boolean,
@@ -534,7 +534,7 @@ public fun SingleChoiceDropdownItemColumnScope.DropdownMenuItem(
         leadingIcon = if (selected) {
             @Composable {
                 Icon(
-                    sparkIcon = SparkIcons.Check,
+                    sparkIcon = LeboncoinIcons.Check,
                     contentDescription = null, // Semantics handled in the Row
                     modifier = Modifier.size(24.dp),
                 )
@@ -598,7 +598,7 @@ public fun MultiChoiceDropdownItemColumnScope.DropdownMenuItem(
         leadingIcon = if (checked) {
             @Composable {
                 Icon(
-                    sparkIcon = SparkIcons.Check,
+                    sparkIcon = LeboncoinIcons.Check,
                     contentDescription = null, // Semantics handled in the Row
                     modifier = Modifier.size(24.dp),
                 )
@@ -743,7 +743,7 @@ private fun DropdownMenuItemPreview() {
             text = { Text("Edit") },
             leadingIcon = {
                 Icon(
-                    SparkIcons.PenFill,
+                    LeboncoinIcons.PenFill,
                     contentDescription = null,
                 )
             },
@@ -767,7 +767,7 @@ private fun DropdownMenuItemPreview() {
             text = { Text("Send Feedback") },
             leadingIcon = {
                 Icon(
-                    SparkIcons.MailOutline,
+                    LeboncoinIcons.MailBoxOpenOutline,
                     contentDescription = null,
                 )
             },
@@ -777,7 +777,7 @@ private fun DropdownMenuItemPreview() {
             text = { Text("Send Feedback Send Feedback Send Feedback Send Feedback Send Feedback Send Feed") },
             leadingIcon = {
                 Icon(
-                    SparkIcons.MailOutline,
+                    LeboncoinIcons.MailBoxOpenOutline,
                     contentDescription = null,
                 )
             },
@@ -806,7 +806,7 @@ private fun DropdownMenuGroupItemPreview() {
                     text = { Text("Edit") },
                     leadingIcon = {
                         Icon(
-                            SparkIcons.PenFill,
+                            LeboncoinIcons.PenFill,
                             contentDescription = null,
                         )
                     },
@@ -829,7 +829,7 @@ private fun DropdownMenuGroupItemPreview() {
                 text = { Text("Edit") },
                 leadingIcon = {
                     Icon(
-                        SparkIcons.PenFill,
+                        LeboncoinIcons.PenFill,
                         contentDescription = null,
                     )
                 },

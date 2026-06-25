@@ -63,6 +63,8 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.movableContentOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -90,12 +92,13 @@ import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconButton
+import com.adevinta.spark.components.icons.IconToggleButton
 import com.adevinta.spark.components.navigation.UpNavigationIcon
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.BurgerMenu
 import com.adevinta.spark.icons.CameraFill
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.tokens.ElevationTokens
 import com.adevinta.spark.tokens.applyTonalElevation
 import com.adevinta.spark.tokens.contentColorFor
@@ -115,7 +118,7 @@ import kotlin.math.roundToInt
  * @param title the title to be displayed in the top app bar
  * @param modifier the [Modifier] to be applied to this top app bar
  * @param navigationIcon the navigation icon displayed at the start of the top app bar. This should
- * typically be an [IconButton] or [IconToggleButton].
+ * typically be an [IconButton] or [com.adevinta.spark.components.icons.IconToggleButton].
  * @param actions the actions displayed at the end of the top app bar. This should typically be
  * [IconButton]s. The default layout here is a [Row], so icons inside will be placed horizontally.
  * @param windowInsets a window insets that app bar will respect.
@@ -189,13 +192,14 @@ public fun MediumTopAppBar(
     colors: TopAppBarColors = TopAppBarSparkDefaults.mediumTopAppBarColors(),
     scrollBehavior: TopAppBarScrollBehavior? = null,
 ) {
+    val titleSlot = remember { movableContentOf { title() } }
     TwoRowsTopAppBar(
         modifier = modifier,
-        title = title,
+        title = titleSlot,
         titleTextStyle = SparkTheme.typography.display3,
         smallTitleTextStyle = SparkTheme.typography.headline1,
         titleBottomPadding = MediumTitleBottomPadding,
-        smallTitle = title,
+        smallTitle = titleSlot,
         navigationIcon = navigationIcon,
         actions = actions,
         colors = colors,
@@ -244,12 +248,13 @@ public fun LargeTopAppBar(
     colors: TopAppBarColors = TopAppBarSparkDefaults.largeTopAppBarColors(),
     scrollBehavior: TopAppBarScrollBehavior? = null,
 ) {
+    val titleSlot = remember { movableContentOf { title() } }
     TwoRowsTopAppBar(
-        title = title,
+        title = titleSlot,
         titleTextStyle = SparkTheme.typography.display2.copy(fontWeight = FontWeight.Normal),
         smallTitleTextStyle = SparkTheme.typography.headline1,
         titleBottomPadding = LargeTitleBottomPadding,
-        smallTitle = title,
+        smallTitle = titleSlot,
         modifier = modifier,
         navigationIcon = navigationIcon,
         actions = actions,
@@ -1019,7 +1024,7 @@ internal fun PreviewTopAppBar() {
                 navigationIcon = {
                     IconButton(onClick = { /* doSomething() */ }) {
                         Icon(
-                            sparkIcon = SparkIcons.BurgerMenu,
+                            sparkIcon = LeboncoinIcons.BurgerMenu,
                             contentDescription = "Localized description",
                         )
                     }
@@ -1028,7 +1033,7 @@ internal fun PreviewTopAppBar() {
                 actions = {
                     IconButton(onClick = { /* doSomething() */ }) {
                         Icon(
-                            sparkIcon = SparkIcons.CameraFill,
+                            sparkIcon = LeboncoinIcons.CameraFill,
                             contentDescription = "Localized description",
                         )
                     }
@@ -1040,7 +1045,7 @@ internal fun PreviewTopAppBar() {
                 navigationIcon = {
                     IconButton(onClick = { /* doSomething() */ }) {
                         Icon(
-                            sparkIcon = SparkIcons.BurgerMenu,
+                            sparkIcon = LeboncoinIcons.BurgerMenu,
                             contentDescription = "Localized description",
                         )
                     }
@@ -1048,7 +1053,7 @@ internal fun PreviewTopAppBar() {
                 actions = {
                     IconButton(onClick = { /* doSomething() */ }) {
                         Icon(
-                            sparkIcon = SparkIcons.CameraFill,
+                            sparkIcon = LeboncoinIcons.CameraFill,
                             contentDescription = "Localized description",
                         )
                     }
@@ -1060,7 +1065,7 @@ internal fun PreviewTopAppBar() {
                 navigationIcon = {
                     IconButton(onClick = { /* doSomething() */ }) {
                         Icon(
-                            sparkIcon = SparkIcons.BurgerMenu,
+                            sparkIcon = LeboncoinIcons.BurgerMenu,
                             contentDescription = "Localized description",
                         )
                     }
@@ -1068,7 +1073,7 @@ internal fun PreviewTopAppBar() {
                 actions = {
                     IconButton(onClick = { /* doSomething() */ }) {
                         Icon(
-                            sparkIcon = SparkIcons.CameraFill,
+                            sparkIcon = LeboncoinIcons.CameraFill,
                             contentDescription = "Localized description",
                         )
                     }
@@ -1080,7 +1085,7 @@ internal fun PreviewTopAppBar() {
                 navigationIcon = {
                     IconButton(onClick = { /* doSomething() */ }) {
                         Icon(
-                            sparkIcon = SparkIcons.BurgerMenu,
+                            sparkIcon = LeboncoinIcons.BurgerMenu,
                             contentDescription = "Localized description",
                         )
                     }
@@ -1089,7 +1094,7 @@ internal fun PreviewTopAppBar() {
                 actions = {
                     IconButton(onClick = { /* doSomething() */ }) {
                         Icon(
-                            sparkIcon = SparkIcons.CameraFill,
+                            sparkIcon = LeboncoinIcons.CameraFill,
                             contentDescription = "Localized description",
                         )
                     }

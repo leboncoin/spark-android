@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.icons
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -35,6 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.iconbuttons.IconButtonTokens
 import androidx.compose.material3.FilledIconButton as MaterialFilledIconButton
 import androidx.compose.material3.FilledTonalIconButton as MaterialFilledTonalIconButton
 import androidx.compose.material3.IconButton as MaterialIconButton
@@ -48,7 +50,7 @@ import androidx.compose.material3.OutlinedIconButton as MaterialOutlinedIconButt
  *
  * ![Standard icon button image](https://developer.android.com/images/reference/androidx/compose/material3/standard-icon-button.png)
  *
- * [content] should typically be an [Icon] (see [androidx.compose.material.icons.Icons]). If using a
+ * [content] should typically be an [Icon]. If using a
  * custom icon, note that the typical size for the internal icon is 24 x 24 dp.
  * This icon button has an overall minimum touch target size of 48 x 48dp, to meet accessibility
  * guidelines.
@@ -58,13 +60,14 @@ import androidx.compose.material3.OutlinedIconButton as MaterialOutlinedIconButt
  * @param enabled controls the enabled state of this icon button. When `false`, this component will
  * not respond to user input, and it will appear visually disabled and disabled to accessibility
  * services.
- * @param colors [IconButtonColors] that will be used to resolve the colors used for this icon
+ * @param colors `IconButtonColors` that will be used to resolve the colors used for this icon
  * button in different states. See [IconButtonDefaults.iconButtonColors].
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this icon button. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this icon button in different states.
  * @param content the content of this icon button, typically an [Icon]
  */
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 @ExperimentalSparkApi
 public fun IconButton(
@@ -93,7 +96,7 @@ public fun IconButton(
  *
  * ![Filled icon button image](https://developer.android.com/images/reference/androidx/compose/material3/filled-icon-button.png)
  *
- * [content] should typically be an [Icon] (see [androidx.compose.material.icons.Icons]). If using a
+ * [content] should typically be an [Icon]. If using a
  * custom icon, note that the typical size for the internal icon is 24 x 24 dp.
  * This icon button has an overall minimum touch target size of 48 x 48dp, to meet accessibility
  * guidelines.
@@ -104,7 +107,7 @@ public fun IconButton(
  * not respond to user input, and it will appear visually disabled and disabled to accessibility
  * services.
  * @param shape defines the shape of this icon button's container
- * @param colors [IconButtonColors] that will be used to resolve the colors used for this icon
+ * @param colors `IconButtonColors` that will be used to resolve the colors used for this icon
  * button in different states. See [IconButtonDefaults.filledIconButtonColors].
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this icon button. You can create and pass in your own `remember`ed instance to observe
@@ -112,6 +115,7 @@ public fun IconButton(
  * @param content the content of this icon button, typically an [Icon]
  */
 @ExperimentalSparkApi
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun FilledIconButton(
     onClick: () -> Unit,
@@ -122,6 +126,7 @@ public fun FilledIconButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
+    val shape = IconButtonTokens.resolveFullShape(shape)
     MaterialFilledIconButton(
         onClick = onClick,
         modifier = modifier,
@@ -146,7 +151,7 @@ public fun FilledIconButton(
  * They can be used in contexts where the lower-priority icon button requires slightly more emphasis
  * than an outline would give.
  *
- * [content] should typically be an [Icon] (see [androidx.compose.material.icons.Icons]). If using a
+ * [content] should typically be an [Icon]. If using a
  * custom icon, note that the typical size for the internal icon is 24 x 24 dp.
  * This icon button has an overall minimum touch target size of 48 x 48dp, to meet accessibility
  * guidelines.
@@ -157,7 +162,7 @@ public fun FilledIconButton(
  * not respond to user input, and it will appear visually disabled and disabled to accessibility
  * services.
  * @param shape defines the shape of this icon button's container
- * @param colors [IconButtonColors] that will be used to resolve the colors used for this icon
+ * @param colors `IconButtonColors` that will be used to resolve the colors used for this icon
  * button in different states. See [IconButtonDefaults.filledIconButtonColors].
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this icon button. You can create and pass in your own `remember`ed instance to observe
@@ -165,6 +170,7 @@ public fun FilledIconButton(
  * @param content the content of this icon button, typically an [Icon]
  */
 @ExperimentalSparkApi
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun FilledTonalIconButton(
     onClick: () -> Unit,
@@ -177,6 +183,7 @@ public fun FilledTonalIconButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
+    val shape = IconButtonTokens.resolveFullShape(shape)
     MaterialFilledTonalIconButton(
         onClick = onClick,
         modifier = modifier,
@@ -202,7 +209,7 @@ public fun FilledTonalIconButton(
  * Use this "contained" icon button when the component requires more visual separation from the
  * background.
  *
- * [content] should typically be an [Icon] (see [androidx.compose.material.icons.Icons]). If using a
+ * [content] should typically be an [Icon]. If using a
  * custom icon, note that the typical size for the internal icon is 24 x 24 dp.
  * The outlined icon button has an overall minimum touch target size of 48 x 48dp, to meet
  * accessibility guidelines.
@@ -214,7 +221,7 @@ public fun FilledTonalIconButton(
  * services.
  * @param shape defines the shape of this icon button's container and border (when [border] is not
  * null)
- * @param colors [IconButtonColors] that will be used to resolve the colors used for this icon
+ * @param colors `IconButtonColors` that will be used to resolve the colors used for this icon
  * button in different states. See [IconButtonDefaults.outlinedIconButtonColors].
  * @param border the border to draw around the container of this icon button. Pass `null` for no
  * border. See [IconButtonDefaults.outlinedIconButtonBorder].
@@ -224,6 +231,7 @@ public fun FilledTonalIconButton(
  * @param content the content of this icon button, typically an [Icon]
  */
 @ExperimentalSparkApi
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun OutlinedIconButton(
     onClick: () -> Unit,
@@ -235,6 +243,7 @@ public fun OutlinedIconButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
+    val shape = IconButtonTokens.resolveFullShape(shape)
     MaterialOutlinedIconButton(
         onClick = onClick,
         modifier = modifier,

@@ -21,24 +21,16 @@
  */
 package com.adevinta.spark.components.drawer
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Face
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material3.Button
-import androidx.compose.material3.DismissibleNavigationDrawer
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationDrawerItem
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -49,15 +41,24 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
+import com.adevinta.spark.components.buttons.ButtonFilled
+import com.adevinta.spark.components.navigation.NavigationDrawerItem
+import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.icons.Family
+import com.adevinta.spark.icons.HeartOutline
+import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.MailBoxOpenOutline
 import kotlinx.coroutines.launch
 import androidx.compose.material3.rememberDrawerState as rememberMaterialDrawerState
 
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@OptIn(ExperimentalMaterial3Api::class)
 @ExperimentalSparkApi
 @Composable
 internal fun SparkDismissibleNavigationDrawer(
     drawerContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    drawerState: DrawerState = rememberMaterialDrawerState(DrawerValue.Closed),
+    drawerState: DrawerState = rememberDrawerState(DrawerValue.Closed),
     gesturesEnabled: Boolean = true,
     content: @Composable () -> Unit,
 ) {
@@ -102,6 +103,7 @@ public fun DismissibleNavigationDrawer(
     )
 }
 
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @ExperimentalMaterial3Api
 @Composable
 public fun rememberDrawerState(
@@ -125,7 +127,7 @@ internal fun AlertDialogPreview() {
         val drawerState = rememberDrawerState(DrawerValue.Closed)
         val scope = rememberCoroutineScope()
         // icons to mimic drawer destinations
-        val items = listOf(Icons.Default.Favorite, Icons.Default.Face, Icons.Default.Email)
+        val items = listOf(LeboncoinIcons.HeartOutline, LeboncoinIcons.Family, LeboncoinIcons.MailBoxOpenOutline)
         val selectedItem = remember { mutableStateOf(items[0]) }
 
         DismissibleNavigationDrawer(
@@ -135,8 +137,8 @@ internal fun AlertDialogPreview() {
                     Spacer(Modifier.height(12.dp))
                     items.forEach { item ->
                         NavigationDrawerItem(
-                            icon = { Icon(item, contentDescription = null) },
-                            label = { Text(item.name) },
+                            icon = item,
+                            label = "item",
                             selected = item == selectedItem.value,
                             onClick = {
                                 scope.launch { drawerState.close() }
@@ -156,7 +158,7 @@ internal fun AlertDialogPreview() {
                 ) {
                     Text(text = if (drawerState.isClosed) ">>> Swipe >>>" else "<<< Swipe <<<")
                     Spacer(Modifier.height(20.dp))
-                    Button(onClick = { scope.launch { drawerState.open() } }) {
+                    ButtonFilled(onClick = { scope.launch { drawerState.open() } }) {
                         Text("Click to open")
                     }
                 }

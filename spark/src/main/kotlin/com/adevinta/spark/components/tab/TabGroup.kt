@@ -57,7 +57,6 @@ import com.adevinta.spark.components.tab.TabGroupDefaults.tabIndicatorOffset
 import com.adevinta.spark.icons.BubbleTextOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.MagnifierOutline
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.UserFill
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -365,8 +364,6 @@ private fun TabGroupPreview() {
                     trailingContent = {
                         if (unread > 0) {
                             Badge(count = unread)
-                        } else {
-                            Unit
                         }
                     },
                     contentDescription = if (tab.first == null) "icon content description" else null,
@@ -401,8 +398,6 @@ private fun TabGroupFixedSizePreview() {
                     trailingContent = {
                         if (unread > 0) {
                             Badge(count = unread)
-                        } else {
-                            Unit
                         }
                     },
                 )

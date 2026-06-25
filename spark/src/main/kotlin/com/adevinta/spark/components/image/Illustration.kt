@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.image
 
+import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.foundation.Image
@@ -43,13 +44,14 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.icons.rememberSparkIconPainter
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
-import com.adevinta.spark.icons.Store
+import com.adevinta.spark.icons.StoreOutline
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import androidx.compose.foundation.Image as FoundationImage
 
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @InternalSparkApi
 @Composable
 internal fun SparkIllustration(
@@ -337,7 +339,7 @@ public fun Illustration(
 internal fun IllustrationPreview() {
     PreviewTheme {
         Illustration(
-            sparkIcon = SparkIcons.Store,
+            sparkIcon = LeboncoinIcons.StoreOutline,
             contentDescription = null,
             modifier = Modifier.size(100.dp),
         )

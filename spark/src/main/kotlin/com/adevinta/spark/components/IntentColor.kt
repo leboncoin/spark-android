@@ -22,6 +22,7 @@
 package com.adevinta.spark.components
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.Color
 import com.adevinta.spark.SparkTheme
 
@@ -36,13 +37,19 @@ internal enum class IntentColors {
     /**
      * Used to match default color of such UI controls as toggles, Slider, etc.
      */
+    @Deprecated(
+        message = "Basic has been removed with the rebranding, use Support instead",
+        replaceWith = ReplaceWith("IntentColors.Support"),
+        level = DeprecationLevel.ERROR,
+    )
     Basic {
         @Composable
+        @ReadOnlyComposable
         override fun colors() = IntentColor(
-            color = SparkTheme.colors.basic,
-            onColor = SparkTheme.colors.onBasic,
-            containerColor = SparkTheme.colors.basicContainer,
-            onContainerColor = SparkTheme.colors.onBasicContainer,
+            color = SparkTheme.colors.support,
+            onColor = SparkTheme.colors.onSupport,
+            containerColor = SparkTheme.colors.supportContainer,
+            onContainerColor = SparkTheme.colors.onSupportContainer,
         )
     },
 
@@ -51,6 +58,7 @@ internal enum class IntentColors {
      */
     Accent {
         @Composable
+        @ReadOnlyComposable
         override fun colors() = IntentColor(
             color = SparkTheme.colors.accent,
             onColor = SparkTheme.colors.onAccent,
@@ -64,6 +72,7 @@ internal enum class IntentColors {
      */
     Main {
         @Composable
+        @ReadOnlyComposable
         override fun colors() = IntentColor(
             color = SparkTheme.colors.main,
             onColor = SparkTheme.colors.onMain,
@@ -77,6 +86,7 @@ internal enum class IntentColors {
      */
     Support {
         @Composable
+        @ReadOnlyComposable
         override fun colors() = IntentColor(
             color = SparkTheme.colors.support,
             onColor = SparkTheme.colors.onSupport,
@@ -90,6 +100,7 @@ internal enum class IntentColors {
      */
     Success {
         @Composable
+        @ReadOnlyComposable
         override fun colors() = IntentColor(
             color = SparkTheme.colors.success,
             onColor = SparkTheme.colors.onSuccess,
@@ -103,6 +114,7 @@ internal enum class IntentColors {
      */
     Alert {
         @Composable
+        @ReadOnlyComposable
         override fun colors() = IntentColor(
             color = SparkTheme.colors.alert,
             onColor = SparkTheme.colors.onAlert,
@@ -116,6 +128,7 @@ internal enum class IntentColors {
      */
     Danger {
         @Composable
+        @ReadOnlyComposable
         override fun colors() = IntentColor(
             color = SparkTheme.colors.error,
             onColor = SparkTheme.colors.onError,
@@ -129,6 +142,7 @@ internal enum class IntentColors {
      */
     Info {
         @Composable
+        @ReadOnlyComposable
         override fun colors() = IntentColor(
             color = SparkTheme.colors.info,
             onColor = SparkTheme.colors.onInfo,
@@ -142,6 +156,7 @@ internal enum class IntentColors {
      */
     Neutral {
         @Composable
+        @ReadOnlyComposable
         override fun colors() = IntentColor(
             color = SparkTheme.colors.neutral,
             onColor = SparkTheme.colors.onNeutral,
@@ -155,6 +170,7 @@ internal enum class IntentColors {
      */
     Surface {
         @Composable
+        @ReadOnlyComposable
         override fun colors() = IntentColor(
             color = SparkTheme.colors.surface,
             onColor = SparkTheme.colors.onSurface,
@@ -165,5 +181,6 @@ internal enum class IntentColors {
     ;
 
     @Composable
+    @ReadOnlyComposable
     internal abstract fun colors(): IntentColor
 }

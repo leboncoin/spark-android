@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.progressbar
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -33,6 +34,7 @@ import com.adevinta.spark.tokens.dim4
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 import androidx.compose.material3.LinearProgressIndicator as MaterialProgressbar
 
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @InternalSparkApi
 @Composable
 internal fun SparkProgressbar(
@@ -79,7 +81,7 @@ internal fun SparkProgressbar(
 public fun Progressbar(
     progress: () -> Float,
     modifier: Modifier = Modifier,
-    intent: ProgressbarIntent = ProgressbarIntent.Basic,
+    intent: ProgressbarIntent = ProgressbarIntent.Support,
     isRounded: Boolean = true,
 ) {
     SparkProgressbar(
@@ -105,7 +107,7 @@ public fun Progressbar(
 @Composable
 public fun ProgressbarIndeterminate(
     modifier: Modifier = Modifier,
-    intent: ProgressbarIntent = ProgressbarIntent.Basic,
+    intent: ProgressbarIntent = ProgressbarIntent.Support,
     isRounded: Boolean = true,
 ) {
     SparkProgressbar(

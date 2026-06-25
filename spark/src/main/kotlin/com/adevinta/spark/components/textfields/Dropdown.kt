@@ -40,6 +40,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuBoxScope
+import androidx.compose.material3.TooltipAnchorPosition
 import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.TooltipState
 import androidx.compose.runtime.Composable
@@ -87,7 +89,6 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.CircleCrossOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkAnimatedIcons
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.collapseExpand
 import com.adevinta.spark.tokens.SparkTypography
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay

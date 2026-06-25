@@ -106,6 +106,28 @@ object DefaultTestDevices {
         navigation = Navigation.NONAV,
         released = "December 8, 2015",
     )
+
+    /**
+     * Compact phone in landscape for documentation screenshots.
+     * Smaller than Pixel C to avoid excessive whitespace around isolated components.
+     */
+    val DocPhone = DeviceConfig(
+        screenHeight = 1080,
+        screenWidth = 1920,
+        xdpi = 420,
+        ydpi = 420,
+        orientation = ScreenOrientation.LANDSCAPE,
+        density = Density.XXHIGH,
+        ratio = ScreenRatio.LONG,
+        size = ScreenSize.NORMAL,
+        keyboard = Keyboard.NOKEY,
+        touchScreen = TouchScreen.FINGER,
+        keyboardState = KeyboardState.SOFT,
+        softButtons = true,
+        navigation = Navigation.NONAV,
+        released = "October 2023",
+    )
+
     internal val devices = listOf(Phone, Foldable, Tablet)
 }
 

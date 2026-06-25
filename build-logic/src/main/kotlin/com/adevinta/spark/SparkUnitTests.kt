@@ -105,6 +105,11 @@ internal object SparkUnitTests {
                 exceptionFormat = FULL
                 events(STARTED, PASSED, FAILED, SKIPPED)
             }
+            reports {
+                // Disable HTML reports until Paparazzi supports Gradle 9.3+ APIs
+                // https://github.com/cashapp/paparazzi/issues/2182
+                html.required.set(false)
+            }
         }
     }
 }

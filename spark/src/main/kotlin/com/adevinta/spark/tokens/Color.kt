@@ -132,10 +132,6 @@ public fun lightSparkColors(
     onAccentContainer: Color = Plum800,
     accentVariant: Color = Plum700,
     onAccentVariant: Color = Color.White,
-    basic: Color = Blueberry800,
-    onBasic: Color = Color.White,
-    basicContainer: Color = Blueberry100,
-    onBasicContainer: Color = Blueberry900,
     main: Color = Clementin500,
     onMain: Color = Color.White,
     mainContainer: Color = Clementin100,
@@ -168,6 +164,10 @@ public fun lightSparkColors(
     onNeutral: Color = Color.White,
     neutralContainer: Color = NightShade100,
     onNeutralContainer: Color = NightShade700,
+    ai: Color = Blueberry700,
+    onAi: Color = Color.White,
+    aiContainer: Color = Blueberry200,
+    onAiContainer: Color = Blueberry700,
     background: Color = Color.White,
     onBackground: Color = Blueberry900,
     backgroundVariant: Color = Blueberry50,
@@ -193,10 +193,6 @@ public fun lightSparkColors(
     onAccentContainer = onAccentContainer,
     accentVariant = accentVariant,
     onAccentVariant = onAccentVariant,
-    basic = basic,
-    onBasic = onBasic,
-    basicContainer = basicContainer,
-    onBasicContainer = onBasicContainer,
     main = main,
     onMain = onMain,
     mainContainer = mainContainer,
@@ -229,6 +225,10 @@ public fun lightSparkColors(
     onNeutral = onNeutral,
     neutralContainer = neutralContainer,
     onNeutralContainer = onNeutralContainer,
+    ai = ai,
+    onAi = onAi,
+    aiContainer = aiContainer,
+    onAiContainer = onAiContainer,
     background = background,
     onBackground = onBackground,
     backgroundVariant = backgroundVariant,
@@ -257,10 +257,6 @@ public fun darkSparkColors(
     onAccentContainer: Color = Plum50,
     accentVariant: Color = Plum300,
     onAccentVariant: Color = Plum900,
-    basic: Color = Blueberry200,
-    onBasic: Color = Blueberry900,
-    basicContainer: Color = Blueberry800,
-    onBasicContainer: Color = Blueberry50,
     main: Color = Clementin400,
     onMain: Color = Clementin900,
     mainContainer: Color = Clementin700,
@@ -293,6 +289,10 @@ public fun darkSparkColors(
     onNeutral: Color = NightShade900,
     neutralContainer: Color = NightShade700,
     onNeutralContainer: Color = NightShade50,
+    ai: Color = Blueberry300,
+    onAi: Color = Blueberry900,
+    aiContainer: Color = Blueberry700,
+    onAiContainer: Color = Blueberry50,
     background: Color = NightShade900,
     onBackground: Color = NightShade50,
     backgroundVariant: Color = Color.Black,
@@ -319,10 +319,6 @@ public fun darkSparkColors(
     onAccentContainer = onAccentContainer,
     accentVariant = accentVariant,
     onAccentVariant = onAccentVariant,
-    basic = basic,
-    onBasic = onBasic,
-    basicContainer = basicContainer,
-    onBasicContainer = onBasicContainer,
     main = main,
     onMain = onMain,
     mainContainer = mainContainer,
@@ -355,6 +351,10 @@ public fun darkSparkColors(
     onNeutral = onNeutral,
     neutralContainer = neutralContainer,
     onNeutralContainer = onNeutralContainer,
+    ai = ai,
+    onAi = onAi,
+    aiContainer = aiContainer,
+    onAiContainer = onAiContainer,
     background = background,
     onBackground = onBackground,
     backgroundVariant = backgroundVariant,
@@ -383,10 +383,6 @@ public fun lightHighContrastSparkColors(
     onAccentContainer: Color = DarkBold,
     accentVariant: Color = DarkMedium,
     onAccentVariant: Color = DarkLight,
-    basic: Color = DarkRegular,
-    onBasic: Color = DarkLight,
-    basicContainer: Color = DarkMedium,
-    onBasicContainer: Color = DarkBold,
     main: Color = DarkRegular,
     onMain: Color = DarkLight,
     mainContainer: Color = DarkMedium,
@@ -419,6 +415,10 @@ public fun lightHighContrastSparkColors(
     onNeutral: Color = DarkLight,
     neutralContainer: Color = DarkMedium,
     onNeutralContainer: Color = DarkBold,
+    ai: Color = DarkRegular,
+    onAi: Color = DarkLight,
+    aiContainer: Color = DarkMedium,
+    onAiContainer: Color = DarkBold,
     background: Color = DarkLight,
     onBackground: Color = DarkBold,
     backgroundVariant: Color = DarkMedium,
@@ -444,10 +444,6 @@ public fun lightHighContrastSparkColors(
     onAccentContainer = onAccentContainer,
     accentVariant = accentVariant,
     onAccentVariant = onAccentVariant,
-    basic = basic,
-    onBasic = onBasic,
-    basicContainer = basicContainer,
-    onBasicContainer = onBasicContainer,
     main = main,
     onMain = onMain,
     mainContainer = mainContainer,
@@ -480,6 +476,10 @@ public fun lightHighContrastSparkColors(
     onNeutral = onNeutral,
     neutralContainer = neutralContainer,
     onNeutralContainer = onNeutralContainer,
+    ai = ai,
+    onAi = onAi,
+    aiContainer = aiContainer,
+    onAiContainer = onAiContainer,
     background = background,
     onBackground = onBackground,
     backgroundVariant = backgroundVariant,
@@ -507,10 +507,6 @@ public fun darkHighContrastSparkColors(
     onAccentContainer: Color = LightLight,
     accentVariant: Color = DarkMedium,
     onAccentVariant: Color = DarkBold,
-    basic: Color = LightGray,
-    onBasic: Color = DarkBold,
-    basicContainer: Color = LightMid,
-    onBasicContainer: Color = LightLight,
     main: Color = LightGray,
     onMain: Color = DarkBold,
     mainContainer: Color = LightMid,
@@ -543,6 +539,10 @@ public fun darkHighContrastSparkColors(
     onNeutral: Color = DarkBold,
     neutralContainer: Color = LightMid,
     onNeutralContainer: Color = LightLight,
+    ai: Color = LightGray,
+    onAi: Color = DarkBold,
+    aiContainer: Color = LightMid,
+    onAiContainer: Color = LightLight,
     background: Color = DarkSemiBold,
     onBackground: Color = LightLight,
     backgroundVariant: Color = Color(0xff3c3c3c),
@@ -567,10 +567,6 @@ public fun darkHighContrastSparkColors(
     onAccentContainer = onAccentContainer,
     accentVariant = accentVariant,
     onAccentVariant = onAccentVariant,
-    basic = basic,
-    onBasic = onBasic,
-    basicContainer = basicContainer,
-    onBasicContainer = onBasicContainer,
     main = main,
     onMain = onMain,
     mainContainer = mainContainer,
@@ -603,6 +599,10 @@ public fun darkHighContrastSparkColors(
     onNeutral = onNeutral,
     neutralContainer = neutralContainer,
     onNeutralContainer = onNeutralContainer,
+    ai = ai,
+    onAi = onAi,
+    aiContainer = aiContainer,
+    onAiContainer = onAiContainer,
     background = background,
     onBackground = onBackground,
     backgroundVariant = backgroundVariant,
@@ -638,10 +638,6 @@ public fun darkHighContrastSparkColors(
  * @property onAccentContainer
  * @property accentVariant
  * @property onAccentVariant
- * @property basic
- * @property onBasic
- * @property basicContainer
- * @property onBasicContainer
  * @property main The main color is the color displayed most frequently across your app’s
  * screens and components.
  * @property onMain Color used for text and icons displayed on top of the main color.
@@ -684,6 +680,10 @@ public fun darkHighContrastSparkColors(
  * @property onNeutral Color used for text and icons displayed on top of the [neutral] color.
  * @property neutralContainer The preferred tonal color of neutral containers.
  * @property onNeutralContainer Color used for text and icons displayed on top of the [neutralContainer] color.
+ * @property ai An emphasis color used to identify AI-generated content or features.
+ * @property onAi Color used for text and icons displayed on top of the [ai] color.
+ * @property aiContainer The preferred tonal color of AI containers.
+ * @property onAiContainer Color used for text and icons displayed on top of the [aiContainer] color.
  * @property background The background color that appears behind scrollable content.
  * @property onBackground Color used for text and icons displayed on top of the background color.
  * @property backgroundVariant The background color that appears behind scrollable content.
@@ -715,10 +715,6 @@ public class SparkColors(
     onAccentContainer: Color,
     accentVariant: Color,
     onAccentVariant: Color,
-    basic: Color,
-    onBasic: Color,
-    basicContainer: Color,
-    onBasicContainer: Color,
     main: Color,
     onMain: Color,
     mainContainer: Color,
@@ -751,6 +747,10 @@ public class SparkColors(
     onNeutral: Color,
     neutralContainer: Color,
     onNeutralContainer: Color,
+    ai: Color,
+    onAi: Color,
+    aiContainer: Color,
+    onAiContainer: Color,
     background: Color,
     onBackground: Color,
     backgroundVariant: Color,
@@ -786,13 +786,36 @@ public class SparkColors(
         internal set
 
     @Order(3)
-    public var basic: Color by mutableStateOf(basic, structuralEqualityPolicy())
+    @Deprecated(
+        message = "basic has been removed with the rebranding, use support instead",
+        replaceWith = ReplaceWith("support"),
+        level = DeprecationLevel.ERROR,
+    )
+    public var basic: Color by mutableStateOf(support, structuralEqualityPolicy())
         internal set
-    public var onBasic: Color by mutableStateOf(onBasic, structuralEqualityPolicy())
+
+    @Deprecated(
+        message = "onBasic has been removed with the rebranding, use onSupport instead",
+        replaceWith = ReplaceWith("onSupport"),
+        level = DeprecationLevel.ERROR,
+    )
+    public var onBasic: Color by mutableStateOf(onSupport, structuralEqualityPolicy())
         internal set
-    public var basicContainer: Color by mutableStateOf(basicContainer, structuralEqualityPolicy())
+
+    @Deprecated(
+        message = "basicContainer has been removed with the rebranding, use supportContainer instead",
+        replaceWith = ReplaceWith("supportContainer"),
+        level = DeprecationLevel.ERROR,
+    )
+    public var basicContainer: Color by mutableStateOf(supportContainer, structuralEqualityPolicy())
         internal set
-    public var onBasicContainer: Color by mutableStateOf(onBasicContainer, structuralEqualityPolicy())
+
+    @Deprecated(
+        message = "onBasicContainer has been removed with the rebranding, use onSupportContainer instead",
+        replaceWith = ReplaceWith("onSupportContainer"),
+        level = DeprecationLevel.ERROR,
+    )
+    public var onBasicContainer: Color by mutableStateOf(onSupportContainer, structuralEqualityPolicy())
         internal set
 
     @Order(0)
@@ -906,6 +929,16 @@ public class SparkColors(
     public var onNeutralContainer: Color by mutableStateOf(onNeutralContainer, structuralEqualityPolicy())
         internal set
 
+    @Order(12)
+    public var ai: Color by mutableStateOf(ai, structuralEqualityPolicy())
+        internal set
+    public var onAi: Color by mutableStateOf(onAi, structuralEqualityPolicy())
+        internal set
+    public var aiContainer: Color by mutableStateOf(aiContainer, structuralEqualityPolicy())
+        internal set
+    public var onAiContainer: Color by mutableStateOf(onAiContainer, structuralEqualityPolicy())
+        internal set
+
     public var dim1: Float by mutableFloatStateOf(dimContent1)
         internal set
     public var dim2: Float by mutableFloatStateOf(dimContent2)
@@ -927,10 +960,6 @@ public class SparkColors(
         onAccentContainer: Color = this.onAccentContainer,
         accentVariant: Color = this.accentVariant,
         onAccentVariant: Color = this.onAccentVariant,
-        basic: Color = this.basic,
-        onBasic: Color = this.onBasic,
-        basicContainer: Color = this.basicContainer,
-        onBasicContainer: Color = this.onBasicContainer,
         main: Color = this.main,
         onMain: Color = this.onMain,
         mainContainer: Color = this.mainContainer,
@@ -977,6 +1006,10 @@ public class SparkColors(
         onNeutral: Color = this.onNeutral,
         neutralContainer: Color = this.neutralContainer,
         onNeutralContainer: Color = this.onNeutralContainer,
+        ai: Color = this.ai,
+        onAi: Color = this.onAi,
+        aiContainer: Color = this.aiContainer,
+        onAiContainer: Color = this.onAiContainer,
         dimContent1: Float = this.dim1,
         dimContent2: Float = this.dim2,
         dimContent3: Float = this.dim3,
@@ -989,10 +1022,6 @@ public class SparkColors(
         onAccentContainer = onAccentContainer,
         accentVariant = accentVariant,
         onAccentVariant = onAccentVariant,
-        basic = basic,
-        onBasic = onBasic,
-        basicContainer = basicContainer,
-        onBasicContainer = onBasicContainer,
         main = main,
         onMain = onMain,
         mainContainer = mainContainer,
@@ -1039,12 +1068,110 @@ public class SparkColors(
         onNeutral = onNeutral,
         neutralContainer = neutralContainer,
         onNeutralContainer = onNeutralContainer,
+        ai = ai,
+        onAi = onAi,
+        aiContainer = aiContainer,
+        onAiContainer = onAiContainer,
         dimContent1 = dimContent1,
         dimContent2 = dimContent2,
         dimContent3 = dimContent3,
         dimContent4 = dimContent4,
         dimContent5 = dimContent5,
     )
+
+    /**
+     * Required by the [Kelp](https://github.com/ozontech/kelp) Android Studio plugin to render
+     * color swatches in the IDE gutter and code completion menu.
+     *
+     * Property naming convention: `name_lightARGB_darkARGB`
+     */
+    @Suppress("unused")
+    private class KelpColorPreview {
+        // Main
+        val main_FFEC5A13_FFF07B42 = Unit
+        val onMain_FFFFFFFF_FF2F1305 = Unit
+        val mainContainer_FFFFE9DE_FF89380F = Unit
+        val onMainContainer_FF89380F_FFFFF2EB = Unit
+        val mainVariant_FFB84A14_FFF49D71 = Unit
+        val onMainVariant_FFFFFFFF_FF2F1305 = Unit
+
+        // Support
+        val support_FF094171_FFC2E0FA = Unit
+        val onSupport_FFFFFFFF_FF152233 = Unit
+        val supportContainer_FFE6F2FD_FF094171 = Unit
+        val onSupportContainer_FF152233_FFF4F9FE = Unit
+        val supportVariant_FF0C5291_FFE6F2FD = Unit
+        val onSupportVariant_FFFFFFFF_FF152233 = Unit
+
+        // Accent
+        val accent_FF8526D9_FFCFA3F5 = Unit
+        val onAccent_FFFFFFFF_FF1B052E = Unit
+        val accentContainer_FFE9D6FA_FF501782 = Unit
+        val onAccentContainer_FF360F57_FFF5EDFD = Unit
+        val accentVariant_FF501782_FFB775F0 = Unit
+        val onAccentVariant_FFFFFFFF_FF1B052E = Unit
+
+        // Basic
+        val basic_FF094171_FFC2E0FA = Unit
+        val onBasic_FFFFFFFF_FF152233 = Unit
+        val basicContainer_FFE6F2FD_FF094171 = Unit
+        val onBasicContainer_FF152233_FFF4F9FE = Unit
+
+        // Background
+        val background_FFFFFFFF_FF202730 = Unit
+        val onBackground_FF152233_FFF6F8F9 = Unit
+        val backgroundVariant_FFF4F9FE_FF000000 = Unit
+        val onBackgroundVariant_FF152233_FFF6F8F9 = Unit
+
+        // Surface
+        val surface_FFFFFFFF_FF202730 = Unit
+        val onSurface_FF152233_FFF6F8F9 = Unit
+        val surfaceInverse_FF2B3441_FFF6F8F9 = Unit
+        val onSurfaceInverse_FFFFFFFF_FF2B3441 = Unit
+        val surfaceDark_FF2B3441_FF2B3441 = Unit
+        val onSurfaceDark_FFFFFFFF_FFFFFFFF = Unit
+
+        // Outline / Scrim
+        val outline_FFACB8C7_FF6C819D = Unit
+        val outlineHigh_FF202730_FFF0F2F5 = Unit
+        val scrim_FF000000_FF000000 = Unit
+
+        // Success
+        val success_FF1D6340_FF8ECDAE = Unit
+        val onSuccess_FFFFFFFF_FF0C291B = Unit
+        val successContainer_FFE0F2E9_FF1D6340 = Unit
+        val onSuccessContainer_FF1D6340_FFF5FBF8 = Unit
+
+        // Alert
+        val alert_FFFFAA00_FFFFCC66 = Unit
+        val onAlert_FF202730_FF332200 = Unit
+        val alertContainer_FFFFEECC_FF664400 = Unit
+        val onAlertContainer_FF664400_FFFFF6E5 = Unit
+
+        // Error
+        val error_FFAD291F_FFE8867D = Unit
+        val onError_FFFFFFFF_FF2B0B08 = Unit
+        val errorContainer_FFF7D7D4_FF822017 = Unit
+        val onErrorContainer_FF822017_FFFBECEB = Unit
+
+        // Info
+        val info_FF0C5291_FF9FCEF7 = Unit
+        val onInfo_FFFFFFFF_FF152233 = Unit
+        val infoContainer_FFC2E0FA_FF094171 = Unit
+        val onInfoContainer_FF0C5291_FFF4F9FE = Unit
+
+        // Neutral
+        val neutral_FF3A4757_FFD0D7DF = Unit
+        val onNeutral_FFFFFFFF_FF202730 = Unit
+        val neutralContainer_FFF0F2F5_FF3A4757 = Unit
+        val onNeutralContainer_FF3A4757_FFF6F8F9 = Unit
+
+        // AI
+        val ai_FF0C5291_FF9FCEF7 = Unit
+        val onAi_FFFFFFFF_FF152233 = Unit
+        val aiContainer_FFC2E0FA_FF094171 = Unit
+        val onAiContainer_FF0C5291_FFF4F9FE = Unit
+    }
 
     override fun toString(): String = buildString {
         append("SparkColors(")
@@ -1054,10 +1181,6 @@ public class SparkColors(
         append("onAccentContainer=$onAccentContainer, ")
         append("accentVariant=$accentVariant, ")
         append("onAccentVariant=$onAccentVariant, ")
-        append("basic=$basic, ")
-        append("onBasic=$onBasic, ")
-        append("basicContainer=$basicContainer, ")
-        append("onBasicContainer=$onBasicContainer, ")
         append("main=$main, ")
         append("onMain=$onMain, ")
         append("mainContainer=$mainContainer, ")
@@ -1100,6 +1223,10 @@ public class SparkColors(
         append("onNeutral=$onNeutral, ")
         append("neutralContainer=$neutralContainer, ")
         append("onNeutralContainer=$onNeutralContainer, ")
+        append("ai=$ai, ")
+        append("onAi=$onAi, ")
+        append("aiContainer=$aiContainer, ")
+        append("onAiContainer=$onAiContainer, ")
         append("dim1=$dim1, ")
         append("dim2=$dim2, ")
         append("dim3=$dim3, ")
@@ -1208,10 +1335,6 @@ public fun ColorScheme.asSparkColors(useDark: Boolean): SparkColors = if (useDar
         onSupportContainer = onTertiaryContainer,
         supportVariant = tertiary.adjustColorToMaterialTone(90f),
         onSupportVariant = tertiary.adjustColorToMaterialTone(10f),
-        basic = tertiary,
-        onBasic = onTertiary,
-        basicContainer = tertiaryContainer,
-        onBasicContainer = onTertiaryContainer,
         background = background,
         onBackground = onBackground,
         surface = surface,
@@ -1249,10 +1372,6 @@ public fun ColorScheme.asSparkColors(useDark: Boolean): SparkColors = if (useDar
         onSupportContainer = onTertiaryContainer,
         supportVariant = tertiary.adjustColorToMaterialTone(10f),
         onSupportVariant = tertiary.adjustColorToMaterialTone(99f),
-        basic = tertiary,
-        onBasic = onTertiary,
-        basicContainer = tertiaryContainer,
-        onBasicContainer = onTertiaryContainer,
         background = background,
         onBackground = onBackground,
         surface = surface,
@@ -1294,6 +1413,7 @@ private fun Color.adjustColorToMaterialTone(tone: Float): Color {
  *
  * @see contentColorFor
  */
+@Suppress("DEPRECATION_ERROR")
 public fun SparkColors.contentColorFor(backgroundColor: Color): Color = when (backgroundColor) {
     accent -> onAccent
     accentContainer -> onAccentContainer
@@ -1321,6 +1441,8 @@ public fun SparkColors.contentColorFor(backgroundColor: Color): Color = when (ba
     infoContainer -> onInfoContainer
     neutral -> onNeutral
     neutralContainer -> onNeutralContainer
+    ai -> onAi
+    aiContainer -> onAiContainer
     else -> Color.Unspecified
 }
 
@@ -1421,10 +1543,6 @@ internal fun SparkColors.updateColorsFrom(other: SparkColors) {
     onAccentContainer = other.onAccentContainer
     accentVariant = other.accentVariant
     onAccentVariant = other.onAccentVariant
-    basic = other.basic
-    onBasic = other.onBasic
-    basicContainer = other.basicContainer
-    onBasicContainer = other.onBasicContainer
     main = other.main
     onMain = other.onMain
     mainContainer = other.mainContainer
@@ -1471,6 +1589,10 @@ internal fun SparkColors.updateColorsFrom(other: SparkColors) {
     onNeutral = other.onNeutral
     neutralContainer = other.neutralContainer
     onNeutralContainer = other.onNeutralContainer
+    ai = other.ai
+    onAi = other.onAi
+    aiContainer = other.aiContainer
+    onAiContainer = other.onAiContainer
     dim1 = other.dim1
     dim2 = other.dim2
     dim3 = other.dim3
@@ -1479,7 +1601,7 @@ internal fun SparkColors.updateColorsFrom(other: SparkColors) {
 }
 
 /**
- * Returns the new background [Color] to use, representing the original background [color] with an
+ * Returns the new background [Color] to use, representing the original background [backgroundColor] with an
  * overlay corresponding to [elevation] applied. The overlay will only be applied to
  * [ColorScheme.surface].
  */
@@ -1538,7 +1660,7 @@ public fun contrastLevel(
     fallback: () -> Float = { 0f },
 ): Float = if (isContrastLevelAvailable) {
     val uiModeManager = context.getSystemService<UiModeManager>()
-    uiModeManager?.contrast?.takeIf { isContrastLevelAvailable } ?: fallback()
+    uiModeManager?.contrast ?: fallback()
 } else {
     fallback()
 }
@@ -1568,10 +1690,6 @@ public fun debugColors(
     onAccentContainer = onDebugColor,
     accentVariant = debugColor,
     onAccentVariant = onDebugColor,
-    basic = debugColor,
-    onBasic = onDebugColor,
-    basicContainer = debugColor,
-    onBasicContainer = onDebugColor,
     main = debugColor,
     onMain = onDebugColor,
     mainContainer = debugColor,
@@ -1604,6 +1722,10 @@ public fun debugColors(
     onNeutral = onDebugColor,
     neutralContainer = debugColor,
     onNeutralContainer = onDebugColor,
+    ai = debugColor,
+    onAi = onDebugColor,
+    aiContainer = debugColor,
+    onAiContainer = onDebugColor,
     background = Color.Blue,
     onBackground = onDebugColor,
     backgroundVariant = Color.Blue,
@@ -1690,7 +1812,6 @@ private val previewColors
                 listOf(::main, ::mainContainer, ::mainVariant),
                 listOf(::support, ::supportContainer, ::supportVariant),
                 listOf(::accent, ::accentContainer, ::accentVariant),
-                listOf(::basic, ::basicContainer),
             ),
             listOf(
                 listOf(::success, ::successContainer),
@@ -1698,6 +1819,7 @@ private val previewColors
                 listOf(::error, ::errorContainer),
                 listOf(::info, ::infoContainer),
                 listOf(::neutral, ::neutralContainer),
+                listOf(::ai, ::aiContainer),
             ),
             listOf(
                 listOf(::background, ::backgroundVariant),

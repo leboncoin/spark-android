@@ -23,8 +23,8 @@ package com.adevinta.spark.components.progress.tracker
 
 import androidx.compose.ui.text.AnnotatedString
 import com.adevinta.spark.icons.Check
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 
 /**
  * Step in the [ProgressTrackerRow] & [ProgressTrackerColumn] component.
@@ -40,5 +40,5 @@ public data class ProgressStep(
     public val label: CharSequence,
     public val enabled: Boolean,
     public val icon: SparkIcon? = null,
-    public val doneIcon: SparkIcon = SparkIcons.Check,
+    public val doneIcon: SparkIcon = LeboncoinIcons.Check,
 )

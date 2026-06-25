@@ -20,12 +20,11 @@
  * SOFTWARE.
  */
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import kotlin.reflect.KProperty
 
 plugins {
     `kotlin-dsl`
-    alias(libs.plugins.spotless)
 }
+
 java {
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
@@ -49,7 +48,8 @@ dependencies {
     fun DependencyHandlerScope.plugin(plugin: Provider<PluginDependency>) = plugin.map {
         "${it.pluginId}:${it.pluginId}.gradle.plugin:${it.version.requiredVersion}"
     }
-    implementation(plugin(libs.plugins.compose))
+    implementation(plugin(libs.plugins.compose.multiplatform))
+    implementation(plugin(libs.plugins.compose.compiler))
     implementation(plugin(libs.plugins.dependencyGuard))
     implementation(plugin(libs.plugins.dokka))
     implementation(plugin(libs.plugins.kotlin.jvm))
@@ -57,7 +57,6 @@ dependencies {
     implementation(plugin(libs.plugins.paparazzi))
     implementation(plugin(libs.plugins.spotless))
     implementation(libs.android.gradle)
-    implementation(libs.dokka.base)
 }
 
 gradlePlugin {
@@ -66,7 +65,10 @@ gradlePlugin {
         create("com.adevinta.spark.SparkAndroidPlugin", id = "com.adevinta.spark.android")
         create("com.adevinta.spark.SparkAndroidApplicationPlugin", id = "com.adevinta.spark.android-application")
         create("com.adevinta.spark.SparkAndroidLibraryPlugin", id = "com.adevinta.spark.android-library")
-        create("com.adevinta.spark.SparkAndroidComposePlugin", id = "com.adevinta.spark.android-compose")
+        create("com.adevinta.spark.SparkComposePlugin", id = "com.adevinta.spark.compose")
+        create("com.adevinta.spark.SparkComposeMultiplatformPlugin", id = "com.adevinta.spark.compose.multiplatform")
+        create("com.adevinta.spark.SparkMultiplatformPlugin", id = "com.adevinta.spark.multiplatform")
+        create("com.adevinta.spark.SparkMultiplatformLibraryPlugin", id = "com.adevinta.spark.multiplatform.library")
         create("com.adevinta.spark.SparkAndroidLintPlugin", id = "com.adevinta.spark.android-lint")
         create("com.adevinta.spark.SparkPublishingPlugin", id = "com.adevinta.spark.publishing")
         create("com.adevinta.spark.SparkKotlinJvmPlugin", id = "com.adevinta.spark.kotlin-jvm")
@@ -83,41 +85,4 @@ fun NamedDomainObjectContainer<PluginDeclaration>.create(
 ) = create(name) {
     this.id = id
     this.implementationClass = implementationClass
-}
-
-private operator fun VersionCatalog.getValue(
-    thisRef: Any?,
-    property: KProperty<*>,
-) = findVersion(property.name).orElseThrow {
-    IllegalStateException("Missing catalog version ${property.name}")
-}
-
-val ktlint = extensions.getByType<VersionCatalogsExtension>()
-    .named("libs")
-    .findLibrary("ktlint-bom").orElseThrow()
-
-// This block is a copy of SparkSpotlessPlugin since this included build can't use it's own plugins...
-spotless {
-    val licenseHeader = rootProject.file("./../spotless/spotless.kt")
-    format("misc") {
-        target("*.md", "src/**/*.md", ".gitignore")
-        targetExclude("dependencies/*.txt")
-        endWithNewline()
-    }
-    kotlin {
-        target("src/**/*.kt")
-        ktlint(ktlint.get().version)
-        trimTrailingWhitespace()
-        endWithNewline()
-        licenseHeaderFile(licenseHeader)
-    }
-    kotlinGradle {
-        ktlint(ktlint.get().version)
-        trimTrailingWhitespace()
-        endWithNewline()
-        licenseHeaderFile(
-            licenseHeader,
-            "(import |plugins|pluginManagement|rootProject|dependencyResolutionManagement|//)",
-        )
-    }
 }

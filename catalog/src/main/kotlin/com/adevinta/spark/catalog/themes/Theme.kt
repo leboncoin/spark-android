@@ -52,7 +52,7 @@ public data class Theme(
     val navigationMode: NavigationMode = NavigationMode.Default,
     val highlightSparkComponents: Boolean = false,
     val highlightSparkTokens: Boolean = false,
-    val useLegacyTheme: Boolean = false,
+    val useRebrandedShapes: Boolean = true,
 )
 
 /**
@@ -148,14 +148,14 @@ public val ThemeSaver: Saver<Theme, Map<String, Int>> = Saver(
             ThemeModeKey to theme.themeMode.ordinal,
             ColorModeKey to theme.colorMode.ordinal,
             UserModeKey to theme.userMode.ordinal,
-            FontScaleKey to theme.fontScale.toInt(),
+            FontScaleKey to theme.fontScale.toBits(),
             ColorBlindTypeKey to theme.colorBlindNessType.ordinal,
-            ColorBlindTypeSeverityKey to theme.colorBlindNessSeverity.toInt(),
+            ColorBlindTypeSeverityKey to theme.colorBlindNessSeverity.toBits(),
             NavigationModeKey to theme.navigationMode.ordinal,
             TextDirectionKey to theme.textDirection.ordinal,
             HighlightSparkComponentsKey to if (theme.highlightSparkComponents) 1 else 0,
             HighlightSparkTokensKey to if (theme.highlightSparkTokens) 1 else 0,
-            UseLegacyThemeKey to if (theme.useLegacyTheme) 1 else 0,
+            UseRebrandedShapesKey to if (theme.useRebrandedShapes) 1 else 0,
         )
     },
     restore = { map ->
@@ -163,14 +163,14 @@ public val ThemeSaver: Saver<Theme, Map<String, Int>> = Saver(
             themeMode = ThemeMode.entries[map.getValue(ThemeModeKey)],
             colorMode = ColorMode.entries[map.getValue(ColorModeKey)],
             userMode = UserMode.entries[map.getValue(UserModeKey)],
-            fontScale = map.getValue(FontScaleKey).toFloat(),
+            fontScale = Float.fromBits(map.getValue(FontScaleKey)),
             colorBlindNessType = ColorBlindNessType.entries[map.getValue(ColorBlindTypeKey)],
-            colorBlindNessSeverity = map.getValue(ColorBlindTypeSeverityKey).toFloat(),
+            colorBlindNessSeverity = Float.fromBits(map.getValue(ColorBlindTypeSeverityKey)),
             navigationMode = NavigationMode.entries[map.getValue(NavigationModeKey)],
             textDirection = TextDirection.entries[map.getValue(TextDirectionKey)],
             highlightSparkComponents = map.getValue(HighlightSparkComponentsKey) == 1,
             highlightSparkTokens = map.getValue(HighlightSparkTokensKey) == 1,
-            useLegacyTheme = map.getValue(UseLegacyThemeKey) == 1,
+            useRebrandedShapes = map.getValue(UseRebrandedShapesKey) == 1,
         )
     },
 )
@@ -188,4 +188,4 @@ private const val NavigationModeKey = "navigationMode"
 private const val TextDirectionKey = "textDirection"
 private const val HighlightSparkComponentsKey = "highlightSparkComponents"
 private const val HighlightSparkTokensKey = "highlightSparkTokens"
-private const val UseLegacyThemeKey = "useLegacyTheme"
+private const val UseRebrandedShapesKey = "useRebrandedShapes"

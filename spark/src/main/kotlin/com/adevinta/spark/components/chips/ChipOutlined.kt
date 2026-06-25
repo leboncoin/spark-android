@@ -44,6 +44,9 @@ import com.adevinta.spark.tools.modifiers.ifTrue
 
 /**
  * A chip with no background but having a border
+ *
+ * ![Chip Outlined](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.chips_ChipDocumentationScreenshots_chipOutlined.png)
+ *
  * @param text The label for this chip
  * @param intent The [ChipIntent] colors that will be used for the content and background of this chip in
  * different states.
@@ -61,7 +64,7 @@ import com.adevinta.spark.tools.modifiers.ifTrue
 public fun ChipOutlined(
     text: String,
     modifier: Modifier = Modifier,
-    intent: ChipIntent = ChipIntent.Basic,
+    intent: ChipIntent = ChipIntent.Support,
     enabled: Boolean = true,
     leadingIcon: SparkIcon? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -102,7 +105,7 @@ public fun ChipOutlined(
     icon: SparkIcon,
     contentDescription: String,
     modifier: Modifier = Modifier,
-    intent: ChipIntent = ChipIntent.Basic,
+    intent: ChipIntent = ChipIntent.Support,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     onClick: () -> Unit = {},
@@ -137,7 +140,7 @@ public fun ChipOutlined(
 @Composable
 public fun ChipOutlined(
     modifier: Modifier = Modifier,
-    intent: ChipIntent = ChipIntent.Basic,
+    intent: ChipIntent = ChipIntent.Support,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     onClick: () -> Unit = {},

@@ -47,13 +47,9 @@ import androidx.compose.foundation.text.input.OutputTransformation
 import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.selection.LocalTextSelectionColors
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -87,8 +83,10 @@ import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.R
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.icons.Icon
+import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.icons.HeartFill
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.tokens.EmphasizeDim3
-import com.adevinta.spark.tools.modifiers.SlotArea
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
 // FIXME: Duplicate of Material OutlinedTextField while the counter is not supported on their end
@@ -116,6 +114,7 @@ internal fun SparkTextField(
     maxLines: Int,
     minLines: Int,
     modifier: Modifier = Modifier,
+    shape: Shape = TextFieldTokens.shape,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     val colors = sparkOutlinedTextFieldColors()
@@ -189,7 +188,7 @@ internal fun SparkTextField(
                         state,
                         interactionSource,
                         colors,
-                        SparkTheme.shapes.large,
+                        shape,
                     )
                 }
             },
@@ -221,6 +220,7 @@ internal fun SparkTextField(
     maxLines: Int,
     minLines: Int,
     modifier: Modifier = Modifier,
+    shape: Shape = TextFieldTokens.shape,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     val colors = sparkOutlinedTextFieldColors()
@@ -293,7 +293,7 @@ internal fun SparkTextField(
                         state,
                         interactionSource,
                         colors,
-                        SparkTheme.shapes.large,
+                        shape,
                     )
                 }
             },
@@ -638,13 +638,11 @@ internal val TextFieldMinHeight = 44.dp
 internal fun TextFieldSlotsPreview() {
     PreviewTheme {
         val icon: @Composable (AddonScope.() -> Unit) = @Composable {
-            SlotArea(color = LocalContentColor.current) {
-                Icon(
-                    imageVector = Icons.Filled.Favorite,
-                    contentDescription = null,
-                    modifier = Modifier.size(ButtonDefaults.IconSize),
-                )
-            }
+            Icon(
+                sparkIcon = LeboncoinIcons.HeartFill,
+                contentDescription = null,
+                modifier = Modifier.size(ButtonDefaults.IconSize),
+            )
         }
 
         TextField(

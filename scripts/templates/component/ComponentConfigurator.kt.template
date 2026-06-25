@@ -1,0 +1,26 @@
+$copyright
+package com.adevinta.spark.catalog.configurator.samples.$packageName
+
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.runtime.Composable
+import com.adevinta.spark.catalog.model.Configurator
+import com.adevinta.spark.catalog.util.SampleSourceUrl
+import com.adevinta.spark.components.$packageName.$componentName
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+
+public val $componentNameConfigurator: ImmutableList<Configurator> = persistentListOf(
+    Configurator(
+        id = "$componentNameLower",
+        name = "$componentName",
+        description = "$componentName configuration",
+        sourceUrl = "$SampleSourceUrl/$componentNameSamples.kt",
+    ) {  _, _ ->
+        $componentNameSample()
+    },
+)
+
+@Composable
+private fun ColumnScope.$componentNameSample() {
+    // TODO: Add configurator implementation
+}

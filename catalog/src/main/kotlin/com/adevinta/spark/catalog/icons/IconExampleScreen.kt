@@ -57,7 +57,6 @@ import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.icons.Cross
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
 

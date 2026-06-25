@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.navigation
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -29,7 +30,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.DrawerDefaults
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -47,10 +47,11 @@ import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.icons.Activity
 import com.adevinta.spark.icons.IdentityCardOutline
 import com.adevinta.spark.icons.LeboncoinIcons
-import com.adevinta.spark.icons.SparkIcons
-import com.adevinta.spark.icons.Store
+import com.adevinta.spark.icons.StoreOutline
+import com.adevinta.spark.tokens.contentColorFor
 import androidx.compose.material3.PermanentDrawerSheet as MaterialPermanentDrawerSheet
 
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @InternalSparkApi
 @Composable
 internal fun SparkPermanentDrawerSheet(
@@ -107,7 +108,7 @@ internal fun PermanentDrawerSheetPreview() {
         padding = PaddingValues(0.dp),
     ) {
         // icons to mimic drawer destinations
-        val items = listOf(SparkIcons.Activity, LeboncoinIcons.IdentityCardOutline, SparkIcons.Store)
+        val items = listOf(LeboncoinIcons.Activity, LeboncoinIcons.IdentityCardOutline, LeboncoinIcons.StoreOutline)
         val selectedItem = remember { mutableStateOf(items[0]) }
         PermanentDrawerSheet(Modifier.width(240.dp)) {
             Spacer(Modifier.height(12.dp))

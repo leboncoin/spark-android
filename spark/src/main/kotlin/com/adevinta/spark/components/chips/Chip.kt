@@ -112,6 +112,7 @@ private fun SparkChip(
 ) {
     @Suppress("NAME_SHADOWING")
     val interactionSource = interactionSource ?: remember { MutableInteractionSource() }
+    val shape = ChipTokens.shape
     Surface(
         onClick = onClick,
         modifier = modifier
@@ -119,7 +120,7 @@ private fun SparkChip(
             .sparkUsageOverlay()
             .semantics(mergeDescendants = true) { role = Role.Button },
         enabled = enabled,
-        shape = SparkTheme.shapes.small,
+        shape = shape,
         color = containerColor,
         border = border,
         contentColor = contentColor,
@@ -162,6 +163,7 @@ private fun SparkChipSelectable(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
+    val shape = ChipTokens.shape
     Surface(
         onClick = onClick,
         modifier = modifier
@@ -170,7 +172,7 @@ private fun SparkChipSelectable(
             .semantics(mergeDescendants = true) { role = Role.Checkbox },
         enabled = enabled,
         selected = selected,
-        shape = SparkTheme.shapes.small,
+        shape = shape,
         color = containerColor,
         border = border,
         contentColor = contentColor,
@@ -201,6 +203,7 @@ private fun SparkChipSelectable(
  * for this chip. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this chip in different states.
  * @param content a Composable to set as the chip's custom content.
+ * @sample com.adevinta.spark.samples.components.chips.ChipsKind
  */
 @Composable
 public fun Chip(
@@ -208,7 +211,7 @@ public fun Chip(
     modifier: Modifier = Modifier,
     onClose: (() -> Unit)? = null,
     onCloseLabel: String? = null,
-    intent: ChipIntent = ChipIntent.Basic,
+    intent: ChipIntent = ChipIntent.Support,
     style: ChipStyles = ChipStyles.Outlined,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -269,6 +272,8 @@ public fun Chip(
  * for this chip. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this chip in different states.
  * @param content a Composable to set as the chip's custom content.
+ * @sample com.adevinta.spark.samples.components.chips.ChipSingleSelectionSample
+ * @sample com.adevinta.spark.samples.components.chips.ChipMultipleSelectionSample
  */
 @Composable
 public fun ChipSelectable(
@@ -277,7 +282,7 @@ public fun ChipSelectable(
     modifier: Modifier = Modifier,
     onClose: (() -> Unit)? = null,
     onCloseLabel: String? = null,
-    intent: ChipIntent = ChipIntent.Basic,
+    intent: ChipIntent = ChipIntent.Support,
     style: ChipStyles = ChipStyles.Outlined,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -372,6 +377,8 @@ private fun CloseIconButton(
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this chip. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this chip in different states.
+ * @sample com.adevinta.spark.samples.components.chips.ChipsKind
+ * @sample com.adevinta.spark.samples.components.chips.ChipInputSample
  */
 @Composable
 public fun Chip(
@@ -380,7 +387,7 @@ public fun Chip(
     modifier: Modifier = Modifier,
     onClose: (() -> Unit)? = null,
     onCloseLabel: String? = null,
-    intent: ChipIntent = ChipIntent.Basic,
+    intent: ChipIntent = ChipIntent.Support,
     style: ChipStyles = ChipStyles.Outlined,
     enabled: Boolean = true,
     leadingIcon: SparkIcon? = null,
@@ -434,6 +441,8 @@ public fun Chip(
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this chip. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this chip in different states.
+ * @sample com.adevinta.spark.samples.components.chips.ChipSingleSelectionSample
+ * @sample com.adevinta.spark.samples.components.chips.ChipMultipleSelectionSample
  */
 @Composable
 public fun ChipSelectable(
@@ -443,7 +452,7 @@ public fun ChipSelectable(
     modifier: Modifier = Modifier,
     onClose: (() -> Unit)? = null,
     onCloseLabel: String? = null,
-    intent: ChipIntent = ChipIntent.Basic,
+    intent: ChipIntent = ChipIntent.Support,
     style: ChipStyles = ChipStyles.Outlined,
     enabled: Boolean = true,
     leadingIcon: SparkIcon? = null,
@@ -490,12 +499,13 @@ private fun ChipContent(
         LocalContentColor provides contentColor,
         LocalTextStyle provides SparkTheme.typography.body2,
     ) {
+        val shape = ChipTokens.shape
         Layout(
             modifier = Modifier
                 .ifTrue(style == ChipStyles.Dashed) {
                     dashedBorder(
                         width = ChipDefaults.BorderStrokeWidth,
-                        shape = SparkTheme.shapes.small,
+                        shape = shape,
                         color = contentColor,
                     )
                 }
@@ -517,12 +527,13 @@ private fun ChipContent(
                     )
                 }
                 if (label != null) {
+                    val spacing = ChipTokens.leadingIconSpacing
                     Row(
                         modifier = Modifier
                             .layoutId(LabelLayoutId)
                             .padding(
-                                start = if (leadingIcon != null) 4.dp else 0.dp,
-                                end = if (trailingIcon != null) 4.dp else 0.dp,
+                                start = if (leadingIcon != null) spacing else 0.dp,
+                                end = if (trailingIcon != null) spacing else 0.dp,
                             ),
                         horizontalArrangement = Arrangement.Start,
                         verticalAlignment = Alignment.CenterVertically,

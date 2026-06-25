@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.progress
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.ProgressIndicatorDefaults
@@ -34,6 +35,7 @@ import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 import androidx.compose.material3.LinearProgressIndicator as MaterialLinearProgressIndicator
 
 @InternalSparkApi
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 internal fun SparkLinearProgressIndicator(
     progress: () -> Float,

@@ -1,0 +1,13 @@
+# Package com.adevinta.spark.components.$packageName
+
+[$componentName](https://spark.adevinta.com/...) TODO: Add component description.
+
+$screenshotTable
+
+The minimal usage of the component is:
+
+```kotlin
+$componentName.$firstVariant()
+```
+
+$variantsSections

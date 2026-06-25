@@ -11,15 +11,6 @@ places like:
 - Cards
 - Toolbars
 
-|       | Filled                                                                                                          | Outlined                                                                                                          | Tinted                                                                                                          | Ghost                                                                                                          | Contrast                                                                                                          |
-|-------|-----------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
-| Light | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttonfilledintents_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttonoutlinedintents_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttontintedintents_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttonghostintents_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttoncontrastintents_light.png) |
-| Dark  | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttonfilledintents_dark.png)  | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttonoutlinedintents_dark.png)  | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttontintedintents_dark.png)  | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttonghostintents_dark.png)  | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttoncontrastintents_dark.png)  |
-
-### Sizes
-
-![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttonsizes_light.png)
-
 The minimal usage of the component is the text and the click action.
 
 ```kotlin
@@ -40,6 +31,8 @@ There are multiple style variants for the button with the same parameters:
 
 #### ButtonFilled
 
+![](../../images/com.adevinta.spark.buttons_ButtonDocumentationScreenshots_buttonFilled.png)
+
 Filled buttons are the standard button for most use cases. The filled styling places the most
 emphasis and should be used for important, final actions.
 
@@ -50,11 +43,9 @@ ButtonFilled(
 )
 ```
 
-| Light                                                                                                    | Dark                                                                                                    |
-|----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttonfilled_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttonfilled_dark.png) |
-
 #### ButtonOutlined
+
+![](../../images/com.adevinta.spark.buttons_ButtonDocumentationScreenshots_buttonOutlined.png)
 
 Outlined buttons are used for support actions. The outlined styling places less emphasis on these
 actions that are important but not the main ones.
@@ -70,11 +61,9 @@ ButtonOutlined(
 )
 ```
 
-| Light                                                                                                      | Dark                                                                                                      |
-|------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttonoutlined_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttonoutlined_dark.png) |
-
 #### ButtonTinted
+
+![](../../images/com.adevinta.spark.buttons_ButtonDocumentationScreenshots_buttonTinted.png)
 
 Tinted buttons are medium-emphasis buttons that is an alternative middle ground between
 default Buttons (filled) and Outlined buttons. They can be used in contexts where lower-priority
@@ -90,16 +79,14 @@ ButtonTinted(
 )
 ```
 
-| Light                                                                                                    | Dark                                                                                                    |
-|----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttontinted_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttontinted_dark.png) |
-
 #### ButtonGhost
+
+![](../../images/com.adevinta.spark.buttons_ButtonDocumentationScreenshots_buttonGhost.png)
 
 Ghost buttons are used for the lowest priority actions, especially when presenting multiple options.
 
 Ghost buttons can be placed on a variety of backgrounds. Until the button is interacted with, its
-container isn’t visible.
+container isn't visible.
 This button style is often used inside other components like snackbars, dialogs, and cards.
 
 ```kotlin
@@ -109,11 +96,9 @@ ButtonGhost(
 )
 ```
 
-| Light                                                                                                   | Dark                                                                                                   |
-|---------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttonghost_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttonghost_dark.png) |
-
 #### ButtonContrast
+
+![](../../images/com.adevinta.spark.buttons_ButtonDocumentationScreenshots_buttonContrast.png)
 
 Contrast buttons are used for the high to mid priority actions when the background is dark like on
 an image or a video.
@@ -124,7 +109,3 @@ ButtonContrast(
     onClick = { /*Click event*/ },
 )
 ```
-
-| Light                                                                                                      | Dark                                                                                                      |
-|------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttoncontrast_light.png) | ![](../../images/com.adevinta.spark_PreviewScreenshotTests_preview_tests_buttons_buttoncontrast_dark.png) |

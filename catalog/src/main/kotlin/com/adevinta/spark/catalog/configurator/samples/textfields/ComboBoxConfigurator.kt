@@ -49,6 +49,7 @@ import com.adevinta.spark.components.textfields.TextFieldState
 import com.adevinta.spark.components.toggles.SwitchLabelled
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toPersistentList
 
 public val ComboBoxConfigurators: ImmutableList<Configurator> = persistentListOf(
@@ -154,7 +155,7 @@ private fun ColumnScope.ComboBoxSample() {
 
     val textFieldStates: MutableSet<TextFieldState?> =
         TextFieldState.entries.toMutableSet<TextFieldState?>().apply { add(null) }
-    val buttonStylesLabel = textFieldStates.map { it?.run { name } ?: "Default" }
+    val buttonStylesLabel = textFieldStates.map { it?.run { name } ?: "Default" }.toImmutableList()
     ButtonGroup(
         title = "State",
         selectedOption = status?.name ?: "Default",
@@ -319,7 +320,7 @@ private fun ColumnScope.MultiChoiceComboBoxSample() {
     val buttonStylesLabel by remember {
         val textFieldStates: MutableSet<TextFieldState?> =
             TextFieldState.entries.toMutableSet<TextFieldState?>().apply { add(null) }
-        mutableStateOf(textFieldStates.map { it?.run { name } ?: "Default" })
+        mutableStateOf(textFieldStates.map { it?.run { name } ?: "Default" }.toImmutableList())
     }
     ButtonGroup(
         title = "State",
@@ -460,7 +461,7 @@ private fun ColumnScope.MultiChoiceComboBoxWithSelectedSample() {
 
     val textFieldStates: MutableSet<TextFieldState?> =
         TextFieldState.entries.toMutableSet<TextFieldState?>().apply { add(null) }
-    val buttonStylesLabel = textFieldStates.map { it?.run { name } ?: "Default" }
+    val buttonStylesLabel = textFieldStates.map { it?.run { name } ?: "Default" }.toImmutableList()
     ButtonGroup(
         title = "State",
         selectedOption = status?.name ?: "Default",

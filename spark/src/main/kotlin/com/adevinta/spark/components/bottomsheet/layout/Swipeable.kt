@@ -76,6 +76,7 @@ import com.adevinta.spark.components.bottomsheet.layout.SwipeableDefaults.Animat
 import com.adevinta.spark.components.bottomsheet.layout.SwipeableDefaults.StandardResistanceFactor
 import com.adevinta.spark.components.bottomsheet.layout.SwipeableDefaults.VelocityThreshold
 import com.adevinta.spark.components.bottomsheet.layout.SwipeableDefaults.resistanceConfig
+import com.adevinta.spark.components.bottomsheet.layout.SwipeableState.Companion.Saver
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
@@ -449,8 +450,6 @@ public open class SwipeableState<T>(
 /**
  * Collects information about the ongoing swipe or animation in [swipeable].
  *
- * To access this information, use [SwipeableState.progress].
- *
  * @param from The state corresponding to the anchor we are moving away from.
  * @param to The state corresponding to the anchor we are moving towards.
  * @param fraction The fraction that the current position represents between [from] and [to].
@@ -503,7 +502,7 @@ public fun <T : Any> rememberSwipeableState(
     animationSpec: AnimationSpec<Float> = AnimationSpec,
     confirmStateChange: (newValue: T) -> Boolean = { true },
 ): SwipeableState<T> = rememberSaveable(
-    saver = SwipeableState.Saver(
+    saver = Saver(
         animationSpec = animationSpec,
         confirmStateChange = confirmStateChange,
     ),
@@ -655,7 +654,7 @@ public fun <T> Modifier.swipeable(
 /**
  * Interface to compute a threshold between two anchors/states in a [swipeable].
  *
- * To define a [ThresholdConfig], consider using [FixedThreshold] and [FractionalThreshold].
+ * To define a [ThresholdConfig], consider using [FixedThreshold].
  */
 @Stable
 @ExperimentalMaterial3Api
@@ -706,8 +705,7 @@ internal data class FractionalThreshold(/*@FloatRange(from = 0.0, to = 1.0)*/pri
  * the amount of resistance (the larger the resistance factor, the stronger the resistance).
  *
  * The resistance basis is usually either the size of the component which [swipeable] is applied
- * to, or the distance between the minimum and maximum anchors. For a constructor in which the
- * resistance basis defaults to the latter, consider using [resistanceConfig].
+ * to, or the distance between the minimum and maximum anchors.
  *
  * You may specify different resistance factors for each bound. Consider using one of the default
  * resistance factors in [SwipeableDefaults]: `StandardResistanceFactor` to convey that the user

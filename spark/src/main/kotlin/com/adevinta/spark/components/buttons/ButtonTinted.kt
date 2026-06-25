@@ -39,7 +39,6 @@ import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.icons.IdentityCardOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.disabled
 
 /**
@@ -48,6 +47,8 @@ import com.adevinta.spark.tokens.disabled
  * button requires slightly more emphasis than an outline would give, such as "Next" in an onboarding flow.
  *
  * It's best paired with either a filled button or a outlined button.
+ *
+ * ![Button Tinted](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_ButtonDocumentationScreenshots_buttonTinted.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
@@ -88,7 +89,7 @@ public fun ButtonTinted(
         label = "background color",
     )
     val contentColor by animateColorAsState(
-        targetValue = intent.colors().onContainerColor,
+        targetValue = intentColors.onContainerColor,
         label = "content color",
     )
     val colors = ButtonDefaults.buttonColors(
@@ -101,7 +102,7 @@ public fun ButtonTinted(
         onClick = onClick,
         modifier = modifier,
         size = size,
-        shape = shape.shape,
+        shape = ButtonTokens.shape,
         enabled = enabled,
         elevation = ButtonDefaults.filledTonalButtonElevation(),
         colors = colors,
@@ -160,7 +161,7 @@ public fun ButtonTinted(
         label = "background color",
     )
     val contentColor by animateColorAsState(
-        targetValue = intent.colors().onContainerColor,
+        targetValue = intentColors.onContainerColor,
         label = "content color",
     )
     val colors = ButtonDefaults.buttonColors(
@@ -174,7 +175,7 @@ public fun ButtonTinted(
         text = text,
         modifier = modifier,
         size = size,
-        shape = shape,
+        shape = ButtonTokens.buttonShape,
         enabled = enabled,
         elevation = ButtonDefaults.filledTonalButtonElevation(),
         colors = colors,
@@ -232,7 +233,7 @@ public fun ButtonTinted(
         label = "background color",
     )
     val contentColor by animateColorAsState(
-        targetValue = intent.colors().onContainerColor,
+        targetValue = intentColors.onContainerColor,
         label = "content color",
     )
     val colors = ButtonDefaults.buttonColors(
@@ -246,7 +247,7 @@ public fun ButtonTinted(
         text = text,
         modifier = modifier,
         size = size,
-        shape = shape,
+        shape = ButtonTokens.buttonShape,
         enabled = enabled,
         elevation = ButtonDefaults.filledTonalButtonElevation(),
         colors = colors,

@@ -1,0 +1,24 @@
+name: '🌈 GitHub Actions Security Analysis'
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions: {}
+
+jobs:
+  zizmor:
+    if: github.repository == 'leboncoin/spark-android'
+    name: '🌈 zizmor'
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v6
+        with:
+          persist-credentials: false
+
+      - name: '🌈 Run zizmor'
+        uses: zizmorcore/zizmor-action@192e21d79ab29983730a13d1382995c2307fbcaa # v0.5.7

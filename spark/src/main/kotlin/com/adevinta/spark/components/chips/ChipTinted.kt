@@ -44,6 +44,9 @@ import com.adevinta.spark.tools.modifiers.ifTrue
 
 /**
  * A chip with lighter background and no border
+ *
+ * ![Chip Tinted](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.chips_ChipDocumentationScreenshots_chipTinted.png)
+ *
  * @param text The label for this chip
  * @param intent The [ChipIntent] colors that will be used for the content and background of this chip in
  * different states.
@@ -61,7 +64,7 @@ import com.adevinta.spark.tools.modifiers.ifTrue
 public fun ChipTinted(
     text: String,
     modifier: Modifier = Modifier,
-    intent: ChipIntent = ChipIntent.Basic,
+    intent: ChipIntent = ChipIntent.Support,
     enabled: Boolean = true,
     leadingIcon: SparkIcon? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -102,7 +105,7 @@ public fun ChipTinted(
     icon: SparkIcon,
     contentDescription: String,
     modifier: Modifier = Modifier,
-    intent: ChipIntent = ChipIntent.Basic,
+    intent: ChipIntent = ChipIntent.Support,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     onClick: () -> Unit = {},
@@ -137,7 +140,7 @@ public fun ChipTinted(
 @Composable
 public fun ChipTinted(
     modifier: Modifier = Modifier,
-    intent: ChipIntent = ChipIntent.Basic,
+    intent: ChipIntent = ChipIntent.Support,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     onClick: () -> Unit = {},

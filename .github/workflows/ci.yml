@@ -24,7 +24,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: ./.github/actions/check-git-lfs
       - uses: ./.github/actions/setup-java
       - uses: ./.github/actions/setup-gradle
@@ -35,13 +37,15 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: ./.github/actions/setup-java
       - uses: ./.github/actions/setup-gradle
       - uses: ./.github/actions/setup-gradle-properties
       - run: ./gradlew dependencyGuard --quiet
-      - run: ./gradlew spotlessCheck :build-logic:spotlessCheck
-      - run: ./gradlew checkLegacyAbi
+      - run: ./gradlew spotlessCheck
+      - run: ./gradlew checkKotlinAbi
 
   build:
     name: 👷 Build
@@ -49,7 +53,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: ./.github/actions/setup-java
       - uses: ./.github/actions/setup-gradle
         with:
@@ -57,17 +63,26 @@ jobs:
       - uses: ./.github/actions/setup-gradle-properties
       - name: 👷 Build
         id: build
-        run: ./gradlew assembleRelease
+        run: ./gradlew assembleRelease :spark-icons:assembleAndroidMain jvmJar
       - name: 📦 Archive APKs
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
-          name: apk
-          path: '**/build/outputs/apk/**/*.apk'
+          name: apk-release
+          path: 'catalog/build/outputs/apk/**/*-release.apk'
       - name: 📦 Archive AARs
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
-          name: aar
-          path: '**/build/outputs/aar'
+          name: aar-release
+          path: |
+            **/build/outputs/aar/*.aar
+      - name: 📦 Archive JVM JARs
+        uses: actions/upload-artifact@v7
+        with:
+          name: jar-release
+          path: |
+            **/build/libs/*-jvm-[0-9]*.jar
+            !**/build/libs/*-sources.jar
+            !**/build/libs/*-javadoc.jar
       - name: 📢 Diffuse reports
         if: ${{ always() && github.event_name == 'pull_request' && steps.build.outcome == 'success' }}
         uses: ./.github/actions/diffuse-aar
@@ -78,9 +93,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           lfs: true
+          persist-credentials: false
       - uses: ./.github/actions/setup-java
       - uses: ./.github/actions/setup-gradle
         with:
@@ -111,7 +127,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: ./.github/actions/setup-java
       - uses: ./.github/actions/setup-gradle
         with:
@@ -155,19 +173,37 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: ./.github/actions/setup-java
       - uses: ./.github/actions/setup-gradle
       - uses: ./.github/actions/setup-gradle-properties
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.9'
+          cache: pip
+          cache-dependency-path: .github/requirements.txt
+      - run: pip install -r .github/requirements.txt
 
       - name: 📋 Build Dokka
-        # https://github.com/Kotlin/dokka/issues/1217
-        run: ./gradlew dokkaHtmlMultiModule --no-configuration-cache --no-parallel --max-workers=1
+        run: ./gradlew dokkaGeneratePublicationHtml publishToMavenLocal
       - name: 📦 Archive Dokka
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: dokka
           path: build/dokka
+      - run: >-
+          linkchecker build/dokka
+          --ignore-url='/--root--[.]html$'
+          --file-output=html --no-status
+        id: linkchecker
+      - name: 📦 Archive linkchecker
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          archive: false 
+          path: linkchecker-out.html
 
   lava-scan:
     name: 🌋 Lava Scan
@@ -175,16 +211,19 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: 🌋 Run Lava Vulnerability Scanner
         uses: adevinta/lava-action@ddeeddd8ccf45b403741359471a5627644a0c5f6 # v0.3.4
         with:
           version: latest
           config: lava.yaml
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: lava-metrics.json
           path: metrics.json
+          archive: false
 
   finish:
     name: 🏁 Finish
@@ -196,8 +235,94 @@ jobs:
       - test
       - lint
       - dokka
+      - lava-scan
     runs-on: ubuntu-latest
     steps:
       - if: ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}
         name: Fail
         run: exit 1
+
+  datadog-ci:
+    name: 📊 Datadog CI Metrics
+    needs: [finish]
+    if: ${{ !cancelled() && needs.finish.result == 'success' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup-java
+
+      - name: Fetch job durations via GitHub API
+        run: |
+          gh api repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs \
+            --jq '[.jobs[] | select(.completed_at != null and .started_at != null) | {name: .name, duration: (.completed_at | fromdateiso8601) - (.started_at | fromdateiso8601)}]' \
+            > job-durations.json
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Count screenshot tests
+        id: screenshots
+        run: |
+          count=$(grep -r --include="*.kt" -c "@Test" spark-screenshot-testing/src/test | awk -F: '{s+=$2} END {print s}')
+          echo "count=$count" >> $GITHUB_OUTPUT
+
+      - uses: ./.github/actions/setup-kotlin
+
+      - name: Submit library metrics
+        run: kotlin scripts/datadog/library-metrics.main.kts -- --project-dir .
+        env:
+          DD_API_KEY: ${{ secrets.DD_API_KEY }}
+
+      - name: Submit CI metrics
+        run: >
+          kotlin scripts/datadog/ci-metrics.main.kts --
+          --jobs-json job-durations.json
+          --screenshot-count ${{ steps.screenshots.outputs.count }}
+        env:
+          DD_API_KEY: ${{ secrets.DD_API_KEY }}
+
+      - name: Download AARs
+        uses: actions/download-artifact@v8
+        with:
+          name: aar-release
+          path: aar-output/
+          digest-mismatch: warn
+
+      - name: Download APK
+        uses: actions/download-artifact@v8
+        with:
+          name: apk-release
+          path: apk-output/
+          digest-mismatch: warn
+
+      - name: Download JVM JARs
+        uses: actions/download-artifact@v8
+        with:
+          name: jar-release
+          path: jar-output/
+          digest-mismatch: warn
+
+      - uses: ./.github/actions/diffuse-aar
+
+      - name: Run diffuse on artifacts
+        run: |
+          diffuse=~/.spark/diffuse/diffuse-0.3.0/bin/diffuse
+          echo "=== aar-output ===" && find aar-output -type f
+          echo "=== apk-output ===" && find apk-output -type f
+          echo "=== jar-output ===" && find jar-output -type f
+          "$diffuse" info --apk $(find apk-output -name "*-release.apk" | head -1) > apk.txt
+          "$diffuse" info --aar $(find aar-output -name "spark-release.aar" | head -1) > spark.txt
+          "$diffuse" info --aar $(find aar-output -name "spark-icons*.aar" | head -1) > spark-icons.txt
+          "$diffuse" info --jar $(find jar-output -name "*-jvm-*.jar" | head -1) > spark-icons-jvm.txt
+
+      - name: Submit artifact metrics
+        run: >
+          kotlin scripts/datadog/artifact-metrics.main.kts --
+          --input apk.txt
+          --input spark.txt
+          --input spark-icons.txt
+          --input spark-icons-jvm.txt
+        env:
+          DD_API_KEY: ${{ secrets.DD_API_KEY }}

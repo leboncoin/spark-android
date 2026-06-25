@@ -21,16 +21,15 @@
  */
 package com.adevinta.spark.components.buttons
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ColorScheme
-import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.FloatingActionButtonElevation
 import androidx.compose.material3.LocalContentColor
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -42,10 +41,12 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.icons.Icon
+import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.PenOutline
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.tokens.contentColorFor
 import androidx.compose.material3.ExtendedFloatingActionButton as MaterialExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton as MaterialFloatingActionButton
 import androidx.compose.material3.LargeFloatingActionButton as MaterialLargeFloatingActionButton
@@ -82,6 +83,7 @@ import androidx.compose.material3.SmallFloatingActionButton as MaterialSmallFloa
  * for this FAB. You can create and pass in your own `remember`ed instance to observe [Interaction]s
  * and customize the appearance / behavior of this FAB in different states.
  */
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun FloatingActionButton(
     onClick: () -> Unit,
@@ -136,6 +138,7 @@ public fun FloatingActionButton(
  * for this FAB. You can create and pass in your own `remember`ed instance to observe [Interaction]s
  * and customize the appearance / behavior of this FAB in different states.
  */
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun SmallFloatingActionButton(
     onClick: () -> Unit,
@@ -190,6 +193,7 @@ public fun SmallFloatingActionButton(
  * for this FAB. You can create and pass in your own `remember`ed instance to observe [Interaction]s
  * and customize the appearance / behavior of this FAB in different states.
  */
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun LargeFloatingActionButton(
     onClick: () -> Unit,
@@ -247,6 +251,7 @@ public fun LargeFloatingActionButton(
  * and customize the appearance / behavior of this FAB in different states.
  * @param content the content of this FAB, typically a [Text] label
  */
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun ExtendedFloatingActionButton(
     onClick: () -> Unit,
@@ -281,7 +286,7 @@ public fun ExtendedFloatingActionButton(
  * The other extended floating action button overload is for FABs without an icon.
  *
  * Default content description for accessibility is extended from the extended fabs icon. For custom
- * behavior, you can provide your own via [Modifier.semantics].
+ * behavior, you can provide your own via `Modifier.semantics`.
  *
  * @param text label displayed inside this FAB
  * @param icon icon to show inside the FAB
@@ -303,6 +308,7 @@ public fun ExtendedFloatingActionButton(
  * for this FAB. You can create and pass in your own `remember`ed instance to observe [Interaction]s
  * and customize the appearance / behavior of this FAB in different states.
  */
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun ExtendedFloatingActionButton(
     text: @Composable () -> Unit,
@@ -346,7 +352,7 @@ internal fun DropdownMenuPreview() {
 
         LargeFloatingActionButton(
             onClick = { /* do something */ },
-            icon = SparkIcons.PenOutline,
+            icon = LeboncoinIcons.PenOutline,
             contentDescription = "Localized description",
         )
 
@@ -354,7 +360,7 @@ internal fun DropdownMenuPreview() {
 
         FloatingActionButton(
             onClick = { /* do something */ },
-            icon = SparkIcons.PenOutline,
+            icon = LeboncoinIcons.PenOutline,
             contentDescription = "Localized description",
         )
 
@@ -362,7 +368,7 @@ internal fun DropdownMenuPreview() {
 
         SmallFloatingActionButton(
             onClick = { /* do something */ },
-            icon = SparkIcons.PenOutline,
+            icon = LeboncoinIcons.PenOutline,
             contentDescription = "Localized description",
         )
 
@@ -377,7 +383,7 @@ internal fun DropdownMenuPreview() {
         }
 
         ExtendedFloatingActionButton(
-            icon = SparkIcons.PenOutline,
+            icon = LeboncoinIcons.PenOutline,
             text = { Text(text = "Extended FAB") },
             onClick = { expandedFab = !expandedFab },
             expanded = expandedFab,

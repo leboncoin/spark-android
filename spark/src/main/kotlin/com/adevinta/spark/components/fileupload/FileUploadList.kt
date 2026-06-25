@@ -33,7 +33,6 @@ import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.icons.Cross
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import io.github.vinceglb.filekit.path
 import kotlinx.collections.immutable.ImmutableList
 
@@ -50,7 +49,8 @@ import kotlinx.collections.immutable.ImmutableList
  * @param onClearFile Callback invoked when a file should be removed.
  * @param modifier Modifier to be applied to the preview container.
  * @param onClick Optional callback invoked when a file preview is clicked. Receives the clicked file.
- * @param clearIcon Icon to use for the clear button. Defaults to [SparkIcons.Close].
+ * @param clearIcon Icon to use for the clear button. Defaults to [LeboncoinIcons.Cross].
+ * @sample com.adevinta.spark.components.fileupload.FileUploadMultipleSamples
  */
 @Composable
 @InternalSparkApi

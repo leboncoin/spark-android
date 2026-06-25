@@ -45,6 +45,22 @@ public object ElevationTokens {
     public val Level3: Dp = 6.0.dp
     public val Level4: Dp = 8.0.dp
     public val Level5: Dp = 12.0.dp
+
+    /**
+     * Required by the [Kelp](https://github.com/ozontech/kelp) Android Studio plugin to render
+     * elevation inlay hints next to usages of elevation tokens.
+     *
+     * Property naming convention: `name___value`
+     */
+    @Suppress("unused")
+    private class KelpInlayPreview {
+        val `Level0___0dp` = Unit
+        val `Level1___1dp` = Unit
+        val `Level2___3dp` = Unit
+        val `Level3___6dp` = Unit
+        val `Level4___8dp` = Unit
+        val `Level5___12dp` = Unit
+    }
 }
 
 /**

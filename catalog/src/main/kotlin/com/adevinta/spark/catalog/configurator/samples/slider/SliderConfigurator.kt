@@ -53,9 +53,9 @@ import com.adevinta.spark.components.slider.SliderIntent
 import com.adevinta.spark.components.spacer.VerticalSpacer
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.toggles.SwitchLabelled
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.Minus
 import com.adevinta.spark.icons.Plus
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.highlight
 
 public val SlidersConfigurator: Configurator = Configurator(
@@ -71,7 +71,7 @@ public val SlidersConfigurator: Configurator = Configurator(
 private fun SliderSample() {
     var enabled by remember { mutableStateOf(true) }
     var rounded by remember { mutableStateOf(true) }
-    var intent by remember { mutableStateOf(SliderIntent.Basic) }
+    var intent by remember { mutableStateOf(SliderIntent.Support) }
     var progress by remember { mutableFloatStateOf(0.75f) }
     var rangeProgress by remember { mutableStateOf(0.1f..0.5f) }
     var sliderSteps by remember { mutableIntStateOf(0) }
@@ -135,7 +135,7 @@ private fun SliderSample() {
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
             ) {
                 IconButtonFilled(
-                    icon = SparkIcons.Minus,
+                    icon = LeboncoinIcons.Minus,
                     onClick = {
                         if (sliderSteps > 0) {
                             sliderSteps--
@@ -151,7 +151,7 @@ private fun SliderSample() {
                 )
 
                 IconButtonFilled(
-                    icon = SparkIcons.Plus,
+                    icon = LeboncoinIcons.Plus,
                     onClick = {
                         sliderSteps++
                     },

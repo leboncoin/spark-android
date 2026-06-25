@@ -39,7 +39,6 @@ import android.text.style.UnderlineSpan
 import android.util.Log
 import androidx.annotation.PluralsRes
 import androidx.annotation.StringRes
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.remember
@@ -65,6 +64,7 @@ import androidx.core.text.toHtml
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.R
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.SparkColors
 import com.adevinta.spark.tokens.SparkTypography
 import kotlinx.collections.immutable.PersistentMap

@@ -22,9 +22,9 @@
 plugins {
     alias(libs.plugins.spark.library)
     alias(libs.plugins.spark.compose)
-    alias(libs.plugins.spark.dokka)
     alias(libs.plugins.spark.publishing)
     alias(libs.plugins.spark.dependencyGuard)
+    alias(libs.plugins.spark.dokka)
 }
 
 android {
@@ -46,7 +46,6 @@ android {
                 "com.adevinta.spark.InternalSparkApi",
                 "com.adevinta.spark.ExperimentalSparkApi",
             )
-            freeCompilerArgs.add("-Xannotation-default-target=param-property")
         }
     }
 }
@@ -54,9 +53,11 @@ android {
 dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.constraintlayout.compose)
+    implementation(libs.androidx.compose.material3)
     lintPublish(projects.sparkLint)
     lintChecks(libs.slack.lint.compose)
 
+    api(platform(projects.sparkBom))
     api(projects.sparkIcons)
 
     implementation(libs.accompanist.drawablepainter)
@@ -69,7 +70,6 @@ dependencies {
 
     api(libs.androidx.compose.animation.graphics)
     api(libs.androidx.compose.foundation)
-    implementation(libs.androidx.compose.material.iconsCore)
     api(libs.androidx.compose.material3)
     api(libs.androidx.compose.material3.adaptive)
     api(libs.androidx.compose.ui)

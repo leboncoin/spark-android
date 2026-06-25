@@ -36,7 +36,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.material3.ProvideTextStyle
-import androidx.compose.material3.Surface
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -62,11 +61,11 @@ import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.progressbar.Progressbar
 import com.adevinta.spark.components.progressbar.ProgressbarIndeterminate
 import com.adevinta.spark.components.spacer.HorizontalSpacer
+import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.Cross
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.icons.WarningOutline
 import com.adevinta.spark.tokens.EmphasizeDim1
 import com.adevinta.spark.tokens.ripple
@@ -96,7 +95,8 @@ import java.io.File
  * @param modifier Modifier to be applied to the component.
  * @param clearContentDescription Content description for the clear button. If null, defaults to "Remove ${file.name}".
  * @param onClick Optional callback invoked when the file preview is clicked. If null, the preview is not clickable.
- * @param clearIcon Icon to use for the clear button. Defaults to [SparkIcons.Close].
+ * @param clearIcon Icon to use for the clear button. Defaults to [LeboncoinIcons.Cross].
+ * @sample com.adevinta.spark.components.fileupload.FilePreviewStatesSamples
  */
 @InternalSparkApi
 @Composable
@@ -249,7 +249,7 @@ private fun PreviewFileIcon(
     error: Boolean = false,
 ) {
     val icon = if (error) {
-        SparkIcons.WarningOutline
+        LeboncoinIcons.WarningOutline
     } else {
         FileUploadDefaults.iconFor(mimeType, name)
     }

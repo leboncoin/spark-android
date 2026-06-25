@@ -18,9 +18,9 @@ fun TextLink(
 )
 ```
 
-| TextLink                                                                               | 
-|----------------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark.text_TextLinkScreenshot_testTextLink_textlink.png) |
+| Light                                                                                   | Dark                                                                                   |
+|-----------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------|
+| ![](../../images/com.adevinta.spark.text_TextLinkScreenshot_testTextLink_light.png)     | ![](../../images/com.adevinta.spark.text_TextLinkScreenshot_testTextLink_dark.png)     |
 
 #### TextLinkButton
 
@@ -33,7 +33,3 @@ fun TextLinkButton(
     isLoading: Boolean = false,
 )
 ```
-
-| TextLinkButton                                                                                                    | 
-|-----------------------------------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark.text_TextLinkScreenshot_testTextLinkButton_textlinkbutton.png) |

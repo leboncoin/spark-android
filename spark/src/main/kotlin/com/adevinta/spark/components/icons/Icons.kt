@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.icons
 
+import android.annotation.SuppressLint
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi
 import androidx.compose.animation.graphics.res.animatedVectorResource
@@ -44,8 +45,8 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.icons.Check
+import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tools.modifiers.ifNotNull
 import com.adevinta.spark.tools.modifiers.ifTrue
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
@@ -66,6 +67,7 @@ import androidx.compose.material3.Icon as MaterialIcon
  * If no size is provided the default [IconSize.Medium] is used.
  * @param atEnd Whether the animated vector should be rendered at the end of all its animations.
  */
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun Icon(
     sparkIcon: SparkIcon,
@@ -100,6 +102,7 @@ public fun Icon(
  * @param size one of [IconSize] to be applied as size of the icon.
  * If no size is provided the default [IconSize.Medium] is used.
  */
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun Icon(
     imageVector: ImageVector,
@@ -133,6 +136,7 @@ public fun Icon(
  * @param size one of [IconSize] to be applied as size of the icon.
  * If no size is provided the default [IconSize.Medium] is used.
  */
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun Icon(
     bitmap: ImageBitmap,
@@ -166,6 +170,7 @@ public fun Icon(
  * @param size one of [IconSize] to be applied as size of the icon.
  * If no size is provided the default [IconSize.Medium] is used.
  */
+@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun Icon(
     painter: Painter,
@@ -205,6 +210,8 @@ public fun rememberSparkIconPainter(sparkIcon: SparkIcon, atEnd: Boolean = false
     }
 
     is SparkIcon.AnimatedPainter -> sparkIcon.painterProvider(atEnd)
+
+    is SparkIcon.Resource -> error("This type is available only for kmp")
 }
 
 @PreviewLightDark
@@ -222,7 +229,7 @@ private fun IconPreview() {
                             },
                         ) {
                             Icon(
-                                sparkIcon = SparkIcons.Check,
+                                sparkIcon = LeboncoinIcons.Check,
                                 tint = intents[index].color(),
                                 contentDescription = "Done",
                                 size = size,

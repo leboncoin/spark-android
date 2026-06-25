@@ -45,13 +45,13 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.R
+import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconSize
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.CircleCrossOutline
 import com.adevinta.spark.icons.HeartFill
 import com.adevinta.spark.icons.LeboncoinIcons
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.SparkTypography
 import kotlinx.coroutines.flow.flowOf
 
@@ -170,6 +170,7 @@ public fun MultilineTextField(
         maxLines = maxLines,
         minLines = minLines,
         interactionSource = interactionSource,
+        shape = SparkTheme.shapes.large,
     )
 }
 
@@ -286,6 +287,7 @@ public fun MultilineTextField(
         maxLines = maxLines,
         minLines = minLines,
         interactionSource = interactionSource,
+        shape = SparkTheme.shapes.large,
     )
 }
 

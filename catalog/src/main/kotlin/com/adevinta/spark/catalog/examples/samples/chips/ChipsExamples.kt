@@ -70,6 +70,7 @@ import com.adevinta.spark.components.chips.ChipSelectable
 import com.adevinta.spark.components.chips.ChipStyles
 import com.adevinta.spark.components.chips.ChipStyles.Dashed
 import com.adevinta.spark.components.chips.ChipStyles.Tinted
+import com.adevinta.spark.components.divider.HorizontalDivider
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.menu.DropdownMenu
 import com.adevinta.spark.components.menu.DropdownMenuItem
@@ -81,8 +82,7 @@ import com.adevinta.spark.icons.Check
 import com.adevinta.spark.icons.ChevronHorizontalUp
 import com.adevinta.spark.icons.EyeOutline
 import com.adevinta.spark.icons.LeboncoinIcons
-import com.adevinta.spark.icons.MailOutline
-import com.adevinta.spark.icons.SparkIcons
+import com.adevinta.spark.icons.MailBoxOpenOutline
 import com.adevinta.spark.icons.UserFill
 import com.adevinta.spark.tokens.ElevationTokens
 import kotlinx.collections.immutable.ImmutableList
@@ -91,7 +91,6 @@ import kotlinx.coroutines.delay
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
-import androidx.compose.material3.HorizontalDivider as MaterialHorizontalDivider
 
 private const val ChipsExampleSourceUrl = "$SampleSourceUrl/ChipsSamples.kt"
 
@@ -189,7 +188,7 @@ private fun ColumnScope.ChipsDefault() {
 
 @Composable
 @Preview
-private fun ColumnScope.ChipsKind() {
+private fun ChipsKind() {
     var selected by remember { mutableStateOf(true) }
     FlowRow(
         horizontalArrangement = spacedBy(8.dp),
@@ -197,7 +196,7 @@ private fun ColumnScope.ChipsKind() {
         Chip(text = "Assist", leadingIcon = LeboncoinIcons.CalendarTextOutline, onClick = {})
         ChipSelectable(
             text = "Filter",
-            leadingIcon = if (selected) SparkIcons.Check else null,
+            leadingIcon = if (selected) LeboncoinIcons.Check else null,
             onClick = { selected = !selected },
             selected = selected,
         )
@@ -301,7 +300,7 @@ private fun ColumnScope.ChipAssist() {
                 }
             }
 
-            MaterialHorizontalDivider(color = LocalContentColor.current)
+            HorizontalDivider()
             Column {
                 Text(
                     text = nowDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)),
@@ -318,7 +317,7 @@ private fun ColumnScope.ChipAssist() {
                     )
                     Chip(
                         text = "Join the meet",
-                        leadingIcon = SparkIcons.EyeOutline,
+                        leadingIcon = LeboncoinIcons.EyeOutline,
                         onClick = {},
                         intent = ChipIntent.Surface,
                     )
@@ -397,7 +396,7 @@ private fun ChipSuggestion() {
         label = "From",
         leadingContent = {
             TextFieldIcon(
-                icon = SparkIcons.MailOutline,
+                icon = LeboncoinIcons.MailBoxOpenOutline,
                 contentDescription = null,
             )
         },

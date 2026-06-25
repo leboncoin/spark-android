@@ -68,7 +68,7 @@ public interface PlaceholderHighlight {
 }
 
 /**
- * Creates a [Fade] brush with the given initial and target colors.
+ * Creates a Fade brush with the given initial and target colors.
  *
  * @param highlightColor the color of the highlight which is faded in/out.
  * @param animationSpec the [AnimationSpec] to configure the animation.

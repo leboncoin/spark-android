@@ -38,11 +38,12 @@ import androidx.compose.material3.SnackbarData
 import androidx.compose.material3.SnackbarDefaults
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarVisuals
-import androidx.compose.material3.Text
 import androidx.compose.material3.TooltipAnchorPosition
 import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.movableContentOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -62,11 +63,11 @@ import com.adevinta.spark.components.popover.TooltipBox
 import com.adevinta.spark.components.scaffold.Scaffold
 import com.adevinta.spark.components.spacer.HorizontalSpacer
 import com.adevinta.spark.components.surface.Surface
+import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.Cross
 import com.adevinta.spark.icons.FlashlightFill
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.icons.SparkIcons
 import com.adevinta.spark.tokens.ElevationTokens
 import com.adevinta.spark.tokens.contentColorFor
 import com.adevinta.spark.tokens.highlight
@@ -96,6 +97,8 @@ internal fun SparkSnackbar(
         .padding(8.dp)
         .fillMaxWidth()
 
+    val contentSlot = remember { movableContentOf { content() } }
+
     Surface(
         modifier = modifier
             .heightIn(min = 60.dp)
@@ -118,7 +121,7 @@ internal fun SparkSnackbar(
                         backgroundColor = backgroundColor,
                         title = title,
                         onDismissClick = onDismissClick,
-                        content = content,
+                        content = contentSlot,
                     )
                     SnackbarAction(
                         modifier = Modifier.align(Alignment.End),
@@ -135,7 +138,7 @@ internal fun SparkSnackbar(
                 backgroundColor = backgroundColor,
                 title = title,
                 onDismissClick = onDismissClick,
-                content = content,
+                content = contentSlot,
             )
         }
     }
@@ -207,7 +210,7 @@ private fun DismissIcon(
             Icon(
                 sparkIcon = LeboncoinIcons.Cross,
                 contentDescription = null,
-                modifier = Modifier.size(16.dp),
+                modifier = Modifier.size(20.dp),
             )
         }
     }
@@ -245,9 +248,6 @@ private fun SnackbarAction(
  * @param modifier modifiers for the Snackbar layout
  * @param intent The [SnackbarIntent] which defines the colour and icon of the Snackbar.
  * Defaults to [SnackbarIntent.Info].
- * @param withDismissAction Whether the dismiss icon is enabled.
- * @param actionOnNewLine whether action should be put on the separate line. Recommended
- * for action with long action text
  * @param icon An optional custom icon that overrides the default intent icon.
  * @param title An optional title to be displayed above the message content.
  * @param actionLabel action to add as an action to the snackbar.
@@ -418,7 +418,7 @@ private fun BodyIconDismissSnackbarPreview() {
     PreviewTheme {
         Snackbar(
             intent = SnackbarIntent.Error,
-            icon = SparkIcons.FlashlightFill,
+            icon = LeboncoinIcons.FlashlightFill,
             actionLabel = StubAction,
             title = "Title",
             onDismissClick = {},
@@ -435,7 +435,7 @@ private fun BodyIconActionNewLineLongSnackbarPreview() {
     PreviewTheme {
         Snackbar(
             intent = SnackbarIntent.Info,
-            icon = SparkIcons.FlashlightFill,
+            icon = LeboncoinIcons.FlashlightFill,
             actionLabel = StubBodyLong,
             onActionClick = {},
             onDismissClick = {},

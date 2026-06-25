@@ -33,17 +33,33 @@ import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.findByType
 import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinBaseExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompilerOptions
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
-import org.jetbrains.kotlin.gradle.dsl.abi.AbiValidationExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
 
 internal val Project.isAndroidApplication: Boolean get() = pluginManager.hasPlugin("com.android.application")
 internal val Project.isAndroidLibrary: Boolean get() = pluginManager.hasPlugin("com.android.library")
+
+internal val Project.isAndroidMultiplatformLibrary: Boolean get() = pluginManager.hasPlugin(
+    "com.android.kotlin.multiplatform.library",
+)
+internal val Project.isKotlinMultiplatform: Boolean get() = pluginManager.hasPlugin(
+    "org.jetbrains.kotlin.multiplatform",
+)
+
+/**
+ * True for modules that declare [com.adevinta.spark.InternalSparkApi] and
+ * [com.adevinta.spark.ExperimentalSparkApi]. Modules that don't define these annotations (e.g.
+ * spark-icons) must not opt-in to them at the compiler level.
+ */
+internal val Project.hasSparkInternalAnnotations: Boolean
+    get() = name != "spark-icons"
+
 internal val Project.isAndroidTest: Boolean get() = pluginManager.hasPlugin("com.android.test")
 internal val Project.isAndroid: Boolean get() = pluginManager.hasPlugin("com.android.base")
 internal val Project.isJavaPlatform: Boolean get() = pluginManager.hasPlugin("org.gradle.java-platform")
@@ -96,16 +112,17 @@ internal inline fun <reified T : KotlinBaseExtension> Project.configureKotlin(
         val kotlin = when (this) {
             is KotlinAndroidProjectExtension -> this
             is KotlinJvmProjectExtension -> this
+            is KotlinMultiplatformExtension -> this
             else -> TODO("Unsupported project extension $path ${T::class}")
         }
-        // https://youtrack.jetbrains.com/issue/KT-83410
-        kotlin.extensions.findByType<AbiValidationExtension>()?.apply {
-            @OptIn(ExperimentalAbiValidation::class)
-            enabled = true
-        }
-        kotlin.compilerOptions {
-            jvmTarget = JvmTarget.JVM_11
+        compilerOptions {
+            (this as? KotlinJvmCompilerOptions)?.jvmTarget?.set(JvmTarget.JVM_11)
             allWarningsAsErrors = true
+        }
+        // https://youtrack.jetbrains.com/issue/KT-83410
+        @OptIn(ExperimentalAbiValidation::class)
+        abiValidation {
+            referenceDumpDir.set(projectDir.resolve("api"))
         }
         explicitApi()
         configure()

@@ -23,6 +23,7 @@ package com.adevinta.spark.components.card
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.Interaction
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
@@ -142,12 +143,12 @@ public object CardDefaults {
      */
     @Composable
     public fun elevatedCardElevation(
-        defaultElevation: Dp = ElevationTokens.Level1,
-        pressedElevation: Dp = ElevationTokens.Level1,
-        focusedElevation: Dp = ElevationTokens.Level1,
-        hoveredElevation: Dp = ElevationTokens.Level2,
+        defaultElevation: Dp = ElevationTokens.Level2,
+        pressedElevation: Dp = ElevationTokens.Level3,
+        focusedElevation: Dp = ElevationTokens.Level3,
+        hoveredElevation: Dp = ElevationTokens.Level3,
         draggedElevation: Dp = ElevationTokens.Level4,
-        disabledElevation: Dp = ElevationTokens.Level1,
+        disabledElevation: Dp = ElevationTokens.Level2,
     ): CardElevation = CardElevation(
         defaultElevation = defaultElevation,
         pressedElevation = pressedElevation,
@@ -184,6 +185,18 @@ public object CardDefaults {
         draggedElevation = draggedElevation,
         disabledElevation = disabledElevation,
     )
+
+    @Composable
+    public fun paddingValues(hasHeading: Boolean): PaddingValues = if (hasHeading) {
+        PaddingValues(
+            top = 8.dp,
+            start = 16.dp,
+            end = 16.dp,
+            bottom = 16.dp,
+        )
+    } else {
+        PaddingValues(16.dp)
+    }
 
     internal object OutlinedCardTokens {
         const val DisabledOutlineOpacity = 0.12f

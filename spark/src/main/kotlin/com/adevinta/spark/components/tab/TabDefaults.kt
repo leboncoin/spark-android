@@ -36,7 +36,7 @@ internal object TabDefaults {
         @Composable get() = LocalContentColor.current
 
     /** Default intent color of a selected tab */
-    internal val SelectedContentIntent = TabIntent.Basic
+    internal val SelectedContentIntent = TabIntent.Support
     internal val Size = TabSize.Medium
     internal val HorizontalArrangementSpace = 8.dp
     internal val HorizontalContentPadding = 16.dp
@@ -49,9 +49,14 @@ public enum class TabIntent {
     /**
      * The default color of such UI controls as toggles, Slider, etc.
      */
+    @Deprecated(
+        message = "Basic has been removed with the rebranding, use Support instead",
+        replaceWith = ReplaceWith("TabIntent.Support"),
+        level = DeprecationLevel.ERROR,
+    )
     Basic {
         @Composable
-        override fun color(): Color = SparkTheme.colors.basic
+        override fun color(): Color = SparkTheme.colors.support
     },
 
     /**

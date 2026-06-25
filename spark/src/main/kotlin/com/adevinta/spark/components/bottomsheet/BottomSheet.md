@@ -25,10 +25,8 @@ fun BottomSheet(
 
 # BottomSheet content with / No handle Example
 
-| Light                                              | Dark                                               |
-|----------------------------------------------------|----------------------------------------------------|
-| ![](../../images/bottomsheet_dark_with_handle.png) | ![](../../images/bottomsheet_dark_with_handle.png) |
-| ![](../../images/bottomsheet_light_no_handle.png)  | ![](../../images/bottomsheet_dark_no_handle.png)   |
+The `showHandle` parameter controls whether a drag handle is shown at the top of the sheet.
+When `contentTopPadding` is set to `0.dp`, content can extend behind the handle.
 
 # BottomSheet content behind handle Example
 
@@ -37,7 +35,7 @@ fun BottomSheet(
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
     showHandle: Boolean = true,
-    contentTopPadding = 0.dp, 
+    contentTopPadding = 0.dp,
     sheetState: SheetState = rememberModalBottomSheetState(),
     content = {
         Box(
@@ -55,7 +53,6 @@ fun BottomSheet(
     }
 )
 ```
-![](../../images/bottomsheet_content_behind_handle.png)
 
 #### BottomSheetScaffold
 
@@ -83,7 +80,3 @@ fun BottomSheetScaffold(
     snackbarHost: @Composable (androidx.compose.material3.SnackbarHostState) -> Unit,
 )
 ```
-
-# BottomSheetScaffold Example
-
-![](../../images/bottomsheetscaffold.png)

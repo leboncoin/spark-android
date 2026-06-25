@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Adevinta
+ * Copyright (c) 2023-2026 Adevinta
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -34,111 +34,29 @@ import com.adevinta.spark.components.IntentColor
 import com.adevinta.spark.components.IntentColors
 import com.adevinta.spark.tokens.disabled
 
-@Deprecated(
-    message = "Intents for toggles have been deprecated in favor of using only the basic color and the error color",
-)
-public enum class ToggleIntent {
-    /**
-     * The default color of such UI controls as toggles, Slider, etc.
-     */
-    Basic {
-        @Composable
-        override fun colors(): IntentColor = IntentColors.Basic.colors()
-    },
-
-    /**
-     * Used to make components visually accentuated.
-     */
-    Accent {
-        @Composable
-        override fun colors(): IntentColor = IntentColors.Accent.colors()
-    },
-
-    /**
-     * Used for the most important information.
-     */
-    Main {
-        @Composable
-        override fun colors(): IntentColor = IntentColors.Main.colors()
-    },
-
-    /**
-     * Used to highlight information.
-     */
-    Support {
-        @Composable
-        override fun colors(): IntentColor = IntentColors.Support.colors()
-    },
-
-    /**
-     * Used for feedbacks that are positive.
-     */
-    Success {
-        @Composable
-        override fun colors(): IntentColor = IntentColors.Success.colors()
-    },
-
-    /**
-     * Used for feedbacks that are negative.
-     */
-    Alert {
-        @Composable
-        override fun colors(): IntentColor = IntentColors.Alert.colors()
-    },
-
-    /**
-     * Used for feedbacks that are negative and dangerous.
-     */
-    Danger {
-        @Composable
-        override fun colors(): IntentColor = IntentColors.Danger.colors()
-    },
-
-    /**
-     * Used for feedbacks that are informative.
-     */
-    Info {
-        @Composable
-        override fun colors(): IntentColor = IntentColors.Info.colors()
-    },
-
-    /**
-     * Used for feedbacks that are neutral.
-     */
-    Neutral {
-        @Composable
-        override fun colors(): IntentColor = IntentColors.Neutral.colors()
-    },
-    ;
-
-    @Composable
-    internal abstract fun colors(): IntentColor
-}
-
 @Composable
-internal fun ToggleIntent.toCheckboxDefaultsColors(checked: Boolean): CheckboxColors = with(this.colors()) {
+internal fun IntentColors.toCheckboxDefaultsColors(checked: Boolean): CheckboxColors = with(this.colors()) {
     CheckboxDefaults.colors(
         checkedColor = this.color,
         checkmarkColor = this.onColor,
-        uncheckedColor = if (this@toCheckboxDefaultsColors == ToggleIntent.Danger) this.color else UncheckedColor,
-        // FIXME: drop when fix released https://issuetracker.google.com/issues/291943198
-        disabledCheckedColor = if (checked) this.color.disabled else UncheckedColor.disabled,
+        uncheckedColor = if (this@toCheckboxDefaultsColors == IntentColors.Danger) this.color else UncheckedColor,
+        disabledCheckedColor = this.color.disabled,
         disabledUncheckedColor = UncheckedColor.disabled,
     )
 }
 
 @Composable
-internal fun ToggleIntent.toSwitchDefaultsColors(): SwitchColors = with(this.colors()) {
+internal fun IntentColors.toSwitchDefaultsColors(): SwitchColors = with(this.colors()) {
     SwitchDefaults.colors(
         checkedTrackColor = this.color,
     )
 }
 
 @Composable
-internal fun ToggleIntent.toRadioButtonDefaultsColors(): RadioButtonColors = with(this.colors()) {
+internal fun IntentColors.toRadioButtonDefaultsColors(): RadioButtonColors = with(this.colors()) {
     RadioButtonDefaults.colors(
         selectedColor = this.color,
-        unselectedColor = if (this@toRadioButtonDefaultsColors == ToggleIntent.Danger) this.color else UncheckedColor,
+        unselectedColor = if (this@toRadioButtonDefaultsColors == IntentColors.Danger) this.color else UncheckedColor,
         disabledSelectedColor = this.color.disabled,
         disabledUnselectedColor = SparkTheme.colors.outline.disabled,
     )

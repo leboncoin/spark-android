@@ -23,9 +23,7 @@ package com.adevinta.spark
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.apply
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
-import java.io.File
 
 public class SparkAndroidPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -40,16 +38,7 @@ public class SparkAndroidPlugin : Plugin<Project> {
                         excludes += "/META-INF/{AL2.0,LGPL2.1}"
                     }
                 }
-                lint.apply {
-                    checkDependencies = true
-                    warningsAsErrors = true
-                    sarifReport = true
-                    informational += "AndroidGradlePluginVersion"
-                    informational += "GradleDependency"
-                    informational += "NewerVersionAvailable"
-                    informational += "OldTargetApi"
-                    lintConfig = file("lint.xml").takeIf(File::exists)
-                }
+                SparkLint.configure(target, lint)
             }
 
             addKotlinBom()
