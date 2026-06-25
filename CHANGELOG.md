@@ -2,6 +2,13 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [2.8.0](https://github.com/leboncoin/spark-android/compare/2.7.0...2.8.0) (2026-06-25)
+
+
+### Features
+
+* **icons:** fake icon change ([aa41e55](https://github.com/leboncoin/spark-android/commit/aa41e552304b9051a54063d9d6d2397409421181))
+
 ## [2.7.0](https://github.com/leboncoin/spark-android/compare/2.6.0...2.7.0) (2026-06-12)
 
 
