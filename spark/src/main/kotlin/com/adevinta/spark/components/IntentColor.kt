@@ -178,6 +178,20 @@ internal enum class IntentColors {
             onContainerColor = SparkTheme.colors.onSurface,
         )
     },
+
+    /**
+     * Used to identify AI-generated content or features.
+     */
+    Ai {
+        @Composable
+        @ReadOnlyComposable
+        override fun colors() = IntentColor(
+            color = SparkTheme.colors.ai,
+            onColor = SparkTheme.colors.onAi,
+            containerColor = SparkTheme.colors.aiContainer,
+            onContainerColor = SparkTheme.colors.onAiContainer,
+        )
+    },
     ;
 
     @Composable

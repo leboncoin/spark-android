@@ -52,6 +52,7 @@ Icon Buttons support all intents:
 - Info
 - Neutral
 - Surface
+- Ai
 
 #### IconButtonFilled
 
