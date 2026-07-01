@@ -24,6 +24,7 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.PAT_SPARK }}
+          persist-credentials: false
 
       - name: Find last semver tag and compute hotfix branch name
         id: hotfix

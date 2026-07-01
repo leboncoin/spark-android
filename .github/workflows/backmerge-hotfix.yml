@@ -16,6 +16,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Detect hotfix branch for this tag
         id: detect
