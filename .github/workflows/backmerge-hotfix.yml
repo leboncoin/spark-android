@@ -1,8 +1,14 @@
 name: '🔧 Icon hotfix: open backmerge PR'
 
 on:
-  push:
-    tags: ['*']
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Tag name to backmerge (e.g. 2.7.1)'
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -21,7 +27,7 @@ jobs:
       - name: Detect hotfix branch for this tag
         id: detect
         env:
-          TAG_NAME: ${{ github.ref_name }}
+          TAG_NAME: ${{ inputs.tag_name || github.event.release.tag_name }}
         run: |
           set -euo pipefail
           branch=$(git branch -r --contains "refs/tags/$TAG_NAME" \
