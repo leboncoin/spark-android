@@ -3,6 +3,12 @@ name: '🔧 Icon hotfix: create branch'
 on:
   pull_request:
     types: [closed]
+  workflow_dispatch:
+    inputs:
+      merge_commit_sha:
+        description: 'Merge commit SHA to cherry-pick'
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -15,9 +21,14 @@ jobs:
   create-hotfix-branch:
     if: |
       github.repository == 'leboncoin/spark-android' &&
-      github.event.pull_request.merged == true &&
-      github.event.pull_request.title == 'fix(icons): update icons' &&
-      github.event.pull_request.user.login == 'github-actions[bot]'
+      (
+        github.event_name == 'workflow_dispatch' ||
+        (
+          github.event.pull_request.merged == true &&
+          github.event.pull_request.title == 'fix(icons): update icons' &&
+          github.event.pull_request.user.login == 'github-actions[bot]'
+        )
+      )
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -56,7 +67,7 @@ jobs:
 
       - name: Cherry-pick icon update commit
         env:
-          MERGE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
+          MERGE_SHA: ${{ inputs.merge_commit_sha || github.event.pull_request.merge_commit_sha }}
         run: |
           git config user.name 'spark-ui-bot'
           git config user.email 'spark-ui-bot@users.noreply.github.com'
