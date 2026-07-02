@@ -18,15 +18,31 @@ Conventional commit prefixes control the version bump: `feat:` bumps minor, `fix
 
 ## Icon Updates
 
-Icon changes are automated via `.github/workflows/pr-icon-updates.yml`, which opens a PR titled `feat(icons): update icons`. By default this is treated as a minor bump (new icons added).
+Icon changes are automated via `.github/workflows/pr-icon-updates.yml`, which opens a PR titled `fix(icons): update icons`. By default this is treated as a patch bump.
 
 If the update contains a breaking change (icon removal, rename, or visual change to an existing icon), the reviewer must edit the PR title before merging to signal a breaking change:
 
 ```
-feat(icons)!: update icons
+fix(icons)!: update icons
 ```
 
 The `!` suffix tells release-please this is a breaking change and triggers a major version bump.
+
+## Icon Hotfix Workflow
+
+When a bot PR titled `fix(icons): update icons` is merged into `main`, a hotfix
+release workflow is triggered automatically. As a developer, you only need to act
+at two points:
+
+1. **Merge the release PR** — opened automatically by release-please. It targets
+   `hotfix/X.Y.Z+1`. Merging it creates the tag and publishes the
+   new version to Maven Central.
+2. **Merge the backmerge PR** — opened automatically after the tag is created.
+   Request a reviewer before merging. Must be merged as a **merge commit** (not
+   squash) to preserve release-please's changelog ancestry.
+
+If the cherry-pick fails (e.g. a conflict), the workflow fails visibly — follow
+the manual [Hotfix Workflow](#hotfix-workflow) instead.
 
 ## Hotfix Workflow
 
