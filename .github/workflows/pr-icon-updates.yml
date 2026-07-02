@@ -24,7 +24,7 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.PAT_SPARK || secrets.GITHUB_TOKEN }}
       - run: |
-          gh pr create --fill --title "fix(icons): update icons""
+          gh pr create --fill --title "fix(icons): update icons"
         continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
