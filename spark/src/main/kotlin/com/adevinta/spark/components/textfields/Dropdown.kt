@@ -597,7 +597,7 @@ public fun MultiChoiceDropdown(
             TextField(
                 value = value,
                 onValueChange = { },
-                modifier = modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable, enabled),
+                modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable, enabled),
                 enabled = enabled,
                 readOnly = true,
                 required = required,

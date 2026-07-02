@@ -165,8 +165,8 @@ public fun DropdownMenu(
  *   outside the menu's bounds
  * @param modifier the [Modifier] to be applied to this menu
  * @param scrollState a [ScrollState] used by the menu's content for items vertical scrolling
- * @param matchTextFieldWidth whether the menu's width should be forcefully constrained to match
- *   the width of the text field to which it's attached.
+ * @param matchAnchorWidth  whether the menu's width should be forcefully constrained to match the width of the
+ * text field to which it's attached.
  * @param content the content of the menu
  */
 @SuppressLint("ComposeUnstableReceiver")
@@ -177,7 +177,7 @@ public fun ExposedDropdownMenuBoxScope.ExposedDropdownMenu(
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
     scrollState: ScrollState = rememberScrollState(),
-    matchTextFieldWidth: Boolean = true,
+    matchAnchorWidth: Boolean = true,
     content: @Composable DropdownMenuItemColumnScope.() -> Unit,
 ) {
     ExposedDropdownMenu(
@@ -189,7 +189,7 @@ public fun ExposedDropdownMenuBoxScope.ExposedDropdownMenu(
         containerColor = SparkTheme.colors.surface,
         tonalElevation = ElevationTokens.Level0,
         shadowElevation = ElevationTokens.Level2,
-        matchAnchorWidth = matchTextFieldWidth,
+        matchAnchorWidth = matchAnchorWidth,
         border = null,
         content = {
             val scope = remember { DropdownMenuItemWrapper(this) }
@@ -207,8 +207,8 @@ public fun ExposedDropdownMenuBoxScope.ExposedDropdownMenu(
  *   outside the menu's bounds
  * @param modifier the [Modifier] to be applied to this menu
  * @param scrollState a [ScrollState] used by the menu's content for items vertical scrolling
- * @param matchTextFieldWidth whether the menu's width should be forcefully constrained to match
- *   the width of the text field to which it's attached.
+ * @param matchAnchorWidth  whether the menu's width should be forcefully constrained to match the width of the text
+ * field to which it's attached.
  * @param content the content of the menu
  */
 @SuppressLint("ComposeUnstableReceiver")
@@ -219,7 +219,7 @@ public fun ExposedDropdownMenuBoxScope.SingleChoiceExposedDropdownMenu(
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
     scrollState: ScrollState = rememberScrollState(),
-    matchTextFieldWidth: Boolean = true,
+    matchAnchorWidth: Boolean = true,
     content: @Composable SingleChoiceDropdownItemColumnScope.() -> Unit,
 ) {
     ExposedDropdownMenu(
@@ -233,7 +233,7 @@ public fun ExposedDropdownMenuBoxScope.SingleChoiceExposedDropdownMenu(
         containerColor = SparkTheme.colors.surface,
         tonalElevation = ElevationTokens.Level0,
         shadowElevation = ElevationTokens.Level2,
-        matchAnchorWidth = matchTextFieldWidth,
+        matchAnchorWidth = matchAnchorWidth,
         border = null,
         content = {
             val scope = remember { SingleChoiceDropdownItemWrapper(this) }
@@ -251,8 +251,8 @@ public fun ExposedDropdownMenuBoxScope.SingleChoiceExposedDropdownMenu(
  *   outside the menu's bounds
  * @param modifier the [Modifier] to be applied to this menu
  * @param scrollState a [ScrollState] used by the menu's content for items vertical scrolling
- * @param matchTextFieldWidth whether the menu's width should be forcefully constrained to match
- *   the width of the text field to which it's attached.
+ * @param matchAnchorWidth  whether the menu's width should be forcefully constrained to match the width of the text
+ * field to which it's attached.
  * @param content the content of the menu
  */
 @SuppressLint("ComposeUnstableReceiver")
@@ -263,7 +263,7 @@ public fun ExposedDropdownMenuBoxScope.MultipleChoiceExposedDropdownMenu(
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
     scrollState: ScrollState = rememberScrollState(),
-    matchTextFieldWidth: Boolean = true,
+    matchAnchorWidth: Boolean = true,
     content: @Composable MultiChoiceDropdownItemColumnScope.() -> Unit,
 ) {
     ExposedDropdownMenu(
@@ -275,7 +275,7 @@ public fun ExposedDropdownMenuBoxScope.MultipleChoiceExposedDropdownMenu(
         containerColor = SparkTheme.colors.surface,
         tonalElevation = ElevationTokens.Level2,
         shadowElevation = ElevationTokens.Level2,
-        matchAnchorWidth = matchTextFieldWidth,
+        matchAnchorWidth = matchAnchorWidth,
         border = null,
         content = {
             val scope = remember { MultiChoiceDropdownItemWrapper(this) }
