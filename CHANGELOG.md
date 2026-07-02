@@ -2,6 +2,14 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [2.7.1](https://github.com/leboncoin/spark-android/compare/2.7.0...2.7.1) (2026-07-02)
+
+
+### Bug Fixes
+
+* **icons:** update icons ([#2064](https://github.com/leboncoin/spark-android/issues/2064)) ([ebfb0dc](https://github.com/leboncoin/spark-android/commit/ebfb0dc893293b81897c38cc6098ff97326b7bd2))
+* **screenshot:** update the circular meter golden screenshots ([#2033](https://github.com/leboncoin/spark-android/issues/2033)) ([0357cc4](https://github.com/leboncoin/spark-android/commit/0357cc410103575ab867ba4486c4f84e08ec2dc2))
+
 ## [2.7.0](https://github.com/leboncoin/spark-android/compare/2.6.0...2.7.0) (2026-06-12)
 
 
