@@ -17,7 +17,7 @@ jobs:
       github.repository == 'leboncoin/spark-android' &&
       github.event.pull_request.merged == true &&
       github.event.pull_request.title == 'fix(icons): update icons' &&
-      github.event.pull_request.user.login == 'spark-ui-bot'
+      github.event.pull_request.user.login == 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
