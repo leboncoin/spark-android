@@ -113,7 +113,6 @@ public object CardDefaults {
      * @param hoveredElevation the elevation used when the [Card] is hovered.
      * @param draggedElevation the elevation used when the [Card] is dragged.
      */
-    @Composable
     public fun cardElevation(
         defaultElevation: Dp = ElevationTokens.Level0,
         pressedElevation: Dp = ElevationTokens.Level0,
@@ -141,7 +140,6 @@ public object CardDefaults {
      * @param hoveredElevation the elevation used when the [ElevatedCard] is hovered.
      * @param draggedElevation the elevation used when the [ElevatedCard] is dragged.
      */
-    @Composable
     public fun elevatedCardElevation(
         defaultElevation: Dp = ElevationTokens.Level2,
         pressedElevation: Dp = ElevationTokens.Level3,
@@ -169,7 +167,6 @@ public object CardDefaults {
      * @param hoveredElevation the elevation used when the [OutlinedCard] is hovered.
      * @param draggedElevation the elevation used when the [OutlinedCard] is dragged.
      */
-    @Composable
     public fun outlinedCardElevation(
         defaultElevation: Dp = ElevationTokens.Level0,
         pressedElevation: Dp = defaultElevation,
@@ -186,7 +183,6 @@ public object CardDefaults {
         disabledElevation = disabledElevation,
     )
 
-    @Composable
     public fun paddingValues(hasHeading: Boolean): PaddingValues = if (hasHeading) {
         PaddingValues(
             top = 8.dp,

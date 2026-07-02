@@ -277,7 +277,7 @@ internal data class DefaultSparkTextFieldColors(
      * Represents the colors used for text selection in this text field.
      */
     internal val selectionColors: TextSelectionColors
-        @Composable get() = textSelectionColors
+        get() = textSelectionColors
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
