@@ -63,7 +63,12 @@ jobs:
           if git merge-base --is-ancestor "$MERGE_SHA" HEAD 2>/dev/null; then
             echo "Commit $MERGE_SHA already present on branch, skipping cherry-pick"
           else
-            git cherry-pick "$MERGE_SHA"
+            if ! git cherry-pick "$MERGE_SHA"; then
+              echo "Cherry-pick conflict detected, resolving by accepting incoming changes"
+              git checkout --theirs .
+              git add -A
+              git cherry-pick --continue --no-edit
+            fi
           fi
 
       - name: Push hotfix branch
