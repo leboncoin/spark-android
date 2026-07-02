@@ -85,5 +85,7 @@ jobs:
       - name: Push hotfix branch
         env:
           BRANCH: ${{ steps.hotfix.outputs.branch }}
+          PAT: ${{ secrets.PAT_SPARK }}
         run: |
+          git remote set-url origin "https://x-access-token:${PAT}@github.com/${{ github.repository }}.git"
           git push origin "$BRANCH"
