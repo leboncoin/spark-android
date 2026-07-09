@@ -2,6 +2,19 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [2.7.2](https://github.com/leboncoin/spark-android/compare/2.7.1...2.7.2) (2026-07-09)
+
+
+### Bug Fixes
+
+* **ci:** update the release-please last version sha to 2.7.0 ([a1a0c3b](https://github.com/leboncoin/spark-android/commit/a1a0c3b705a50ad2ca1df48da27fc44221bc0dd0))
+* **ci:** use release tag instead of pushed tags to start the backmerge-hotfix workflow ([766731f](https://github.com/leboncoin/spark-android/commit/766731f4e08686478fa3cd4785fd10bc6c4fd67e))
+
+
+### Miscellaneous
+
+* merge hotfix/2.7.1 into main ([d67d6c7](https://github.com/leboncoin/spark-android/commit/d67d6c7be61e907f9bbc2c76dfe1839d4690db29))
+
 ## [2.7.1](https://github.com/leboncoin/spark-android/compare/2.7.0...2.7.1) (2026-07-02)
 
 
