@@ -148,7 +148,7 @@ internal fun SparkTab(
                     icon?.let {
                         Icon(
                             modifier = Modifier
-                                .ifNull(text) { size(IconSize.Medium.size) }
+                                .ifNull(text) { size(IconSize.Small.size) }
                                 .ifNotNull(text) {
                                     layout { measurable, constraints ->
                                         val placeable = measurable.measure(constraints)

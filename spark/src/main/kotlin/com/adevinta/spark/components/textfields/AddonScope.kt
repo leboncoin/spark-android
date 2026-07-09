@@ -149,7 +149,7 @@ public abstract class AddonScope {
         modifier: Modifier = Modifier,
     ) {
         Icon(
-            modifier = modifier.size(20.dp),
+            modifier = modifier.size(16.dp),
             sparkIcon = icon,
             contentDescription = contentDescription,
             tint = IconIntent.Neutral.color(),

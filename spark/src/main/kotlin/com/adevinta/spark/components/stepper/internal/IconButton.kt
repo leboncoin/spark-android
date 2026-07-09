@@ -106,7 +106,7 @@ private fun PreviewIconButton() {
             sparkIcon = LeboncoinIcons.Plus,
             contentDescription = "",
             enabled = true,
-            shape = SparkTheme.shapes.full,
+            shape = SparkTheme.shapes.large,
             onClick = { },
             colors = sparkOutlinedTextFieldColors(),
         )
@@ -114,7 +114,7 @@ private fun PreviewIconButton() {
             sparkIcon = LeboncoinIcons.Plus,
             contentDescription = "",
             enabled = false,
-            shape = SparkTheme.shapes.full,
+            shape = SparkTheme.shapes.large,
             onClick = { },
             colors = sparkOutlinedTextFieldColors(),
         )
