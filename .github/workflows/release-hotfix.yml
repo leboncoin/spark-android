@@ -17,6 +17,15 @@ jobs:
       release_created: ${{ steps.release.outputs.release_created }}
       tag_name: ${{ steps.release.outputs.tag_name }}
     steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Force patch-only versioning for hotfix branches
+        run: |
+          jq '.packages["."].versioning = "always-bump-patch"' release-please-config.json > tmp.json
+          mv tmp.json release-please-config.json
+
       - uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5
         id: release
         with:

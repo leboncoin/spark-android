@@ -18,19 +18,11 @@ Conventional commit prefixes control the version bump: `feat:` bumps minor, `fix
 
 ## Icon Updates
 
-Icon changes are automated via `.github/workflows/pr-icon-updates.yml`, which opens a PR titled `fix(icons): update icons`. By default this is treated as a patch bump.
-
-If the update contains a breaking change (icon removal, rename, or visual change to an existing icon), the reviewer must edit the PR title before merging to signal a breaking change:
-
-```
-fix(icons)!: update icons
-```
-
-The `!` suffix tells release-please this is a breaking change and triggers a major version bump.
+Icon changes are automated via `.github/workflows/pr-icon-updates.yml`, which opens a PR titled `feat(icons): update icons`. By default this is treated as a patch bump.
 
 ## Icon Hotfix Workflow
 
-When a bot PR titled `fix(icons): update icons` is merged into `main`, a hotfix
+When a PR titled `feat(icons): update icons` merges into `main`, a hotfix
 release workflow is triggered automatically. As a developer, you only need to act
 at two points:
 
