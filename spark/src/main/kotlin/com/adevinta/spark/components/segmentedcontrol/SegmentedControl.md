@@ -90,7 +90,7 @@ Segments are declared inside the `content` block via `SegmentedControlScope`. Ev
 | `singleLine(text, selected, onClick)` | Single line of text |
 | `twoLine(title, subtitle, selected, onClick)` | Title + caption |
 | `icon(icon, contentDescription, selected, onClick)` | Icon only |
-| `iconText(icon, text, selected, onClick)` | Icon above label |
+| `iconText(icon, text, selected, iconOnTop, onClick)` | Icon above label |
 | `number(number, selected, onClick)` | Integer label |
 | `custom(selected, onClick, rippleColor, content)` | Fully custom content |
 
@@ -123,7 +123,7 @@ SegmentedControl.Horizontal(selectedIndex = selected) {
     singleLine("Text",    selected = selected == 0, onClick = { selected = 0 })
     twoLine("Title", "Subtitle", selected = selected == 1, onClick = { selected = 1 })
     icon(SparkIcons.Heart, contentDescription = "Favourites", selected = selected == 2, onClick = { selected = 2 })
-    iconText(SparkIcons.Heart, "Saved", selected = selected == 3, onClick = { selected = 3 })
+    iconText(SparkIcons.Heart, "Saved", selected = selected == 3, iconOnTop = true, onClick = { selected = 3 })
 }
 ```
 
@@ -155,6 +155,36 @@ The default indicator (`SegmentedControlDefaults.Indicator`) draws a `neutralCon
 ### Custom Segments
 
 Use `custom` when no built-in segment variant fits. The `rippleColor` parameter lets you match the ripple to a segment's own background.
+
+### Reusing Built-in Animations
+
+Custom segments may need the same color and weight animations as standard segments. Two helpers in `SegmentedControlDefaults` expose these:
+
+| Helper | Returns | Use case |
+|--------|---------|----------|
+| `segmentLabelStyle(selected, enabled)` | `SegmentLabelStyle(color, textStyle)` | Text colour + font weight animation |
+| `segmentIconColor(selected, enabled)` | `State<Color>` | Icon tint animation |
+
+```kotlin
+SegmentedControl.Horizontal(selectedIndex = selected) {
+    custom(selected = selected == 0, onClick = { selected = 0 }) {
+        val (labelColor, textStyle) = SegmentedControlDefaults.segmentLabelStyle(
+            selected = selected == 0,
+            enabled = true,
+        )
+        val iconColor by SegmentedControlDefaults.segmentIconColor(
+            selected = selected == 0,
+            enabled = true,
+        )
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(sparkIcon = myIcon, contentDescription = null, tint = iconColor)
+            HorizontalSpacer(8.dp)
+            Text(text = "Custom", color = labelColor, style = textStyle)
+        }
+    }
+    singleLine("Other", selected = selected == 1, onClick = { selected = 1 })
+}
+```
 
 ### Energy Rating Scale (DPE)
 

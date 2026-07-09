@@ -91,7 +91,7 @@ internal class SegmentedControlDocumentationScreenshots {
             singleLine("Text", selected = true, onClick = {})
             twoLine("Title", "Subtitle", selected = false, onClick = {})
             icon(LeboncoinIcons.ShoppingCartOutline, contentDescription = "Cart", selected = false, onClick = {})
-            iconText(LeboncoinIcons.ShoppingCartOutline, "Cart", selected = false, onClick = {})
+            iconText(LeboncoinIcons.ShoppingCartOutline, "Cart", selected = false, iconOnTop = true, onClick = {})
         }
     }
 
@@ -144,11 +144,35 @@ internal class SegmentedControlDocumentationScreenshots {
     @Test
     fun iconText() = paparazzi.sparkDocSnapshot(color = { SparkTheme.colors.backgroundVariant }) {
         SegmentedControl.Vertical(selectedIndex = 0) {
-            iconText(icon = LeboncoinIcons.House, text = "Vente immobilière", selected = true, onClick = {})
-            iconText(icon = LeboncoinIcons.Building, text = "Location", selected = false, onClick = {})
-            iconText(icon = LeboncoinIcons.ParasolOutline, text = "Location Saisonnière", selected = false, onClick = {
-            })
-            iconText(icon = LeboncoinIcons.PeopleCriteria, text = "Colocation", selected = false, onClick = {})
+            iconText(
+                icon = LeboncoinIcons.House,
+                text = "Vente immobilière",
+                selected = true,
+                iconOnTop = true,
+                onClick = {},
+            )
+            iconText(
+                icon = LeboncoinIcons.Building,
+                text = "Location",
+                selected = false,
+                iconOnTop = true,
+                onClick = {},
+            )
+            iconText(
+                icon = LeboncoinIcons.ParasolOutline,
+                text = "Location Saisonnière",
+                selected = false,
+                iconOnTop = true,
+                onClick = {
+                },
+            )
+            iconText(
+                icon = LeboncoinIcons.PeopleCriteria,
+                text = "Colocation",
+                selected = false,
+                iconOnTop = true,
+                onClick = {},
+            )
         }
     }
 

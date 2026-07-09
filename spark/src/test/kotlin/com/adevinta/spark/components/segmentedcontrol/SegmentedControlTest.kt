@@ -296,7 +296,8 @@ class SegmentedControlTest {
                     twoLine("Title", "Subtitle", selected = false, onClick = {})
                     icon(LeboncoinIcons.ShoppingCartOutline, contentDescription = "cart", selected = false, onClick = {
                     })
-                    iconText(LeboncoinIcons.ShoppingCartOutline, "Cart", selected = false, onClick = {})
+                    iconText(LeboncoinIcons.ShoppingCartOutline, "Cart", selected = false, iconOnTop = true, onClick = {
+                    })
                 }
             }
         }
