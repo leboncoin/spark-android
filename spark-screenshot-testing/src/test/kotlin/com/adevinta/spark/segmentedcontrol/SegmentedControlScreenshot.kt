@@ -155,7 +155,7 @@ internal class SegmentedControlScreenshot {
                 singleLine("Text", selected = true, onClick = {})
                 twoLine("Title", "Subtitle", selected = false, onClick = {})
                 icon(LeboncoinIcons.ShoppingCartOutline, contentDescription = "Cart", selected = false, onClick = {})
-                iconText(LeboncoinIcons.ShoppingCartOutline, "Cart", selected = false, onClick = {})
+                iconText(LeboncoinIcons.ShoppingCartOutline, "Cart", selected = false, iconOnTop = true, onClick = {})
             }
 
             SegmentedControl.Horizontal(selectedIndex = 2) {

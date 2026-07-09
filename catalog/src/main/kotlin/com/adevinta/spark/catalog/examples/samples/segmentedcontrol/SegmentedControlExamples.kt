@@ -127,8 +127,20 @@ private fun SingleRowExample() {
         SegmentedControl.Horizontal(
             selectedIndex = selectedIndex1,
         ) {
-            iconText(text = "Day", icon = LeboncoinIcons.CalendarCheckFill, selected = selectedIndex1 == 0, iconOnTop = false, onClick = { selectedIndex1 = 0 })
-            iconText(text = "Week", icon = LeboncoinIcons.CalendarDotOutline, selected = selectedIndex1 == 1, iconOnTop = false, onClick = { selectedIndex1 = 1 })
+            iconText(
+                text = "Day",
+                icon = LeboncoinIcons.CalendarCheckFill,
+                selected = selectedIndex1 == 0,
+                iconOnTop = false,
+                onClick = { selectedIndex1 = 0 },
+            )
+            iconText(
+                text = "Week",
+                icon = LeboncoinIcons.CalendarDotOutline,
+                selected = selectedIndex1 == 1,
+                iconOnTop = false,
+                onClick = { selectedIndex1 = 1 },
+            )
         }
 
         Text("3 Segments")

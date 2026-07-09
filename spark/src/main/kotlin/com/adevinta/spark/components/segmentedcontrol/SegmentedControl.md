@@ -90,7 +90,7 @@ Segments are declared inside the `content` block via `SegmentedControlScope`. Ev
 | `singleLine(text, selected, onClick)` | Single line of text |
 | `twoLine(title, subtitle, selected, onClick)` | Title + caption |
 | `icon(icon, contentDescription, selected, onClick)` | Icon only |
-| `iconText(icon, text, selected, onClick)` | Icon above label |
+| `iconText(icon, text, selected, iconOnTop, onClick)` | Icon above label |
 | `number(number, selected, onClick)` | Integer label |
 | `custom(selected, onClick, rippleColor, content)` | Fully custom content |
 
@@ -123,7 +123,7 @@ SegmentedControl.Horizontal(selectedIndex = selected) {
     singleLine("Text",    selected = selected == 0, onClick = { selected = 0 })
     twoLine("Title", "Subtitle", selected = selected == 1, onClick = { selected = 1 })
     icon(SparkIcons.Heart, contentDescription = "Favourites", selected = selected == 2, onClick = { selected = 2 })
-    iconText(SparkIcons.Heart, "Saved", selected = selected == 3, onClick = { selected = 3 })
+    iconText(SparkIcons.Heart, "Saved", selected = selected == 3, iconOnTop = true, onClick = { selected = 3 })
 }
 ```
 
