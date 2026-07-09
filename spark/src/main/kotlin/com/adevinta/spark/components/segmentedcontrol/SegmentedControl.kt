@@ -374,7 +374,13 @@ private object SegmentedControlScopeImpl : SegmentedControlScope {
                         atEnd = selected,
                     )
                     VerticalSpacer(4.dp)
-                    Text(text = text, maxLines = 1, overflow = TextOverflow.Ellipsis, color = labelColor, style = textStyle)
+                    Text(
+                        text = text,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        color = labelColor,
+                        style = textStyle,
+                    )
                 }
             } else {
                 Row(
@@ -389,7 +395,13 @@ private object SegmentedControlScopeImpl : SegmentedControlScope {
                         atEnd = selected,
                     )
                     HorizontalSpacer(8.dp)
-                    Text(text = text, maxLines = 1, overflow = TextOverflow.Ellipsis, color = labelColor, style = textStyle)
+                    Text(
+                        text = text,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        color = labelColor,
+                        style = textStyle,
+                    )
                 }
             }
         }
@@ -733,7 +745,7 @@ private fun PreviewSegmentedControl() {
                 )
                 iconText(
                     LeboncoinIcons.ShoppingCartOutline,
-                    text ="Cart",
+                    text = "Cart",
                     iconOnTop = false,
                     selected = selectedIndex1 == 3,
                     onClick = { selectedIndex1 = 3 },
