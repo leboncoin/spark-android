@@ -2,6 +2,13 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [2.7.2](https://github.com/leboncoin/spark-android/compare/2.7.1...2.7.2) (2026-07-09)
+
+
+### Bug Fixes
+
+* **icons:** update icons ([#2068](https://github.com/leboncoin/spark-android/issues/2068)) ([1ed9811](https://github.com/leboncoin/spark-android/commit/1ed9811caf47cd52aafb05b8828cba8d8470ee15))
+
 ## [2.7.1](https://github.com/leboncoin/spark-android/compare/2.7.0...2.7.1) (2026-07-02)
 
 
