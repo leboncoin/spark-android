@@ -11,22 +11,66 @@ Every push to `main` triggers `.github/workflows/release.yml`, which runs releas
 
 Merging the Release PR creates a git tag and GitHub Release. That tag then triggers:
 
-- `.github/workflows/publish.yml` — publishes to Maven Central
-- `.github/workflows/firebase-app-distribution.yml` — distributes the catalog APK to Firebase and attaches it to the GitHub Release
+- `.github/workflows/publish.yml` -- publishes to Maven Central
+- `.github/workflows/firebase-app-distribution.yml` -- distributes the catalog APK to Firebase and attaches it to the GitHub Release
 
 Conventional commit prefixes control the version bump: `feat:` bumps minor, `fix:` bumps patch, `feat!:` / `fix!:` (breaking change) bumps major. Commits without a recognised prefix are ignored for versioning.
 
+## Release and Hotfix Flow
+
+```mermaid
+gitGraph
+    commit id: "feat: previous work"
+    commit id: "feat: add features"
+
+    branch release-please--branches--main
+    checkout release-please--branches--main
+    commit id: "chore: release 1.2.0" tag: "1.2.0"
+
+    checkout main
+    merge release-please--branches--main
+
+    commit id: "fix: fix a bug (main)"
+
+    branch hotfix/1.2.1
+    checkout hotfix/1.2.1
+    commit id: "fix: fix a bug (cherry-pick)"
+
+    branch release-please--branches--hotfix-1.2.1
+    checkout release-please--branches--hotfix-1.2.1
+    commit id: "chore: release 1.2.1" tag: "1.2.1"
+
+    checkout hotfix/1.2.1
+    merge release-please--branches--hotfix-1.2.1
+
+    checkout main
+    commit id: "feat: more features"
+
+    branch release-please--branches--main--next
+    checkout release-please--branches--main--next
+    commit id: "chore: release 1.3.0" tag: "1.3.0"
+
+    checkout main
+    merge release-please--branches--main--next
+```
 ## Icon Updates
 
-Icon changes are automated via `.github/workflows/pr-icon-updates.yml`, which opens a PR titled `feat(icons): update icons`. By default this is treated as a minor bump (new icons added).
+Icon changes are automated via `.github/workflows/pr-icon-updates.yml`, which opens a PR titled `feat(icons): update icons`. By default this is treated as a patch bump.
 
-If the update contains a breaking change (icon removal, rename, or visual change to an existing icon), the reviewer must edit the PR title before merging to signal a breaking change:
+## Icon Hotfix Workflow
 
-```
-feat(icons)!: update icons
-```
+When a PR titled `feat(icons): update icons` merges into `main`, a hotfix
+release workflow is triggered automatically. As a developer, you only need to act
+at two points:
 
-The `!` suffix tells release-please this is a breaking change and triggers a major version bump.
+1. **Update screenshots and ABI** -- If an icon is removed, added, or modified,
+   paparazzi will ask you to update the golden screenshots. If an icon is added,
+   removed, or renamed, update the ABI with `./gradlew updateLegacyAbi`.
+2. **Merge the Release PR** that release-please opens against `hotfix/X.Y.Z+1`.
+   Merging it creates the tag and publishes the new version to Maven Central.
+
+If the cherry-pick fails (e.g. a conflict), the workflow fails visibly -- follow
+the manual [Hotfix Workflow](#hotfix-workflow) instead.
 
 ## Hotfix Workflow
 
@@ -39,6 +83,5 @@ The `!` suffix tells release-please this is a breaking change and triggers a maj
    ```bash
    git switch --create fix-hotfix-X.Y.Z+1 hotfix/X.Y.Z+1
    ```
-3. This creates a Release PR targeting the hotfix branch.
+3. Release-please opens a Release PR targeting the hotfix branch.
 4. Merge the Release PR. The tag and publish workflows fire automatically.
-5. Open a PR to merge `hotfix/X.Y.Z+1` back into `main`. **Must use a merge commit** (not squash). Release-please needs the hotfix tag to be reachable from main's history to correctly scope the next changelog. A squash merge breaks this ancestry and causes release-please to scan the full history.
