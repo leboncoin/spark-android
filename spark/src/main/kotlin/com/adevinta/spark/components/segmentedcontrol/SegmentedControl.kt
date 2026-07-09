@@ -136,9 +136,6 @@ public object SegmentedControl {
      * if you use the [SegmentedControl] to completely change the layout use bellow it then use [Role.Tab]
      * @param modifier Modifier applied to the outermost [Column] that wraps the optional header
      *   and the control track.
-     * @param shape Shape applied to each segment's touch target and to the animated indicator.
-     *   Defaults to [SegmentedControlShape.Rounded]. Use [SegmentedControlShape.Pill] for a fully
-     *   rounded look.
      * @param enabled When `false` all segments ignore input and their ripple is suppressed.
      * @param indicatorContent Composable that draws the selection indicator. Receives the current
      *   [selectedIndex] so callers can vary the appearance per selection — useful for value scales
@@ -152,7 +149,6 @@ public object SegmentedControl {
         selectedIndex: Int,
         modifier: Modifier = Modifier,
         role: Role = SegmentedControlDefaults.SemanticRole,
-        shape: SegmentedControlShape = SegmentedControlShape.Rounded,
         enabled: Boolean = true,
         indicatorContent: @Composable (selectedIndex: Int, enabled: Boolean) -> Unit = DefaultHorizontalIndicator,
         content: @Composable SegmentedControlScope.(SegmentedButtonItem) -> Unit,
