@@ -288,7 +288,7 @@ public object SparkButtonDefaults {
     /**
      * The default size of the icon when used inside a [SparkButtonTags].
      */
-    internal val IconSize: Dp = 20.dp
+    internal val IconSize: Dp = 16.dp
 
     /**
      * The default size of the spacing between an icon and a text when they used inside a [SparkButtonTags].
