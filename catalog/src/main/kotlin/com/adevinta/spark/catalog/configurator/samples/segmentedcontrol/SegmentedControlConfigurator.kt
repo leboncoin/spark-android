@@ -148,6 +148,7 @@ private fun ConfigedSegmentedControl(
                                 LeboncoinIcons.ShoppingCartOutline,
                                 "Item ${index + 1}",
                                 selected = selected,
+                                iconOnTop = true,
                                 onClick = onClick,
                             )
                         }

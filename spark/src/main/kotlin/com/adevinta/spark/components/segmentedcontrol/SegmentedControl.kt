@@ -522,6 +522,14 @@ private fun SegmentedControlImpl(
                 isTraversalGroup = true
                 selectableGroup()
             }
+            .background(
+                color = if (enabled) {
+                    SegmentedControlTokens.BackgroundColor
+                } else {
+                    SegmentedControlTokens.BackgroundDisabledColor
+                },
+                shape = containerShape,
+            )
             .border(
                 width = SegmentedControlTokens.BorderWidth,
                 color = SegmentedControlTokens.BorderColor,

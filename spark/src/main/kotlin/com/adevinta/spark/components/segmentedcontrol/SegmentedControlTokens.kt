@@ -57,6 +57,15 @@ public object SegmentedControlTokens {
 
     /** Width of the outer border drawn around the control track. */
     public val BorderWidth: Dp = 1.dp
+
+    public val BackgroundColor: Color
+        @Composable
+        @ReadOnlyComposable
+        get() = SparkTheme.colors.surface
+
+    public val BackgroundDisabledColor: Color
+        @Composable
+        get() = BackgroundColor.disabled
     public val BorderColor: Color
         @Composable
         @ReadOnlyComposable
@@ -130,6 +139,7 @@ public object SegmentedControlTokens {
 
     public val IndicatorColor: Color
         @Composable
+        @ReadOnlyComposable
         get() = SparkTheme.colors.supportContainer
 
     public val IndicatorDisabledColor: Color
@@ -138,6 +148,7 @@ public object SegmentedControlTokens {
 
     public val IndicatorBorderColor: Color
         @Composable
+        @ReadOnlyComposable
         get() = SparkTheme.colors.support
 
     public val IndicatorBorderDisabledColor: Color

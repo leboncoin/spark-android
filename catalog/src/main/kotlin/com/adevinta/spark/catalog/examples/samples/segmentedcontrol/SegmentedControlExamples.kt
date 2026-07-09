@@ -52,6 +52,8 @@ import com.adevinta.spark.components.segmentedcontrol.SegmentedControlScope
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControlShape
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.Building
+import com.adevinta.spark.icons.CalendarCheckFill
+import com.adevinta.spark.icons.CalendarDotOutline
 import com.adevinta.spark.icons.CalendarTextOutline
 import com.adevinta.spark.icons.EuroSymbol
 import com.adevinta.spark.icons.House
@@ -125,8 +127,8 @@ private fun SingleRowExample() {
         SegmentedControl.Horizontal(
             selectedIndex = selectedIndex1,
         ) {
-            singleLine("Day", selected = selectedIndex1 == 0, onClick = { selectedIndex1 = 0 })
-            singleLine("Week", selected = selectedIndex1 == 1, onClick = { selectedIndex1 = 1 })
+            iconText(text = "Day", icon = LeboncoinIcons.CalendarCheckFill, selected = selectedIndex1 == 0, iconOnTop = false, onClick = { selectedIndex1 = 0 })
+            iconText(text = "Week", icon = LeboncoinIcons.CalendarDotOutline, selected = selectedIndex1 == 1, iconOnTop = false, onClick = { selectedIndex1 = 1 })
         }
 
         Text("3 Segments")
@@ -218,6 +220,7 @@ private fun ContentTypesExample() {
                 "Cart",
                 selected = selectedIndex1 == 3,
                 onClick = { selectedIndex1 = 3 },
+                iconOnTop = true,
             )
         }
 
@@ -270,24 +273,28 @@ private fun ContentTypesExample() {
                 text = "Vente immobilière",
                 selected = selectedIndex5 == 0,
                 onClick = { selectedIndex5 = 0 },
+                iconOnTop = true,
             )
             iconText(
                 icon = LeboncoinIcons.Building,
                 text = "Location",
                 selected = selectedIndex5 == 1,
                 onClick = { selectedIndex5 = 1 },
+                iconOnTop = true,
             )
             iconText(
                 icon = LeboncoinIcons.ParasolOutline,
                 text = "Location Saisonnière",
                 selected = selectedIndex5 == 2,
                 onClick = { selectedIndex5 = 2 },
+                iconOnTop = true,
             )
             iconText(
                 icon = LeboncoinIcons.PeopleCriteria,
                 text = "Colocation",
                 selected = selectedIndex5 == 3,
                 onClick = { selectedIndex5 = 3 },
+                iconOnTop = true,
             )
         }
 
@@ -430,18 +437,21 @@ private fun FilterExample() {
                 "Price",
                 selected = selectedSortIndex == 0,
                 onClick = { selectedSortIndex = 0 },
+                iconOnTop = true,
             )
             iconText(
                 LeboncoinIcons.CalendarTextOutline,
                 "Date",
                 selected = selectedSortIndex == 1,
                 onClick = { selectedSortIndex = 1 },
+                iconOnTop = true,
             )
             iconText(
                 LeboncoinIcons.StarFill,
                 "Rating",
                 selected = selectedSortIndex == 2,
                 onClick = { selectedSortIndex = 2 },
+                iconOnTop = true,
             )
         }
     }
