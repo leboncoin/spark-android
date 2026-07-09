@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.segmentedcontrol
 
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.Color
@@ -30,7 +31,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.icons.IconSize
-import com.adevinta.spark.tokens.dim1
 import com.adevinta.spark.tokens.disabled
 import com.adevinta.spark.tokens.highlight
 
@@ -70,7 +70,7 @@ public object SegmentedControlTokens {
     public val ContainerVerticalShape: Shape
         @Composable
         @ReadOnlyComposable
-        get() = SparkTheme.shapes.large
+        get() = RoundedCornerShape(20.0.dp)
     public val IndicatorBorderWidth: Dp = 2.dp
 
     /** Width of the divider line drawn between adjacent segments. */
@@ -99,7 +99,7 @@ public object SegmentedControlTokens {
 
     public val SegmentTextColor: Color
         @Composable
-        get() = SparkTheme.colors.onSurface.dim1
+        get() = SparkTheme.colors.onSurface
 
     public val SegmentTextColorSelected: Color
         @Composable
@@ -113,20 +113,36 @@ public object SegmentedControlTokens {
     public val SegmentIconColor: Color
         @Composable
         @ReadOnlyComposable
-        get() = SparkTheme.colors.support
+        get() = SparkTheme.colors.onSupportContainer
 
     public val SegmentIconSelectedColor: Color
         @Composable
         @ReadOnlyComposable
-        get() = SparkTheme.colors.supportVariant
+        get() = SparkTheme.colors.onSupportContainer
 
     public val SegmentIconDisabledColor: Color
         @Composable
-        get() = SparkTheme.colors.support.disabled
+        get() = SegmentIconColor.disabled
 
     public val SegmentIconDisabledSelectedColor: Color
         @Composable
-        get() = SparkTheme.colors.supportVariant.disabled
+        get() = SegmentIconSelectedColor.disabled
+
+    public val IndicatorColor: Color
+        @Composable
+        get() = SparkTheme.colors.supportContainer
+
+    public val IndicatorDisabledColor: Color
+        @Composable
+        get() = IndicatorColor.disabled
+
+    public val IndicatorBorderColor: Color
+        @Composable
+        get() = SparkTheme.colors.support
+
+    public val IndicatorBorderDisabledColor: Color
+        @Composable
+        get() = IndicatorBorderColor.disabled
 
     public val SegmentIconSize: IconSize = IconSize.Medium
 }

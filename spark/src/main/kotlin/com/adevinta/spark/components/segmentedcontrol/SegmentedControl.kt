@@ -22,13 +22,9 @@
 package com.adevinta.spark.components.segmentedcontrol
 
 import android.annotation.SuppressLint
-import androidx.compose.animation.animateColor
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.rememberTransition
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -36,6 +32,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -71,8 +68,6 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.selectableGroup
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.lerp
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
@@ -87,6 +82,7 @@ import com.adevinta.spark.components.popover.PlainTooltip
 import com.adevinta.spark.components.popover.TooltipBox
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControl.Horizontal
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControl.Vertical
+import com.adevinta.spark.components.spacer.HorizontalSpacer
 import com.adevinta.spark.components.spacer.VerticalSpacer
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.LeboncoinIcons
@@ -140,6 +136,9 @@ public object SegmentedControl {
      * if you use the [SegmentedControl] to completely change the layout use bellow it then use [Role.Tab]
      * @param modifier Modifier applied to the outermost [Column] that wraps the optional header
      *   and the control track.
+     * @param shape Shape applied to each segment's touch target and to the animated indicator.
+     *   Defaults to [SegmentedControlShape.Rounded]. Use [SegmentedControlShape.Pill] for a fully
+     *   rounded look.
      * @param enabled When `false` all segments ignore input and their ripple is suppressed.
      * @param indicatorContent Composable that draws the selection indicator. Receives the current
      *   [selectedIndex] so callers can vary the appearance per selection — useful for value scales
@@ -153,6 +152,7 @@ public object SegmentedControl {
         selectedIndex: Int,
         modifier: Modifier = Modifier,
         role: Role = SegmentedControlDefaults.SemanticRole,
+        shape: SegmentedControlShape = SegmentedControlShape.Rounded,
         enabled: Boolean = true,
         indicatorContent: @Composable (selectedIndex: Int, enabled: Boolean) -> Unit = DefaultHorizontalIndicator,
         content: @Composable SegmentedControlScope.(SegmentedButtonItem) -> Unit,
@@ -221,35 +221,11 @@ public object SegmentedControl {
     }
 }
 
-@Stable
-private data class SegmentLabelStyle(val color: Color, val textStyle: TextStyle)
-
-private data class SegmentLabelAnimationState(val selected: Boolean, val enabled: Boolean)
-
 @Composable
 private fun segmentLabelStyle(
     selected: Boolean,
     enabled: Boolean = LocalSegmentItemInfo.current.enabled,
-): SegmentLabelStyle {
-    val animationState = remember(selected, enabled) {
-        MutableTransitionState(SegmentLabelAnimationState(selected, enabled))
-    }
-    val transition = rememberTransition(transitionState = animationState, label = "segmentLabel")
-    val color by transition.animateColor(label = "labelColor") {
-        when {
-            it.enabled && it.selected -> SegmentedControlTokens.SegmentTextColorSelected
-            it.enabled && !it.selected -> SegmentedControlTokens.SegmentTextColor
-            else -> SegmentedControlTokens.SegmentTextColorDisabled
-        }
-    }
-    val progress by transition.animateFloat(label = "labelProgress") { if (it.selected) 1f else 0f }
-    val textStyle = lerp(
-        start = SegmentedControlTokens.SegmentTextStyle,
-        stop = SegmentedControlTokens.SegmentTextStyleSelected,
-        fraction = progress,
-    )
-    return SegmentLabelStyle(color, textStyle)
-}
+): SegmentLabelStyle = SegmentedControlDefaults.segmentLabelStyle(selected, enabled)
 
 private object SegmentedButtonItemImpl : SegmentedButtonItem
 
@@ -341,15 +317,9 @@ private object SegmentedControlScopeImpl : SegmentedControlScope {
             selected = selected,
             onClick = onClick,
         ) {
-            val enabled = LocalSegmentItemInfo.current.enabled
-            val iconColor by animateColorAsState(
-                when {
-                    enabled && selected -> SegmentedControlTokens.SegmentIconSelectedColor
-                    enabled && !selected -> SegmentedControlTokens.SegmentIconColor
-                    !enabled && selected -> SegmentedControlTokens.SegmentIconDisabledSelectedColor
-                    else -> SegmentedControlTokens.SegmentIconDisabledColor
-                },
-                label = "iconColor",
+            val iconColor by SegmentedControlDefaults.segmentIconColor(
+                selected = selected,
+                enabled = LocalSegmentItemInfo.current.enabled,
             )
             TooltipBox(
                 positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Above),
@@ -365,6 +335,7 @@ private object SegmentedControlScopeImpl : SegmentedControlScope {
                     contentDescription = null,
                     size = SegmentedControlTokens.SegmentIconSize,
                     tint = iconColor,
+                    atEnd = selected,
                 )
             }
         }
@@ -376,6 +347,7 @@ private object SegmentedControlScopeImpl : SegmentedControlScope {
         icon: SparkIcon,
         text: String,
         selected: Boolean,
+        iconOnTop: Boolean,
         onClick: () -> Unit,
         modifier: Modifier,
     ): SegmentedButtonItem {
@@ -384,24 +356,41 @@ private object SegmentedControlScopeImpl : SegmentedControlScope {
             selected = selected,
             onClick = onClick,
         ) {
-            val enabled = LocalSegmentItemInfo.current.enabled
-            val iconColor by animateColorAsState(
-                when {
-                    enabled && selected -> SegmentedControlTokens.SegmentIconSelectedColor
-                    enabled && !selected -> SegmentedControlTokens.SegmentIconColor
-                    !enabled && selected -> SegmentedControlTokens.SegmentIconDisabledSelectedColor
-                    else -> SegmentedControlTokens.SegmentIconDisabledColor
-                },
-                label = "iconColor",
+            val iconColor by SegmentedControlDefaults.segmentIconColor(
+                selected = selected,
+                enabled = LocalSegmentItemInfo.current.enabled,
             )
             val (labelColor, textStyle) = segmentLabelStyle(selected)
-            Column(
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Icon(sparkIcon = icon, contentDescription = null, size = IconSize.Medium, tint = iconColor)
-                VerticalSpacer(4.dp)
-                Text(text = text, maxLines = 1, overflow = TextOverflow.Ellipsis, color = labelColor, style = textStyle)
+            if (iconOnTop) {
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    Icon(
+                        sparkIcon = icon,
+                        contentDescription = null,
+                        size = IconSize.Medium,
+                        tint = iconColor,
+                        atEnd = selected,
+                    )
+                    VerticalSpacer(4.dp)
+                    Text(text = text, maxLines = 1, overflow = TextOverflow.Ellipsis, color = labelColor, style = textStyle)
+                }
+            } else {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center,
+                ) {
+                    Icon(
+                        sparkIcon = icon,
+                        contentDescription = null,
+                        size = IconSize.Small,
+                        tint = iconColor,
+                        atEnd = selected,
+                    )
+                    HorizontalSpacer(8.dp)
+                    Text(text = text, maxLines = 1, overflow = TextOverflow.Ellipsis, color = labelColor, style = textStyle)
+                }
             }
         }
         return SegmentedButtonItemImpl
@@ -744,7 +733,8 @@ private fun PreviewSegmentedControl() {
                 )
                 iconText(
                     LeboncoinIcons.ShoppingCartOutline,
-                    "Cart",
+                    text ="Cart",
+                    iconOnTop = false,
                     selected = selectedIndex1 == 3,
                     onClick = { selectedIndex1 = 3 },
                 )
@@ -765,6 +755,7 @@ private fun PreviewSegmentedControl() {
                 iconText(
                     LeboncoinIcons.ShoppingCartOutline,
                     "Cart",
+                    iconOnTop = true,
                     selected = selectedIndex1 == 3,
                     onClick = { selectedIndex1 = 3 },
                 )

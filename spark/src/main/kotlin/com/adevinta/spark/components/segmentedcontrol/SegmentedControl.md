@@ -156,6 +156,36 @@ The default indicator (`SegmentedControlDefaults.Indicator`) draws a `neutralCon
 
 Use `custom` when no built-in segment variant fits. The `rippleColor` parameter lets you match the ripple to a segment's own background.
 
+### Reusing Built-in Animations
+
+Custom segments may need the same color and weight animations as standard segments. Two helpers in `SegmentedControlDefaults` expose these:
+
+| Helper | Returns | Use case |
+|--------|---------|----------|
+| `segmentLabelStyle(selected, enabled)` | `SegmentLabelStyle(color, textStyle)` | Text colour + font weight animation |
+| `segmentIconColor(selected, enabled)` | `State<Color>` | Icon tint animation |
+
+```kotlin
+SegmentedControl.Horizontal(selectedIndex = selected) {
+    custom(selected = selected == 0, onClick = { selected = 0 }) {
+        val (labelColor, textStyle) = SegmentedControlDefaults.segmentLabelStyle(
+            selected = selected == 0,
+            enabled = true,
+        )
+        val iconColor by SegmentedControlDefaults.segmentIconColor(
+            selected = selected == 0,
+            enabled = true,
+        )
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(sparkIcon = myIcon, contentDescription = null, tint = iconColor)
+            HorizontalSpacer(8.dp)
+            Text(text = "Custom", color = labelColor, style = textStyle)
+        }
+    }
+    singleLine("Other", selected = selected == 1, onClick = { selected = 1 })
+}
+```
+
 ### Energy Rating Scale (DPE)
 
 A real-world example combining a custom indicator with custom segments. Both the indicator background and the segment label colour animate to match the selected energy class.

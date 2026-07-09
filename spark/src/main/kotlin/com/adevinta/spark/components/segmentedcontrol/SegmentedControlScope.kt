@@ -119,9 +119,11 @@ public interface SegmentedControlScope {
      * [com.adevinta.spark.tokens.SparkColors.supportVariant] when selected. The text uses the same animated style as
      * [singleLine].
      *
-     * @param icon Icon rendered above the label.
-     * @param text Label displayed below the icon, truncated with ellipsis.
+     * @param icon Icon rendered above or beside the label.
+     * @param text Label displayed next to or below the icon, truncated with ellipsis.
      * @param selected Whether this segment is currently selected.
+     * @param iconOnTop When `true` the icon is placed above the text. When `false` it is placed to
+     *   the start (inline with the text).
      * @param onClick Called when the user taps this segment.
      * @param modifier Modifier applied to this segment's touch-target box.
      */
@@ -130,6 +132,7 @@ public interface SegmentedControlScope {
         icon: SparkIcon,
         text: String,
         selected: Boolean,
+        iconOnTop: Boolean,
         onClick: () -> Unit,
         modifier: Modifier = Modifier,
     ): SegmentedButtonItem
@@ -154,12 +157,16 @@ public interface SegmentedControlScope {
     ): SegmentedButtonItem
 
     /**
-     * Segment with fully custom content. Use this when no other scope variant fits — for example,
-     * when segment appearance must vary with the selected value (e.g. a colour-coded energy-rating
+     * Segment with fully custom content. Use this when no other scope variant fits, for example
+     * when segment appearance must vary with the selected value (e.g. a color-coded energy-rating
      * scale).
      *
      * The [content] lambda is centred inside the segment's touch target. Enabled state and indicator
      * shape are still controlled by the enclosing [SegmentedControl].
+     *
+     * To reuse the same animations as built-in segments, call
+     * [SegmentedControlDefaults.segmentLabelStyle] for text color and weight, or
+     * [SegmentedControlDefaults.segmentIconColor] for icon tint.
      *
      * **Accessibility:** [content] must produce at least one composable that contributes text
      * semantics (e.g. [com.adevinta.spark.components.text.Text], or a composable with a non-null
