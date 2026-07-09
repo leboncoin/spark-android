@@ -10,6 +10,7 @@
       "extra-files": [
         { "type": "generic", "path": "gradle.properties" }
       ],
+      "exclude-labels": ["Dependencies"],
       "include-v-in-tag": false,
       "include-component-in-tag": false,
       "changelog-type": "default",
