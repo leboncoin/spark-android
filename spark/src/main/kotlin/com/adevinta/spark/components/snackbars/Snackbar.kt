@@ -210,7 +210,7 @@ private fun DismissIcon(
             Icon(
                 sparkIcon = LeboncoinIcons.Cross,
                 contentDescription = null,
-                modifier = Modifier.size(20.dp),
+                modifier = Modifier.size(16.dp),
             )
         }
     }
