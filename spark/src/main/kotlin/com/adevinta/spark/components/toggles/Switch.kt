@@ -27,7 +27,6 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.runtime.Composable
@@ -83,9 +82,7 @@ internal fun SparkSwitch(
         enabled = enabled,
         thumbContent = icon,
         colors = intent.toSwitchDefaultsColors(),
-        modifier = modifier
-            .padding(horizontal = 8.dp)
-            .sparkUsageOverlay(),
+        modifier = modifier.sparkUsageOverlay(),
     )
 }
 
@@ -169,9 +166,7 @@ public fun SwitchLabelled(
                 enabled = enabled,
                 intent = IntentColors.Support,
                 icons = icons,
-                modifier = it.align(
-                    verticalAlignment,
-                ),
+                modifier = it.align(verticalAlignment),
             )
         },
         role = Role.Switch,
