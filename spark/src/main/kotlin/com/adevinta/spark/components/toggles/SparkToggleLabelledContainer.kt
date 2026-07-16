@@ -68,7 +68,7 @@ internal fun SparkToggleLabelledContainer(
     }
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = spacedBy(4.dp),
+        horizontalArrangement = spacedBy(8.dp),
         modifier = modifier
             .clip(SparkTheme.shapes.small)
             .then(toggleableModifier)
