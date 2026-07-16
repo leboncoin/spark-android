@@ -21,8 +21,10 @@
  */
 package com.adevinta.spark.components.toggles
 
+import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.selection.triStateToggleable
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.ProvideTextStyle
@@ -35,11 +37,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.IntentColors
 import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.components.toggles.SwitchDefaults.icons
 import com.adevinta.spark.tools.modifiers.SlotArea
-import com.adevinta.spark.tools.modifiers.minimumTouchTargetSize
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
 @Composable
@@ -64,6 +68,7 @@ internal fun SparkToggleLabelledContainer(
     }
     Row(
         verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = spacedBy(4.dp),
         modifier = modifier
             .clip(SparkTheme.shapes.small)
             .then(toggleableModifier)
@@ -81,7 +86,7 @@ internal fun SparkToggleLabelledContainer(
             }
         }
 
-        toggle(Modifier.minimumTouchTargetSize())
+        toggle(Modifier.requiredHeight(44.dp))
 
         label()
     }
@@ -138,6 +143,25 @@ internal fun TogglesLabelledSlotPreview() {
                     modifier = it,
                     state = ToggleableState(true),
                     onClick = null,
+                )
+            },
+            role = Role.Checkbox,
+            onClick = {},
+            content = {
+                SlotArea(color = LocalContentColor.current) {
+                    Text("CheckBox On")
+                }
+            },
+        )
+        SparkToggleLabelledContainer(
+            state = ToggleableState(true),
+            toggle = {
+                SparkSwitch(
+                    checked = true,
+                    onCheckedChange = null,
+                    intent = IntentColors.Support,
+                    icons = icons,
+                    modifier = it,
                 )
             },
             role = Role.Checkbox,
