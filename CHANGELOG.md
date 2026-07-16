@@ -2,6 +2,13 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [3.0.1](https://github.com/leboncoin/spark-android/compare/3.0.0...3.0.1) (2026-07-16)
+
+
+### Bug Fixes
+
+* **toggle:** remove the horizontal padding on toggles with a label ([#2078](https://github.com/leboncoin/spark-android/issues/2078)) ([67ecb0e](https://github.com/leboncoin/spark-android/commit/67ecb0e08ae2e39b952c4c42124573c9aa6fcfc6))
+
 ## [3.0.0](https://github.com/leboncoin/spark-android/compare/2.7.0...3.0.0) (2026-07-15)
 
 
