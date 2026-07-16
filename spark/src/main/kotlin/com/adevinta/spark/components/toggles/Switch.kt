@@ -197,7 +197,7 @@ public data class SwitchIcons(
 @Composable
 private fun AllStatesSwitchLabelledPreview() {
     val text = "This is an example of a multi-line text which is very long and in which the user should read " +
-            "all the information."
+        "all the information."
     val icons = SwitchIcons(
         checked = LeboncoinIcons.BellOnFill,
         unchecked = LeboncoinIcons.BellOffFill,
