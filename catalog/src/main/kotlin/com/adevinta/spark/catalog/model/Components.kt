@@ -29,6 +29,7 @@ import com.adevinta.spark.catalog.configurator.samples.bottomsheet.BottomSheetCo
 import com.adevinta.spark.catalog.configurator.samples.buttons.ButtonsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.buttons.IconButtonsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.buttons.IconToggleButtonsConfigurator
+import com.adevinta.spark.catalog.configurator.samples.buttons.NewButtonsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.card.CardConfigurator
 import com.adevinta.spark.catalog.configurator.samples.card.CardHighlightedConfigurator
 import com.adevinta.spark.catalog.configurator.samples.chips.ChipsConfigurator
@@ -63,6 +64,7 @@ import com.adevinta.spark.catalog.examples.samples.badge.BadgeExamples
 import com.adevinta.spark.catalog.examples.samples.bottomsheet.BottomSheetExamples
 import com.adevinta.spark.catalog.examples.samples.buttons.ButtonsExamples
 import com.adevinta.spark.catalog.examples.samples.buttons.IconButtonsExamples
+import com.adevinta.spark.catalog.examples.samples.buttons.NewButtonsExamples
 import com.adevinta.spark.catalog.examples.samples.card.CardExamples
 import com.adevinta.spark.catalog.examples.samples.chips.ChipsExamples
 import com.adevinta.spark.catalog.examples.samples.combobox.ComboBoxExample
@@ -155,8 +157,8 @@ private val Buttons = Component(
     guidelinesUrl = "$ComponentGuidelinesUrl/p/34b742-button/b/32e1a2",
     docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.buttons/index.html",
     sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/components/buttons/Button.kt",
-    examples = ButtonsExamples,
-    configurators = ButtonsConfigurator,
+    examples = ButtonsExamples + NewButtonsExamples,
+    configurators = ButtonsConfigurator + NewButtonsConfigurator,
 )
 
 private val ComboBox = Component(

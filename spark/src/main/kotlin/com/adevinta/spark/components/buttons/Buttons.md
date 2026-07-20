@@ -11,23 +11,153 @@ places like:
 - Cards
 - Toolbars
 
-The minimal usage of the component is the text and the click action.
+## Button API
+
+Buttons are accessed as extension functions on the `Button` object. Each variant accepts either
+a `text: String` parameter or a `content: @Composable RowScope.() -> Unit` slot for custom content.
 
 ```kotlin
-ButtonFilled(
-    text = "Main",
+Button.Primary(
     onClick = { /*Click event*/ },
+    text = "Main",
 )
 ```
 
-The buttons have an loading state that can be used to indicate that the button is loading some
+All variants share these common parameters:
+
+| Parameter | Description |
+|-----------|-------------|
+| `onClick` | Called when the user clicks the button |
+| `modifier` | Modifier applied to the button |
+| `size` | Button size (`ButtonSize.Small`, `Medium`, `Large`) |
+| `enabled` | Controls the enabled state |
+| `icon` | Optional icon at the start or end of the button |
+| `iconSide` | Side where the icon is displayed (`IconSide.START` or `END`) |
+| `isLoading` | Shows a circular progress indicator |
+| `interactionSource` | Stream of interactions for custom appearance |
+
+The buttons have a loading state that can be used to indicate that the button is loading some
 data and show/hide an indeterminate circular progress indicator on the start of the button.
 
 ![](../../images/loading-button.gif)
 
-### All Styles
+## Variants
 
-There are multiple style variants for the button with the same parameters:
+| Variant | Purpose |
+|---------|---------|
+| `Button.Primary` | Used once per view *(not including a modal dialog)*, these buttons have the most emphasis. It should never be doubled up to sit side by side. Used when an action is clearly more important than others and you need to draw attention to it. |
+| `Button.Secondary` | The standard button for most use cases. The filled styling places less emphasis than Primary but still signals an important action. |
+| `Button.Tertiary` | Used for miscellaneous actions: the action is important, but may not be what the user is looking to do right then. Often paired with a Primary or Secondary button. |
+| `Button.Boost` | Used for any action attached to a conversion or monetisation flow, such as "Boost my ad" or "Upgrade". |
+| `Button.Ai` | Used for AI-powered actions. Always displays the Sparks icon to signal AI involvement. |
+| `Button.Danger` | Used for destructive or irreversible actions like "Delete" or "Remove". Warns the user of negative consequences. |
+| `Button.Success` | Used for positive confirmations like "Approve" or "Mark as sold" where the outcome is beneficial. |
+| `Button.Contrast` | Used for primary actions on dark media or dark backgrounds. |
+| `Button.Text` | Used for the most minor actions. Often paired with a Primary button. Can be used with Secondary and Tertiary buttons when the primary action is for forwarding. |
+| `Button.Underlined` | Used for link-style actions within body text, such as "Terms and conditions" or "Privacy policy". |
+| `ButtonGhost` | Used for the most minor actions, especially when presenting multiple options. The container is not visible until interaction. |
+
+### Button.Primary
+
+```kotlin
+Button.Primary(
+    onClick = { /*Click event*/ },
+    text = "Main",
+)
+```
+
+### Button.Secondary
+
+```kotlin
+Button.Secondary(
+    onClick = { /*Click event*/ },
+    text = "Secondary",
+)
+```
+
+### Button.Tertiary
+
+```kotlin
+Button.Tertiary(
+    onClick = { /*Click event*/ },
+    text = "Tertiary",
+)
+```
+
+### Button.Boost
+
+```kotlin
+Button.Boost(
+    onClick = { /*Click event*/ },
+    text = "Boost",
+)
+```
+
+### Button.Ai
+
+```kotlin
+Button.Ai(
+    onClick = { /*Click event*/ },
+    text = "Ask AI",
+)
+```
+
+### Button.Danger
+
+```kotlin
+Button.Danger(
+    onClick = { /*Click event*/ },
+    text = "Delete",
+)
+```
+
+### Button.Success
+
+```kotlin
+Button.Success(
+    onClick = { /*Click event*/ },
+    text = "Confirm",
+)
+```
+
+### Button.Contrast
+
+```kotlin
+Button.Contrast(
+    onClick = { /*Click event*/ },
+    text = "Contrast",
+)
+```
+
+### Button.Text
+
+```kotlin
+Button.Text(
+    onClick = { /*Click event*/ },
+    text = "Learn more",
+)
+```
+
+### Button.Underlined
+
+```kotlin
+Button.Underlined(
+    onClick = { /*Click event*/ },
+    text = "Terms and conditions",
+)
+```
+
+## Legacy API
+
+The following top-level composable functions remain available:
+
+| Legacy | Replacement |
+|--------|-------------|
+| `ButtonFilled` | `Button.Primary` |
+| `ButtonOutlined` | `Button.Tertiary` |
+| `ButtonTinted` | (no direct replacement) |
+| `ButtonGhost` | `ButtonGhost` (unchanged) |
+| `ButtonContrast` | `Button.Contrast` |
 
 #### ButtonFilled
 
@@ -49,10 +179,6 @@ ButtonFilled(
 
 Outlined buttons are used for support actions. The outlined styling places less emphasis on these
 actions that are important but not the main ones.
-It is recommended to pair it with a button with more emphasis like the filled button or the tinted
-button.
-
-Be aware that it's not advised to use it on top of images since it will be hard to see.
 
 ```kotlin
 ButtonOutlined(
@@ -65,12 +191,8 @@ ButtonOutlined(
 
 ![](../../images/com.adevinta.spark.buttons_ButtonDocumentationScreenshots_buttonTinted.png)
 
-Tinted buttons are medium-emphasis buttons that is an alternative middle ground between
-default Buttons (filled) and Outlined buttons. They can be used in contexts where lower-priority
-button requires slightly more emphasis than an outline would give, such as "Next" in an onboarding
-flow.
-
-It's best paired with either a filled button or an outlined button.
+Tinted buttons are medium-emphasis buttons. An alternative middle ground between filled and outlined
+buttons.
 
 ```kotlin
 ButtonTinted(
@@ -83,11 +205,8 @@ ButtonTinted(
 
 ![](../../images/com.adevinta.spark.buttons_ButtonDocumentationScreenshots_buttonGhost.png)
 
-Ghost buttons are used for the lowest priority actions, especially when presenting multiple options.
-
-Ghost buttons can be placed on a variety of backgrounds. Until the button is interacted with, its
-container isn't visible.
-This button style is often used inside other components like snackbars, dialogs, and cards.
+Ghost buttons are used for the lowest priority actions. The container is not visible until
+interaction.
 
 ```kotlin
 ButtonGhost(
@@ -100,8 +219,7 @@ ButtonGhost(
 
 ![](../../images/com.adevinta.spark.buttons_ButtonDocumentationScreenshots_buttonContrast.png)
 
-Contrast buttons are used for the high to mid priority actions when the background is dark like on
-an image or a video.
+Contrast buttons are used for high to mid priority actions on dark backgrounds.
 
 ```kotlin
 ButtonContrast(
