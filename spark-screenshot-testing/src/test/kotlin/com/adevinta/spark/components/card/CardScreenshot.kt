@@ -76,6 +76,9 @@ internal class CardScreenshot {
                     Card.HighlightElevated {
                         Text("This is an elevated card with a highlight banner.")
                     }
+                    Card.HighlightOutlined {
+                        Text("This is an outlined card with a highlight banner.")
+                    }
                 }
             }
         }

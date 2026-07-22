@@ -87,6 +87,15 @@ internal class CardDocumentationScreenshots {
             CardContent()
         }
     }
+
+    @Test
+    fun highlightOutlinedCard() = paparazzi.sparkDocSnapshot(color = { SparkTheme.colors.backgroundVariant }) {
+        Card.HighlightOutlined(
+            heading = { },
+        ) {
+            CardContent()
+        }
+    }
 }
 
 @Composable
@@ -105,7 +114,7 @@ private fun CardContent() {
         )
         Text(
             text = "Spark is a design system backed by open source code that helps teams build " +
-                "high-quality digital experiences. \uD83D\uDCA4",
+                    "high-quality digital experiences. \uD83D\uDCA4",
             style = SparkTheme.typography.body1,
         )
     }

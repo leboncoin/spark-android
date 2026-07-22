@@ -609,7 +609,7 @@ public object Card {
     /**
      * Highlight outlined card with a colored banner at the top for additional emphasis.
      *
-     * ![Highlight outlined card](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.card_CardDocumentationScreenshots_highlightFlatCard.png)
+     * ![Highlight outlined card](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.card_CardDocumentationScreenshots_highlightOutlined.png)
      *
      * @param modifier the Modifier to be applied to this card
      * @param shape the shape of this card
@@ -644,7 +644,7 @@ public object Card {
     /**
      * Clickable outlined flat card with a colored banner at the top for additional emphasis.
      *
-     * ![Highlight outlined card](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.card_CardDocumentationScreenshots_highlightFlatCard.png)
+     * ![Highlight outlined card](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.card_CardDocumentationScreenshots_highlightOutlined.png)
      *
      * @param onClick called when this card is clicked
      * @param modifier the Modifier to be applied to this card
