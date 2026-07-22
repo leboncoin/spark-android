@@ -155,7 +155,7 @@ internal class CardScreenshot {
                 }
 
                 Card.HighlightElevated(
-                    colors = SparkTheme.colors.accentContainer,
+                    headingColor = SparkTheme.colors.accentContainer,
                 ) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),

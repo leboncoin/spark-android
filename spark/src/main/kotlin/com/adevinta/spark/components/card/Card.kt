@@ -32,15 +32,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.shape.CornerBasedShape
-import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalContentColor
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -48,8 +44,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.style.TextAlign
@@ -68,8 +62,6 @@ import com.adevinta.spark.components.card.Card.Outlined
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.contentColorFor
-import com.adevinta.spark.tokens.dim2
-import com.adevinta.spark.tokens.dim4
 import com.adevinta.spark.tokens.highlight
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
@@ -479,7 +471,7 @@ public object Card {
      *
      * @param modifier the Modifier to be applied to this card
      * @param shape the shape of this card
-     * @param colors color used for the heading banner
+     * @param headingColor color used for the heading banner
      * @param contentPadding padding around the content
      * @param heading optional composable drawn in the top banner area
      * @param content content of the card
@@ -488,7 +480,7 @@ public object Card {
     public fun HighlightElevated(
         modifier: Modifier = Modifier,
         shape: Shape = SparkTheme.shapes.medium,
-        colors: Color = SparkTheme.colors.main,
+        headingColor: Color = SparkTheme.colors.main,
         contentPadding: PaddingValues = CardDefaults.paddingValues(true),
         heading: @Composable (BoxScope.() -> Unit) = { },
         content: @Composable ColumnScope.() -> Unit,
@@ -496,7 +488,7 @@ public object Card {
         SparkCard(
             modifier = modifier,
             shape = shape,
-            headingColor = colors,
+            headingColor = headingColor,
             borderColor = Color.Unspecified,
             borderWidth = Dp.Unspecified,
             elevation = CardDefaults.elevatedCardElevation(),
@@ -514,7 +506,7 @@ public object Card {
      * @param onClick called when this card is clicked
      * @param modifier the Modifier to be applied to this card
      * @param shape the shape of this card
-     * @param colors color used for the heading banner
+     * @param headingColor color used for the heading banner
      * @param contentPadding padding around the content
      * @param heading optional composable drawn in the top banner area
      * @param content content of the card
@@ -524,7 +516,7 @@ public object Card {
         onClick: () -> Unit,
         modifier: Modifier = Modifier,
         shape: Shape = SparkTheme.shapes.medium,
-        colors: Color = SparkTheme.colors.main,
+        headingColor: Color = SparkTheme.colors.main,
         contentPadding: PaddingValues = CardDefaults.paddingValues(true),
         heading: @Composable (BoxScope.() -> Unit) = { },
         content: @Composable ColumnScope.() -> Unit,
@@ -533,7 +525,7 @@ public object Card {
             onClick = onClick,
             modifier = modifier,
             shape = shape,
-            headingColor = colors,
+            headingColor = headingColor,
             borderColor = Color.Unspecified,
             borderWidth = Dp.Unspecified,
             elevation = CardDefaults.elevatedCardElevation(),
@@ -550,7 +542,7 @@ public object Card {
      *
      * @param modifier the Modifier to be applied to this card
      * @param shape the shape of this card
-     * @param colors color used for the heading banner
+     * @param headingColor color used for the heading banner
      * @param contentPadding padding around the content
      * @param heading optional composable drawn in the top banner area
      * @param content content of the card
@@ -559,7 +551,7 @@ public object Card {
     public fun HighlightFlat(
         modifier: Modifier = Modifier,
         shape: Shape = SparkTheme.shapes.medium,
-        colors: Color = SparkTheme.colors.main,
+        headingColor: Color = SparkTheme.colors.main,
         contentPadding: PaddingValues = CardDefaults.paddingValues(true),
         heading: @Composable (BoxScope.() -> Unit) = { },
         content: @Composable ColumnScope.() -> Unit,
@@ -567,7 +559,7 @@ public object Card {
         SparkCard(
             modifier = modifier,
             shape = shape,
-            headingColor = colors,
+            headingColor = headingColor,
             borderColor = Color.Unspecified,
             borderWidth = Dp.Unspecified,
             elevation = CardDefaults.cardElevation(),
@@ -585,7 +577,7 @@ public object Card {
      * @param onClick called when this card is clicked
      * @param modifier the Modifier to be applied to this card
      * @param shape the shape of this card
-     * @param colors color used for the heading banner
+     * @param headingColor color used for the heading banner
      * @param contentPadding padding around the content
      * @param heading optional composable drawn in the top banner area
      * @param content content of the card
@@ -595,7 +587,7 @@ public object Card {
         onClick: () -> Unit,
         modifier: Modifier = Modifier,
         shape: Shape = SparkTheme.shapes.medium,
-        colors: Color = SparkTheme.colors.main,
+        headingColor: Color = SparkTheme.colors.main,
         contentPadding: PaddingValues = CardDefaults.paddingValues(true),
         heading: @Composable (BoxScope.() -> Unit) = { },
         content: @Composable ColumnScope.() -> Unit,
@@ -604,7 +596,7 @@ public object Card {
             onClick = onClick,
             modifier = modifier,
             shape = shape,
-            headingColor = colors,
+            headingColor = headingColor,
             borderColor = Color.Unspecified,
             borderWidth = Dp.Unspecified,
             elevation = CardDefaults.cardElevation(),
@@ -621,7 +613,7 @@ public object Card {
      *
      * @param modifier the Modifier to be applied to this card
      * @param shape the shape of this card
-     * @param colors color used for the heading banner and the card border
+     * @param headingAndBorderColor color used for the heading banner and the card border
      * @param contentPadding padding around the content
      * @param heading optional composable drawn in the top banner area
      * @param content content of the card
@@ -630,7 +622,7 @@ public object Card {
     public fun HighlightOutlined(
         modifier: Modifier = Modifier,
         shape: Shape = SparkTheme.shapes.medium,
-        colors: Color = SparkTheme.colors.main,
+        headingAndBorderColor: Color = SparkTheme.colors.main,
         borderWidth: Dp = 2.dp,
         contentPadding: PaddingValues = CardDefaults.paddingValues(true),
         heading: @Composable (BoxScope.() -> Unit) = { },
@@ -639,8 +631,8 @@ public object Card {
         SparkCard(
             modifier = modifier,
             shape = shape,
-            headingColor = colors,
-            borderColor = colors,
+            headingColor = headingAndBorderColor,
+            borderColor = headingAndBorderColor,
             borderWidth = borderWidth,
             elevation = CardDefaults.cardElevation(),
             contentPadding = contentPadding,
@@ -657,7 +649,7 @@ public object Card {
      * @param onClick called when this card is clicked
      * @param modifier the Modifier to be applied to this card
      * @param shape the shape of this card
-     * @param colors color used for the heading banner and the card border
+     * @param headingAndBorderColor color used for the heading banner and the card border
      * @param contentPadding padding around the content
      * @param heading optional composable drawn in the top banner area
      * @param content content of the card
@@ -667,7 +659,7 @@ public object Card {
         onClick: () -> Unit,
         modifier: Modifier = Modifier,
         shape: Shape = SparkTheme.shapes.medium,
-        colors: Color = SparkTheme.colors.main,
+        headingAndBorderColor: Color = SparkTheme.colors.main,
         borderWidth: Dp = 2.dp,
         contentPadding: PaddingValues = CardDefaults.paddingValues(true),
         heading: @Composable (BoxScope.() -> Unit) = { },
@@ -677,8 +669,8 @@ public object Card {
             onClick = onClick,
             modifier = modifier,
             shape = shape,
-            headingColor = colors,
-            borderColor = colors,
+            headingColor = headingAndBorderColor,
+            borderColor = headingAndBorderColor,
             borderWidth = borderWidth,
             elevation = CardDefaults.cardElevation(),
             contentPadding = contentPadding,
@@ -1002,7 +994,7 @@ internal fun PreviewHighlightCard() {
     PreviewTheme(color = { SparkTheme.colors.backgroundVariant }) {
 
         HighlightOutlined(
-            colors = SparkTheme.colors.accent,
+            headingAndBorderColor = SparkTheme.colors.accent,
             heading = {
                 Text(
                     textAlign = TextAlign.Center,
