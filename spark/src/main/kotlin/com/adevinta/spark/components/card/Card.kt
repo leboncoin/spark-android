@@ -96,7 +96,7 @@ internal fun SparkCard(
     headingColor: Color = SparkTheme.colors.main,
     elevation: CardElevation = CardDefaults.cardElevation(),
     heading: @Composable (BoxScope.() -> Unit)? = null,
-    contentPadding: PaddingValues = CardDefaults.paddingValues(heading != null),
+    contentPadding: PaddingValues = CardDefaults.paddingValues(),
     content: @Composable ColumnScope.() -> Unit,
 ) {
     val border = if (borderColor != Color.Unspecified) {
@@ -131,7 +131,7 @@ internal fun SparkCard(
     headingColor: Color = SparkTheme.colors.main,
     elevation: CardElevation = CardDefaults.cardElevation(),
     heading: @Composable (BoxScope.() -> Unit)? = null,
-    contentPadding: PaddingValues = CardDefaults.paddingValues(heading != null),
+    contentPadding: PaddingValues = CardDefaults.paddingValues(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable ColumnScope.() -> Unit,
 ) {
@@ -481,7 +481,7 @@ public object Card {
         modifier: Modifier = Modifier,
         shape: Shape = SparkTheme.shapes.medium,
         headingColor: Color = SparkTheme.colors.main,
-        contentPadding: PaddingValues = CardDefaults.paddingValues(true),
+        contentPadding: PaddingValues = CardDefaults.paddingValues(),
         heading: @Composable (BoxScope.() -> Unit) = { },
         content: @Composable ColumnScope.() -> Unit,
     ) {
@@ -517,7 +517,7 @@ public object Card {
         modifier: Modifier = Modifier,
         shape: Shape = SparkTheme.shapes.medium,
         headingColor: Color = SparkTheme.colors.main,
-        contentPadding: PaddingValues = CardDefaults.paddingValues(true),
+        contentPadding: PaddingValues = CardDefaults.paddingValues(),
         heading: @Composable (BoxScope.() -> Unit) = { },
         content: @Composable ColumnScope.() -> Unit,
     ) {
@@ -552,7 +552,7 @@ public object Card {
         modifier: Modifier = Modifier,
         shape: Shape = SparkTheme.shapes.medium,
         headingColor: Color = SparkTheme.colors.main,
-        contentPadding: PaddingValues = CardDefaults.paddingValues(true),
+        contentPadding: PaddingValues = CardDefaults.paddingValues(),
         heading: @Composable (BoxScope.() -> Unit) = { },
         content: @Composable ColumnScope.() -> Unit,
     ) {
@@ -588,7 +588,7 @@ public object Card {
         modifier: Modifier = Modifier,
         shape: Shape = SparkTheme.shapes.medium,
         headingColor: Color = SparkTheme.colors.main,
-        contentPadding: PaddingValues = CardDefaults.paddingValues(true),
+        contentPadding: PaddingValues = CardDefaults.paddingValues(),
         heading: @Composable (BoxScope.() -> Unit) = { },
         content: @Composable ColumnScope.() -> Unit,
     ) {
@@ -624,7 +624,7 @@ public object Card {
         shape: Shape = SparkTheme.shapes.medium,
         headingAndBorderColor: Color = SparkTheme.colors.main,
         borderWidth: Dp = 2.dp,
-        contentPadding: PaddingValues = CardDefaults.paddingValues(true),
+        contentPadding: PaddingValues = CardDefaults.paddingValues(),
         heading: @Composable (BoxScope.() -> Unit) = { },
         content: @Composable ColumnScope.() -> Unit,
     ) {
@@ -661,7 +661,7 @@ public object Card {
         shape: Shape = SparkTheme.shapes.medium,
         headingAndBorderColor: Color = SparkTheme.colors.main,
         borderWidth: Dp = 2.dp,
-        contentPadding: PaddingValues = CardDefaults.paddingValues(true),
+        contentPadding: PaddingValues = CardDefaults.paddingValues(),
         heading: @Composable (BoxScope.() -> Unit) = { },
         content: @Composable ColumnScope.() -> Unit,
     ) {

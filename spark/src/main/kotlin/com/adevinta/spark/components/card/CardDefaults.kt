@@ -187,8 +187,7 @@ public object CardDefaults {
     )
 
     @Composable
-    public fun paddingValues(hasHeading: Boolean): PaddingValues =
-        PaddingValues(16.dp)
+    public fun paddingValues(): PaddingValues = PaddingValues(16.dp)
 
     internal object OutlinedCardTokens {
         const val DisabledOutlineOpacity = 0.12f
