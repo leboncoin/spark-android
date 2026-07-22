@@ -54,6 +54,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
@@ -99,6 +100,7 @@ internal fun SparkCard(
     shape: Shape = SparkTheme.shapes.large,
     colors: Color = SparkTheme.colors.surface,
     borderColor: Color = SparkTheme.colors.outline,
+    borderWidth: Dp = 1.dp,
     headingColor: Color = SparkTheme.colors.main,
     elevation: CardElevation = CardDefaults.cardElevation(),
     heading: @Composable (BoxScope.() -> Unit)? = null,
@@ -106,7 +108,7 @@ internal fun SparkCard(
     content: @Composable ColumnScope.() -> Unit,
 ) {
     val border = if (borderColor != Color.Unspecified) {
-        BorderStroke(1.dp, borderColor)
+        BorderStroke(borderWidth, borderColor)
     } else {
         null
     }
@@ -133,6 +135,7 @@ internal fun SparkCard(
     shape: Shape = SparkTheme.shapes.large,
     color: Color = SparkTheme.colors.surface,
     borderColor: Color = SparkTheme.colors.outline,
+    borderWidth: Dp = 1.dp,
     headingColor: Color = SparkTheme.colors.main,
     elevation: CardElevation = CardDefaults.cardElevation(),
     heading: @Composable (BoxScope.() -> Unit)? = null,
@@ -143,7 +146,7 @@ internal fun SparkCard(
     val animatedBorderColor by animateColorAsState(borderColor)
     val animatedBackgroundColor by animateColorAsState(color)
     val border = if (borderColor != Color.Unspecified) {
-        BorderStroke(1.dp, animatedBorderColor)
+        BorderStroke(borderWidth, animatedBorderColor)
     } else {
         null
     }
@@ -292,6 +295,7 @@ public object Card {
             shape = shape,
             colors = colors,
             borderColor = Color.Unspecified,
+            borderWidth = Dp.Unspecified,
             elevation = CardDefaults.elevatedCardElevation(),
             contentPadding = contentPadding,
             content = content,
@@ -325,6 +329,7 @@ public object Card {
             shape = shape,
             color = colors,
             borderColor = Color.Unspecified,
+            borderWidth = Dp.Unspecified,
             elevation = CardDefaults.elevatedCardElevation(),
             contentPadding = contentPadding,
             content = content,
@@ -349,6 +354,7 @@ public object Card {
         shape: Shape = SparkTheme.shapes.medium,
         colors: Color = SparkTheme.colors.surface,
         borderColor: Color = SparkTheme.colors.outline,
+        borderWidth: Dp = 1.dp,
         contentPadding: PaddingValues = PaddingValues(16.dp),
         content: @Composable ColumnScope.() -> Unit,
     ) {
@@ -357,6 +363,7 @@ public object Card {
             shape = shape,
             colors = colors,
             borderColor = borderColor,
+            borderWidth = borderWidth,
             elevation = CardDefaults.outlinedCardElevation(),
             contentPadding = contentPadding,
             content = content,
@@ -383,6 +390,7 @@ public object Card {
         shape: Shape = SparkTheme.shapes.medium,
         colors: Color = SparkTheme.colors.surface,
         borderColor: Color = SparkTheme.colors.outline,
+        borderWidth: Dp = 1.dp,
         contentPadding: PaddingValues = PaddingValues(16.dp),
         content: @Composable ColumnScope.() -> Unit,
     ) {
@@ -392,6 +400,7 @@ public object Card {
             shape = shape,
             color = colors,
             borderColor = borderColor,
+            borderWidth = borderWidth,
             elevation = CardDefaults.outlinedCardElevation(),
             contentPadding = contentPadding,
             content = content,
@@ -422,6 +431,7 @@ public object Card {
             shape = shape,
             colors = colors,
             borderColor = Color.Unspecified,
+            borderWidth = Dp.Unspecified,
             elevation = CardDefaults.cardElevation(),
             contentPadding = contentPadding,
             content = content,
@@ -455,6 +465,7 @@ public object Card {
             shape = shape,
             color = colors,
             borderColor = Color.Unspecified,
+            borderWidth = Dp.Unspecified,
             elevation = CardDefaults.cardElevation(),
             contentPadding = contentPadding,
             content = content,
@@ -487,6 +498,7 @@ public object Card {
             shape = shape,
             headingColor = colors,
             borderColor = Color.Unspecified,
+            borderWidth = Dp.Unspecified,
             elevation = CardDefaults.elevatedCardElevation(),
             contentPadding = contentPadding,
             heading = heading,
@@ -523,6 +535,7 @@ public object Card {
             shape = shape,
             headingColor = colors,
             borderColor = Color.Unspecified,
+            borderWidth = Dp.Unspecified,
             elevation = CardDefaults.elevatedCardElevation(),
             contentPadding = contentPadding,
             heading = heading,
@@ -556,6 +569,7 @@ public object Card {
             shape = shape,
             headingColor = colors,
             borderColor = Color.Unspecified,
+            borderWidth = Dp.Unspecified,
             elevation = CardDefaults.cardElevation(),
             contentPadding = contentPadding,
             heading = heading,
@@ -592,6 +606,7 @@ public object Card {
             shape = shape,
             headingColor = colors,
             borderColor = Color.Unspecified,
+            borderWidth = Dp.Unspecified,
             elevation = CardDefaults.cardElevation(),
             contentPadding = contentPadding,
             heading = heading,
@@ -616,6 +631,7 @@ public object Card {
         modifier: Modifier = Modifier,
         shape: Shape = SparkTheme.shapes.medium,
         colors: Color = SparkTheme.colors.main,
+        borderWidth: Dp = 2.dp,
         contentPadding: PaddingValues = CardDefaults.paddingValues(true),
         heading: @Composable (BoxScope.() -> Unit) = { },
         content: @Composable ColumnScope.() -> Unit,
@@ -625,6 +641,7 @@ public object Card {
             shape = shape,
             headingColor = colors,
             borderColor = colors,
+            borderWidth = borderWidth,
             elevation = CardDefaults.cardElevation(),
             contentPadding = contentPadding,
             heading = heading,
@@ -651,6 +668,7 @@ public object Card {
         modifier: Modifier = Modifier,
         shape: Shape = SparkTheme.shapes.medium,
         colors: Color = SparkTheme.colors.main,
+        borderWidth: Dp = 2.dp,
         contentPadding: PaddingValues = CardDefaults.paddingValues(true),
         heading: @Composable (BoxScope.() -> Unit) = { },
         content: @Composable ColumnScope.() -> Unit,
@@ -661,6 +679,7 @@ public object Card {
             shape = shape,
             headingColor = colors,
             borderColor = colors,
+            borderWidth = borderWidth,
             elevation = CardDefaults.cardElevation(),
             contentPadding = contentPadding,
             heading = heading,
