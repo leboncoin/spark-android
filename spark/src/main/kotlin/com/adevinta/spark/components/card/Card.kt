@@ -228,7 +228,7 @@ internal fun SparkCard(
  */
 @Deprecated(
     message = "Use Card.Flat for a simple card with default styling, or use Card with" +
-            " CardColors for more customization",
+        " CardColors for more customization",
     replaceWith = ReplaceWith(
         "Card.Flat(modifier = modifier, shape = shape, content = content)",
         "com.adevinta.spark.components.card.Card",
@@ -706,7 +706,7 @@ public object Card {
  */
 @Deprecated(
     message = "Use Card.Flat with onClick for a clickable card with default styling, or use Card with " +
-            "onClick and CardColors for more customization",
+        "onClick and CardColors for more customization",
     replaceWith = ReplaceWith(
         "Card.Flat(onClick = onClick, modifier = modifier, shape = shape, content = content)",
         "com.adevinta.spark.components.card.Card",
@@ -992,7 +992,6 @@ internal fun PreviewInteractiveCard() {
 @Composable
 internal fun PreviewHighlightCard() {
     PreviewTheme(color = { SparkTheme.colors.backgroundVariant }) {
-
         HighlightOutlined(
             headingAndBorderColor = SparkTheme.colors.accent,
             heading = {
