@@ -320,7 +320,6 @@ public object SparkButtonDefaults {
     /**
      * The default border of [ButtonOutlined]
      */
-    @Composable
     internal fun outlinedBorder(color: Color): BorderStroke = BorderStroke(
         width = 1.0.dp,
         color = color,
