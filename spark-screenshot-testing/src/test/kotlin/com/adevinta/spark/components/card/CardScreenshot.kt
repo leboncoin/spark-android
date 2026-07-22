@@ -76,6 +76,9 @@ internal class CardScreenshot {
                     Card.HighlightElevated {
                         Text("This is an elevated card with a highlight banner.")
                     }
+                    Card.HighlightOutlined {
+                        Text("This is an outlined card with a highlight banner.")
+                    }
                 }
             }
         }
@@ -155,7 +158,7 @@ internal class CardScreenshot {
                 }
 
                 Card.HighlightElevated(
-                    colors = SparkTheme.colors.accentContainer,
+                    headingColor = SparkTheme.colors.accentContainer,
                 ) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),

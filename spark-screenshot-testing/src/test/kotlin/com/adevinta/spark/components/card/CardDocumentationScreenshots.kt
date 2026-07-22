@@ -87,6 +87,15 @@ internal class CardDocumentationScreenshots {
             CardContent()
         }
     }
+
+    @Test
+    fun highlightOutlinedCard() = paparazzi.sparkDocSnapshot(color = { SparkTheme.colors.backgroundVariant }) {
+        Card.HighlightOutlined(
+            heading = { },
+        ) {
+            CardContent()
+        }
+    }
 }
 
 @Composable

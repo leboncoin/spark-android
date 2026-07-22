@@ -195,7 +195,7 @@ private fun ConfiguredHighlightedCard(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = onClick,
                         shape = shape,
-                        colors = headingColor,
+                        headingColor = headingColor,
                         contentPadding = contentPadding,
                         heading = {
                             if (hasHeading) {
@@ -213,7 +213,7 @@ private fun ConfiguredHighlightedCard(
                     Card.HighlightFlat(
                         modifier = Modifier.fillMaxWidth(),
                         shape = shape,
-                        colors = headingColor,
+                        headingColor = headingColor,
                         contentPadding = contentPadding,
                         heading = {
                             if (hasHeading) {
@@ -237,7 +237,7 @@ private fun ConfiguredHighlightedCard(
                     modifier = modifier,
                     onClick = onClick,
                     shape = shape,
-                    colors = headingColor,
+                    headingColor = headingColor,
                     contentPadding = contentPadding,
                     heading = {
                         if (hasHeading) {
@@ -255,7 +255,7 @@ private fun ConfiguredHighlightedCard(
                 Card.HighlightElevated(
                     modifier = modifier,
                     shape = shape,
-                    colors = headingColor,
+                    headingColor = headingColor,
                     contentPadding = contentPadding,
                     heading = {
                         if (hasHeading) {
