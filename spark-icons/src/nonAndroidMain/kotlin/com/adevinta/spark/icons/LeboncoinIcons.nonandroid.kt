@@ -26,6 +26,8 @@ package com.adevinta.spark.icons
 import com.adevinta.spark.icons.SparkIcon.Resource
 
 public val LeboncoinIcons.AccessoriesCriteria: Resource get() = Resource(Res.drawable.spark_icons_lbc_accessories_criteria)
+public val LeboncoinIcons.ActionsFill: Resource get() = Resource(Res.drawable.spark_icons_lbc_actions_fill)
+public val LeboncoinIcons.ActionsOutline: Resource get() = Resource(Res.drawable.spark_icons_lbc_actions_outline)
 public val LeboncoinIcons.Activity: Resource get() = Resource(Res.drawable.spark_icons_lbc_activity)
 public val LeboncoinIcons.AddCircleFill: Resource get() = Resource(Res.drawable.spark_icons_lbc_add_circle_fill)
 public val LeboncoinIcons.AddCircleOutline: Resource get() = Resource(Res.drawable.spark_icons_lbc_add_circle_outline)
@@ -437,7 +439,6 @@ public val LeboncoinIcons.PlanCriteria: Resource get() = Resource(Res.drawable.s
 public val LeboncoinIcons.Plant: Resource get() = Resource(Res.drawable.spark_icons_lbc_plant)
 public val LeboncoinIcons.PlayFill: Resource get() = Resource(Res.drawable.spark_icons_lbc_play_fill)
 public val LeboncoinIcons.PlayOutline: Resource get() = Resource(Res.drawable.spark_icons_lbc_play_outline)
-public val LeboncoinIcons.Playlight: Resource get() = Resource(Res.drawable.spark_icons_lbc_playlight)
 public val LeboncoinIcons.PlumbingElectricalCriteria: Resource get() = Resource(Res.drawable.spark_icons_lbc_plumbing_electrical_criteria)
 public val LeboncoinIcons.Plus: Resource get() = Resource(Res.drawable.spark_icons_lbc_plus)
 public val LeboncoinIcons.PoolCriteria: Resource get() = Resource(Res.drawable.spark_icons_lbc_pool_criteria)
