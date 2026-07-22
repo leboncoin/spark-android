@@ -2,6 +2,18 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [3.2.0](https://github.com/leboncoin/spark-android/compare/3.1.0...3.2.0) (2026-07-22)
+
+
+### Features
+
+* **card:** card highlight outlined ([#2089](https://github.com/leboncoin/spark-android/issues/2089)) ([8326aba](https://github.com/leboncoin/spark-android/commit/8326abafdf4e58b7d8380bbf77e79009a4bb9067))
+
+
+### Miscellaneous
+
+* **gradle:** enable parallel for android studio ([#2087](https://github.com/leboncoin/spark-android/issues/2087)) ([3a744e1](https://github.com/leboncoin/spark-android/commit/3a744e152ff869ee559835a3b266525829c242d6))
+
 ## [3.1.0](https://github.com/leboncoin/spark-android/compare/3.0.1...3.1.0) (2026-07-22)
 
 
