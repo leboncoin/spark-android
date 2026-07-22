@@ -402,7 +402,7 @@ public fun Button.Contrast(
     atEnd: Boolean = false,
     content: @Composable RowScope.() -> Unit,
 ) {
-    SparkButtonPrimary(
+    SparkButtonContrast(
         onClick = onClick,
         modifier = modifier,
         size = size,
