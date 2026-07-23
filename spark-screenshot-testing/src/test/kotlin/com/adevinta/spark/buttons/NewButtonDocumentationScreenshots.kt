@@ -25,9 +25,9 @@ import com.adevinta.spark.DefaultTestDevices
 import com.adevinta.spark.components.buttons.Ai
 import com.adevinta.spark.components.buttons.Boost
 import com.adevinta.spark.components.buttons.Button
-import com.adevinta.spark.components.buttons.ButtonGhost
 import com.adevinta.spark.components.buttons.Contrast
 import com.adevinta.spark.components.buttons.Danger
+import com.adevinta.spark.components.buttons.Ghost
 import com.adevinta.spark.components.buttons.Primary
 import com.adevinta.spark.components.buttons.Secondary
 import com.adevinta.spark.components.buttons.Success
@@ -130,7 +130,7 @@ internal class NewButtonDocumentationScreenshots {
 
     @Test
     fun buttonGhost() = paparazzi.sparkDocSnapshot {
-        ButtonGhost(
+        Button.Ghost(
             text = "Ghost button",
             onClick = {},
         )

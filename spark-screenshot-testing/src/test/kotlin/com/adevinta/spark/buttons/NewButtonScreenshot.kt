@@ -57,19 +57,11 @@ internal class NewButtonScreenshot {
     )
 
     @Test
-    fun allVariantsMedium() {
+    fun allVariants() {
         paparazzi.sparkSnapshotNightMode {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 AllNewButtons(size = ButtonSize.Medium, enabled = true)
                 AllNewButtons(size = ButtonSize.Medium, enabled = false)
-            }
-        }
-    }
-
-    @Test
-    fun allVariantsLarge() {
-        paparazzi.sparkSnapshotNightMode {
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 AllNewButtons(size = ButtonSize.Large, enabled = true)
                 AllNewButtons(size = ButtonSize.Large, enabled = false)
             }
