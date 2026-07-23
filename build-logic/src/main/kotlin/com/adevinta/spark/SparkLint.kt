@@ -29,7 +29,6 @@ internal object SparkLint {
     fun configure(project: Project, lint: Lint) = lint.apply {
         checkDependencies = true
         warningsAsErrors = true
-        sarifReport = true
         disable += listOf(
             "AndroidGradlePluginVersion",
             "GradleDependency",
