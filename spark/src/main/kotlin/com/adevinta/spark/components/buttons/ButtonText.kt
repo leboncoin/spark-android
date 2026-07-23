@@ -34,6 +34,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.text.Text
@@ -84,12 +85,12 @@ internal fun SparkButtonText(
         size = size,
         enabled = enabled,
         shape = SparkTheme.shapes.small,
-        elevation = ButtonDefaults.buttonElevation(),
+        elevation = null,
         colors = colors,
         icon = icon,
         iconSide = iconSide,
         isLoading = isLoading,
-        contentPadding = SparkButtonDefaults.underlinedButtonContentPadding(size),
+        contentPadding = SparkButtonDefaults.textlinkButtonContentPadding(size),
         interactionSource = interactionSource,
         content = content,
     )
@@ -114,6 +115,7 @@ internal fun SparkButtonText(
  * [Interaction]s and customize the appearance / behavior of this button in different states.
  */
 @Suppress("UnusedReceiverParameter")
+@ExperimentalSparkApi
 @Composable
 public fun Button.Text(
     onClick: () -> Unit,

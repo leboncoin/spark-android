@@ -45,11 +45,7 @@ import com.adevinta.spark.tokens.dim3
 import com.adevinta.spark.tokens.disabled
 
 /**
- * Ghost buttons are used for the lowest priority actions, especially when presenting multiple options.
- *
- * Ghost buttons can be placed on a variety of backgrounds. Until the button is interacted with, its container
- * isn’t visible.
- * This button style is often used inside other components like snackbars, dialogs, and cards.
+ * Contrast buttons are used on coloured or image backgrounds where standard buttons lack visibility.
  *
  * ![Button Contrast](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonContrast.png)
  *
@@ -310,8 +306,6 @@ internal fun ButtonContrastIntentPreview() {
  *
  * ![Button Contrast](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonContrast.png)
  *
- * @sample com.adevinta.spark.samples.components.ButtonSample
- *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
  * @param size The size of the button
@@ -367,8 +361,6 @@ internal fun SparkButtonContrast(
  *
  * ![Button Contrast](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonContrast.png)
  *
- * @sample com.adevinta.spark.samples.components.ButtonSample
- *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
  * @param size The size of the button
@@ -414,7 +406,7 @@ public fun Button.Contrast(
  * Contrast buttons are used on coloured or image backgrounds where standard buttons lack visibility.
  * They use a surface container to stand out against any background.
  *
- * @sample com.adevinta.spark.samples.components.ButtonSample
+ * ![Button Contrast](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonContrast.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param text The text to be displayed in the button

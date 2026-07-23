@@ -50,7 +50,6 @@ import com.adevinta.spark.tokens.disabled
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
  * @param size The size of the button
- * @param intent The intent color for the button.
  * @param enabled Controls the enabled state of the button. When `false`, this button will not be clickable
  * @param icon The optional icon to be displayed at the start or the end of the button container.
  * @param iconSide If an icon is added, you can configure the side where is should be displayed, at the start
@@ -100,6 +99,8 @@ internal fun SparkButtonSecondary(
 /**
  * The standard button for most use cases. The filled styling places less emphasis than Primary
  * but still signals an important action.
+ *
+ * ![Button Secondary](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonSecondary.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button

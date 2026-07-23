@@ -86,12 +86,12 @@ internal fun SparkButtonUnderlined(
         size = size,
         enabled = enabled,
         shape = SparkTheme.shapes.small,
-        elevation = ButtonDefaults.buttonElevation(),
+        elevation = null,
         colors = colors,
         icon = icon,
         iconSide = iconSide,
         isLoading = isLoading,
-        contentPadding = SparkButtonDefaults.underlinedButtonContentPadding(size),
+        contentPadding = SparkButtonDefaults.textlinkButtonContentPadding(size),
         interactionSource = interactionSource,
         content = content,
     )
@@ -99,6 +99,8 @@ internal fun SparkButtonUnderlined(
 
 /**
  * Used for link-style actions within body text, such as "Terms and conditions" or "Privacy policy".
+ *
+ * ![Button Underlined](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonUnderlined.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param text The text to be displayed in the button

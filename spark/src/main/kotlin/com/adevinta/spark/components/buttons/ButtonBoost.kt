@@ -49,7 +49,6 @@ import com.adevinta.spark.tokens.disabled
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
  * @param size The size of the button
- * @param intent The intent color for the button.
  * @param enabled Controls the enabled state of the button. When `false`, this button will not be clickable
  * @param icon The optional icon to be displayed at the start or the end of the button container.
  * @param iconSide If an icon is added, you can configure the side where is should be displayed, at the start
@@ -145,6 +144,7 @@ public fun Button.Boost(
 /**
  * Used for any action attached to a conversion or monetisation flow, such as "Boost my ad" or "Upgrade".
  *
+ * ![Button Boost](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonBoost.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param text The text to be displayed in the button

@@ -51,7 +51,6 @@ import com.adevinta.spark.tokens.disabled
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
  * @param size The size of the button
- * @param intent The intent color for the button.
  * @param enabled Controls the enabled state of the button. When `false`, this button will not be clickable
  * @param icon The optional icon to be displayed at the start or the end of the button container.
  * @param iconSide If an icon is added, you can configure the side where is should be displayed, at the start
@@ -103,6 +102,8 @@ internal fun SparkButtonPrimary(
  * It should never be doubled up to sit side by side. Used when an action is clearly more important
  * than others and you need to draw attention to it.
  *
+ * ![Button Primary](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonPrimary.png)
+ *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
  * @param size The size of the button
@@ -149,6 +150,7 @@ public fun Button.Primary(
  * It should never be doubled up to sit side by side. Used when an action is clearly more important
  * than others and you need to draw attention to it.
  *
+ * ![Button Primary](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonPrimary.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param text The text to be displayed in the button

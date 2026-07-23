@@ -219,7 +219,6 @@ public object SparkButtonTags {
     public const val TAG_PROGRESS_INDICATOR: String = "progress_indicator"
 }
 
-@InternalSparkApi
 @Immutable
 public object Button
 
@@ -246,17 +245,9 @@ public object SparkButtonDefaults {
     )
 
     /**
-     * The default content padding used by [com.adevinta.spark.components.text.TextLinkButton]
+     * The default content padding used by text-style and underlined buttons.
      */
     internal fun textlinkButtonContentPadding(size: ButtonSize) = PaddingValues(
-        horizontal = 0.dp,
-        vertical = size.contentVerticalPadding,
-    )
-
-    /**
-     * The default content padding used by [com.adevinta.spark.components.text.TextLinkButton]
-     */
-    internal fun underlinedButtonContentPadding(size: ButtonSize) = PaddingValues(
         horizontal = 0.dp,
         vertical = size.contentVerticalPadding,
     )
@@ -266,6 +257,15 @@ public object SparkButtonDefaults {
      * Use [ButtonTokens.shape] or [ButtonTokens.buttonShape] to get the flag-resolved shape.
      */
     internal val DefaultShape = ButtonShape.Rounded
+
+    @Composable
+    internal fun outlinedButtonColors(containerColor: Color, contentColor: Color): ButtonColors =
+        ButtonDefaults.outlinedButtonColors(
+            containerColor = containerColor,
+            disabledContainerColor = containerColor.disabled,
+            contentColor = contentColor,
+            disabledContentColor = contentColor.disabled,
+        )
 
     /**
      * The default border of [ButtonOutlined]
@@ -302,20 +302,5 @@ private fun SparkButtonPreview() {
                 iconSide = IconSide.END,
             )
         }
-    }
-}
-
-@Preview
-@Composable
-private fun ButtonTertiaryPreview() {
-    PreviewTheme(
-        color = { SparkTheme.colors.backgroundVariant },
-    ) {
-        Button.Tertiary(
-            text = "ButtonButton",
-            onClick = { },
-            icon = LeboncoinIcons.IdentityCardOutline,
-            iconSide = IconSide.END,
-        )
     }
 }

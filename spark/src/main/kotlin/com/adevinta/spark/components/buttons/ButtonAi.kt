@@ -51,7 +51,6 @@ import com.adevinta.spark.tokens.disabled
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
  * @param size The size of the button
- * @param intent The intent color for the button.
  * @param enabled Controls the enabled state of the button. When `false`, this button will not be clickable
  * @param icon The optional icon to be displayed at the start or the end of the button container.
  * @param iconSide If an icon is added, you can configure the side where is should be displayed, at the start
@@ -107,6 +106,9 @@ internal fun SparkButtonAi(
  * @param modifier Modifier to be applied to the button
  * @param size The size of the button
  * @param enabled Controls the enabled state of the button. When `false`, this button will not be clickable
+ * @param icon The optional icon to be displayed at the start or the end of the button container.
+ * @param iconSide If an icon is added, you can configure the side where is should be displayed, at the start
+ * or end of the button
  * @param isLoading show or hide a CircularProgressIndicator at the start that push the content to indicate a
  * loading state
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
@@ -145,6 +147,7 @@ public fun Button.Ai(
 /**
  * Used for AI-powered actions. Always displays the Sparks icon to signal AI involvement.
  *
+ * ![Button Ai](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonAi.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param text The text to be displayed in the button
@@ -169,6 +172,8 @@ public fun Button.Ai(
     modifier: Modifier = Modifier,
     size: ButtonSize = ButtonSize.Medium,
     enabled: Boolean = true,
+    icon: SparkIcon? = LeboncoinIcons.Sparks,
+    iconSide: IconSide = IconSide.START,
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
@@ -178,6 +183,8 @@ public fun Button.Ai(
         modifier = modifier,
         size = size,
         enabled = enabled,
+        icon = icon,
+        iconSide = iconSide,
         isLoading = isLoading,
         interactionSource = interactionSource,
         atEnd = atEnd,

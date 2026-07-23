@@ -25,7 +25,6 @@ package com.adevinta.spark.components.buttons
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -39,7 +38,6 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.IdentityCardOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.tokens.disabled
 
 /**
  * Used for miscellaneous actions: the action is important, but may not be what the user is looking
@@ -50,7 +48,6 @@ import com.adevinta.spark.tokens.disabled
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
  * @param size The size of the button
- * @param intent The intent color for the button.
  * @param enabled Controls the enabled state of the button. When `false`, this button will not be clickable
  * @param icon The optional icon to be displayed at the start or the end of the button container.
  * @param iconSide If an icon is added, you can configure the side where is should be displayed, at the start
@@ -74,16 +71,9 @@ internal fun SparkButtonTertiary(
     atEnd: Boolean = false,
     content: @Composable RowScope.() -> Unit,
 ) {
-    val containerColor = SparkTheme.colors.surface
-    val contentColor = SparkTheme.colors.onSurface
-    val disabledContainerColor = containerColor.disabled
-    val disabledContentColor = contentColor.disabled
-
-    val colors = ButtonDefaults.outlinedButtonColors(
-        containerColor = containerColor,
-        disabledContainerColor = disabledContainerColor,
-        contentColor = contentColor,
-        disabledContentColor = disabledContentColor,
+    val colors = SparkButtonDefaults.outlinedButtonColors(
+        containerColor = SparkTheme.colors.surface,
+        contentColor = SparkTheme.colors.onSurface,
     )
     BaseSparkButton(
         onClick = onClick,
@@ -106,6 +96,8 @@ internal fun SparkButtonTertiary(
 /**
  * Used for miscellaneous actions: the action is important, but may not be what the user is looking
  * to do right then. Often paired with a Primary or Secondary button.
+ *
+ * ![Button Tertiary](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonTertiary.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
@@ -194,6 +186,21 @@ public fun Button.Tertiary(
         atEnd = atEnd,
     ) {
         Text(text = text)
+    }
+}
+
+@Preview
+@Composable
+private fun ButtonTertiaryPreview() {
+    PreviewTheme(
+        color = { SparkTheme.colors.backgroundVariant },
+    ) {
+        Button.Tertiary(
+            text = "ButtonButton",
+            onClick = { },
+            icon = LeboncoinIcons.IdentityCardOutline,
+            iconSide = IconSide.END,
+        )
     }
 }
 

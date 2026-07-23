@@ -314,8 +314,6 @@ internal fun ButtonGhostIntentPreview() {
  *
  * ![Button Ghost](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonGhost.png)
  *
- * @sample com.adevinta.spark.samples.components.ButtonSample
- *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
  * @param size The size of the button
@@ -359,7 +357,7 @@ internal fun SparkButtonGhost(
         icon = icon,
         iconSide = iconSide,
         isLoading = isLoading,
-        contentPadding = SparkButtonDefaults.underlinedButtonContentPadding(size),
+        contentPadding = SparkButtonDefaults.textlinkButtonContentPadding(size),
         interactionSource = interactionSource,
         content = content,
     )
@@ -370,9 +368,7 @@ internal fun SparkButtonGhost(
  * Until the button is interacted with, its container is not visible.
  *
  * ![Button Ghost](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonGhost.png)
- *
- * @sample com.adevinta.spark.samples.components.ButtonSample
- *
+ **
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
  * @param size The size of the button
@@ -418,7 +414,7 @@ public fun Button.Ghost(
  * Ghost buttons are used for the lowest priority actions, especially when presenting multiple options.
  * Until the button is interacted with, its container is not visible.
  *
- * @sample com.adevinta.spark.samples.components.ButtonSample
+ * ![Button Ghost](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonGhost.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param text The text to be displayed in the button

@@ -237,7 +237,7 @@ private fun NewButtonSample(
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        val icon = LeboncoinIcons.HeartFill
+        val heartIcon = LeboncoinIcons.HeartFill
         var isLoading by remember { mutableStateOf(false) }
         val buttonText = "Button"
 
@@ -253,7 +253,7 @@ private fun NewButtonSample(
             /* onClick = */ { isLoading = !isLoading },
             /* text = */ buttonText,
             /* enabled = */ true,
-            /* icon = */ icon,
+            /* icon = */ heartIcon,
             /* iconSide = */ IconSide.START,
             /* isLoading = */ isLoading,
         )
@@ -261,7 +261,7 @@ private fun NewButtonSample(
             /* onClick = */ { isLoading = !isLoading },
             /* text = */ buttonText,
             /* enabled = */ true,
-            /* icon = */ icon,
+            /* icon = */ heartIcon,
             /* iconSide = */ IconSide.END,
             /* isLoading = */ isLoading,
         )
@@ -269,7 +269,7 @@ private fun NewButtonSample(
             /* onClick = */ { isLoading = !isLoading },
             /* text = */ buttonText,
             /* enabled = */ false,
-            /* icon = */ icon,
+            /* icon = */ heartIcon,
             /* iconSide = */ IconSide.START,
             /* isLoading = */ isLoading,
         )

@@ -25,7 +25,6 @@ package com.adevinta.spark.components.buttons
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -39,7 +38,6 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.IdentityCardOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
-import com.adevinta.spark.tokens.disabled
 
 /**
  * Used for destructive or irreversible actions like "Delete" or "Remove". Warns the user of
@@ -73,16 +71,9 @@ internal fun SparkButtonDanger(
     atEnd: Boolean = false,
     content: @Composable RowScope.() -> Unit,
 ) {
-    val containerColor = SparkTheme.colors.surface
-    val contentColor = SparkTheme.colors.error
-    val disabledContainerColor = containerColor.disabled
-    val disabledContentColor = contentColor.disabled
-
-    val colors = ButtonDefaults.outlinedButtonColors(
-        containerColor = containerColor,
-        disabledContainerColor = disabledContainerColor,
-        contentColor = contentColor,
-        disabledContentColor = disabledContentColor,
+    val colors = SparkButtonDefaults.outlinedButtonColors(
+        containerColor = SparkTheme.colors.surface,
+        contentColor = SparkTheme.colors.error,
     )
     BaseSparkButton(
         onClick = onClick,
@@ -105,6 +96,8 @@ internal fun SparkButtonDanger(
 /**
  * Used for destructive or irreversible actions like "Delete" or "Remove". Warns the user of
  * negative consequences.
+ *
+ * ![Button Danger](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonDanger.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
