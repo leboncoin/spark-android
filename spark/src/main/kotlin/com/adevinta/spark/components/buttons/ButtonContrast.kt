@@ -51,7 +51,7 @@ import com.adevinta.spark.tokens.disabled
  * isn’t visible.
  * This button style is often used inside other components like snackbars, dialogs, and cards.
  *
- * ![Button Contrast](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_ButtonDocumentationScreenshots_buttonContrast.png)
+ * ![Button Contrast](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonContrast.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
@@ -305,13 +305,10 @@ internal fun ButtonContrastIntentPreview() {
 }
 
 /**
- * The filled button should only be used once per view (not including a modal dialog),
- * these buttons have the most emphasis.
+ * Contrast buttons are used on coloured or image backgrounds where standard buttons lack visibility.
+ * They use a surface container to stand out against any background.
  *
- * The minimal usage of the component is the text of the button but you can add an icon or indicate a loading state
- * after a click action for example.
- *
- * ![Button Filled](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_ButtonDocumentationScreenshots_buttonFilled.png)
+ * ![Button Contrast](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonContrast.png)
  *
  * @sample com.adevinta.spark.samples.components.ButtonSample
  *
@@ -365,13 +362,10 @@ internal fun SparkButtonContrast(
 }
 
 /**
- * The filled button should only be used once per view (not including a modal dialog),
- * these buttons have the most emphasis.
+ * Contrast buttons are used on coloured or image backgrounds where standard buttons lack visibility.
+ * They use a surface container to stand out against any background.
  *
- * The minimal usage of the component is the text of the button but you can add an icon or indicate a loading state
- * after a click action for example.
- *
- * ![Button Filled](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_ButtonDocumentationScreenshots_buttonFilled.png)
+ * ![Button Contrast](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonContrast.png)
  *
  * @sample com.adevinta.spark.samples.components.ButtonSample
  *
@@ -417,11 +411,8 @@ public fun Button.Contrast(
 }
 
 /**
- * The filled button should only be used once per view (not including a modal dialog),
- * these buttons have the most emphasis.
- *
- * The minimal usage of the component is the text of the button but you can add an icon or indicate a loading state
- * after a click action for example.
+ * Contrast buttons are used on coloured or image backgrounds where standard buttons lack visibility.
+ * They use a surface container to stand out against any background.
  *
  * @sample com.adevinta.spark.samples.components.ButtonSample
  *

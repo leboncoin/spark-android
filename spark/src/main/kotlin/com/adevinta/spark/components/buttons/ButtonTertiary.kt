@@ -45,6 +45,7 @@ import com.adevinta.spark.tokens.disabled
  * Used for miscellaneous actions: the action is important, but may not be what the user is looking
  * to do right then. Often paired with a Primary or Secondary button.
  *
+ * ![Button Tertiary](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonTertiary.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
@@ -151,6 +152,7 @@ public fun Button.Tertiary(
  * Used for miscellaneous actions: the action is important, but may not be what the user is looking
  * to do right then. Often paired with a Primary or Secondary button.
  *
+ * ![Button Tertiary](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonTertiary.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param text The text to be displayed in the button

@@ -46,6 +46,7 @@ import com.adevinta.spark.tokens.disabled
  * It should never be doubled up to sit side by side. Used when an action is clearly more important
  * than others and you need to draw attention to it.
  *
+ * ![Button Primary](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonPrimary.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button

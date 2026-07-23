@@ -309,13 +309,10 @@ internal fun ButtonGhostIntentPreview() {
 }
 
 /**
- * The filled button should only be used once per view (not including a modal dialog),
- * these buttons have the most emphasis.
+ * Ghost buttons are used for the lowest priority actions, especially when presenting multiple options.
+ * Until the button is interacted with, its container is not visible.
  *
- * The minimal usage of the component is the text of the button but you can add an icon or indicate a loading state
- * after a click action for example.
- *
- * ![Button Filled](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_ButtonDocumentationScreenshots_buttonFilled.png)
+ * ![Button Ghost](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonGhost.png)
  *
  * @sample com.adevinta.spark.samples.components.ButtonSample
  *
@@ -369,13 +366,10 @@ internal fun SparkButtonGhost(
 }
 
 /**
- * The filled button should only be used once per view (not including a modal dialog),
- * these buttons have the most emphasis.
+ * Ghost buttons are used for the lowest priority actions, especially when presenting multiple options.
+ * Until the button is interacted with, its container is not visible.
  *
- * The minimal usage of the component is the text of the button but you can add an icon or indicate a loading state
- * after a click action for example.
- *
- * ![Button Filled](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_ButtonDocumentationScreenshots_buttonFilled.png)
+ * ![Button Ghost](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonGhost.png)
  *
  * @sample com.adevinta.spark.samples.components.ButtonSample
  *
@@ -421,11 +415,8 @@ public fun Button.Ghost(
 }
 
 /**
- * The filled button should only be used once per view (not including a modal dialog),
- * these buttons have the most emphasis.
- *
- * The minimal usage of the component is the text of the button but you can add an icon or indicate a loading state
- * after a click action for example.
+ * Ghost buttons are used for the lowest priority actions, especially when presenting multiple options.
+ * Until the button is interacted with, its container is not visible.
  *
  * @sample com.adevinta.spark.samples.components.ButtonSample
  *

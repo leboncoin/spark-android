@@ -47,6 +47,7 @@ import com.adevinta.spark.tokens.disabled
 /**
  * Used for link-style actions within body text, such as "Terms and conditions" or "Privacy policy".
  *
+ * ![Button Underlined](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonUnderlined.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button

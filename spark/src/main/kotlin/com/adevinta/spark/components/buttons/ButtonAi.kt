@@ -33,17 +33,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.IdentityCardOutline
 import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.Sparks
 import com.adevinta.spark.tokens.disabled
 
 /**
  * Used for AI-powered actions. Always displays the Sparks icon to signal AI involvement.
  *
+ * ![Button Ai](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonAi.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
@@ -65,6 +68,8 @@ internal fun SparkButtonAi(
     modifier: Modifier = Modifier,
     size: ButtonSize = ButtonSize.Medium,
     enabled: Boolean = true,
+    icon: SparkIcon? = LeboncoinIcons.Sparks,
+    iconSide: IconSide = IconSide.START,
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
@@ -84,8 +89,8 @@ internal fun SparkButtonAi(
         enabled = enabled,
         elevation = ButtonDefaults.buttonElevation(),
         colors = colors,
-        icon = LeboncoinIcons.Sparks,
-        iconSide = IconSide.START,
+        icon = icon,
+        iconSide = iconSide,
         isLoading = isLoading,
         interactionSource = interactionSource,
         atEnd = atEnd,
@@ -95,6 +100,8 @@ internal fun SparkButtonAi(
 
 /**
  * Used for AI-powered actions. Always displays the Sparks icon to signal AI involvement.
+ *
+ * ![Button Ai](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonAi.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
@@ -107,12 +114,15 @@ internal fun SparkButtonAi(
  * [Interaction]s and customize the appearance / behavior of this button in different states.
  */
 @Suppress("UnusedReceiverParameter")
+@ExperimentalSparkApi
 @Composable
 public fun Button.Ai(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     size: ButtonSize = ButtonSize.Medium,
     enabled: Boolean = true,
+    icon: SparkIcon? = LeboncoinIcons.Sparks,
+    iconSide: IconSide = IconSide.START,
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
@@ -123,6 +133,8 @@ public fun Button.Ai(
         modifier = modifier,
         size = size,
         enabled = enabled,
+        icon = icon,
+        iconSide = iconSide,
         isLoading = isLoading,
         interactionSource = interactionSource,
         atEnd = atEnd,
@@ -149,6 +161,7 @@ public fun Button.Ai(
  * [Interaction]s and customize the appearance / behavior of this button in different states.
  */
 @Suppress("UnusedReceiverParameter")
+@ExperimentalSparkApi
 @Composable
 public fun Button.Ai(
     onClick: () -> Unit,

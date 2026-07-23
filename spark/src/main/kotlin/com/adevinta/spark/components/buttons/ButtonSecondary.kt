@@ -45,6 +45,7 @@ import com.adevinta.spark.tokens.disabled
  * The standard button for most use cases. The filled styling places less emphasis than Primary
  * but still signals an important action.
  *
+ * ![Button Secondary](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonSecondary.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
@@ -145,6 +146,7 @@ public fun Button.Secondary(
  * The standard button for most use cases. The filled styling places less emphasis than Primary
  * but still signals an important action.
  *
+ * ![Button Secondary](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonSecondary.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param text The text to be displayed in the button

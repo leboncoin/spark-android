@@ -44,6 +44,7 @@ import com.adevinta.spark.tokens.disabled
 /**
  * Used for any action attached to a conversion or monetisation flow, such as "Boost my ad" or "Upgrade".
  *
+ * ![Button Boost](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonBoost.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
@@ -97,6 +98,8 @@ internal fun SparkButtonBoost(
 
 /**
  * Used for any action attached to a conversion or monetisation flow, such as "Boost my ad" or "Upgrade".
+ *
+ * ![Button Boost](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonBoost.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
