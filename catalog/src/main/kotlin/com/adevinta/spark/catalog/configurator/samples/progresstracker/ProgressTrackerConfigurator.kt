@@ -208,8 +208,8 @@ private fun ColumnScope.ProgressTrackerSample() {
                     checked = progressStep.enabled,
                     onCheckedChange = {
                         items = items.replacingAt(
-                            index,
-                            progressStep.copy(enabled = it)
+                            index = index,
+                            element = progressStep.copy(enabled = it),
                         )
                     },
                 )
