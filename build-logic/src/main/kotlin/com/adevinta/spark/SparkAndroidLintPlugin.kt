@@ -37,7 +37,6 @@ internal class SparkAndroidLintPlugin : Plugin<Project> {
 
             configure<Lint> {
                 warningsAsErrors = true
-                sarifReport = true
             }
         }
     }
