@@ -369,6 +369,17 @@ public fun ThemePicker(
                                     modifier = Modifier.fillMaxWidth(),
                                 )
                             }
+                            SwitchLabelled(
+                                checked = theme.useRebrandedButtons,
+                                onCheckedChange = { checked ->
+                                    onThemeChange(theme.copy(useRebrandedButtons = checked))
+                                },
+                            ) {
+                                Text(
+                                    text = "Replace the legacy buttons by the new ones",
+                                    modifier = Modifier.fillMaxWidth(),
+                                )
+                            }
                         }
                     }
                 }

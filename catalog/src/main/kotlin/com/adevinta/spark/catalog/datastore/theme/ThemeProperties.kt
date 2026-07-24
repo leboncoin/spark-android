@@ -44,6 +44,7 @@ internal data class ThemeProperties(
     val highlightSparkComponents: Boolean,
     val highlightSparkTokens: Boolean,
     val useRebrandedShapes: Boolean,
+    val useRebrandedButtons: Boolean,
 ) {
     companion object {
         val DEFAULT = ThemeProperties(
@@ -59,6 +60,7 @@ internal data class ThemeProperties(
             highlightSparkComponents = false,
             highlightSparkTokens = false,
             useRebrandedShapes = true,
+            useRebrandedButtons = true,
         )
     }
 }

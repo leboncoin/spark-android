@@ -50,14 +50,18 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
+import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.R
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.buttons.BaseSparkButton
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonIntent
 import com.adevinta.spark.components.buttons.ButtonSize
 import com.adevinta.spark.components.buttons.IconSide
 import com.adevinta.spark.components.buttons.SparkButtonDefaults
+import com.adevinta.spark.components.buttons.SparkButtonUnderlined
+import com.adevinta.spark.components.buttons.Underlined
 import com.adevinta.spark.components.scaffold.Scaffold
 import com.adevinta.spark.components.snackbars.SnackbarHost
 import com.adevinta.spark.components.snackbars.SnackbarHostState
@@ -186,6 +190,20 @@ public fun TextLinkButton(
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
+    if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
+        Button.Underlined(
+            onClick = onClick,
+            text = text,
+            modifier = modifier,
+            size = size,
+            enabled = enabled,
+            icon = icon,
+            iconSide = iconSide,
+            isLoading = isLoading,
+            interactionSource = interactionSource,
+        )
+        return
+    }
     val colors = ButtonDefaults.textButtonColors(
         contentColor = if (intent != ButtonIntent.Surface) intent.colors().color else LocalContentColor.current,
     )
@@ -238,8 +256,22 @@ public fun TextLinkButton(
     iconSide: IconSide = IconSide.START,
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    content: @Composable RowScope.() -> Unit,
+    @SuppressLint("SlotReused") content: @Composable RowScope.() -> Unit,
 ) {
+    if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
+        SparkButtonUnderlined(
+            onClick = onClick,
+            modifier = modifier,
+            size = size,
+            enabled = enabled,
+            icon = icon,
+            iconSide = iconSide,
+            isLoading = isLoading,
+            interactionSource = interactionSource,
+            content = content,
+        )
+        return
+    }
     val colors = ButtonDefaults.textButtonColors(contentColor = intent.colors().color)
 
     BaseSparkButton(

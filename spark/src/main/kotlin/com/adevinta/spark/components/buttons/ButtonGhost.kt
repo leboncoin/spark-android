@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.buttons
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -81,8 +82,25 @@ public fun ButtonGhost(
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
-    content: @Composable RowScope.() -> Unit,
+    @SuppressLint("SlotReused") content: @Composable RowScope.() -> Unit,
 ) {
+    if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
+        val variant = ButtonStyleMapper.map(intent, ButtonStyle.Ghost)
+        RouteToNewButton(
+            variant = variant,
+            onClick = onClick,
+            modifier = modifier,
+            size = size,
+            enabled = enabled,
+            icon = icon,
+            iconSide = iconSide,
+            isLoading = isLoading,
+            interactionSource = interactionSource,
+            atEnd = atEnd,
+            content = content,
+        )
+        return
+    }
     val intentColors = intent.colors()
     val contentColor by animateColorAsState(
         targetValue = if (intent != ButtonIntent.Surface) intentColors.onContainerColor else intentColors.color,
@@ -151,6 +169,24 @@ public fun ButtonGhost(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
 ) {
+    if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
+        val variant = ButtonStyleMapper.map(intent, ButtonStyle.Ghost)
+        RouteToNewButton(
+            variant = variant,
+            onClick = onClick,
+            modifier = modifier,
+            size = size,
+            enabled = enabled,
+            icon = icon,
+            iconSide = iconSide,
+            isLoading = isLoading,
+            interactionSource = interactionSource,
+            atEnd = atEnd,
+        ) {
+            Text(text = text)
+        }
+        return
+    }
     val intentColors = intent.colors()
     val contentColor by animateColorAsState(
         targetValue = if (intent != ButtonIntent.Surface) intentColors.onContainerColor else intentColors.color,
@@ -219,6 +255,24 @@ public fun ButtonGhost(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
 ) {
+    if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
+        val variant = ButtonStyleMapper.map(intent, ButtonStyle.Ghost)
+        RouteToNewButton(
+            variant = variant,
+            onClick = onClick,
+            modifier = modifier,
+            size = size,
+            enabled = enabled,
+            icon = icon,
+            iconSide = iconSide,
+            isLoading = isLoading,
+            interactionSource = interactionSource,
+            atEnd = atEnd,
+        ) {
+            Text(text = text)
+        }
+        return
+    }
     val intentColors = intent.colors()
     val contentColor by animateColorAsState(
         targetValue = if (intent != ButtonIntent.Surface) intentColors.onContainerColor else intentColors.color,
@@ -250,10 +304,7 @@ public fun ButtonGhost(
     )
 }
 
-@Preview(
-    group = "Buttons",
-    name = "Button Ghost",
-)
+@Preview
 @Composable
 internal fun ButtonGhostPreview() {
     PreviewTheme {
@@ -286,10 +337,7 @@ internal fun ButtonGhostPreview() {
     }
 }
 
-@Preview(
-    group = "Buttons",
-    name = "Button Ghost Intents",
-)
+@Preview
 @Composable
 internal fun ButtonGhostIntentPreview() {
     PreviewTheme(

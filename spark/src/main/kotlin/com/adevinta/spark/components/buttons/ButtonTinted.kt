@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.buttons
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -34,8 +35,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
+import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.IdentityCardOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
@@ -77,8 +80,25 @@ public fun ButtonTinted(
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
-    content: @Composable RowScope.() -> Unit,
+    @SuppressLint("SlotReused") content: @Composable RowScope.() -> Unit,
 ) {
+    if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
+        val variant = ButtonStyleMapper.map(intent, ButtonStyle.Tinted)
+        RouteToNewButton(
+            variant = variant,
+            onClick = onClick,
+            modifier = modifier,
+            size = size,
+            enabled = enabled,
+            icon = icon,
+            iconSide = iconSide,
+            isLoading = isLoading,
+            interactionSource = interactionSource,
+            atEnd = atEnd,
+            content = content,
+        )
+        return
+    }
     val intentColors = intent.colors()
     val backgroundColor by animateColorAsState(
         targetValue = if (intent != ButtonIntent.Surface) {
@@ -151,6 +171,24 @@ public fun ButtonTinted(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
 ) {
+    if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
+        val variant = ButtonStyleMapper.map(intent, ButtonStyle.Tinted)
+        RouteToNewButton(
+            variant = variant,
+            onClick = onClick,
+            modifier = modifier,
+            size = size,
+            enabled = enabled,
+            icon = icon,
+            iconSide = iconSide,
+            isLoading = isLoading,
+            interactionSource = interactionSource,
+            atEnd = atEnd,
+        ) {
+            Text(text = text)
+        }
+        return
+    }
     val intentColors = intent.colors()
     val backgroundColor by animateColorAsState(
         targetValue = if (intent != ButtonIntent.Surface) {
@@ -223,6 +261,24 @@ public fun ButtonTinted(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
 ) {
+    if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
+        val variant = ButtonStyleMapper.map(intent, ButtonStyle.Tinted)
+        RouteToNewButton(
+            variant = variant,
+            onClick = onClick,
+            modifier = modifier,
+            size = size,
+            enabled = enabled,
+            icon = icon,
+            iconSide = iconSide,
+            isLoading = isLoading,
+            interactionSource = interactionSource,
+            atEnd = atEnd,
+        ) {
+            Text(text = text)
+        }
+        return
+    }
     val intentColors = intent.colors()
     val backgroundColor by animateColorAsState(
         targetValue = if (intent != ButtonIntent.Surface) {

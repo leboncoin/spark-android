@@ -19,23 +19,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.adevinta.spark
+package com.adevinta.spark.components.buttons
 
-/**
- * Flags that will activate debugging features from Spark or features hidden to consumers.
- *
- * @property useSparkTokensHighlighter Highlight visually where the spark tokens are used or not. Setting it to true
- * makes the text in cursive, colors in red/green/blue and shapes in full cut corners.
- * @property useSparkComponentsHighlighter Highlight visually with an overlay where the spark components are used
- * or not. Setting it to true show an overlay on spark components.
- * @property isContainingActivityEdgeToEdge
- * @property useRebrandedShapes Use new button, chips, tags and textfield shapes.
- * @property useRebrandedButtons When true, old intent+style combinations resolve to new semantic button variants.
- */
-public data class SparkFeatureFlag(
-    val useSparkTokensHighlighter: Boolean = false,
-    val useSparkComponentsHighlighter: Boolean = false,
-    val isContainingActivityEdgeToEdge: Boolean = false,
-    val useRebrandedShapes: Boolean = false,
-    val useRebrandedButtons: Boolean = false,
-)
+public enum class ButtonStyle {
+    Filled,
+    Outlined,
+    Tinted,
+    Ghost,
+    Contrast,
+    Underline,
+}
