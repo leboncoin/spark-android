@@ -134,6 +134,7 @@ internal fun RouteToNewButton(
             atEnd = atEnd,
             content = content,
         )
+
         ButtonVariant.Primary -> Button.Primary(
             onClick = onClick,
             modifier = modifier,
@@ -146,6 +147,7 @@ internal fun RouteToNewButton(
             atEnd = atEnd,
             content = content,
         )
+
         ButtonVariant.Secondary -> Button.Secondary(
             onClick = onClick,
             modifier = modifier,
@@ -158,6 +160,7 @@ internal fun RouteToNewButton(
             atEnd = atEnd,
             content = content,
         )
+
         ButtonVariant.Tertiary -> Button.Tertiary(
             onClick = onClick,
             modifier = modifier,
@@ -170,6 +173,7 @@ internal fun RouteToNewButton(
             atEnd = atEnd,
             content = content,
         )
+
         ButtonVariant.Contrast -> Button.Contrast(
             onClick = onClick,
             modifier = modifier,
@@ -182,6 +186,7 @@ internal fun RouteToNewButton(
             atEnd = atEnd,
             content = content,
         )
+
         ButtonVariant.Ghost -> Button.Ghost(
             onClick = onClick,
             modifier = modifier,
@@ -194,6 +199,7 @@ internal fun RouteToNewButton(
             atEnd = atEnd,
             content = content,
         )
+
         ButtonVariant.Underline -> SparkButtonUnderlined(
             onClick = onClick,
             modifier = modifier,
@@ -206,6 +212,7 @@ internal fun RouteToNewButton(
             atEnd = atEnd,
             content = content,
         )
+
         ButtonVariant.Success -> Button.Success(
             onClick = onClick,
             modifier = modifier,
@@ -218,6 +225,7 @@ internal fun RouteToNewButton(
             atEnd = atEnd,
             content = content,
         )
+
         ButtonVariant.Danger -> Button.Danger(
             onClick = onClick,
             modifier = modifier,
@@ -230,6 +238,7 @@ internal fun RouteToNewButton(
             atEnd = atEnd,
             content = content,
         )
+
         ButtonVariant.Boost -> Button.Boost(
             onClick = onClick,
             modifier = modifier,
