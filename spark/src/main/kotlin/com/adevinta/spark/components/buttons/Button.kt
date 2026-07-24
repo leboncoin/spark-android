@@ -25,7 +25,6 @@ import android.annotation.SuppressLint
 import androidx.annotation.VisibleForTesting
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -43,6 +42,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -219,67 +219,8 @@ public object SparkButtonTags {
     public const val TAG_PROGRESS_INDICATOR: String = "progress_indicator"
 }
 
-@InternalSparkApi
-public object Button {
-
-    /**
-     * Button with the least emphasis possible after the Contrast/Ghost Button
-     *
-     * @param onClick Will be called when the user clicks the button
-     * @param text The text to be displayed in the button
-     * @param modifier Modifier to be applied to the button
-     * @param size The size of the button
-     * @param enabled Controls the enabled state of the button. When `false`, this button will not be clickable
-     * @param icon The optional icon to be displayed at the start or the end of the button container.
-     * @param iconSide If an icon is added, you can configure the side where is should be displayed, at the start
-     * or end of the button
-     * @param isLoading show or hide a CircularProgressIndicator at the start that push the content to indicate a
-     * loading state
-     * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
-     * for this button. You can create and pass in your own `remember`ed instance to observe
-     * [Interaction]s and customize the appearance / behavior of this button in different states.
-     */
-    @InternalSparkApi
-    @Composable
-    public fun Tertiary(
-        onClick: () -> Unit,
-        text: String,
-        modifier: Modifier = Modifier,
-        size: ButtonSize = ButtonSize.Medium,
-        enabled: Boolean = true,
-        icon: SparkIcon? = null,
-        iconSide: IconSide = IconSide.START,
-        isLoading: Boolean = false,
-        interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-        atEnd: Boolean = false,
-    ) {
-        val contentColor = SparkTheme.colors.onSurface
-        val borderColor = SparkTheme.colors.outline
-        val disabledBorderColor = borderColor.disabled
-        val disabledContentColor = contentColor.disabled
-
-        val colors = ButtonDefaults.outlinedButtonColors(
-            contentColor = contentColor,
-            disabledContentColor = disabledContentColor,
-        )
-        SparkButton(
-            onClick = onClick,
-            text = text,
-            modifier = modifier,
-            size = size,
-            shape = ButtonTokens.buttonShape,
-            enabled = enabled,
-            elevation = null,
-            border = SparkButtonDefaults.outlinedBorder(if (enabled) borderColor else disabledBorderColor),
-            colors = colors,
-            icon = icon,
-            iconSide = iconSide,
-            isLoading = isLoading,
-            interactionSource = interactionSource,
-            atEnd = atEnd,
-        )
-    }
-}
+@Immutable
+public object Button
 
 public enum class IconSide { START, END }
 
@@ -304,7 +245,7 @@ public object SparkButtonDefaults {
     )
 
     /**
-     * The default content padding used by [com.adevinta.spark.components.text.TextLinkButton]
+     * The default content padding used by text-style and underlined buttons.
      */
     internal fun textlinkButtonContentPadding(size: ButtonSize) = PaddingValues(
         horizontal = 0.dp,
@@ -316,6 +257,24 @@ public object SparkButtonDefaults {
      * Use [ButtonTokens.shape] or [ButtonTokens.buttonShape] to get the flag-resolved shape.
      */
     internal val DefaultShape = ButtonShape.Rounded
+
+    @Composable
+    internal fun outlinedButtonColors(containerColor: Color, contentColor: Color): ButtonColors =
+        ButtonDefaults.outlinedButtonColors(
+            containerColor = containerColor,
+            disabledContainerColor = containerColor.disabled,
+            contentColor = contentColor,
+            disabledContentColor = contentColor.disabled,
+        )
+
+    /**
+     * The default border of [ButtonOutlined]
+     */
+    @Composable
+    internal fun outlinedBorder(enabled: Boolean): BorderStroke = BorderStroke(
+        width = 1.0.dp,
+        color = if (enabled) SparkTheme.colors.outline else SparkTheme.colors.outline.disabled,
+    )
 
     /**
      * The default border of [ButtonOutlined]
@@ -343,20 +302,5 @@ private fun SparkButtonPreview() {
                 iconSide = IconSide.END,
             )
         }
-    }
-}
-
-@Preview
-@Composable
-private fun ButtonTertiaryPreview() {
-    PreviewTheme(
-        color = { SparkTheme.colors.backgroundVariant },
-    ) {
-        Button.Tertiary(
-            text = "ButtonButton",
-            onClick = { },
-            icon = LeboncoinIcons.IdentityCardOutline,
-            iconSide = IconSide.END,
-        )
     }
 }

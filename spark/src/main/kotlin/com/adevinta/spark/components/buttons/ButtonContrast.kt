@@ -36,6 +36,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.Chain
 import com.adevinta.spark.icons.IdentityCardOutline
 import com.adevinta.spark.icons.LeboncoinIcons
@@ -44,13 +45,9 @@ import com.adevinta.spark.tokens.dim3
 import com.adevinta.spark.tokens.disabled
 
 /**
- * Ghost buttons are used for the lowest priority actions, especially when presenting multiple options.
+ * Contrast buttons are used on coloured or image backgrounds where standard buttons lack visibility.
  *
- * Ghost buttons can be placed on a variety of backgrounds. Until the button is interacted with, its container
- * isn’t visible.
- * This button style is often used inside other components like snackbars, dialogs, and cards.
- *
- * ![Button Contrast](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_ButtonDocumentationScreenshots_buttonContrast.png)
+ * ![Button Contrast](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonContrast.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
@@ -300,5 +297,191 @@ internal fun ButtonContrastIntentPreview() {
                 iconSide = IconSide.END,
             )
         }
+    }
+}
+
+/**
+ * Contrast buttons are used on coloured or image backgrounds where standard buttons lack visibility.
+ * They use a surface container to stand out against any background.
+ *
+ * ![Button Contrast](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonContrast.png)
+ *
+ * @param onClick Will be called when the user clicks the button
+ * @param modifier Modifier to be applied to the button
+ * @param size The size of the button
+ * @param enabled Controls the enabled state of the button. When `false`, this button will not be clickable
+ * @param icon The optional icon to be displayed at the start or the end of the button container.
+ * @param iconSide If an icon is added, you can configure the side where is should be displayed, at the start
+ * or end of the button
+ * @param isLoading show or hide a CircularProgressIndicator at the start that push the content to indicate a
+ * loading state
+ * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
+ * for this button. You can create and pass in your own `remember`ed instance to observe
+ * [Interaction]s and customize the appearance / behavior of this button in different states.
+ */
+@Composable
+internal fun SparkButtonContrast(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    size: ButtonSize = ButtonSize.Medium,
+    enabled: Boolean = true,
+    icon: SparkIcon? = null,
+    iconSide: IconSide = IconSide.START,
+    isLoading: Boolean = false,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    atEnd: Boolean = false,
+    content: @Composable RowScope.() -> Unit,
+) {
+    val colors = ButtonDefaults.buttonColors(
+        containerColor = SparkTheme.colors.surface,
+        contentColor = SparkTheme.colors.onSurface,
+        disabledContainerColor = SparkTheme.colors.surface.disabled,
+        disabledContentColor = SparkTheme.colors.onSurface.disabled,
+    )
+    BaseSparkButton(
+        onClick = onClick,
+        modifier = modifier,
+        size = size,
+        shape = ButtonTokens.shape,
+        enabled = enabled,
+        elevation = ButtonDefaults.buttonElevation(),
+        colors = colors,
+        icon = icon,
+        iconSide = iconSide,
+        isLoading = isLoading,
+        interactionSource = interactionSource,
+        atEnd = atEnd,
+        content = content,
+    )
+}
+
+/**
+ * Contrast buttons are used on coloured or image backgrounds where standard buttons lack visibility.
+ * They use a surface container to stand out against any background.
+ *
+ * ![Button Contrast](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonContrast.png)
+ *
+ * @param onClick Will be called when the user clicks the button
+ * @param modifier Modifier to be applied to the button
+ * @param size The size of the button
+ * @param enabled Controls the enabled state of the button. When `false`, this button will not be clickable
+ * @param icon The optional icon to be displayed at the start or the end of the button container.
+ * @param iconSide If an icon is added, you can configure the side where is should be displayed, at the start
+ * or end of the button
+ * @param isLoading show or hide a CircularProgressIndicator at the start that push the content to indicate a
+ * loading state
+ * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
+ * for this button. You can create and pass in your own `remember`ed instance to observe
+ * [Interaction]s and customize the appearance / behavior of this button in different states.
+ */
+@Suppress("UnusedReceiverParameter")
+@Composable
+public fun Button.Contrast(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    size: ButtonSize = ButtonSize.Medium,
+    enabled: Boolean = true,
+    icon: SparkIcon? = null,
+    iconSide: IconSide = IconSide.START,
+    isLoading: Boolean = false,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    atEnd: Boolean = false,
+    content: @Composable RowScope.() -> Unit,
+) {
+    SparkButtonContrast(
+        onClick = onClick,
+        modifier = modifier,
+        size = size,
+        enabled = enabled,
+        icon = icon,
+        iconSide = iconSide,
+        isLoading = isLoading,
+        interactionSource = interactionSource,
+        atEnd = atEnd,
+        content = content,
+    )
+}
+
+/**
+ * Contrast buttons are used on coloured or image backgrounds where standard buttons lack visibility.
+ * They use a surface container to stand out against any background.
+ *
+ * ![Button Contrast](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonContrast.png)
+ *
+ * @param onClick Will be called when the user clicks the button
+ * @param text The text to be displayed in the button
+ * @param modifier Modifier to be applied to the button
+ * @param size The size of the button
+ * @param enabled Controls the enabled state of the button. When `false`, this button will not be clickable
+ * @param icon The optional icon to be displayed at the start or the end of the button container.
+ * @param iconSide If an icon is added, you can configure the side where is should be displayed, at the start
+ * or end of the button
+ * @param isLoading show or hide a CircularProgressIndicator at the start that push the content to indicate a
+ * loading state
+ * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
+ * for this button. You can create and pass in your own `remember`ed instance to observe
+ * [Interaction]s and customize the appearance / behavior of this button in different states.
+ */
+@Suppress("UnusedReceiverParameter")
+@Composable
+public fun Button.Contrast(
+    onClick: () -> Unit,
+    text: String,
+    modifier: Modifier = Modifier,
+    size: ButtonSize = ButtonSize.Medium,
+    enabled: Boolean = true,
+    icon: SparkIcon? = null,
+    iconSide: IconSide = IconSide.START,
+    isLoading: Boolean = false,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    atEnd: Boolean = false,
+) {
+    SparkButtonContrast(
+        onClick = onClick,
+        modifier = modifier,
+        size = size,
+        enabled = enabled,
+        icon = icon,
+        iconSide = iconSide,
+        isLoading = isLoading,
+        interactionSource = interactionSource,
+        atEnd = atEnd,
+    ) {
+        Text(
+            text = text,
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun PreviewTextButton() {
+    PreviewTheme {
+        val icon = LeboncoinIcons.IdentityCardOutline
+        var isLoading by remember { mutableStateOf(false) }
+        val buttonText = "Text Button"
+        Button.Contrast(
+            onClick = {
+                isLoading = !isLoading
+            },
+            text = buttonText,
+            isLoading = isLoading,
+        )
+        Button.Contrast(
+            onClick = {
+                isLoading = !isLoading
+            },
+            icon = icon,
+            text = buttonText,
+            isLoading = isLoading,
+        )
+        Button.Contrast(
+            onClick = { isLoading = !isLoading },
+            icon = icon,
+            iconSide = IconSide.END,
+            isLoading = isLoading,
+            enabled = false,
+            text = buttonText,
+        )
     }
 }
