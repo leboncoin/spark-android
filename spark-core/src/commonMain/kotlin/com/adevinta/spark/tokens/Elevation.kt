@@ -66,9 +66,7 @@ public object ElevationTokens {
 
 /**
  * Animates the [Dp] value of [this] between [from] and [to] [Interaction]s, to [target]. The
- * [AnimationSpec] used depends on the values for [from] and [to], see
- * [ElevationDefaults.incomingAnimationSpecForInteraction] and
- * [ElevationDefaults.outgoingAnimationSpecForInteraction] for more details.
+ * [AnimationSpec] used depends on the values for [from] and [to].
  *
  * @param target the [Dp] target elevation for this component, corresponding to the elevation
  * desired for the [to] state.
