@@ -2,6 +2,32 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [3.3.0](https://github.com/leboncoin/spark-android/compare/3.2.0...3.3.0) (2026-07-24)
+
+
+### Features
+
+* **button:** add a flag to map legacy to new buttons ([#2091](https://github.com/leboncoin/spark-android/issues/2091)) ([24546f4](https://github.com/leboncoin/spark-android/commit/24546f44733b52365650bd10ea228c3bc07d45ee))
+* **button:** Add rebranded buttons ([#2081](https://github.com/leboncoin/spark-android/issues/2081)) ([c612bb4](https://github.com/leboncoin/spark-android/commit/c612bb4dd6567174feec84b67338e6246fe790f8))
+
+
+### Bug Fixes
+
+* **catalog:** use correct drawable prefix when navigating to icon detail ([#2093](https://github.com/leboncoin/spark-android/issues/2093)) ([0c75c5d](https://github.com/leboncoin/spark-android/commit/0c75c5d2c77b5d6184eaeb024388c8227e1383a9))
+
+
+### Miscellaneous
+
+* **deps:** bump actions/setup-python from 6 to 7 in /.github/workflows ([#2082](https://github.com/leboncoin/spark-android/issues/2082)) ([2114290](https://github.com/leboncoin/spark-android/commit/2114290273d4c443b0f97b921c54ce7e55fb37d2))
+* **deps:** bump agp from 9.2.1 to 9.3.0 ([#2075](https://github.com/leboncoin/spark-android/issues/2075)) ([872a938](https://github.com/leboncoin/spark-android/commit/872a93808a2ad8b0d7677936f5573aa7e65be086))
+* **deps:** bump agp from 9.3.0 to 9.3.1 ([#2095](https://github.com/leboncoin/spark-android/issues/2095)) ([2c53273](https://github.com/leboncoin/spark-android/commit/2c532733e781832e6f4191803b23be192d9f9d58))
+* **deps:** bump com.composables:composeunstyled-disclosure from 2.8.2 to 2.9.0 ([#2084](https://github.com/leboncoin/spark-android/issues/2084)) ([d4e9d4c](https://github.com/leboncoin/spark-android/commit/d4e9d4c049cf626204c14dbe3971d28e6929fed2))
+* **deps:** bump kotlin from 2.4.0 to 2.4.10 ([#2076](https://github.com/leboncoin/spark-android/issues/2076)) ([8d53fb3](https://github.com/leboncoin/spark-android/commit/8d53fb338dfd195df1d7c5df316c4d9f667c7368))
+* **deps:** bump org.jetbrains.kotlinx:kotlinx-collections-immutable from 0.4.0 to 0.5.0 ([#2018](https://github.com/leboncoin/spark-android/issues/2018)) ([d725624](https://github.com/leboncoin/spark-android/commit/d725624e36e75404e38ff2dd0731d26786814fc0))
+* **deps:** bump the android-build-tools group across 1 directory with 9 updates ([#2094](https://github.com/leboncoin/spark-android/issues/2094)) ([f95a492](https://github.com/leboncoin/spark-android/commit/f95a492642211ac56dd3e0bc7e1443b4e0c3cc00))
+* **deps:** bump zizmorcore/zizmor-action from 0.5.7 to 0.6.0 in /.github/workflows ([#2077](https://github.com/leboncoin/spark-android/issues/2077)) ([4d2f686](https://github.com/leboncoin/spark-android/commit/4d2f686bbc4878b72b077ba9a481bb24fe12f2e4))
+* **deps:** bump zizmorcore/zizmor-action from 0.6.0 to 0.6.1 in /.github/workflows ([#2096](https://github.com/leboncoin/spark-android/issues/2096)) ([dac75a7](https://github.com/leboncoin/spark-android/commit/dac75a74b5c528bfb9323eed6a1a805256c59658))
+
 ## [3.2.0](https://github.com/leboncoin/spark-android/compare/3.1.0...3.2.0) (2026-07-22)
 
 
