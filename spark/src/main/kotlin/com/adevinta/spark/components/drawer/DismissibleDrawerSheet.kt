@@ -39,6 +39,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -51,7 +52,6 @@ import com.adevinta.spark.icons.HappyFaceFill
 import com.adevinta.spark.icons.HeartFill
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.LetterFill
-import com.adevinta.spark.res.resources
 import com.adevinta.spark.tokens.contentColorFor
 
 @SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
@@ -132,7 +132,7 @@ internal fun DismissibleDrawerSheetPreview() {
             items.forEach { item ->
                 NavigationDrawerItem(
                     icon = { Icon(item, contentDescription = null) },
-                    label = { Text(resources().getResourceName(item.drawableId).substringAfterLast("/")) },
+                    label = { Text(LocalResources.current.getResourceName(item.drawableId).substringAfterLast("/")) },
                     selected = item == selectedItem.value,
                     onClick = {
                         selectedItem.value = item
