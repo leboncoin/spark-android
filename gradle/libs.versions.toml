@@ -1,5 +1,5 @@
 [versions]
-agp = "9.2.1"
+agp = "9.3.0"
 compose-multiplatform = "1.11.1"
 androidx-activity = "1.13.0"
 androidx-appCompat = "1.7.1"
@@ -112,7 +112,7 @@ slack-lint-compose = "com.slack.lint.compose:compose-lint-checks:1.4.3"
 # https://github.com/google/TestParameterInjector
 testParameterInjector = "com.google.testparameterinjector:test-parameter-injector:1.22"
 
-unstyled-disclosure = "com.composables:composeunstyled-disclosure:2.8.2"
+unstyled-disclosure = "com.composables:composeunstyled-disclosure:2.9.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
