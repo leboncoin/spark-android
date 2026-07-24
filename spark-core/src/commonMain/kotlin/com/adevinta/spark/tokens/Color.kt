@@ -683,8 +683,6 @@ public fun darkHighContrastSparkColors(
  * @property onSurface Color used for text and icons displayed on top of the surface color.
  * @property surfaceInverse
  * @property onSurfaceInverse
- * @property surfaceTint This color will be used by components that apply tonal elevation and is
- * applied on top of [surface]. The higher the elevation the more this color is used.
  * @property outline Subtle color used for boundaries. Outline color role adds contrast for
  * accessibility purposes.
  * @property outlineHigh Utility color used for boundaries for decorative elements when strong
@@ -1556,7 +1554,7 @@ public fun SparkColors.applyTonalElevation(
  *
  * @param elevation Elevation value used to compute alpha of the color overlay layer.
  *
- * @return the [SparkColors.surface] color with an alpha of the [SparkColors.surfaceTint] color
+ * @return the [SparkColors.surface] color with an alpha of the surface tint color
  * overlaid on top of it.
  */
 public fun SparkColors.surfaceColorAtElevation(
