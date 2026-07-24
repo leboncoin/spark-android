@@ -256,7 +256,7 @@ public fun TextLinkButton(
     iconSide: IconSide = IconSide.START,
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    content: @Composable RowScope.() -> Unit,
+    @SuppressLint("SlotReused") content: @Composable RowScope.() -> Unit,
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         SparkButtonUnderlined(
