@@ -579,7 +579,7 @@ All component contributions must pass automated quality checks:
 - **Lint checks** enforce architectural compliance
 - **Code formatting** meets established standards
 - **Documentation** includes comprehensive API coverage
-- **Accessibility** meets WCAG 2.1 AA guidelines
+- **Accessibility** meets [RAAM](https://accessibilite.public.lu/fr/raam1.1/index.html) guidelines
 
 ### Design System Governance
 
