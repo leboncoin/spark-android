@@ -63,7 +63,7 @@ public class CardElevation internal constructor(
      * Represents the tonal elevation used in a card, depending on its [enabled] state and
      * [interactionSource]. This should typically be the same value as the [shadowElevation].
      *
-     * Tonal elevation is used to apply a color shift to the surface to give the it higher emphasis.
+     * Tonal elevation is used to apply a color shift to the surface to give it higher emphasis.
      * When surface's color is [ColorScheme.surface], a higher elevation will result in a darker
      * color in light theme and lighter color in dark theme.
      *

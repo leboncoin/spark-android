@@ -93,7 +93,6 @@ internal class FileUploadScreenshot {
     @Composable
     private fun FilePreviewStatesExample() {
         Column {
-            // Create mock files for different states
             val defaultFile = remember {
                 UploadedFile(
                     file = PlatformFile(file = File("document.pdf")),

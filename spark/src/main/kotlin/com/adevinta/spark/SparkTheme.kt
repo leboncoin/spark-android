@@ -102,7 +102,7 @@ import com.adevinta.spark.tools.SparkExceptionHandler
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 public fun SparkTheme(
-    // We don't want to automatically support dark theme in the app but still want it in the previews
+    // Dark theme is disabled in production but enabled in previews via isSystemInDarkTheme().
     colors: SparkColors = SparkTheme.colors,
     shapes: SparkShapes = SparkTheme.shapes,
     typography: SparkTypography = SparkTheme.typography,
@@ -119,8 +119,7 @@ public fun SparkTheme(
 ) {
     val internalColors = if (sparkFeatureFlag.useSparkTokensHighlighter) debugColors() else colors
     val rememberedColors = remember {
-        // Explicitly creating a new object here so we don't mutate the initial [colors]
-        // provided, and overwrite the values set in it.
+        // Creates a new object to avoid mutating the caller-provided [colors] instance.
         internalColors.copy()
     }.apply { updateColorsFrom(internalColors) }
 
@@ -208,7 +207,6 @@ internal fun PreviewTheme(
     content: @Composable ColumnScope.() -> Unit,
 ) {
     SparkTenantTheme(
-        // We don't want to automatically support dark theme in the app but still want it in the previews
         useDarkColors = useDarkColors,
     ) {
         PreviewWrapper(
@@ -222,7 +220,6 @@ internal fun PreviewTheme(
 
 @Composable
 internal fun SparkTenantTheme(
-    // We don't want to automatically support dark theme in the app but still want it in the previews
     useDarkColors: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit,
 ) {
@@ -281,9 +278,7 @@ public object SparkTheme {
         get() = LocalSparkFeatureFlag.current
 }
 
-/** CompositionLocal used to pass [SparkExceptionHandler] down the tree to enable control on some crashable
- * behaviors at consumers
- */
+/** CompositionLocal used to pass [SparkExceptionHandler] down the tree. Gives consumers control over crashable behaviours. */
 public val LocalSparkExceptionHandler: ProvidableCompositionLocal<SparkExceptionHandler> =
     staticCompositionLocalOf {
         error(

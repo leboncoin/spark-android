@@ -186,7 +186,7 @@ private fun SparkChipSelectable(
  * Chips help users quickly recognize an important information that has been entered by them,
  * trigger actions, make selections, or filter content.
  *
- * @param style one of [ChipStyles] that defines chips background and border colors.
+ * @param style one of [ChipStyles] that defines chips background and border.
  * @param onClose when provided will add the closing indicator and make it clickable. note that adding it will require
  * [onCloseLabel] to be provided as well.
  * @param onCloseLabel semantic / accessibility label for the onClose action. It should describe to the user what
@@ -255,14 +255,14 @@ public fun Chip(
 /**
  * Chips help users quickly recognize an important information that has been entered by them,
  * trigger actions, make selections, or filter content.
- * @param selected - whether this chip is selected or not * @param style one of [ChipStyles] that defines chips background and border colors.
+ * @param selected whether this chip is selected or not
+ * @param style one of [ChipStyles] that defines chips background and border.
  * @param onClose when provided will add the closing indicator and make it clickable. note that adding it will require
  * [onCloseLabel] to be provided as well.
  * @param onCloseLabel semantic / accessibility label for the onClose action. It should describe to the user what
  * will happen if [onClose] is tapped.
  * @param intent The [ChipIntent] colors that will be used for the content and background of this chip in
  * different states.
- * @param style one of [ChipStyles] that defines chips background and border.
  * @param onClick called when this chip is clicked
  * @param modifier the [Modifier] to be applied to this chip
  * @param enabled controls the enabled state of this chip. When `false`, this component will not
@@ -425,14 +425,13 @@ public fun Chip(
  * Chips help users quickly recognize an important information that has been entered by them,
  * trigger actions, make selections, or filter content.
  *
- * @param style one of [ChipStyles] that defines chips background and border colors.
+ * @param style one of [ChipStyles] that defines chips background and border.
  * @param onClose when provided will add the closing indicator and make it clickable. note that adding it will require
  * [onCloseLabel] to be provided as well.
  * @param onCloseLabel semantic / accessibility label for the onClose action. It should describe to the user what
  * will happen if [onClose] is tapped.
  * @param intent The [ChipIntent] colors that will be used for the content and background of this chip in
  * different states.
- * @param style one of [ChipStyles] that defines chips background and border.
  * @param onClick called when this chip is clicked
  * @param modifier the [Modifier] to be applied to this chip
  * @param enabled controls the enabled state of this chip. When `false`, this component will not

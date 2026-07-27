@@ -95,7 +95,6 @@ private fun ColumnScope.FileUploadSample() {
 
     val selectedType by remember { derivedStateOf { pickerType.toFileUploadType(imageSource, fileExtension) } }
 
-    // Helper function to apply global enabled state to a file
     fun UploadedFile.applyGlobalEnabled(globalEnabled: Boolean): UploadedFile = if (!globalEnabled) {
         copy(enabled = false)
     } else {
@@ -110,7 +109,6 @@ private fun ColumnScope.FileUploadSample() {
         enabled = enabled,
     )
 
-    // Display preview for single file
     AnimatedNullableVisibility(
         value = singleFile,
     ) { file ->
@@ -142,7 +140,6 @@ private fun ColumnScope.FileUploadSample() {
         enabled = enabled,
     )
 
-    // Display preview for multiple files with applied states
     val filesWithStates by remember {
         derivedStateOf {
             multipleFiles.map { it.applyGlobalEnabled(enabled) }.toImmutableList()
@@ -191,7 +188,6 @@ private fun ColumnScope.FileUploadSample() {
         onOptionSelect = { pickerType = it },
     )
 
-    // Show file extension selector only when File type is selected
     AnimatedVisibility(pickerType == FileUploadPickerType.File) {
         DropdownEnum(
             title = "File extension filter",
@@ -200,7 +196,6 @@ private fun ColumnScope.FileUploadSample() {
         )
     }
 
-    // Show ImageSource selector only when Image type is selected
     val selectedTypeHasMultipleSource =
         pickerType.toFileUploadType(imageSource) is FileUploadType.HasMultipleSource
     AnimatedVisibility(selectedTypeHasMultipleSource) {
@@ -211,14 +206,12 @@ private fun ColumnScope.FileUploadSample() {
         )
     }
 
-    // Clear icon selector
     IconPickerItem(
         label = "Clear icon",
         selectedIcon = clearIcon,
         onIconSelected = { icon -> if (icon != null) clearIcon = icon },
     )
 
-    // File state controls
     val allFiles = remember(singleFile, multipleFiles) {
         buildList {
             singleFile?.let { add(it) }
@@ -242,7 +235,6 @@ private fun ColumnScope.FileUploadSample() {
                     file = file,
                     fileName = file.name,
                     onFileChange = { updatedFile ->
-                        // Update the file in the appropriate state
                         if (singleFile?.file?.path == file.file.path) {
                             singleFile = updatedFile
                         } else {
@@ -276,7 +268,6 @@ private fun ColumnScope.FileStateControls(
     Column(
         modifier = Modifier.padding(16.dp),
     ) {
-        // File name as heading
         Text(
             text = fileName,
             style = SparkTheme.typography.headline2,

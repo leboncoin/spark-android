@@ -254,7 +254,7 @@ public fun SelectTextField(
  * @param keyboardActions when the input service emits an IME action, the corresponding callback
  * is called. Note that this IME action may be different from what you specified in
  * [KeyboardOptions.imeAction]
- * @param properties commentCountPopupProperties for further customization of this popup's behavior.
+ * @param properties PopupProperties for further customization of this popup's behavior.
  * @param interactionSource the [MutableInteractionSource] representing the stream of
  * [Interaction]s for this TextField. You can create and pass in your own remembered
  * [MutableInteractionSource] if you want to observe [Interaction]s and customize the
@@ -362,7 +362,7 @@ public fun SelectTextField(
  * @param visualTransformation transforms the visual representation of the input [value]
  * For example, you can use [PasswordVisualTransformation][androidx.compose.ui.text.input.PasswordVisualTransformation]
  * to create a password text field. By default no visual transformation is applied
- * @param properties commentCountPopupProperties for further customization of this popup's behavior.
+ * @param properties PopupProperties for further customization of this popup's behavior.
  * @param interactionSource the [MutableInteractionSource] representing the stream of
  * [Interaction]s for this TextField. You can create and pass in your own remembered
  * [MutableInteractionSource] if you want to observe [Interaction]s and customize the

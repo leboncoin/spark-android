@@ -67,14 +67,12 @@ import com.adevinta.spark.icons.PenOutline
 @Composable
 private fun StickyBottomAppBarExample() {
     PreviewTheme {
-        // Create scroll behaviors for both top and bottom app bars
         val topAppBarScrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
         val bottomAppBarScrollBehavior = BottomAppBarSparkDefaults.bottomAppBarScrollBehavior()
 
         Scaffold(
             modifier = Modifier
                 .fillMaxSize()
-                // Connect both scroll behaviors to the nested scroll system
                 .nestedScroll(topAppBarScrollBehavior.nestedScrollConnection)
                 .nestedScroll(bottomAppBarScrollBehavior.nestedScrollConnection),
             topBar = {

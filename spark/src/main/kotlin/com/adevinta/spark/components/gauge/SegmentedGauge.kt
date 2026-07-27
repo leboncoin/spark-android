@@ -91,7 +91,6 @@ private fun SparkSegmentedGauge(
         )
     }
 
-    // Coordinated animation state
     val transition = updateTransition(
         targetState = GaugeAnimationState(
             type = type,

@@ -77,17 +77,12 @@ public fun IconPickerItem(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                if (selectedIcon != null /*&& selectedIconName != null*/) {
+                if (selectedIcon != null) {
                     Icon(
                         sparkIcon = selectedIcon,
                         contentDescription = null,
                         modifier = Modifier.size(24.dp),
                     )
-//                    Text(
-//                        text = selectedIconName.splitCamelWithSpaces(),
-//                        style = SparkTheme.typography.body2,
-//                        color = SparkTheme.colors.onSurface,
-//                    )
                 } else {
                     Text(
                         text = stringResource(R.string.icon_picker_no_icon_selected),

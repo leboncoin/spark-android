@@ -39,9 +39,7 @@ import com.intellij.psi.PsiMethod
 import org.jetbrains.uast.UCallExpression
 import java.util.EnumSet
 
-/**
- * Checks if a Composable has a Spark replacement.
- */
+/** Reports calls to Material or third-party Composables that have a Spark equivalent. */
 public class MaterialComposableHasSparkReplacementDetector :
     Detector(),
     SourceCodeScanner {

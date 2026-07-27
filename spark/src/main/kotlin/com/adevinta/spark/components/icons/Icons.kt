@@ -98,7 +98,7 @@ public fun Icon(
  * and does not represent a meaningful action that a user can take. This text should be
  * localized, such as by using [androidx.compose.ui.res.stringResource] or similar
  * @param modifier optional [Modifier] for this Icon
- * @param tint to be applied to [imageVector]. If no intent is provided, then a default is used.
+ * @param tint to be applied to [imageVector]. If no tint is provided, then a default is used.
  * @param size one of [IconSize] to be applied as size of the icon.
  * If no size is provided the default [IconSize.Medium] is used.
  */
@@ -132,7 +132,7 @@ public fun Icon(
  * and does not represent a meaningful action that a user can take. This text should be
  * localized, such as by using [androidx.compose.ui.res.stringResource] or similar
  * @param modifier optional [Modifier] for this Icon
- * @param tint to be applied to [bitmap]. If no intent is provided, then a default is used
+ * @param tint to be applied to [bitmap]. If no tint is provided, then a default is used.
  * @param size one of [IconSize] to be applied as size of the icon.
  * If no size is provided the default [IconSize.Medium] is used.
  */
@@ -166,7 +166,7 @@ public fun Icon(
  * and does not represent a meaningful action that a user can take. This text should be
  * localized, such as by using [androidx.compose.ui.res.stringResource] or similar
  * @param modifier optional [Modifier] for this Icon
- * @param tint to be applied to [painter]. If no intent is provided, then a default is used
+ * @param tint to be applied to [painter]. If no tint is provided, then a default is used.
  * @param size one of [IconSize] to be applied as size of the icon.
  * If no size is provided the default [IconSize.Medium] is used.
  */
@@ -192,7 +192,7 @@ public fun Icon(
 
 /**
  * A [Painter] that can be used to draw a [SparkIcon]. This will use the correct painter for whatever type the SparkIcon
- * use.
+ * uses.
  * @param sparkIcon the icon to draw.
  * @param atEnd Whether the animated vector should be rendered at the end of all its animations.
  */

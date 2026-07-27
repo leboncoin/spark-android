@@ -76,8 +76,8 @@ internal fun SparkModalNavigationDrawer(
 /**
  * Spark ModalNavigationDrawer.
  *
- * An ModalNavigationDrawer provide ergonomic access to destinations in an app.
- * Modal navigation drawers block interaction with the rest of an app’s content with a scrim. They are elevated above most of the app’s UI and don’t affect the screen’s layout grid.
+ * A ModalNavigationDrawer provides ergonomic access to destinations in an app.
+ * Modal navigation drawers block interaction with the rest of the UI using a scrim. They float above most content and do not affect the screen’s layout grid.
  *
  * ![ModalNavigationDrawer image](https://developer.android.com/images/reference/androidx/compose/material3/navigation-drawer.png)
  *
@@ -121,7 +121,6 @@ internal fun ModalNavigationDrawerPreview() {
     ) {
         val drawerState = rememberDrawerState(DrawerValue.Closed)
         val scope = rememberCoroutineScope()
-        // icons to mimic drawer destinations
         val items = listOf(LeboncoinIcons.HeartOutline, LeboncoinIcons.Family, LeboncoinIcons.MailBoxOpenOutline)
         val selectedItem = remember { mutableStateOf(items[0]) }
 

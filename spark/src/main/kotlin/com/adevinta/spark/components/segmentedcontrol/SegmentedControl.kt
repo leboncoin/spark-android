@@ -233,8 +233,8 @@ private fun row0Count(segmentCount: Int): Int = (segmentCount + 1) / 2
 
 private enum class SegmentSlot { Segments, Indicator, Dividers, RowDivider }
 
-// We suppress the content emmiter with returning values as we use it to enforce which composable we accept inside the
-// segemented control slot
+// We suppress the content emitter with returning values as we use it to enforce which composable we accept inside the
+// segmented control slot
 @SuppressLint("ComposeContentEmitterReturningValues")
 private object SegmentedControlScopeImpl : SegmentedControlScope {
 

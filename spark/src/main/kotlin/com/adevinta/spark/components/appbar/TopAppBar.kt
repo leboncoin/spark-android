@@ -527,10 +527,8 @@ private fun SingleRowTopAppBar(
         }
     }
 
-    // Obtain the container color from the TopAppBarColors using the `overlapFraction`. This
-    // ensures that the colors will adjust whether the app bar behavior is pinned or scrolled.
-    // This may potentially animate or interpolate a transition between the container-color and the
-    // container's scrolled-color according to the app bar's scroll state.
+    // Snap to the scrolled color once overlappedFraction crosses 0.1 to avoid expensive
+    // per-pixel animations while still reacting to the scroll state.
     val colorTransitionFraction = scrollBehavior?.state?.overlappedFraction ?: 0f
     val fraction = if (colorTransitionFraction > 0.1f) 1f else 0f
     val appBarContainerColor by animateColorAsState(
@@ -542,7 +540,6 @@ private fun SingleRowTopAppBar(
         animationSpec = spring(stiffness = Spring.StiffnessMediumLow),
     )
 
-    // Wrap the given actions in a Row.
     val actionsRow = @Composable {
         Row(
             horizontalArrangement = Arrangement.End,
@@ -571,10 +568,7 @@ private fun SingleRowTopAppBar(
         Modifier
     }
 
-    // Compose a Surface with a TopAppBarLayout content.
-    // The surface's background color is animated as specified above.
-    // The height of the app bar is determined by subtracting the bar's height offset from the
-    // app bar's defined constant height value (i.e. the ContainerHeight token).
+    // Height = ContainerHeight + heightOffset, allowing the bar to collapse when scrollBehavior shrinks heightOffset.
     Surface(
         modifier = modifier.then(appBarDragModifier),
         color = appBarContainerColor,
@@ -709,16 +703,11 @@ private fun TwoRowsTopAppBar(
         }
     }
 
-    // Obtain the container Color from the TopAppBarColors using the `collapsedFraction`, as the
-    // bottom part of this TwoRowsTopAppBar changes color at the same rate the app bar expands or
-    // collapse.
-    // This will potentially animate or interpolate a transition between the container color and the
-    // container's scrolled color according to the app bar's scroll state.
+    // The bottom row color tracks collapsedFraction so it transitions in sync with the expand/collapse animation.
     val colorTransitionFraction = scrollBehavior?.state?.collapsedFraction ?: 0f
     val appBarContainerColor by rememberUpdatedState(colors.containerColor(colorTransitionFraction))
     val appBarContainerElevation by rememberUpdatedState(containerElevation(colorTransitionFraction))
 
-    // Wrap the given actions in a Row.
     val actionsRow = @Composable {
         Row(
             horizontalArrangement = Arrangement.End,
@@ -917,7 +906,6 @@ private fun TopAppBarLayout(
         val layoutHeight = heightPx.roundToInt()
 
         layout(constraints.maxWidth, layoutHeight) {
-            // Navigation icon
             navigationIconPlaceable.placeRelative(
                 x = 0,
                 y = (layoutHeight - navigationIconPlaceable.height) / 2,
@@ -958,7 +946,6 @@ private fun TopAppBarLayout(
                 },
             )
 
-            // Action icons
             actionIconsPlaceable.placeRelative(
                 x = constraints.maxWidth - actionIconsPlaceable.width,
                 y = (layoutHeight - actionIconsPlaceable.height) / 2,

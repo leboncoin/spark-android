@@ -132,7 +132,6 @@ internal fun LayoutPreview() {
                     horizontal = bodyMargin,
                     vertical = gutter,
                 ),
-                // We minus 8.dp off the grid padding, as we use content padding on the items below
                 horizontalArrangement = Arrangement.spacedBy(gutter),
                 verticalArrangement = Arrangement.spacedBy(gutter),
                 modifier = Modifier

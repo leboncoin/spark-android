@@ -83,7 +83,7 @@ internal fun IconButton(
         },
         modifier = modifier
             .sizeIn(minWidth = 44.dp, minHeight = 44.dp)
-            .focusProperties { canFocus = false }, // Focus is show by the parent
+            .focusProperties { canFocus = false }, // Focus is shown by the parent
         enabled = enabled,
         shape = shape,
         color = containerColor,

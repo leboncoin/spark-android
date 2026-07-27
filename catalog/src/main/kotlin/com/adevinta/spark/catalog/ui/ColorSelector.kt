@@ -168,7 +168,6 @@ public fun ColorSelector(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             val borderColor = if (selectedColor.luminance() >= 0.5) Color.Black else Color.White
-            // Color preview
             Box(
                 modifier = Modifier
                     .size(24.dp)
@@ -248,7 +247,6 @@ private fun ColorPickerDialog(
             modifier = Modifier.fillMaxWidth(),
         ) {
             stickyHeader {
-                // SparkColors tokens grid
                 Text(
                     text = stringResource(R.string.color_picker_tokens_title),
                     style = SparkTheme.typography.body1,
@@ -283,7 +281,6 @@ private fun ColorPickerDialog(
             ) {
                 Column {
                     if (isCustomPickerVisible) {
-                        // Custom color picker
                         Text(
                             text = stringResource(R.string.color_picker_custom_title),
                             style = SparkTheme.typography.body1,
@@ -297,7 +294,6 @@ private fun ColorPickerDialog(
                             controller = controller,
                             initialColor = selectedCustomColor,
                             onColorChanged = { colorEnvelope: ColorEnvelope ->
-                                // do something
                                 selectedCustomColor = colorEnvelope.color
                             },
                         )

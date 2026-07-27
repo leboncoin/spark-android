@@ -262,7 +262,7 @@ internal fun ImageIconState(
         EmphasizeDim2 {
             Icon(
                 sparkIcon = sparkIcon,
-                contentDescription = null, // The SparkImage handle the content description
+                contentDescription = null, // SparkImage handles the content description.
                 modifier = Modifier.ifNotNull(size) {
                     imageIconDynamicSize(it)
                 },
@@ -315,10 +315,8 @@ private fun Constraints.checkThatImageHasDefinedSize(
 }
 
 /**
- * This modifier allow us to define the icon size without relying on subcomposition which would block
- * some of our consumer usages
- *
- * @param dynamicSize
+ * This modifier allows us to define the icon size without relying on subcomposition which would block
+ * some of our consumer usages.
  */
 private fun Modifier.imageIconDynamicSize(
     dynamicSize: (maxWidth: Dp, maxHeight: Dp) -> Dp,
@@ -372,7 +370,7 @@ public sealed class State {
     /** The current painter being drawn by [Image]. */
     public abstract val painter: Painter?
 
-    /** The request has not been started or the request has no data*/
+    /** The request has not been started or the request has no data. */
     public object Empty : State() {
         override val painter: Painter? get() = null
     }

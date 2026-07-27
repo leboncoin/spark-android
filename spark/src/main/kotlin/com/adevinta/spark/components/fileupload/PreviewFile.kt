@@ -119,7 +119,6 @@ public fun PreviewFile(
     val isLoading = file.isLoading
     val errorMessage = file.errorMessage
 
-    // Disable clear button if progress or loading is active
     val isClearEnabled = file.enabled && progress == null && !isLoading
 
     Surface(
@@ -160,7 +159,6 @@ public fun PreviewFile(
                         modifier = Modifier.fillMaxWidth(1f),
                     )
 
-                    // Show progress bar during upload
                     AnimatedVisibility(
                         visible = progress != null || isLoading,
                     ) {
@@ -173,8 +171,8 @@ public fun PreviewFile(
                         } else {
                             val animatedProgress by
                                 animateFloatAsState(
-                                    // backup to 100 otherwise we would crash since the progress
-                                    // is still in use for the time we hide it
+                                    // Fall back to 100f while hiding, to avoid a crash while the
+                                    // progress lambda is still referenced during the exit animation.
                                     targetValue = progress?.invoke() ?: 100f,
                                     animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec,
                                 )
@@ -187,7 +185,6 @@ public fun PreviewFile(
                         }
                     }
 
-                    // Show error message if present
                     AnimatedVisibility(visible = hasError) {
                         Text(
                             text = errorMessage ?: "",

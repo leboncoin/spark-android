@@ -29,6 +29,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 @OptIn(ExperimentalKotlinGradlePluginApi::class)
+/* Configures Kotlin Multiplatform targets, source sets, and compiler options for Spark modules. */
 public class SparkMultiplatformPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = with(target) {
         with(pluginManager) {
@@ -46,7 +47,8 @@ public class SparkMultiplatformPlugin : Plugin<Project> {
 
             compilerOptions {
                 freeCompilerArgs.addAll(
-                    // Suppress warning: The feature "multi platform projects" is experimental and should be enabled explicitly
+                    // Suppress warning: The feature "multi platform projects" is experimental and should be
+                    // enabled explicitly
                     "-Xmulti-platform",
                 )
                 if (hasSparkInternalAnnotations) {

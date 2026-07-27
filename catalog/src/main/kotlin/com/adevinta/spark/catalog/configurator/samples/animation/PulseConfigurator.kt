@@ -84,8 +84,7 @@ private fun ColumnScope.PulseSample(snackbarHostState: SnackbarHostState) {
 
     val firstLocale = LocalConfiguration.current.locales[0]
 
-    // Quick and dirty way to restart the animation otherwise when we change the scales they'll become
-    // synchronized with the alpha as they'll be restarted
+    // Toggling isEnabled forces a restart; without this, scale and alpha animations drift out of sync.
     val coroutineScope = rememberCoroutineScope()
     val restartPulseOnChange = {
         coroutineScope.launch {
@@ -96,7 +95,6 @@ private fun ColumnScope.PulseSample(snackbarHostState: SnackbarHostState) {
         Unit
     }
 
-    // Preview area
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -118,7 +116,6 @@ private fun ColumnScope.PulseSample(snackbarHostState: SnackbarHostState) {
         )
     }
 
-    // Configuration controls
     SwitchLabelled(
         checked = isEnabled,
         onCheckedChange = { isEnabled = it },
@@ -129,7 +126,6 @@ private fun ColumnScope.PulseSample(snackbarHostState: SnackbarHostState) {
         )
     }
 
-    // Initial Scale Slider
     Text(text = "Initial Scale: ${String.format(locale = firstLocale , format = "%.1f", initialScale)}")
 
     Slider(
@@ -142,7 +138,6 @@ private fun ColumnScope.PulseSample(snackbarHostState: SnackbarHostState) {
         modifier = Modifier.fillMaxWidth(),
     )
 
-    // Target Scale Slider
     Text(text = "Target Scale: ${String.format(locale = firstLocale , format = "%.1f", targetScale)}")
     Slider(
         value = targetScale,
@@ -154,7 +149,6 @@ private fun ColumnScope.PulseSample(snackbarHostState: SnackbarHostState) {
         modifier = Modifier.fillMaxWidth(),
     )
 
-    // Animation Duration Slider
     Text(text = "Animation Duration: ${animationDuration}ms")
     Slider(
         value = animationDuration.toFloat(),

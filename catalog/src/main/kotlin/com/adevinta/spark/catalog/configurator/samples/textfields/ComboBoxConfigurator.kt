@@ -382,7 +382,7 @@ private fun ColumnScope.MultiChoiceComboBoxWithSelectedSample() {
     var helperText by remember { mutableStateOf("Helper message") }
     var statusMessageText by remember { mutableStateOf("State Message") }
     var addonText: String? by remember { mutableStateOf(null) }
-    var selectedBooks by remember { mutableStateOf(setOf(1, 2)) } // Pre-select first two books
+    var selectedBooks by remember { mutableStateOf(setOf(1, 2)) }
 
     val leadingContent: (@Composable AddonScope.() -> Unit)? = addonText?.let {
         @Composable {

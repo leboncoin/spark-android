@@ -55,10 +55,9 @@ public class MainActivity : AppCompatActivity() {
 
     internal var activeNavController: NavController? = null
 
-    // JankStats usage taken from NIA but it'll help detect issues in the catalog app like the backdrop front layer.
+    // Tracks jank on the front layer; logs janky frames for local debugging.
     internal val jankStats: JankStats by lazy(LazyThreadSafetyMode.NONE) {
         JankStats.createAndTrack(window) { frameData ->
-            // Make sure to only log janky frames.
             if (frameData.isJank) {
                 // We're currently logging this but would better report it to a backend.
                 Log.v("Catalog Jank", frameData.toString())
@@ -68,10 +67,6 @@ public class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Turn off the decor fitting system windows, which allows us to handle insets,
-        // including IME animations, and go edge-to-edge
-        // This also sets up the initial system bar style based on the platform theme
-//        enableEdgeToEdge()
         val uiModeManager = getSystemService<UiModeManager>()
         val propertiesHandler = ThemePropertiesHandler(context = this@MainActivity)
 

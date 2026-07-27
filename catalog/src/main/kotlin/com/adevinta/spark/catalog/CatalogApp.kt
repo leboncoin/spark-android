@@ -145,24 +145,6 @@ internal fun ComponentActivity.CatalogApp(
             TextDirection.System -> LocalLayoutDirection.current
         }
 
-        // Update the edge to edge configuration to match the theme
-        // This is the same parameters as the default enableEdgeToEdge call, but we manually
-        // resolve whether or not to show dark theme using uiState, since it can be different
-        // than the configuration's dark theme value based on the user preference.
-//        DisposableEffect(useDark) {
-//            enableEdgeToEdge(
-//                statusBarStyle = SystemBarStyle.auto(
-//                    android.graphics.Color.TRANSPARENT,
-//                    android.graphics.Color.TRANSPARENT,
-//                ) { useDark },
-//                navigationBarStyle = SystemBarStyle.auto(
-//                    lightScrim,
-//                    darkScrim,
-//                ) { useDark },
-//            )
-//            onDispose {}
-//        }
-        // Shader for colorblindness demo
         val runtimeShader = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             RuntimeShader(shader)
         } else {

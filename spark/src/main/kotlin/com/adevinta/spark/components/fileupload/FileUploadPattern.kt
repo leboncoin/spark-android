@@ -121,7 +121,7 @@ public fun rememberFileUploadPattern(
     val isSingleMode = mode is FileUploadMode.Single
     val maxFiles = if (mode is FileUploadMode.Multiple) mode.maxFiles else null
 
-    // No ActivityResultRegistryOwner in Paparazzi/Preview — return a no-op state.
+    // Paparazzi/Preview has no ActivityResultRegistryOwner, so return a no-op state.
     if (LocalInspectionMode.current) {
         return remember(isSingleMode, maxFiles) {
             FileUploadPatternState(
@@ -135,10 +135,8 @@ public fun rememberFileUploadPattern(
         }
     }
 
-    // File picker launcher (for gallery/file selection)
     val fileKitType = type.toFileKitType()
     val filePicker = if (isSingleMode) {
-        // Single mode: callback receives PlatformFile? directly
         rememberFilePickerLauncher(
             type = fileKitType,
             directory = directory,
@@ -162,7 +160,6 @@ public fun rememberFileUploadPattern(
         }
     }
 
-    // Camera picker launcher
     val cameraPicker = rememberCameraPickerLauncher { newPhoto ->
         if (newPhoto == null) return@rememberCameraPickerLauncher
 
@@ -200,7 +197,7 @@ private fun FileUploadPatternPreview() {
         val pattern = rememberFileUploadPattern(
             onFilesSelect = {},
         )
-        // Use Chip as this is not a prebuild FileUpload component
+        // Chip is used here because this preview exercises the wrapper pattern, not a pre-built upload button.
         FileUploadPattern(
             pattern = pattern,
         ) { onClick ->

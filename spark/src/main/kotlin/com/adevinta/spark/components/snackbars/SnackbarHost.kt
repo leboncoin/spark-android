@@ -176,14 +176,13 @@ public class SnackbarHostState {
     ) : SnackbarData {
 
         /**
-         *Function to be called when Snackbar action has been performed to notify the listeners
+         * Function to be called when Snackbar action has been performed to notify the listeners
          */
         override fun performAction() {
             if (continuation.isActive) continuation.resume(SnackbarResult.ActionPerformed)
         }
 
         /**
-         * Dismisses the Snackbar.
          * Function to be called when Snackbar is dismissed either by timeout or by the user
          */
         override fun dismiss() {

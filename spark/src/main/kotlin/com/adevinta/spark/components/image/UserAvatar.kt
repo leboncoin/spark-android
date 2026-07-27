@@ -100,7 +100,7 @@ internal fun SparkUserAvatar(
                         val dotSize = style.badgeSize.toPx() / 2
                         val xOffset = style.badgeXOffset.toPx()
                         val yOffset = style.badgeYOffset.toPx()
-                        // Clip a white border for the content
+                        // BlendMode.Clear cuts a transparent ring to create the border gap.
                         drawCircle(
                             Color.Black,
                             radius = dotSize,
@@ -110,7 +110,7 @@ internal fun SparkUserAvatar(
                             ),
                             blendMode = BlendMode.Clear,
                         )
-                        // draw the colored circle indication
+                        // Draw the online indicator dot.
                         drawCircle(
                             indicatorColor,
                             radius = dotSize - style.borderSize.toPx(),
@@ -157,8 +157,7 @@ public fun UserAvatar(
  * @param badgeSize size of online badge in [Dp]
  * @param badgeXOffset size of the x offset of the badge in [Dp]
  * @param badgeYOffset size of the y offset of the badge in [Dp]
- * @param borderSize The indicator border size in [Dp], it needs to be defined since the border mechanisms is
- * different than figma
+ * @param borderSize The indicator border size in [Dp]. Must be set explicitly because the border mechanism differs from the Figma spec.
  */
 public enum class UserAvatarStyle(
     public val imageSize: Dp,

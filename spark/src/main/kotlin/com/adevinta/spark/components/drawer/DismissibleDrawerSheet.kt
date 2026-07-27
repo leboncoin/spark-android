@@ -80,7 +80,7 @@ internal fun SparkDismissibleDrawerSheet(
 /**
  * Spark DismissibleDrawerSheet.
  *
- * An DismissibleDrawerSheet is a simple dismissible drawer sheet with content inside.
+ * A DismissibleDrawerSheet is a simple dismissible drawer sheet with content inside.
  *
  * @param modifier the [Modifier] to be applied to this drawer's content
  * @param drawerShape defines the shape of this drawer's container
@@ -123,7 +123,6 @@ internal fun DismissibleDrawerSheetPreview() {
     PreviewTheme(
         padding = PaddingValues(0.dp),
     ) {
-        // icons to mimic drawer destinations
         val items = listOf(LeboncoinIcons.HeartFill, LeboncoinIcons.HappyFaceFill, LeboncoinIcons.LetterFill)
         val selectedItem = remember { mutableStateOf(items[0]) }
 

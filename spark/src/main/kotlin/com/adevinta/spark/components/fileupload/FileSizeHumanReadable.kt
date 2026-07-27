@@ -35,14 +35,12 @@ internal fun Double.formatNumber(
     val rounded = formatWithDecimals(decimals)
     val parts = rounded.split('.')
 
-    // Format the integer part
     val formattedIntegerPart = parts[0]
         .reversed()
         .chunked(3)
         .joinToString(groupSeparator)
         .reversed()
 
-    // Format the decimal part
     val decimalPart = if (parts.size > 1) parts[1] else ""
     val formattedDecimalPart = if (decimals > 0) {
         val truncatedDecimals = decimalPart.padEnd(decimals, '0').substring(0, decimals)
@@ -101,7 +99,5 @@ private fun Double.formatWithDecimals(decimals: Int): String {
     }
 }
 
-/**
- * Workaround for Libres returning an empty string if it contains only a space.
- */
+/** Libres returns an empty string for a string that contains only a space, so substitute it. */
 private fun String.formatWithSpaceIfNeeded(): String = ifEmpty { " " }

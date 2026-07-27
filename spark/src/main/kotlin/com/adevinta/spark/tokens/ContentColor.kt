@@ -40,12 +40,8 @@ import com.adevinta.spark.icons.IdentityCardOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 
 /**
- * This function is used to set the current value of [LocalContentColor] to onSurface. Any [Text], Icons, other
- * components included.
- *
- * This is the default emphasis applied in the whole theme.
- * This component's [content] will be styled with this a content color alpha that apply a medium emphasis which
- * is close to Black.
+ * Sets [LocalContentColor] to [SparkColors.onSurface], the full-emphasis colour. This is the
+ * default emphasis for the whole theme.
  */
 @Composable
 public fun EmphasizeHigh(content: @Composable () -> Unit) {
@@ -53,9 +49,7 @@ public fun EmphasizeHigh(content: @Composable () -> Unit) {
 }
 
 /**
- * This function is used to set the current value of [LocalContentColor] to onSurfaceVariant. Any [Text], Icons, other
- * components included in this component's [content] will be styled with this a content color alpha that apply a
- * medium emphasis which is close to Dark Gray.
+ * Sets [LocalContentColor] to [SparkColors.onSurface] at [dim1] alpha (medium emphasis, close to dark grey).
  */
 @Composable
 public fun EmphasizeMedium(content: @Composable () -> Unit) {
@@ -66,9 +60,7 @@ public fun EmphasizeMedium(content: @Composable () -> Unit) {
 }
 
 /**
- * This function is used to set the current value of [LocalContentColor] to onSurface with a disabled alpha.
- * Any [Text], Icons, other  components included in this component's [content] will be styled with this a content
- * color alpha that apply a disabled emphasis which is close to Gray or Light Gray.
+ * Sets [LocalContentColor] to [SparkColors.onSurface] at [dim3] alpha (disabled emphasis, close to grey).
  */
 @Composable
 public fun EmphasizeDisable(content: @Composable () -> Unit) {
@@ -125,9 +117,7 @@ public fun EmphasizeDim4(content: @Composable () -> Unit) {
 }
 
 /**
- * Used for press and ripples
- *
- * This is should not be used on Android as the Material Ripple handles this already.
+ * Sets [LocalContentColor] at [dim5] alpha. Do not use on Android; the Material Ripple handles press states already.
  */
 @InternalSparkApi
 @Composable

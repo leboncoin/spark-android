@@ -28,16 +28,12 @@ import androidx.compose.ui.semantics.hideFromAccessibility
 import androidx.compose.ui.semantics.semantics
 
 /**
- * If present, this node is considered hidden from accessibility services.
+ * Marks this node as hidden from accessibility services, causing screen readers to skip it during
+ * linear navigation. Use this when the node is obscured (for example, under a scrim) and should
+ * not be announced.
  *
- * For example, if the node is currently occluded by a dark semitransparent pane above it, then for
- * all practical purposes the node should not be announced to the user. Since the system cannot
- * automatically determine that, this property can be set to make the screen reader linear
- * navigation skip over this type of node.
- *
- * If looking for a way to clear semantics of small items from the UI tree completely because they
- * are redundant with semantics of their parent, consider [SemanticsModifier.clearAndSetSemantics]
- * instead.
+ * To remove redundant semantics that are already covered by a parent node, use
+ * [SemanticsModifier.clearAndSetSemantics] instead.
  */
 public fun Modifier.invisibleSemantic(): Modifier =
     semantics { hideFromAccessibility() }

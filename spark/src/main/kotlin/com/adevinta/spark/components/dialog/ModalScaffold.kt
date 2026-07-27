@@ -101,7 +101,7 @@ import com.adevinta.spark.tokens.LocalWindowSizeClass
  * The scaffold provides different layouts for phone portrait, phone landscape, and other
  * devices (e.g., tablets or foldables) where it'll show a modal instead.
  *
- * IF you don't want the Bottom App Bar to appear then provide null to both [mainButton] & [supportButton]
+ * To hide the Bottom App Bar, pass null to both [mainButton] and [supportButton].
  *
  * @param onClose callback that will be invoked when the modal is dismissed
  * @param snackbarHost Component to host Snackbars that are pushed to be shown
@@ -112,8 +112,8 @@ import com.adevinta.spark.tokens.LocalWindowSizeClass
  * @param title the title of the modal
  * @param actions the actions displayed at the end of the top app bar. This should typically be
  *  * [IconButton]s. The default layout here is a [Row], so icons inside will be placed horizontally.
- * @param inEdgeToEdge tel the component that the activity where it's being displayed on is a edege to edge screen.
- * This has to be explicitly specified as no api wan reliably tel us
+ * @param inEdgeToEdge tell the component that the host activity uses edge-to-edge.
+ * This must be set explicitly because no API can reliably detect it.
  * @param content the center custom Composable for modal content
  */
 @ExperimentalSparkApi
@@ -225,7 +225,7 @@ private fun DialogScaffold(
             Column {
                 TopAppBar(
                     navigationIcon = {
-                        // As a fallback when to action button is displayed to easily close the dialog
+                        // When no action buttons are present, show the close button so the dialog can be dismissed.
                         if (supportButton == null && mainButton == null) {
                             CloseIconButton(onClose = onClose)
                         }
@@ -285,7 +285,7 @@ private fun PhonePortraitModalScaffold(
         onDismissRequest = onClose,
         properties = properties,
     ) {
-        // Work around for b/246909281 as for now Dialog doesn't pass the drawing insets to its content
+        // Work around b/246909281: Dialog does not pass drawing insets to its content.
         if (inEdgeToEdge) SetUpEdgeToEdgeDialog()
 
         val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
@@ -378,7 +378,7 @@ private fun PhoneLandscapeModalScaffold(
         onDismissRequest = onClose,
         properties = properties,
     ) {
-        // Work around for b/246909281 as for now Dialog doesn't pass the drawing insets to its content
+        // Work around b/246909281: Dialog does not pass drawing insets to its content.
         if (inEdgeToEdge) SetUpEdgeToEdgeDialog()
         val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
         val bottomAppBarScrollBehavior = BottomAppBarSparkDefaults.bottomAppBarScrollBehavior()
@@ -471,15 +471,12 @@ private fun SetUpEdgeToEdgeDialog() {
     window.statusBarColor = Color.Transparent.toArgb()
     window.navigationBarColor = Color.Transparent.toArgb()
     window.navigationBarColor = Color.Transparent.toArgb()
-    // Displaying a popup with this flag will make it un scrollable if it's bigger that the screen
+    // FLAG_LAYOUT_NO_LIMITS would make large popups unscrollable, so it is intentionally omitted.
     // window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
     window.setDimAmount(0f)
 }
 
-/**
- * Merge 2 padding values with each others.
- * This was not provided by Google so we're making our own
- */
+/** Adds two [PaddingValues] together. Not provided by Google so defined here. */
 private operator fun PaddingValues.plus(other: PaddingValues): PaddingValues = PaddingValues(
     start = this.calculateStartPadding(LayoutDirection.Ltr) +
         other.calculateStartPadding(LayoutDirection.Ltr),

@@ -76,11 +76,11 @@ internal fun SparkPermanentDrawerSheet(
 
 /**
  * Content inside of a permanent navigation drawer.
- * @param modifier commentCountthe Modifier to be applied to this drawer's content
- * @param drawerContainerColor commentCountthe color used for the background of this drawer. Use Color.Transparent to have no color.
- * @param drawerContentColor commentCountthe preferred color for content inside this drawer. Defaults to either the matching content color
+ * @param modifier the Modifier to be applied to this drawer's content
+ * @param drawerContainerColor the color used for the background of this drawer. Use Color.Transparent to have no color.
+ * @param drawerContentColor the preferred color for content inside this drawer. Defaults to either the matching content color
  * for drawerContainerColor, or to the current LocalContentColor if drawerContainerColor is not a color from the theme.
- * @param content commentCountcontent inside a permanent navigation drawer
+ * @param content content inside a permanent navigation drawer
  */
 @ExperimentalSparkApi
 @Composable

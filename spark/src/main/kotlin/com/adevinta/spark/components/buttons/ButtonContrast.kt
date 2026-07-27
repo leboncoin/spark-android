@@ -213,11 +213,7 @@ public fun ButtonContrast(
 }
 
 /**
- * Ghost buttons are used for the lowest priority actions, especially when presenting multiple options.
- *
- * Ghost buttons can be placed on a variety of backgrounds. Until the button is interacted with, its container
- * isn’t visible.
- * This button style is often used inside other components like snackbars, dialogs, and cards.
+ * Contrast buttons are used on coloured or image backgrounds where standard buttons lack visibility.
  *
  * @param onClick Will be called when the user clicks the button
  * @param text The text to be displayed in the button

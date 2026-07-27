@@ -23,6 +23,7 @@ package com.adevinta.spark
 
 import java.util.Locale
 
+/** Returns a copy of this string with the first character uppercased. */
 public fun String.capitalized(): String = replaceFirstChar {
     if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString()
 }

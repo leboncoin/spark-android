@@ -28,7 +28,7 @@ import com.adevinta.spark.components.IntentColor
 import com.adevinta.spark.components.IntentColors
 
 /**
- * SpinnerIntent is used to define the intent of the chip.
+ * SpinnerIntent is used to define the intent of the spinner.
  */
 public enum class SpinnerIntent {
     /**

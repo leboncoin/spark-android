@@ -120,7 +120,7 @@ public class BackdropScaffoldState(
     public val confirmValueChange: (BackdropValue) -> Boolean = { true },
     public val snackbarHostState: SnackbarHostState = SnackbarHostState(),
 ) {
-    /** The current value of the [BottomSheetState]. */
+    /** The current value of the [BackdropScaffoldState]. */
     public val currentValue: BackdropValue
         get() = anchoredDraggableState.currentValue
 
@@ -366,7 +366,6 @@ public fun BackdropScaffold(
 
     val state = scaffoldState.anchoredDraggableState
 
-    // Back layer
     Surface(
         color = backLayerBackgroundColor,
         contentColor = backLayerContentColor,
@@ -387,7 +386,6 @@ public fun BackdropScaffold(
                 Modifier
             }
 
-            // Front layer
             Surface(
                 nestedScroll
                     .draggableAnchors(state, Orientation.Vertical) { layoutSize, _ ->
@@ -452,7 +450,6 @@ public fun BackdropScaffold(
                 }
             }
 
-            // Snackbar host
             Box(
                 Modifier
                     .padding(

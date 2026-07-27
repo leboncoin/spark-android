@@ -24,8 +24,6 @@ package com.adevinta.spark.components.gauge
 /**
  * Defines the available sizes for the SegmentedGauge component.
  *
- * Note that each parameters
- *
  * @property width The width of each segment in density-independent pixels.
  * @property height The height of each segment in density-independent pixels.
  * @property indicatorSize The size of the indicator in density-independent pixels.

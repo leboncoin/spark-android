@@ -45,9 +45,7 @@ public fun sparkFontFamily(
     fontFamily = fontFamily,
 )
 
-/**
- * Utility class to handle the change of font family for the SparkTheme.
- */
+/** Holds the active font family for the SparkTheme, with optional token-highlighter override. */
 @Immutable
 public class SparkFontFamily(private val useSparkTokensHighlighter: Boolean, private val fontFamily: FontFamily) {
     /**

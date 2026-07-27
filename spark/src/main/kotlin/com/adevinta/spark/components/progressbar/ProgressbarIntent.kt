@@ -92,7 +92,7 @@ public enum class ProgressbarIntent {
     },
 
     /**
-     * Used informational valuable actions.
+     * Used for informational actions.
      */
     Info {
         @Composable

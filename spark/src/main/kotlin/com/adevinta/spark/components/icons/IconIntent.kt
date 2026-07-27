@@ -89,7 +89,7 @@ public enum class IconIntent {
     },
 
     /**
-     * Used to alert.
+     * Used for risky or destructive actions.
      */
     Danger {
         @Composable

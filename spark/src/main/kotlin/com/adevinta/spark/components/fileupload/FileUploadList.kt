@@ -69,7 +69,6 @@ public fun FileUploadList(
             verticalArrangement = spacedBy(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            // Display all files
             files.forEach { file ->
                 key(file.file.path) {
                     PreviewFile(

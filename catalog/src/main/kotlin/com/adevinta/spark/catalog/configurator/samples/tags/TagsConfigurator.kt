@@ -91,7 +91,6 @@ private fun ColumnScope.TagSample(snackbarHostState: SnackbarHostState) {
         title = "Style",
         selectedOption = style,
         onOptionSelect = { newStyle ->
-            // Check if current intent is invalid for new style
             if (intent == TagIntent.Surface && newStyle != TagStyle.Filled) {
                 coroutineScope.launch {
                     snackbarHostState.showSnackbar(
@@ -99,7 +98,6 @@ private fun ColumnScope.TagSample(snackbarHostState: SnackbarHostState) {
                         intent = SnackbarIntent.Error,
                     )
                 }
-                // Reset intent to a valid one
                 intent = TagIntent.Main
             }
             style = newStyle
@@ -124,7 +122,6 @@ private fun ColumnScope.TagSample(snackbarHostState: SnackbarHostState) {
                 DropdownMenuItem(
                     text = { Text(newIntent.name) },
                     onClick = {
-                        // Check if the selected intent is invalid for current style
                         if (newIntent == TagIntent.Surface && style != TagStyle.Filled) {
                             coroutineScope.launch {
                                 snackbarHostState.showSnackbar(

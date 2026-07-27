@@ -34,10 +34,7 @@ import com.android.ide.common.rendering.api.SessionParams.RenderingMode.SHRINK
 import org.junit.Rule
 import org.junit.Test
 
-/**
- * Documentation screenshots for Button component, following Material Design's approach of showing
- * each variant with light and dark theme side by side.
- */
+/** Documentation screenshots for the Button component, each variant shown in light and dark theme side by side. */
 internal class ButtonDocumentationScreenshots {
 
     @get:Rule

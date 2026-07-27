@@ -74,7 +74,7 @@ internal fun SparkDismissibleNavigationDrawer(
 /**
  * Spark DismissibleNavigationDrawer.
  *
- * A DismissibleNavigationDrawer provide ergonomic access to destinations in an app. They’re often next to app content and affect the screen’s layout grid.
+ * A DismissibleNavigationDrawer provides ergonomic access to destinations in an app. It sits next to app content and affects the screen’s layout grid.
  *
  * ![DismissibleNavigationDrawer image](https://developer.android.com/images/reference/androidx/compose/material3/navigation-drawer.png)
  *
@@ -126,7 +126,6 @@ internal fun AlertDialogPreview() {
     ) {
         val drawerState = rememberDrawerState(DrawerValue.Closed)
         val scope = rememberCoroutineScope()
-        // icons to mimic drawer destinations
         val items = listOf(LeboncoinIcons.HeartOutline, LeboncoinIcons.Family, LeboncoinIcons.MailBoxOpenOutline)
         val selectedItem = remember { mutableStateOf(items[0]) }
 

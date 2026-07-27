@@ -40,6 +40,7 @@ import kotlin.collections.firstOrNull
 import kotlin.collections.orEmpty
 import kotlin.let
 
+/** Reports unused `content` padding parameters in calls to Spark's `Scaffold`. */
 public class ScaffoldPaddingDetector :
     Detector(),
     SourceCodeScanner {

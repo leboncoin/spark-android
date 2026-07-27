@@ -416,7 +416,7 @@ internal fun SparkButtonGhost(
  * Until the button is interacted with, its container is not visible.
  *
  * ![Button Ghost](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonGhost.png)
- **
+ *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
  * @param size The size of the button

@@ -49,7 +49,6 @@ import com.adevinta.spark.tokens.dim5
  * RatingStar is the atomic element of rating components
  * @param modifier to be applied
  * @param enabled whether the star should be enabled or disabled
- * @param modifier to be applied
  * @param size of the star, can be any size but preferably, use [RatingDefault.StarSize] or [RatingDefault.SmallStarSize].
  * @param state of the star,
  * can be [RatingStarState.Full], [RatingStarState.Empty] or [RatingStarState.Half]
