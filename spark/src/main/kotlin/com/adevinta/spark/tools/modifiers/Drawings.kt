@@ -151,8 +151,7 @@ private fun Modifier.dashedBorder(width: Dp, brush: Brush, shape: Shape): Modifi
 
     onDrawWithContent {
         drawContent()
-        // Only draw the border if a have a valid stroke parameter. If we have
-        // an invalid border size we will just draw the content
+        // Only draw the border when stroke is non-null. A zero or negative border size skips it.
         if (stroke != null) {
             if (insetOutline != null && pathClip != null) {
                 val isSimpleRoundRect = insetOutline is Outline.Rounded &&
@@ -160,8 +159,7 @@ private fun Modifier.dashedBorder(width: Dp, brush: Brush, shape: Shape): Modifi
                 withTransform(
                     {
                         clipPath(pathClip)
-                        // we are drawing the round rect not as a path so we must
-                        // translate ourselves othe
+                        // Drawing a round rect directly (not via path), so translate manually.
                         if (isSimpleRoundRect) {
                             translate(inset, inset)
                         }

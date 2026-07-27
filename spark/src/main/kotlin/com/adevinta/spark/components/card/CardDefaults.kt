@@ -134,7 +134,7 @@ public object CardDefaults {
      * Creates a [CardElevation] that will animate between the provided values according to the
      * Material specification for an [ElevatedCard].
      *
-     * @param defaultElevation the elevation used when the [ElevatedCard] is has no other
+     * @param defaultElevation the elevation used when the [ElevatedCard] has no other
      * [Interaction]s.
      * @param pressedElevation the elevation used when the [ElevatedCard] is pressed.
      * @param focusedElevation the elevation used when the [ElevatedCard] is focused.
@@ -162,7 +162,7 @@ public object CardDefaults {
      * Creates a [CardElevation] that will animate between the provided values according to the
      * Material specification for an [OutlinedCard].
      *
-     * @param defaultElevation the elevation used when the [OutlinedCard] is has no other
+     * @param defaultElevation the elevation used when the [OutlinedCard] has no other
      * [Interaction]s.
      * @param pressedElevation the elevation used when the [OutlinedCard] is pressed.
      * @param focusedElevation the elevation used when the [OutlinedCard] is focused.

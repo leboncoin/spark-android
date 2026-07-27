@@ -71,7 +71,6 @@ private fun ColumnScope.MultiChoiceDropdownWithSelectedSample() {
     var helperText by rememberSaveable { mutableStateOf("Helper message") }
     var stateMessageText by rememberSaveable { mutableStateOf("State Message") }
     var addonText: String? by rememberSaveable { mutableStateOf(null) }
-    // Pre-select first two books
     var selectedBooks by remember {
         mutableStateOf(
             setOf(

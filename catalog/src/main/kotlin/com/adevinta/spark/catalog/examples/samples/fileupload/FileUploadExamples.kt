@@ -122,7 +122,6 @@ public val FileUploadExamples: ImmutableList<Example> = persistentListOf(
 @Composable
 private fun FilePreviewStatesExample() {
     Column(modifier = Modifier.fillMaxWidth()) {
-        // Create mock files for different states
         val defaultFile = remember {
             UploadedFile(
                 file = PlatformFile(file = File("document.pdf")),
@@ -228,7 +227,6 @@ private fun MultipleFilesConcatenatedExample() {
     Column(modifier = Modifier.fillMaxWidth()) {
         FileUpload.Button(
             onResult = { files ->
-                // Concatenate: add new files to existing ones
                 selectedFiles = selectedFiles.plus(files).toImmutableSet()
             },
             label = "Add files",
@@ -260,7 +258,6 @@ private fun MultipleFilesReplacedExample() {
     Column(modifier = Modifier.fillMaxWidth()) {
         FileUpload.Button(
             onResult = { files ->
-                // Replace: new selection replaces existing files
                 selectedFiles = files
             },
             label = "Select files",
@@ -290,7 +287,6 @@ private fun ButtonCustomizationExample() {
     var selectedFile3 by rememberSaveable { mutableStateOf<UploadedFile?>(null) }
 
     Column(modifier = Modifier.fillMaxWidth()) {
-        // Medium button with icon at end
         FileUpload.ButtonSingleSelect(
             onResult = { file -> selectedFile2 = file },
             label = "Medium with icon at end",
@@ -302,7 +298,6 @@ private fun ButtonCustomizationExample() {
 
         VerticalSpacer(16.dp)
 
-        // Large button with icon at start
         FileUpload.ButtonSingleSelect(
             onResult = { file -> selectedFile3 = file },
             label = "Large with icon",
@@ -348,7 +343,6 @@ private fun CustomButtonContentExample() {
     var selectedFile2 by rememberSaveable { mutableStateOf<UploadedFile?>(null) }
 
     Column(modifier = Modifier.fillMaxWidth()) {
-        // Using ButtonTinted as custom button content
         FileUpload.ButtonSingleSelect(
             onResult = { file -> selectedFile1 = file },
             label = "Select file",
@@ -365,7 +359,6 @@ private fun CustomButtonContentExample() {
 
         VerticalSpacer(16.dp)
 
-        // Using ButtonOutlined as custom button content
         FileUpload.ButtonSingleSelect(
             onResult = { file -> selectedFile2 = file },
             label = "Select file",
@@ -407,15 +400,12 @@ private fun UploadProgressErrorExample() {
     var uploadProgress by rememberSaveable { mutableFloatStateOf(0f) }
     var uploadError by rememberSaveable { mutableStateOf<String?>(null) }
 
-    // Simulate upload progress when a new file is selected
     LaunchedEffect(uploadedFile?.file?.path) {
         val file = uploadedFile ?: return@LaunchedEffect
-        // Only start upload simulation if file doesn't already have progress/error state
         if (file.progress == null && !file.isLoading && file.errorMessage == null) {
             uploadProgress = 0f
             uploadError = null
 
-            // Simulate upload progress
             for (i in 0..100 step 10) {
                 delay(150)
                 uploadProgress = i / 100f
@@ -426,7 +416,7 @@ private fun UploadProgressErrorExample() {
                 )
             }
 
-            // Simulate error at 80% progress (for demonstration purposes)
+            // Simulate an upload failure after reaching 100%.
             delay(200)
             uploadedFile = file.copy(
                 progress = null,
@@ -440,7 +430,6 @@ private fun UploadProgressErrorExample() {
         FileUpload.ButtonSingleSelect(
             onResult = { file ->
                 if (file != null) {
-                    // Reset state when new file is selected
                     uploadedFile = file
                     uploadError = null
                     uploadProgress = 0f

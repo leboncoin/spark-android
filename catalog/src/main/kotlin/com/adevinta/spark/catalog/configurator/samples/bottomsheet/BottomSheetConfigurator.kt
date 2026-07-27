@@ -182,7 +182,7 @@ private fun ListContent(onHideBottomSheetClicked: () -> Unit) {
     LazyColumn {
         stickyHeader {
             Row(horizontalArrangement = Arrangement.Center) {
-                // Note: If you provide logic outside of onDismissRequest to remove the sheet,
+                // If you provide logic outside of onDismissRequest to remove the sheet,
                 // you must additionally handle intended state cleanup, if any.
                 ButtonFilled(
                     modifier = Modifier.padding(24.dp),

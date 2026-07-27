@@ -89,8 +89,7 @@ internal suspend fun Animatable<Dp, *>.animateElevation(
         // Moving to default, from a previous state
         from != null -> ElevationDefaults.outgoingAnimationSpecForInteraction(from)
 
-        // Loading the initial state, or moving back to the baseline state from a disabled /
-        // unknown state, so just snap to the final value.
+        // No known interaction: snap to the target value without animating.
         else -> null
     }
     if (spec != null) animateTo(target, spec) else snapTo(target)

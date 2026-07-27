@@ -107,7 +107,7 @@ public fun annotatedStringResource(@StringRes id: Int, formatArgs: PersistentMap
 /**
  * Load a annotated string resource with formatting.
  *
- * Be aware that using this method you'll loose the annotations support.
+ * Be aware that using this method you will lose annotation support.
  *
  * @param id the resource identifier
  * @param formatArgs the format arguments
@@ -249,8 +249,8 @@ internal fun resources(): Resources = LocalResources.current
 /**
  * The framework `getText()` method doesn't support formatting arguments, so we need to do it ourselves.
  *
- * Unfortunately `toHtml()` doesn't support the `<annotation>` tag so we loose this span as we need to convert it to a
- * [String] to be able to use `String.format()`.
+ * Unfortunately `toHtml()` doesn't support the `<annotation>` tag, so we lose this span when converting to a
+ * [String] to use `String.format()`.
  */
 private fun Resources.getText(@StringRes id: Int, vararg args: Any): CharSequence {
     val escapedArgs = args.map {
@@ -273,8 +273,8 @@ internal fun Resources.getQuantityText(@PluralsRes id: Int, quantity: Int, varar
 }
 
 /**
- * Convert a [Spanned] to a [String] without the `<p dir="ltr">` and `</p>` tags that are added by `toHtml()` which
- * added a padding at the end of the text.
+ * Converts a [Spanned] to a [String] without the `<p dir="ltr">` and `</p>` tags added by `toHtml()`,
+ * which add unwanted padding at the end of the text.
  */
 private fun Spanned.toHtmlWithoutParagraphs(): String = toHtml()
     .substringAfter("<p dir=\"ltr\">")

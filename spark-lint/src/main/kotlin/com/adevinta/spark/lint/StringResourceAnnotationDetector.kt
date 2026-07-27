@@ -37,6 +37,7 @@ import com.android.utils.forEach
 import org.w3c.dom.Element
 import org.w3c.dom.Node
 
+/** Validates attribute names and values inside `<annotation>` elements in string resources. */
 public class StringResourceAnnotationDetector : ResourceXmlDetector() {
 
     override fun appliesTo(folderType: ResourceFolderType): Boolean = folderType == VALUES
@@ -103,7 +104,7 @@ public class StringResourceAnnotationDetector : ResourceXmlDetector() {
                 "variable" to ::checkVariable,
             ).withDefault { ::reportUnknown }
 
-        // NOTE: It would be great to have these values come from `:spark` directly (see SparkStringAnnotations), but we would need to add extra dependencies.
+        // Values are duplicated from SparkStringAnnotations in :spark; pulling them in directly would add a dependency on that module.
         private val SUPPORTED_COLOR_VALUES = listOf(
             "main",
             "support",

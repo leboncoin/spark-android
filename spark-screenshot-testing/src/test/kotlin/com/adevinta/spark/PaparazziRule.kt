@@ -47,9 +47,7 @@ fun paparazziRule(
     useDeviceResolution = true,
 )
 
-/**
- * Defaults devices configuration taken from NiA
- */
+/** Default device configurations for Paparazzi screenshot tests. */
 object DefaultTestDevices {
     /**
      * Pixel 6 Pro

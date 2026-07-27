@@ -152,13 +152,6 @@ public val StepperExamples: ImmutableList<Example> = persistentListOf(
             enabled = false,
         )
     },
-    //  Example(
-    //     name = "Stepper Custom Buttons",
-    //     description = "Custom implementation allow used defined button for de-increment.",
-    //     sourceUrl = "$SampleSourceUrl/RatingFullSample.kt",
-    // ) {
-    //     WipIllustration()
-    // },
 )
 
 @Composable

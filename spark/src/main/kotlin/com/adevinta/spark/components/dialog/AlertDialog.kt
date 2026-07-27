@@ -148,9 +148,7 @@ internal fun AlertDialogPreview() {
         AlertDialog(
             modifier = Modifier.fillMaxWidth(),
             onDismissRequest = {
-                // Dismiss the dialog when the user clicks outside the dialog or on the back
-                // button. If you want to disable that functionality, simply use an empty
-                // onDismissRequest.
+                // To disable dismissal on outside tap or back press, use an empty onDismissRequest.
             },
             icon = { Icon(LeboncoinIcons.HeartFill, contentDescription = null) },
             title = {

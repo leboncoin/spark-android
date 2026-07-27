@@ -39,6 +39,7 @@ import kotlin.collections.lastOrNull
 import kotlin.jvm.java
 import kotlin.text.endsWith
 
+/** Flags static `Modifier` references used inside conditional Modifier extension lambdas. */
 public class WrongConditionalModifierUsageDetector :
     Detector(),
     SourceCodeScanner {

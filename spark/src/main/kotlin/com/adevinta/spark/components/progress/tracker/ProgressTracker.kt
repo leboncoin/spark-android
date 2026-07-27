@@ -218,7 +218,7 @@ private fun ProgressTracker(
 
     val progressTracks = @Composable {
         items.fastForEachIndexed { index, progressStep ->
-            // Since the track is layouted after the step, we need to check the next step to know if the track
+            // Since the track is laid out after the step, we need to check the next step to know if the track
             // should be enabled
             val nextIndex = (index + 1).coerceAtMost(items.size - 1)
             val nextStep = items[nextIndex]
@@ -247,7 +247,7 @@ private fun ProgressTracker(
     }
     val stepIndicators = @Composable {
         items.forEachIndexed { index, progressStep ->
-            // If the step is nul then consider that every step should not be shown as selected
+            // If selectedStep is null, no step is shown as selected
             val isDone = index < (selectedStep ?: -1)
             StepIndicator(
                 colors = colors,
@@ -464,7 +464,7 @@ private fun StepIndicator(
                         modifier = Modifier
                             .size(indicatorSize)
                             .wrapContentSize(Alignment.Center),
-                        contentDescription = null, // content description is handle on the Layout
+                        contentDescription = null, // content description is handled on the Layout
                         atEnd = true,
                     )
                 } else if (icon != null) {
@@ -473,7 +473,7 @@ private fun StepIndicator(
                         modifier = Modifier
                             .size(indicatorSize)
                             .wrapContentSize(Alignment.Center),
-                        contentDescription = null, // content description is handle on the Layout
+                        contentDescription = null, // content description is handled on the Layout
                         atEnd = true,
                     )
                 } else {

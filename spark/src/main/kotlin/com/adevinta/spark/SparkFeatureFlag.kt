@@ -28,7 +28,7 @@ package com.adevinta.spark
  * makes the text in cursive, colors in red/green/blue and shapes in full cut corners.
  * @property useSparkComponentsHighlighter Highlight visually with an overlay where the spark components are used
  * or not. Setting it to true show an overlay on spark components.
- * @property isContainingActivityEdgeToEdge
+ * @property isContainingActivityEdgeToEdge Whether the containing activity has edge-to-edge enabled.
  * @property useRebrandedShapes Use new button, chips, tags and textfield shapes.
  * @property useRebrandedButtons When true, old intent+style combinations resolve to new semantic button variants.
  */

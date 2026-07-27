@@ -33,7 +33,7 @@ import com.adevinta.spark.tokens.SparkTypography
 public object SparkStringAnnotations {
 
     /**
-     * Given a string representing an annotation key and a string representing an annotation value, returns the corresponding [SpanStyle].
+     * Returns the [SpanStyle] for the given [annotation], or null if the key/value is unsupported.
      */
     public fun toSpanStyle(
         annotation: Annotation,
@@ -49,9 +49,7 @@ public object SparkStringAnnotations {
         }
     }
 
-    /**
-     * Given a string representing annotation value of a spark color, returns the corresponding [SpanStyle] with the color token.
-     */
+    /** Returns a [SpanStyle] for the named Spark colour token, or null if the name is unknown. */
     private fun String.toColorSpanStyle(token: SparkColors): SpanStyle? = when (this) {
         "main" -> token.main
 
@@ -74,9 +72,7 @@ public object SparkStringAnnotations {
         }
     }?.let(::SpanStyle)
 
-    /**
-     * Given a string representing annotation value of a spark typography, returns the corresponding [SpanStyle] with the typography token.
-     */
+    /** Returns a [SpanStyle] for the named Spark typography token, or null if the name is unknown. */
     private fun String.toTypographySpanStyle(token: SparkTypography): SpanStyle? = when (this) {
         "display1" -> token.display1
 

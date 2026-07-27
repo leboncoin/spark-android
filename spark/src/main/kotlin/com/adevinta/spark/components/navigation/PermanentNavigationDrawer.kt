@@ -65,9 +65,9 @@ internal fun SparkPermanentNavigationDrawer(
  * The permanent navigation drawer is always visible and usually used for frequently switching destinations.
  * On mobile screens, use ModalNavigationDrawer instead.
  *
- * @param drawerContent commentCountcontent inside this drawer
- * @param modifier commentCountthe Modifier to be applied to this drawer
- * @param content commentCountcontent of the rest of the UI
+ * @param drawerContent content inside this drawer
+ * @param modifier the Modifier to be applied to this drawer
+ * @param content content of the rest of the UI
  */
 @ExperimentalSparkApi
 @Composable

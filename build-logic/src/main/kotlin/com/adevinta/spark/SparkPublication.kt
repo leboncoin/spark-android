@@ -82,10 +82,10 @@ internal object SparkPublication {
         publications {
             if (isKotlinMultiplatform) {
                 // KMP auto-generates per-target publications (kotlinMultiplatform, android, jvm…).
-                // Don't register a competing "maven" publication — just configure what KMP created.
+                // Don't register a competing "maven" publication. Just configure what KMP created.
                 //
                 // Each publication gets its own javadoc jar task to avoid signing task ordering
-                // conflicts: a shared task produces one .asc file, but each publication's sign
+                // conflicts. A shared task produces one .asc file, but each publication's sign
                 // task references it, creating an implicit dependency that Gradle cannot resolve.
                 afterEvaluate {
                     publications.withType(MavenPublication::class.java) {
@@ -98,7 +98,7 @@ internal object SparkPublication {
                                 },
                             )
                             archiveClassifier.set("javadoc")
-                            // Disambiguate the output file per publication so signing produces
+                            // Disambiguate the output filename per publication so signing produces
                             // separate .asc files with no cross-publication conflicts.
                             archiveAppendix.set(pubName.lowercase())
                         }
@@ -132,7 +132,7 @@ internal object SparkPublication {
                 }
             }
         }
-        // AGP creates software components during the afterEvaluate callback step...
+        // AGP creates software components during the afterEvaluate callback step.
         afterEvaluate {
             publication.from(components.getByName("release"))
             publication.artifact(dokkaJavadocJar)

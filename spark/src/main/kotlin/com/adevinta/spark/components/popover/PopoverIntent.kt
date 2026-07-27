@@ -26,7 +26,7 @@ import androidx.compose.ui.graphics.Color
 import com.adevinta.spark.SparkTheme
 
 /**
- * TagIntent is used to define the intent of the tag.
+ * PopoverIntent is used to define the intent of the popover.
  */
 public enum class PopoverIntent {
 

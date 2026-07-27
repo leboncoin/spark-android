@@ -57,7 +57,6 @@ internal class LambdaParameterVisitor(private val lambda: KtLambdaExpression) {
                 .filter { it.destructuringDeclaration == null }
                 // Ignore referenced parameters
                 .filterNot { isParameterReferenced(it.name!!) }
-                // Return an UnreferencedParameters for each un-referenced parameter
                 .map { UnreferencedParameter(it.name!!, it) }
         }
     }

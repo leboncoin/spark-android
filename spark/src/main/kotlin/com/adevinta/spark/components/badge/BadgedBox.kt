@@ -100,7 +100,7 @@ internal fun SparkBadgedBox(
             totalWidth,
             totalHeight,
             // Provide custom baselines based only on the anchor content to avoid default baseline
-            // calculations from including by any badge content.
+            // calculations from including any badge content.
             mapOf(
                 FirstBaseline to firstBaseline,
                 LastBaseline to lastBaseline,

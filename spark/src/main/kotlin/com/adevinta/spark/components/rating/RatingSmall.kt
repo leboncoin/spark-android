@@ -54,7 +54,7 @@ import java.util.Locale
  *  - ★ 3,4 (5)
  * @param value rating value as a float, should be between 1.0 and 5.0
  * @param modifier to apply
- * @param commentCount the count of comments are associated with this rating
+ * @param commentCount the number of comments associated with this rating
  */
 @InternalSparkApi
 @Composable

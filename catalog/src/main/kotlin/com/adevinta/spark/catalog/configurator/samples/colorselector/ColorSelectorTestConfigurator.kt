@@ -63,7 +63,6 @@ private fun ColumnScope.ColorSelectorTestSample(snackbarHostState: SnackbarHostS
     var selectedColor by remember { mutableStateOf(defaultColor) }
     var allowSameColorSelection by remember { mutableStateOf(false) }
 
-    // Display the selected color
     Surface(
         modifier = Modifier
             .fillMaxWidth()

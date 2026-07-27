@@ -22,7 +22,7 @@
 package com.adevinta.spark
 
 @RequiresOptIn(
-    message = "This API is experimental and is likely to change in the future.",
+    message = "This API is experimental and may change in the future.",
     level = RequiresOptIn.Level.WARNING,
 )
 @Retention(AnnotationRetention.BINARY)

@@ -33,7 +33,7 @@ import com.adevinta.spark.icons.SparkIcon
  * @property label The label of the step to be displayed in the progress tracker. [AnnotatedString]s will be styled but
  * other class inheriting from [CharSequence] will be displayed as plain text.
  * @property enabled Indicate whether the step is enabled or disabled. Disabled steps won't be interactive.
- * @property icon The icon displayed when an icon is no yet considered as done by the user.
+ * @property icon The icon displayed when an icon is not yet considered as done by the user.
  * @property doneIcon The icon displayed when an icon is considered as done by the user
  */
 public data class ProgressStep(

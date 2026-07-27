@@ -173,8 +173,6 @@ public class SparkBottomAppBarScrollBehavior(
      */
     public val overlappedFraction: Float
         get() = if (state.contentOffset > 0f) {
-            // Normalize the contentOffset to a fraction
-            // We use a reasonable maximum scroll distance for normalization
             (state.contentOffset / 1000f).coerceAtMost(1f)
         } else {
             0f
@@ -189,9 +187,6 @@ public class SparkBottomAppBarScrollBehavior(
         ): Offset {
             if (!canScroll()) return Offset.Zero
 
-            // Update the content offset to track scroll position
-            // Negative contentOffset means we've scrolled down (content above)
-            // Positive contentOffset means we've scrolled up (at or near top)
             if (consumed.y == 0f && available.y <= 0f) {
                 // Reset the total content offset to zero when scrolling all the way down.
                 // This will eliminate some float precision inaccuracies.
@@ -316,20 +311,16 @@ public fun BottomAppBar(
     scrollBehavior: BottomAppBarScrollBehavior? = null,
     content: @Composable RowScope.() -> Unit,
 ) {
-    // Obtain the elevation transition fraction using the overlappedFraction. This
-    // ensures that the elevation will adjust whether the app bar behavior is pinned or scrolled.
-    // This may potentially animate or interpolate a transition between the normal elevation and the
-    // elevated state according to the app bar's scroll state.
+    // derivedStateOf prevents recomposition on every scroll pixel; only recomposes when the
+    // threshold crossing changes the binary elevated/not-elevated decision.
     val elevationTransitionFraction by
         remember(scrollBehavior) {
-            // derivedStateOf to prevent redundant recompositions when the content scrolls.
             derivedStateOf {
                 val overlappingFraction = (scrollBehavior as? SparkBottomAppBarScrollBehavior)?.overlappedFraction ?: 0f
                 if (overlappingFraction > 0.001f) 1f else 0f
             }
         }
 
-    // Animate container color for scroll-based elevation effect
     val animatedContainerColor by animateColorAsState(
         targetValue = if (elevationTransitionFraction > 0f) {
             SparkTheme.colors.applyTonalElevation(
@@ -343,7 +334,6 @@ public fun BottomAppBar(
         label = "BottomAppBarContainerColor",
     )
 
-    // Animate elevation
     val animatedElevation by animateDpAsState(
         targetValue = if (elevationTransitionFraction > 0f) {
             elevation + ElevationTokens.Level3

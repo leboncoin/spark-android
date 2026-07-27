@@ -139,9 +139,7 @@ public fun SparkShapes.asMaterial3Shapes(): Material3Shapes = Material3Shapes(
 public val CornerBasedShape.highlight: CornerBasedShape
     get() = copy(bottomStart = CornerSize(percent = 0))
 
-/**
- * CompositionLocal used to specify the default shapes for the surfaces.
- */
+/** CompositionLocal that provides the current [SparkShapes] down the composition tree. */
 internal val LocalSparkShapes = staticCompositionLocalOf { SparkShapes() }
 
 @Preview(

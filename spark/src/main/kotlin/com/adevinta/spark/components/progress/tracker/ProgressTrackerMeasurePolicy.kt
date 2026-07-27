@@ -53,7 +53,7 @@ internal data class ProgressTrackerMeasurePolicy(
         val looseConstraints = constraints.copy(minWidth = 0, minHeight = 0)
 
         val stepsCount = indicatorMeasurables.size
-        // Each indicator  have a fixed size coming from the size object
+        // Each indicator has a fixed size coming from the size object
         val indicatorSize = indicatorSize.roundToPx()
         // Calculate the width of each step, taking into account the padding between steps
         val stepsWidth = (constraints.maxWidth / stepsCount)

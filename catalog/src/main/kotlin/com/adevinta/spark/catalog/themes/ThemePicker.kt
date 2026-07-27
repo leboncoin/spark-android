@@ -108,7 +108,6 @@ public fun ThemePicker(
         verticalArrangement = spacedBy(ItemSpacing),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        // Theme Settings Section
         item(
             key = "theme_settings_header",
             contentType = ThemePickerContentType.SectionHeader,
@@ -162,7 +161,6 @@ public fun ThemePicker(
             }
         }
 
-        // Accessibility Section
         item(
             key = "accessibility_divider",
             contentType = ThemePickerContentType.Divider,
@@ -270,7 +268,6 @@ public fun ThemePicker(
             }
         }
 
-        // Developer Options Section
         item(
             key = "developer_divider",
             contentType = ThemePickerContentType.Divider,

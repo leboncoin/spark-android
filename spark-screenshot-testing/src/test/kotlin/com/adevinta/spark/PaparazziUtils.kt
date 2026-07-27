@@ -99,8 +99,8 @@ private fun SparkThemeContent(
             colors = colors,
             sparkFeatureFlag = SparkFeatureFlag(useRebrandedShapes = true),
         ) {
-            // The first box acts as a shield from ComposeView which forces the first layout node
-            // to match it's size. This allows the content below to wrap as needed.
+            // The first box shields from ComposeView which forces the first layout node
+            // to match its size. This allows the content below to wrap as needed.
             Box {
                 // The second box adds a border and background so we can easily see layout bounds in screenshots
                 Box(
@@ -154,7 +154,7 @@ internal fun Paparazzi.sparkSnapshotNightMode(
 }
 
 /**
- * Generate 1 screenshot with the same content side by side but one in light theme and teh other in dark theme.
+ * Generate 1 screenshot with the same content side by side, one in light theme and the other in dark theme.
  */
 internal fun Paparazzi.sparkDocSnapshot(
     color: @Composable () -> Color = { SparkTheme.colors.background },

@@ -686,8 +686,8 @@ public fun darkHighContrastSparkColors(
  * @property onAiContainer Color used for text and icons displayed on top of the [aiContainer] color.
  * @property background The background color that appears behind scrollable content.
  * @property onBackground Color used for text and icons displayed on top of the background color.
- * @property backgroundVariant The background color that appears behind scrollable content.
- * @property onBackgroundVariant Color used for text and icons displayed on top of the background color.
+ * @property backgroundVariant An alternate background color for surfaces that need visual separation from [background].
+ * @property onBackgroundVariant Color used for text and icons displayed on top of [backgroundVariant].
  * @property surface The surface color that affect surfaces of components, such as cards, sheets,
  * and menus.
  * @property onSurface Color used for text and icons displayed on top of the surface color.
@@ -1305,9 +1305,8 @@ public fun SparkColors.asMaterial3Colors(): ColorScheme = ColorScheme(
  * This function adapts the color values from a Material Design ColorScheme
  * to the structure and naming conventions used by SparkColors.
  * The following tokens [SparkColors.mainVariant], [SparkColors.accentVariant],
- * [SparkColors.supportVariant] and their on counterparts have no equivalent in Material so
- * their are juste derivative of their principal token with a different tone that needs to
- * be different for each (90/10 or 10/99).
+ * [SparkColors.supportVariant] and their on-counterparts have no equivalent in Material, so
+ * they are derived from their principal token with a different tone (90/10 or 10/99).
  * It handles both light and dark themes by adjusting the color tones accordingly.
  *
  * @param useDark Whether to generate colors for a dark theme as the tone used for
@@ -1515,9 +1514,8 @@ public val Color.disabled: Color
     @Composable get() = this.dim3.compositeOver(SparkTheme.colors.surface)
 
 /**
- * Extension property to get a [Color] that apply an alpha of zero to the color.
- * This is useful when you want to animate fro ma transparent color to a colored one
- * since using  [Color.Transparent] will start with a black background.
+ * Returns this [Color] with an alpha of zero. Use this when animating from transparent to a colour,
+ * because [Color.Transparent] is opaque black under the hood and produces a black flash.
  */
 @get:SuppressLint("ComposeUnstableReceiver") // https://github.com/slackhq/compose-lints/issues/326
 public val Color.transparent: Color

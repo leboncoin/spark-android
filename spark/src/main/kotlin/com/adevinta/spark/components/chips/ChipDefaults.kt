@@ -36,7 +36,7 @@ public object ChipDefaults {
     internal val LeadingIconSize = 16.dp
 
     /**
-     * Returns the [PaddingValues] for the assist chip.
+     * Horizontal padding for chip content.
      */
     internal val ChipPadding = PaddingValues(horizontal = HorizontalElementsPadding)
 
@@ -51,7 +51,7 @@ public object ChipDefaults {
     internal val BorderStrokeWidth = 1.dp
 
     /**
-     * The outlined chip's border size
+     * The dashed chip's border corner radius.
      */
     internal val DashedBorderRadius = 8.dp
 

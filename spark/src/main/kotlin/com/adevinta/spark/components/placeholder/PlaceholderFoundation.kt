@@ -140,10 +140,8 @@ internal fun Modifier.placeholder(
     val lastLayoutDirection = remember { Ref<LayoutDirection>() }
     val lastOutline = remember { Ref<Outline>() }
 
-    // The current highlight animation progress
     var highlightProgress: Float by remember { mutableFloatStateOf(0f) }
 
-    // This is our crossfade transition
     val transitionState = remember { MutableTransitionState(visible) }.apply {
         targetState = visible
     }
@@ -175,7 +173,6 @@ internal fun Modifier.placeholder(
     val paint = remember { Paint() }
     remember(color, shape, highlight) {
         drawWithContent {
-            // Draw the composable content first
             if (contentAlpha in 0.01f..0.99f) {
                 // If the content alpha is between 1% and 99%, draw it in a layer with
                 // the alpha applied
@@ -218,7 +215,6 @@ internal fun Modifier.placeholder(
                 )
             }
 
-            // Keep track of the last size & layout direction
             lastSize.value = size
             lastLayoutDirection.value = layoutDirection
         }
@@ -226,7 +222,7 @@ internal fun Modifier.placeholder(
 }
 
 /**
- * Placeholder that holds the defaults values used by the public api
+ * Placeholder that holds the default values used by the public api
  */
 internal fun Modifier.basePlaceholder(
     visible: Boolean,

@@ -174,7 +174,7 @@ public fun TextField(
  * information about expected text
  * @param counter The optional counter to be displayed the the end bottom outside the text input container
  * @param leadingContent the optional leading icon to be displayed at the beginning of the text field
- * container, note that
+ * container
  * @param trailingContent the optional trailing icon to be displayed at the end of the text field
  * container
  * @param state indicates the validation state of the text field. The label, outline, leading & trailing content are

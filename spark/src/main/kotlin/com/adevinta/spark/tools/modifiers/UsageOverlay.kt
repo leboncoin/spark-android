@@ -71,7 +71,7 @@ private class SparkUsageOverlayElement(val overlayColor: Color) : ModifierNodeEl
 }
 
 /**
- * A Composable that hides its content and draw a dashed border to identify slot areas.
+ * A composable that hides its content and draws a dashed border to identify slot areas.
  */
 @Composable
 internal fun SlotArea(

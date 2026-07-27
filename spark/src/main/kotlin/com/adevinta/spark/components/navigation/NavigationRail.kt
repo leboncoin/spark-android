@@ -62,15 +62,15 @@ internal fun SparkNavigationRail(
 }
 
 /**
- * Spark bottom navigation rail.
+ * Spark navigation rail.
  * Navigation rails provide access to main destinations in apps when using tablet and desktop screens.
  *
  * The navigation rail should be used to display three to seven app destinations and, optionally,
  * a FloatingActionButton or a logo header.
  * NavigationRail should contain multiple NavigationRailItems, each representing a singular destination.
- * @param modifier commentCountthe Modifier to be applied to this navigation rail
- * @param header commentCountoptional header that may hold a FloatingActionButton or a logo
- * @param content commentCountthe content of this navigation rail, typically 3-7 NavigationRailItems
+ * @param modifier the Modifier to be applied to this navigation rail
+ * @param header optional header that may hold a FloatingActionButton or a logo
+ * @param content the content of this navigation rail, typically 3-7 NavigationRailItems
  */
 @ExperimentalSparkApi
 @Composable

@@ -74,7 +74,7 @@ internal fun SparkModalDrawerSheet(
 /**
  * Spark ModalDrawerSheet.
  *
- * A ModalDrawerSheet is a Content inside of a modal navigation drawer.
+ * A ModalDrawerSheet is the content inside a modal navigation drawer.
  *
  * @param modifier the [Modifier] to be applied to this drawer's content
  * @param drawerShape defines the shape of this drawer's container
@@ -115,7 +115,6 @@ internal fun ModalDrawerSheetPreview() {
     PreviewTheme(
         padding = PaddingValues(0.dp),
     ) {
-        // icons to mimic drawer destinations
         val items = listOf(LeboncoinIcons.HeartOutline, LeboncoinIcons.Family, LeboncoinIcons.MailBoxOpenOutline)
         val selectedItem = remember { mutableStateOf(items[0]) }
 

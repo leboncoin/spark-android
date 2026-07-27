@@ -127,7 +127,7 @@ public fun HorizontalDivider(
                 modifier = Modifier.constrainAs(lineRight) {
                     start.linkTo(labelBox.end)
                     end.linkTo(parent.end)
-                    centerVerticallyTo(parent) // Align vertically to the center of the parent
+                    centerVerticallyTo(parent)
                     width = calculateLineWidth(LabelHorizontalAlignment.End, labelHorizontalAlignment)
                 },
 
@@ -175,7 +175,7 @@ public fun VerticalDivider(
                 modifier = Modifier.constrainAs(lineTop) {
                     top.linkTo(parent.top)
                     bottom.linkTo(labelBox.top)
-                    centerHorizontallyTo(parent) // Align horizontally to the center of the parent
+                    centerHorizontallyTo(parent)
                     height = calculateLineHeight(LabelVerticalAlignment.Top, labelVerticalAlignment)
                 },
             )
@@ -191,7 +191,6 @@ public fun VerticalDivider(
                     },
             ) { label() }
 
-            // Bottom Divider
             MaterialVerticalDivider(
                 color = intent.color(),
                 modifier = Modifier.constrainAs(lineBottom) {
@@ -291,7 +290,7 @@ private fun TextComposable(textOverflow: TextOverflow = TextOverflow.Ellipsis) {
         textAlign = TextAlign.Center,
         overflow = textOverflow,
         style = SparkTheme.typography.body1,
-        //  text = "jdkdkskjdkkklnljxcljcxlcjvxxcljljxcsdksj\n\ndljjjcdljcjdljcljdsljfdld\nlkjkjisd\nsdsksjddsk\njdksdjslds",
+        // text = "jdkdkskjdkkklnljxcljcxlcjvxxcljljxcsdksj\n\ndljjjcdljcjdljcljdsljfdld\nlkjkjisd\nsdsksjddsk\njdksdjslds",
         text = "label",
     )
 }

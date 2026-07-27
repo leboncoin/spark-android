@@ -26,6 +26,7 @@ import com.android.tools.lint.client.api.Vendor
 import com.android.tools.lint.detector.api.CURRENT_API
 import com.android.tools.lint.detector.api.Issue
 
+/** Registers all Spark lint issues so the Android lint tool can discover them. */
 public class LintIssueRegistry : IssueRegistry() {
 
     override val vendor: Vendor = Vendor(
