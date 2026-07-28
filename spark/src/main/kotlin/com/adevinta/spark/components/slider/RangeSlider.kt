@@ -32,7 +32,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
@@ -117,7 +116,6 @@ internal fun SparkRangeSlider(
  * but rather to know when the user has completed selecting a new value by ending a drag or a click.
  */
 @OptIn(ExperimentalMaterial3Api::class)
-@ExperimentalSparkApi
 @Composable
 public fun RangeSlider(
     value: ClosedFloatingPointRange<Float>,
