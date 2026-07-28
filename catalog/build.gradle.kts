@@ -96,6 +96,8 @@ dependencies {
     implementation(libs.androidx.compose.material.iconsExtended)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.runtime.tracing)
+    implementation(libs.androidx.tracing.perfetto)
+    implementation(libs.androidx.tracing.perfetto.binary)
     implementation(libs.androidx.graphics.shapes)
     implementation(libs.androidx.metrics)
 
