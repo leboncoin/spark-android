@@ -60,7 +60,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
@@ -406,7 +405,6 @@ internal fun Track(
  * and customize the appearance / behavior of this slider in different states.
  */
 @OptIn(ExperimentalMaterial3Api::class)
-@ExperimentalSparkApi
 @Composable
 public fun Slider(
     value: Float,
