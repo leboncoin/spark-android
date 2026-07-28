@@ -1,0 +1,5 @@
+# Catalog
+
+The Catalog is a demo Android application that showcases every component, icon, and theme available in the Spark Design System. It doubles as a development tool for testing components interactively and as a reference implementation for teams integrating Spark into their own apps. Run it with `./gradlew :catalog:installDebug` (or `:catalog:installRelease`), or use the `catalog` run configuration in Android Studio.
+
+Inside `src/main/kotlin/com/adevinta/spark/catalog`, `examples/` contains static, realistic usage samples for each component (used for integration testing and documentation), while `configurator/` contains interactive screens where you can adjust a component's parameters live to see how it behaves. Components are registered centrally in `catalog/model/Components.kt`. For contribution guidelines on adding examples or configurators, see [`docs/CONTRIBUTING.md`](../docs/CONTRIBUTING.md#-catalogdemo-app-integration).
