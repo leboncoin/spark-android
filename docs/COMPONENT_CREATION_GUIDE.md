@@ -48,7 +48,7 @@ catalog/src/main/kotlin/com/adevinta/spark/catalog/
 
 The Button component exemplifies this structure:
 
-Button.kt - Public API object exposing all available button variants, including Filled, Outlined, Ghost, Tinted, Contrast, Underlined, Primary, Secondary, Tertiary, Success, Danger, Boost, Ai,and Text.
+Button.kt - Public API object exposing the available button variants. Refer to the buttons package for the current set of supported variants.
 
 ButtonDefaults.kt - Color mappings, elevation tokens, and shape definitions
 
