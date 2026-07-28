@@ -51,9 +51,13 @@ The Button component exemplifies this structure:
 Button.kt - Public API object exposing all available button variants, including Filled, Outlined, Ghost, Tinted, Contrast, Underlined, Primary, Secondary, Tertiary, Success, Danger, Boost, Ai,and Text.
 
 ButtonDefaults.kt - Color mappings, elevation tokens, and shape definitions
+
 ButtonIntent.kt - Semantic color intentions (Main, Support, etc.)
+
 ButtonSize.kt - Standardized sizing scale (Small, Medium, Large)
+
 ButtonShape.kt - Shape abstractions (Square, Rounded, Pill)
+
 Buttons.md - Component documentation with screenshots and usage examples
 
 ### API Design Principles
