@@ -48,7 +48,7 @@ catalog/src/main/kotlin/com/adevinta/spark/catalog/
 
 The Button component exemplifies this structure:
 
-Button.kt - Public API object exposing the available button variants. See the `buttons/` package for the complete list of supported variants.
+Button.kt - Public API object exposing the available button variants (see the buttons package for the complete list of supported variants).
 ButtonDefaults.kt - Color mappings, elevation tokens, and shape definitions
 ButtonIntent.kt - Semantic color intentions (Main, Support, etc.)
 ButtonSize.kt - Standardized sizing scale (Small, Medium, Large)
