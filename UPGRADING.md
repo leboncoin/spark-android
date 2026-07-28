@@ -2,6 +2,18 @@
 
 Migration guides for breaking changes, newest first. For a full list of changes see [CHANGELOG.md](CHANGELOG.md).
 
+## Upgrading to 3.0
+
+### `contentSide` parameter removed from toggles
+
+The `contentSide` parameter has been removed from `CheckboxLabelled`, `RadioButtonLabelled`, and `SwitchLabelled` to enforce a consistent label placement across the design system.
+
+### Deprecated `ToggleIntent` APIs removed
+
+The deprecated `ToggleIntent` enum and the `intent` parameter have been removed. Use the `error` parameter to represent validation states.
+
+---
+
 ## Upgrading to 2.0
 
 ### Snackbar API redesigned
