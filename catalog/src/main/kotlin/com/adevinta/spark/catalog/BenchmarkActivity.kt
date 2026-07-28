@@ -29,13 +29,18 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.trace
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.model.Components
 import com.adevinta.spark.catalog.model.Example
@@ -61,6 +66,7 @@ internal class BenchmarkActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun BenchmarkComponentShowcase() {
     val snackbarHostState = remember { SnackbarHostState() }
@@ -70,17 +76,24 @@ private fun BenchmarkComponentShowcase() {
         }
     }
 
-    LazyColumn(
+    Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .semantics { testTagsAsResourceId = true }
             .testTag("benchmark_list"),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        items(
-            items = allExamples,
-            key = { (componentName, example) -> "$componentName-${example.id}" },
-        ) { (componentName, example) ->
-            BenchmarkExampleItem(componentName = componentName, example = example, snackbarHostState = snackbarHostState)
+        allExamples.forEach { (componentName, example) ->
+            key("$componentName-${example.id}") {
+                trace("Spark::$componentName") {
+                    BenchmarkExampleItem(
+                        componentName = componentName,
+                        example = example,
+                        snackbarHostState = snackbarHostState,
+                    )
+                }
+            }
         }
     }
 }

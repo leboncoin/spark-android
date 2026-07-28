@@ -87,7 +87,7 @@ internal class BaselineProfileGenerator {
             })
 
             device.wait(
-                Until.hasObject(By.res("benchmark_icons_grid").hasChild(By.any())),
+                Until.hasObject(By.res("benchmark_icons_grid")),
                 10_000,
             )
 

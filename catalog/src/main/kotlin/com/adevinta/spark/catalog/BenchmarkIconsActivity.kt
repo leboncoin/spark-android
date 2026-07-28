@@ -36,10 +36,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.trace
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.icons.NamedAsset
 import com.adevinta.spark.catalog.icons.getAllIconsRes
@@ -63,6 +67,7 @@ internal class BenchmarkIconsActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun BenchmarkIconsGrid() {
     val context = LocalContext.current
@@ -75,6 +80,7 @@ private fun BenchmarkIconsGrid() {
     LazyVerticalGrid(
         modifier = Modifier
             .fillMaxSize()
+            .semantics { testTagsAsResourceId = true }
             .testTag("benchmark_icons_grid"),
         columns = GridCells.Adaptive(minSize = 48.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -84,11 +90,13 @@ private fun BenchmarkIconsGrid() {
             items = icons,
             key = { it.name },
         ) { asset ->
-            Icon(
-                sparkIcon = asset.sparkIcon,
-                contentDescription = null,
-                modifier = Modifier.size(40.dp),
-            )
+            trace("Spark::Icon::${asset.name}") {
+                Icon(
+                    sparkIcon = asset.sparkIcon,
+                    contentDescription = null,
+                    modifier = Modifier.size(40.dp),
+                )
+            }
         }
     }
 }
