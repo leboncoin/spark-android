@@ -612,6 +612,8 @@ public data class SparkFeatureFlag(
     val isContainingActivityEdgeToEdge: Boolean = false,
     /** Use rebranded shapes for buttons, chips, tags, and text fields. */
     val useRebrandedShapes: Boolean = false,
+    /** When true, old intent+style combinations resolve to new semantic button variants. */
+    val useRebrandedButtons: Boolean = false,
     // Add your new flag here with a conservative default
     val myNewFlag: Boolean = false,
 )
