@@ -45,6 +45,7 @@ jobs:
           persist-credentials: false
 
       - uses: ./.github/actions/setup-java
+      - uses: ./.github/actions/setup-kotlin
 
       - name: Submit release cadence metric
         run: |
