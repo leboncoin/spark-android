@@ -40,8 +40,10 @@ Use emojis and clear keywords to categorize changes:
 - 🔧 Maintenance:
 - 🚀 Performance Improvement:
 - 📝 Documentation:
+- 💬 Localisation / Translation:
 - ⬆️ Dependency Update:
 - 🗑️ Deprecation/Removal:
+
 
 ## Detailed Entries
 
