@@ -65,7 +65,7 @@ at two points:
 
 1. **Update screenshots and ABI** -- If an icon is removed, added, or modified,
    paparazzi will ask you to update the golden screenshots. If an icon is added,
-   removed, or renamed, update the ABI with `./gradlew updateLegacyAbi`.
+   removed, or renamed, update the ABI with `./gradlew updateKotlinAbi`.
 2. **Merge the Release PR** that release-please opens against `hotfix/X.Y.Z+1`.
    Merging it creates the tag and publishes the new version to Maven Central.
 
