@@ -11,7 +11,9 @@ android {
         minSdk = 28
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        testInstrumentationRunnerArguments["androidx.benchmark.fullTracing.enable"] = "true"
+        // Enables Perfetto SDK (Compose) composition tracing. Use only with WARM/HOT startup:
+        // the cold-start path writes a properties file to /sdcard which fails on API 34+.
+        testInstrumentationRunnerArguments["androidx.benchmark.perfettoSdkTracing.enable"] = "true"
     }
 
     compileOptions {
