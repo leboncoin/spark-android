@@ -44,13 +44,18 @@ import androidx.compose.ui.util.trace
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.model.Components
 import com.adevinta.spark.catalog.model.Example
+import com.adevinta.spark.catalog.scenarios.benchmarkScenarios
 import com.adevinta.spark.components.snackbars.SnackbarHostState
 import com.adevinta.spark.components.text.Text
 
 /**
- * Activity that renders all Spark component examples in a single scrollable list.
- * Used exclusively by macrobenchmarks to capture baseline profile rules
- * for every component without navigating the full catalog UI.
+ * Activity that renders Spark component examples for macrobenchmarks.
+ *
+ * Modes:
+ * - All components (no extras): renders every example in a scrollable Column.
+ *   Used for baseline profile generation.
+ * - Single component (extras: EXTRA_COMPONENT_ID, EXTRA_EXAMPLE_INDEX):
+ *   renders one example at a time. Used for per-component benchmarks.
  *
  * Launched via intent action: com.adevinta.spark.catalog.BENCHMARK
  */
@@ -58,17 +63,76 @@ internal class BenchmarkActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val scenarioId = intent.getStringExtra(EXTRA_SCENARIO_ID)
+        val componentId = intent.getStringExtra(EXTRA_COMPONENT_ID)
+        val exampleIndex = intent.getIntExtra(EXTRA_EXAMPLE_INDEX, 0)
+
         setContent {
             SparkTheme {
-                BenchmarkComponentShowcase()
+                when {
+                    scenarioId != null -> ScenarioShowcase(scenarioId)
+                    componentId != null -> SingleExampleShowcase(componentId, exampleIndex)
+                    else -> AllComponentsShowcase()
+                }
             }
+        }
+    }
+
+    companion object {
+        const val EXTRA_COMPONENT_ID = "component_id"
+        const val EXTRA_EXAMPLE_INDEX = "example_index"
+        const val EXTRA_SCENARIO_ID = "scenario_id"
+    }
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+private fun ScenarioShowcase(scenarioId: String) {
+    val scenario = remember(scenarioId) {
+        benchmarkScenarios[scenarioId]
+            ?: error("Unknown benchmark scenario: $scenarioId")
+    }
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .semantics { testTagsAsResourceId = true }
+            .testTag("benchmark_scenario"),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        trace("Spark::$scenarioId") {
+            scenario()
         }
     }
 }
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-private fun BenchmarkComponentShowcase() {
+private fun SingleExampleShowcase(componentId: String, exampleIndex: Int) {
+    val snackbarHostState = remember { SnackbarHostState() }
+    val component = remember { Components.first { it.id == componentId } }
+    val example = remember { component.examples[exampleIndex] }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .semantics { testTagsAsResourceId = true }
+            .testTag("benchmark_example"),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        trace("Spark::${component.name}") {
+            BenchmarkExampleItem(
+                componentName = component.name,
+                example = example,
+                snackbarHostState = snackbarHostState,
+            )
+        }
+    }
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+private fun AllComponentsShowcase() {
     val snackbarHostState = remember { SnackbarHostState() }
     val allExamples = remember {
         Components.flatMap { component ->
