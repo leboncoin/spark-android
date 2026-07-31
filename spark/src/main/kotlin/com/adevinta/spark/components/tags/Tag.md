@@ -31,7 +31,7 @@ FlowRow(
     TagTinted(text = "Tag small 5", intent = TagIntent.Main)
     TagOutlined(text = "Tag 6", intent = TagIntent.Main)
 }
-````
+```
 
 ### Tag Intent "Surface"
 
