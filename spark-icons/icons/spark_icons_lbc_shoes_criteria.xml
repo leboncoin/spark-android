@@ -1,0 +1,31 @@
+<!--
+  Copyright (c) 2023 Adevinta
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <path
+      android:pathData="m9.958,13.054 l4.95,1.166c2.76,0.644 4.092,1.662 4.092,3.108v2.286c0,0.19 -0.138,0.347 -0.319,0.38l-0.07,0.006L5.39,20a0.39,0.39 0,0 1,-0.383 -0.317L5,19.613v-5.285a0.39,0.39 0,0 1,0.292 -0.373,0.42 0.42,0 0,1 0.449,0.18c0.355,0.612 1.018,0.99 1.734,0.986a2.03,2.03 0,0 0,2.01 -1.74,0.37 0.37,0 0,1 0.158,-0.265 0.42,0.42 0,0 1,0.315 -0.062m8.264,5.4L5.778,18.454v0.773h12.444zM10.172,13.909a2.8,2.8 0,0 1,-1.812 1.847,2.85 2.85,0 0,1 -2.572,-0.41v2.331L18.22,17.677v-0.334c0,-1.033 -1.166,-1.826 -3.484,-2.37l-1.657,-0.387 -0.386,0.99a0.37,0.37 0,0 1,-0.358 0.248,0.4 0.4,0 0,1 -0.14,0 0.39,0.39 0,0 1,-0.225 -0.503l0.35,-0.912 -0.66,-0.154 -0.281,0.703a0.4,0.4 0,0 1,-0.366 0.216,0.4 0.4,0 0,1 -0.14,0 0.387,0.387 0,0 1,-0.218 -0.502l0.238,-0.595zM17.186,3.009a0.39,0.39 0,0 1,0.285 0.268l0.692,2.258a1.51,1.51 0,0 1,-0.296 1.392l-0.312,4.98a0.394,0.394 0,0 1,-0.384 0.366h-1.023a0.395,0.395 0,0 1,-0.385 -0.39L15.763,8.906l-3.17,2.962a1.53,1.53 0,0 1,-0.902 0.392l-0.144,0.005 -5.384,-0.094a0.395,0.395 0,0 1,-0.377 -0.389,2.05 2.05,0 0,1 1.13,-2.025l2.308,-0.997a0.38,0.38 0,0 1,0.293 0q0.576,0.201 1.177,0.312c0.324,0.083 0.669,0.008 0.93,-0.203l5.193,-5.74a0.38,0.38 0,0 1,0.37 -0.12m-0.134,4.692 l-0.52,0.486v3.307h0.277zM16.933,4.133 L12.163,9.414a1.78,1.78 0,0 1,-1.6 0.42,8 8,0 0,1 -1.168,-0.295l-2.193,0.934a1.21,1.21 0,0 0,-0.615 0.927l4.946,0.086a0.7,0.7 0,0 0,0.515 -0.202l3.83,-3.575 0.01,-0.008 1.353,-1.262a0.72,0.72 0,0 0,0.184 -0.693z"
+      android:fillColor="#3a4757"
+      android:fillType="evenOdd"/>
+</vector>
