@@ -2,6 +2,30 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [3.4.0](https://github.com/leboncoin/spark-android/compare/3.3.0...3.4.0) (2026-08-03)
+
+
+### Features
+
+* **icons:** update icons ([#2152](https://github.com/leboncoin/spark-android/issues/2152)) ([927fed6](https://github.com/leboncoin/spark-android/commit/927fed625e3f725d0565765a6f7c7cc3362fb373))
+
+
+### Miscellaneous
+
+* promote slider API to stable ([#2137](https://github.com/leboncoin/spark-android/issues/2137)) ([72889cc](https://github.com/leboncoin/spark-android/commit/72889cc56ee834d03949adea96a027826cbc420f))
+
+
+### Documentation
+
+* add 3.0 migration guide to UPGRADING.md ([#2139](https://github.com/leboncoin/spark-android/issues/2139)) ([3a2025b](https://github.com/leboncoin/spark-android/commit/3a2025ba158d2edb2a123da667863b9612dcecd4))
+* add localisation change type to changelog guide ([#2141](https://github.com/leboncoin/spark-android/issues/2141)) ([5145100](https://github.com/leboncoin/spark-android/commit/5145100ce89e8344b97ed03d573cb819ae5aad53))
+* add useRebrandedButtons to feature flag sample ([#2144](https://github.com/leboncoin/spark-android/issues/2144)) ([fda905a](https://github.com/leboncoin/spark-android/commit/fda905a773653f41d95f782eb5b0dbf42b8c31f2))
+* fix ABI update task name ([#2145](https://github.com/leboncoin/spark-android/issues/2145)) ([0e2bf6f](https://github.com/leboncoin/spark-android/commit/0e2bf6f0186e632e444d9a6a4bd688fdc119f8b5))
+* fix checkbox state sample ([#2146](https://github.com/leboncoin/spark-android/issues/2146)) ([eea1cc8](https://github.com/leboncoin/spark-android/commit/eea1cc853003d96f98dfd3b841c1e5738333925f))
+* polish and correct code comments across the codebase ([#2098](https://github.com/leboncoin/spark-android/issues/2098)) ([dc534be](https://github.com/leboncoin/spark-android/commit/dc534bea0e9ac4650563531c5880bbeb27d207e8))
+* standardise accessibility standard reference to RAAM ([#2134](https://github.com/leboncoin/spark-android/issues/2134)) ([854840a](https://github.com/leboncoin/spark-android/commit/854840a6e3f6c51d9d378eafe35262c67e1bb159))
+* **tags:** fix code fence ([#2150](https://github.com/leboncoin/spark-android/issues/2150)) ([1347c22](https://github.com/leboncoin/spark-android/commit/1347c229ca44e75f2c467c9f07d3a30ab086ec37))
+
 ## [3.3.0](https://github.com/leboncoin/spark-android/compare/3.2.0...3.3.0) (2026-07-24)
 
 
