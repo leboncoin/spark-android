@@ -141,6 +141,7 @@ public final class com/adevinta/spark/icons/Drawable1_nonAndroidMainKt {
 	public static final fun getSpark_icons_lbc_card_brand (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 	public static final fun getSpark_icons_lbc_cave_criteria (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 	public static final fun getSpark_icons_lbc_chain (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
+	public static final fun getSpark_icons_lbc_chat_a_i (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 	public static final fun getSpark_icons_lbc_check (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 	public static final fun getSpark_icons_lbc_chevron_horizontal_down (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 	public static final fun getSpark_icons_lbc_chevron_horizontal_up (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
@@ -234,10 +235,10 @@ public final class com/adevinta/spark/icons/Drawable1_nonAndroidMainKt {
 	public static final fun getSpark_icons_lbc_flag_outline (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 	public static final fun getSpark_icons_lbc_flashlight_fill (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 	public static final fun getSpark_icons_lbc_flashlight_outline (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
-	public static final fun getSpark_icons_lbc_floor_plan (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 }
 
 public final class com/adevinta/spark/icons/Drawable2_nonAndroidMainKt {
+	public static final fun getSpark_icons_lbc_floor_plan (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 	public static final fun getSpark_icons_lbc_flower_criteria (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 	public static final fun getSpark_icons_lbc_folded_envelop_fill (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 	public static final fun getSpark_icons_lbc_folded_envelop_outline (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
@@ -337,10 +338,10 @@ public final class com/adevinta/spark/icons/Drawable2_nonAndroidMainKt {
 	public static final fun getSpark_icons_lbc_list_item_selected (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 	public static final fun getSpark_icons_lbc_listing_criteria (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 	public static final fun getSpark_icons_lbc_localisation_criteria (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
-	public static final fun getSpark_icons_lbc_lock_fill (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 }
 
 public final class com/adevinta/spark/icons/Drawable3_nonAndroidMainKt {
+	public static final fun getSpark_icons_lbc_lock_fill (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 	public static final fun getSpark_icons_lbc_lock_outline (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 	public static final fun getSpark_icons_lbc_locker_fill (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 	public static final fun getSpark_icons_lbc_locker_outline (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
@@ -439,11 +440,13 @@ public final class com/adevinta/spark/icons/Drawable3_nonAndroidMainKt {
 	public static final fun getSpark_icons_lbc_phone_call_miss_fill (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 	public static final fun getSpark_icons_lbc_phone_call_miss_outline (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 	public static final fun getSpark_icons_lbc_phone_call_outline (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
-	public static final fun getSpark_icons_lbc_phone_call_success_fill (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
-	public static final fun getSpark_icons_lbc_phone_call_success_outline (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
+	public static final fun getSpark_icons_lbc_phone_call_sparks_fill (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 }
 
 public final class com/adevinta/spark/icons/Drawable4_nonAndroidMainKt {
+	public static final fun getSpark_icons_lbc_phone_call_sparks_outline (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
+	public static final fun getSpark_icons_lbc_phone_call_success_fill (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
+	public static final fun getSpark_icons_lbc_phone_call_success_outline (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 	public static final fun getSpark_icons_lbc_phone_fill (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 	public static final fun getSpark_icons_lbc_phone_outline (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 	public static final fun getSpark_icons_lbc_photo_frame_criteria (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
@@ -541,12 +544,12 @@ public final class com/adevinta/spark/icons/Drawable4_nonAndroidMainKt {
 	public static final fun getSpark_icons_lbc_tablet (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 	public static final fun getSpark_icons_lbc_tableware (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 	public static final fun getSpark_icons_lbc_tag_fill (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
-	public static final fun getSpark_icons_lbc_tag_outline (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
-	public static final fun getSpark_icons_lbc_target_fill (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
-	public static final fun getSpark_icons_lbc_target_outline (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 }
 
 public final class com/adevinta/spark/icons/Drawable5_nonAndroidMainKt {
+	public static final fun getSpark_icons_lbc_tag_outline (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
+	public static final fun getSpark_icons_lbc_target_fill (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
+	public static final fun getSpark_icons_lbc_target_outline (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 	public static final fun getSpark_icons_lbc_teddy_bear (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 	public static final fun getSpark_icons_lbc_terrace_criteria (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
 	public static final fun getSpark_icons_lbc_three_dimension (Lcom/adevinta/spark/icons/Res$drawable;)Lorg/jetbrains/compose/resources/DrawableResource;
@@ -733,6 +736,7 @@ public final class com/adevinta/spark/icons/LeboncoinIcons_nonandroidKt {
 	public static final fun getCardBrand (Lcom/adevinta/spark/icons/LeboncoinIcons;)Lcom/adevinta/spark/icons/SparkIcon$Resource;
 	public static final fun getCaveCriteria (Lcom/adevinta/spark/icons/LeboncoinIcons;)Lcom/adevinta/spark/icons/SparkIcon$Resource;
 	public static final fun getChain (Lcom/adevinta/spark/icons/LeboncoinIcons;)Lcom/adevinta/spark/icons/SparkIcon$Resource;
+	public static final fun getChatAI (Lcom/adevinta/spark/icons/LeboncoinIcons;)Lcom/adevinta/spark/icons/SparkIcon$Resource;
 	public static final fun getCheck (Lcom/adevinta/spark/icons/LeboncoinIcons;)Lcom/adevinta/spark/icons/SparkIcon$Resource;
 	public static final fun getChevronHorizontalDown (Lcom/adevinta/spark/icons/LeboncoinIcons;)Lcom/adevinta/spark/icons/SparkIcon$Resource;
 	public static final fun getChevronHorizontalUp (Lcom/adevinta/spark/icons/LeboncoinIcons;)Lcom/adevinta/spark/icons/SparkIcon$Resource;
@@ -1025,6 +1029,8 @@ public final class com/adevinta/spark/icons/LeboncoinIcons_nonandroidKt {
 	public static final fun getPhoneCallMissFill (Lcom/adevinta/spark/icons/LeboncoinIcons;)Lcom/adevinta/spark/icons/SparkIcon$Resource;
 	public static final fun getPhoneCallMissOutline (Lcom/adevinta/spark/icons/LeboncoinIcons;)Lcom/adevinta/spark/icons/SparkIcon$Resource;
 	public static final fun getPhoneCallOutline (Lcom/adevinta/spark/icons/LeboncoinIcons;)Lcom/adevinta/spark/icons/SparkIcon$Resource;
+	public static final fun getPhoneCallSparksFill (Lcom/adevinta/spark/icons/LeboncoinIcons;)Lcom/adevinta/spark/icons/SparkIcon$Resource;
+	public static final fun getPhoneCallSparksOutline (Lcom/adevinta/spark/icons/LeboncoinIcons;)Lcom/adevinta/spark/icons/SparkIcon$Resource;
 	public static final fun getPhoneCallSuccessFill (Lcom/adevinta/spark/icons/LeboncoinIcons;)Lcom/adevinta/spark/icons/SparkIcon$Resource;
 	public static final fun getPhoneCallSuccessOutline (Lcom/adevinta/spark/icons/LeboncoinIcons;)Lcom/adevinta/spark/icons/SparkIcon$Resource;
 	public static final fun getPhoneFill (Lcom/adevinta/spark/icons/LeboncoinIcons;)Lcom/adevinta/spark/icons/SparkIcon$Resource;
