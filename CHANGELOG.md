@@ -2,6 +2,13 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [3.4.0](https://github.com/leboncoin/spark-android/compare/3.3.0...3.4.0) (2026-08-03)
+
+
+### Features
+
+* **icons:** update icons ([#2152](https://github.com/leboncoin/spark-android/issues/2152)) ([ec7e67e](https://github.com/leboncoin/spark-android/commit/ec7e67eabb2bff8efce0ca7da0ac67e12348185e))
+
 ## [3.3.0](https://github.com/leboncoin/spark-android/compare/3.2.0...3.3.0) (2026-07-24)
 
 
