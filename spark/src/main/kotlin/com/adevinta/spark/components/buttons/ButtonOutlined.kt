@@ -27,6 +27,7 @@ import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -102,6 +103,7 @@ public fun ButtonOutlined(
         targetValue = intent.colors().color,
         label = "content color",
     )
+    MaterialTheme.colorScheme.outline
     val disabledContentColor = contentColor.disabled
 
     val colors = ButtonDefaults.outlinedButtonColors(
