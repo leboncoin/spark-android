@@ -28,3 +28,9 @@
 # Rules for Filekit
 -keep class com.sun.jna.** { *; }
 -keep class * implements com.sun.jna.** { *; }
+
+# Prevent R8 full-mode class merging of compose-animation internals into unrelated classes.
+# Without this, ART verify mode (used by CompilationMode.None() in benchmarks) rejects the
+# merged bytecode due to type mismatches between ScaleToBoundsImpl and RemeasureImpl.
+-keep class androidx.compose.animation.ScaleToBoundsImpl { *; }
+-keep class androidx.compose.animation.RemeasureImpl { *; }

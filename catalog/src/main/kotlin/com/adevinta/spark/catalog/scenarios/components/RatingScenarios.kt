@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Adevinta
+ * Copyright (c) 2026 Adevinta
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,27 +19,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-plugins {
-    alias(libs.plugins.android.application) apply false
-    alias(libs.plugins.android.library) apply false
-    alias(libs.plugins.android.lint) apply false
-    alias(libs.plugins.kotlin.multiplatform) apply false
-    alias(libs.plugins.android.kotlin.multiplatform.library) apply false
-    alias(libs.plugins.android.test) apply false
-    alias(libs.plugins.kotlin.jvm) apply false
-    alias(libs.plugins.paparazzi) apply false
-    alias(libs.plugins.dokka) apply false
-    alias(libs.plugins.dependencyGuard) apply false
-    alias(libs.plugins.spotless) apply false
-    alias(libs.plugins.compose.compiler) apply false
-    alias(libs.plugins.compose.multiplatform) apply false
-    alias(libs.plugins.nmcp) apply false
+package com.adevinta.spark.catalog.scenarios.components
 
-    alias(libs.plugins.spark.root)
-    alias(libs.plugins.spark.dokka)
-    alias(libs.plugins.baselineprofile) apply false
-}
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.unit.dp
+import com.adevinta.spark.components.rating.RatingDisplay
 
-allprojects {
-    apply(plugin = "com.adevinta.spark.spotless")
+internal val ratingScenarios: Map<String, @Composable () -> Unit> = mapOf(
+    "ratings" to { RatingsScenario() },
+)
+
+/** Static rating grid, stresses the per-star icon painter cost. */
+@Composable
+private fun RatingsScenario() {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        repeat(10) { row ->
+            RatingDisplay(value = ((row % 5) + 1).toFloat())
+        }
+    }
 }

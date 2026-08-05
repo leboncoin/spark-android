@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Adevinta
+ * Copyright (c) 2026 Adevinta
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,27 +19,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-plugins {
-    alias(libs.plugins.android.application) apply false
-    alias(libs.plugins.android.library) apply false
-    alias(libs.plugins.android.lint) apply false
-    alias(libs.plugins.kotlin.multiplatform) apply false
-    alias(libs.plugins.android.kotlin.multiplatform.library) apply false
-    alias(libs.plugins.android.test) apply false
-    alias(libs.plugins.kotlin.jvm) apply false
-    alias(libs.plugins.paparazzi) apply false
-    alias(libs.plugins.dokka) apply false
-    alias(libs.plugins.dependencyGuard) apply false
-    alias(libs.plugins.spotless) apply false
-    alias(libs.plugins.compose.compiler) apply false
-    alias(libs.plugins.compose.multiplatform) apply false
-    alias(libs.plugins.nmcp) apply false
+package com.adevinta.spark.catalog.baselineprofile
 
-    alias(libs.plugins.spark.root)
-    alias(libs.plugins.spark.dokka)
-    alias(libs.plugins.baselineprofile) apply false
-}
+import androidx.test.filters.LargeTest
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 
-allprojects {
-    apply(plugin = "com.adevinta.spark.spotless")
+@RunWith(JUnit4::class)
+@LargeTest
+internal class PlaceholderBenchmark : ScenarioBenchmark() {
+
+    /** Toggles placeholder visibility. Exercises the Modifier.Node skeleton animation. */
+    @Test
+    fun toggleVisibility() = measureScenario("placeholder")
 }

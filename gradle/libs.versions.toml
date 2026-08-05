@@ -3,6 +3,9 @@ agp = "9.3.1"
 compose-multiplatform = "1.11.1"
 androidx-activity = "1.13.0"
 androidx-appCompat = "1.7.1"
+androidx-benchmark = "1.5.0-beta01"
+androidx-tracing = "2.0.0-alpha08"
+androidx-tracing-perfetto = "1.0.1"
 compileSdk = "37"
 dokka = "2.2.0"
 filekit = "0.14.2"
@@ -11,6 +14,9 @@ lint = "32.3.1"
 material3 = "1.4.0"
 minCompileSdk = "24"
 targetSdk = "37"
+espressoCore = "3.7.0"
+uiautomator = "2.3.0"
+profileinstaller = "1.4.1"
 
 [libraries]
 accompanist-drawablepainter = "com.google.accompanist:accompanist-drawablepainter:0.37.3"
@@ -29,6 +35,8 @@ androidx-compose-foundation = { module = "androidx.compose.foundation:foundation
 androidx-compose-material-iconsExtended = { module = "androidx.compose.material:material-icons-extended" }
 androidx-compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3"}
 androidx-compose-material3-adaptive = { module = "androidx.compose.material3.adaptive:adaptive"}
+androidx-compose-runtime = { module = "androidx.compose.runtime:runtime" }
+androidx-compose-runtime-tracing = { module = "androidx.compose.runtime:runtime-tracing" }
 androidx-compose-ui = { module = "androidx.compose.ui:ui" }
 androidx-compose-ui-test = { module = "androidx.compose.ui:ui-test" }
 androidx-compose-ui-testJUnit = { module = "androidx.compose.ui:ui-test-junit4" }
@@ -52,8 +60,12 @@ androidx-metrics =  "androidx.metrics:metrics-performance:1.0.0"
 androidx-navigation-compose = "androidx.navigation:navigation-compose:2.9.8"
 
 androidx-savedstate = "androidx.savedstate:savedstate-ktx:1.5.0"
+androidx-tracing-perfetto = { module = "androidx.tracing:tracing-perfetto", version.ref = "androidx-tracing-perfetto" }
+androidx-tracing-perfetto-binary = { module = "androidx.tracing:tracing-perfetto-binary", version.ref = "androidx-tracing-perfetto" }
 
 androidx-test-runner = "androidx.test:runner:1.7.0"
+androidx-benchmark-macro-junit4 = { module = "androidx.benchmark:benchmark-macro-junit4", version.ref = "androidx-benchmark" }
+androidx-test-junit = "androidx.test.ext:junit:1.3.0"
 androidx-test-truth = "androidx.test.ext:truth:1.7.0"
 
 androidx-window = "androidx.window:window:1.5.1"
@@ -113,6 +125,9 @@ slack-lint-compose = "com.slack.lint.compose:compose-lint-checks:1.4.3"
 testParameterInjector = "com.google.testparameterinjector:test-parameter-injector:1.22"
 
 unstyled-disclosure = "com.composables:composeunstyled-disclosure:2.9.0"
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "uiautomator" }
+androidx-profileinstaller = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "profileinstaller" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -122,6 +137,7 @@ android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.
 compose-multiplatform  = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 android-lint = { id = "com.android.lint", version.ref = "agp" }
 android-test = { id = "com.android.test", version.ref = "agp" }
+baselineprofile = { id = "androidx.baselineprofile", version.ref = "androidx-benchmark"}
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 dependencyGuard = "com.dropbox.dependency-guard:0.5.0"
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
