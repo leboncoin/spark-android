@@ -2,6 +2,13 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [3.4.1](https://github.com/leboncoin/spark-android/compare/3.4.0...3.4.1) (2026-08-05)
+
+
+### Miscellaneous
+
+* **deps:** bump zizmorcore/zizmor-action from 0.6.1 to 0.6.2 in /.github/workflows ([#2155](https://github.com/leboncoin/spark-android/issues/2155)) ([e99a17e](https://github.com/leboncoin/spark-android/commit/e99a17e6ca360de162da8f4711c6d58f8e165107))
+
 ## [3.4.0](https://github.com/leboncoin/spark-android/compare/3.3.0...3.4.0) (2026-08-03)
 
 
