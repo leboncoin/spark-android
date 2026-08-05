@@ -18,7 +18,7 @@ var checkedState by remember { mutableStateOf(ToggleableState.On) }
 Checkbox(
     state = checkedState,
     onClick = {
-        isChecked = !isChecked
+        checkedState = if (checkedState == ToggleableState.On) ToggleableState.Off else ToggleableState.On
     }
 )
 ```
