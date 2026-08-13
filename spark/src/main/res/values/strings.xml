@@ -90,11 +90,6 @@
     </plurals>
     <!--endregion-->
 
-    <!--region Stepper-->
-    <string name="spark_stepper_increment_a11y">Increment</string>
-    <string name="spark_stepper_decrement_a11y">Decrement</string>
-    <!--endregion-->
-
     <!--region FileUpload-->
     <string name="spark_groupSeparator">,</string>
     <string name="spark_decimalSymbol">.</string>
