@@ -22,6 +22,7 @@
 package com.adevinta.spark.components.iconbuttons
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.Shape
 import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.SparkTheme
@@ -50,6 +51,7 @@ public object IconButtonTokens {
      * Falls back to [fallback] when rebranding is inactive.
      */
     @Composable
+    @ReadOnlyComposable
     public fun resolveFullShape(fallback: Shape): Shape =
         if (LocalSparkFeatureFlag.current.useRebrandedShapes) SparkTheme.shapes.full else fallback
 }
