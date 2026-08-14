@@ -120,7 +120,7 @@ A full guide to the colour intent system, custom palettes, shape and typography 
 
 ### API reference
 
-Full KDoc is published at [adevinta.github.io/spark-android](https://adevinta.github.io/spark-android/).
+Full KDoc is published at [leboncoin.github.io/spark-android](https://leboncoin.github.io/spark-android/).
 
 ---
 

@@ -88,6 +88,7 @@ internal fun IconButton(
         shape = shape,
         color = containerColor,
         contentColor = contentColor,
+        interactionSource = interactionSource,
         border = borderStroke,
     ) {
         Icon(
