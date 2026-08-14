@@ -104,7 +104,7 @@ jobs:
       - uses: ./.github/actions/setup-gradle-properties
       - name: 🧑‍🔬 Test
         id: test
-        run: ./gradlew globalCiUnitTest verifyPaparazziRelease
+        run: ./gradlew ciUnitTest verifyPaparazziRelease
       - name: 📦 Archive JUnit reports
         if: ${{ always() && contains(fromJSON('["success", "failure"]'), steps.test.outcome) }}
         uses: ./.github/actions/archive-junit-reports

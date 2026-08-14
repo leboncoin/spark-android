@@ -22,6 +22,7 @@
 plugins {
     `java-platform`
     alias(libs.plugins.spark.publishing)
+    alias(libs.plugins.spark.spotless)
 }
 
 dependencies {
