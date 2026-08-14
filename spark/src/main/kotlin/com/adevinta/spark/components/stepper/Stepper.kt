@@ -92,6 +92,8 @@ public object Stepper {
     /**
      * Nudger stepper with decrease and increase buttons on either side of the selected value.
      *
+     * ![Nudger stepper](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.stepper_StepperDocumentationScreenshots_nudger.png)
+     *
      * @param value Value of the quantity picker, or `null` for an empty state
      * @param onValueChange The callback to be called when [value] has been incremented or decremented
      * @param modifier The [Modifier] to be applied to the component
@@ -134,6 +136,8 @@ public object Stepper {
     /**
      * Nudger stepper driven by a [StepperState] holder.
      *
+     * ![Nudger stepper](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.stepper_StepperDocumentationScreenshots_nudger.png)
+     *
      * @param state The [StepperState] that holds the current value, range, and step
      * @param modifier The [Modifier] to be applied to the component
      * @param suffix optional string displayed after the value
@@ -168,6 +172,8 @@ public object Stepper {
 
     /**
      * Nudger stepper with a label and helper text.
+     *
+     * ![Nudger form stepper](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.stepper_StepperDocumentationScreenshots_nudgerForm.png)
      *
      * @param value Value of the quantity picker, or `null` for an empty state
      * @param onValueChange The callback to be called when [value] has been incremented or decremented
@@ -229,6 +235,8 @@ public object Stepper {
     /**
      * Nudger stepper with a label and helper text, driven by a [StepperState] holder.
      *
+     * ![Nudger form stepper](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.stepper_StepperDocumentationScreenshots_nudgerForm.png)
+     *
      * @param state The [StepperState] that holds the current value, range, and step
      * @param label the label to be displayed
      * @param helper The optional helper text to be displayed at the bottom outside the text input container
@@ -275,6 +283,8 @@ public object Stepper {
 
     /**
      * Input stepper with an editable text field between decrease and increase buttons.
+     *
+     * ![Input stepper](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.stepper_StepperDocumentationScreenshots_input.png)
      *
      * @param value Value of the stepper, or `null` for an empty state
      * @param onValueChange Called when the value changes (button press or blur commit)
@@ -332,6 +342,8 @@ public object Stepper {
     /**
      * Input stepper driven by a [StepperInputState] holder.
      *
+     * ![Input stepper](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.stepper_StepperDocumentationScreenshots_input.png)
+     *
      * @param state The [StepperInputState] that holds the text field state
      * @param modifier The [Modifier] to be applied to the component
      * @param range The min/max accepted value by the stepper
@@ -373,6 +385,8 @@ public object Stepper {
 
     /**
      * Input stepper with a label and helper text.
+     *
+     * ![Input form stepper](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.stepper_StepperDocumentationScreenshots_inputForm.png)
      *
      * @param value Value of the stepper, or `null` for an empty state
      * @param onValueChange Called when the value changes (button press or blur commit)
@@ -431,6 +445,8 @@ public object Stepper {
 
     /**
      * Input stepper with a label and helper text, driven by a [StepperInputState] holder.
+     *
+     * ![Input form stepper](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.stepper_StepperDocumentationScreenshots_inputForm.png)
      *
      * @param state The [StepperInputState] that holds the text field state
      * @param label the label to be displayed

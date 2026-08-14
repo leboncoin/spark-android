@@ -56,6 +56,7 @@ internal fun MiddleText(
     colors: DefaultSparkTextFieldColors,
     modifier: Modifier = Modifier,
     suffix: String = "",
+    placeholder: String = "-",
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     CompositionLocalProvider(
@@ -76,17 +77,26 @@ internal fun MiddleText(
                 ),
                 horizontalArrangement = Arrangement.Center,
             ) {
-                AnimatedCounterText(
-                    text = value?.formatInteger().orEmpty(),
-                    textAlign = TextAlign.Center,
-                    animationSpec = StepperDefaults.textAnimationSpec,
-                )
-                if (suffix.isNotEmpty()) {
+                if (value == null) {
+                    // Empty state: show the placeholder, no suffix.
                     Text(
-                        text = suffix,
+                        text = placeholder,
                         textAlign = TextAlign.Center,
-                        modifier = Modifier.padding(start = 4.dp),
+                        color = SparkTheme.colors.onSurface.dim3,
                     )
+                } else {
+                    AnimatedCounterText(
+                        text = value.formatInteger(),
+                        textAlign = TextAlign.Center,
+                        animationSpec = StepperDefaults.textAnimationSpec,
+                    )
+                    if (suffix.isNotEmpty()) {
+                        Text(
+                            text = suffix,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(start = 4.dp),
+                        )
+                    }
                 }
             }
         }

@@ -57,6 +57,7 @@ internal fun SparkNudger(
     modifier: Modifier = Modifier,
     range: IntRange = 0..10,
     suffix: String = "",
+    placeholder: String = "-",
     step: Int = 1,
     enabled: Boolean = true,
     flexible: Boolean = false,
@@ -116,6 +117,7 @@ internal fun SparkNudger(
                 .invisibleSemantic(),
             value = value,
             suffix = suffix,
+            placeholder = placeholder,
             enabled = enabled,
             colors = colors,
         )

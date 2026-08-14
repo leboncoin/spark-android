@@ -10,6 +10,8 @@ All stepper variants live inside `object Stepper` and come in two flavours:
 
 ## Stepper.Nudger
 
+![](../../images/com.adevinta.spark.components.stepper_StepperDocumentationScreenshots_nudger.png)
+
 The Nudger variant displays the value between decrease/increase buttons. The value is
 read-only; users change it via the buttons. Each digit animates independently on change
 (odometer effect). Long-pressing a button repeats the action with acceleration.
@@ -65,6 +67,8 @@ Stepper.Nudger(state = state)
 
 ## Stepper.NudgerForm
 
+![](../../images/com.adevinta.spark.components.stepper_StepperDocumentationScreenshots_nudgerForm.png)
+
 Wraps `Stepper.Nudger` with a label, optional helper text, and status message.
 
 ```kotlin
@@ -107,6 +111,8 @@ Stepper.NudgerForm(
 ---
 
 ## Stepper.Input
+
+![](../../images/com.adevinta.spark.components.stepper_StepperDocumentationScreenshots_input.png)
 
 The Input variant places an editable text field between the buttons. Users can type a
 value directly or use the buttons. Non-digit characters are rejected, and the value is
@@ -155,6 +161,8 @@ Text(text = "Current value: ${state.value ?: "empty"}")
 ---
 
 ## Stepper.InputForm
+
+![](../../images/com.adevinta.spark.components.stepper_StepperDocumentationScreenshots_inputForm.png)
 
 Wraps `Stepper.Input` with a label, helper, and status message.
 

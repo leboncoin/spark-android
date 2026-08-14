@@ -193,9 +193,7 @@ internal fun SparkStepperInput(
         ) {
             BasicTextField(
                 state = textFieldState,
-                modifier = Modifier
-                    .padding(vertical = 10.dp, horizontal = 8.dp)
-                    .width(IntrinsicSize.Min),
+                modifier = Modifier.padding(vertical = 10.dp, horizontal = 8.dp),
                 enabled = enabled,
                 textStyle = SparkTheme.typography.body1.copy(
                     textAlign = TextAlign.Center,
@@ -212,14 +210,18 @@ internal fun SparkStepperInput(
                 lineLimits = TextFieldLineLimits.SingleLine,
                 decorator = { innerTextField ->
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        if (textFieldState.text.isEmpty()) {
-                            Text(
-                                text = placeholder,
-                                style = SparkTheme.typography.body1.copy(textAlign = TextAlign.Center),
-                                color = SparkTheme.colors.onSurface.dim3,
-                            )
+                        // Constrain only the editable field to its content width, so the suffix
+                        // sits beside it instead of being clipped.
+                        Box(modifier = Modifier.width(IntrinsicSize.Min)) {
+                            if (textFieldState.text.isEmpty()) {
+                                Text(
+                                    text = placeholder,
+                                    style = SparkTheme.typography.body1.copy(textAlign = TextAlign.Center),
+                                    color = SparkTheme.colors.onSurface.dim3,
+                                )
+                            }
+                            innerTextField()
                         }
-                        innerTextField()
                         if (suffix.isNotEmpty() && textFieldState.text.isNotEmpty()) {
                             Text(
                                 text = suffix,
