@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Adevinta
+ * Copyright (c) 2025 Adevinta
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,29 +19,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.adevinta.spark.components.textfields
+package com.adevinta.spark.components.stepper.internal
 
-import androidx.compose.foundation.shape.CornerBasedShape
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ReadOnlyComposable
-import com.adevinta.spark.LocalSparkFeatureFlag
-import com.adevinta.spark.SparkTheme
+import java.text.DecimalFormatSymbols
+import java.text.NumberFormat
+
+internal val integerNumberFormat: NumberFormat = NumberFormat.getIntegerInstance()
+
+internal val groupingSeparator: Char = DecimalFormatSymbols.getInstance().groupingSeparator
+
+internal fun String.stripGroupingSeparators(): String = replace(groupingSeparator.toString(), "")
+
+internal fun Int.formatInteger(): String = integerNumberFormat.format(this)
 
 /**
- * Component tokens for text field components. Centralises all flag-driven token resolution so that
- * text field composables read from a single source of truth instead of inlining the flag check at
- * every call site. When the rebranding feature flag is eventually removed, only this file changes.
+ * Builds the spoken state description for a stepper value. Joins the value and [suffix] with a
+ * single space so a screen reader reads "5 kg", not "5kg" or "5null". Falls back to [emptyText]
+ * when [value] is null.
  */
-public object TextFieldTokens {
-
-    /**
-     * The resolved container shape for text fields.
-     */
-    public val shape: CornerBasedShape
-        @Composable @ReadOnlyComposable
-        get() = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
-            SparkTheme.shapes.full
-        } else {
-            SparkTheme.shapes.large
-        }
+internal fun stepperStateDescription(value: Int?, suffix: String?, emptyText: String): String {
+    if (value == null) return emptyText
+    val trimmedSuffix = suffix?.trim().orEmpty()
+    return if (trimmedSuffix.isEmpty()) value.toString() else "$value $trimmedSuffix"
 }

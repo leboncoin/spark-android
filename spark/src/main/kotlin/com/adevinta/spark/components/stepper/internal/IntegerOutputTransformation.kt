@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Adevinta
+ * Copyright (c) 2025 Adevinta
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,29 +19,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.adevinta.spark.components.textfields
+package com.adevinta.spark.components.stepper.internal
 
-import androidx.compose.foundation.shape.CornerBasedShape
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ReadOnlyComposable
-import com.adevinta.spark.LocalSparkFeatureFlag
-import com.adevinta.spark.SparkTheme
+import androidx.compose.foundation.text.input.OutputTransformation
+import androidx.compose.foundation.text.input.TextFieldBuffer
 
-/**
- * Component tokens for text field components. Centralises all flag-driven token resolution so that
- * text field composables read from a single source of truth instead of inlining the flag check at
- * every call site. When the rebranding feature flag is eventually removed, only this file changes.
- */
-public object TextFieldTokens {
+internal class IntegerOutputTransformation : OutputTransformation {
 
-    /**
-     * The resolved container shape for text fields.
-     */
-    public val shape: CornerBasedShape
-        @Composable @ReadOnlyComposable
-        get() = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
-            SparkTheme.shapes.full
-        } else {
-            SparkTheme.shapes.large
+    private var lastRaw: String = ""
+    private var lastFormatted: String = ""
+
+    override fun TextFieldBuffer.transformOutput() {
+        val raw = asCharSequence().toString()
+        if (raw == lastRaw) {
+            if (lastFormatted != raw) replace(0, length, lastFormatted)
+            return
         }
+        lastRaw = raw
+        val parsed = raw.stripGroupingSeparators().toIntOrNull() ?: return
+        lastFormatted = parsed.formatInteger()
+        if (lastFormatted != raw) replace(0, length, lastFormatted)
+    }
 }
