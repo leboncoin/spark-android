@@ -41,7 +41,7 @@ catalog/src/main/kotlin/com/adevinta/spark/catalog/
 └── examples/samples/{package}/ComponentExamples.kt
 ```
 
-> **Tip:** Run `kotlin scripts/generate-component.main.kts` to scaffold all seven files at once.
+> **Tip:** Run `./scripts/generate-component.main.kts` to scaffold all seven files at once.
 > Pass `--variants Elevated Outlined` to pre-populate variant stubs.
 
 #### Reference Implementation: Button Component
