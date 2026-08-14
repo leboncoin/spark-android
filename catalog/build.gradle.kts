@@ -48,10 +48,10 @@ android {
         .takeIf { it.exists() }
         ?.let { Properties().apply { load(it.inputStream()) } }
 
-    val debug by signingConfigs.getting
+    val debug = signingConfigs.getByName("debug")
     //noinspection WrongGradleMethod
-    val release by signingConfigs.creating {
-        if (keystore == null) return@creating
+    val release = signingConfigs.create("release") {
+        if (keystore == null) return@create
         keyAlias = keystore.getProperty("keyAlias")
         keyPassword = keystore.getProperty("keyPassword")
         storeFile = file(keystore.getProperty("storeFile"))
