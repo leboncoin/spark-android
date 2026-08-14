@@ -26,6 +26,7 @@ plugins {
     alias(libs.plugins.spark.compose)
     id("kotlin-parcelize")
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.spark.spotless)
 }
 
 android {
@@ -42,7 +43,7 @@ android {
 
     compileOptions.isCoreLibraryDesugaringEnabled = true
 
-    val keystore = rootProject.file("keystore.properties")
+    val keystore = rootDir.resolve("keystore.properties")
         .takeIf { it.exists() }
         ?.let { Properties().apply { load(it.inputStream()) } }
 

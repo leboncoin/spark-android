@@ -29,7 +29,7 @@ import kotlin.reflect.KProperty
 internal fun Project.spark() = SparkProperties(this)
 
 internal class SparkProperties private constructor(project: Project) {
-    private val catalog by lazy(project.rootProject::getVersionsCatalog)
+    private val catalog by lazy(project::getVersionsCatalog)
     val libraries by lazy { SparkLibraries(catalog) }
     val versions by lazy { SparkVersions(catalog) }
     val ciUnitTestVariant = project.providers.gradleProperty("spark.ci-unit-test.variant").orElse("release")

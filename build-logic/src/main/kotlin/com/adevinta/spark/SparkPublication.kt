@@ -73,7 +73,7 @@ internal object SparkPublication {
         repositories {
             mavenLocal {
                 name = "Local"
-                url = uri(rootProject.layout.buildDirectory.dir(".m2/repository"))
+                url = uri(layout.buildDirectory.dir(".m2/repository"))
             }
         }
     }

@@ -23,6 +23,7 @@ plugins {
     alias(libs.plugins.paparazzi)
     alias(libs.plugins.spark.library)
     alias(libs.plugins.spark.compose)
+    alias(libs.plugins.spark.spotless)
 }
 
 android {
