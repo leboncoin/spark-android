@@ -74,14 +74,21 @@ the manual [Hotfix Workflow](#hotfix-workflow) instead.
 
 ## Hotfix Workflow
 
-1. Create the hotfix branch from the release tag:
-   ```bash
-   git branch hotfix/X.Y.Z+1 refs/tags/X.Y.Z
-   git push origin hotfix/X.Y.Z+1
-   ```
+1. Create the hotfix branch by running the **🔧 Hotfix: create branch** workflow
+   (`.github/workflows/create-hotfix-branch.yml`) from the Actions tab. It branches
+   off the last release tag, names the branch `hotfix/X.Y.Z+1`, and pins the branch
+   to patch-only versioning. Pass a `cherry_pick_sha` if you want a specific commit
+   applied. Do not create the branch by hand: the pin step is what stops
+   release-please from picking a wrong (e.g. minor) version.
 2. Create a working branch, commit fixes, and open a PR targeting `hotfix/X.Y.Z+1`:
    ```bash
    git switch --create fix-hotfix-X.Y.Z+1 hotfix/X.Y.Z+1
    ```
 3. Release-please opens a Release PR targeting the hotfix branch.
 4. Merge the Release PR. The tag and publish workflows fire automatically.
+
+> **Why the pin matters:** release-please reads its config and manifest from the
+> **target branch content**, not from the runner's working copy. Editing
+> `release-please-config.json` inside `release-hotfix.yml` at runtime has no effect.
+> The version override must be committed onto the hotfix branch, which the
+> create-branch workflow does once at branch creation.
