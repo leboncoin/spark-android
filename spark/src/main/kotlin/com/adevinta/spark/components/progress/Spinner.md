@@ -25,3 +25,10 @@ The spinner has two sizes (`SpinnerSize`):
 
 - Small (20.dp)
 - Medium (28.dp)
+
+### Usage Example
+
+```kotlin
+Spinner(intent = SpinnerIntent.Main)
+Spinner(intent = SpinnerIntent.Current, size = SpinnerSize.Small)
+```
