@@ -21,8 +21,9 @@
  */
 package com.adevinta.spark.components.textfields
 
+import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Shape
+import androidx.compose.runtime.ReadOnlyComposable
 import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.SparkTheme
 
@@ -36,8 +37,9 @@ public object TextFieldTokens {
     /**
      * The resolved container shape for text fields.
      */
-    public val shape: Shape
-        @Composable get() = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
+    public val shape: CornerBasedShape
+        @Composable @ReadOnlyComposable
+        get() = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
             SparkTheme.shapes.full
         } else {
             SparkTheme.shapes.large

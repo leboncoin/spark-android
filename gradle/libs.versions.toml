@@ -5,7 +5,7 @@ androidx-activity = "1.13.0"
 androidx-appCompat = "1.7.1"
 compileSdk = "37"
 dokka = "2.2.0"
-filekit = "0.14.2"
+filekit = "0.15.0"
 kotlin = "2.4.10"
 lint = "32.3.1"
 material3 = "1.4.0"
@@ -92,7 +92,7 @@ kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test" }
 
-kotlinx-collections-immutable = "org.jetbrains.kotlinx:kotlinx-collections-immutable:0.5.0"
+kotlinx-collections-immutable = "org.jetbrains.kotlinx:kotlinx-collections-immutable:0.5.1"
 kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0"
 
 ktlint-bom = "com.pinterest.ktlint:ktlint-bom:1.8.0"
@@ -129,7 +129,7 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 nmcp = "com.gradleup.nmcp:1.6.1"
 paparazzi = "app.cash.paparazzi:2.0.0-alpha04"
-spotless = "com.diffplug.spotless:8.8.0"
+spotless = "com.diffplug.spotless:8.9.0"
 
 
 # Plugins defined by this project

@@ -23,6 +23,7 @@ package com.adevinta.spark.stepper
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -58,7 +59,7 @@ class StepperTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun `Stepper semantics suffix`() {
+    fun `Nudger semantics suffix`() {
         val minRange = 0
         val maxRange = 10
         val step = 2
@@ -68,7 +69,7 @@ class StepperTest {
         composeTestRule.setContent {
             PreviewTheme {
                 var value by remember { mutableIntStateOf(initialValue) }
-                Stepper(
+                Stepper.Nudger(
                     value = value,
                     onValueChange = { value = it },
                     modifier = Modifier.testTag(stepperTestTag),
@@ -87,7 +88,7 @@ class StepperTest {
     }
 
     @Test
-    fun `Stepper semantics range`() {
+    fun `Nudger semantics range`() {
         val minRange = 0
         val maxRange = 2
         val rangeFloat = minRange.toFloat()..maxRange.toFloat()
@@ -99,7 +100,7 @@ class StepperTest {
         composeTestRule.setContent {
             PreviewTheme {
                 var value by remember { mutableIntStateOf(initialValue) }
-                Stepper(
+                Stepper.Nudger(
                     value = value,
                     onValueChange = { value = it },
                     modifier = Modifier.testTag(stepperTestTag),
@@ -126,7 +127,7 @@ class StepperTest {
     }
 
     @Test
-    fun `Stepper semantics progress`() {
+    fun `Nudger semantics progress`() {
         val minRange = 0
         val maxRange = 10
         val range = minRange..maxRange
@@ -139,7 +140,7 @@ class StepperTest {
         composeTestRule.setContent {
             PreviewTheme {
                 var value by remember { mutableIntStateOf(initialValue) }
-                Stepper(
+                Stepper.Nudger(
                     value = value,
                     onValueChange = { value = it },
                     modifier = Modifier.testTag(stepperTestTag),
@@ -186,7 +187,7 @@ class StepperTest {
     }
 
     @Test
-    fun `Stepper semantics disabled`() {
+    fun `Nudger semantics disabled`() {
         val minRange = 0
         val maxRange = 10
         val range = minRange..maxRange
@@ -196,7 +197,7 @@ class StepperTest {
         composeTestRule.setContent {
             PreviewTheme {
                 var value by remember { mutableIntStateOf(initialValue) }
-                Stepper(
+                Stepper.Nudger(
                     value = value,
                     onValueChange = { value = it },
                     modifier = Modifier.testTag(stepperTestTag),
@@ -215,7 +216,7 @@ class StepperTest {
 
     @OptIn(ExperimentalTestApi::class)
     @Test
-    fun `Stepper keyboard control`() {
+    fun `Nudger keyboard control`() {
         val minRange = 0
         val maxRange = 10
         val range = minRange..maxRange
@@ -228,7 +229,7 @@ class StepperTest {
         composeTestRule.setContent {
             PreviewTheme {
                 var value by remember { mutableIntStateOf(initialValue) }
-                Stepper(
+                Stepper.Nudger(
                     value = value,
                     onValueChange = { value = it },
                     modifier = Modifier.testTag(stepperTestTag),
@@ -273,7 +274,7 @@ class StepperTest {
 
     @OptIn(ExperimentalTestApi::class)
     @Test
-    fun `Stepper not focused keyboard control`() {
+    fun `Nudger not focused keyboard control`() {
         val minRange = 0
         val maxRange = 10
         val range = minRange..maxRange
@@ -286,7 +287,7 @@ class StepperTest {
         composeTestRule.setContent {
             PreviewTheme {
                 var value by remember { mutableIntStateOf(initialValue) }
-                Stepper(
+                Stepper.Nudger(
                     value = value,
                     onValueChange = { value = it },
                     modifier = Modifier.testTag(stepperTestTag),
@@ -313,7 +314,7 @@ class StepperTest {
 
     @OptIn(ExperimentalTestApi::class)
     @Test
-    fun `Stepper keyboard control range`() {
+    fun `Nudger keyboard control range`() {
         val minRange = 0
         val maxRange = 2
         val rangeFloat = minRange.toFloat()..maxRange.toFloat()
@@ -325,7 +326,7 @@ class StepperTest {
         composeTestRule.setContent {
             PreviewTheme {
                 var value by remember { mutableIntStateOf(initialValue) }
-                Stepper(
+                Stepper.Nudger(
                     value = value,
                     onValueChange = { value = it },
                     modifier = Modifier.testTag(stepperTestTag),
@@ -350,6 +351,124 @@ class StepperTest {
                     SemanticsProperties.ProgressBarRangeInfo,
                     ProgressBarRangeInfo(current = 2f, range = rangeFloat, steps),
                 ),
+            )
+    }
+
+    @Test
+    fun `Nudger null value has empty stateDescription`() {
+        val stepperTestTag = "myStepper"
+
+        composeTestRule.setContent {
+            PreviewTheme {
+                var value by remember { mutableStateOf<Int?>(null) }
+                Stepper.Nudger(
+                    value = value,
+                    onValueChange = { value = it },
+                    modifier = Modifier.testTag(stepperTestTag),
+                    range = 0..10,
+                    step = 1,
+                    testTag = stepperTestTag,
+                )
+            }
+        }
+
+        composeTestRule.onNodeWithTag(stepperTestTag)
+            .assert(
+                SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, ""),
+            )
+    }
+
+    @OptIn(ExperimentalTestApi::class)
+    @Test
+    fun `Nudger null value Shift+Up sets to range first`() {
+        val stepperTestTag = "myStepper"
+        val rangeFloat = 0f..10f
+        val steps = 10
+
+        composeTestRule.setContent {
+            PreviewTheme {
+                var value by remember { mutableStateOf<Int?>(null) }
+                Stepper.Nudger(
+                    value = value,
+                    onValueChange = { value = it },
+                    modifier = Modifier.testTag(stepperTestTag),
+                    range = 0..10,
+                    step = 1,
+                    testTag = stepperTestTag,
+                )
+            }
+        }
+
+        composeTestRule.onNodeWithTag(stepperTestTag)
+            .requestFocus()
+            .performKeyInput {
+                withKeyDown(Key.ShiftLeft) {
+                    pressKey(Key.DirectionUp)
+                }
+            }
+            .assert(
+                SemanticsMatcher.expectValue(
+                    SemanticsProperties.ProgressBarRangeInfo,
+                    ProgressBarRangeInfo(current = 0f, range = rangeFloat, steps),
+                ),
+            )
+            .assertTextEquals("0")
+    }
+
+    @Test
+    fun `Nudger null value SetProgress sets to range first`() {
+        val stepperTestTag = "myStepper"
+        val rangeFloat = 0f..10f
+        val steps = 10
+
+        composeTestRule.setContent {
+            PreviewTheme {
+                var value by remember { mutableStateOf<Int?>(null) }
+                Stepper.Nudger(
+                    value = value,
+                    onValueChange = { value = it },
+                    modifier = Modifier.testTag(stepperTestTag),
+                    range = 0..10,
+                    step = 1,
+                    testTag = stepperTestTag,
+                )
+            }
+        }
+
+        composeTestRule.onNodeWithTag(stepperTestTag)
+            .performSemanticsAction(SetProgress) { setProgress -> setProgress(5f) }
+            .assert(
+                SemanticsMatcher.expectValue(
+                    SemanticsProperties.ProgressBarRangeInfo,
+                    ProgressBarRangeInfo(current = 5f, range = rangeFloat, steps),
+                ),
+            )
+            .assertTextEquals("5")
+    }
+
+    @Suppress("DEPRECATION")
+    @Test
+    fun `Deprecated Stepper still compiles and works`() {
+        val stepperTestTag = "myStepper"
+
+        composeTestRule.setContent {
+            PreviewTheme {
+                var value by remember { mutableIntStateOf(4) }
+                Stepper(
+                    value = value,
+                    onValueChange = { value = it },
+                    modifier = Modifier.testTag(stepperTestTag),
+                    range = 0..10,
+                    step = 2,
+                    suffix = " €",
+                    testTag = stepperTestTag,
+                )
+            }
+        }
+
+        composeTestRule.onNodeWithTag(stepperTestTag)
+            .assert(
+                SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, "4 €"),
             )
     }
 }
