@@ -103,8 +103,10 @@ public fun HorizontalDivider(
                 color = intent.color(),
                 modifier = when (labelHorizontalAlignment) {
                     LabelHorizontalAlignment.Start -> Modifier.width(40.dp)
+
                     LabelHorizontalAlignment.Center,
-                    LabelHorizontalAlignment.End -> Modifier.weight(1f).widthIn(min = 40.dp)
+                    LabelHorizontalAlignment.End,
+                    -> Modifier.weight(1f).widthIn(min = 40.dp)
                 },
             )
 
@@ -118,8 +120,10 @@ public fun HorizontalDivider(
                 color = intent.color(),
                 modifier = when (labelHorizontalAlignment) {
                     LabelHorizontalAlignment.End -> Modifier.width(40.dp)
+
                     LabelHorizontalAlignment.Center,
-                    LabelHorizontalAlignment.Start -> Modifier.weight(1f).widthIn(min = 40.dp)
+                    LabelHorizontalAlignment.Start,
+                    -> Modifier.weight(1f).widthIn(min = 40.dp)
                 },
             )
         }
@@ -161,8 +165,10 @@ public fun VerticalDivider(
                 color = intent.color(),
                 modifier = when (labelVerticalAlignment) {
                     LabelVerticalAlignment.Top -> Modifier.height(40.dp)
+
                     LabelVerticalAlignment.Center,
-                    LabelVerticalAlignment.Bottom -> Modifier.weight(1f).heightIn(min = 40.dp)
+                    LabelVerticalAlignment.Bottom,
+                    -> Modifier.weight(1f).heightIn(min = 40.dp)
                 },
             )
 
@@ -176,8 +182,10 @@ public fun VerticalDivider(
                 color = intent.color(),
                 modifier = when (labelVerticalAlignment) {
                     LabelVerticalAlignment.Bottom -> Modifier.height(40.dp)
+
                     LabelVerticalAlignment.Center,
-                    LabelVerticalAlignment.Top -> Modifier.weight(1f).heightIn(min = 40.dp)
+                    LabelVerticalAlignment.Top,
+                    -> Modifier.weight(1f).heightIn(min = 40.dp)
                 },
             )
         }
