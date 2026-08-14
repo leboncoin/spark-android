@@ -25,7 +25,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -37,7 +37,7 @@ import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.stepper.Stepper
-import com.adevinta.spark.components.stepper.StepperForm
+import com.adevinta.spark.components.stepper.rememberStepperInputState
 import com.adevinta.spark.components.stepper.stepperSemantics
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.FormFieldStatus
@@ -46,35 +46,31 @@ import kotlinx.collections.immutable.persistentListOf
 
 public val StepperExamples: ImmutableList<Example> = persistentListOf(
     Example(
-        id = "default",
-        name = "Base Stepper Example",
-        description = "Base interactions on stepper.",
-        sourceUrl = "$SampleSourceUrl/RatingDisplaySample.kt",
+        id = "nudger",
+        name = "Nudger",
+        description = "Base Nudger stepper with decrease/increase buttons.",
+        sourceUrl = "$SampleSourceUrl/StepperExamples.kt",
     ) {
-        var value by rememberSaveable { mutableIntStateOf(0) }
-        Stepper(
+        var value by rememberSaveable { mutableStateOf<Int?>(0) }
+        Stepper.Nudger(
             value = value,
-            onValueChange = {
-                value = it
-            },
+            onValueChange = { value = it },
         )
-        StepperForm(
+        Stepper.NudgerForm(
             value = value,
-            onValueChange = {
-                value = it
-            },
+            onValueChange = { value = it },
             label = "Label",
             required = true,
             helper = "Exemple de message d'aide",
         )
     },
     Example(
-        id = "states",
-        name = "Stepper States",
-        description = "Disabled and all regular states available for the TestField.",
-        sourceUrl = "$SampleSourceUrl/RatingDisplaySample.kt",
+        id = "nudger-states",
+        name = "Nudger States",
+        description = "Disabled and status states for the Nudger variant.",
+        sourceUrl = "$SampleSourceUrl/StepperExamples.kt",
     ) {
-        StepperForm(
+        Stepper.NudgerForm(
             value = 1,
             onValueChange = {},
             status = FormFieldStatus.Error,
@@ -82,21 +78,21 @@ public val StepperExamples: ImmutableList<Example> = persistentListOf(
             helper = "helper message",
             enabled = false,
         )
-        StepperForm(
+        Stepper.NudgerForm(
             value = 1,
             onValueChange = {},
             status = FormFieldStatus.Error,
             label = "Label",
             helper = "helper message",
         )
-        StepperForm(
+        Stepper.NudgerForm(
             value = -1,
             onValueChange = {},
             status = FormFieldStatus.Alert,
             label = "Label",
             helper = "helper message",
         )
-        StepperForm(
+        Stepper.NudgerForm(
             value = -1234,
             onValueChange = {},
             status = FormFieldStatus.Success,
@@ -104,27 +100,77 @@ public val StepperExamples: ImmutableList<Example> = persistentListOf(
             helper = "helper message",
         )
     },
-
     Example(
-        id = "states",
-        name = "Stepper States",
-        description = "Disabled and all regular states available for the TestField.",
-        sourceUrl = "$SampleSourceUrl/RatingDisplaySample.kt",
+        id = "input",
+        name = "Input",
+        description = "Input stepper with editable text field.",
+        sourceUrl = "$SampleSourceUrl/StepperExamples.kt",
     ) {
-        StepperForm(
-            value = 1,
+        var value by rememberSaveable { mutableStateOf<Int?>(3) }
+        Stepper.Input(
+            value = value,
+            onValueChange = { value = it },
+            range = 0..100,
+        )
+        Stepper.InputForm(
+            value = value,
+            onValueChange = { value = it },
+            label = "Quantity",
+            helper = "Enter a value between 0 and 100",
+            range = 0..100,
+            required = true,
+        )
+    },
+    Example(
+        id = "input-states",
+        name = "Input States",
+        description = "Status states for the Input variant.",
+        sourceUrl = "$SampleSourceUrl/StepperExamples.kt",
+    ) {
+        Stepper.InputForm(
+            value = 3,
             onValueChange = {},
             status = FormFieldStatus.Error,
+            statusMessage = "Value is invalid",
             label = "Label",
             helper = "helper message",
-            enabled = false,
         )
+        Stepper.InputForm(
+            value = 3,
+            onValueChange = {},
+            status = FormFieldStatus.Alert,
+            statusMessage = "Check this value",
+            label = "Label",
+            helper = "helper message",
+        )
+        Stepper.InputForm(
+            value = 3,
+            onValueChange = {},
+            status = FormFieldStatus.Success,
+            statusMessage = "Looks good",
+            label = "Label",
+            helper = "helper message",
+        )
+    },
+    Example(
+        id = "input-uncontrolled",
+        name = "Input (Uncontrolled)",
+        description = "Input stepper driven by StepperInputState.",
+        sourceUrl = "$SampleSourceUrl/StepperExamples.kt",
+    ) {
+        val state = rememberStepperInputState(initialValue = 5)
+        Stepper.Input(
+            state = state,
+            range = 0..100,
+            step = 1,
+        )
+        Text(text = "Current value: ${state.value ?: "empty"}")
     },
     Example(
         id = "custom-form",
         name = "Custom Stepper form",
-        description = "Stepper can show a suffix like `%`, `€` or `person•s`.",
-        sourceUrl = "$SampleSourceUrl/RatingInputSample.kt",
+        description = "Stepper.Nudger with allowSemantics = false in a custom layout.",
+        sourceUrl = "$SampleSourceUrl/StepperExamples.kt",
     ) {
         CustomStepper(
             value = 1,
@@ -186,10 +232,13 @@ private fun CustomStepper(
             Text(text = title)
             Text(text = subtitle)
         }
-        Stepper(
+        Stepper.Nudger(
             value = value,
-            onValueChange = {},
+            onValueChange = onValueChange,
             enabled = enabled,
+            range = range,
+            suffix = suffix,
+            step = step,
             allowSemantics = false,
         )
     }

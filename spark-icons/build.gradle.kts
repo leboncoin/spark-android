@@ -30,6 +30,9 @@ plugins {
 
 kotlin {
     android {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
+        }
         namespace = "com.adevinta.spark.icons"
         // Doesn't seem to be available for kmp?
 //        resourcePrefix = "spark_icons_"
