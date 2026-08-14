@@ -30,14 +30,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Constraints
+import androidx.compose.ui.unit.constrainHeight
+import androidx.compose.ui.unit.constrainWidth
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ChainStyle
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
-import androidx.constraintlayout.compose.atLeast
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.spacer.HorizontalSpacer
@@ -92,46 +92,17 @@ public fun HorizontalDivider(
                 .fillMaxWidth(),
         )
     } else {
-        ConstraintLayout(
+        LabelledDivider(
+            isHorizontal = true,
+            isStartLineFixed = labelHorizontalAlignment == LabelHorizontalAlignment.Start,
+            isEndLineFixed = labelHorizontalAlignment == LabelHorizontalAlignment.End,
             modifier = modifier
                 .sparkUsageOverlay()
                 .fillMaxWidth(),
         ) {
-            val (lineLeft, labelBox, lineRight) = createRefs()
-
-            createHorizontalChain(lineLeft, labelBox, lineRight, chainStyle = ChainStyle.SpreadInside)
-
-            MaterialHorizontalDivider(
-                color = intent.color(),
-                modifier = Modifier.constrainAs(lineLeft) {
-                    start.linkTo(parent.start)
-                    end.linkTo(labelBox.start)
-                    centerVerticallyTo(parent)
-                    width = calculateLineWidth(LabelHorizontalAlignment.Start, labelHorizontalAlignment)
-                },
-            )
-
-            Box(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .constrainAs(labelBox) {
-                        start.linkTo(lineLeft.end)
-                        end.linkTo(lineRight.start)
-                        centerVerticallyTo(parent)
-                        width = Dimension.preferredWrapContent
-                    },
-            ) { label() }
-
-            MaterialHorizontalDivider(
-                color = intent.color(),
-                modifier = Modifier.constrainAs(lineRight) {
-                    start.linkTo(labelBox.end)
-                    end.linkTo(parent.end)
-                    centerVerticallyTo(parent)
-                    width = calculateLineWidth(LabelHorizontalAlignment.End, labelHorizontalAlignment)
-                },
-
-            )
+            MaterialHorizontalDivider(color = intent.color())
+            Box(modifier = Modifier.padding(horizontal = 16.dp)) { label() }
+            MaterialHorizontalDivider(color = intent.color())
         }
     }
 }
@@ -162,65 +133,109 @@ public fun VerticalDivider(
                 .fillMaxHeight(),
         )
     } else {
-        ConstraintLayout(
+        LabelledDivider(
+            isHorizontal = false,
+            isStartLineFixed = labelVerticalAlignment == LabelVerticalAlignment.Top,
+            isEndLineFixed = labelVerticalAlignment == LabelVerticalAlignment.Bottom,
             modifier = modifier
                 .sparkUsageOverlay()
                 .fillMaxHeight(),
         ) {
-            val (lineTop, labelBox, lineBottom) = createRefs()
-
-            createVerticalChain(lineTop, labelBox, lineBottom, chainStyle = ChainStyle.SpreadInside)
-
-            MaterialVerticalDivider(
-                color = intent.color(),
-                modifier = Modifier.constrainAs(lineTop) {
-                    top.linkTo(parent.top)
-                    bottom.linkTo(labelBox.top)
-                    centerHorizontallyTo(parent)
-                    height = calculateLineHeight(LabelVerticalAlignment.Top, labelVerticalAlignment)
-                },
-            )
-
-            Box(
-                modifier = Modifier
-                    .padding(vertical = 16.dp)
-                    .constrainAs(labelBox) {
-                        top.linkTo(lineTop.bottom)
-                        bottom.linkTo(lineBottom.top)
-                        centerHorizontallyTo(parent)
-                        height = Dimension.preferredWrapContent
-                    },
-            ) { label() }
-
-            MaterialVerticalDivider(
-                color = intent.color(),
-                modifier = Modifier.constrainAs(lineBottom) {
-                    top.linkTo(labelBox.bottom)
-                    bottom.linkTo(parent.bottom)
-                    centerHorizontallyTo(parent)
-                    height = calculateLineHeight(LabelVerticalAlignment.Bottom, labelVerticalAlignment)
-                },
-            )
+            MaterialVerticalDivider(color = intent.color())
+            Box(modifier = Modifier.padding(vertical = 16.dp)) { label() }
+            MaterialVerticalDivider(color = intent.color())
         }
     }
 }
 
-private fun calculateLineHeight(
-    dividerPosition: LabelVerticalAlignment,
-    labelVerticalAlignment: LabelVerticalAlignment,
-): Dimension = if (dividerPosition == labelVerticalAlignment) {
-    Dimension.value(40.dp)
-} else {
-    Dimension.fillToConstraints.atLeast(40.dp)
-}
+private val MinLineLength = 40.dp
 
-private fun calculateLineWidth(
-    dividerPosition: LabelHorizontalAlignment,
-    labelVerticalAlignment: LabelHorizontalAlignment,
-): Dimension = if (dividerPosition == labelVerticalAlignment) {
-    Dimension.value(40.dp)
-} else {
-    Dimension.fillToConstraints.atLeast(40.dp)
+/**
+ * Lays out a line, a label and a second line along one axis, in that order.
+ *
+ * The label takes its wrapped size, capped so that each line keeps at least [MinLineLength]. The lines share the
+ * remaining space. A fixed line is exactly [MinLineLength] long, and the other line takes the rest. When both lines
+ * are flexible, they split the remaining space equally. The three children are centred on the cross axis. Odd
+ * remainders round up, as ConstraintLayout did, so that the output stays pixel identical.
+ *
+ * When the bounded space is smaller than two minimum lines, the lines shrink so that the total never exceeds the
+ * space. The horizontal layout follows the layout direction, so the first child is on the right in a right-to-left
+ * locale.
+ */
+@Composable
+internal fun LabelledDivider(
+    isHorizontal: Boolean,
+    isStartLineFixed: Boolean,
+    isEndLineFixed: Boolean,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit,
+) {
+    Layout(content = content, modifier = modifier) { measurables, constraints ->
+        val minLine = MinLineLength.roundToPx()
+        val maxMain = if (isHorizontal) constraints.maxWidth else constraints.maxHeight
+        val maxCross = if (isHorizontal) constraints.maxHeight else constraints.maxWidth
+        val isBounded = maxMain != Constraints.Infinity
+
+        fun constraintsFor(minMain: Int, maxMain: Int): Constraints = if (isHorizontal) {
+            Constraints(minWidth = minMain, maxWidth = maxMain, maxHeight = maxCross)
+        } else {
+            Constraints(minHeight = minMain, maxHeight = maxMain, maxWidth = maxCross)
+        }
+
+        val labelPlaceable = measurables[1].measure(
+            constraintsFor(
+                minMain = 0,
+                maxMain = if (isBounded) (maxMain - 2 * minLine).coerceAtLeast(0) else Constraints.Infinity,
+            ),
+        )
+        val labelMain = if (isHorizontal) labelPlaceable.width else labelPlaceable.height
+
+        // Space for the two lines. It is at least two minimum lines, unless the bounded space is smaller than that.
+        val spare = if (isBounded) maxMain - labelMain else 2 * minLine
+        val startMain: Int
+        val endMain: Int
+        when {
+            isStartLineFixed -> {
+                startMain = minLine.coerceAtMost(spare)
+                endMain = spare - startMain
+            }
+
+            isEndLineFixed -> {
+                endMain = minLine.coerceAtMost(spare)
+                startMain = spare - endMain
+            }
+
+            else -> {
+                startMain = (spare + 1) / 2
+                endMain = spare - startMain
+            }
+        }
+
+        val startPlaceable = measurables[0].measure(constraintsFor(minMain = startMain, maxMain = startMain))
+        val endPlaceable = measurables[2].measure(constraintsFor(minMain = endMain, maxMain = endMain))
+
+        val main = startMain + labelMain + endMain
+        val cross = if (isHorizontal) {
+            maxOf(startPlaceable.height, labelPlaceable.height, endPlaceable.height)
+        } else {
+            maxOf(startPlaceable.width, labelPlaceable.width, endPlaceable.width)
+        }
+        val width = constraints.constrainWidth(if (isHorizontal) main else cross)
+        val height = constraints.constrainHeight(if (isHorizontal) cross else main)
+
+        layout(width, height) {
+            if (isHorizontal) {
+                // placeRelative mirrors the position in a right-to-left layout, as ConstraintLayout did.
+                startPlaceable.placeRelative(0, (height - startPlaceable.height + 1) / 2)
+                labelPlaceable.placeRelative(startMain, (height - labelPlaceable.height + 1) / 2)
+                endPlaceable.placeRelative(startMain + labelMain, (height - endPlaceable.height + 1) / 2)
+            } else {
+                startPlaceable.place((width - startPlaceable.width + 1) / 2, 0)
+                labelPlaceable.place((width - labelPlaceable.width + 1) / 2, startMain)
+                endPlaceable.place((width - endPlaceable.width + 1) / 2, startMain + labelMain)
+            }
+        }
+    }
 }
 
 @Preview(
