@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.divider
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
@@ -67,6 +68,14 @@ internal class DividerScreenshot {
                 label = { TextComposable() },
                 labelHorizontalAlignment = LabelHorizontalAlignment.Start,
             )
+            // Regression: empty label must not leave stray 16.dp gaps (PR #1208 bug 1)
+            HorizontalDivider(
+                label = { Box {} },
+            )
+            // Regression: oversized label must not collapse the divider lines (PR #1208 bug 2)
+            HorizontalDivider(
+                label = { OverflowTextComposable() },
+            )
 
             Row {
                 VerticalDivider(
@@ -110,5 +119,16 @@ private fun TextComposable(textOverflow: TextOverflow = TextOverflow.Ellipsis) {
         overflow = textOverflow,
         style = SparkTheme.typography.body1,
         text = "label",
+    )
+}
+
+@Composable
+private fun OverflowTextComposable() {
+    Text(
+        textAlign = TextAlign.Center,
+        overflow = TextOverflow.Ellipsis,
+        maxLines = 1,
+        style = SparkTheme.typography.body1,
+        text = "This label is intentionally very long to verify the divider lines keep their 40dp minimum",
     )
 }

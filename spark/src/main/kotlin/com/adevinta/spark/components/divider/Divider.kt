@@ -24,21 +24,22 @@ package com.adevinta.spark.components.divider
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ChainStyle
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
-import androidx.constraintlayout.compose.atLeast
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.spacer.HorizontalSpacer
@@ -92,45 +93,38 @@ public fun HorizontalDivider(
                 .fillMaxWidth(),
         )
     } else {
-        ConstraintLayout(
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
             modifier = modifier
                 .sparkUsageOverlay()
                 .fillMaxWidth(),
         ) {
-            val (lineLeft, labelBox, lineRight) = createRefs()
-
-            createHorizontalChain(lineLeft, labelBox, lineRight, chainStyle = ChainStyle.SpreadInside)
-
             MaterialHorizontalDivider(
                 color = intent.color(),
-                modifier = Modifier.constrainAs(lineLeft) {
-                    start.linkTo(parent.start)
-                    end.linkTo(labelBox.start)
-                    centerVerticallyTo(parent)
-                    width = calculateLineWidth(LabelHorizontalAlignment.Start, labelHorizontalAlignment)
+                modifier = when (labelHorizontalAlignment) {
+                    LabelHorizontalAlignment.Start -> Modifier.width(40.dp)
+
+                    LabelHorizontalAlignment.Center,
+                    LabelHorizontalAlignment.End,
+                    -> Modifier.weight(1f).widthIn(min = 40.dp)
                 },
             )
 
             Box(
                 modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .constrainAs(labelBox) {
-                        start.linkTo(lineLeft.end)
-                        end.linkTo(lineRight.start)
-                        centerVerticallyTo(parent)
-                        width = Dimension.preferredWrapContent
-                    },
+                    .weight(1f, fill = false)
+                    .padding(horizontal = 16.dp),
             ) { label() }
 
             MaterialHorizontalDivider(
                 color = intent.color(),
-                modifier = Modifier.constrainAs(lineRight) {
-                    start.linkTo(labelBox.end)
-                    end.linkTo(parent.end)
-                    centerVerticallyTo(parent)
-                    width = calculateLineWidth(LabelHorizontalAlignment.End, labelHorizontalAlignment)
-                },
+                modifier = when (labelHorizontalAlignment) {
+                    LabelHorizontalAlignment.End -> Modifier.width(40.dp)
 
+                    LabelHorizontalAlignment.Center,
+                    LabelHorizontalAlignment.Start,
+                    -> Modifier.weight(1f).widthIn(min = 40.dp)
+                },
             )
         }
     }
@@ -161,65 +155,41 @@ public fun VerticalDivider(
                 .fillMaxHeight(),
         )
     } else {
-        ConstraintLayout(
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = modifier
                 .sparkUsageOverlay()
                 .fillMaxHeight(),
         ) {
-            val (lineTop, labelBox, lineBottom) = createRefs()
-
-            createVerticalChain(lineTop, labelBox, lineBottom, chainStyle = ChainStyle.SpreadInside)
-
             MaterialVerticalDivider(
                 color = intent.color(),
-                modifier = Modifier.constrainAs(lineTop) {
-                    top.linkTo(parent.top)
-                    bottom.linkTo(labelBox.top)
-                    centerHorizontallyTo(parent)
-                    height = calculateLineHeight(LabelVerticalAlignment.Top, labelVerticalAlignment)
+                modifier = when (labelVerticalAlignment) {
+                    LabelVerticalAlignment.Top -> Modifier.height(40.dp)
+
+                    LabelVerticalAlignment.Center,
+                    LabelVerticalAlignment.Bottom,
+                    -> Modifier.weight(1f).heightIn(min = 40.dp)
                 },
             )
 
             Box(
                 modifier = Modifier
-                    .padding(vertical = 16.dp)
-                    .constrainAs(labelBox) {
-                        top.linkTo(lineTop.bottom)
-                        bottom.linkTo(lineBottom.top)
-                        centerHorizontallyTo(parent)
-                        height = Dimension.preferredWrapContent
-                    },
+                    .weight(1f, fill = false)
+                    .padding(vertical = 16.dp),
             ) { label() }
 
             MaterialVerticalDivider(
                 color = intent.color(),
-                modifier = Modifier.constrainAs(lineBottom) {
-                    top.linkTo(labelBox.bottom)
-                    bottom.linkTo(parent.bottom)
-                    centerHorizontallyTo(parent)
-                    height = calculateLineHeight(LabelVerticalAlignment.Bottom, labelVerticalAlignment)
+                modifier = when (labelVerticalAlignment) {
+                    LabelVerticalAlignment.Bottom -> Modifier.height(40.dp)
+
+                    LabelVerticalAlignment.Center,
+                    LabelVerticalAlignment.Top,
+                    -> Modifier.weight(1f).heightIn(min = 40.dp)
                 },
             )
         }
     }
-}
-
-private fun calculateLineHeight(
-    dividerPosition: LabelVerticalAlignment,
-    labelVerticalAlignment: LabelVerticalAlignment,
-): Dimension = if (dividerPosition == labelVerticalAlignment) {
-    Dimension.value(40.dp)
-} else {
-    Dimension.fillToConstraints.atLeast(40.dp)
-}
-
-private fun calculateLineWidth(
-    dividerPosition: LabelHorizontalAlignment,
-    labelVerticalAlignment: LabelHorizontalAlignment,
-): Dimension = if (dividerPosition == labelVerticalAlignment) {
-    Dimension.value(40.dp)
-} else {
-    Dimension.fillToConstraints.atLeast(40.dp)
 }
 
 @Preview(
