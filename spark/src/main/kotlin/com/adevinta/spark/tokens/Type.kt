@@ -27,6 +27,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
@@ -129,6 +130,7 @@ public fun sparkTypography(
     caption: TextStyle = captionType,
     small: TextStyle = smallType,
     callout: TextStyle = calloutType,
+    highlightWeight: FontWeight = FontWeight.Bold,
 ): SparkTypography = SparkTypography(
     display1 = display1,
     display2 = display2,
@@ -141,6 +143,7 @@ public fun sparkTypography(
     caption = caption,
     small = small,
     callout = callout,
+    highlightWeight = highlightWeight,
 )
 
 /**
@@ -209,6 +212,11 @@ public data class SparkTypography(
      * Call to actions
      */
     val callout: TextStyle,
+
+    /**
+     * The standard weight used to emphasize a text
+     */
+    val highlightWeight: FontWeight,
 ) {
     /**
      * Required by the [Kelp](https://github.com/ozontech/kelp) Android Studio plugin to render
@@ -248,16 +256,18 @@ public fun SparkTypography.asMaterial3Typography(): Typography = Typography(
     bodyLarge = body1,
     bodyMedium = body2,
     bodySmall = caption,
-    labelLarge = body2.highlight,
+    labelLarge = body2.copy(fontWeight = highlightWeight),
     labelMedium = caption,
     labelSmall = small,
 )
 
 /**
- * Extension property to get a [TextStyle] with [FontWeight.Bold] applied
+ * Extension property to get a [TextStyle] with [SparkTypography.highlightWeight] applied
  */
 public val TextStyle.highlight: TextStyle
-    get() = this.copy(fontWeight = FontWeight.Bold)
+    @ReadOnlyComposable
+    @Composable
+    get() = this.copy(fontWeight = SparkTheme.typography.highlightWeight)
 
 @Preview(
     group = "Tokens",

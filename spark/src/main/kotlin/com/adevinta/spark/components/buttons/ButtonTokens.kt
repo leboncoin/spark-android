@@ -22,6 +22,7 @@
 package com.adevinta.spark.components.buttons
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.Shape
 import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.SparkTheme
@@ -49,7 +50,9 @@ public object ButtonTokens {
      * Used by overloads that delegate to [SparkButton].
      */
     public val buttonShape: ButtonShape
-        @Composable get() = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
+        @Composable
+        @ReadOnlyComposable
+        get() = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
             ButtonShape.Pill
         } else {
             SparkButtonDefaults.DefaultShape

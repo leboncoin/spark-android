@@ -1517,9 +1517,8 @@ public val Color.disabled: Color
  * Returns this [Color] with an alpha of zero. Use this when animating from transparent to a colour,
  * because [Color.Transparent] is opaque black under the hood and produces a black flash.
  */
-@get:SuppressLint("ComposeUnstableReceiver") // https://github.com/slackhq/compose-lints/issues/326
 public val Color.transparent: Color
-    @Composable get() = this.copy(alpha = 0f)
+    get() = this.copy(alpha = 0f)
 
 /**
  * Updates the internal values of the given [SparkColors] with values from the [other] [SparkColors]. This
