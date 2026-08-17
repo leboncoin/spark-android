@@ -46,10 +46,8 @@ public object StepperTokens {
         get() = SparkTheme.colors.outlineHigh
 
     public val borderThickness: Dp
-        @Composable @ReadOnlyComposable
         get() = 1.dp
     public val borderFocusedThickness: Dp
-        @Composable @ReadOnlyComposable
         get() = 2.dp
 
     @Immutable
