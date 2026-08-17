@@ -220,12 +220,21 @@ Text(
 )
 ```
 
-Apply `highlight` to any style to switch its weight to Bold:
+Apply `highlight` to any style to switch its weight to the theme's highlight weight (Bold by
+default):
 
 ```kotlin
 Text(
     text = "Important",
     style = SparkTheme.typography.body2.highlight,
+)
+```
+
+Set `highlightWeight` on `sparkTypography` to change the weight `highlight` applies:
+
+```kotlin
+val myTypography = sparkTypography(
+    highlightWeight = FontWeight.SemiBold,
 )
 ```
 
