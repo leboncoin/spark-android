@@ -68,7 +68,7 @@ internal class StepperDocumentationScreenshots {
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Stepper.NudgerForm(
-                modifier =  Modifier.width(IntrinsicSize.Min),
+                modifier = Modifier.width(IntrinsicSize.Min),
                 value = 3,
                 onValueChange = {},
                 label = "Quantity",
@@ -76,7 +76,7 @@ internal class StepperDocumentationScreenshots {
                 required = true,
             )
             Stepper.NudgerForm(
-                modifier =  Modifier.width(IntrinsicSize.Min),
+                modifier = Modifier.width(IntrinsicSize.Min),
                 value = 3,
                 onValueChange = {},
                 label = "Quantity",
@@ -107,7 +107,7 @@ internal class StepperDocumentationScreenshots {
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Stepper.InputForm(
-                modifier =  Modifier.width(IntrinsicSize.Min),
+                modifier = Modifier.width(IntrinsicSize.Min),
                 value = 3,
                 onValueChange = {},
                 label = "Quantity",
@@ -116,7 +116,7 @@ internal class StepperDocumentationScreenshots {
                 required = true,
             )
             Stepper.InputForm(
-                modifier =  Modifier.width(IntrinsicSize.Min),
+                modifier = Modifier.width(IntrinsicSize.Min),
                 value = 3,
                 onValueChange = {},
                 label = "Quantity",
