@@ -55,9 +55,7 @@ public fun RatingDisplay(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(4.dp),
     ) {
-        var remainingValue = remember(value) {
-            value
-        }
+        var remainingValue = value
         repeat(5) {
             val starRating = when {
                 remainingValue == 0f -> 0f
