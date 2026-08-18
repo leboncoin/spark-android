@@ -131,12 +131,16 @@ keystore.jks
 keystore.properties
 firebase-service-account.json
 
-# AI tools
-.history
-.junie
-
 # Node
 node_modules
 
 # Componly
 .componly
+
+#LLM
+.history
+.junie
+CLAUDE.MD
+AGENTS.MD
+.claude
+paseo.json
