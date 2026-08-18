@@ -86,8 +86,6 @@ public object SparkStringAnnotations {
 
         "subhead" -> token.subhead
 
-        "large" -> token.body1
-
         "body1" -> token.body1
 
         "body2" -> token.body2
