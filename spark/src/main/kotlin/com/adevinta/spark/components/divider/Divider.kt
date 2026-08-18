@@ -290,7 +290,6 @@ private fun TextComposable(textOverflow: TextOverflow = TextOverflow.Ellipsis) {
         textAlign = TextAlign.Center,
         overflow = textOverflow,
         style = SparkTheme.typography.body1,
-        // text = "jdkdkskjdkkklnljxcljcxlcjvxxcljljxcsdksj\n\ndljjjcdljcjdljcljdsljfdld\nlkjkjisd\nsdsksjddsk\njdksdjslds",
         text = "label",
     )
 }
