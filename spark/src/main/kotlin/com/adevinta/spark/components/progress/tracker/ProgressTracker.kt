@@ -185,6 +185,7 @@ public fun ProgressTrackerColumn(
         orientation = Vertical,
         modifier = modifier,
         intent = intent,
+        style = style,
         size = size,
         readOnly = readOnly,
         hasIndicatorContent = hasIndicatorContent,
@@ -247,7 +248,7 @@ private fun ProgressTracker(
         }
     }
     val stepIndicators = @Composable {
-        items.forEachIndexed { index, progressStep ->
+        items.fastForEachIndexed { index, progressStep ->
             // If selectedStep is null, no step is shown as selected
             val isDone = index < (selectedStep ?: -1)
             StepIndicator(
