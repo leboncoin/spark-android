@@ -114,11 +114,11 @@ FlowRow(
     filters.forEach { filter ->
         val selected = filter in selectedFilters
         ChipSelectable(
-            text = filter.name,
+            text = filter,
             selected = selected,
             leadingIcon = if (selected) LeboncoinIcons.Check else null,
             onClick = {
-                unionSelected = if (selected) {
+                selectedFilters = if (selected) {
                     selectedFilters - filter
                 } else {
                     selectedFilters + filter
