@@ -54,7 +54,6 @@ android {
 dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.constraintlayout.compose)
-    implementation(libs.androidx.compose.material3)
     lintPublish(projects.sparkLint)
     lintChecks(libs.slack.lint.compose)
 
