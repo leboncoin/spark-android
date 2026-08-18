@@ -372,7 +372,6 @@ private fun PhoneLandscapeModalScaffold(
     title: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
     contentWindowInsets: WindowInsets = ScaffoldDefaults.contentWindowInsets,
-    illustrationContentScale: ContentScale = ContentScale.Fit,
     inEdgeToEdge: Boolean = false,
     content: @Composable (PaddingValues) -> Unit,
 ) {
@@ -430,19 +429,6 @@ private fun PhoneLandscapeModalScaffold(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(Layout.gutter),
             ) {
-                illustration?.let {
-                    Box(
-                        modifier = Modifier.weight(.8f),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        Illustration(
-                            drawableRes = it,
-                            contentDescription = null,
-                            modifier = Modifier.fillMaxWidth(.8f),
-                            contentScale = illustrationContentScale,
-                        )
-                    }
-                }
                 Box(
                     modifier = Modifier
                         .weight(1f)
