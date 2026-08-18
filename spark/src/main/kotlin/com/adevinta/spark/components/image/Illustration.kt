@@ -51,63 +51,6 @@ import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import androidx.compose.foundation.Image as FoundationImage
 
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
-@InternalSparkApi
-@Composable
-internal fun SparkIllustration(
-    data: Any?,
-    contentDescription: String?,
-    modifier: Modifier = Modifier,
-    alignment: Alignment = Alignment.Center,
-    contentScale: ContentScale = ContentScale.Fit,
-    alpha: Float = DefaultAlpha,
-    colorFilter: ColorFilter? = null,
-    filterQuality: FilterQuality = DrawScope.DefaultFilterQuality,
-) {
-    when (data) {
-        is ImageBitmap -> FoundationImage(
-            bitmap = data,
-            contentDescription = contentDescription,
-            modifier = modifier.sparkUsageOverlay(),
-            alignment = alignment,
-            contentScale = contentScale,
-            alpha = alpha,
-            colorFilter = colorFilter,
-            filterQuality = filterQuality,
-        )
-
-        is ImageVector -> FoundationImage(
-            imageVector = data,
-            contentDescription = contentDescription,
-            modifier = modifier.sparkUsageOverlay(),
-            alignment = alignment,
-            contentScale = contentScale,
-            alpha = alpha,
-            colorFilter = colorFilter,
-        )
-
-        is Painter -> FoundationImage(
-            painter = data,
-            contentDescription = contentDescription,
-            modifier = modifier.sparkUsageOverlay(),
-            alignment = alignment,
-            contentScale = contentScale,
-            alpha = alpha,
-            colorFilter = colorFilter,
-        )
-
-        is SparkIcon -> FoundationImage(
-            painter = rememberSparkIconPainter(data),
-            modifier = modifier.sparkUsageOverlay(),
-            contentDescription = contentDescription,
-            alignment = alignment,
-            contentScale = contentScale,
-            alpha = alpha,
-            colorFilter = colorFilter,
-        )
-    }
-}
-
 /**
  * A composable that lays out and draws a given [ImageBitmap]. This will attempt to
  * size the composable according to the [ImageBitmap]'s given width and height. However, an
@@ -144,10 +87,10 @@ public fun Illustration(
     colorFilter: ColorFilter? = null,
     filterQuality: FilterQuality = DrawScope.DefaultFilterQuality,
 ) {
-    SparkIllustration(
-        data = bitmap,
+    FoundationImage(
+        bitmap = bitmap,
         contentDescription = contentDescription,
-        modifier = modifier,
+        modifier = modifier.sparkUsageOverlay(),
         alignment = alignment,
         contentScale = contentScale,
         alpha = alpha,
@@ -188,10 +131,10 @@ public fun Illustration(
     alpha: Float = DefaultAlpha,
     colorFilter: ColorFilter? = null,
 ) {
-    SparkIllustration(
-        data = imageVector,
+    FoundationImage(
+        imageVector = imageVector,
         contentDescription = contentDescription,
-        modifier = modifier,
+        modifier = modifier.sparkUsageOverlay(),
         alignment = alignment,
         contentScale = contentScale,
         alpha = alpha,
@@ -234,10 +177,11 @@ public fun Illustration(
     alpha: Float = DefaultAlpha,
     colorFilter: ColorFilter? = null,
 ) {
-    SparkIllustration(
-        data = painter,
+    if (painter==null) return
+    FoundationImage(
+        painter = painter,
         contentDescription = contentDescription,
-        modifier = modifier,
+        modifier = modifier.sparkUsageOverlay(),
         alignment = alignment,
         contentScale = contentScale,
         alpha = alpha,
@@ -277,11 +221,10 @@ public fun Illustration(
 ) {
     val drawable = AppCompatResources.getDrawable(LocalContext.current, drawableRes)
     val painter = rememberDrawablePainter(drawable)
-
-    SparkIllustration(
-        data = painter,
+    FoundationImage(
+        painter = painter,
         contentDescription = contentDescription,
-        modifier = modifier,
+        modifier = modifier.sparkUsageOverlay(),
         alignment = alignment,
         contentScale = contentScale,
         alpha = alpha,
@@ -320,10 +263,10 @@ public fun Illustration(
     alpha: Float = DefaultAlpha,
     colorFilter: ColorFilter? = null,
 ) {
-    SparkIllustration(
-        data = sparkIcon,
+    FoundationImage(
+        painter = rememberSparkIconPainter(sparkIcon),
+        modifier = modifier.sparkUsageOverlay(),
         contentDescription = contentDescription,
-        modifier = modifier,
         alignment = alignment,
         contentScale = contentScale,
         alpha = alpha,
