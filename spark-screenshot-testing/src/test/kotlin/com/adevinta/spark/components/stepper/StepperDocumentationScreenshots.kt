@@ -24,6 +24,7 @@ package com.adevinta.spark.components.stepper
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.DeviceConfig
@@ -65,6 +66,7 @@ internal class StepperDocumentationScreenshots {
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Stepper.NudgerForm(
+                modifier = Modifier.align(Alignment.CenterHorizontally),
                 value = 3,
                 onValueChange = {},
                 label = "Quantity",
@@ -72,6 +74,7 @@ internal class StepperDocumentationScreenshots {
                 required = true,
             )
             Stepper.NudgerForm(
+                modifier = Modifier.align(Alignment.CenterHorizontally),
                 value = 3,
                 onValueChange = {},
                 label = "Quantity",
@@ -102,6 +105,7 @@ internal class StepperDocumentationScreenshots {
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Stepper.InputForm(
+                modifier = Modifier.align(Alignment.CenterHorizontally),
                 value = 3,
                 onValueChange = {},
                 label = "Quantity",
@@ -110,6 +114,7 @@ internal class StepperDocumentationScreenshots {
                 required = true,
             )
             Stepper.InputForm(
+                modifier = Modifier.align(Alignment.CenterHorizontally),
                 value = 3,
                 onValueChange = {},
                 label = "Quantity",
