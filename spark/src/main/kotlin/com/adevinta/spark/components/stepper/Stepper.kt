@@ -63,6 +63,10 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.R
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.stepper.Stepper.Input
+import com.adevinta.spark.components.stepper.Stepper.InputForm
+import com.adevinta.spark.components.stepper.Stepper.Nudger
+import com.adevinta.spark.components.stepper.Stepper.NudgerForm
 import com.adevinta.spark.components.stepper.internal.SparkNudger
 import com.adevinta.spark.components.stepper.internal.SparkStepperInput
 import com.adevinta.spark.components.stepper.internal.formatInteger
@@ -603,8 +607,8 @@ private fun StepperFormScaffold(
     message = "Use Stepper.Nudger instead",
     replaceWith = ReplaceWith(
         "Stepper.Nudger(value = value, onValueChange = onValueChange, modifier = modifier, range = range, " +
-            "suffix = suffix, step = step, enabled = enabled, flexible = flexible, " +
-            "testTag = testTag, allowSemantics = allowSemantics)",
+                "suffix = suffix, step = step, enabled = enabled, flexible = flexible, " +
+                "testTag = testTag, allowSemantics = allowSemantics)",
         "com.adevinta.spark.components.stepper.Stepper",
     ),
     level = DeprecationLevel.WARNING,
@@ -644,9 +648,9 @@ public fun Stepper(
     message = "Use Stepper.NudgerForm instead",
     replaceWith = ReplaceWith(
         "Stepper.NudgerForm(value = value, onValueChange = onValueChange, label = label, helper = helper, " +
-            "modifier = modifier, range = range, suffix = suffix, step = step, enabled = enabled, " +
-            "required = required, status = status, statusMessage = statusMessage, flexible = flexible, " +
-            "testTag = testTag)",
+                "modifier = modifier, range = range, suffix = suffix, step = step, enabled = enabled, " +
+                "required = required, status = status, statusMessage = statusMessage, flexible = flexible, " +
+                "testTag = testTag)",
         "com.adevinta.spark.components.stepper.Stepper",
     ),
     level = DeprecationLevel.WARNING,
