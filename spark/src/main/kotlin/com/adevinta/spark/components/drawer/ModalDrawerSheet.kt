@@ -53,7 +53,7 @@ import com.adevinta.spark.tokens.contentColorFor
 @Composable
 internal fun SparkModalDrawerSheet(
     modifier: Modifier = Modifier,
-    drawerShape: Shape = SparkShapes().large,
+    drawerShape: Shape = SparkTheme.shapes.large,
     drawerContainerColor: Color = SparkTheme.colors.surface,
     drawerContentColor: Color = contentColorFor(drawerContainerColor),
     drawerTonalElevation: Dp = SparkDrawerDefaults.ModalDrawerElevation,
@@ -88,7 +88,7 @@ internal fun SparkModalDrawerSheet(
 @Composable
 public fun ModalDrawerSheet(
     modifier: Modifier = Modifier,
-    drawerShape: Shape = SparkShapes().large,
+    drawerShape: Shape = SparkTheme.shapes.large,
     drawerContainerColor: Color = SparkTheme.colors.surface,
     drawerContentColor: Color = contentColorFor(drawerContainerColor),
     drawerTonalElevation: Dp = SparkDrawerDefaults.ModalDrawerElevation,
