@@ -126,9 +126,7 @@ public fun Popover(
                             .padding(all = PopoverContentPadding)
                             .weight(1f, fill = true),
                     ) {
-                        CompositionLocalProvider(
-                            content = popover,
-                        )
+                        popover()
                     }
                     if (isDismissButtonEnabled) {
                         IconButtonGhost(
