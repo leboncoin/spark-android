@@ -228,7 +228,7 @@ private fun SnackbarAction(
     BaseSparkButton(
         modifier = modifier,
         colors = colors,
-        onClick = { onClick.invoke() },
+        onClick = onClick,
         elevation = null,
         content = { Text(actionLabel) },
     )
@@ -301,7 +301,6 @@ public fun Snackbar(
 ) {
     val visuals = data.visuals
     val sparkVisuals = data.visuals as? SnackbarSparkVisuals
-    ImageRequest.Builder(LocalContext.current)
     SparkSnackbar(
         intent = sparkVisuals?.intent ?: SnackbarDefaults.intent,
         modifier = modifier.padding(12.dp),
