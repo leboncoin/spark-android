@@ -60,6 +60,7 @@ Stepper.Nudger(state = state)
 | `range` | `0..10` | Accepted value bounds; buttons disable at the limits |
 | `step` | `1` | Amount added or subtracted per button press |
 | `suffix` | `""` | String appended after the value, e.g. `" kg"` |
+| `placeholder` | `"-"` | Text shown in the empty state when `value` is `null` |
 | `enabled` | `true` | Disables interaction and applies disabled styling |
 | `flexible` | `false` | When `true`, fills maximum available width |
 
@@ -117,7 +118,7 @@ Stepper.NudgerForm(
 The Input variant places an editable text field between the buttons. Users can type a
 value directly or use the buttons. Non-digit characters are rejected, and the value is
 clamped to the range on blur. An empty field has `value == null`; the field then shows
-a `-` placeholder. Long-pressing a button repeats with acceleration.
+the `placeholder`, which defaults to `-`. Long-pressing a button repeats with acceleration.
 
 ```kotlin
 var quantity by rememberSaveable { mutableStateOf<Int?>(3) }
@@ -154,6 +155,7 @@ Text(text = "Current value: ${state.value ?: "empty"}")
 | `range` | `0..10` | Accepted value bounds |
 | `step` | `1` | Increment/decrement amount |
 | `suffix` | `""` | Shown after the value inside the field, e.g. `kg` |
+| `placeholder` | `"-"` | Text shown in the empty state when `value` is `null` |
 | `enabled` | `true` | Disables interaction |
 | `status` | `null` | Validation state; tints the inner text field border |
 | `flexible` | `false` | When `true`, fills maximum available width |
