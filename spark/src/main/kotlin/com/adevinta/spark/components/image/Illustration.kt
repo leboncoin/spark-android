@@ -177,7 +177,7 @@ public fun Illustration(
     alpha: Float = DefaultAlpha,
     colorFilter: ColorFilter? = null,
 ) {
-    if (painter==null) return
+    if (painter == null) return
     FoundationImage(
         painter = painter,
         contentDescription = contentDescription,
