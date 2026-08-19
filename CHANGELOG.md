@@ -2,6 +2,33 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [3.5.1](https://github.com/leboncoin/spark-android/compare/3.5.0...3.5.1) (2026-08-19)
+
+
+### Bug Fixes
+
+* **drawer:** use SparkTheme.shapes for the default drawer shape ([#2180](https://github.com/leboncoin/spark-android/issues/2180)) ([fc8b6ee](https://github.com/leboncoin/spark-android/commit/fc8b6ee4045307e8087c378eb5a7946db5d2fe34))
+* **fileupload:** forward size, icon and iconSide to the underlying button ([#2179](https://github.com/leboncoin/spark-android/issues/2179)) ([f493671](https://github.com/leboncoin/spark-android/commit/f493671903bd9f30473246edb9dbd97da2e42bbd))
+* **popover:** remove empty CompositionLocalProvider wrapper ([#2186](https://github.com/leboncoin/spark-android/issues/2186)) ([772c477](https://github.com/leboncoin/spark-android/commit/772c477e658ddf43bd1e56ac12d13116dd3fc45f))
+* **progress:** forward style param and use fastForEachIndexed ([#2181](https://github.com/leboncoin/spark-android/issues/2181)) ([8bc3913](https://github.com/leboncoin/spark-android/commit/8bc39135c381bbc69dc61e2c0d288404a44cdec6))
+* **rating:** read value directly without remember ([#2182](https://github.com/leboncoin/spark-android/issues/2182)) ([2fc1ccc](https://github.com/leboncoin/spark-android/commit/2fc1ccc22260dc52d0bb12a8fc5b610a4b215a46))
+* **res:** key annotated plural string caches on count and format args ([#2178](https://github.com/leboncoin/spark-android/issues/2178)) ([aeac099](https://github.com/leboncoin/spark-android/commit/aeac099ef9538318c187f8b6b7f9e533f95be0b9))
+* **snackbar:** remove dead ImageRequest.Builder allocation ([#2177](https://github.com/leboncoin/spark-android/issues/2177)) ([c7f5b59](https://github.com/leboncoin/spark-android/commit/c7f5b594cac91762cc8704f2ee1b60c1ed884b25))
+* **stepper:** expose placeholder in public API ([#2191](https://github.com/leboncoin/spark-android/issues/2191)) ([6dd3fc3](https://github.com/leboncoin/spark-android/commit/6dd3fc38d6fddd5d0e92ce837b49ff309d8ee412))
+
+
+### Miscellaneous
+
+* **deps:** remove unused compose material3 dependency ([#2188](https://github.com/leboncoin/spark-android/issues/2188)) ([fef0b38](https://github.com/leboncoin/spark-android/commit/fef0b3860b4c3202448076c080bde70cfe9d0164))
+* **divider:** remove commented-out debug text ([#2189](https://github.com/leboncoin/spark-android/issues/2189)) ([6e943b1](https://github.com/leboncoin/spark-android/commit/6e943b1c3c2c979c39689f7ec2f5d9e478d99147))
+* **progress:** remove unused spinner animation constants ([#2183](https://github.com/leboncoin/spark-android/issues/2183)) ([6ae727f](https://github.com/leboncoin/spark-android/commit/6ae727ffcc1eb2e34549ae34eeeaa4600323dc72))
+* **res:** remove unused large string annotation mapping ([#2185](https://github.com/leboncoin/spark-android/issues/2185)) ([c78484a](https://github.com/leboncoin/spark-android/commit/c78484a3d82818ce6064b96570be3904675f049a))
+
+
+### Refactoring
+
+* **dialog:** remove landscape illustration from ModalScaffold ([#2184](https://github.com/leboncoin/spark-android/issues/2184)) ([b3cedbc](https://github.com/leboncoin/spark-android/commit/b3cedbca1cde7a7e1785a3805ff8378dc466f18a))
+
 ## [3.5.0](https://github.com/leboncoin/spark-android/compare/3.4.0...3.5.0) (2026-08-18)
 
 
