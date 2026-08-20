@@ -2,6 +2,23 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [3.5.2](https://github.com/leboncoin/spark-android/compare/3.5.1...3.5.2) (2026-08-20)
+
+
+### Bug Fixes
+
+* **tabgroup:** remove background ([#2194](https://github.com/leboncoin/spark-android/issues/2194)) ([4dd3967](https://github.com/leboncoin/spark-android/commit/4dd3967088f24be1385f991e55061f9ac801f7c2))
+
+
+### Miscellaneous
+
+* **deps:** bump com.diffplug.spotless from 8.9.0 to 8.10.0 ([#2193](https://github.com/leboncoin/spark-android/issues/2193)) ([156e412](https://github.com/leboncoin/spark-android/commit/156e4128301a214ccc49eb41e32a60d69dca0efc))
+
+
+### Refactoring
+
+* **image:** inline FoundationImage and remove SparkIllustration wrapper ([#2187](https://github.com/leboncoin/spark-android/issues/2187)) ([fcf8e71](https://github.com/leboncoin/spark-android/commit/fcf8e715f4ee55282e0f5630e635490439c008f6))
+
 ## [3.5.1](https://github.com/leboncoin/spark-android/compare/3.5.0...3.5.1) (2026-08-19)
 
 
