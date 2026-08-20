@@ -25,6 +25,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowColumn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.VerticalDragHandleDefaults.sizes
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.DefaultTestDevices
@@ -43,8 +44,6 @@ import org.junit.Test
 
 internal class TabsScreenshot {
 
-    private val sizes = TabSize.entries
-
     private val intents = TabIntent.entries
 
     @get:Rule
@@ -57,61 +56,55 @@ internal class TabsScreenshot {
     @Test
     fun enabled() {
         paparazzi.sparkSnapshot {
-            sizes.forEach { size ->
-                FlowColumn {
-                    intents.forEach { intent ->
-                        Column {
-                            TabGroup(
-                                selectedTabIndex = 0,
+            FlowColumn {
+                intents.forEach { intent ->
+                    Column {
+                        TabGroup(
+                            selectedTabIndex = 0,
+                            intent = intent,
+                        ) {
+                            Tab(
+                                selected = true,
+                                onClick = {},
                                 intent = intent,
-                            ) {
-                                Tab(
-                                    selected = true,
-                                    onClick = {},
-                                    intent = intent,
-                                    size = size,
-                                    enabled = true,
-                                    text = "Home",
-                                )
-                                Tab(
-                                    selected = false,
-                                    onClick = {},
-                                    intent = intent,
-                                    size = size,
-                                    text = "Message",
-                                    enabled = true,
-                                    icon = LeboncoinIcons.BubbleTextOutline,
-                                    trailingContent = {
-                                        Badge(count = 5)
-                                    },
-                                )
-                            }
-                            TabGroup(
-                                selectedTabIndex = 0,
+                                enabled = true,
+                                text = "Home",
+                            )
+                            Tab(
+                                selected = false,
+                                onClick = {},
                                 intent = intent,
-                                spacedEvenly = false,
-                            ) {
-                                Tab(
-                                    selected = true,
-                                    onClick = {},
-                                    intent = intent,
-                                    size = size,
-                                    enabled = true,
-                                    text = "Home",
-                                )
-                                Tab(
-                                    selected = false,
-                                    onClick = {},
-                                    intent = intent,
-                                    size = size,
-                                    text = "Message",
-                                    enabled = true,
-                                    icon = LeboncoinIcons.BubbleTextOutline,
-                                    trailingContent = {
-                                        Badge(count = 5)
-                                    },
-                                )
-                            }
+                                text = "Message",
+                                enabled = true,
+                                icon = LeboncoinIcons.BubbleTextOutline,
+                                trailingContent = {
+                                    Badge(count = 5)
+                                },
+                            )
+                        }
+                        TabGroup(
+                            selectedTabIndex = 0,
+                            intent = intent,
+                            spacedEvenly = false,
+                        ) {
+                            Tab(
+                                selected = true,
+                                onClick = {},
+                                intent = intent,
+                                enabled = true,
+                                text = "Home",
+                            )
+                            Tab(
+                                selected = false,
+                                onClick = {},
+                                intent = intent,
+                                text = "Message",
+                                enabled = true,
+                                icon = LeboncoinIcons.BubbleTextOutline,
+                                trailingContent = {
+                                    Badge(count = 5)
+                                },
+                            )
                         }
                     }
                 }
@@ -123,63 +116,57 @@ internal class TabsScreenshot {
     @Test
     fun disabled() {
         paparazzi.sparkSnapshot {
-            sizes.forEach { size ->
-                FlowColumn(
-                    modifier = Modifier.padding(bottom = 8.dp),
-                ) {
-                    intents.forEach { intent ->
-                        Column {
-                            TabGroup(
-                                selectedTabIndex = 0,
+            FlowColumn(
+                modifier = Modifier.padding(bottom = 8.dp),
+            ) {
+                intents.forEach { intent ->
+                    Column {
+                        TabGroup(
+                            selectedTabIndex = 0,
+                            intent = intent,
+                        ) {
+                            Tab(
+                                selected = true,
+                                onClick = {},
                                 intent = intent,
-                            ) {
-                                Tab(
-                                    selected = true,
-                                    onClick = {},
-                                    intent = intent,
-                                    size = size,
-                                    text = "Home",
-                                    enabled = false,
-                                )
-                                Tab(
-                                    selected = false,
-                                    onClick = {},
-                                    intent = intent,
-                                    size = size,
-                                    text = "Message",
-                                    icon = LeboncoinIcons.BubbleTextOutline,
-                                    enabled = false,
-                                    trailingContent = {
-                                        Badge(count = 5)
-                                    },
-                                )
-                            }
-                            TabGroup(
-                                selectedTabIndex = 0,
+                                text = "Home",
+                                enabled = false,
+                            )
+                            Tab(
+                                selected = false,
+                                onClick = {},
                                 intent = intent,
-                                spacedEvenly = false,
-                            ) {
-                                Tab(
-                                    selected = true,
-                                    onClick = {},
-                                    intent = intent,
-                                    size = size,
-                                    text = "Home",
-                                    enabled = false,
-                                )
-                                Tab(
-                                    selected = false,
-                                    onClick = {},
-                                    intent = intent,
-                                    size = size,
-                                    text = "Message",
-                                    icon = LeboncoinIcons.BubbleTextOutline,
-                                    enabled = false,
-                                    trailingContent = {
-                                        Badge(count = 5)
-                                    },
-                                )
-                            }
+                                text = "Message",
+                                icon = LeboncoinIcons.BubbleTextOutline,
+                                enabled = false,
+                                trailingContent = {
+                                    Badge(count = 5)
+                                },
+                            )
+                        }
+                        TabGroup(
+                            selectedTabIndex = 0,
+                            intent = intent,
+                            spacedEvenly = false,
+                        ) {
+                            Tab(
+                                selected = true,
+                                onClick = {},
+                                intent = intent,
+                                text = "Home",
+                                enabled = false,
+                            )
+                            Tab(
+                                selected = false,
+                                onClick = {},
+                                intent = intent,
+                                text = "Message",
+                                icon = LeboncoinIcons.BubbleTextOutline,
+                                enabled = false,
+                                trailingContent = {
+                                    Badge(count = 5)
+                                },
+                            )
                         }
                     }
                 }
