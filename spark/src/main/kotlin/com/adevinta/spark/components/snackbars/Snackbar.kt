@@ -253,6 +253,7 @@ private fun SnackbarAction(
  * @param actionLabel action to add as an action to the snackbar.
  * @param onActionClick callback when the action is clicked.
  * @param onDismissClick Callback for dismiss icon click.
+ * ![Snackbar](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.snackbar_SnackbarDocumentationScreenshots_snackbarDocScreenshot.png)
  */
 @Composable
 public fun Snackbar(
