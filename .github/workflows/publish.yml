@@ -17,6 +17,8 @@ jobs:
       - uses: ./.github/actions/setup-gradle
       - uses: ./.github/actions/setup-gradle-properties
 
+      - name: 📥 Fetch baseline profiles from LFS
+        run: git lfs pull --include="**/generated/baselineProfiles/*.txt"
       - name: '📦 Publish to Central Portal'
         run: ./gradlew publishAggregationToCentralPortal --no-configuration-cache
         env:

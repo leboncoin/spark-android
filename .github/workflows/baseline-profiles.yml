@@ -42,6 +42,8 @@ jobs:
 
       # Baseline profiles capture code paths, not timings, so the pixel6Api33 GMD emulator is valid.
       # swiftshader_indirect is required: GitHub runners have no host GPU.
+      - name: 📥 Fetch baseline profiles from LFS
+        run: git lfs pull --include="**/generated/baselineProfiles/*.txt"
       - name: 🚀 Generate Baseline Profiles
         run: >-
           ./gradlew :spark:generateReleaseBaselineProfile :catalog:generateReleaseBaselineProfile
