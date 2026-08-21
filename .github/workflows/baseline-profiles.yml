@@ -46,7 +46,7 @@ jobs:
         run: git lfs pull --include="**/generated/baselineProfiles/*.txt"
       - name: 🚀 Generate Baseline Profiles
         run: >-
-          ./gradlew :spark:generateReleaseBaselineProfile :catalog:generateReleaseBaselineProfile
+          ./gradlew :spark:generateBaselineProfile :spark-icons:generateBaselineProfile :catalog:generateReleaseBaselineProfile
           -Pandroid.testoptions.manageddevices.emulator.gpu=swiftshader_indirect
           -Pandroid.experimental.testOptions.managedDevices.emulator.showKernelLogging=true
 
