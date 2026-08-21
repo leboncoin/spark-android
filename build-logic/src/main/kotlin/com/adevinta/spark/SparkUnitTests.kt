@@ -66,13 +66,15 @@ internal object SparkUnitTests {
         val variantUnitTestTaskName = "test${variant}UnitTest"
         val variantCompileUnitTestTaskName = "compile${variant}UnitTestSources"
         project.logger.debug("$LOG Creating CI unit test tasks for project '$project' and variant '$variant'")
+        // com.android.test modules (for example the baseline profile generator) have no unit test variant task,
+        // so match lazily and depend on nothing when the task is absent.
         project.tasks.register(CI_UNIT_TEST_TASK_NAME) {
             group = LifecycleBasePlugin.VERIFICATION_GROUP
-            dependsOn(variantUnitTestTaskName)
+            dependsOn(project.tasks.matching { it.name == variantUnitTestTaskName })
         }
         project.tasks.register(COMPILE_CI_UNIT_TEST_NAME) {
             group = LifecycleBasePlugin.VERIFICATION_GROUP
-            dependsOn(variantCompileUnitTestTaskName)
+            dependsOn(project.tasks.matching { it.name == variantCompileUnitTestTaskName })
         }
     }
 
