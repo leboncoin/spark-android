@@ -63,6 +63,8 @@ jobs:
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
+      - name: 📥 Fetch baseline profiles from LFS
+        run: git lfs pull --include="**/generated/baselineProfiles/*.txt"
       - name: '👷 Build'
         run: ./gradlew :catalog:assembleRelease
 

@@ -19,9 +19,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-@file:Suppress("ComposeModifierComposed") // These modifiers will be forked so the
-// work will be done when it happens
-
 package com.adevinta.spark.components.placeholder
 
 import androidx.compose.foundation.layout.Arrangement.spacedBy
@@ -32,7 +29,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
@@ -74,12 +70,10 @@ public fun Modifier.placeholder(visible: Boolean): Modifier = basePlaceholder(vi
  *
  * @param visible whether the placeholder should be visible or not.
  */
-public fun Modifier.textPlaceholder(visible: Boolean): Modifier = composed {
-    basePlaceholder(
-        visible = visible,
-        shape = SparkTheme.shapes.full,
-    )
-}
+public fun Modifier.textPlaceholder(visible: Boolean): Modifier = basePlaceholder(
+    visible = visible,
+    useFullShape = true,
+)
 
 /**
  * Draws a skeleton UI for illustrations which is typically used whilst a image is 'loading'.
@@ -102,13 +96,11 @@ public fun Modifier.textPlaceholder(visible: Boolean): Modifier = composed {
 public fun Modifier.illustrationPlaceholder(
     visible: Boolean,
     shape: Shape,
-): Modifier = composed {
-    basePlaceholder(
-        visible = visible,
-        highlight = PlaceholderHighlight.shimmer(),
-        shape = shape,
-    )
-}
+): Modifier = basePlaceholder(
+    visible = visible,
+    shape = shape,
+    useShimmerHighlight = true,
+)
 
 @PreviewLightDark
 @Composable

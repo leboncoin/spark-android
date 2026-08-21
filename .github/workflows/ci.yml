@@ -61,6 +61,8 @@ jobs:
         with:
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
       - uses: ./.github/actions/setup-gradle-properties
+      - name: 📥 Fetch baseline profiles from LFS
+        run: git lfs pull --include="**/generated/baselineProfiles/*.txt"
       - name: 👷 Build
         id: build
         run: ./gradlew assembleRelease :spark-icons:assembleAndroidMain jvmJar
@@ -135,6 +137,8 @@ jobs:
         with:
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
       - uses: ./.github/actions/setup-gradle-properties
+      - name: 📥 Fetch baseline profiles from LFS
+        run: git lfs pull --include="**/generated/baselineProfiles/*.txt"
       - name: 🕵️ Lint
         id: lint
         run: ./gradlew :spark:lintRelease :spark-screenshot-testing:lintRelease :catalog:lintRelease :spark-lint:lint --continue
@@ -186,6 +190,8 @@ jobs:
           cache-dependency-path: .github/requirements.txt
       - run: pip install -r .github/requirements.txt
 
+      - name: 📥 Fetch baseline profiles from LFS
+        run: git lfs pull --include="**/generated/baselineProfiles/*.txt"
       - name: 📋 Build Dokka
         run: ./gradlew dokkaGeneratePublicationHtml publishToMavenLocal
       - name: 📦 Archive Dokka

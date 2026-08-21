@@ -27,6 +27,7 @@ plugins {
     alias(libs.plugins.spark.publishing)
     alias(libs.plugins.spark.dependencyGuard)
     alias(libs.plugins.spark.spotless)
+    alias(libs.plugins.baselineprofile)
 }
 
 kotlin {
@@ -51,6 +52,13 @@ kotlin {
 }
 dependencies {
     androidRuntimeClasspath(libs.compose.ui.tooling)
+    baselineProfile(project(":catalog:baselineprofile"))
+}
+
+baselineProfile {
+    filter {
+        include("com.adevinta.spark.icons.**")
+    }
 }
 
 compose.resources {
