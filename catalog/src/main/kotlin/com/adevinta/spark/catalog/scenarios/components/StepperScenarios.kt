@@ -28,11 +28,14 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import com.adevinta.spark.components.stepper.Stepper
 import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.milliseconds
 
 internal val stepperScenarios: Map<String, @Composable () -> Unit> = mapOf(
-    "stepper-animate" to { StepperAnimateScenario() },
+    "stepper-nudger-animate" to { StepperAnimateScenario() },
+    "stepper-input-animate" to { StepperInputAnimateScenario() },
 )
 
 /** Increments and decrements to trigger the value text slide animation. */
@@ -42,11 +45,36 @@ private fun StepperAnimateScenario() {
     var goingUp by remember { mutableStateOf(true) }
     LaunchedEffect(Unit) {
         while (true) {
-            delay(300)
+            delay(300.milliseconds)
             if (value >= 10) goingUp = false
             if (value <= 0) goingUp = true
             value += if (goingUp) 1 else -1
         }
     }
-    Stepper(value = value, onValueChange = { value = it }, range = 0..10)
+    Stepper.Nudger(value = value, onValueChange = { value = it }, modifier = Modifier, range = 0..10)
+}
+
+/** Increments and decrements to trigger the value text slide animation. */
+@Composable
+private fun StepperInputAnimateScenario() {
+    var value by remember { mutableIntStateOf(0) }
+    var goingUp by remember { mutableStateOf(true) }
+    LaunchedEffect(Unit) {
+        while (true) {
+            delay(300.milliseconds)
+            if (value >= 10) goingUp = false
+            if (value <= 0) goingUp = true
+            value += if (goingUp) 1 else -1
+        }
+    }
+    Stepper.Input(
+        value = value,
+        onValueChange = {
+            if (it != null) {
+                value = it
+            }
+        },
+        modifier = Modifier,
+        range = 0..10,
+    )
 }
