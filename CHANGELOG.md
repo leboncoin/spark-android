@@ -2,6 +2,14 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [3.6.0](https://github.com/leboncoin/spark-android/compare/3.5.2...3.6.0) (2026-08-21)
+
+
+### Features
+
+* **benchmark:** add macrobenchmark module with baseline profiles and CI ([#2158](https://github.com/leboncoin/spark-android/issues/2158)) ([25b38fa](https://github.com/leboncoin/spark-android/commit/25b38fac7ee0ec24baa14f27bdbffe6bb8201e46))
+* **icons:** update icons ([#2206](https://github.com/leboncoin/spark-android/issues/2206)) ([d43e781](https://github.com/leboncoin/spark-android/commit/d43e781bf46e5a7557caf2b945f439538aa9d214))
+
 ## [3.5.2](https://github.com/leboncoin/spark-android/compare/3.5.1...3.5.2) (2026-08-20)
 
 
