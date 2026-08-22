@@ -88,6 +88,7 @@ import com.adevinta.spark.tokens.ElevationTokens
 import com.adevinta.spark.tokens.EmphasizeDim1
 import com.adevinta.spark.tokens.SparkColors
 import com.adevinta.spark.tokens.SparkTypography
+import com.adevinta.spark.tokens.highlight
 import com.adevinta.spark.tokens.ripple
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 import androidx.compose.material3.DropdownMenu as MaterialDropdownMenu
@@ -315,6 +316,7 @@ private class MultiChoiceDropdownItemWrapper(scope: ColumnScope) :
 private fun SparkDropdownMenuItem(
     text: @Composable () -> Unit,
     modifier: Modifier = Modifier,
+    selected: Boolean= false,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
     enabled: Boolean = true,
@@ -337,7 +339,8 @@ private fun SparkDropdownMenuItem(
             .sparkUsageOverlay(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        ProvideTextStyle(SparkTheme.typography.body1) {
+        val textStyle = if (selected) SparkTheme.typography.body1.highlight else SparkTheme.typography.body1
+        ProvideTextStyle(textStyle) {
             if (leadingIcon != null) {
                 CompositionLocalProvider(
                     LocalContentColor provides colors.leadingIconColor(enabled),
@@ -530,6 +533,7 @@ public fun SingleChoiceDropdownItemColumnScope.DropdownMenuItem(
             )
             .semantics { role = Role.RadioButton },
         contentPadding = contentPadding,
+        selected = selected,
         trailingIcon = trailingIcon,
         leadingIcon = if (selected) {
             @Composable {
@@ -595,6 +599,7 @@ public fun MultiChoiceDropdownItemColumnScope.DropdownMenuItem(
             ),
         contentPadding = contentPadding,
         trailingIcon = trailingIcon,
+        selected = checked,
         leadingIcon = if (checked) {
             @Composable {
                 Icon(
