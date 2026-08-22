@@ -40,8 +40,10 @@ Box(
 
 #### `Modifier.textPlaceholder`
 
-Skeleton for text content. Uses `SparkTheme.shapes.full` (pill shape) to mirror the rounded
-profile of text runs. Animation is a **fade**.
+Skeleton for text content. Draws a hand-drawn squiggle stroke using `SparkTheme` colour tokens.
+The geometry is derived deterministically from the placeholder size: two placeholders with the
+same integer pixel width and height always draw the same stroke, and any size difference draws a
+different stroke. Animation is a **fade**.
 
 ```kotlin
 Text(
