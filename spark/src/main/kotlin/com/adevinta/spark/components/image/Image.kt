@@ -176,6 +176,19 @@ public fun SparkImage(
  * background). Any unspecified dimension will leverage the Image's size as a minimum
  * constraint.
  *
+ * ![Image](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.image_ImageDocumentationScreenshots_imageStates.png)
+ *
+ * The [contentScale] parameter controls how the image fits its bounds. Each screenshot shows a
+ * narrow image and a wide image side by side in the same square container.
+ *
+ * ![ContentScale Crop](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.image_ImageDocumentationScreenshots_contentScaleCrop.png)
+ * ![ContentScale Fit](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.image_ImageDocumentationScreenshots_contentScaleFit.png)
+ * ![ContentScale FillBounds](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.image_ImageDocumentationScreenshots_contentScaleFillBounds.png)
+ * ![ContentScale FillHeight](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.image_ImageDocumentationScreenshots_contentScaleFillHeight.png)
+ * ![ContentScale FillWidth](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.image_ImageDocumentationScreenshots_contentScaleFillWidth.png)
+ * ![ContentScale Inside](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.image_ImageDocumentationScreenshots_contentScaleInside.png)
+ * ![ContentScale None](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.image_ImageDocumentationScreenshots_contentScaleNone.png)
+ *
  * @param model An object representing the image to be displayed.
  * This can be a URL, a file, or any other type of object that can be used to identify the image.
  * @param contentDescription text used by accessibility services to describe what this image
@@ -199,6 +212,7 @@ public fun SparkImage(
  * sampling algorithm
  * @param loadingPlaceholder Placeholder used when the image is loading. You can use a different one in special cases
  * like when the image is displayed in fullscreen for example.
+ *
  */
 @Composable
 public fun Image(
