@@ -403,6 +403,8 @@ internal fun Track(
  * @param interactionSource the MutableInteractionSource representing the stream of Interactions for this slider.
  * You can create and pass in your own remembered instance to observe Interactions
  * and customize the appearance / behavior of this slider in different states.
+ *
+ * ![Slider](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.slider_SliderDocumentationScreenshots_slider.png)
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
