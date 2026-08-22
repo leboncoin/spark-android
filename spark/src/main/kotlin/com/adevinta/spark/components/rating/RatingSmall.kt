@@ -146,6 +146,7 @@ internal fun formattedRatingValue(locale: Locale, value: Float): String = rememb
  * @param commentCount number of collected ratings
  * @param locale the locale to use to format the rating value
  * @param labelSide the side of the label
+ * ![Rating Simple](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.rating_RatingDocumentationScreenshots_ratingSimple.png)
  */
 @Composable
 @ExperimentalSparkApi

@@ -121,6 +121,7 @@ internal fun SparkRating(
  * @param label the nb of reviews to be displayed after the rating stars.
  * @param locale the local used to format the rating value, use the first available Locale by default.
  * Use `null` to hide the rating value before the stars
+ * ![Rating Full](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.rating_RatingDocumentationScreenshots_ratingFull.png)
  */
 @Composable
 public fun RatingFull(
