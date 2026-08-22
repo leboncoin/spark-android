@@ -2,6 +2,24 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [3.6.1](https://github.com/leboncoin/spark-android/compare/3.6.0...3.6.1) (2026-08-22)
+
+
+### Bug Fixes
+
+* **switch:** correct unchecked and disabled track colors ([#2209](https://github.com/leboncoin/spark-android/issues/2209)) ([cfae260](https://github.com/leboncoin/spark-android/commit/cfae26030ff19af3661dceb9cfdd0bd1c53cc932))
+
+
+### Miscellaneous
+
+* remove @SimonMarquis from CODEOWNERS ([#2216](https://github.com/leboncoin/spark-android/issues/2216)) ([bc5abd5](https://github.com/leboncoin/spark-android/commit/bc5abd5cf25ebddf3bf40049a1c22587321000d2))
+* remove @SimonMarquis from CODEOWNERS for global path ([#2215](https://github.com/leboncoin/spark-android/issues/2215)) ([be77ce4](https://github.com/leboncoin/spark-android/commit/be77ce41723de9f7cf20109eb2699089287bf9c3))
+
+
+### Documentation
+
+* **placeholder:** add screenshots to KDoc for placeholder modifiers ([#2211](https://github.com/leboncoin/spark-android/issues/2211)) ([e25f7ca](https://github.com/leboncoin/spark-android/commit/e25f7cac1759a06afc2742dc00dc6b152a3d693a))
+
 ## [3.6.0](https://github.com/leboncoin/spark-android/compare/3.5.2...3.6.0) (2026-08-21)
 
 
