@@ -368,6 +368,8 @@ public fun SelectTextField(
  * [MutableInteractionSource] if you want to observe [Interaction]s and customize the
  * appearance / behavior of this TextField in different [Interaction]s.
  * @param dropdownContent The content to be displayed inside ExposedDropdownMenuBox.
+ *
+ * ![Dropdown](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.dropdown_DropdownDocumentationScreenshots_dropdown.png)
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @ExperimentalSparkApi

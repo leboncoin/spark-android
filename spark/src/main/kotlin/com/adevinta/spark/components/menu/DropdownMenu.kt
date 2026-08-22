@@ -126,6 +126,7 @@ import androidx.compose.material3.DropdownMenu as MaterialDropdownMenu
  * @param onDismissRequest called when the user requests to dismiss the menu, such as by tapping
  * outside the menu's bounds
  * @param offset [DpOffset] to be added to the position of the menu
+ * ![DropdownMenu](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.menu_DropdownMenuDocumentationScreenshots_dropdownMenuItem.png)
  */
 @SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
@@ -454,6 +455,8 @@ public fun DropdownMenuItem(
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this menu item. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this menu item in different states.
+ *
+ * ![DropdownMenuItem](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.menu_DropdownMenuDocumentationScreenshots_dropdownMenuItem.png)
  */
 @Suppress("UnusedReceiverParameter") // Used as namespace
 @Composable
@@ -669,6 +672,8 @@ private fun MenuItemColors.trailingIconColor(enabled: Boolean): Color =
  *      }
  *  }
  * ```
+ *
+ * ![NoContentItem](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.menu_DropdownMenuDocumentationScreenshots_noContentItem.png)
  */
 @Suppress("UnusedReceiverParameter") // Used as namespace
 @ExperimentalSparkApi
@@ -702,6 +707,8 @@ public fun DropdownMenuItemColumnScope.NoContentItem(
  *
  * @param title The title label of the group, it's styled in [SparkTypography.body1] and colored in emphasis [SparkColors.dim1]
  * @param modifier The modifier to be applied to the Group.
+ *
+ * ![DropdownMenuGroupItem](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.menu_DropdownMenuDocumentationScreenshots_dropdownMenuGroupItem.png)
  */
 @SuppressLint("ComposeUnstableReceiver") // Used as namespace
 @Composable
