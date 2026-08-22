@@ -34,6 +34,9 @@ import com.adevinta.spark.icons.SparkIcon
 
 /**
  * Filled tag represent main information
+ *
+ * ![Tag Filled](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.tags_TagDocumentationScreenshots_tagFilled.png)
+ *
  * @param modifier The [Modifier] to be applied to the component
  * @param intent The [TagIntent] color to use
  * @param leadingIcon The spark icon shown at the start of the tag
@@ -61,6 +64,9 @@ public fun TagFilled(
 
 /**
  * Filled tag represent main information
+ *
+ * ![Tag Filled](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.tags_TagDocumentationScreenshots_tagFilled.png)
+ *
  * @param text The item label
  * @param modifier The [Modifier] to be applied to the component
  * @param intent The [TagIntent] color to use
@@ -89,6 +95,9 @@ public fun TagFilled(
 
 /**
  * Filled tag represent main information
+ *
+ * ![Tag Filled](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.tags_TagDocumentationScreenshots_tagFilled.png)
+ *
  * @param text The styled item label
  * @param modifier The [Modifier] to be applied to the component
  * @param intent The [TagIntent] color to use
