@@ -51,6 +51,7 @@ import com.adevinta.spark.tools.modifiers.invisibleSemantic
  * @param modifier Optional modifier for the badge container
  *
  * @see TagHighlightBadge
+ * ![Tag Highlight](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.tags_TagDocumentationScreenshots_tagHighlight.png)
  */
 @ExperimentalSparkApi
 @Composable
