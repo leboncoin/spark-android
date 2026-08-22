@@ -82,6 +82,8 @@ import kotlinx.coroutines.launch
  * @param modifier Optional [Modifier] for the bottom sheet.
  * @param sheetState the state of the bottom sheet.
  * @param content The content to be displayed inside the bottom sheet.
+ *
+ * ![BottomSheet](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.bottomsheet_BottomSheetDocumentationScreenshots_bottomSheetBody.png)
  */
 @Composable
 @ExperimentalMaterial3Api
