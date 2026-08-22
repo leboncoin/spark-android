@@ -23,6 +23,7 @@ package com.adevinta.spark.tab
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import com.adevinta.spark.DefaultTestDevices
 import com.adevinta.spark.components.badge.Badge
 import com.adevinta.spark.components.tab.Tab
 import com.adevinta.spark.components.tab.TabGroup
@@ -31,19 +32,19 @@ import com.adevinta.spark.components.tab.TabSize
 import com.adevinta.spark.icons.BubbleTextOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.paparazziRule
-import com.adevinta.spark.sparkSnapshot
-import com.adevinta.spark.sparkSnapshotNightMode
+import com.adevinta.spark.sparkDocSnapshot
+import com.android.ide.common.rendering.api.SessionParams.RenderingMode.SHRINK
 import org.junit.Rule
 import org.junit.Test
 
-internal class TabsDocScreenshot {
+internal class TabsDocumentationScreenshots {
 
     @get:Rule
-    val paparazzi = paparazziRule()
+    val paparazzi = paparazziRule(renderingMode = SHRINK, deviceConfig = DefaultTestDevices.DocPhone)
 
     @Test
     fun tabsIntentShowcase() {
-        paparazzi.sparkSnapshotNightMode {
+        paparazzi.sparkDocSnapshot {
             Column {
                 TabIntent.entries.forEach {
                     Tabs(intent = it)
@@ -54,7 +55,7 @@ internal class TabsDocScreenshot {
 
     @Test
     fun tabsSizeShowcase() {
-        paparazzi.sparkSnapshot {
+        paparazzi.sparkDocSnapshot {
             Column {
                 TabSize.entries.forEach {
                     Tabs(size = it)
@@ -65,7 +66,7 @@ internal class TabsDocScreenshot {
 
     @Test
     fun tabsSpacingShowcase() {
-        paparazzi.sparkSnapshot {
+        paparazzi.sparkDocSnapshot {
             Column {
                 Tabs(spacedEvenly = true)
                 Tabs(spacedEvenly = false)

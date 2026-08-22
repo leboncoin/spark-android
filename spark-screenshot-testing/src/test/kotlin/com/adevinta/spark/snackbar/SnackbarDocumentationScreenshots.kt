@@ -27,27 +27,27 @@ import androidx.compose.foundation.layout.FlowColumn
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.SnackbarData
 import androidx.compose.ui.unit.dp
-import app.cash.paparazzi.DeviceConfig
+import com.adevinta.spark.DefaultTestDevices
 import com.adevinta.spark.components.snackbars.Snackbar
 import com.adevinta.spark.components.snackbars.SnackbarSparkVisuals
 import com.adevinta.spark.paparazziRule
-import com.adevinta.spark.sparkSnapshotNightMode
+import com.adevinta.spark.sparkDocSnapshot
 import com.android.ide.common.rendering.api.SessionParams
 import org.junit.Rule
 import org.junit.Test
 
-internal class SnackbarDocScreenshot {
+internal class SnackbarDocumentationScreenshots {
 
     @get:Rule
     val paparazzi = paparazziRule(
         renderingMode = SessionParams.RenderingMode.SHRINK,
-        deviceConfig = DeviceConfig.PIXEL_C,
+        deviceConfig = DefaultTestDevices.DocPhone,
     )
 
     @OptIn(ExperimentalLayoutApi::class)
     @Test
     fun snackbarDocScreenshot() {
-        paparazzi.sparkSnapshotNightMode {
+        paparazzi.sparkDocSnapshot {
             FlowColumn(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),

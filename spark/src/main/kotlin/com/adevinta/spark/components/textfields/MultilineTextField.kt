@@ -106,6 +106,8 @@ import kotlinx.coroutines.flow.flowOf
  *
  * @see TextField
  * @see SelectTextField
+ * ![Multiline Text Field showcase light](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.textfields_TextFieldDocumentationScreenshots_multilineTextFieldShowcase_light.png)
+ * ![Multiline Text Field showcase dark](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.textfields_TextFieldDocumentationScreenshots_multilineTextFieldShowcase_dark.png)
  */
 @Composable
 public fun MultilineTextField(

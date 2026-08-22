@@ -115,6 +115,8 @@ import androidx.compose.material3.VerticalDivider as MaterialVerticalDivider
  * @property selectedStep The index of the currently selected step. All steps before this index will be marked as done.
  *
  * @see [ProgressTrackerColumn]
+ * ![Progress Tracker Row showcase](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.progress.tracker_ProgressTrackerDocumentationScreenshots_progressRowShowcase.png)
+ * ![Progress Tracker sizes showcase](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.progress.tracker_ProgressTrackerDocumentationScreenshots_progressSizesShowcase.png)
  */
 @Composable
 @ExperimentalSparkApi
@@ -161,6 +163,7 @@ public fun ProgressTrackerRow(
  * @property selectedStep The index of the currently selected step. All steps before this index will be marked as done.
  *
  * @see [ProgressTrackerRow]
+ * ![Progress Tracker Column showcase](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.progress.tracker_ProgressTrackerDocumentationScreenshots_progressColumnShowcase.png)
  */
 @Composable
 @ExperimentalSparkApi
