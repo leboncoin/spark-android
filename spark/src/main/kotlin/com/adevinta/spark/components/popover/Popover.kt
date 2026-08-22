@@ -82,6 +82,7 @@ import kotlinx.coroutines.launch
  * @param enableUserInput [Boolean] which determines if this TooltipBox will handle
  * long press and mouse hover to trigger the tooltip through the state provided.
  * @param content the composable that the Popover will anchor to.
+ * ![Popover](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.popover_PopoverDocumentationScreenshots_popoverContent.png)
  */
 
 @ExperimentalSparkApi
