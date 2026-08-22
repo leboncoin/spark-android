@@ -56,6 +56,7 @@ import com.adevinta.spark.icons.SparkIcon
  * for this icon button. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this icon button in different states.
  * @param atEnd Whether the animated vector should be rendered at the end of all its animations.
+ * ![IconButton Outlined](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.iconbutton_IconButtonDocumentationScreenshots_iconButtonOutlined.png)
  */
 @Composable
 public fun IconButtonOutlined(
