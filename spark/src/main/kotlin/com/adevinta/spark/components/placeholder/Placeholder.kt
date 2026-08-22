@@ -50,6 +50,8 @@ import com.adevinta.spark.components.text.Text
  * [Placeholder UI](https://material.io/design/communication/launch-screen.html#placeholder-ui)
  * guidelines.
  *
+ * ![Placeholder](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.placeholder_PlaceholderDocumentationScreenshots_placeholder.png)
+ *
  * @param visible whether the placeholder should be visible or not.
  */
 public fun Modifier.placeholder(visible: Boolean): Modifier = basePlaceholder(visible = visible)
@@ -67,6 +69,8 @@ public fun Modifier.placeholder(visible: Boolean): Modifier = basePlaceholder(vi
  * You can find more information on the pattern at the Material Theming
  * [Placeholder UI](https://material.io/design/communication/launch-screen.html#placeholder-ui)
  * guidelines.
+ *
+ * ![Text Placeholder](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.placeholder_PlaceholderDocumentationScreenshots_textPlaceholder.png)
  *
  * @param visible whether the placeholder should be visible or not.
  */
@@ -88,6 +92,8 @@ public fun Modifier.textPlaceholder(visible: Boolean): Modifier = basePlaceholde
  * You can find more information on the pattern at the Material Theming
  * [Placeholder UI](https://material.io/design/communication/launch-screen.html#placeholder-ui)
  * guidelines.
+ *
+ * ![Illustration Placeholder](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.placeholder_PlaceholderDocumentationScreenshots_illustrationPlaceholder.png)
  *
  * @param visible whether the placeholder should be visible or not.
  * @param shape desired shape of the placeholder. If null is provided the placeholder
