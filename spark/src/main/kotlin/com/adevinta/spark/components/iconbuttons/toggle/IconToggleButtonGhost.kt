@@ -63,6 +63,7 @@ import com.adevinta.spark.icons.LeboncoinIcons
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this icon button. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this icon button in different states.
+ * ![IconToggleButton Ghost](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.iconbutton_IconToggleButtonDocumentationScreenshots_iconToggleButtonGhost.png)
  */
 
 @ExperimentalSparkApi
