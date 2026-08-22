@@ -66,6 +66,7 @@ import androidx.compose.material3.Icon as MaterialIcon
  * @param size one of [IconSize] to be applied as size of the icon.
  * If no size is provided the default [IconSize.Medium] is used.
  * @param atEnd Whether the animated vector should be rendered at the end of all its animations.
+ * ![Icon sizes](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.icons_IconDocumentationScreenshots_iconSizes.png)
  */
 @SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable

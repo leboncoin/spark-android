@@ -125,6 +125,7 @@ import androidx.compose.material3.DropdownMenu as MaterialDropdownMenu
  * @param onDismissRequest called when the user requests to dismiss the menu, such as by tapping
  * outside the menu's bounds
  * @param offset [DpOffset] to be added to the position of the menu
+ * ![DropdownMenu](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.dropdown_DropdownDocumentationScreenshots_dropdownMenuItems.png)
  */
 @SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable

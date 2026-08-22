@@ -39,6 +39,7 @@ import com.adevinta.spark.icons.SparkIcon
  * @param leadingIcon The spark icon shown at the start of the tag
  * @param tint The tint color for the icon. Use Color.Unspecified to not apply tint.
  * @param atEnd Whether the animated vector should be rendered at the end of all its animations.
+ * ![Tag variants](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.tags_TagDocumentationScreenshots_tagVariants.png)
  */
 @Composable
 public fun TagTinted(
