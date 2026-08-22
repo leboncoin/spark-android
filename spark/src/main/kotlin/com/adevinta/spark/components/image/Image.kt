@@ -199,6 +199,8 @@ public fun SparkImage(
  * sampling algorithm
  * @param loadingPlaceholder Placeholder used when the image is loading. You can use a different one in special cases
  * like when the image is displayed in fullscreen for example.
+ *
+ * ![Image](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.image_ImageDocumentationScreenshots_imageStates.png)
  */
 @Composable
 public fun Image(
