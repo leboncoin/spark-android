@@ -56,7 +56,8 @@
     <string name="spark_dialog_pane_a11y">Dialog</string>
     <!--endregion-->
 
-    <string name="spark_annotatedStringResource_test"><b>Best</b> <annotation typography="large">practices</annotation> <p dir="rtl">for text on</p> <i><annotation color="main">Android</annotation></i></string>
+    <!-- Sample resources used in AnnotatedStringResource API documentation and previews -->
+    <string name="spark_annotatedStringResource_test" tools:ignore="UnusedResources"><b>Best</b> <annotation typography="large">practices</annotation> <p dir="rtl">for text on</p> <i><annotation color="main">Android</annotation></i></string>
     <string name="spark_annotatedStringResource_test_args">Hello, <b><annotation color="main" typography="large" variable="who">who</annotation></b>!</string>
 
     <!--region TextField-->
