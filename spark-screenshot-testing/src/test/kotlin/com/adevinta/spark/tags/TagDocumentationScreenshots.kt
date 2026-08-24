@@ -71,7 +71,7 @@ internal class TagDocumentationScreenshots {
     }
 
     @Test
-    fun tagOutlined() = paparazzi.sparkDocSnapshot({ SparkTheme.colors.backgroundVariant}) {
+    fun tagOutlined() = paparazzi.sparkDocSnapshot({ SparkTheme.colors.backgroundVariant }) {
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
@@ -86,7 +86,7 @@ internal class TagDocumentationScreenshots {
     }
 
     @Test
-    fun tagHighlightBadge() = paparazzi.sparkDocSnapshot({ SparkTheme.colors.backgroundVariant}) {
+    fun tagHighlightBadge() = paparazzi.sparkDocSnapshot({ SparkTheme.colors.backgroundVariant }) {
         TagHighlightBadge()
     }
 }

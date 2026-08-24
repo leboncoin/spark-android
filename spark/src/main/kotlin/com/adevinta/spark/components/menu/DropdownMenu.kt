@@ -317,7 +317,7 @@ private class MultiChoiceDropdownItemWrapper(scope: ColumnScope) :
 private fun SparkDropdownMenuItem(
     text: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    selected: Boolean= false,
+    selected: Boolean = false,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
     enabled: Boolean = true,
