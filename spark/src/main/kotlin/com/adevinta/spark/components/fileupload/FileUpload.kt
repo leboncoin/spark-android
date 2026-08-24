@@ -80,6 +80,7 @@ public object FileUpload {
      *
      * @sample com.adevinta.spark.components.fileupload.FileUploadSamples
      * @sample com.adevinta.spark.components.fileupload.FileUploadMultipleSamples
+     * ![FileUpload Button](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.fileupload_FileUploadDocumentationScreenshots_fileUploadButtons.png)
      */
     @InternalSparkApi
     @Composable
@@ -153,6 +154,7 @@ public object FileUpload {
      *
      * @sample com.adevinta.spark.components.fileupload.FileUploadSamples
      * @sample com.adevinta.spark.components.fileupload.FileUploadCustomButtonSamples
+     * ![FileUpload Button](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.fileupload_FileUploadDocumentationScreenshots_fileUploadButtons.png)
      */
     @InternalSparkApi
     @Composable

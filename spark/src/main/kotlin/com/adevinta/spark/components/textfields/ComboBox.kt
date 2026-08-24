@@ -108,6 +108,7 @@ import kotlinx.collections.immutable.persistentListOf
  * @see MultiChoiceComboBox for a version that supports multiple selections
  * @sample com.adevinta.spark.samples.components.combobox.SingleChoiceComboBoxSample
  * @sample com.adevinta.spark.samples.components.combobox.SingleChoiceComboBoxFilteringSample
+ * ![SingleChoiceComboBox](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.combobox_ComboBoxDocumentationScreenshots_singleChoiceComboBox.png)
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -227,6 +228,7 @@ public data class SelectedChoice(val id: String, val label: String)
  * @param dropdownContent Content of the dropdown menu, using [MultiChoiceDropdownItemColumnScope]
  * @see SingleChoiceComboBox for a version that supports single selection
  * @sample com.adevinta.spark.samples.components.combobox.MultiChoiceComboBoxSample
+ * ![MultiChoiceComboBox](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.combobox_ComboBoxDocumentationScreenshots_multiChoiceComboBox.png)
  */
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable

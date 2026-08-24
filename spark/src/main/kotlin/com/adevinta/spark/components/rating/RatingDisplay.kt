@@ -40,7 +40,7 @@ import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
  * @param value The rating value to display. Must be between 0 and 5.
  * @param modifier The modifier to be applied to the layout.
  * @param size The size of the stars. Default is [RatingDefault.SmallStarSize]
-
+ * ![Rating Display](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.rating_RatingDocumentationScreenshots_ratingDisplay.png)
  */
 @Composable
 public fun RatingDisplay(

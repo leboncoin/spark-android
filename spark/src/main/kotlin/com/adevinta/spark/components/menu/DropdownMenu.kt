@@ -88,6 +88,7 @@ import com.adevinta.spark.tokens.ElevationTokens
 import com.adevinta.spark.tokens.EmphasizeDim1
 import com.adevinta.spark.tokens.SparkColors
 import com.adevinta.spark.tokens.SparkTypography
+import com.adevinta.spark.tokens.highlight
 import com.adevinta.spark.tokens.ripple
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 import androidx.compose.material3.DropdownMenu as MaterialDropdownMenu
@@ -125,6 +126,7 @@ import androidx.compose.material3.DropdownMenu as MaterialDropdownMenu
  * @param onDismissRequest called when the user requests to dismiss the menu, such as by tapping
  * outside the menu's bounds
  * @param offset [DpOffset] to be added to the position of the menu
+ * ![DropdownMenu](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.menu_DropdownMenuDocumentationScreenshots_dropdownMenuItem.png)
  */
 @SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
@@ -315,6 +317,7 @@ private class MultiChoiceDropdownItemWrapper(scope: ColumnScope) :
 private fun SparkDropdownMenuItem(
     text: @Composable () -> Unit,
     modifier: Modifier = Modifier,
+    selected: Boolean = false,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
     enabled: Boolean = true,
@@ -337,7 +340,8 @@ private fun SparkDropdownMenuItem(
             .sparkUsageOverlay(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        ProvideTextStyle(SparkTheme.typography.body1) {
+        val textStyle = if (selected) SparkTheme.typography.body1.highlight else SparkTheme.typography.body1
+        ProvideTextStyle(textStyle) {
             if (leadingIcon != null) {
                 CompositionLocalProvider(
                     LocalContentColor provides colors.leadingIconColor(enabled),
@@ -451,6 +455,8 @@ public fun DropdownMenuItem(
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this menu item. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this menu item in different states.
+ *
+ * ![DropdownMenuItem](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.menu_DropdownMenuDocumentationScreenshots_dropdownMenuItem.png)
  */
 @Suppress("UnusedReceiverParameter") // Used as namespace
 @Composable
@@ -530,6 +536,7 @@ public fun SingleChoiceDropdownItemColumnScope.DropdownMenuItem(
             )
             .semantics { role = Role.RadioButton },
         contentPadding = contentPadding,
+        selected = selected,
         trailingIcon = trailingIcon,
         leadingIcon = if (selected) {
             @Composable {
@@ -595,6 +602,7 @@ public fun MultiChoiceDropdownItemColumnScope.DropdownMenuItem(
             ),
         contentPadding = contentPadding,
         trailingIcon = trailingIcon,
+        selected = checked,
         leadingIcon = if (checked) {
             @Composable {
                 Icon(
@@ -664,6 +672,8 @@ private fun MenuItemColors.trailingIconColor(enabled: Boolean): Color =
  *      }
  *  }
  * ```
+ *
+ * ![NoContentItem](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.menu_DropdownMenuDocumentationScreenshots_noContentItem.png)
  */
 @Suppress("UnusedReceiverParameter") // Used as namespace
 @ExperimentalSparkApi
@@ -697,6 +707,8 @@ public fun DropdownMenuItemColumnScope.NoContentItem(
  *
  * @param title The title label of the group, it's styled in [SparkTypography.body1] and colored in emphasis [SparkColors.dim1]
  * @param modifier The modifier to be applied to the Group.
+ *
+ * ![DropdownMenuGroupItem](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.menu_DropdownMenuDocumentationScreenshots_dropdownMenuGroupItem.png)
  */
 @SuppressLint("ComposeUnstableReceiver") // Used as namespace
 @Composable

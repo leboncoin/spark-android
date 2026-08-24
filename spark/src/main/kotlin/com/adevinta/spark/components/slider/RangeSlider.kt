@@ -114,6 +114,8 @@ internal fun SparkRangeSlider(
  * @param onValueChangeFinished lambda to be invoked when value change has ended.
  * This callback shouldn't be used to update the range slider values (use onValueChange for that),
  * but rather to know when the user has completed selecting a new value by ending a drag or a click.
+ *
+ * ![Range Slider](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.slider_SliderDocumentationScreenshots_rangeSlider.png)
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

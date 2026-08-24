@@ -48,6 +48,8 @@ import com.adevinta.spark.tools.modifiers.invisibleSemantic
  * Ensure that this component is being used with a End of life Remote Config so that it doesn't remain in
  * production indefinitely.
  *
+ * ![Tag Highlight](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.tags_TagDocumentationScreenshots_tagHighlight.png)
+ *
  * @param modifier Optional modifier for the badge container
  *
  * @see TagHighlightBadge
@@ -78,6 +80,8 @@ public fun TagHighlight(
  *
  *  Ensure that this component is being used with a End of life Remote Config so that it doesn't remain in
  *  production indefinitely.
+ *
+ * ![Tag Highlight](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.tags_TagDocumentationScreenshots_tagHighlightbadge.png)
  *
  * @param modifier Optional modifier for the badge container
  *
