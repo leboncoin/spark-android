@@ -53,7 +53,7 @@ import kotlinx.coroutines.flow.flowOf
 import org.junit.Rule
 import org.junit.Test
 
-internal class TextFieldDocScreenshot {
+internal class TextFieldDocumentationScreenshots {
 
     @get:Rule
     val paparazzi = paparazziRule(

@@ -25,27 +25,28 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.width
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.adevinta.spark.DefaultTestDevices
 import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.components.progress.tracker.ProgressSizes
 import com.adevinta.spark.components.progress.tracker.ProgressStep
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerColumn
 import com.adevinta.spark.components.progress.tracker.ProgressTrackerRow
 import com.adevinta.spark.paparazziRule
-import com.adevinta.spark.sparkSnapshot
-import com.adevinta.spark.sparkSnapshotNightMode
+import com.adevinta.spark.sparkDocSnapshot
+import com.android.ide.common.rendering.api.SessionParams.RenderingMode.SHRINK
 import kotlinx.collections.immutable.persistentListOf
 import org.junit.Rule
 import org.junit.Test
 
 @OptIn(ExperimentalSparkApi::class)
-internal class ProgressTrackerDocScreenshot {
+internal class ProgressTrackerDocumentationScreenshots {
 
     @get:Rule
-    val paparazzi = paparazziRule()
+    val paparazzi = paparazziRule(renderingMode = SHRINK, deviceConfig = DefaultTestDevices.DocPhone)
 
     @Test
     fun progressColumnShowcase() {
-        paparazzi.sparkSnapshotNightMode {
+        paparazzi.sparkDocSnapshot {
             Column {
                 ProgressTrackerColumn(
                     modifier = Modifier.width(240.dp),
@@ -73,7 +74,7 @@ internal class ProgressTrackerDocScreenshot {
 
     @Test
     fun progressRowShowcase() {
-        paparazzi.sparkSnapshotNightMode {
+        paparazzi.sparkDocSnapshot {
             Column {
                 ProgressTrackerRow(
                     modifier = Modifier.width(240.dp),
@@ -92,7 +93,7 @@ internal class ProgressTrackerDocScreenshot {
 
     @Test
     fun progressSizesShowcase() {
-        paparazzi.sparkSnapshot {
+        paparazzi.sparkDocSnapshot {
             Column {
                 ProgressSizes.entries.forEach {
                     ProgressTrackerRow(

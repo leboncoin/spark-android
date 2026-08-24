@@ -314,6 +314,10 @@ internal class TabPosition internal constructor(val left: Dp, val width: Dp) {
  * This provides a layer of separation between the tab row and the content displayed underneath.
  * @param tabs the tabs inside this tab group. Typically this will be multiple [Tab]s. Each element
  * inside this lambda will be measured and placed evenly across the row, each taking up equal space.
+ *
+ * ![Tabs intent showcase](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.tab_TabsDocumentationScreenshots_tabsIntentShowcase.png)
+ * ![Tabs size showcase](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.tab_TabsDocumentationScreenshots_tabsSizeShowcase.png)
+ * ![Tabs spacing showcase](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.tab_TabsDocumentationScreenshots_tabsSpacingShowcase.png)
  */
 @Composable
 public fun TabGroup(
