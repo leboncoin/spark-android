@@ -15,7 +15,7 @@ material3 = "1.4.0"
 minCompileSdk = "24"
 targetSdk = "37"
 espressoCore = "3.7.0"
-uiautomator = "2.3.0"
+uiautomator = "2.4.0"
 profileinstaller = "1.4.1"
 
 [libraries]
