@@ -6,9 +6,7 @@ They appear temporarily, towards the bottom of the screen.
 They should not interrupt the user experience, and they don’t require user input to disappear.
 Only one snackbar may be displayed at a time.
 
-| Light                                                                                                | Dark                                                                                             |
-|------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark.snackbar_SnackbarDocScreenshot_snackbarDocScreenshot_light.png) | ![](../../images/com.adevinta.spark.snackbar_SnackbarDocScreenshot_snackbarDocScreenshot_dark.png) |
+![](../../images/com.adevinta.spark.snackbar_SnackbarDocumentationScreenshots_snackbarDocScreenshot.png)
 
 ## Basic Usage
 
