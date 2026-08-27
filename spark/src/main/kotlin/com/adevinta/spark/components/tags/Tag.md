@@ -56,5 +56,17 @@ The Highlight tag allows you to temporarily highlight new features of the produc
 - Implement with an End-of-Life Remote Config to prevent indefinite production presence
 
 ```kotlin
-TagHighlight()
+Tag.Highlight()
+```
+
+### Tag "Ai"
+
+The Ai tag marks AI-generated or AI-assisted content. Use it to clearly signal to users when content has been produced or enhanced by AI.
+
+![](../../images/com.adevinta.spark.tags_TagDocumentationScreenshots_tagAi.png)
+
+```kotlin
+Tag.Ai {
+    Text("À la une")
+}
 ```

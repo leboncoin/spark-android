@@ -61,7 +61,7 @@ public fun TagOutlined(
         colors = colors,
         modifier = modifier,
         border = BorderStroke(
-            TagDefaults.OutlinedBorderSize,
+            TagTokens.OutlinedBorderSize,
             colors.contentColor,
         ),
         leadingIcon = leadingIcon,
@@ -101,7 +101,7 @@ public fun TagOutlined(
         colors = colors,
         modifier = modifier,
         border = BorderStroke(
-            TagDefaults.OutlinedBorderSize,
+            TagTokens.OutlinedBorderSize,
             colors.contentColor,
         ),
         leadingIcon = leadingIcon,
@@ -140,7 +140,7 @@ public fun TagOutlined(
         colors = colors,
         modifier = modifier,
         border = BorderStroke(
-            TagDefaults.OutlinedBorderSize,
+            TagTokens.OutlinedBorderSize,
             colors.contentColor,
         ),
         leadingIcon = leadingIcon,
