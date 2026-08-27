@@ -27,12 +27,13 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.DefaultTestDevices
 import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.tags.Highlight
+import com.adevinta.spark.components.tags.HighlightBadge
+import com.adevinta.spark.components.tags.Tag
 import com.adevinta.spark.components.tags.TagFilled
-import com.adevinta.spark.components.tags.TagHighlight
-import com.adevinta.spark.components.tags.TagHighlightBadge
-import com.adevinta.spark.components.tags.TagIntent
 import com.adevinta.spark.components.tags.TagOutlined
 import com.adevinta.spark.components.tags.TagTinted
+import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.FireFill
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.paparazziRule
@@ -81,12 +82,19 @@ internal class TagDocumentationScreenshots {
     }
 
     @Test
-    fun tagHighlight() = paparazzi.sparkDocSnapshot {
-        TagHighlight()
+    fun highlight() = paparazzi.sparkDocSnapshot {
+        Tag.Highlight()
     }
 
     @Test
-    fun tagHighlightBadge() = paparazzi.sparkDocSnapshot({ SparkTheme.colors.backgroundVariant }) {
-        TagHighlightBadge()
+    fun highlightBadge() = paparazzi.sparkDocSnapshot({ SparkTheme.colors.backgroundVariant }) {
+        Tag.HighlightBadge()
+    }
+
+    @Test
+    fun tagAi() = paparazzi.sparkDocSnapshot {
+        Tag.Ai {
+            Text("À la une")
+        }
     }
 }
