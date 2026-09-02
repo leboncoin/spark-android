@@ -124,7 +124,7 @@ slack-lint-compose = "com.slack.lint.compose:compose-lint-checks:1.5.4"
 # https://github.com/google/TestParameterInjector
 testParameterInjector = "com.google.testparameterinjector:test-parameter-injector:1.22"
 
-unstyled-disclosure = "com.composables:composeunstyled-disclosure:2.9.0"
+unstyled-disclosure = "com.composables:composeunstyled-disclosure:2.9.2"
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "uiautomator" }
 androidx-profileinstaller = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "profileinstaller" }
