@@ -25,25 +25,11 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.unit.dp
 
 public object ChipDefaults {
-    /**
-     * The padding between the elements in the chip.
-     */
-    private val HorizontalElementsPadding = 8.dp
 
     /**
      * The size of the leading icon in the chip.
      */
     internal val LeadingIconSize = 16.dp
-
-    /**
-     * Horizontal padding for chip content.
-     */
-    internal val ChipPadding = PaddingValues(horizontal = HorizontalElementsPadding)
-
-    /**
-     * Spacing between the leading icon and the label.
-     */
-    internal val LeadingIconEndSpacing = 4.dp
 
     /**
      * The outlined chip's border size
@@ -59,4 +45,8 @@ public object ChipDefaults {
      * The chip's default height
      */
     internal val MinHeight = 32.dp
+
+    private val HorizontalElementsPadding = 8.dp
+
+    internal val ChipPadding = PaddingValues(horizontal = HorizontalElementsPadding)
 }
