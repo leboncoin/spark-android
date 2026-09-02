@@ -136,12 +136,12 @@ internal fun SparkTabGroup(
                 minHeight = layoutHeight,
                 maxHeight = constraints.maxHeight.coerceAtLeast(layoutHeight),
             )
-    
+
             var tabWidthList = tabMeasurables.map {
                 it.maxIntrinsicWidth(Constraints.Infinity).coerceAtLeast(minTabWidth)
             }
             val layoutWidth = tabWidthList.sum()
-    
+
             val scrollable = !(spacedEvenly && tabRowWidth >= layoutWidth)
             if (scrollable.not()) {
                 val oversizedTabs = tabWidthList.filter { it > tabWidth }
@@ -161,7 +161,7 @@ internal fun SparkTabGroup(
                     },
                 )
             }
-    
+
             layout(if (scrollable) layoutWidth else tabRowWidth, layoutHeight) {
                 /* Tabs */
                 var left = 0
@@ -193,7 +193,7 @@ internal fun SparkTabGroup(
                         it.measure(Constraints.fixed(if (scrollable) layoutWidth else tabRowWidth, layoutHeight))
                             .placeRelative(0, 0)
                     }
-    
+
                 scrollableTabData.onLaidOut(
                     density = this@SubcomposeLayout,
                     edgeOffset = 0,
