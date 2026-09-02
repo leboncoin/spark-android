@@ -105,7 +105,7 @@ public fun Popover(
 
     TooltipBox(
         modifier = modifier,
-        positionProvider = positionProvider,
+        positionProvider = TooltipDefaults.rememberTooltipPositionProvider(),
         focusable = focusable,
         enableUserInput = enableUserInput,
         tooltip = {
