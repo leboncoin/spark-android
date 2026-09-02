@@ -27,6 +27,7 @@ import androidx.compose.animation.core.animate
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
@@ -35,12 +36,14 @@ import androidx.compose.ui.geometry.toRect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Paint
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.drawOutline
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.isSpecified
 import androidx.compose.ui.node.CompositionLocalConsumerModifierNode
@@ -50,6 +53,7 @@ import androidx.compose.ui.node.currentValueOf
 import androidx.compose.ui.node.invalidateDraw
 import androidx.compose.ui.platform.InspectorInfo
 import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.unit.TextUnitType
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.tokens.LocalSparkColors
 import com.adevinta.spark.tokens.LocalSparkShapes
@@ -57,6 +61,8 @@ import com.adevinta.spark.tokens.SparkColors
 import com.adevinta.spark.tokens.contentColorFor
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlin.math.max
+import kotlin.math.roundToInt
 
 /**
  * Contains default values used by [Modifier.placeholder] and [PlaceholderHighlight].
@@ -114,6 +120,7 @@ internal fun Modifier.placeholder(
     highlight = highlight,
     useShimmerHighlight = false,
     useFullShape = false,
+    handDrawnText = false,
 )
 
 /**
@@ -127,6 +134,7 @@ internal fun Modifier.basePlaceholder(
     highlight: PlaceholderHighlight? = null,
     useShimmerHighlight: Boolean = false,
     useFullShape: Boolean = false,
+    handDrawnText: Boolean = false,
 ): Modifier = this then PlaceholderElement(
     visible = visible,
     color = color,
@@ -134,6 +142,7 @@ internal fun Modifier.basePlaceholder(
     highlight = highlight,
     useShimmerHighlight = useShimmerHighlight,
     useFullShape = useFullShape,
+    handDrawnText = handDrawnText,
 )
 
 internal class PlaceholderElement(
@@ -143,6 +152,7 @@ internal class PlaceholderElement(
     val highlight: PlaceholderHighlight?,
     val useShimmerHighlight: Boolean,
     val useFullShape: Boolean,
+    val handDrawnText: Boolean,
 ) : ModifierNodeElement<PlaceholderNode>() {
 
     override fun create(): PlaceholderNode = PlaceholderNode(
@@ -152,6 +162,7 @@ internal class PlaceholderElement(
         highlight = highlight,
         useShimmerHighlight = useShimmerHighlight,
         useFullShape = useFullShape,
+        handDrawnText = handDrawnText,
     )
 
     override fun update(node: PlaceholderNode) {
@@ -162,6 +173,7 @@ internal class PlaceholderElement(
             highlight = highlight,
             useShimmerHighlight = useShimmerHighlight,
             useFullShape = useFullShape,
+            handDrawnText = handDrawnText,
         )
     }
 
@@ -182,7 +194,8 @@ internal class PlaceholderElement(
             shape == other.shape &&
             highlight == other.highlight &&
             useShimmerHighlight == other.useShimmerHighlight &&
-            useFullShape == other.useFullShape
+            useFullShape == other.useFullShape &&
+            handDrawnText == other.handDrawnText
     }
 
     override fun hashCode(): Int {
@@ -192,6 +205,7 @@ internal class PlaceholderElement(
         result = 31 * result + (highlight?.hashCode() ?: 0)
         result = 31 * result + useShimmerHighlight.hashCode()
         result = 31 * result + useFullShape.hashCode()
+        result = 31 * result + handDrawnText.hashCode()
         return result
     }
 }
@@ -203,6 +217,7 @@ internal class PlaceholderNode(
     private var highlight: PlaceholderHighlight?,
     private var useShimmerHighlight: Boolean,
     private var useFullShape: Boolean,
+    private var handDrawnText: Boolean,
 ) : Modifier.Node(),
     DrawModifierNode,
     CompositionLocalConsumerModifierNode {
@@ -218,6 +233,10 @@ internal class PlaceholderNode(
     private var lastSize: Size? = null
     private var lastLayoutDirection: LayoutDirection? = null
     private var lastOutline: Outline? = null
+    private var lastSquigglePath: Path? = null
+    private var lastSquiggleStroke: Stroke? = null
+    private var lastLineCount: Int = 0
+    private var lastBand: Float = 0f
 
     override fun onAttach() {
         startHighlightAnimation()
@@ -230,6 +249,7 @@ internal class PlaceholderNode(
         highlight: PlaceholderHighlight?,
         useShimmerHighlight: Boolean,
         useFullShape: Boolean,
+        handDrawnText: Boolean,
     ) {
         val visibleChanged = this.visible != visible
         val highlightChanged = this.highlight != highlight ||
@@ -240,6 +260,7 @@ internal class PlaceholderNode(
         this.highlight = highlight
         this.useShimmerHighlight = useShimmerHighlight
         this.useFullShape = useFullShape
+        this.handDrawnText = handDrawnText
 
         if (visibleChanged) {
             this.visible = visible
@@ -251,6 +272,10 @@ internal class PlaceholderNode(
         }
 
         lastOutline = null
+        lastSquigglePath = null
+        lastSquiggleStroke = null
+        lastLineCount = 0
+        lastBand = 0f
         invalidateDraw()
     }
 
@@ -302,12 +327,30 @@ internal class PlaceholderNode(
 
         if (placeholderAlpha >= 0.01f) {
             val resolvedColor = resolveColor()
-            val resolvedShape = resolveShape()
             val resolvedHighlight = resolveHighlight()
 
-            if (placeholderAlpha in 0.01f..0.99f) {
-                paint.alpha = placeholderAlpha
-                withLayer(paint) {
+            if (handDrawnText) {
+                if (placeholderAlpha in 0.01f..0.99f) {
+                    paint.alpha = placeholderAlpha
+                    withLayer(paint) {
+                        drawSquigglePlaceholder(resolvedColor, resolvedHighlight, highlightProgress)
+                    }
+                } else {
+                    drawSquigglePlaceholder(resolvedColor, resolvedHighlight, highlightProgress)
+                }
+            } else {
+                val resolvedShape = resolveShape()
+                if (placeholderAlpha in 0.01f..0.99f) {
+                    paint.alpha = placeholderAlpha
+                    withLayer(paint) {
+                        lastOutline = drawPlaceholder(
+                            shape = resolvedShape,
+                            color = resolvedColor,
+                            highlight = resolvedHighlight,
+                            progress = highlightProgress,
+                        )
+                    }
+                } else {
                     lastOutline = drawPlaceholder(
                         shape = resolvedShape,
                         color = resolvedColor,
@@ -315,13 +358,6 @@ internal class PlaceholderNode(
                         progress = highlightProgress,
                     )
                 }
-            } else {
-                lastOutline = drawPlaceholder(
-                    shape = resolvedShape,
-                    color = resolvedColor,
-                    highlight = resolvedHighlight,
-                    progress = highlightProgress,
-                )
             }
         }
 
@@ -392,6 +428,42 @@ internal class PlaceholderNode(
         }
 
         return outline
+    }
+
+    private fun DrawScope.drawSquigglePlaceholder(
+        color: Color,
+        highlight: PlaceholderHighlight?,
+        progress: Float,
+    ) {
+        if (size != lastSize) {
+            val lineHeightPx = resolveTextLineHeightPx()
+            lastLineCount = max(1, (size.height / lineHeightPx).roundToInt())
+            lastBand = size.height / lastLineCount
+            lastSquigglePath = buildSquigglePath(size.width, size.height, lastLineCount)
+            lastSquiggleStroke = buildSquiggleStroke(lastBand)
+        }
+        val path = lastSquigglePath ?: buildSquigglePath(size.width, size.height, lastLineCount)
+        val stroke = lastSquiggleStroke ?: buildSquiggleStroke(lastBand)
+
+        drawPath(path = path, color = color, style = stroke)
+
+        if (highlight != null) {
+            drawPath(
+                path = path,
+                brush = highlight.brush(progress, size),
+                alpha = highlight.alpha(progress),
+                style = stroke,
+            )
+        }
+    }
+
+    private fun DrawScope.resolveTextLineHeightPx(): Float {
+        val style = currentValueOf(LocalTextStyle)
+        return when {
+            style.lineHeight.type == TextUnitType.Sp -> style.lineHeight.toPx()
+            style.fontSize.type == TextUnitType.Sp -> style.fontSize.toPx() * 1.4f
+            else -> size.height
+        }
     }
 
     private inline fun DrawScope.withLayer(

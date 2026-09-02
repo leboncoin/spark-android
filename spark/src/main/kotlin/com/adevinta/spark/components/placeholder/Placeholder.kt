@@ -30,6 +30,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.tooling.preview.PreviewFontScale
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.PreviewTheme
@@ -59,7 +60,9 @@ public fun Modifier.placeholder(visible: Boolean): Modifier = basePlaceholder(vi
 /**
  * Draws some skeleton UI which is typically used whilst content is 'loading'.
  *
- * The shape is not customizable as it's meant to display the same style for each text placeholders.
+ * The modifier draws a hand-drawn squiggle stroke. The geometry is derived only from the placeholder
+ * size: two placeholders with the same integer pixel width and height draw the same squiggle, and
+ * any size difference draws a different squiggle.
  *
  * A cross-fade transition will be applied to the content and placeholder UI when the [visible]
  * value changes.
@@ -76,7 +79,7 @@ public fun Modifier.placeholder(visible: Boolean): Modifier = basePlaceholder(vi
  */
 public fun Modifier.textPlaceholder(visible: Boolean): Modifier = basePlaceholder(
     visible = visible,
-    useFullShape = true,
+    handDrawnText = true,
 )
 
 /**
@@ -109,6 +112,7 @@ public fun Modifier.illustrationPlaceholder(
 )
 
 @PreviewLightDark
+@PreviewFontScale
 @Composable
 internal fun PreviewPlaceHolder() {
     PreviewTheme {
