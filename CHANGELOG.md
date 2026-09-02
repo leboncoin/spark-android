@@ -2,6 +2,13 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [3.6.2](https://github.com/leboncoin/spark-android/compare/3.6.1...3.6.2) (2026-09-02)
+
+
+### Bug Fixes
+
+* **tabgroup:** multiple component we produced outside of a layout ([#2237](https://github.com/leboncoin/spark-android/issues/2237)) ([f0e0c9c](https://github.com/leboncoin/spark-android/commit/f0e0c9cc4be6999de651d756fcc2cd8b3c5f0495))
+
 ## [3.6.1](https://github.com/leboncoin/spark-android/compare/3.6.0...3.6.1) (2026-09-02)
 
 
