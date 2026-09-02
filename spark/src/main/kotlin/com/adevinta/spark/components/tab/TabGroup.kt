@@ -23,6 +23,7 @@ package com.adevinta.spark.components.tab
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentSize
@@ -111,93 +112,95 @@ internal fun SparkTabGroup(
         )
     }
     var tabRowWidth by remember { mutableIntStateOf(Int.MAX_VALUE) }
-    BoxWithConstraints {
-        tabRowWidth = constraints.maxWidth
-    }
-    SubcomposeLayout(
-        modifier
-            .fillMaxWidth()
-            .wrapContentSize(align = Alignment.CenterStart)
-            .horizontalScroll(scrollState)
-            .selectableGroup()
-            .clipToBounds(),
-    ) { constraints ->
-        val minTabWidth = TabGroupDefaults.minTabWidth.roundToPx()
-        val tabMeasurables = subcompose(TabSlots.Tabs, tabs)
-        val layoutHeight = tabMeasurables.fold(initial = 0) { curr, measurable ->
-            maxOf(curr, measurable.maxIntrinsicHeight(Constraints.Infinity))
+    Box(modifier = modifier) {
+        BoxWithConstraints {
+            tabRowWidth = constraints.maxWidth
         }
-        val tabCount = tabMeasurables.size
-        val tabWidth = (tabRowWidth / tabCount)
-        val tabConstraints = constraints.copy(
-            minWidth = minTabWidth,
-            minHeight = layoutHeight,
-            maxHeight = constraints.maxHeight.coerceAtLeast(layoutHeight),
-        )
-
-        var tabWidthList = tabMeasurables.map {
-            it.maxIntrinsicWidth(Constraints.Infinity).coerceAtLeast(minTabWidth)
-        }
-        val layoutWidth = tabWidthList.sum()
-
-        val scrollable = !(spacedEvenly && tabRowWidth >= layoutWidth)
-        if (scrollable.not()) {
-            val oversizedTabs = tabWidthList.filter { it > tabWidth }
-            val maxEqualTabWidth = (tabRowWidth - oversizedTabs.sum()) / (tabCount - oversizedTabs.size)
-            tabWidthList = tabWidthList.map { maxOf(maxEqualTabWidth, it) }
-        }
-        mutableListOf<Dp>()
-        val tabPlaceables = tabMeasurables.mapIndexed { i, tab ->
-            tab.measure(
-                if (scrollable) {
-                    tabConstraints
-                } else {
-                    tabConstraints.copy(
-                        minWidth = tabWidthList[i],
-                        maxWidth = tabWidthList[i],
+        SubcomposeLayout(
+            Modifier
+                .fillMaxWidth()
+                .wrapContentSize(align = Alignment.CenterStart)
+                .horizontalScroll(scrollState)
+                .selectableGroup()
+                .clipToBounds(),
+        ) { constraints ->
+            val minTabWidth = TabGroupDefaults.minTabWidth.roundToPx()
+            val tabMeasurables = subcompose(TabSlots.Tabs, tabs)
+            val layoutHeight = tabMeasurables.fold(initial = 0) { curr, measurable ->
+                maxOf(curr, measurable.maxIntrinsicHeight(Constraints.Infinity))
+            }
+            val tabCount = tabMeasurables.size
+            val tabWidth = (tabRowWidth / tabCount)
+            val tabConstraints = constraints.copy(
+                minWidth = minTabWidth,
+                minHeight = layoutHeight,
+                maxHeight = constraints.maxHeight.coerceAtLeast(layoutHeight),
+            )
+    
+            var tabWidthList = tabMeasurables.map {
+                it.maxIntrinsicWidth(Constraints.Infinity).coerceAtLeast(minTabWidth)
+            }
+            val layoutWidth = tabWidthList.sum()
+    
+            val scrollable = !(spacedEvenly && tabRowWidth >= layoutWidth)
+            if (scrollable.not()) {
+                val oversizedTabs = tabWidthList.filter { it > tabWidth }
+                val maxEqualTabWidth = (tabRowWidth - oversizedTabs.sum()) / (tabCount - oversizedTabs.size)
+                tabWidthList = tabWidthList.map { maxOf(maxEqualTabWidth, it) }
+            }
+            mutableListOf<Dp>()
+            val tabPlaceables = tabMeasurables.mapIndexed { i, tab ->
+                tab.measure(
+                    if (scrollable) {
+                        tabConstraints
+                    } else {
+                        tabConstraints.copy(
+                            minWidth = tabWidthList[i],
+                            maxWidth = tabWidthList[i],
+                        )
+                    },
+                )
+            }
+    
+            layout(if (scrollable) layoutWidth else tabRowWidth, layoutHeight) {
+                /* Tabs */
+                var left = 0
+                val tabPositions = mutableListOf<TabPosition>()
+                tabPlaceables.fastForEachIndexed { index, placeable ->
+                    placeable.placeRelative(left, 0)
+                    tabPositions.add(
+                        TabPosition(
+                            left = left.toDp(),
+                            width = placeable.width.toDp(),
+                        ),
                     )
-                },
-            )
-        }
-
-        layout(if (scrollable) layoutWidth else tabRowWidth, layoutHeight) {
-            /* Tabs */
-            var left = 0
-            val tabPositions = mutableListOf<TabPosition>()
-            tabPlaceables.fastForEachIndexed { index, placeable ->
-                placeable.placeRelative(left, 0)
-                tabPositions.add(
-                    TabPosition(
-                        left = left.toDp(),
-                        width = placeable.width.toDp(),
-                    ),
-                )
-                left += placeable.width
-            }
-            /* Divider */
-            subcompose(TabSlots.Divider, divider).forEach {
-                val placeable = it.measure(
-                    constraints.copy(
-                        minHeight = 0,
-                        minWidth = if (scrollable) layoutWidth else tabRowWidth,
-                        maxWidth = if (scrollable) layoutWidth else tabRowWidth,
-                    ),
-                )
-                placeable.placeRelative(0, layoutHeight - placeable.height)
-            }
-            /* Indicator */
-            subcompose(TabSlots.Indicator) { indicator(tabPositions) }
-                .fastForEach {
-                    it.measure(Constraints.fixed(if (scrollable) layoutWidth else tabRowWidth, layoutHeight))
-                        .placeRelative(0, 0)
+                    left += placeable.width
                 }
-
-            scrollableTabData.onLaidOut(
-                density = this@SubcomposeLayout,
-                edgeOffset = 0,
-                tabPositions = tabPositions,
-                selectedTab = selectedTabIndex,
-            )
+                /* Divider */
+                subcompose(TabSlots.Divider, divider).forEach {
+                    val placeable = it.measure(
+                        constraints.copy(
+                            minHeight = 0,
+                            minWidth = if (scrollable) layoutWidth else tabRowWidth,
+                            maxWidth = if (scrollable) layoutWidth else tabRowWidth,
+                        ),
+                    )
+                    placeable.placeRelative(0, layoutHeight - placeable.height)
+                }
+                /* Indicator */
+                subcompose(TabSlots.Indicator) { indicator(tabPositions) }
+                    .fastForEach {
+                        it.measure(Constraints.fixed(if (scrollable) layoutWidth else tabRowWidth, layoutHeight))
+                            .placeRelative(0, 0)
+                    }
+    
+                scrollableTabData.onLaidOut(
+                    density = this@SubcomposeLayout,
+                    edgeOffset = 0,
+                    tabPositions = tabPositions,
+                    selectedTab = selectedTabIndex,
+                )
+            }
         }
     }
 }
