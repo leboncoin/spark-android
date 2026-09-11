@@ -2,6 +2,13 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [3.7.1](https://github.com/leboncoin/spark-android/compare/3.7.0...3.7.1) (2026-09-11)
+
+
+### Miscellaneous
+
+* **deps:** bump filekit from 0.15.0 to 0.16.0 ([#2252](https://github.com/leboncoin/spark-android/issues/2252)) ([0139a47](https://github.com/leboncoin/spark-android/commit/0139a472628ddbdb4ae34f8db645bc3a82f25fe9))
+
 ## [3.7.0](https://github.com/leboncoin/spark-android/compare/3.6.2...3.7.0) (2026-09-10)
 
 
