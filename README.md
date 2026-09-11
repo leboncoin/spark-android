@@ -37,6 +37,14 @@ SparkTheme {
 }
 ```
 
+## Compatibility
+
+| Requirement | Version |
+| :--- | :--- |
+| minSdk | 24 |
+| Kotlin | 2.4.10 |
+| Compose BOM | 2026.06.00 |
+
 ## Installation
 
 Add the main Spark dependency: [![Maven Central](https://img.shields.io/maven-central/v/com.adevinta.spark/spark-bom?label=%20&color=success)](https://central.sonatype.com/namespace/com.adevinta.spark)
