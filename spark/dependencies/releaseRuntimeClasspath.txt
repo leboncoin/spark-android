@@ -158,7 +158,7 @@ org.jetbrains.compose.ui:ui-unit:1.12.0
 org.jetbrains.compose.ui:ui-util-android:1.12.0
 org.jetbrains.compose.ui:ui-util:1.12.0
 org.jetbrains.compose.ui:ui:1.12.0
-org.jetbrains.kotlin:kotlin-bom:2.4.10
+org.jetbrains.kotlin:kotlin-bom:2.4.20
 org.jetbrains.kotlin:kotlin-stdlib:2.4.20
 org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.5.2
 org.jetbrains.kotlinx:kotlinx-collections-immutable:0.5.2
