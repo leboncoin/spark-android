@@ -59,6 +59,7 @@ import com.adevinta.spark.catalog.configurator.samples.textfields.TextFieldsConf
 import com.adevinta.spark.catalog.configurator.samples.toggles.CheckboxConfigurator
 import com.adevinta.spark.catalog.configurator.samples.toggles.RadioButtonConfigurator
 import com.adevinta.spark.catalog.configurator.samples.toggles.SwitchConfigurator
+import com.adevinta.spark.catalog.configurator.samples.typography.TypographyConfigurator
 import com.adevinta.spark.catalog.examples.samples.animation.AnimationExamples
 import com.adevinta.spark.catalog.examples.samples.badge.BadgeExamples
 import com.adevinta.spark.catalog.examples.samples.bottomsheet.BottomSheetExamples
@@ -122,7 +123,7 @@ private val Tokens = Component(
     docsUrl = "$PackageSummaryUrl/com.adevinta.spark.tokens/index.html",
     sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/tokens/Color.kt",
     examples = TokensExamples,
-    configurators = emptyList(),
+    configurators = listOf(TypographyConfigurator),
 )
 private val Badges = Component(
     id = "badges",
