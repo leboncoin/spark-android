@@ -52,6 +52,7 @@ internal class SparkMultiplatformLibraryPlugin : Plugin<Project> {
                     aarMetadata.minCompileSdk = spark().versions.minCompileSdk.toString().toInt()
 
                     compileSdk = spark().versions.compileSdk.toString().toInt()
+                    compileSdkExtension = 1
                     minSdk = spark().versions.minCompileSdk.toString().toInt()
                     packaging {
                         resources {
