@@ -35,7 +35,7 @@ internal class SparkAndroidLintPlugin : Plugin<Project> {
             apply(plugin = "com.android.lint")
             pluginManager.apply("com.gradleup.tapmoc")
             extensions.configure<TapmocExtension> {
-                java(11)
+                java(17)
             }
 
             configureKotlin<KotlinJvmProjectExtension>()
