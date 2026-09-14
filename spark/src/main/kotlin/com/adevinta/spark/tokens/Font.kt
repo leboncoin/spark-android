@@ -21,14 +21,18 @@
  */
 package com.adevinta.spark.tokens
 
+import android.os.Build
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.platform.LocalInspectionMode
+import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontVariation
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import com.adevinta.spark.R
 
 /**
@@ -38,7 +42,7 @@ import com.adevinta.spark.R
  * token highlighting is enabled in the SparkTheme.
  */
 public fun sparkFontFamily(
-    fontFamily: FontFamily = nunitoFontFamily,
+    fontFamily: FontFamily = nunitoVariableFontFamily,
     useSparkTokensHighlighter: Boolean = false,
 ): SparkFontFamily = SparkFontFamily(
     useSparkTokensHighlighter = useSparkTokensHighlighter,
@@ -70,3 +74,29 @@ internal val nunitoFontFamily = FontFamily(
         Font(resId = R.font.nunito_sans_bold_italic, weight = FontWeight.Bold, style = FontStyle.Italic),
     ),
 )
+
+@OptIn(ExperimentalTextApi::class)
+public val nunitoVariableFontFamily: FontFamily = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    FontFamily(
+        Font(
+            R.font.nunito_sans_variable,
+            weight = FontWeight(400),
+            variationSettings = FontVariation.Settings(
+                FontVariation.weight(400),
+                FontVariation.width(100f),
+                FontVariation.Setting("YTLC", 500f),
+            ),
+        ),
+        Font(
+            R.font.nunito_sans_variable,
+            weight = FontWeight(700),
+            variationSettings = FontVariation.Settings(
+                FontVariation.weight(700),
+                FontVariation.width(100f),
+                FontVariation.Setting("YTLC", 500f),
+            ),
+        ),
+    )
+} else {
+    nunitoFontFamily
+}

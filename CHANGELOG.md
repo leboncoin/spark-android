@@ -2,6 +2,20 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [3.7.0](https://github.com/leboncoin/spark-android/compare/3.6.2...3.7.0) (2026-09-10)
+
+
+### Features
+
+* **font:** use nunito variable font ([#2249](https://github.com/leboncoin/spark-android/issues/2249)) ([f2da744](https://github.com/leboncoin/spark-android/commit/f2da744ecec25f40735a267f202872a13ac7966b))
+
+
+### Miscellaneous
+
+* **baseline:** regenerate baseline profiles ([#2244](https://github.com/leboncoin/spark-android/issues/2244)) ([9003079](https://github.com/leboncoin/spark-android/commit/9003079df6a7cfcbe0ec1307cf01c2f74b6202ff))
+* **deps:** bump actions/deploy-pages from 5.0.0 to 5.0.1 in /.github/workflows ([#2243](https://github.com/leboncoin/spark-android/issues/2243)) ([ead2692](https://github.com/leboncoin/spark-android/commit/ead2692c5e6eb74868a5c35e036511b54ce8e8bd))
+* **deps:** bump com.gradleup.nmcp from 1.6.1 to 1.6.2 ([#2242](https://github.com/leboncoin/spark-android/issues/2242)) ([7c70109](https://github.com/leboncoin/spark-android/commit/7c701095c5b0891159fe3d73fe4ed12ef28173da))
+
 ## [3.6.2](https://github.com/leboncoin/spark-android/compare/3.6.1...3.6.2) (2026-09-02)
 
 

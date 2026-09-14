@@ -40,7 +40,7 @@ import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 
 internal val display1Type = TextStyle(
-    fontFamily = FontFamily.Default,
+    fontFamily = nunitoVariableFontFamily,
     fontSize = 40.sp,
     fontWeight = FontWeight.Bold,
     lineHeight = 56.sp,
@@ -48,7 +48,7 @@ internal val display1Type = TextStyle(
 )
 
 internal val display2Type = TextStyle(
-    fontFamily = FontFamily.Default,
+    fontFamily = nunitoVariableFontFamily,
     fontSize = 32.sp,
     fontWeight = FontWeight.Bold,
     lineHeight = 44.sp,
@@ -56,63 +56,63 @@ internal val display2Type = TextStyle(
 )
 
 internal val display3Type = TextStyle(
-    fontFamily = FontFamily.Default,
+    fontFamily = nunitoVariableFontFamily,
     fontSize = 24.sp,
     fontWeight = FontWeight.Bold,
     lineHeight = 32.sp,
 )
 
 internal val headline1Type = TextStyle(
-    fontFamily = FontFamily.Default,
+    fontFamily = nunitoVariableFontFamily,
     fontSize = 20.sp,
     fontWeight = FontWeight.Bold,
     lineHeight = 28.sp,
 )
 
 internal val headline2Type = TextStyle(
-    fontFamily = FontFamily.Default,
+    fontFamily = nunitoVariableFontFamily,
     fontSize = 18.sp,
     fontWeight = FontWeight.Bold,
     lineHeight = 24.sp,
 )
 
 internal val subheadType = TextStyle(
-    fontFamily = FontFamily.Default,
+    fontFamily = nunitoVariableFontFamily,
     fontSize = 16.sp,
     fontWeight = FontWeight.Bold,
     lineHeight = 24.sp,
 )
 
 internal val body1Type = TextStyle(
-    fontFamily = FontFamily.Default,
+    fontFamily = nunitoVariableFontFamily,
     fontSize = 16.sp,
     fontWeight = FontWeight.Normal,
     lineHeight = 24.sp,
 )
 
 internal val body2Type = TextStyle(
-    fontFamily = FontFamily.Default,
+    fontFamily = nunitoVariableFontFamily,
     fontSize = 14.sp,
     fontWeight = FontWeight.Normal,
     lineHeight = 20.sp,
 )
 
 internal val captionType = TextStyle(
-    fontFamily = FontFamily.Default,
+    fontFamily = nunitoVariableFontFamily,
     fontSize = 12.sp,
     fontWeight = FontWeight.Normal,
     lineHeight = 16.sp,
 )
 
 internal val smallType = TextStyle(
-    fontFamily = FontFamily.Default,
+    fontFamily = nunitoVariableFontFamily,
     fontSize = 10.sp,
     fontWeight = FontWeight.Normal,
     lineHeight = 14.sp,
 )
 
 internal val calloutType = TextStyle(
-    fontFamily = FontFamily.Default,
+    fontFamily = nunitoVariableFontFamily,
     fontSize = 16.sp,
     fontWeight = FontWeight.Bold,
     lineHeight = 24.sp,
