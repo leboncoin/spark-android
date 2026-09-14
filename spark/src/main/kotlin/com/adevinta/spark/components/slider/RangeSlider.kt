@@ -26,6 +26,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.RangeSliderState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -82,18 +83,28 @@ internal fun SparkRangeSlider(
     },
     steps: Int = 0,
 ) {
+    val rangeSliderState = remember(steps, valueRange) {
+        RangeSliderState(
+            startValue = value.start,
+            endValue = value.endInclusive,
+            steps = steps,
+            trackRange = valueRange,
+        )
+    }
+    SideEffect {
+        rangeSliderState.startValue = value.start
+        rangeSliderState.endValue = value.endInclusive
+    }
     MaterialRangeSlider(
-        value = value,
-        onValueChange = onValueChange,
+        state = rangeSliderState,
         modifier = modifier.sparkUsageOverlay(),
         enabled = enabled,
-        valueRange = valueRange,
-        steps = steps,
+        onValueChange = onValueChange,
         onValueChangeFinished = onValueChangeFinished,
+        startThumbInteractionSource = startInteractionSource,
+        endThumbInteractionSource = endInteractionSource,
         startThumb = startHandle,
         endThumb = endHandle,
-        startInteractionSource = startInteractionSource,
-        endInteractionSource = endInteractionSource,
         track = track,
     )
 }

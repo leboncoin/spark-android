@@ -40,6 +40,7 @@ public class SparkAndroidPlugin : Plugin<Project> {
 
             configureAndroid {
                 compileSdk = spark().versions.compileSdk.toString().toInt()
+                compileSdkMinor = 1
                 defaultConfig.minSdk = spark().versions.minCompileSdk.toString().toInt()
                 packaging.apply {
                     resources {

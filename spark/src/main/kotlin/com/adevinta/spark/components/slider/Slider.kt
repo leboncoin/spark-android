@@ -43,6 +43,7 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateListOf
@@ -106,13 +107,15 @@ internal fun SparkSlider(
     },
 
 ) {
+    val sliderState = remember(steps, valueRange) {
+        SliderState(value = value, steps = steps, trackRange = valueRange)
+    }
+    SideEffect { sliderState.value = value }
     MaterialSlider(
-        value = value,
-        onValueChange = onValueChange,
+        state = sliderState,
         modifier = modifier.sparkUsageOverlay(),
         enabled = enabled,
-        valueRange = valueRange,
-        steps = steps,
+        onValueChange = onValueChange,
         onValueChangeFinished = onValueChangeFinished,
         interactionSource = interactionSource,
         thumb = handle,
@@ -281,7 +284,7 @@ internal fun Track(
         drawTrack(
             tickFractions,
             0f,
-            getCoercedValueAsFraction(sliderState.valueRange, sliderState.value),
+            getCoercedValueAsFraction(sliderState.trackRange, sliderState.value),
             trackColor,
             indicatorColor,
             Color.Transparent,
@@ -371,8 +374,8 @@ internal fun Track(
     ) {
         drawTrack(
             tickFractions,
-            getCoercedActiveRangeStartAsFraction(rangeSliderState.valueRange, rangeSliderState.activeRangeStart),
-            getCoercedActiveRangeEndAsFraction(rangeSliderState.valueRange, rangeSliderState.activeRangeEnd),
+            getCoercedActiveRangeStartAsFraction(rangeSliderState.trackRange, rangeSliderState.startValue),
+            getCoercedActiveRangeEndAsFraction(rangeSliderState.trackRange, rangeSliderState.endValue),
             trackColor,
             indicatorColor,
             Color.Transparent,
