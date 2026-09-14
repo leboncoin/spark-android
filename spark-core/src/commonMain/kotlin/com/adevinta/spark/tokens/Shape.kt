@@ -32,6 +32,7 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,6 +40,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.ExperimentalSparkApi
+import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.surface.Surface
@@ -132,7 +134,8 @@ public val CornerBasedShape.highlight: CornerBasedShape
     get() = copy(bottomStart = CornerSize(percent = 0))
 
 /** CompositionLocal that provides the current [SparkShapes] down the composition tree. */
-internal val LocalSparkShapes = staticCompositionLocalOf { SparkShapes() }
+@InternalSparkApi
+public val LocalSparkShapes: ProvidableCompositionLocal<SparkShapes> = staticCompositionLocalOf { SparkShapes() }
 
 @Preview(
     group = "Tokens",

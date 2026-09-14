@@ -30,6 +30,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
@@ -1572,7 +1573,8 @@ public fun SparkColors.surfaceColorAtElevation(
  * To retrieve the current value of this CompositionLocal, use SparkTheme.colors.
  */
 @Suppress("CompositionLocalAllowlist") // We need it to get access to our color like Material
-internal val LocalSparkColors = staticCompositionLocalOf { lightSparkColors() }
+@InternalSparkApi
+public val LocalSparkColors: ProvidableCompositionLocal<SparkColors> = staticCompositionLocalOf { lightSparkColors() }
 
 /**
  * A [SparkColors] implementation which sets all colors to [debugColor] to help highlighting the usage

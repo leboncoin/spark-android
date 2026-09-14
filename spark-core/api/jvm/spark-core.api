@@ -1,15 +1,17 @@
 public final class com/adevinta/spark/SparkFeatureFlag {
 	public static final field $stable I
 	public fun <init> ()V
-	public fun <init> (ZZZZ)V
-	public synthetic fun <init> (ZZZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (ZZZZZ)V
+	public synthetic fun <init> (ZZZZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Z
 	public final fun component2 ()Z
 	public final fun component3 ()Z
 	public final fun component4 ()Z
-	public final fun copy (ZZZZ)Lcom/adevinta/spark/SparkFeatureFlag;
-	public static synthetic fun copy$default (Lcom/adevinta/spark/SparkFeatureFlag;ZZZZILjava/lang/Object;)Lcom/adevinta/spark/SparkFeatureFlag;
+	public final fun component5 ()Z
+	public final fun copy (ZZZZZ)Lcom/adevinta/spark/SparkFeatureFlag;
+	public static synthetic fun copy$default (Lcom/adevinta/spark/SparkFeatureFlag;ZZZZZILjava/lang/Object;)Lcom/adevinta/spark/SparkFeatureFlag;
 	public fun equals (Ljava/lang/Object;)Z
+	public final fun getUseRebrandedButtons ()Z
 	public final fun getUseRebrandedShapes ()Z
 	public final fun getUseSparkComponentsHighlighter ()Z
 	public final fun getUseSparkTokensHighlighter ()Z
@@ -182,7 +184,8 @@ public final class com/adevinta/spark/tokens/ColorKt {
 	public static final fun getDim4 (JLandroidx/compose/runtime/Composer;I)J
 	public static final fun getDim5 (JLandroidx/compose/runtime/Composer;I)J
 	public static final fun getDisabled (JLandroidx/compose/runtime/Composer;I)J
-	public static final fun getTransparent (JLandroidx/compose/runtime/Composer;I)J
+	public static final fun getLocalSparkColors ()Landroidx/compose/runtime/ProvidableCompositionLocal;
+	public static final fun getTransparent-8_81llA (J)J
 	public static final fun lightHighContrastSparkColors-OU6A2v0 (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFF)Lcom/adevinta/spark/tokens/SparkColors;
 	public static synthetic fun lightHighContrastSparkColors-OU6A2v0$default (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFFIILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkColors;
 	public static final fun lightSparkColors-OU6A2v0 (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFF)Lcom/adevinta/spark/tokens/SparkColors;
@@ -291,6 +294,7 @@ public final class com/adevinta/spark/tokens/RippleKt {
 public final class com/adevinta/spark/tokens/ShapeKt {
 	public static final fun asMaterial3Shapes (Lcom/adevinta/spark/tokens/SparkShapes;)Landroidx/compose/material3/Shapes;
 	public static final fun getHighlight (Landroidx/compose/foundation/shape/CornerBasedShape;)Landroidx/compose/foundation/shape/CornerBasedShape;
+	public static final fun getLocalSparkShapes ()Landroidx/compose/runtime/ProvidableCompositionLocal;
 	public static final fun sparkShapes (Landroidx/compose/foundation/shape/CornerBasedShape;Landroidx/compose/foundation/shape/CornerBasedShape;Landroidx/compose/foundation/shape/CornerBasedShape;Landroidx/compose/foundation/shape/CornerBasedShape;Landroidx/compose/foundation/shape/CornerBasedShape;Landroidx/compose/foundation/shape/CornerBasedShape;Landroidx/compose/foundation/shape/CornerBasedShape;)Lcom/adevinta/spark/tokens/SparkShapes;
 	public static synthetic fun sparkShapes$default (Landroidx/compose/foundation/shape/CornerBasedShape;Landroidx/compose/foundation/shape/CornerBasedShape;Landroidx/compose/foundation/shape/CornerBasedShape;Landroidx/compose/foundation/shape/CornerBasedShape;Landroidx/compose/foundation/shape/CornerBasedShape;Landroidx/compose/foundation/shape/CornerBasedShape;Landroidx/compose/foundation/shape/CornerBasedShape;ILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkShapes;
 }
@@ -401,10 +405,11 @@ public final class com/adevinta/spark/tokens/SparkShapes {
 
 public final class com/adevinta/spark/tokens/SparkTypography {
 	public static final field $stable I
-	public fun <init> (Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;)V
+	public fun <init> (Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/font/FontWeight;)V
 	public final fun component1 ()Landroidx/compose/ui/text/TextStyle;
 	public final fun component10 ()Landroidx/compose/ui/text/TextStyle;
 	public final fun component11 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun component12 ()Landroidx/compose/ui/text/font/FontWeight;
 	public final fun component2 ()Landroidx/compose/ui/text/TextStyle;
 	public final fun component3 ()Landroidx/compose/ui/text/TextStyle;
 	public final fun component4 ()Landroidx/compose/ui/text/TextStyle;
@@ -413,8 +418,8 @@ public final class com/adevinta/spark/tokens/SparkTypography {
 	public final fun component7 ()Landroidx/compose/ui/text/TextStyle;
 	public final fun component8 ()Landroidx/compose/ui/text/TextStyle;
 	public final fun component9 ()Landroidx/compose/ui/text/TextStyle;
-	public final fun copy (Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;)Lcom/adevinta/spark/tokens/SparkTypography;
-	public static synthetic fun copy$default (Lcom/adevinta/spark/tokens/SparkTypography;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;ILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkTypography;
+	public final fun copy (Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/font/FontWeight;)Lcom/adevinta/spark/tokens/SparkTypography;
+	public static synthetic fun copy$default (Lcom/adevinta/spark/tokens/SparkTypography;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/font/FontWeight;ILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkTypography;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getBody1 ()Landroidx/compose/ui/text/TextStyle;
 	public final fun getBody2 ()Landroidx/compose/ui/text/TextStyle;
@@ -425,6 +430,7 @@ public final class com/adevinta/spark/tokens/SparkTypography {
 	public final fun getDisplay3 ()Landroidx/compose/ui/text/TextStyle;
 	public final fun getHeadline1 ()Landroidx/compose/ui/text/TextStyle;
 	public final fun getHeadline2 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getHighlightWeight ()Landroidx/compose/ui/text/font/FontWeight;
 	public final fun getSmall ()Landroidx/compose/ui/text/TextStyle;
 	public final fun getSubhead ()Landroidx/compose/ui/text/TextStyle;
 	public fun hashCode ()I
@@ -433,9 +439,9 @@ public final class com/adevinta/spark/tokens/SparkTypography {
 
 public final class com/adevinta/spark/tokens/TypeKt {
 	public static final fun asMaterial3Typography (Lcom/adevinta/spark/tokens/SparkTypography;)Landroidx/compose/material3/Typography;
-	public static final fun getHighlight (Landroidx/compose/ui/text/TextStyle;)Landroidx/compose/ui/text/TextStyle;
-	public static final fun sparkTypography (Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;)Lcom/adevinta/spark/tokens/SparkTypography;
-	public static synthetic fun sparkTypography$default (Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;ILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkTypography;
+	public static final fun getHighlight (Landroidx/compose/ui/text/TextStyle;Landroidx/compose/runtime/Composer;I)Landroidx/compose/ui/text/TextStyle;
+	public static final fun sparkTypography (Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/font/FontWeight;)Lcom/adevinta/spark/tokens/SparkTypography;
+	public static synthetic fun sparkTypography$default (Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/font/FontWeight;ILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkTypography;
 }
 
 public final class com/adevinta/spark/tokens/WindowSizeClassKt {

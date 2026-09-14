@@ -53,7 +53,7 @@ public class SparkMultiplatformPlugin : Plugin<Project> {
                 freeCompilerArgs.addAll(
                     listOf(
                         // Suppress warning: The feature "multi platform projects" is experimental and should be
-                    // enabled explicitly
+                        // enabled explicitly
                         "-Xmulti-platform",
                         "-Xexpect-actual-classes",
                         "-opt-in=com.adevinta.spark.InternalSparkApi",
