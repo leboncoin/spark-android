@@ -774,39 +774,6 @@ public class SparkColors(
     public var onAccentVariant: Color by mutableStateOf(onAccentVariant, structuralEqualityPolicy())
         internal set
 
-    @Order(3)
-    @Deprecated(
-        message = "basic has been removed with the rebranding, use support instead",
-        replaceWith = ReplaceWith("support"),
-        level = DeprecationLevel.ERROR,
-    )
-    public var basic: Color by mutableStateOf(support, structuralEqualityPolicy())
-        internal set
-
-    @Deprecated(
-        message = "onBasic has been removed with the rebranding, use onSupport instead",
-        replaceWith = ReplaceWith("onSupport"),
-        level = DeprecationLevel.ERROR,
-    )
-    public var onBasic: Color by mutableStateOf(onSupport, structuralEqualityPolicy())
-        internal set
-
-    @Deprecated(
-        message = "basicContainer has been removed with the rebranding, use supportContainer instead",
-        replaceWith = ReplaceWith("supportContainer"),
-        level = DeprecationLevel.ERROR,
-    )
-    public var basicContainer: Color by mutableStateOf(supportContainer, structuralEqualityPolicy())
-        internal set
-
-    @Deprecated(
-        message = "onBasicContainer has been removed with the rebranding, use onSupportContainer instead",
-        replaceWith = ReplaceWith("onSupportContainer"),
-        level = DeprecationLevel.ERROR,
-    )
-    public var onBasicContainer: Color by mutableStateOf(onSupportContainer, structuralEqualityPolicy())
-        internal set
-
     @Order(0)
     public var main: Color by mutableStateOf(main, structuralEqualityPolicy())
         internal set
@@ -1100,12 +1067,6 @@ public class SparkColors(
         val accentVariant_FF501782_FFB775F0 = Unit
         val onAccentVariant_FFFFFFFF_FF1B052E = Unit
 
-        // Basic
-        val basic_FF094171_FFC2E0FA = Unit
-        val onBasic_FFFFFFFF_FF152233 = Unit
-        val basicContainer_FFE6F2FD_FF094171 = Unit
-        val onBasicContainer_FF152233_FFF4F9FE = Unit
-
         // Background
         val background_FFFFFFFF_FF202730 = Unit
         val onBackground_FF152233_FFF6F8F9 = Unit
@@ -1356,13 +1317,10 @@ public fun ColorScheme.asSparkColors(useDark: Boolean): SparkColors = if (useDar
  *
  * @see contentColorFor
  */
-@Suppress("DEPRECATION_ERROR")
 public fun SparkColors.contentColorFor(backgroundColor: Color): Color = when (backgroundColor) {
     accent -> onAccent
     accentContainer -> onAccentContainer
     accentVariant -> onAccentVariant
-    basic -> onBasic
-    basicContainer -> onBasicContainer
     main -> onMain
     mainContainer -> onMainContainer
     mainVariant -> onMainVariant
