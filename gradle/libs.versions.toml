@@ -150,7 +150,7 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 nmcp = "com.gradleup.nmcp:1.6.2"
 paparazzi = "app.cash.paparazzi:2.0.0-alpha04"
 tapmoc = "com.gradleup.tapmoc:0.4.2"
-spotless = "com.diffplug.spotless:8.10.1"
+spotless = "com.diffplug.spotless:8.10.2"
 
 
 # Plugins defined by this project
