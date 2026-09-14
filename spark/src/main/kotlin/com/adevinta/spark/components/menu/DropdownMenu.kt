@@ -92,6 +92,7 @@ import com.adevinta.spark.tokens.highlight
 import com.adevinta.spark.tokens.ripple
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 import androidx.compose.material3.DropdownMenu as MaterialDropdownMenu
+import androidx.compose.material3.ExposedDropdownMenu as MaterialExposedDropdownMenu
 
 /**
  * <a href="https://m3.material.io/components/menus/overview" class="external" target="_blank">Material Design dropdown menu</a>.
@@ -182,7 +183,7 @@ public fun ExposedDropdownMenuBoxScope.ExposedDropdownMenu(
     matchTextFieldWidth: Boolean = true,
     content: @Composable DropdownMenuItemColumnScope.() -> Unit,
 ) {
-    ExposedDropdownMenu(
+    MaterialExposedDropdownMenu(
         expanded = expanded,
         onDismissRequest = onDismissRequest,
         modifier = modifier.sparkUsageOverlay(),
@@ -224,7 +225,7 @@ public fun ExposedDropdownMenuBoxScope.SingleChoiceExposedDropdownMenu(
     matchTextFieldWidth: Boolean = true,
     content: @Composable SingleChoiceDropdownItemColumnScope.() -> Unit,
 ) {
-    ExposedDropdownMenu(
+    MaterialExposedDropdownMenu(
         expanded = expanded,
         onDismissRequest = onDismissRequest,
         modifier = modifier
@@ -268,7 +269,7 @@ public fun ExposedDropdownMenuBoxScope.MultipleChoiceExposedDropdownMenu(
     matchTextFieldWidth: Boolean = true,
     content: @Composable MultiChoiceDropdownItemColumnScope.() -> Unit,
 ) {
-    ExposedDropdownMenu(
+    MaterialExposedDropdownMenu(
         expanded = expanded,
         onDismissRequest = onDismissRequest,
         modifier = modifier.sparkUsageOverlay(),

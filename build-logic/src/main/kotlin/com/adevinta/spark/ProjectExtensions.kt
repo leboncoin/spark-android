@@ -117,7 +117,8 @@ internal inline fun <reified T : KotlinBaseExtension> Project.configureKotlin(
         }
         compilerOptions {
             (this as? KotlinJvmCompilerOptions)?.jvmTarget?.set(JvmTarget.JVM_11)
-            allWarningsAsErrors = true
+            // Disabled on the alpha Compose BOM branch: the alpha deprecates many APIs still in use.
+            allWarningsAsErrors = false
         }
         // https://youtrack.jetbrains.com/issue/KT-83410
         @OptIn(ExperimentalAbiValidation::class)
