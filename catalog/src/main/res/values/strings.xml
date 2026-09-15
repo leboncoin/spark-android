@@ -147,7 +147,7 @@
     <string name="icon_picker_clear">Clear</string>
     <string name="icon_picker_no_icon_selected">No icon selected</string>
 
-    <string name="spark_text_link_paragraph_example_">&lt;annotation color="neutral" typography="body1">This is Adevinta &lt;/annotation>&lt;annotation color="main" typography="body1">&lt;u>&lt;b>Privacy &amp; Policy&lt;/b>&lt;/u>&lt;/annotation>&lt;annotation color="neutral" typography="body1"> also lots of extra information you may be interested in or should I inform you about that extra information. you might not be aware of it&lt;/annotation></string>
+    <string name="spark_text_link_paragraph_example_" tools:ignore="Typos">&lt;annotation color="neutral" typography="body1">This is Adevinta &lt;/annotation>&lt;annotation color="main" typography="body1">&lt;u>&lt;b>Privacy &amp; Policy&lt;/b>&lt;/u>&lt;/annotation>&lt;annotation color="neutral" typography="body1"> also lots of extra information you may be interested in or should I inform you about that extra information. you might not be aware of it&lt;/annotation></string>
 
     <string name="spark_text_link_short_example_">&lt;annotation color="neutral" typography="display2">Learn Kotlin Programming &lt;/annotation>&lt;annotation color="success" typography="display3">&lt;u>&lt;b>https://kotlinlang.org&lt;/b>&lt;/u>&lt;/annotation></string>
 
