@@ -2,6 +2,33 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [4.0.0](https://github.com/leboncoin/spark-android/compare/3.7.0...4.0.0) (2026-09-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **intent:** remove deprecated Basic intent shims ([#1902](https://github.com/leboncoin/spark-android/issues/1902))
+
+### Features
+
+* **core:** extract spark-core KMP module with theme, tokens, and icons ([#1928](https://github.com/leboncoin/spark-android/issues/1928)) ([f5ce38c](https://github.com/leboncoin/spark-android/commit/f5ce38cb76dd3f8f5a48b27a7b7ee2d230b9e761))
+* **intent:** remove deprecated Basic intent shims ([#1902](https://github.com/leboncoin/spark-android/issues/1902)) ([f906fd3](https://github.com/leboncoin/spark-android/commit/f906fd38d445cfdc0075c54d936ad128caa048b5))
+* **typography:** add catalog example, configurator, and screenshots ([#2261](https://github.com/leboncoin/spark-android/issues/2261)) ([3d93266](https://github.com/leboncoin/spark-android/commit/3d932660d60c126daf7d5ac8c16575130d5ae55e))
+
+
+### Miscellaneous
+
+* **baseline:** regenerate baseline profiles ([#2254](https://github.com/leboncoin/spark-android/issues/2254)) ([d49b507](https://github.com/leboncoin/spark-android/commit/d49b507c3d992750cef2cc6db067952a424f7b71))
+* **deps:** bump androidx-benchmark from 1.5.0-rc02 to 1.5.0 ([#2256](https://github.com/leboncoin/spark-android/issues/2256)) ([40d846b](https://github.com/leboncoin/spark-android/commit/40d846bfb647a54ac221e85300cd753937628d97))
+* **deps:** bump androidx.navigation:navigation-compose from 2.10.0 to 2.10.1 ([#2257](https://github.com/leboncoin/spark-android/issues/2257)) ([dc13022](https://github.com/leboncoin/spark-android/commit/dc130225bdd8d6c26bae7b7be573b3fa072b018e))
+* **deps:** bump com.diffplug.spotless from 8.10.1 to 8.10.2 ([#2247](https://github.com/leboncoin/spark-android/issues/2247)) ([e90775d](https://github.com/leboncoin/spark-android/commit/e90775d6e38defce845e2b5bfe545bef0f4b8b0c))
+* **deps:** bump compose-multiplatform from 1.11.1 to 1.12.0 ([#2262](https://github.com/leboncoin/spark-android/issues/2262)) ([a118e2f](https://github.com/leboncoin/spark-android/commit/a118e2f016495e13cec09885036d7707978f460a))
+* **deps:** bump filekit from 0.15.0 to 0.16.0 ([#2252](https://github.com/leboncoin/spark-android/issues/2252)) ([0139a47](https://github.com/leboncoin/spark-android/commit/0139a472628ddbdb4ae34f8db645bc3a82f25fe9))
+* **deps:** bump github/codeql-action from 4.37.9 to 4.38.0 in /.github/workflows ([#2260](https://github.com/leboncoin/spark-android/issues/2260)) ([3f84d55](https://github.com/leboncoin/spark-android/commit/3f84d55c1a08db94eb0453c66f682888db7b055b))
+* **deps:** bump io.coil-kt.coil3:coil-bom from 3.5.0 to 3.6.2 ([#2246](https://github.com/leboncoin/spark-android/issues/2246)) ([b52a71f](https://github.com/leboncoin/spark-android/commit/b52a71fdf6f06930b2d00e93168add8894762d2f))
+* **deps:** bump robolectric to 4.17 ([#2263](https://github.com/leboncoin/spark-android/issues/2263)) ([6807658](https://github.com/leboncoin/spark-android/commit/6807658ecacee0a5f166fda24607d90a9abae889))
+* **deps:** bump zizmorcore/zizmor-action from 0.6.3 to 0.6.4 in /.github/workflows ([#2259](https://github.com/leboncoin/spark-android/issues/2259)) ([b37ad74](https://github.com/leboncoin/spark-android/commit/b37ad7449cf47b3c82efa2d2a2e0b53b4aa7c81d))
+
 ## [3.7.0](https://github.com/leboncoin/spark-android/compare/3.6.2...3.7.0) (2026-09-10)
 
 
