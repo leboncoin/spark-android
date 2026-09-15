@@ -65,6 +65,14 @@ internal class CardScreenshot {
                     Card.Outlined {
                         Text("This is an outlined card with a border.")
                     }
+
+                    Card.Flat(enabled = false) {
+                        Text("This is a disabled flat card.")
+                    }
+                    
+                    Card.Elevated(enabled = false) {
+                        Text("This is a disabled elevated card.")
+                    }
                 }
                 Column(
                     modifier = Modifier.weight(1f),
