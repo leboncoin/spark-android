@@ -172,13 +172,4 @@ class ButtonStyleMapperTest {
             )
         }
     }
-
-    @Test
-    @Suppress("DEPRECATION_ERROR")
-    fun `basic filled maps to same as support filled`() {
-        assertEquals(
-            mapper.map(ButtonIntent.Support, ButtonStyle.Filled),
-            mapper.map(ButtonIntent.Basic, ButtonStyle.Filled),
-        )
-    }
 }
