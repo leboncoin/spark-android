@@ -83,6 +83,8 @@ internal object SparkUnitTests {
             // Bump max heap space for paparazzi
             // https://github.com/cashapp/paparazzi/issues/915
             maxHeapSize = "1g"
+            // Robolectric 4.17 accesses jdk.internal.access on newer JDKs; open the package to it.
+            jvmArgs("--add-opens=java.base/jdk.internal.access=ALL-UNNAMED")
             testLogging {
                 showStandardStreams = true
                 showStackTraces = true
