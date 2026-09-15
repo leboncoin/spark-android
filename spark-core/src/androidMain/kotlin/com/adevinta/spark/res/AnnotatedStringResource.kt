@@ -39,7 +39,6 @@ import android.text.style.UnderlineSpan
 import android.util.Log
 import androidx.annotation.PluralsRes
 import androidx.annotation.StringRes
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.remember
@@ -59,7 +58,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
@@ -67,8 +65,7 @@ import androidx.core.text.buildSpannedString
 import androidx.core.text.getSpans
 import androidx.core.text.parseAsHtml
 import androidx.core.text.toHtml
-import com.adevinta.spark.PreviewTheme
-import com.adevinta.spark.R
+import com.adevinta.spark.core.R
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.tokens.SparkColors
 import com.adevinta.spark.tokens.SparkTypography
@@ -359,28 +356,3 @@ private fun TypefaceSpan.toSpanStyle() = SpanStyle(
         else -> FontFamily.Default
     },
 )
-
-@Preview
-@Preview(
-    locale = "fr-rFR",
-)
-@Composable
-private fun AnnotatedStringResourcePreview() {
-    PreviewTheme {
-        Text(
-            text = annotatedStringResource(R.string.spark_annotatedStringResource_test),
-        )
-        Text(
-            text = annotatedStringResource(
-                R.string.spark_annotatedStringResource_test_args,
-                persistentMapOf("who" to "Bob"),
-            ),
-        )
-        Text(
-            text = annotatedStringResource(
-                R.string.spark_annotatedStringResource_test_new_args,
-                "Bob",
-            ),
-        )
-    }
-}
