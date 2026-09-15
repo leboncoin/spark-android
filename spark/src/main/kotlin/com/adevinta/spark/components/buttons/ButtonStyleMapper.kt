@@ -44,7 +44,6 @@ internal enum class ButtonVariant {
 
 internal object ButtonStyleMapper {
 
-    @Suppress("DEPRECATION_ERROR")
     fun map(intent: ButtonIntent, style: ButtonStyle): ButtonVariant {
         if (intent == ButtonIntent.Ai) return ButtonVariant.Ai
 
@@ -64,7 +63,6 @@ internal object ButtonStyleMapper {
             ButtonIntent.Alert -> mapToTertiary(style)
             ButtonIntent.Neutral -> mapToTertiary(style)
             ButtonIntent.Ai -> error("ButtonIntent.Ai is handled before reaching the when block")
-            ButtonIntent.Basic -> mapSupport(style)
         }
     }
 
