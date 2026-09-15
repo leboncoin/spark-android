@@ -24,7 +24,6 @@ package com.adevinta.spark.catalog.examples.samples.text
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.Text
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,6 +33,7 @@ import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.snackbars.SnackbarIntent
+import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.text.TextLink
 import com.adevinta.spark.components.text.TextLinkButton
 import com.adevinta.spark.icons.Chain
