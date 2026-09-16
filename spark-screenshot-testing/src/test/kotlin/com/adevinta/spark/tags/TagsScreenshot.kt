@@ -36,9 +36,10 @@ import com.adevinta.spark.DefaultTestDevices
 import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.surface.Surface
+import com.adevinta.spark.components.tags.Highlight
+import com.adevinta.spark.components.tags.HighlightBadge
+import com.adevinta.spark.components.tags.Tag
 import com.adevinta.spark.components.tags.TagFilled
-import com.adevinta.spark.components.tags.TagHighlight
-import com.adevinta.spark.components.tags.TagHighlightBadge
 import com.adevinta.spark.components.tags.TagIntent
 import com.adevinta.spark.components.tags.TagOutlined
 import com.adevinta.spark.components.tags.TagTinted
@@ -175,13 +176,13 @@ internal class TagsScreenshot {
                 text = "TagHighlight",
                 style = SparkTheme.typography.headline2,
             )
-            TagHighlight()
+            Tag.Highlight()
 
             Text(
                 text = "TagHighlightBadge",
                 style = SparkTheme.typography.headline2,
             )
-            TagHighlightBadge()
+            Tag.HighlightBadge()
         }
     }
 
