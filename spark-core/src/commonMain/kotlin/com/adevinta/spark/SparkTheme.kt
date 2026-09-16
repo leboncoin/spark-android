@@ -36,7 +36,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.RippleConfiguration
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
-import androidx.compose.material3.adaptive.currentWindowAdaptiveInfoV2
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ProvidableCompositionLocal
@@ -144,7 +143,7 @@ public fun SparkTheme(
         LocalSparkShapes provides internalShapes,
         LocalSparkFeatureFlag provides sparkFeatureFlag,
         LocalSparkExceptionHandler provides exceptionHandler,
-        LocalWindowSizeClass provides currentWindowAdaptiveInfoV2().windowSizeClass,
+        LocalWindowSizeClass provides currentWindowAdaptiveInfo(supportLargeAndXLargeWidth = true).windowSizeClass,
         LocalIndication provides rippleIndication,
     ) {
         MaterialTheme(
