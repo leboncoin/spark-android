@@ -19,6 +19,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+@file:OptIn(InternalSparkApi::class)
+
 package com.adevinta.spark.components.placeholder
 
 import androidx.compose.animation.core.InfiniteRepeatableSpec
@@ -50,6 +52,7 @@ import androidx.compose.ui.node.currentValueOf
 import androidx.compose.ui.node.invalidateDraw
 import androidx.compose.ui.platform.InspectorInfo
 import androidx.compose.ui.unit.LayoutDirection
+import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.tokens.LocalSparkColors
 import com.adevinta.spark.tokens.LocalSparkShapes

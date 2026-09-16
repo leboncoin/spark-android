@@ -29,7 +29,6 @@ import com.adevinta.spark.components.IntentColors
  * TagIntent is used to define the intent of the tag.
  */
 public enum class TagIntent {
-
     /**
      * Used to make UI component visually accentuated.
      */
