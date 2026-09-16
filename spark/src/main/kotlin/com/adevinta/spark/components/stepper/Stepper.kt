@@ -36,7 +36,7 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -331,7 +331,7 @@ public object Stepper {
         val textFieldState = remember { TextFieldState(value?.formatInteger().orEmpty()) }
         val currentInput = { textFieldState.text.toString().stripGroupingSeparators().toIntOrNull() }
 
-        LaunchedEffect(value) {
+        SideEffect(value) {
             if (currentInput() != value) {
                 textFieldState.edit {
                     delete(0, length)
