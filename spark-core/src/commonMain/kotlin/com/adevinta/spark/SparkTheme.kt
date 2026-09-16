@@ -143,7 +143,7 @@ public fun SparkTheme(
         LocalSparkShapes provides internalShapes,
         LocalSparkFeatureFlag provides sparkFeatureFlag,
         LocalSparkExceptionHandler provides exceptionHandler,
-        LocalWindowSizeClass provides currentWindowAdaptiveInfo().windowSizeClass,
+        LocalWindowSizeClass provides currentWindowAdaptiveInfo(supportLargeAndXLargeWidth = true).windowSizeClass,
         LocalIndication provides rippleIndication,
     ) {
         MaterialTheme(
