@@ -2,6 +2,13 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [4.0.1](https://github.com/leboncoin/spark-android/compare/4.0.0...4.0.1) (2026-09-17)
+
+
+### Bug Fixes
+
+* **build:** include spark-core and spark-annotation in nmcp aggregation ([#2267](https://github.com/leboncoin/spark-android/issues/2267)) ([18a9ae0](https://github.com/leboncoin/spark-android/commit/18a9ae0e47e3861658f2910cee9ab03598d90088))
+
 ## [4.0.0](https://github.com/leboncoin/spark-android/compare/3.7.0...4.0.0) (2026-09-16)
 
 
