@@ -2,6 +2,13 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [4.0.2](https://github.com/leboncoin/spark-android/compare/4.0.1...4.0.2) (2026-09-17)
+
+
+### Bug Fixes
+
+* **build:** pin animation-graphics version for spark-core publishing ([#2270](https://github.com/leboncoin/spark-android/issues/2270)) ([a48b923](https://github.com/leboncoin/spark-android/commit/a48b923a07ce968272790e39681f4d95467e2253))
+
 ## [4.0.1](https://github.com/leboncoin/spark-android/compare/4.0.0...4.0.1) (2026-09-17)
 
 
