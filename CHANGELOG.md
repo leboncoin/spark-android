@@ -2,6 +2,24 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [4.0.1](https://github.com/leboncoin/spark-android/compare/4.0.0...4.0.1) (2026-09-17)
+
+
+### Bug Fixes
+
+* **build:** include spark-core and spark-annotation in nmcp aggregation ([#2267](https://github.com/leboncoin/spark-android/issues/2267)) ([5e5e0c0](https://github.com/leboncoin/spark-android/commit/5e5e0c0aa1e95e1470f6c015c6cbd91b549f2f59))
+* **build:** pin animation-graphics version for spark-core publishing ([#2270](https://github.com/leboncoin/spark-android/issues/2270)) ([8d4ca8b](https://github.com/leboncoin/spark-android/commit/8d4ca8b16825ab6bd48473dc76477ab26c9b9ca4))
+
+
+### Miscellaneous
+
+* **deps:** bump androidx.compose:compose-bom from 2026.08.00 to 2026.09.00 ([#2268](https://github.com/leboncoin/spark-android/issues/2268)) ([2b40dde](https://github.com/leboncoin/spark-android/commit/2b40dde868d7ca3a9f78cf503f5b65a34a11cc30))
+
+
+### Refactoring
+
+* replace keyed LaunchedEffect with SideEffect ([#2265](https://github.com/leboncoin/spark-android/issues/2265)) ([fdfe068](https://github.com/leboncoin/spark-android/commit/fdfe06847d2378a7cfe29389217e58c2a6671dce))
+
 ## [4.0.0](https://github.com/leboncoin/spark-android/compare/3.7.0...4.0.0) (2026-09-16)
 
 
