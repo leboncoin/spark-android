@@ -21,6 +21,9 @@
  */
 package com.adevinta.spark
 
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+
 /**
  * Flags that will activate debugging features from Spark or features hidden to consumers.
  *
@@ -39,3 +42,24 @@ public data class SparkFeatureFlag(
     val useRebrandedShapes: Boolean = false,
     val useRebrandedButtons: Boolean = false,
 )
+
+@Composable
+public fun SparkFeatureFlagProvider(
+    useSparkTokensHighlighter: Boolean = LocalSparkFeatureFlag.current.useSparkTokensHighlighter,
+    useSparkComponentsHighlighter: Boolean = LocalSparkFeatureFlag.current.useSparkComponentsHighlighter,
+    isContainingActivityEdgeToEdge: Boolean = LocalSparkFeatureFlag.current.isContainingActivityEdgeToEdge,
+    useRebrandedShapes: Boolean = LocalSparkFeatureFlag.current.useRebrandedShapes,
+    useRebrandedButtons: Boolean = LocalSparkFeatureFlag.current.useRebrandedButtons,
+    content: @Composable () -> Unit,
+) {
+    CompositionLocalProvider(
+        LocalSparkFeatureFlag provides LocalSparkFeatureFlag.current.copy(
+            useSparkTokensHighlighter = useSparkTokensHighlighter,
+            useSparkComponentsHighlighter = useSparkComponentsHighlighter,
+            isContainingActivityEdgeToEdge = isContainingActivityEdgeToEdge,
+            useRebrandedShapes = useRebrandedShapes,
+            useRebrandedButtons = useRebrandedButtons,
+        ),
+        content = content,
+    )
+}
