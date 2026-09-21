@@ -34,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.adevinta.spark.SparkFeatureFlagProvider
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.icons.IconPickerItem
 import com.adevinta.spark.catalog.model.Configurator
@@ -81,19 +82,21 @@ private fun ColumnScope.ButtonSample() {
     var intent by remember { mutableStateOf(ButtonIntent.Main) }
     var buttonText by remember { mutableStateOf("Filled Button") }
 
-    ConfiguredButton(
-        modifier = Modifier.fillMaxWidth(),
-        style = style,
-        buttonText = buttonText,
-        onClick = { isLoading = !isLoading },
-        isLoading = isLoading,
-        size = size,
-        shape = shape,
-        intent = intent,
-        isEnabled = isEnabled,
-        icon = icon,
-        iconSide = iconSide,
-    )
+    SparkFeatureFlagProvider(useRebrandedButtons = false) {
+        ConfiguredButton(
+            modifier = Modifier.fillMaxWidth(),
+            style = style,
+            buttonText = buttonText,
+            onClick = { isLoading = !isLoading },
+            isLoading = isLoading,
+            size = size,
+            shape = shape,
+            intent = intent,
+            isEnabled = isEnabled,
+            icon = icon,
+            iconSide = iconSide,
+        )
+    }
 
     IconPickerItem(
         label = "With Icon",
