@@ -74,7 +74,7 @@ internal fun BaseSparkButton(
     size: ButtonSize = ButtonSize.Medium,
     enabled: Boolean = true,
     elevation: ButtonElevation? = ButtonDefaults.buttonElevation(),
-    shape: Shape = SparkButtonDefaults.DefaultShape.shape,
+    shape: Shape = ButtonTokens.shape,
     border: BorderStroke? = null,
     icon: SparkIcon? = null,
     iconSide: IconSide = IconSide.START,
@@ -148,7 +148,7 @@ internal fun SparkButton(
     colors: ButtonColors,
     modifier: Modifier = Modifier,
     size: ButtonSize = ButtonSize.Medium,
-    shape: ButtonShape = SparkButtonDefaults.DefaultShape,
+    shape: ButtonShape = ButtonTokens.buttonShape,
     enabled: Boolean = true,
     elevation: ButtonElevation? = ButtonDefaults.buttonElevation(),
     border: BorderStroke? = null,
@@ -185,7 +185,7 @@ internal fun SparkButton(
     colors: ButtonColors,
     modifier: Modifier = Modifier,
     size: ButtonSize = ButtonSize.Medium,
-    shape: ButtonShape = SparkButtonDefaults.DefaultShape,
+    shape: ButtonShape = ButtonTokens.buttonShape,
     enabled: Boolean = true,
     elevation: ButtonElevation? = ButtonDefaults.buttonElevation(),
     border: BorderStroke? = null,
@@ -251,12 +251,6 @@ public object SparkButtonDefaults {
         horizontal = 0.dp,
         vertical = size.contentVerticalPadding,
     )
-
-    /**
-     * The fallback shape of Button when rebranding is not active.
-     * Use [ButtonTokens.shape] or [ButtonTokens.buttonShape] to get the flag-resolved shape.
-     */
-    internal val DefaultShape = ButtonShape.Rounded
 
     @Composable
     internal fun outlinedButtonColors(containerColor: Color, contentColor: Color): ButtonColors =

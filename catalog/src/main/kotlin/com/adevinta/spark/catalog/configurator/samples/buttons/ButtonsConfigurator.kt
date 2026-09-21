@@ -47,7 +47,6 @@ import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.buttons.ButtonGhost
 import com.adevinta.spark.components.buttons.ButtonIntent
 import com.adevinta.spark.components.buttons.ButtonOutlined
-import com.adevinta.spark.components.buttons.ButtonShape
 import com.adevinta.spark.components.buttons.ButtonSize
 import com.adevinta.spark.components.buttons.ButtonTinted
 import com.adevinta.spark.components.buttons.IconSide
@@ -78,7 +77,6 @@ private fun ColumnScope.ButtonSample() {
     var iconSide by remember { mutableStateOf(IconSide.START) }
     var style by remember { mutableStateOf(ButtonStyle.Filled) }
     var size by remember { mutableStateOf(ButtonSize.Medium) }
-    var shape by remember { mutableStateOf(ButtonShape.Rounded) }
     var intent by remember { mutableStateOf(ButtonIntent.Main) }
     var buttonText by remember { mutableStateOf("Filled Button") }
 
@@ -90,7 +88,6 @@ private fun ColumnScope.ButtonSample() {
             onClick = { isLoading = !isLoading },
             isLoading = isLoading,
             size = size,
-            shape = shape,
             intent = intent,
             isEnabled = isEnabled,
             icon = icon,
@@ -133,11 +130,6 @@ private fun ColumnScope.ButtonSample() {
         selectedOption = style,
         onOptionSelect = { style = it },
     )
-    ButtonGroup(
-        title = "Shape",
-        selectedOption = shape,
-        onOptionSelect = { shape = it },
-    )
 
     DropdownEnum(
         modifier = Modifier.fillMaxWidth(),
@@ -179,7 +171,6 @@ private fun ConfiguredButton(
     onClick: () -> Unit,
     isLoading: Boolean,
     size: ButtonSize,
-    shape: ButtonShape,
     intent: ButtonIntent,
     isEnabled: Boolean,
     icon: SparkIcon?,
@@ -206,7 +197,6 @@ private fun ConfiguredButton(
                     onClick = onClick,
                     isLoading = isLoading,
                     size = size,
-                    shape = shape,
                     intent = intent,
                     enabled = isEnabled,
                     icon = icon,
@@ -219,7 +209,6 @@ private fun ConfiguredButton(
                     onClick = onClick,
                     isLoading = isLoading,
                     size = size,
-                    shape = shape,
                     intent = intent,
                     enabled = isEnabled,
                     icon = icon,
@@ -232,7 +221,6 @@ private fun ConfiguredButton(
                     onClick = onClick,
                     isLoading = isLoading,
                     size = size,
-                    shape = shape,
                     intent = intent,
                     enabled = isEnabled,
                     icon = icon,
@@ -245,7 +233,6 @@ private fun ConfiguredButton(
                     onClick = onClick,
                     isLoading = isLoading,
                     size = size,
-                    shape = shape,
                     intent = intent,
                     enabled = isEnabled,
                     icon = icon,
@@ -258,7 +245,6 @@ private fun ConfiguredButton(
                     onClick = onClick,
                     isLoading = isLoading,
                     size = size,
-                    shape = shape,
                     intent = intent,
                     enabled = isEnabled,
                     icon = icon,

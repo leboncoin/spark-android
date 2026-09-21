@@ -42,7 +42,7 @@ public object ButtonTokens {
         @Composable get() = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
             SparkTheme.shapes.full
         } else {
-            SparkButtonDefaults.DefaultShape.shape
+            ButtonShape.Rounded.shape
         }
 
     /**
@@ -55,6 +55,6 @@ public object ButtonTokens {
         get() = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
             ButtonShape.Pill
         } else {
-            SparkButtonDefaults.DefaultShape
+            ButtonShape.Rounded
         }
 }
