@@ -31,7 +31,6 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.DefaultTestDevices
 import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.SparkTheme
-import com.adevinta.spark.components.buttons.ButtonShape
 import com.adevinta.spark.components.iconbuttons.IconButtonIntent
 import com.adevinta.spark.components.iconbuttons.IconButtonSize
 import com.adevinta.spark.components.iconbuttons.toggle.IconToggleButtonContrast
@@ -58,8 +57,6 @@ internal class IconToggleButtonScreenshot {
         LeboncoinIcons.UserFill,
     )
 
-    private val shapes = ButtonShape.entries
-
     private val sizes = IconButtonSize.entries
 
     private val intents = IconButtonIntent.entries
@@ -69,29 +66,6 @@ internal class IconToggleButtonScreenshot {
         renderingMode = SessionParams.RenderingMode.H_SCROLL,
         deviceConfig = DefaultTestDevices.Tablet,
     )
-
-    @OptIn(ExperimentalLayoutApi::class)
-    @Test
-    fun shape() {
-        paparazzi.sparkSnapshot {
-            FlowColumn {
-                shapes.forEach { shape ->
-                    Column(
-                        verticalArrangement = Arrangement.spacedBy(8.dp),
-                    ) {
-                        sizes.forEach { size ->
-                            IconToggleButtons(
-                                checked = true,
-                                size = size,
-                                shape = shape,
-                                enabled = true,
-                            )
-                        }
-                    }
-                }
-            }
-        }
-    }
 
     @OptIn(ExperimentalLayoutApi::class)
     @Test
@@ -156,7 +130,6 @@ internal class IconToggleButtonScreenshot {
     private fun IconToggleButtons(
         checked: Boolean,
         size: IconButtonSize,
-        shape: ButtonShape = ButtonShape.Rounded,
         intent: IconButtonIntent = IconButtonIntent.Main,
         enabled: Boolean,
     ) {
@@ -174,7 +147,6 @@ internal class IconToggleButtonScreenshot {
                     checked = checked,
                     onCheckedChange = {},
                     icons = icons,
-                    shape = shape,
                     size = size,
                     intent = intent,
                     enabled = enabled,
@@ -183,7 +155,6 @@ internal class IconToggleButtonScreenshot {
                     checked = checked,
                     onCheckedChange = {},
                     icons = icons,
-                    shape = shape,
                     size = size,
                     intent = intent,
                     enabled = enabled,
@@ -192,7 +163,6 @@ internal class IconToggleButtonScreenshot {
                     checked = checked,
                     onCheckedChange = {},
                     icons = icons,
-                    shape = shape,
                     size = size,
                     intent = intent,
                     enabled = enabled,
@@ -201,7 +171,6 @@ internal class IconToggleButtonScreenshot {
                     checked = checked,
                     onCheckedChange = {},
                     icons = icons,
-                    shape = shape,
                     size = size,
                     intent = intent,
                     enabled = enabled,
@@ -210,7 +179,6 @@ internal class IconToggleButtonScreenshot {
                     checked = checked,
                     onCheckedChange = {},
                     icons = icons,
-                    shape = shape,
                     size = size,
                     intent = intent,
                     enabled = enabled,
