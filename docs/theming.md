@@ -178,7 +178,7 @@ them to match component geometry in custom layouts or wrappers.
 
 | Object | API |
 |---|---|
-| `ButtonTokens` | `shape: Shape`, `buttonShape: ButtonShape` |
+| `ButtonTokens` | `shape: Shape` |
 | `ChipTokens` | `shape: Shape`, `leadingIconSpacing: Dp` |
 | `TagTokens` | `shape: Shape` |
 | `TextFieldTokens` | `shape: CornerBasedShape` |

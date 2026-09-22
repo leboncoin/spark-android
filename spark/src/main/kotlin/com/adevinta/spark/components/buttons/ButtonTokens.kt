@@ -35,8 +35,8 @@ import com.adevinta.spark.SparkTheme
 public object ButtonTokens {
 
     /**
-     * The resolved container shape for buttons as a raw [Shape].
-     * Used by overloads that call [BaseSparkButton] directly.
+     * The container shape of buttons: fully rounded when the rebranding is active, large corners
+     * otherwise.
      */
     public val shape: Shape
         @Composable
@@ -44,19 +44,6 @@ public object ButtonTokens {
         get() = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
             SparkTheme.shapes.full
         } else {
-            ButtonShape.Rounded.shape
-        }
-
-    /**
-     * The resolved container shape for buttons as a [ButtonShape].
-     * Used by overloads that delegate to [SparkButton].
-     */
-    public val buttonShape: ButtonShape
-        @Composable
-        @ReadOnlyComposable
-        get() = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
-            ButtonShape.Pill
-        } else {
-            ButtonShape.Rounded
+            SparkTheme.shapes.large
         }
 }

@@ -36,7 +36,7 @@ public object IconButtonTokens {
 
     /**
      * The container shape of icon buttons: fully rounded when the rebranding is active, large corners
-     * otherwise. Those are the same values as `ButtonShape.Pill` and `ButtonShape.Rounded`.
+     * otherwise.
      */
     public val shape: CornerBasedShape
         @Composable
