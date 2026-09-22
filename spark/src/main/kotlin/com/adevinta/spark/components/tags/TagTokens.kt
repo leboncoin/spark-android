@@ -30,17 +30,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.ExperimentalSparkApi
-import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.tokens.highlight
 
 /**
- * Component tokens for tag components. Centralises all flag-driven token resolution so that
- * tag composables read from a single source of truth instead of inlining the flag check at
- * every call site. When the rebranding feature flag is eventually removed, only this file changes.
- *
- * Note: tag shapes are inverted relative to buttons — the legacy shape is full/pill and the
- * rebranded shape is extraSmall (nearly square corners).
+ * Component tokens for tag components. Centralises token resolution so that tag composables read
+ * from a single source of truth instead of inlining the lookup at every call site.
  */
 public object TagTokens {
 
@@ -48,11 +43,9 @@ public object TagTokens {
      * The resolved container shape for tags.
      */
     public val shape: Shape
-        @Composable get() = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
-            SparkTheme.shapes.extraSmall
-        } else {
-            SparkTheme.shapes.full
-        }
+        @Composable
+        @ReadOnlyComposable
+        get() = SparkTheme.shapes.extraSmall
 
     /**
      * The outlined tag's border size

@@ -24,26 +24,19 @@ package com.adevinta.spark.components.iconbuttons
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
-import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.SparkTheme
 
 /**
- * Component tokens for icon button components. Centralises the flag-driven shape resolution so that
- * icon button composables read from a single source of truth instead of inlining the flag check at
- * every call site. When the rebranding feature flag is eventually removed, only this file changes.
+ * Component tokens for icon button components. Centralises the shape resolution so that icon button
+ * composables read from a single source of truth instead of inlining the lookup at every call site.
  */
 public object IconButtonTokens {
 
     /**
-     * The container shape of icon buttons: fully rounded when the rebranding is active, large corners
-     * otherwise.
+     * The container shape of icon buttons.
      */
     public val shape: CornerBasedShape
         @Composable
         @ReadOnlyComposable
-        get() = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
-            SparkTheme.shapes.full
-        } else {
-            SparkTheme.shapes.large
-        }
+        get() = SparkTheme.shapes.full
 }

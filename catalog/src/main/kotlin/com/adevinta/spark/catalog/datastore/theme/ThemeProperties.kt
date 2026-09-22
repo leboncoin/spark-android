@@ -43,7 +43,6 @@ internal data class ThemeProperties(
     val textDirection: TextDirection,
     val highlightSparkComponents: Boolean,
     val highlightSparkTokens: Boolean,
-    val useRebrandedShapes: Boolean,
     val useRebrandedButtons: Boolean,
 ) {
     companion object {
@@ -59,7 +58,6 @@ internal data class ThemeProperties(
             navigationMode = NavigationMode.Default,
             highlightSparkComponents = false,
             highlightSparkTokens = false,
-            useRebrandedShapes = true,
             useRebrandedButtons = true,
         )
     }

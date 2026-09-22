@@ -82,7 +82,6 @@ private fun ThemeProperties.toTheme(): Theme = Theme(
     textDirection = textDirection,
     highlightSparkComponents = highlightSparkComponents,
     highlightSparkTokens = highlightSparkTokens,
-    useRebrandedShapes = useRebrandedShapes,
     useRebrandedButtons = useRebrandedButtons,
 )
 
@@ -98,6 +97,5 @@ private fun Theme.toDataStoreThemeProperties(): ThemeProperties = ThemePropertie
     textDirection = textDirection,
     highlightSparkComponents = highlightSparkComponents,
     highlightSparkTokens = highlightSparkTokens,
-    useRebrandedShapes = useRebrandedShapes,
     useRebrandedButtons = useRebrandedButtons,
 )

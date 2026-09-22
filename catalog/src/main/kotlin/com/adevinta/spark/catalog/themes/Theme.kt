@@ -52,7 +52,6 @@ public data class Theme(
     val navigationMode: NavigationMode = NavigationMode.Default,
     val highlightSparkComponents: Boolean = false,
     val highlightSparkTokens: Boolean = false,
-    val useRebrandedShapes: Boolean = true,
     val useRebrandedButtons: Boolean = true,
 )
 
@@ -156,7 +155,6 @@ public val ThemeSaver: Saver<Theme, Map<String, Int>> = Saver(
             TextDirectionKey to theme.textDirection.ordinal,
             HighlightSparkComponentsKey to if (theme.highlightSparkComponents) 1 else 0,
             HighlightSparkTokensKey to if (theme.highlightSparkTokens) 1 else 0,
-            UseRebrandedShapesKey to if (theme.useRebrandedShapes) 1 else 0,
             UseRebrandedButtonsKey to if (theme.useRebrandedButtons) 1 else 0,
         )
     },
@@ -172,7 +170,6 @@ public val ThemeSaver: Saver<Theme, Map<String, Int>> = Saver(
             textDirection = TextDirection.entries[map.getValue(TextDirectionKey)],
             highlightSparkComponents = map.getValue(HighlightSparkComponentsKey) == 1,
             highlightSparkTokens = map.getValue(HighlightSparkTokensKey) == 1,
-            useRebrandedShapes = map.getValue(UseRebrandedShapesKey) == 1,
             useRebrandedButtons = map.getValue(UseRebrandedButtonsKey) == 1,
         )
     },
@@ -191,5 +188,4 @@ private const val NavigationModeKey = "navigationMode"
 private const val TextDirectionKey = "textDirection"
 private const val HighlightSparkComponentsKey = "highlightSparkComponents"
 private const val HighlightSparkTokensKey = "highlightSparkTokens"
-private const val UseRebrandedShapesKey = "useRebrandedShapes"
 private const val UseRebrandedButtonsKey = "useRebrandedButtons"

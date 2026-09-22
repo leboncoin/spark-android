@@ -26,13 +26,11 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.SparkTheme
 
 /**
- * Component tokens for chip components. Centralises all flag-driven token resolution so that
- * chip composables read from a single source of truth instead of inlining the flag check at
- * every call site. When the rebranding feature flag is eventually removed, only this file changes.
+ * Component tokens for chip components. Centralises token resolution so that chip composables read
+ * from a single source of truth instead of inlining the lookup at every call site.
  */
 public object ChipTokens {
 
@@ -40,21 +38,12 @@ public object ChipTokens {
      * The resolved container shape for chips.
      */
     public val shape: Shape
-        @Composable get() = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
-            SparkTheme.shapes.large
-        } else {
-            SparkTheme.shapes.small
-        }
-
-    /**
-     * The resolved spacing between the leading icon and the label.
-     */
-    public val leadingIconSpacing: Dp
         @Composable
         @ReadOnlyComposable
-        get() = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
-            8.dp
-        } else {
-            4.dp
-        }
+        get() = SparkTheme.shapes.large
+
+    /**
+     * The spacing between the leading icon and the label.
+     */
+    public val leadingIconSpacing: Dp = 8.dp
 }

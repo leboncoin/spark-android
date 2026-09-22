@@ -136,7 +136,6 @@ internal fun ComponentActivity.CatalogApp(
             useSparkTokensHighlighter = theme.highlightSparkTokens,
             useSparkComponentsHighlighter = theme.highlightSparkComponents,
             isContainingActivityEdgeToEdge = true,
-            useRebrandedShapes = theme.useRebrandedShapes,
             useRebrandedButtons = theme.useRebrandedButtons,
         ),
     ) {
