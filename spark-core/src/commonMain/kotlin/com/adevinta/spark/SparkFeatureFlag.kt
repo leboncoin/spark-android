@@ -42,6 +42,7 @@ public data class SparkFeatureFlag(
 )
 
 @Composable
+@InternalSparkApi
 public fun SparkFeatureFlagProvider(
     useSparkTokensHighlighter: Boolean = LocalSparkFeatureFlag.current.useSparkTokensHighlighter,
     useSparkComponentsHighlighter: Boolean = LocalSparkFeatureFlag.current.useSparkComponentsHighlighter,
