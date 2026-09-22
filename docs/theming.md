@@ -181,8 +181,8 @@ them to match component geometry in custom layouts or wrappers.
 | `ButtonTokens` | `shape: Shape`, `buttonShape: ButtonShape` |
 | `ChipTokens` | `shape: Shape`, `leadingIconSpacing: Dp` |
 | `TagTokens` | `shape: Shape` |
-| `TextFieldTokens` | `shape: Shape` |
-| `IconButtonTokens` | `resolveShape(fallback: Shape): Shape`, `resolveFullShape(fallback: Shape): Shape` |
+| `TextFieldTokens` | `shape: CornerBasedShape` |
+| `IconButtonTokens` | `shape: CornerBasedShape` |
 
 All members are `@Composable` and must be read inside a composition:
 
@@ -191,7 +191,8 @@ All members are `@Composable` and must be read inside a composition:
 Box(modifier = Modifier.clip(ButtonTokens.shape)) { /* … */ }
 ```
 
-`ButtonTokens`, `ChipTokens`, `TagTokens`, and `TextFieldTokens` expose plain `shape` properties. `IconButtonTokens` uses functions instead because icon button composables accept a caller-supplied shape as the legacy fallback — the token object needs that argument to resolve the correct value.
+None of these component families expose a `shape` parameter — they read their token, so the flag alone
+decides their geometry.
 
 ---
 
