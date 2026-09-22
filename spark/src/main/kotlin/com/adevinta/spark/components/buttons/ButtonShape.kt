@@ -22,6 +22,7 @@
 package com.adevinta.spark.components.buttons
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.Shape
 import com.adevinta.spark.SparkTheme
 
@@ -29,19 +30,24 @@ import com.adevinta.spark.SparkTheme
 public enum class ButtonShape {
     Square {
         override val shape: Shape
-            @Composable get() = SparkTheme.shapes.none
+            @Composable @ReadOnlyComposable
+            get() = SparkTheme.shapes.none
     },
 
     Pill {
         override val shape: Shape
-            @Composable get() = SparkTheme.shapes.full
+            @Composable @ReadOnlyComposable
+            get() = SparkTheme.shapes.full
     },
 
     Rounded {
         override val shape: Shape
-            @Composable get() = SparkTheme.shapes.large
-    }, ;
+            @Composable @ReadOnlyComposable
+            get() = SparkTheme.shapes.large
+    },
+    ;
 
     internal abstract val shape: Shape
-        @Composable get
+        @Composable @ReadOnlyComposable
+        get
 }

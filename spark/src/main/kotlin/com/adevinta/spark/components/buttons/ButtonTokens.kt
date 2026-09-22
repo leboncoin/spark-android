@@ -39,7 +39,9 @@ public object ButtonTokens {
      * Used by overloads that call [BaseSparkButton] directly.
      */
     public val shape: Shape
-        @Composable get() = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
+        @Composable
+        @ReadOnlyComposable
+        get() = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
             SparkTheme.shapes.full
         } else {
             ButtonShape.Rounded.shape
