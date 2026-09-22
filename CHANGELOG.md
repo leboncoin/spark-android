@@ -2,6 +2,37 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [4.1.0](https://github.com/leboncoin/spark-android/compare/4.0.0...4.1.0) (2026-09-22)
+
+
+### Features
+
+* add Focus, New, Business, and Service intents ([#2283](https://github.com/leboncoin/spark-android/issues/2283)) ([e35c543](https://github.com/leboncoin/spark-android/commit/e35c543eb5801795582b36104b2ad728fa2a6135))
+* **shapes:** apply rebranded shapes ([#2281](https://github.com/leboncoin/spark-android/issues/2281)) ([0ae3c29](https://github.com/leboncoin/spark-android/commit/0ae3c290f321b7f1ee01df06e5b619dfe6ada602))
+
+
+### Bug Fixes
+
+* **build:** include spark-core and spark-annotation in nmcp aggregation ([#2267](https://github.com/leboncoin/spark-android/issues/2267)) ([5e5e0c0](https://github.com/leboncoin/spark-android/commit/5e5e0c0aa1e95e1470f6c015c6cbd91b549f2f59))
+* **build:** pin animation-graphics version for spark-core publishing ([#2270](https://github.com/leboncoin/spark-android/issues/2270)) ([8d4ca8b](https://github.com/leboncoin/spark-android/commit/8d4ca8b16825ab6bd48473dc76477ab26c9b9ca4))
+* **buttons:** use transparent background for outlined button variants ([#2277](https://github.com/leboncoin/spark-android/issues/2277)) ([7438603](https://github.com/leboncoin/spark-android/commit/743860327337e21158b92cee870d7c0beaaf14c5))
+* **useravatar:** resolve Color.Unspecified before Surface background ([#2282](https://github.com/leboncoin/spark-android/issues/2282)) ([fcabcd5](https://github.com/leboncoin/spark-android/commit/fcabcd5382d316133d5c4abe2f0c2a4310cda9a9))
+
+
+### Miscellaneous
+
+* **baseline:** regenerate baseline profiles ([#2272](https://github.com/leboncoin/spark-android/issues/2272)) ([55df42a](https://github.com/leboncoin/spark-android/commit/55df42a7973163dbdf769a8c5a6aaeacc586af3e))
+* **deps:** bump androidx.compose:compose-bom from 2026.08.00 to 2026.09.00 ([#2268](https://github.com/leboncoin/spark-android/issues/2268)) ([2b40dde](https://github.com/leboncoin/spark-android/commit/2b40dde868d7ca3a9f78cf503f5b65a34a11cc30))
+* **deps:** bump com.composables:composeunstyled-disclosure from 2.9.2 to 2.10.0 ([#2278](https://github.com/leboncoin/spark-android/issues/2278)) ([9a0a46e](https://github.com/leboncoin/spark-android/commit/9a0a46ec273084fb16323ecc3db4da6a2df3f939))
+* **deps:** bump com.github.skydoves:colorpicker-compose from 1.2.0 to 1.3.0 ([#2274](https://github.com/leboncoin/spark-android/issues/2274)) ([9ba3e7b](https://github.com/leboncoin/spark-android/commit/9ba3e7b50b8d05976057c1b937a072a113b30fcc))
+* **deps:** bump github/codeql-action from 4.38.0 to 4.38.1 in /.github/workflows ([#2276](https://github.com/leboncoin/spark-android/issues/2276)) ([3f61821](https://github.com/leboncoin/spark-android/commit/3f61821daf8e7c0c477c3bb0f0bf5cc7a05129dc))
+* **deps:** bump io.coil-kt.coil3:coil-bom from 3.6.2 to 3.6.3 ([#2280](https://github.com/leboncoin/spark-android/issues/2280)) ([7f17f15](https://github.com/leboncoin/spark-android/commit/7f17f1559a49fd1f1a6bd81a21e963904f929a85))
+
+
+### Refactoring
+
+* replace keyed LaunchedEffect with SideEffect ([#2265](https://github.com/leboncoin/spark-android/issues/2265)) ([fdfe068](https://github.com/leboncoin/spark-android/commit/fdfe06847d2378a7cfe29389217e58c2a6671dce))
+
 ## [4.0.0](https://github.com/leboncoin/spark-android/compare/3.7.0...4.0.0) (2026-09-16)
 
 
