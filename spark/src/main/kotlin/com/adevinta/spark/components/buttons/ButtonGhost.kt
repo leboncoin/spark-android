@@ -85,7 +85,7 @@ public fun ButtonGhost(
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         val variant = ButtonStyleMapper.map(intent, ButtonStyle.Ghost)
-        RouteToNewButton(
+        RouteToRebrandedButton(
             variant = variant,
             onClick = onClick,
             modifier = modifier,
@@ -168,7 +168,7 @@ public fun ButtonGhost(
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         val variant = ButtonStyleMapper.map(intent, ButtonStyle.Ghost)
-        RouteToNewButton(
+        RouteToRebrandedButton(
             variant = variant,
             onClick = onClick,
             modifier = modifier,
@@ -252,7 +252,7 @@ public fun ButtonGhost(
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         val variant = ButtonStyleMapper.map(intent, ButtonStyle.Ghost)
-        RouteToNewButton(
+        RouteToRebrandedButton(
             variant = variant,
             onClick = onClick,
             modifier = modifier,
@@ -354,7 +354,7 @@ internal fun ButtonGhostIntentPreview() {
  * Ghost buttons are used for the lowest priority actions, especially when presenting multiple options.
  * Until the button is interacted with, its container is not visible.
  *
- * ![Button Ghost](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonGhost.png)
+ * ![Button Ghost](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_RebrandedButtonDocumentationScreenshots_buttonGhost.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
@@ -409,7 +409,7 @@ internal fun SparkButtonGhost(
  * Ghost buttons are used for the lowest priority actions, especially when presenting multiple options.
  * Until the button is interacted with, its container is not visible.
  *
- * ![Button Ghost](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonGhost.png)
+ * ![Button Ghost](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_RebrandedButtonDocumentationScreenshots_buttonGhost.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
@@ -456,7 +456,7 @@ public fun Button.Ghost(
  * Ghost buttons are used for the lowest priority actions, especially when presenting multiple options.
  * Until the button is interacted with, its container is not visible.
  *
- * ![Button Ghost](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonGhost.png)
+ * ![Button Ghost](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_RebrandedButtonDocumentationScreenshots_buttonGhost.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param text The text to be displayed in the button

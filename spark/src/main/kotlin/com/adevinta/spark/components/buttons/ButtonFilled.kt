@@ -84,7 +84,7 @@ public fun ButtonFilled(
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         val variant = ButtonStyleMapper.map(intent, ButtonStyle.Filled)
-        RouteToNewButton(
+        RouteToRebrandedButton(
             variant = variant,
             onClick = onClick,
             modifier = modifier,
@@ -168,7 +168,7 @@ public fun ButtonFilled(
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         val variant = ButtonStyleMapper.map(intent, ButtonStyle.Filled)
-        RouteToNewButton(
+        RouteToRebrandedButton(
             variant = variant,
             onClick = onClick,
             modifier = modifier,
@@ -253,7 +253,7 @@ public fun ButtonFilled(
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         val variant = ButtonStyleMapper.map(intent, ButtonStyle.Filled)
-        RouteToNewButton(
+        RouteToRebrandedButton(
             variant = variant,
             onClick = onClick,
             modifier = modifier,

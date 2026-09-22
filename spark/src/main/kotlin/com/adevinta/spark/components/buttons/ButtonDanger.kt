@@ -43,7 +43,7 @@ import com.adevinta.spark.icons.SparkIcon
  * Used for destructive or irreversible actions like "Delete" or "Remove". Warns the user of
  * negative consequences.
  *
- * ![Button Danger](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonDanger.png)
+ * ![Button Danger](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_RebrandedButtonDocumentationScreenshots_buttonDanger.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
@@ -97,7 +97,7 @@ internal fun SparkButtonDanger(
  * Used for destructive or irreversible actions like "Delete" or "Remove". Warns the user of
  * negative consequences.
  *
- * ![Button Danger](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonDanger.png)
+ * ![Button Danger](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_RebrandedButtonDocumentationScreenshots_buttonDanger.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
@@ -144,7 +144,7 @@ public fun Button.Danger(
  * Used for destructive or irreversible actions like "Delete" or "Remove". Warns the user of
  * negative consequences.
  *
- * ![Button Danger](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonDanger.png)
+ * ![Button Danger](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_RebrandedButtonDocumentationScreenshots_buttonDanger.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param text The text to be displayed in the button

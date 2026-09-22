@@ -42,7 +42,7 @@ import com.adevinta.spark.icons.SparkIcon
 /**
  * Used for positive confirmations like "Approve" or "Mark as sold" where the outcome is beneficial.
  *
- * ![Button Success](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonSuccess.png)
+ * ![Button Success](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_RebrandedButtonDocumentationScreenshots_buttonSuccess.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
@@ -95,7 +95,7 @@ internal fun SparkButtonSuccess(
 /**
  * Used for positive confirmations like "Approve" or "Mark as sold" where the outcome is beneficial.
  *
- * ![Button Success](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonSuccess.png)
+ * ![Button Success](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_RebrandedButtonDocumentationScreenshots_buttonSuccess.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
@@ -141,7 +141,7 @@ public fun Button.Success(
 /**
  * Used for positive confirmations like "Approve" or "Mark as sold" where the outcome is beneficial.
  *
- * ![Button Success](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonSuccess.png)
+ * ![Button Success](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_RebrandedButtonDocumentationScreenshots_buttonSuccess.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param text The text to be displayed in the button

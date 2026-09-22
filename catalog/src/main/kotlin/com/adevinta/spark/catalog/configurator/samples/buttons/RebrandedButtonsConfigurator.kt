@@ -30,6 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.adevinta.spark.SparkFeatureFlagProvider
 import com.adevinta.spark.catalog.icons.IconPickerItem
 import com.adevinta.spark.catalog.model.Configurator
 import com.adevinta.spark.catalog.ui.ButtonGroup
@@ -56,38 +57,40 @@ import com.adevinta.spark.icons.SparkIcon
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
-public val NewButtonsConfigurator: ImmutableList<Configurator> = persistentListOf(
+public val RebrandedButtonsConfigurator: ImmutableList<Configurator> = persistentListOf(
     Configurator(
-        id = "new-button",
-        name = "New Button",
-        description = "New Button API configuration",
+        id = "rebranded-button",
+        name = "Rebranded Button",
+        description = "Rebranded Button API configuration",
         sourceUrl = "$SampleSourceUrl/ButtonSamples.kt",
     ) { _, _ ->
-        NewButtonSample()
+        RebrandedButtonSample()
     },
 )
 
 @Composable
-private fun ColumnScope.NewButtonSample() {
+private fun ColumnScope.RebrandedButtonSample() {
     var icon: SparkIcon? by remember { mutableStateOf(null) }
     var isLoading by remember { mutableStateOf(false) }
     var isEnabled by remember { mutableStateOf(true) }
     var iconSide by remember { mutableStateOf(IconSide.START) }
-    var style by remember { mutableStateOf(NewButtonStyle.Primary) }
+    var style by remember { mutableStateOf(RebrandedButtonStyle.Primary) }
     var size by remember { mutableStateOf(ButtonSize.Medium) }
     var buttonText by remember { mutableStateOf("Button") }
 
-    ConfiguredNewButton(
-        modifier = Modifier.fillMaxWidth(),
-        style = style,
-        buttonText = buttonText,
-        onClick = { isLoading = !isLoading },
-        isLoading = isLoading,
-        size = size,
-        isEnabled = isEnabled,
-        icon = icon,
-        iconSide = iconSide,
-    )
+    SparkFeatureFlagProvider(useRebrandedButtons = true) {
+        ConfiguredRebrandedButton(
+            modifier = Modifier.fillMaxWidth(),
+            style = style,
+            buttonText = buttonText,
+            onClick = { isLoading = !isLoading },
+            isLoading = isLoading,
+            size = size,
+            isEnabled = isEnabled,
+            icon = icon,
+            iconSide = iconSide,
+        )
+    }
 
     IconPickerItem(
         label = "With Icon",
@@ -141,14 +144,14 @@ private fun ColumnScope.NewButtonSample() {
 
 @Preview
 @Composable
-private fun NewButtonSamplePreview() {
-    PreviewTheme { NewButtonSample() }
+private fun RebrandedButtonSamplePreview() {
+    PreviewTheme { RebrandedButtonSample() }
 }
 
 @Composable
-private fun ConfiguredNewButton(
+private fun ConfiguredRebrandedButton(
     modifier: Modifier = Modifier,
-    style: NewButtonStyle,
+    style: RebrandedButtonStyle,
     buttonText: String,
     onClick: () -> Unit,
     isLoading: Boolean,
@@ -158,7 +161,7 @@ private fun ConfiguredNewButton(
     iconSide: IconSide,
 ) {
     when (style) {
-        NewButtonStyle.Primary -> Button.Primary(
+        RebrandedButtonStyle.Primary -> Button.Primary(
             modifier = modifier,
             text = buttonText,
             onClick = onClick,
@@ -169,7 +172,7 @@ private fun ConfiguredNewButton(
             iconSide = iconSide,
         )
 
-        NewButtonStyle.Secondary -> Button.Secondary(
+        RebrandedButtonStyle.Secondary -> Button.Secondary(
             modifier = modifier,
             text = buttonText,
             onClick = onClick,
@@ -180,7 +183,7 @@ private fun ConfiguredNewButton(
             iconSide = iconSide,
         )
 
-        NewButtonStyle.Tertiary -> Button.Tertiary(
+        RebrandedButtonStyle.Tertiary -> Button.Tertiary(
             modifier = modifier,
             text = buttonText,
             onClick = onClick,
@@ -191,7 +194,7 @@ private fun ConfiguredNewButton(
             iconSide = iconSide,
         )
 
-        NewButtonStyle.Boost -> Button.Boost(
+        RebrandedButtonStyle.Boost -> Button.Boost(
             modifier = modifier,
             text = buttonText,
             onClick = onClick,
@@ -202,7 +205,7 @@ private fun ConfiguredNewButton(
             iconSide = iconSide,
         )
 
-        NewButtonStyle.Ai -> Button.Ai(
+        RebrandedButtonStyle.Ai -> Button.Ai(
             modifier = modifier,
             text = buttonText,
             onClick = onClick,
@@ -211,18 +214,7 @@ private fun ConfiguredNewButton(
             enabled = isEnabled,
         )
 
-        NewButtonStyle.Danger -> Button.Danger(
-            modifier = modifier,
-            text = buttonText,
-            onClick = onClick,
-            isLoading = isLoading,
-            size = size,
-            enabled = isEnabled,
-            icon = icon,
-            iconSide = iconSide,
-        )
-
-        NewButtonStyle.Success -> Button.Success(
+        RebrandedButtonStyle.Danger -> Button.Danger(
             modifier = modifier,
             text = buttonText,
             onClick = onClick,
@@ -233,7 +225,7 @@ private fun ConfiguredNewButton(
             iconSide = iconSide,
         )
 
-        NewButtonStyle.Contrast -> Button.Contrast(
+        RebrandedButtonStyle.Success -> Button.Success(
             modifier = modifier,
             text = buttonText,
             onClick = onClick,
@@ -244,7 +236,7 @@ private fun ConfiguredNewButton(
             iconSide = iconSide,
         )
 
-        NewButtonStyle.Text -> Button.Text(
+        RebrandedButtonStyle.Contrast -> Button.Contrast(
             modifier = modifier,
             text = buttonText,
             onClick = onClick,
@@ -255,7 +247,18 @@ private fun ConfiguredNewButton(
             iconSide = iconSide,
         )
 
-        NewButtonStyle.Underlined -> Button.Underlined(
+        RebrandedButtonStyle.Text -> Button.Text(
+            modifier = modifier,
+            text = buttonText,
+            onClick = onClick,
+            isLoading = isLoading,
+            size = size,
+            enabled = isEnabled,
+            icon = icon,
+            iconSide = iconSide,
+        )
+
+        RebrandedButtonStyle.Underlined -> Button.Underlined(
             modifier = modifier,
             text = buttonText,
             onClick = onClick,
@@ -268,7 +271,7 @@ private fun ConfiguredNewButton(
     }
 }
 
-private enum class NewButtonStyle {
+private enum class RebrandedButtonStyle {
     Primary,
     Secondary,
     Tertiary,

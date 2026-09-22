@@ -106,7 +106,7 @@ internal object ButtonStyleMapper {
 }
 
 @Composable
-internal fun RouteToNewButton(
+internal fun RouteToRebrandedButton(
     variant: ButtonVariant,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,

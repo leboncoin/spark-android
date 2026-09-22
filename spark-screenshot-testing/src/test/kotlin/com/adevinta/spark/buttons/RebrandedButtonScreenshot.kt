@@ -48,7 +48,7 @@ import com.android.ide.common.rendering.api.SessionParams.RenderingMode.V_SCROLL
 import org.junit.Rule
 import org.junit.Test
 
-internal class NewButtonScreenshot {
+internal class RebrandedButtonScreenshot {
 
     @get:Rule
     val paparazzi = paparazziRule(
@@ -60,16 +60,16 @@ internal class NewButtonScreenshot {
     fun allVariants() {
         paparazzi.sparkSnapshotNightMode {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                AllNewButtons(size = ButtonSize.Medium, enabled = true)
-                AllNewButtons(size = ButtonSize.Medium, enabled = false)
-                AllNewButtons(size = ButtonSize.Large, enabled = true)
-                AllNewButtons(size = ButtonSize.Large, enabled = false)
+                AllRebrandedButtons(size = ButtonSize.Medium, enabled = true)
+                AllRebrandedButtons(size = ButtonSize.Medium, enabled = false)
+                AllRebrandedButtons(size = ButtonSize.Large, enabled = true)
+                AllRebrandedButtons(size = ButtonSize.Large, enabled = false)
             }
         }
     }
 
     @Composable
-    private fun AllNewButtons(size: ButtonSize, enabled: Boolean) {
+    private fun AllRebrandedButtons(size: ButtonSize, enabled: Boolean) {
         val icon = LeboncoinIcons.UserOutline
         Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
             Button.Primary(
