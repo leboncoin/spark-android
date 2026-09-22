@@ -20,6 +20,10 @@ public final class com/adevinta/spark/SparkFeatureFlag {
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class com/adevinta/spark/SparkFeatureFlagKt {
+	public static final fun SparkFeatureFlagProvider (ZZZZZLkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
+}
+
 public final class com/adevinta/spark/SparkTheme {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/adevinta/spark/SparkTheme;
