@@ -38,6 +38,7 @@ import com.adevinta.spark.catalog.configurator.samples.divider.DividerConfigurat
 import com.adevinta.spark.catalog.configurator.samples.fileupload.FileUploadConfigurator
 import com.adevinta.spark.catalog.configurator.samples.gauge.GaugesConfigurator
 import com.adevinta.spark.catalog.configurator.samples.image.ImageConfigurator
+import com.adevinta.spark.catalog.configurator.samples.image.UserAvatarConfigurator
 import com.adevinta.spark.catalog.configurator.samples.meter.MeterConfigurator
 import com.adevinta.spark.catalog.configurator.samples.modal.ModalConfigurator
 import com.adevinta.spark.catalog.configurator.samples.popover.PopoverConfigurator
@@ -74,6 +75,7 @@ import com.adevinta.spark.catalog.examples.samples.divider.DividerExamples
 import com.adevinta.spark.catalog.examples.samples.fileupload.FileUploadExamples
 import com.adevinta.spark.catalog.examples.samples.gauge.SegmentedGaugeExamples
 import com.adevinta.spark.catalog.examples.samples.icons.IconsExamples
+import com.adevinta.spark.catalog.examples.samples.image.UserAvatarExamples
 import com.adevinta.spark.catalog.examples.samples.meter.MeterExamples
 import com.adevinta.spark.catalog.examples.samples.placeholder.PlaceholderExamples
 import com.adevinta.spark.catalog.examples.samples.popover.PopoverExamples
@@ -313,6 +315,17 @@ private val Image = Component(
     sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/components/image/Image.kt",
     examples = emptyList(),
     configurators = listOf(ImageConfigurator),
+)
+
+private val UserAvatar = Component(
+    id = "user-avatar",
+    name = "User Avatar",
+    description = R.string.component_user_avatar_description,
+    guidelinesUrl = "$ComponentGuidelinesUrl/p/096e9f-image",
+    docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.image/index.html",
+    sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/image/UserAvatar.kt",
+    examples = UserAvatarExamples,
+    configurators = listOf(UserAvatarConfigurator),
 )
 
 private val FileUpload = Component(
@@ -570,6 +583,7 @@ public val Components: ImmutableList<Component> by lazy(mode = LazyThreadSafetyM
         IconButtons,
         IconToggleButtons,
         Image,
+        UserAvatar,
         FileUpload,
         Meter,
         Popovers,

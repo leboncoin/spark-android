@@ -153,6 +153,10 @@ UserAvatar(
 
 ### Sizes
 
+The three styles render at 32dp, 40dp, and 64dp.
+
+![](../../images/com.adevinta.spark.image_UserAvatarDocumentationScreenshots_sizes.png)
+
 | Style | Image size |
 |---|---|
 | `UserAvatarStyle.SMALL` | 32dp |
@@ -162,12 +166,17 @@ UserAvatar(
 ### Online indicator
 
 Set `isOnline = true` to display a green dot badge at the bottom-right of the avatar. The badge
-scales with the chosen `UserAvatarStyle`.
+scales with the chosen `UserAvatarStyle`. The left avatar is offline, the right avatar is online.
+
+![](../../images/com.adevinta.spark.image_UserAvatarDocumentationScreenshots_onlineIndicator.png)
 
 ### Pro badge
 
 Set `isPro = true` to swap the fallback icon from a generic profile silhouette to a pro indicator.
-The pro icon is only visible when no image is loaded (empty or error state).
+The pro icon is only visible when no image is loaded (empty or error state). The left avatar is a
+regular user, the right avatar is a pro.
+
+![](../../images/com.adevinta.spark.image_UserAvatarDocumentationScreenshots_types.png)
 
 ```kotlin
 UserAvatar(

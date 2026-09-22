@@ -25,12 +25,14 @@ package com.adevinta.spark.components.buttons
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
@@ -38,6 +40,7 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.IdentityCardOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
+import com.adevinta.spark.tokens.disabled
 
 /**
  * Used for positive confirmations like "Approve" or "Mark as sold" where the outcome is beneficial.
@@ -70,9 +73,11 @@ internal fun SparkButtonSuccess(
     atEnd: Boolean = false,
     content: @Composable RowScope.() -> Unit,
 ) {
-    val colors = SparkButtonDefaults.outlinedButtonColors(
-        containerColor = SparkTheme.colors.surface,
+    val colors = ButtonDefaults.outlinedButtonColors(
+        containerColor = Color.Transparent,
+        disabledContainerColor = Color.Transparent,
         contentColor = SparkTheme.colors.success,
+        disabledContentColor = SparkTheme.colors.success.disabled,
     )
     BaseSparkButton(
         onClick = onClick,
@@ -189,7 +194,9 @@ public fun Button.Success(
 @Preview
 @Composable
 private fun PreviewSuccessButton() {
-    PreviewTheme {
+    PreviewTheme(
+        color = { SparkTheme.colors.backgroundVariant },
+    ) {
         val icon = LeboncoinIcons.IdentityCardOutline
         var isLoading by remember { mutableStateOf(false) }
         val buttonText = "Success Button"
