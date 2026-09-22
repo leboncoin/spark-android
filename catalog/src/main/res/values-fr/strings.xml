@@ -98,6 +98,9 @@
     <string name="component_image_content_scale_none_description">Pas de mise à l’échelle, l’image reste à sa taille d’origine</string>
     <string name="component_image_content_scale_fill_bounds_description">Étirer l’image pour remplir 100 % des limites du composant d’image</string>
     <!--endregion-->
+    <!--region User Avatar-->
+    <string name="component_user_avatar_description">Le composant User Avatar affiche une image d’avatar circulaire, avec une icône de remplacement lorsqu’aucune image n’est disponible et un indicateur de statut en ligne optionnel.</string>
+    <!--endregion-->
     <!--region Radio button-->
     <string name="component_radiobutton_description">Composant utilisé lorsqu’un seul choix peut être sélectionné dans une série d’options.</string>
     <!--endregion-->

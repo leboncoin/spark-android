@@ -103,6 +103,9 @@
     <string name="component_image_content_scale_none_description">No scaling, the image stay at it’s original size</string>
     <string name="component_image_content_scale_fill_bounds_description">Stretch the image to fill 100% of the image component bounds</string>
     <!--endregion-->
+    <!--region User Avatar-->
+    <string name="component_user_avatar_description">The User Avatar component displays a circular avatar image with a placeholder icon when no image is available, and an optional online status indicator.</string>
+    <!--endregion-->
     <!--region Radio button-->
     <string name="component_radiobutton_description">Component used when only one choice may be selected in a series of options.</string>
     <!--endregion-->

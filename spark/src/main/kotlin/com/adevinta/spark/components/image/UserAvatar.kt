@@ -35,6 +35,7 @@ import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.clipPath
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -66,7 +67,8 @@ internal fun SparkUserAvatar(
     val emptyIcon = @Composable {
         ImageIconState(
             sparkIcon = if (isPro) LeboncoinIcons.BuildingCircle else LeboncoinIcons.UserCircleFill,
-            color = color,
+            // Color.Unspecified crashes Paint.setColor on device (invalid colour-space id). Resolve it here.
+            color = color.takeOrElse { Color.Transparent },
             size = null,
         )
     }
@@ -131,6 +133,25 @@ internal fun SparkUserAvatar(
     )
 }
 
+/**
+ * A circular profile picture that identifies a user.
+ *
+ * When [model] is null or the load fails, it shows a fallback icon instead of a blank circle: a profile
+ * silhouette, or a building icon for a pro account.
+ *
+ * ![Online indicator](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.image_UserAvatarDocumentationScreenshots_onlineIndicator.png)
+ *
+ * @param modifier applied to the avatar
+ * @param style avatar diameter (32dp, 40dp, or 64dp) and matching online badge size
+ * @param fillParentSize ignore [style] and fill the parent; use it when a fixed-size slot already
+ * sets the avatar size
+ * @param model image to load, for example the user photo URL; null shows the fallback icon
+ * @param color background behind the fallback icon; match it to the surface behind the avatar, or
+ * leave Color.Unspecified for a transparent background
+ * @param isPro mark a professional account so the fallback shows a building icon; it shows only in
+ * the fallback state
+ * @param isOnline show that the user is online now with a green dot at the bottom-right
+ **/
 @Composable
 public fun UserAvatar(
     modifier: Modifier = Modifier,
