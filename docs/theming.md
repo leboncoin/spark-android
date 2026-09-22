@@ -131,12 +131,12 @@ SparkTheme(colors = sparkColors) { /* … */ }
 | Token | Corner radius | Default component uses |
 |---|---|---|
 | `none` | 0 dp | App bars, banners, navigation rails |
-| `extraSmall` | 4 dp | Text fields, snackbars, menus |
-| `small` | 8 dp | Chips |
+| `extraSmall` | 4 dp | Tags |
+| `small` | 8 dp | Menus, text and underlined buttons |
 | `medium` | 12 dp | Cards, small FABs |
-| `large` | 16 dp | Extended FABs, navigation drawers |
+| `large` | 16 dp | Chips, navigation drawers, snackbars |
 | `extraLarge` | 28 dp | Bottom sheets, dialogs, large FABs |
-| `full` | 50 % (circle) | Buttons, badges, sliders, switches |
+| `full` | 50 % (circle) | Buttons, icon buttons, text fields, badges |
 
 ```kotlin
 Box(
@@ -157,41 +157,29 @@ SparkTheme(
 ) { /* … */ }
 ```
 
-### `useRebrandedShapes`
+### Component token objects
 
-`SparkFeatureFlag.useRebrandedShapes` opts in to updated corner radii for buttons, chips, tags, and
-text fields introduced during the Adevinta rebranding. Set it to `true` once your product has
-adopted the new visual identity:
-
-```kotlin
-SparkTheme(
-    colors = myColors,
-    sparkFeatureFlag = SparkFeatureFlag(useRebrandedShapes = true),
-) { /* … */ }
-```
-
-#### Component token objects
-
-Each affected component family exposes a token object that resolves the active shape (and any
-related spacing) for the current flag value. Composables consume these internally; you can read
+Buttons, chips, tags, text fields, and icon buttons resolve their container shape through a token
+object instead of reading `SparkShapes` directly. Composables consume these internally; you can read
 them to match component geometry in custom layouts or wrappers.
 
 | Object | API |
 |---|---|
-| `ButtonTokens` | `shape: Shape`, `buttonShape: ButtonShape` |
+| `ButtonTokens` | `shape: Shape` |
 | `ChipTokens` | `shape: Shape`, `leadingIconSpacing: Dp` |
 | `TagTokens` | `shape: Shape` |
-| `TextFieldTokens` | `shape: Shape` |
-| `IconButtonTokens` | `resolveShape(fallback: Shape): Shape`, `resolveFullShape(fallback: Shape): Shape` |
+| `TextFieldTokens` | `shape: CornerBasedShape` |
+| `IconButtonTokens` | `shape: CornerBasedShape` |
 
-All members are `@Composable` and must be read inside a composition:
+Every `shape` member is `@Composable` and must be read inside a composition:
 
 ```kotlin
 // Match a custom overlay to the current button shape
 Box(modifier = Modifier.clip(ButtonTokens.shape)) { /* … */ }
 ```
 
-`ButtonTokens`, `ChipTokens`, `TagTokens`, and `TextFieldTokens` expose plain `shape` properties. `IconButtonTokens` uses functions instead because icon button composables accept a caller-supplied shape as the legacy fallback — the token object needs that argument to resolve the correct value.
+None of these component families expose a `shape` parameter — they read their token, so overriding
+`SparkTheme.shapes` is the only way to change their geometry.
 
 ---
 

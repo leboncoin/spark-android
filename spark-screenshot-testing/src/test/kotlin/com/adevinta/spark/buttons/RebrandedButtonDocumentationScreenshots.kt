@@ -40,7 +40,7 @@ import com.android.ide.common.rendering.api.SessionParams.RenderingMode.SHRINK
 import org.junit.Rule
 import org.junit.Test
 
-internal class NewButtonDocumentationScreenshots {
+internal class RebrandedButtonDocumentationScreenshots {
 
     @get:Rule
     val paparazzi = paparazziRule(

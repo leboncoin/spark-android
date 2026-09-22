@@ -41,7 +41,6 @@ import com.adevinta.spark.catalog.ui.ButtonGroup
 import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
-import com.adevinta.spark.components.buttons.ButtonShape
 import com.adevinta.spark.components.iconbuttons.IconButtonContrast
 import com.adevinta.spark.components.iconbuttons.IconButtonFilled
 import com.adevinta.spark.components.iconbuttons.IconButtonGhost
@@ -72,14 +71,12 @@ private fun ColumnScope.IconButtonSample() {
     val icon: SparkIcon by remember { mutableStateOf(LeboncoinIcons.HeartFill) }
     var isLoading by remember { mutableStateOf(false) }
     var isEnabled by remember { mutableStateOf(true) }
-    var shape by remember { mutableStateOf(ButtonShape.Pill) }
     var size by remember { mutableStateOf(IconButtonSize.Medium) }
     var intent by remember { mutableStateOf(IconButtonIntent.Main) }
     var contentDescription by remember { mutableStateOf("Content Description") }
 
     ConfiguredIconButton(
         style = style,
-        shape = shape,
         contentDescription = contentDescription,
         onClick = { },
         size = size,
@@ -123,11 +120,6 @@ private fun ColumnScope.IconButtonSample() {
     )
 
     ButtonGroup(
-        title = "Shape",
-        selectedOption = shape,
-        onOptionSelect = { shape = it },
-    )
-    ButtonGroup(
         title = "Size",
         selectedOption = size,
         onOptionSelect = { size = it },
@@ -154,7 +146,6 @@ private fun IconButtonSamplePreview() {
 private fun ConfiguredIconButton(
     modifier: Modifier = Modifier,
     style: IconButtonStyle,
-    shape: ButtonShape,
     contentDescription: String?,
     onClick: () -> Unit = {},
     size: IconButtonSize,
@@ -183,7 +174,6 @@ private fun ConfiguredIconButton(
                     contentDescription = contentDescription,
                     onClick = onClick,
                     size = size,
-                    shape = shape,
                     intent = intent,
                     enabled = isEnabled,
                     isLoading = isLoading,
@@ -195,7 +185,6 @@ private fun ConfiguredIconButton(
                     contentDescription = contentDescription,
                     onClick = onClick,
                     size = size,
-                    shape = shape,
                     intent = intent,
                     enabled = isEnabled,
                     isLoading = isLoading,
@@ -207,7 +196,6 @@ private fun ConfiguredIconButton(
                     contentDescription = contentDescription,
                     onClick = onClick,
                     size = size,
-                    shape = shape,
                     intent = intent,
                     enabled = isEnabled,
                     isLoading = isLoading,
@@ -219,7 +207,6 @@ private fun ConfiguredIconButton(
                     contentDescription = contentDescription,
                     onClick = onClick,
                     size = size,
-                    shape = shape,
                     intent = intent,
                     enabled = isEnabled,
                     isLoading = isLoading,
@@ -231,7 +218,6 @@ private fun ConfiguredIconButton(
                     contentDescription = contentDescription,
                     onClick = onClick,
                     size = size,
-                    shape = shape,
                     intent = intent,
                     enabled = isEnabled,
                     isLoading = isLoading,

@@ -21,6 +21,9 @@
  */
 package com.adevinta.spark
 
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+
 /**
  * Flags that will activate debugging features from Spark or features hidden to consumers.
  *
@@ -29,13 +32,31 @@ package com.adevinta.spark
  * @property useSparkComponentsHighlighter Highlight visually with an overlay where the spark components are used
  * or not. Setting it to true show an overlay on spark components.
  * @property isContainingActivityEdgeToEdge Whether the containing activity has edge-to-edge enabled.
- * @property useRebrandedShapes Use new button, chips, tags and textfield shapes.
  * @property useRebrandedButtons When true, old intent+style combinations resolve to new semantic button variants.
  */
 public data class SparkFeatureFlag(
     val useSparkTokensHighlighter: Boolean = false,
     val useSparkComponentsHighlighter: Boolean = false,
     val isContainingActivityEdgeToEdge: Boolean = false,
-    val useRebrandedShapes: Boolean = false,
     val useRebrandedButtons: Boolean = false,
 )
+
+@Composable
+@InternalSparkApi
+public fun SparkFeatureFlagProvider(
+    useSparkTokensHighlighter: Boolean = LocalSparkFeatureFlag.current.useSparkTokensHighlighter,
+    useSparkComponentsHighlighter: Boolean = LocalSparkFeatureFlag.current.useSparkComponentsHighlighter,
+    isContainingActivityEdgeToEdge: Boolean = LocalSparkFeatureFlag.current.isContainingActivityEdgeToEdge,
+    useRebrandedButtons: Boolean = LocalSparkFeatureFlag.current.useRebrandedButtons,
+    content: @Composable () -> Unit,
+) {
+    CompositionLocalProvider(
+        LocalSparkFeatureFlag provides LocalSparkFeatureFlag.current.copy(
+            useSparkTokensHighlighter = useSparkTokensHighlighter,
+            useSparkComponentsHighlighter = useSparkComponentsHighlighter,
+            isContainingActivityEdgeToEdge = isContainingActivityEdgeToEdge,
+            useRebrandedButtons = useRebrandedButtons,
+        ),
+        content = content,
+    )
+}

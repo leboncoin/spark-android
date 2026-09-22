@@ -41,7 +41,6 @@ import com.adevinta.spark.catalog.ui.ButtonGroup
 import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
-import com.adevinta.spark.components.buttons.ButtonShape
 import com.adevinta.spark.components.iconbuttons.IconButtonIntent
 import com.adevinta.spark.components.iconbuttons.IconButtonSize
 import com.adevinta.spark.components.iconbuttons.toggle.IconToggleButtonContrast
@@ -72,7 +71,6 @@ private fun ColumnScope.IconToggleButtonSample() {
     var style by remember { mutableStateOf(IconToggleButtonStyle.Filled) }
     var isEnabled by remember { mutableStateOf(true) }
     var isChecked by remember { mutableStateOf(true) }
-    var shape by remember { mutableStateOf(ButtonShape.Rounded) }
     var size by remember { mutableStateOf(IconButtonSize.Medium) }
     var intent by remember { mutableStateOf(IconButtonIntent.Main) }
     val icons by remember { mutableStateOf(IconToggleButtonIcons(LeboncoinIcons.CarOutline, LeboncoinIcons.CarFill)) }
@@ -80,7 +78,6 @@ private fun ColumnScope.IconToggleButtonSample() {
 
     ConfiguredIconToggleButton(
         style = style,
-        shape = shape,
         contentDescription = contentDescription,
         onCheckedChange = { isChecked = !isChecked },
         size = size,
@@ -116,11 +113,6 @@ private fun ColumnScope.IconToggleButtonSample() {
     )
 
     ButtonGroup(
-        title = "Shape",
-        selectedOption = shape,
-        onOptionSelect = { shape = it },
-    )
-    ButtonGroup(
         title = "Size",
         selectedOption = size,
         onOptionSelect = { size = it },
@@ -147,7 +139,6 @@ private fun IconToggleButtonSamplePreview() {
 private fun ConfiguredIconToggleButton(
     modifier: Modifier = Modifier,
     style: IconToggleButtonStyle,
-    shape: ButtonShape,
     contentDescription: String?,
     onCheckedChange: (Boolean) -> Unit = {},
     size: IconButtonSize,
@@ -176,7 +167,6 @@ private fun ConfiguredIconToggleButton(
                     contentDescription = contentDescription,
                     onCheckedChange = onCheckedChange,
                     size = size,
-                    shape = shape,
                     intent = intent,
                     checked = isChecked,
                     enabled = isEnabled,
@@ -188,7 +178,6 @@ private fun ConfiguredIconToggleButton(
                     contentDescription = contentDescription,
                     onCheckedChange = onCheckedChange,
                     size = size,
-                    shape = shape,
                     intent = intent,
                     checked = isChecked,
                     enabled = isEnabled,
@@ -200,7 +189,6 @@ private fun ConfiguredIconToggleButton(
                     contentDescription = contentDescription,
                     onCheckedChange = onCheckedChange,
                     size = size,
-                    shape = shape,
                     intent = intent,
                     checked = isChecked,
                     enabled = isEnabled,
@@ -212,7 +200,6 @@ private fun ConfiguredIconToggleButton(
                     contentDescription = contentDescription,
                     onCheckedChange = onCheckedChange,
                     size = size,
-                    shape = shape,
                     intent = intent,
                     checked = isChecked,
                     enabled = isEnabled,
@@ -224,7 +211,6 @@ private fun ConfiguredIconToggleButton(
                     contentDescription = contentDescription,
                     onCheckedChange = onCheckedChange,
                     size = size,
-                    shape = shape,
                     intent = intent,
                     checked = isChecked,
                     enabled = isEnabled,

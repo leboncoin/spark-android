@@ -72,7 +72,6 @@ public fun ButtonTinted(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     size: ButtonSize = ButtonSize.Medium,
-    shape: ButtonShape = SparkButtonDefaults.DefaultShape,
     intent: ButtonIntent = ButtonIntent.Main,
     enabled: Boolean = true,
     icon: SparkIcon? = null,
@@ -84,7 +83,7 @@ public fun ButtonTinted(
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         val variant = ButtonStyleMapper.map(intent, ButtonStyle.Tinted)
-        RouteToNewButton(
+        RouteToRebrandedButton(
             variant = variant,
             onClick = onClick,
             modifier = modifier,
@@ -122,7 +121,6 @@ public fun ButtonTinted(
         onClick = onClick,
         modifier = modifier,
         size = size,
-        shape = ButtonTokens.shape,
         enabled = enabled,
         elevation = ButtonDefaults.filledTonalButtonElevation(),
         colors = colors,
@@ -162,7 +160,6 @@ public fun ButtonTinted(
     text: String,
     modifier: Modifier = Modifier,
     size: ButtonSize = ButtonSize.Medium,
-    shape: ButtonShape = SparkButtonDefaults.DefaultShape,
     intent: ButtonIntent = ButtonIntent.Main,
     enabled: Boolean = true,
     icon: SparkIcon? = null,
@@ -173,7 +170,7 @@ public fun ButtonTinted(
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         val variant = ButtonStyleMapper.map(intent, ButtonStyle.Tinted)
-        RouteToNewButton(
+        RouteToRebrandedButton(
             variant = variant,
             onClick = onClick,
             modifier = modifier,
@@ -213,7 +210,6 @@ public fun ButtonTinted(
         text = text,
         modifier = modifier,
         size = size,
-        shape = ButtonTokens.buttonShape,
         enabled = enabled,
         elevation = ButtonDefaults.filledTonalButtonElevation(),
         colors = colors,
@@ -252,7 +248,6 @@ public fun ButtonTinted(
     text: AnnotatedString,
     modifier: Modifier = Modifier,
     size: ButtonSize = ButtonSize.Medium,
-    shape: ButtonShape = SparkButtonDefaults.DefaultShape,
     intent: ButtonIntent = ButtonIntent.Main,
     enabled: Boolean = true,
     icon: SparkIcon? = null,
@@ -263,7 +258,7 @@ public fun ButtonTinted(
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         val variant = ButtonStyleMapper.map(intent, ButtonStyle.Tinted)
-        RouteToNewButton(
+        RouteToRebrandedButton(
             variant = variant,
             onClick = onClick,
             modifier = modifier,
@@ -303,7 +298,6 @@ public fun ButtonTinted(
         text = text,
         modifier = modifier,
         size = size,
-        shape = ButtonTokens.buttonShape,
         enabled = enabled,
         elevation = ButtonDefaults.filledTonalButtonElevation(),
         colors = colors,

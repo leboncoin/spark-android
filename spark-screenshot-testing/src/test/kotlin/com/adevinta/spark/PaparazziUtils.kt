@@ -97,7 +97,6 @@ private fun SparkThemeContent(
     CompositionLocalProvider(LocalInspectionMode provides true) {
         SparkTheme(
             colors = colors,
-            sparkFeatureFlag = SparkFeatureFlag(useRebrandedShapes = true),
         ) {
             // The first box shields from ComposeView which forces the first layout node
             // to match its size. This allows the content below to wrap as needed.
@@ -212,7 +211,6 @@ private fun RowScope.DocSnapshotHalf(
     CompositionLocalProvider(LocalInspectionMode provides true) {
         SparkTheme(
             colors = colors,
-            sparkFeatureFlag = SparkFeatureFlag(useRebrandedShapes = true),
         ) {
             val color = color()
             Box(

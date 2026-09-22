@@ -49,17 +49,17 @@ import com.adevinta.spark.icons.SparkIcon
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
-private const val NewButtonsExampleDescription = "New Button examples"
-private const val NewButtonsExampleSourceUrl = "$SampleSourceUrl/ButtonSamples.kt"
+private const val RebrandedButtonsExampleDescription = "Rebranded Button examples"
+private const val RebrandedButtonsExampleSourceUrl = "$SampleSourceUrl/ButtonSamples.kt"
 
-public val NewButtonsExamples: ImmutableList<Example> = persistentListOf(
+public val RebrandedButtonsExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "primary",
         name = "Primary Button",
-        description = NewButtonsExampleDescription,
-        sourceUrl = NewButtonsExampleSourceUrl,
+        description = RebrandedButtonsExampleDescription,
+        sourceUrl = RebrandedButtonsExampleSourceUrl,
     ) {
-        NewButtonSample { onClick, text, enabled, icon, iconSide, isLoading ->
+        RebrandedButtonSample { onClick, text, enabled, icon, iconSide, isLoading ->
             Button.Primary(
                 onClick = onClick,
                 text = text,
@@ -73,10 +73,10 @@ public val NewButtonsExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "secondary",
         name = "Secondary Button",
-        description = NewButtonsExampleDescription,
-        sourceUrl = NewButtonsExampleSourceUrl,
+        description = RebrandedButtonsExampleDescription,
+        sourceUrl = RebrandedButtonsExampleSourceUrl,
     ) {
-        NewButtonSample { onClick, text, enabled, icon, iconSide, isLoading ->
+        RebrandedButtonSample { onClick, text, enabled, icon, iconSide, isLoading ->
             Button.Secondary(
                 onClick = onClick,
                 text = text,
@@ -90,10 +90,10 @@ public val NewButtonsExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "tertiary",
         name = "Tertiary Button",
-        description = NewButtonsExampleDescription,
-        sourceUrl = NewButtonsExampleSourceUrl,
+        description = RebrandedButtonsExampleDescription,
+        sourceUrl = RebrandedButtonsExampleSourceUrl,
     ) {
-        NewButtonSample { onClick, text, enabled, icon, iconSide, isLoading ->
+        RebrandedButtonSample { onClick, text, enabled, icon, iconSide, isLoading ->
             Button.Tertiary(
                 onClick = onClick,
                 text = text,
@@ -107,10 +107,10 @@ public val NewButtonsExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "boost",
         name = "Boost Button",
-        description = NewButtonsExampleDescription,
-        sourceUrl = NewButtonsExampleSourceUrl,
+        description = RebrandedButtonsExampleDescription,
+        sourceUrl = RebrandedButtonsExampleSourceUrl,
     ) {
-        NewButtonSample { onClick, text, enabled, icon, iconSide, isLoading ->
+        RebrandedButtonSample { onClick, text, enabled, icon, iconSide, isLoading ->
             Button.Boost(
                 onClick = onClick,
                 text = text,
@@ -124,10 +124,10 @@ public val NewButtonsExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "ai",
         name = "AI Button",
-        description = NewButtonsExampleDescription,
-        sourceUrl = NewButtonsExampleSourceUrl,
+        description = RebrandedButtonsExampleDescription,
+        sourceUrl = RebrandedButtonsExampleSourceUrl,
     ) {
-        NewButtonSample { onClick, text, enabled, _, _, isLoading ->
+        RebrandedButtonSample { onClick, text, enabled, _, _, isLoading ->
             Button.Ai(
                 onClick = onClick,
                 text = text,
@@ -139,10 +139,10 @@ public val NewButtonsExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "danger",
         name = "Danger Button",
-        description = NewButtonsExampleDescription,
-        sourceUrl = NewButtonsExampleSourceUrl,
+        description = RebrandedButtonsExampleDescription,
+        sourceUrl = RebrandedButtonsExampleSourceUrl,
     ) {
-        NewButtonSample { onClick, text, enabled, icon, iconSide, isLoading ->
+        RebrandedButtonSample { onClick, text, enabled, icon, iconSide, isLoading ->
             Button.Danger(
                 onClick = onClick,
                 text = text,
@@ -156,10 +156,10 @@ public val NewButtonsExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "success",
         name = "Success Button",
-        description = NewButtonsExampleDescription,
-        sourceUrl = NewButtonsExampleSourceUrl,
+        description = RebrandedButtonsExampleDescription,
+        sourceUrl = RebrandedButtonsExampleSourceUrl,
     ) {
-        NewButtonSample { onClick, text, enabled, icon, iconSide, isLoading ->
+        RebrandedButtonSample { onClick, text, enabled, icon, iconSide, isLoading ->
             Button.Success(
                 onClick = onClick,
                 text = text,
@@ -171,12 +171,12 @@ public val NewButtonsExamples: ImmutableList<Example> = persistentListOf(
         }
     },
     Example(
-        id = "contrast-new",
-        name = "Contrast Button (new)",
-        description = NewButtonsExampleDescription,
-        sourceUrl = NewButtonsExampleSourceUrl,
+        id = "contrast-rebranded",
+        name = "Contrast Button (rebranded)",
+        description = RebrandedButtonsExampleDescription,
+        sourceUrl = RebrandedButtonsExampleSourceUrl,
     ) {
-        NewButtonSample { onClick, text, enabled, icon, iconSide, isLoading ->
+        RebrandedButtonSample { onClick, text, enabled, icon, iconSide, isLoading ->
             Button.Contrast(
                 onClick = onClick,
                 text = text,
@@ -190,10 +190,10 @@ public val NewButtonsExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "text",
         name = "Text Button",
-        description = NewButtonsExampleDescription,
-        sourceUrl = NewButtonsExampleSourceUrl,
+        description = RebrandedButtonsExampleDescription,
+        sourceUrl = RebrandedButtonsExampleSourceUrl,
     ) {
-        NewButtonSample { onClick, text, enabled, icon, iconSide, isLoading ->
+        RebrandedButtonSample { onClick, text, enabled, icon, iconSide, isLoading ->
             Button.Text(
                 onClick = onClick,
                 text = text,
@@ -207,10 +207,10 @@ public val NewButtonsExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "underlined",
         name = "Underlined Button",
-        description = NewButtonsExampleDescription,
-        sourceUrl = NewButtonsExampleSourceUrl,
+        description = RebrandedButtonsExampleDescription,
+        sourceUrl = RebrandedButtonsExampleSourceUrl,
     ) {
-        NewButtonSample { onClick, text, enabled, icon, iconSide, isLoading ->
+        RebrandedButtonSample { onClick, text, enabled, icon, iconSide, isLoading ->
             Button.Underlined(
                 onClick = onClick,
                 text = text,
@@ -224,7 +224,7 @@ public val NewButtonsExamples: ImmutableList<Example> = persistentListOf(
 )
 
 @Composable
-private fun NewButtonSample(
+private fun RebrandedButtonSample(
     button: @Composable (
         onClick: () -> Unit,
         text: String,

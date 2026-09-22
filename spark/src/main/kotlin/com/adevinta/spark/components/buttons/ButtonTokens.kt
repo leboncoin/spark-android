@@ -24,37 +24,19 @@ package com.adevinta.spark.components.buttons
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.Shape
-import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.SparkTheme
 
 /**
- * Component tokens for button components. Centralises all flag-driven token resolution so that
- * each button variant reads from a single source of truth instead of inlining the flag check at
- * every call site. When the rebranding feature flag is eventually removed, only this file changes.
+ * Component tokens for button components. Centralises token resolution so that each button variant
+ * reads from a single source of truth instead of inlining the lookup at every call site.
  */
 public object ButtonTokens {
 
     /**
-     * The resolved container shape for buttons as a raw [Shape].
-     * Used by overloads that call [BaseSparkButton] directly.
+     * The container shape of buttons.
      */
     public val shape: Shape
-        @Composable get() = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
-            SparkTheme.shapes.full
-        } else {
-            SparkButtonDefaults.DefaultShape.shape
-        }
-
-    /**
-     * The resolved container shape for buttons as a [ButtonShape].
-     * Used by overloads that delegate to [SparkButton].
-     */
-    public val buttonShape: ButtonShape
         @Composable
         @ReadOnlyComposable
-        get() = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
-            ButtonShape.Pill
-        } else {
-            SparkButtonDefaults.DefaultShape
-        }
+        get() = SparkTheme.shapes.full
 }

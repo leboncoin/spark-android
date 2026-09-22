@@ -72,7 +72,6 @@ public fun ButtonOutlined(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     size: ButtonSize = ButtonSize.Medium,
-    shape: ButtonShape = SparkButtonDefaults.DefaultShape,
     intent: ButtonIntent = ButtonIntent.Support,
     enabled: Boolean = true,
     icon: SparkIcon? = null,
@@ -84,7 +83,7 @@ public fun ButtonOutlined(
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         val variant = ButtonStyleMapper.map(intent, ButtonStyle.Outlined)
-        RouteToNewButton(
+        RouteToRebrandedButton(
             variant = variant,
             onClick = onClick,
             modifier = modifier,
@@ -114,7 +113,6 @@ public fun ButtonOutlined(
         onClick = onClick,
         modifier = modifier,
         size = size,
-        shape = ButtonTokens.shape,
         enabled = enabled,
         elevation = null,
         border = SparkButtonDefaults.outlinedBorder(if (enabled) contentColor else disabledContentColor),
@@ -154,7 +152,6 @@ public fun ButtonOutlined(
     text: String,
     modifier: Modifier = Modifier,
     size: ButtonSize = ButtonSize.Medium,
-    shape: ButtonShape = SparkButtonDefaults.DefaultShape,
     intent: ButtonIntent = ButtonIntent.Support,
     enabled: Boolean = true,
     icon: SparkIcon? = null,
@@ -165,7 +162,7 @@ public fun ButtonOutlined(
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         val variant = ButtonStyleMapper.map(intent, ButtonStyle.Outlined)
-        RouteToNewButton(
+        RouteToRebrandedButton(
             variant = variant,
             onClick = onClick,
             modifier = modifier,
@@ -196,7 +193,6 @@ public fun ButtonOutlined(
         text = text,
         modifier = modifier,
         size = size,
-        shape = ButtonTokens.buttonShape,
         enabled = enabled,
         elevation = null,
         border = SparkButtonDefaults.outlinedBorder(if (enabled) contentColor else disabledContentColor),
@@ -246,7 +242,7 @@ public fun ButtonOutlined(
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         val variant = ButtonStyleMapper.map(intent, ButtonStyle.Outlined)
-        RouteToNewButton(
+        RouteToRebrandedButton(
             variant = variant,
             onClick = onClick,
             modifier = modifier,
@@ -274,7 +270,6 @@ public fun ButtonOutlined(
         text = text,
         modifier = modifier,
         size = size,
-        shape = ButtonTokens.buttonShape,
         enabled = enabled,
         elevation = null,
         border = SparkButtonDefaults.outlinedBorder(contentColor),

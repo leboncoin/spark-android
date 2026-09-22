@@ -87,13 +87,13 @@ SparkTheme(
 
 ### Feature flags
 
-`SparkFeatureFlag` gates opt-in behaviour such as rebranded shapes and development highlighters. Construct it once and pass it to `SparkTheme`.
+`SparkFeatureFlag` gates opt-in behaviour such as rebranded buttons and development highlighters. Construct it once and pass it to `SparkTheme`.
 
 ```kotlin
 SparkTheme(
     colors = myColors,
     sparkFeatureFlag = SparkFeatureFlag(
-        useRebrandedShapes = true,
+        useRebrandedButtons = true,
         isContainingActivityEdgeToEdge = true,
     ),
 ) {

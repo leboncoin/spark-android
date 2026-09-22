@@ -21,37 +21,22 @@
  */
 package com.adevinta.spark.components.iconbuttons
 
+import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
-import androidx.compose.ui.graphics.Shape
-import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.SparkTheme
-import com.adevinta.spark.components.buttons.ButtonShape
 
 /**
- * Component tokens for icon button components. Centralises all flag-driven token resolution so that
- * icon button composables read from a single source of truth instead of inlining the flag check at
- * every call site. When the rebranding feature flag is eventually removed, only this file changes.
- *
- * Because icon button composables accept a caller-supplied [Shape] parameter as the legacy fallback,
- * tokens are expressed as `resolveShape` functions rather than plain properties.
+ * Component tokens for icon button components. Centralises the shape resolution so that icon button
+ * composables read from a single source of truth instead of inlining the lookup at every call site.
  */
 public object IconButtonTokens {
 
     /**
-     * Resolves the container shape for icon buttons that use [ButtonShape.Pill] when rebranded.
-     * Falls back to [fallback] when rebranding is inactive.
+     * The container shape of icon buttons.
      */
-    @Composable
-    public fun resolveShape(fallback: Shape): Shape =
-        if (LocalSparkFeatureFlag.current.useRebrandedShapes) ButtonShape.Pill.shape else fallback
-
-    /**
-     * Resolves the container shape for icon buttons that use [SparkTheme.shapes.full] when rebranded.
-     * Falls back to [fallback] when rebranding is inactive.
-     */
-    @Composable
-    @ReadOnlyComposable
-    public fun resolveFullShape(fallback: Shape): Shape =
-        if (LocalSparkFeatureFlag.current.useRebrandedShapes) SparkTheme.shapes.full else fallback
+    public val shape: CornerBasedShape
+        @Composable
+        @ReadOnlyComposable
+        get() = SparkTheme.shapes.full
 }

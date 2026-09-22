@@ -32,7 +32,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
-import com.adevinta.spark.components.buttons.ButtonShape
 import com.adevinta.spark.components.iconbuttons.IconButtonColors
 import com.adevinta.spark.components.iconbuttons.IconButtonDefaults
 import com.adevinta.spark.components.iconbuttons.IconButtonIntent
@@ -56,7 +55,6 @@ import com.adevinta.spark.icons.LeboncoinIcons
  * @param enabled controls the enabled state of this icon button. When `false`, this component will
  * not respond to user input, and it will appear visually disabled and disabled to accessibility
  * services.
- * @param shape to be applied to the IconButton background. It should be one of [ButtonShape] values
  * @param size one of the [IconButtonSize] values that sets width and height of the IconButton
  * @param contentDescription text used by accessibility services to describe what this icon button
  * represents. This text should be localized, such as by using [androidx.compose.ui.res.stringResource] or similar
@@ -75,7 +73,6 @@ public fun IconToggleButtonGhost(
     modifier: Modifier = Modifier,
     intent: IconButtonIntent = IconButtonDefaults.DefaultIntent,
     enabled: Boolean = true,
-    shape: ButtonShape = IconButtonDefaults.DefaultShape,
     size: IconButtonSize = IconButtonDefaults.DefaultSize,
     contentDescription: String? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -88,7 +85,6 @@ public fun IconToggleButtonGhost(
         colors = colors,
         checked = checked,
         enabled = enabled,
-        shape = shape,
         size = size,
         contentDescription = contentDescription,
         interactionSource = interactionSource,

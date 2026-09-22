@@ -32,9 +32,7 @@ import androidx.compose.material3.IconToggleButtonColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Shape
 import com.adevinta.spark.SparkTheme
-import com.adevinta.spark.components.buttons.ButtonShape
 import com.adevinta.spark.components.iconbuttons.IconButtonTokens
 import com.adevinta.spark.tokens.contentColorFor
 import androidx.compose.material3.FilledIconToggleButton as MaterialFilledIconToggleButton
@@ -109,7 +107,6 @@ public fun IconToggleButton(
  * @param enabled controls the enabled state of this icon button. When `false`, this component will
  * not respond to user input, and it will appear visually disabled and disabled to accessibility
  * services.
- * @param shape defines the shape of this icon button's container
  * @param colors [IconToggleButtonColors] that will be used to resolve the colors used for this icon
  * button in different states. See [IconButtonDefaults.filledIconToggleButtonColors].
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
@@ -125,18 +122,16 @@ public fun FilledIconToggleButton(
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    shape: Shape = ButtonShape.Rounded.shape,
     colors: IconToggleButtonColors = IconButtonDefaults.filledIconToggleButtonColors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
-    val shape = IconButtonTokens.resolveFullShape(shape)
     MaterialFilledIconToggleButton(
         checked = checked,
         onCheckedChange = onCheckedChange,
         modifier = modifier,
         enabled = enabled,
-        shape = shape,
+        shape = IconButtonTokens.shape,
         colors = colors,
         interactionSource = interactionSource,
         content = content,
@@ -167,7 +162,6 @@ public fun FilledIconToggleButton(
  * @param enabled controls the enabled state of this icon button. When `false`, this component will
  * not respond to user input, and it will appear visually disabled and disabled to accessibility
  * services.
- * @param shape defines the shape of this icon button's container
  * @param colors [IconToggleButtonColors] that will be used to resolve the colors used for this icon
  * button in different states. See [IconButtonDefaults.filledIconToggleButtonColors].
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
@@ -182,7 +176,6 @@ public fun FilledTonalIconToggleButton(
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    shape: ButtonShape = ButtonShape.Rounded,
     colors: IconToggleButtonColors = IconButtonDefaults.filledTonalIconToggleButtonColors(
         checkedContainerColor = SparkTheme.colors.mainContainer,
         checkedContentColor = contentColorFor(backgroundColor = SparkTheme.colors.mainContainer),
@@ -190,13 +183,12 @@ public fun FilledTonalIconToggleButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
-    val resolvedShape = IconButtonTokens.resolveShape(shape.shape)
     MaterialFilledTonalIconToggleButton(
         checked = checked,
         onCheckedChange = onCheckedChange,
         modifier = modifier,
         enabled = enabled,
-        shape = resolvedShape,
+        shape = IconButtonTokens.shape,
         colors = colors,
         interactionSource = interactionSource,
         content = content,
@@ -222,8 +214,6 @@ public fun FilledTonalIconToggleButton(
  * @param enabled controls the enabled state of this icon button. When `false`, this component will
  * not respond to user input, and it will appear visually disabled and disabled to accessibility
  * services.
- * @param shape defines the shape of this icon button's container and border (when [border] is not
- * null)
  * @param colors [IconToggleButtonColors] that will be used to resolve the colors used for this icon
  * button in different states. See [IconButtonDefaults.outlinedIconToggleButtonColors].
  * @param border the border to draw around the container of this icon button. Pass `null` for no
@@ -240,19 +230,17 @@ public fun OutlinedIconToggleButton(
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    shape: Shape = ButtonShape.Rounded.shape,
     colors: IconToggleButtonColors = IconButtonDefaults.outlinedIconToggleButtonColors(),
     border: BorderStroke? = IconButtonDefaults.outlinedIconToggleButtonBorder(enabled, checked),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
-    val shape = IconButtonTokens.resolveFullShape(shape)
     MaterialOutlinedIconToggleButton(
         checked = checked,
         onCheckedChange = onCheckedChange,
         modifier = modifier,
         enabled = enabled,
-        shape = shape,
+        shape = IconButtonTokens.shape,
         colors = colors,
         border = border,
         interactionSource = interactionSource,

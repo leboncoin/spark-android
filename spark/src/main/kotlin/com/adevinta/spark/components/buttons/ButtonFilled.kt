@@ -74,7 +74,6 @@ public fun ButtonFilled(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     size: ButtonSize = ButtonSize.Medium,
-    shape: ButtonShape = SparkButtonDefaults.DefaultShape,
     intent: ButtonIntent = ButtonIntent.Main,
     enabled: Boolean = true,
     icon: SparkIcon? = null,
@@ -85,7 +84,7 @@ public fun ButtonFilled(
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         val variant = ButtonStyleMapper.map(intent, ButtonStyle.Filled)
-        RouteToNewButton(
+        RouteToRebrandedButton(
             variant = variant,
             onClick = onClick,
             modifier = modifier,
@@ -118,7 +117,6 @@ public fun ButtonFilled(
         onClick = onClick,
         modifier = modifier,
         size = size,
-        shape = ButtonTokens.shape,
         enabled = enabled,
         elevation = ButtonDefaults.buttonElevation(),
         colors = colors,
@@ -160,7 +158,6 @@ public fun ButtonFilled(
     text: String,
     modifier: Modifier = Modifier,
     size: ButtonSize = ButtonSize.Medium,
-    shape: ButtonShape = SparkButtonDefaults.DefaultShape,
     intent: ButtonIntent = ButtonIntent.Main,
     enabled: Boolean = true,
     icon: SparkIcon? = null,
@@ -171,7 +168,7 @@ public fun ButtonFilled(
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         val variant = ButtonStyleMapper.map(intent, ButtonStyle.Filled)
-        RouteToNewButton(
+        RouteToRebrandedButton(
             variant = variant,
             onClick = onClick,
             modifier = modifier,
@@ -207,7 +204,6 @@ public fun ButtonFilled(
         text = text,
         modifier = modifier,
         size = size,
-        shape = ButtonTokens.buttonShape,
         enabled = enabled,
         elevation = ButtonDefaults.buttonElevation(),
         colors = colors,
@@ -257,7 +253,7 @@ public fun ButtonFilled(
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         val variant = ButtonStyleMapper.map(intent, ButtonStyle.Filled)
-        RouteToNewButton(
+        RouteToRebrandedButton(
             variant = variant,
             onClick = onClick,
             modifier = modifier,
@@ -293,7 +289,6 @@ public fun ButtonFilled(
         text = text,
         modifier = modifier,
         size = size,
-        shape = ButtonTokens.buttonShape,
         enabled = enabled,
         elevation = ButtonDefaults.buttonElevation(),
         colors = colors,

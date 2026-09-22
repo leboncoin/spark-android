@@ -30,7 +30,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.DefaultTestDevices
 import com.adevinta.spark.SparkTheme
-import com.adevinta.spark.components.buttons.ButtonShape
 import com.adevinta.spark.components.iconbuttons.IconButtonContrast
 import com.adevinta.spark.components.iconbuttons.IconButtonFilled
 import com.adevinta.spark.components.iconbuttons.IconButtonGhost
@@ -49,8 +48,6 @@ import org.junit.Test
 
 internal class IconButtonScreenshot {
 
-    private val shapes = ButtonShape.entries
-
     private val sizes = IconButtonSize.entries
 
     private val intents = IconButtonIntent.entries
@@ -60,24 +57,6 @@ internal class IconButtonScreenshot {
         renderingMode = SessionParams.RenderingMode.SHRINK,
         deviceConfig = DefaultTestDevices.Tablet,
     )
-
-    @OptIn(ExperimentalLayoutApi::class)
-    @Test
-    fun shape() {
-        paparazzi.sparkSnapshot {
-            FlowColumn {
-                shapes.forEach { shape ->
-                    Column(
-                        verticalArrangement = Arrangement.spacedBy(8.dp),
-                    ) {
-                        sizes.forEach { size ->
-                            Buttons(size = size, shape = shape, enabled = true)
-                        }
-                    }
-                }
-            }
-        }
-    }
 
     @OptIn(ExperimentalLayoutApi::class)
     @Test
@@ -118,7 +97,6 @@ internal class IconButtonScreenshot {
     @Composable
     private fun Buttons(
         size: IconButtonSize,
-        shape: ButtonShape = ButtonShape.Rounded,
         intent: IconButtonIntent = IconButtonIntent.Main,
         enabled: Boolean,
     ) {
@@ -136,7 +114,6 @@ internal class IconButtonScreenshot {
                     onClick = {},
                     icon = LeboncoinIcons.UserOutline,
                     size = size,
-                    shape = shape,
                     intent = intent,
                     enabled = enabled,
                 )
@@ -144,7 +121,6 @@ internal class IconButtonScreenshot {
                     onClick = {},
                     icon = LeboncoinIcons.UserOutline,
                     size = size,
-                    shape = shape,
                     intent = intent,
                     enabled = enabled,
                 )
@@ -152,7 +128,6 @@ internal class IconButtonScreenshot {
                     onClick = {},
                     icon = LeboncoinIcons.UserOutline,
                     size = size,
-                    shape = shape,
                     intent = intent,
                     enabled = enabled,
                 )
@@ -160,7 +135,6 @@ internal class IconButtonScreenshot {
                     onClick = {},
                     icon = LeboncoinIcons.UserOutline,
                     size = size,
-                    shape = shape,
                     intent = intent,
                     enabled = enabled,
                 )
@@ -168,7 +142,6 @@ internal class IconButtonScreenshot {
                     onClick = {},
                     icon = LeboncoinIcons.UserOutline,
                     size = size,
-                    shape = shape,
                     intent = intent,
                     enabled = enabled,
                 )

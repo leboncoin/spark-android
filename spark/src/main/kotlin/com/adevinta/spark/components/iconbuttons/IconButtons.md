@@ -14,9 +14,9 @@ Icon buttons come in various styles:
 - Contrast
 - Ghost
 
-| Enabled                                                                            | Disabled                                                                            | Shapes                                                                          |
-|------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark.iconbutton_IconButtonScreenshot_enabled.png)   | ![](../../images/com.adevinta.spark.iconbutton_IconButtonScreenshot_disabled.png)   | ![](../../images/com.adevinta.spark.iconbutton_IconButtonScreenshot_shape.png)  |
+| Enabled                                                                            | Disabled                                                                            |
+|------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
+| ![](../../images/com.adevinta.spark.iconbutton_IconButtonScreenshot_enabled.png)   | ![](../../images/com.adevinta.spark.iconbutton_IconButtonScreenshot_disabled.png)   |
 
 ### Sizes
 
@@ -29,11 +29,7 @@ Icon buttons come in 3 sizes `IconButtonSize`:
 The content icon is 16.dp for `IconButtonSize.Small` and `IconButtonSize.Medium`, and 24.dp
 for `IconButtonSize.Large`
 
-### Shapes
-Icon buttons come in 3 shapes `ButtonShape`:
-- Square
-- Rounded (default)
-- Pill
+### Loading
 
 The buttons have an loading state that can be used to indicate that the button is loading some
 data and show/hide an indeterminate circular progress indicator on the start of the button.
