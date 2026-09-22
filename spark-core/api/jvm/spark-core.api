@@ -171,10 +171,10 @@ public final class com/adevinta/spark/tokens/ColorKt {
 	public static final fun asSparkColors (Landroidx/compose/material3/ColorScheme;Z)Lcom/adevinta/spark/tokens/SparkColors;
 	public static final fun contentColorFor-4WTKRHQ (Lcom/adevinta/spark/tokens/SparkColors;J)J
 	public static final fun contentColorFor-ek8zF_U (JLandroidx/compose/runtime/Composer;I)J
-	public static final fun darkHighContrastSparkColors-mLTL5Eg (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFF)Lcom/adevinta/spark/tokens/SparkColors;
-	public static synthetic fun darkHighContrastSparkColors-mLTL5Eg$default (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFFIILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkColors;
-	public static final fun darkSparkColors-JYuAR6k (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFF)Lcom/adevinta/spark/tokens/SparkColors;
-	public static synthetic fun darkSparkColors-JYuAR6k$default (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFFIILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkColors;
+	public static final fun darkHighContrastSparkColors-0XJtSq8 (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFF)Lcom/adevinta/spark/tokens/SparkColors;
+	public static synthetic fun darkHighContrastSparkColors-0XJtSq8$default (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFFIIILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkColors;
+	public static final fun darkSparkColors-6UPKJCY (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFF)Lcom/adevinta/spark/tokens/SparkColors;
+	public static synthetic fun darkSparkColors-6UPKJCY$default (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFFIIILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkColors;
 	public static final fun debugColors--OWjLjI (JJ)Lcom/adevinta/spark/tokens/SparkColors;
 	public static synthetic fun debugColors--OWjLjI$default (JJILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkColors;
 	public static final fun getDim1 (JLandroidx/compose/runtime/Composer;I)J
@@ -185,10 +185,10 @@ public final class com/adevinta/spark/tokens/ColorKt {
 	public static final fun getDisabled (JLandroidx/compose/runtime/Composer;I)J
 	public static final fun getLocalSparkColors ()Landroidx/compose/runtime/ProvidableCompositionLocal;
 	public static final fun getTransparent-8_81llA (J)J
-	public static final fun lightHighContrastSparkColors-OU6A2v0 (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFF)Lcom/adevinta/spark/tokens/SparkColors;
-	public static synthetic fun lightHighContrastSparkColors-OU6A2v0$default (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFFIILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkColors;
-	public static final fun lightSparkColors-OU6A2v0 (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFF)Lcom/adevinta/spark/tokens/SparkColors;
-	public static synthetic fun lightSparkColors-OU6A2v0$default (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFFIILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkColors;
+	public static final fun lightHighContrastSparkColors-blpyQaI (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFF)Lcom/adevinta/spark/tokens/SparkColors;
+	public static synthetic fun lightHighContrastSparkColors-blpyQaI$default (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFFIIILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkColors;
+	public static final fun lightSparkColors-blpyQaI (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFF)Lcom/adevinta/spark/tokens/SparkColors;
+	public static synthetic fun lightSparkColors-blpyQaI$default (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFFIIILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkColors;
 	public static final fun surfaceColorAtElevation-3ABfNKs (Lcom/adevinta/spark/tokens/SparkColors;F)J
 }
 
@@ -300,9 +300,9 @@ public final class com/adevinta/spark/tokens/ShapeKt {
 
 public final class com/adevinta/spark/tokens/SparkColors {
 	public static final field $stable I
-	public synthetic fun <init> (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFFLkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun copy-JYuAR6k (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFF)Lcom/adevinta/spark/tokens/SparkColors;
-	public static synthetic fun copy-JYuAR6k$default (Lcom/adevinta/spark/tokens/SparkColors;JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFFIILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkColors;
+	public synthetic fun <init> (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFFLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun copy-6UPKJCY (JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFF)Lcom/adevinta/spark/tokens/SparkColors;
+	public static synthetic fun copy-6UPKJCY$default (Lcom/adevinta/spark/tokens/SparkColors;JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJFFFFFIIILjava/lang/Object;)Lcom/adevinta/spark/tokens/SparkColors;
 	public final fun getAccent-0d7_KjU ()J
 	public final fun getAccentContainer-0d7_KjU ()J
 	public final fun getAccentVariant-0d7_KjU ()J
@@ -312,6 +312,8 @@ public final class com/adevinta/spark/tokens/SparkColors {
 	public final fun getAlertContainer-0d7_KjU ()J
 	public final fun getBackground-0d7_KjU ()J
 	public final fun getBackgroundVariant-0d7_KjU ()J
+	public final fun getBusiness-0d7_KjU ()J
+	public final fun getBusinessContainer-0d7_KjU ()J
 	public final fun getDim1 ()F
 	public final fun getDim2 ()F
 	public final fun getDim3 ()F
@@ -319,6 +321,8 @@ public final class com/adevinta/spark/tokens/SparkColors {
 	public final fun getDim5 ()F
 	public final fun getError-0d7_KjU ()J
 	public final fun getErrorContainer-0d7_KjU ()J
+	public final fun getFocus-0d7_KjU ()J
+	public final fun getFocusContainer-0d7_KjU ()J
 	public final fun getInfo-0d7_KjU ()J
 	public final fun getInfoContainer-0d7_KjU ()J
 	public final fun getMain-0d7_KjU ()J
@@ -326,6 +330,8 @@ public final class com/adevinta/spark/tokens/SparkColors {
 	public final fun getMainVariant-0d7_KjU ()J
 	public final fun getNeutral-0d7_KjU ()J
 	public final fun getNeutralContainer-0d7_KjU ()J
+	public final fun getNew-0d7_KjU ()J
+	public final fun getNewContainer-0d7_KjU ()J
 	public final fun getOnAccent-0d7_KjU ()J
 	public final fun getOnAccentContainer-0d7_KjU ()J
 	public final fun getOnAccentVariant-0d7_KjU ()J
@@ -335,8 +341,12 @@ public final class com/adevinta/spark/tokens/SparkColors {
 	public final fun getOnAlertContainer-0d7_KjU ()J
 	public final fun getOnBackground-0d7_KjU ()J
 	public final fun getOnBackgroundVariant-0d7_KjU ()J
+	public final fun getOnBusiness-0d7_KjU ()J
+	public final fun getOnBusinessContainer-0d7_KjU ()J
 	public final fun getOnError-0d7_KjU ()J
 	public final fun getOnErrorContainer-0d7_KjU ()J
+	public final fun getOnFocus-0d7_KjU ()J
+	public final fun getOnFocusContainer-0d7_KjU ()J
 	public final fun getOnInfo-0d7_KjU ()J
 	public final fun getOnInfoContainer-0d7_KjU ()J
 	public final fun getOnMain-0d7_KjU ()J
@@ -344,6 +354,10 @@ public final class com/adevinta/spark/tokens/SparkColors {
 	public final fun getOnMainVariant-0d7_KjU ()J
 	public final fun getOnNeutral-0d7_KjU ()J
 	public final fun getOnNeutralContainer-0d7_KjU ()J
+	public final fun getOnNew-0d7_KjU ()J
+	public final fun getOnNewContainer-0d7_KjU ()J
+	public final fun getOnService-0d7_KjU ()J
+	public final fun getOnServiceContainer-0d7_KjU ()J
 	public final fun getOnSuccess-0d7_KjU ()J
 	public final fun getOnSuccessContainer-0d7_KjU ()J
 	public final fun getOnSupport-0d7_KjU ()J
@@ -355,6 +369,8 @@ public final class com/adevinta/spark/tokens/SparkColors {
 	public final fun getOutline-0d7_KjU ()J
 	public final fun getOutlineHigh-0d7_KjU ()J
 	public final fun getScrim-0d7_KjU ()J
+	public final fun getService-0d7_KjU ()J
+	public final fun getServiceContainer-0d7_KjU ()J
 	public final fun getSuccess-0d7_KjU ()J
 	public final fun getSuccessContainer-0d7_KjU ()J
 	public final fun getSupport-0d7_KjU ()J

@@ -71,6 +71,7 @@ import com.adevinta.spark.tokens.PaletteTokens.Banana900
 import com.adevinta.spark.tokens.PaletteTokens.Blueberry100
 import com.adevinta.spark.tokens.PaletteTokens.Blueberry200
 import com.adevinta.spark.tokens.PaletteTokens.Blueberry300
+import com.adevinta.spark.tokens.PaletteTokens.Blueberry400
 import com.adevinta.spark.tokens.PaletteTokens.Blueberry50
 import com.adevinta.spark.tokens.PaletteTokens.Blueberry700
 import com.adevinta.spark.tokens.PaletteTokens.Blueberry800
@@ -159,6 +160,22 @@ public fun lightSparkColors(
     onAi: Color = Color.White,
     aiContainer: Color = Blueberry200,
     onAiContainer: Color = Blueberry700,
+    focus: Color = Blueberry700,
+    onFocus: Color = Color.White,
+    focusContainer: Color = NightShade100,
+    onFocusContainer: Color = Color.Black,
+    new: Color = Clementin500,
+    onNew: Color = Color.White,
+    newContainer: Color = Clementin700,
+    onNewContainer: Color = Clementin100,
+    business: Color = Blueberry800,
+    onBusiness: Color = Color.White,
+    businessContainer: Color = Blueberry100,
+    onBusinessContainer: Color = Blueberry900,
+    service: Color = NightShade700,
+    onService: Color = Color.White,
+    serviceContainer: Color = NightShade100,
+    onServiceContainer: Color = NightShade700,
     background: Color = Color.White,
     onBackground: Color = Blueberry900,
     backgroundVariant: Color = Blueberry50,
@@ -220,6 +237,22 @@ public fun lightSparkColors(
     onAi = onAi,
     aiContainer = aiContainer,
     onAiContainer = onAiContainer,
+    focus = focus,
+    onFocus = onFocus,
+    focusContainer = focusContainer,
+    onFocusContainer = onFocusContainer,
+    new = new,
+    onNew = onNew,
+    newContainer = newContainer,
+    onNewContainer = onNewContainer,
+    business = business,
+    onBusiness = onBusiness,
+    businessContainer = businessContainer,
+    onBusinessContainer = onBusinessContainer,
+    service = service,
+    onService = onService,
+    serviceContainer = serviceContainer,
+    onServiceContainer = onServiceContainer,
     background = background,
     onBackground = onBackground,
     backgroundVariant = backgroundVariant,
@@ -284,6 +317,22 @@ public fun darkSparkColors(
     onAi: Color = Blueberry900,
     aiContainer: Color = Blueberry700,
     onAiContainer: Color = Blueberry50,
+    focus: Color = Blueberry400,
+    onFocus: Color = Color.Black,
+    focusContainer: Color = NightShade700,
+    onFocusContainer: Color = Color.White,
+    new: Color = Clementin400,
+    onNew: Color = Clementin900,
+    newContainer: Color = Clementin700,
+    onNewContainer: Color = Clementin50,
+    business: Color = Blueberry200,
+    onBusiness: Color = Blueberry900,
+    businessContainer: Color = Blueberry800,
+    onBusinessContainer: Color = Blueberry50,
+    service: Color = NightShade300,
+    onService: Color = NightShade900,
+    serviceContainer: Color = NightShade700,
+    onServiceContainer: Color = NightShade50,
     background: Color = NightShade900,
     onBackground: Color = NightShade50,
     backgroundVariant: Color = Color.Black,
@@ -346,6 +395,22 @@ public fun darkSparkColors(
     onAi = onAi,
     aiContainer = aiContainer,
     onAiContainer = onAiContainer,
+    focus = focus,
+    onFocus = onFocus,
+    focusContainer = focusContainer,
+    onFocusContainer = onFocusContainer,
+    new = new,
+    onNew = onNew,
+    newContainer = newContainer,
+    onNewContainer = onNewContainer,
+    business = business,
+    onBusiness = onBusiness,
+    businessContainer = businessContainer,
+    onBusinessContainer = onBusinessContainer,
+    service = service,
+    onService = onService,
+    serviceContainer = serviceContainer,
+    onServiceContainer = onServiceContainer,
     background = background,
     onBackground = onBackground,
     backgroundVariant = backgroundVariant,
@@ -410,6 +475,22 @@ public fun lightHighContrastSparkColors(
     onAi: Color = DarkLight,
     aiContainer: Color = DarkMedium,
     onAiContainer: Color = DarkBold,
+    focus: Color = DarkRegular,
+    onFocus: Color = DarkLight,
+    focusContainer: Color = DarkMedium,
+    onFocusContainer: Color = DarkBold,
+    new: Color = DarkRegular,
+    onNew: Color = DarkLight,
+    newContainer: Color = DarkMedium,
+    onNewContainer: Color = DarkBold,
+    business: Color = DarkRegular,
+    onBusiness: Color = DarkLight,
+    businessContainer: Color = DarkMedium,
+    onBusinessContainer: Color = DarkBold,
+    service: Color = DarkRegular,
+    onService: Color = DarkLight,
+    serviceContainer: Color = DarkMedium,
+    onServiceContainer: Color = DarkBold,
     background: Color = DarkLight,
     onBackground: Color = DarkBold,
     backgroundVariant: Color = DarkMedium,
@@ -471,6 +552,22 @@ public fun lightHighContrastSparkColors(
     onAi = onAi,
     aiContainer = aiContainer,
     onAiContainer = onAiContainer,
+    focus = focus,
+    onFocus = onFocus,
+    focusContainer = focusContainer,
+    onFocusContainer = onFocusContainer,
+    new = new,
+    onNew = onNew,
+    newContainer = newContainer,
+    onNewContainer = onNewContainer,
+    business = business,
+    onBusiness = onBusiness,
+    businessContainer = businessContainer,
+    onBusinessContainer = onBusinessContainer,
+    service = service,
+    onService = onService,
+    serviceContainer = serviceContainer,
+    onServiceContainer = onServiceContainer,
     background = background,
     onBackground = onBackground,
     backgroundVariant = backgroundVariant,
@@ -534,6 +631,22 @@ public fun darkHighContrastSparkColors(
     onAi: Color = DarkBold,
     aiContainer: Color = LightMid,
     onAiContainer: Color = LightLight,
+    focus: Color = Color(0xFFBCBCBC),
+    onFocus: Color = DarkBold,
+    focusContainer: Color = Color(0xFF4C4C4C),
+    onFocusContainer: Color = LightLight,
+    new: Color = Color(0xFFBCBCBC),
+    onNew: Color = DarkBold,
+    newContainer: Color = Color(0xFF4C4C4C),
+    onNewContainer: Color = LightLight,
+    business: Color = Color(0xFFBCBCBC),
+    onBusiness: Color = DarkBold,
+    businessContainer: Color = Color(0xFF4C4C4C),
+    onBusinessContainer: Color = LightLight,
+    service: Color = Color(0xFFBCBCBC),
+    onService: Color = DarkBold,
+    serviceContainer: Color = Color(0xFF4C4C4C),
+    onServiceContainer: Color = LightLight,
     background: Color = DarkSemiBold,
     onBackground: Color = LightLight,
     backgroundVariant: Color = Color(0xff3c3c3c),
@@ -594,6 +707,22 @@ public fun darkHighContrastSparkColors(
     onAi = onAi,
     aiContainer = aiContainer,
     onAiContainer = onAiContainer,
+    focus = focus,
+    onFocus = onFocus,
+    focusContainer = focusContainer,
+    onFocusContainer = onFocusContainer,
+    new = new,
+    onNew = onNew,
+    newContainer = newContainer,
+    onNewContainer = onNewContainer,
+    business = business,
+    onBusiness = onBusiness,
+    businessContainer = businessContainer,
+    onBusinessContainer = onBusinessContainer,
+    service = service,
+    onService = onService,
+    serviceContainer = serviceContainer,
+    onServiceContainer = onServiceContainer,
     background = background,
     onBackground = onBackground,
     backgroundVariant = backgroundVariant,
@@ -675,6 +804,22 @@ public fun darkHighContrastSparkColors(
  * @property onAi Color used for text and icons displayed on top of the [ai] color.
  * @property aiContainer The preferred tonal color of AI containers.
  * @property onAiContainer Color used for text and icons displayed on top of the [aiContainer] color.
+ * @property focus An emphasis color used to highlight the focused element.
+ * @property onFocus Color used for text and icons displayed on top of the [focus] color.
+ * @property focusContainer The preferred tonal color of focus containers.
+ * @property onFocusContainer Color used for text and icons displayed on top of the [focusContainer] color.
+ * @property new An emphasis color used to identify new content or features.
+ * @property onNew Color used for text and icons displayed on top of the [new] color.
+ * @property newContainer The preferred tonal color of new containers.
+ * @property onNewContainer Color used for text and icons displayed on top of the [newContainer] color.
+ * @property business An emphasis color used to identify professional content or features.
+ * @property onBusiness Color used for text and icons displayed on top of the [business] color.
+ * @property businessContainer The preferred tonal color of business containers.
+ * @property onBusinessContainer Color used for text and icons displayed on top of the [businessContainer] color.
+ * @property service An emphasis color used to identify service content or features.
+ * @property onService Color used for text and icons displayed on top of the [service] color.
+ * @property serviceContainer The preferred tonal color of service containers.
+ * @property onServiceContainer Color used for text and icons displayed on top of the [serviceContainer] color.
  * @property background The background color that appears behind scrollable content.
  * @property onBackground Color used for text and icons displayed on top of the background color.
  * @property backgroundVariant An alternate background color for surfaces that need visual separation from [background].
@@ -740,6 +885,22 @@ public class SparkColors(
     onAi: Color,
     aiContainer: Color,
     onAiContainer: Color,
+    focus: Color,
+    onFocus: Color,
+    focusContainer: Color,
+    onFocusContainer: Color,
+    new: Color,
+    onNew: Color,
+    newContainer: Color,
+    onNewContainer: Color,
+    business: Color,
+    onBusiness: Color,
+    businessContainer: Color,
+    onBusinessContainer: Color,
+    service: Color,
+    onService: Color,
+    serviceContainer: Color,
+    onServiceContainer: Color,
     background: Color,
     onBackground: Color,
     backgroundVariant: Color,
@@ -895,6 +1056,46 @@ public class SparkColors(
     public var onAiContainer: Color by mutableStateOf(onAiContainer, structuralEqualityPolicy())
         internal set
 
+    @Order(13)
+    public var focus: Color by mutableStateOf(focus, structuralEqualityPolicy())
+        internal set
+    public var onFocus: Color by mutableStateOf(onFocus, structuralEqualityPolicy())
+        internal set
+    public var focusContainer: Color by mutableStateOf(focusContainer, structuralEqualityPolicy())
+        internal set
+    public var onFocusContainer: Color by mutableStateOf(onFocusContainer, structuralEqualityPolicy())
+        internal set
+
+    @Order(14)
+    public var new: Color by mutableStateOf(new, structuralEqualityPolicy())
+        internal set
+    public var onNew: Color by mutableStateOf(onNew, structuralEqualityPolicy())
+        internal set
+    public var newContainer: Color by mutableStateOf(newContainer, structuralEqualityPolicy())
+        internal set
+    public var onNewContainer: Color by mutableStateOf(onNewContainer, structuralEqualityPolicy())
+        internal set
+
+    @Order(15)
+    public var business: Color by mutableStateOf(business, structuralEqualityPolicy())
+        internal set
+    public var onBusiness: Color by mutableStateOf(onBusiness, structuralEqualityPolicy())
+        internal set
+    public var businessContainer: Color by mutableStateOf(businessContainer, structuralEqualityPolicy())
+        internal set
+    public var onBusinessContainer: Color by mutableStateOf(onBusinessContainer, structuralEqualityPolicy())
+        internal set
+
+    @Order(16)
+    public var service: Color by mutableStateOf(service, structuralEqualityPolicy())
+        internal set
+    public var onService: Color by mutableStateOf(onService, structuralEqualityPolicy())
+        internal set
+    public var serviceContainer: Color by mutableStateOf(serviceContainer, structuralEqualityPolicy())
+        internal set
+    public var onServiceContainer: Color by mutableStateOf(onServiceContainer, structuralEqualityPolicy())
+        internal set
+
     public var dim1: Float by mutableFloatStateOf(dimContent1)
         internal set
     public var dim2: Float by mutableFloatStateOf(dimContent2)
@@ -966,6 +1167,22 @@ public class SparkColors(
         onAi: Color = this.onAi,
         aiContainer: Color = this.aiContainer,
         onAiContainer: Color = this.onAiContainer,
+        focus: Color = this.focus,
+        onFocus: Color = this.onFocus,
+        focusContainer: Color = this.focusContainer,
+        onFocusContainer: Color = this.onFocusContainer,
+        new: Color = this.new,
+        onNew: Color = this.onNew,
+        newContainer: Color = this.newContainer,
+        onNewContainer: Color = this.onNewContainer,
+        business: Color = this.business,
+        onBusiness: Color = this.onBusiness,
+        businessContainer: Color = this.businessContainer,
+        onBusinessContainer: Color = this.onBusinessContainer,
+        service: Color = this.service,
+        onService: Color = this.onService,
+        serviceContainer: Color = this.serviceContainer,
+        onServiceContainer: Color = this.onServiceContainer,
         dimContent1: Float = this.dim1,
         dimContent2: Float = this.dim2,
         dimContent3: Float = this.dim3,
@@ -1028,6 +1245,22 @@ public class SparkColors(
         onAi = onAi,
         aiContainer = aiContainer,
         onAiContainer = onAiContainer,
+        focus = focus,
+        onFocus = onFocus,
+        focusContainer = focusContainer,
+        onFocusContainer = onFocusContainer,
+        new = new,
+        onNew = onNew,
+        newContainer = newContainer,
+        onNewContainer = onNewContainer,
+        business = business,
+        onBusiness = onBusiness,
+        businessContainer = businessContainer,
+        onBusinessContainer = onBusinessContainer,
+        service = service,
+        onService = onService,
+        serviceContainer = serviceContainer,
+        onServiceContainer = onServiceContainer,
         dimContent1 = dimContent1,
         dimContent2 = dimContent2,
         dimContent3 = dimContent3,
@@ -1121,6 +1354,30 @@ public class SparkColors(
         val onAi_FFFFFFFF_FF152233 = Unit
         val aiContainer_FFC2E0FA_FF094171 = Unit
         val onAiContainer_FF0C5291_FFF4F9FE = Unit
+
+        // Focus
+        val focus_FF0C5291_FF69B2F3 = Unit
+        val onFocus_FFFFFFFF_FF000000 = Unit
+        val focusContainer_FFF0F2F5_FF3A4757 = Unit
+        val onFocusContainer_FF000000_FFFFFFFF = Unit
+
+        // New
+        val new_FFEC5A13_FFF07B42 = Unit
+        val onNew_FFFFFFFF_FF2F1305 = Unit
+        val newContainer_FF89380F_FF89380F = Unit
+        val onNewContainer_FFFFE9DE_FFFFF2EB = Unit
+
+        // Business
+        val business_FF094171_FFC2E0FA = Unit
+        val onBusiness_FFFFFFFF_FF152233 = Unit
+        val businessContainer_FFE6F2FD_FF094171 = Unit
+        val onBusinessContainer_FF152233_FFF4F9FE = Unit
+
+        // Service
+        val service_FF3A4757_FFD0D7DF = Unit
+        val onService_FFFFFFFF_FF202730 = Unit
+        val serviceContainer_FFF0F2F5_FF3A4757 = Unit
+        val onServiceContainer_FF3A4757_FFF6F8F9 = Unit
     }
 
     override fun toString(): String = """
@@ -1139,6 +1396,11 @@ public class SparkColors(
         onInfoContainer=$onInfoContainer, neutral=$neutral, onNeutral=$onNeutral,
         neutralContainer=$neutralContainer, onNeutralContainer=$onNeutralContainer,
         ai=$ai, onAi=$onAi, aiContainer=$aiContainer, onAiContainer=$onAiContainer,
+        focus=$focus, onFocus=$onFocus, focusContainer=$focusContainer, onFocusContainer=$onFocusContainer,
+        new=$new, onNew=$onNew, newContainer=$newContainer, onNewContainer=$onNewContainer,
+        business=$business, onBusiness=$onBusiness, businessContainer=$businessContainer,
+        onBusinessContainer=$onBusinessContainer, service=$service, onService=$onService,
+        serviceContainer=$serviceContainer, onServiceContainer=$onServiceContainer,
         dim1=$dim1, dim2=$dim2, dim3=$dim3, dim4=$dim4, dim5=$dim5)
     """.trimIndent()
 }
@@ -1344,6 +1606,14 @@ public fun SparkColors.contentColorFor(backgroundColor: Color): Color = when (ba
     neutralContainer -> onNeutralContainer
     ai -> onAi
     aiContainer -> onAiContainer
+    focus -> onFocus
+    focusContainer -> onFocusContainer
+    new -> onNew
+    newContainer -> onNewContainer
+    business -> onBusiness
+    businessContainer -> onBusinessContainer
+    service -> onService
+    serviceContainer -> onServiceContainer
     else -> Color.Unspecified
 }
 
@@ -1484,6 +1754,22 @@ internal fun SparkColors.updateColorsFrom(other: SparkColors) {
     onAi = other.onAi
     aiContainer = other.aiContainer
     onAiContainer = other.onAiContainer
+    focus = other.focus
+    onFocus = other.onFocus
+    focusContainer = other.focusContainer
+    onFocusContainer = other.onFocusContainer
+    new = other.new
+    onNew = other.onNew
+    newContainer = other.newContainer
+    onNewContainer = other.onNewContainer
+    business = other.business
+    onBusiness = other.onBusiness
+    businessContainer = other.businessContainer
+    onBusinessContainer = other.onBusinessContainer
+    service = other.service
+    onService = other.onService
+    serviceContainer = other.serviceContainer
+    onServiceContainer = other.onServiceContainer
     dim1 = other.dim1
     dim2 = other.dim2
     dim3 = other.dim3
@@ -1584,6 +1870,22 @@ public fun debugColors(
     onAi = onDebugColor,
     aiContainer = debugColor,
     onAiContainer = onDebugColor,
+    focus = debugColor,
+    onFocus = onDebugColor,
+    focusContainer = debugColor,
+    onFocusContainer = onDebugColor,
+    new = debugColor,
+    onNew = onDebugColor,
+    newContainer = debugColor,
+    onNewContainer = onDebugColor,
+    business = debugColor,
+    onBusiness = onDebugColor,
+    businessContainer = debugColor,
+    onBusinessContainer = onDebugColor,
+    service = debugColor,
+    onService = onDebugColor,
+    serviceContainer = debugColor,
+    onServiceContainer = onDebugColor,
     background = Color.Blue,
     onBackground = onDebugColor,
     backgroundVariant = Color.Blue,
@@ -1678,6 +1980,12 @@ private val previewColors
                 listOf(::info, ::infoContainer),
                 listOf(::neutral, ::neutralContainer),
                 listOf(::ai, ::aiContainer),
+            ),
+            listOf(
+                listOf(::focus, ::focusContainer),
+                listOf(::new, ::newContainer),
+                listOf(::business, ::businessContainer),
+                listOf(::service, ::serviceContainer),
             ),
             listOf(
                 listOf(::background, ::backgroundVariant),

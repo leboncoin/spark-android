@@ -172,6 +172,22 @@ internal val LeboncoinColorProLight: SparkColors = lightSparkColors(
     scrim = Iris900,
     outline = Obsidia500,
     outlineHigh = Obsidia900,
+    focus = Scilla800,
+    onFocus = Color.White,
+    focusContainer = Obsidia200,
+    onFocusContainer = Color.Black,
+    new = Iris500,
+    onNew = Color.White,
+    newContainer = Iris100,
+    onNewContainer = Iris700,
+    business = Iris500,
+    onBusiness = Color.White,
+    businessContainer = Iris100,
+    onBusinessContainer = Iris700,
+    service = Iris600,
+    onService = Color.White,
+    serviceContainer = Iris200,
+    onServiceContainer = Color.Black,
 )
 
 internal val LeboncoinColorProDark: SparkColors = darkSparkColors(
@@ -226,4 +242,34 @@ internal val LeboncoinColorProDark: SparkColors = darkSparkColors(
     scrim = Iris900,
     outline = Obsidia600,
     outlineHigh = Obsidia100,
+    focus = Scilla100,
+    onFocus = Color.Black,
+    focusContainer = Obsidia900,
+    onFocusContainer = Color.White,
+    new = Iris300,
+    onNew = Iris900,
+    newContainer = Iris700,
+    onNewContainer = Iris100,
+    business = Iris300,
+    onBusiness = Iris900,
+    businessContainer = Iris700,
+    onBusinessContainer = Iris100,
+    service = Iris400,
+    onService = Color.Black,
+    serviceContainer = Iris700,
+    onServiceContainer = Color.White,
+)
+
+// The Pro rebrand matches the current Pro palette, apart from the AI intent, which uses Iris.
+internal val LeboncoinColorProRebrandingLight: SparkColors = LeboncoinColorProLight.copy(
+    ai = Iris500,
+    onAi = Color.White,
+    aiContainer = Iris100,
+    onAiContainer = Iris700,
+)
+internal val LeboncoinColorProRebrandingDark: SparkColors = LeboncoinColorProDark.copy(
+    ai = Iris300,
+    onAi = Iris900,
+    aiContainer = Iris700,
+    onAiContainer = Iris100,
 )

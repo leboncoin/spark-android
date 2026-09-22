@@ -23,6 +23,8 @@ package com.adevinta.spark.catalog.themes.themeprovider.leboncoin
 
 import androidx.annotation.FloatRange
 import androidx.compose.runtime.Composable
+import com.adevinta.spark.catalog.themes.BrandMode
+import com.adevinta.spark.catalog.themes.VersionMode
 import com.adevinta.spark.catalog.themes.themeprovider.ThemeProvider
 import com.adevinta.spark.tokens.SparkColors
 import com.adevinta.spark.tokens.SparkShapes
@@ -36,15 +38,32 @@ public object LeboncoinTheme : ThemeProvider {
     @Composable
     override fun colors(
         useDarkColors: Boolean,
-        isPro: Boolean,
-        isRebranding: Boolean,
+        brandMode: BrandMode,
+        versionMode: VersionMode,
         @FloatRange(from = -1.0, to = 1.0) contrastLevel: Float,
-    ): SparkColors =
-        if (contrastLevel in -1.0f..0.66f) {
-            basicTheme(useDarkColors, isPro, isRebranding)
-        } else {
-            highContrastTheme(useDarkColors)
+    ): SparkColors {
+        val rebranded = versionMode == VersionMode.Rebranded
+        if (brandMode == BrandMode.Contrasted || contrastLevel > 0.66f) {
+            return highContrastTheme(useDarkColors, rebranded)
         }
+        return when (brandMode) {
+            BrandMode.Part -> when {
+                rebranded && useDarkColors -> LeboncoinColorRebrandingDark
+                rebranded -> LeboncoinColorRebrandingLight
+                useDarkColors -> darkSparkColors()
+                else -> lightSparkColors()
+            }
+
+            BrandMode.Pro -> when {
+                rebranded && useDarkColors -> LeboncoinColorProRebrandingDark
+                rebranded -> LeboncoinColorProRebrandingLight
+                useDarkColors -> LeboncoinColorProDark
+                else -> LeboncoinColorProLight
+            }
+
+            BrandMode.Contrasted -> highContrastTheme(useDarkColors, rebranded)
+        }
+    }
 
     @Composable
     override fun shapes(): SparkShapes = LeboncoinShapes
@@ -53,28 +72,13 @@ public object LeboncoinTheme : ThemeProvider {
     override fun typography(): SparkTypography = LeboncoinTypo
 
     @Composable
-    private fun basicTheme(
+    private fun highContrastTheme(
         useDarkColors: Boolean,
-        isPro: Boolean,
-        isRebranding: Boolean,
-    ): SparkColors = if (useDarkColors) {
-        when {
-            isRebranding -> LeboncoinColorRebrandingDark
-            isPro -> LeboncoinColorProDark
-            else -> darkSparkColors()
-        }
-    } else {
-        when {
-            isRebranding -> LeboncoinColorRebrandingLight
-            isPro -> LeboncoinColorProLight
-            else -> lightSparkColors()
-        }
-    }
-
-    @Composable
-    private fun highContrastTheme(useDarkColors: Boolean): SparkColors = if (useDarkColors) {
-        darkHighContrastSparkColors()
-    } else {
-        lightHighContrastSparkColors()
+        rebranded: Boolean,
+    ): SparkColors = when {
+        rebranded && useDarkColors -> LeboncoinColorRebrandingContrastDark
+        rebranded -> LeboncoinColorRebrandingContrastLight
+        useDarkColors -> darkHighContrastSparkColors()
+        else -> lightHighContrastSparkColors()
     }
 }

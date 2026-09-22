@@ -43,7 +43,8 @@ import soup.compose.material.motion.animation.materialSharedAxisZOut
 public data class Theme(
     val themeMode: ThemeMode = ThemeMode.System,
     val colorMode: ColorMode = ColorMode.Baseline,
-    val userMode: UserMode = UserMode.Part,
+    val brandMode: BrandMode = BrandMode.Part,
+    val versionMode: VersionMode = VersionMode.Current,
     val fontScale: Float = 1.0f,
     val fontScaleMode: FontScaleMode = FontScaleMode.System,
     val textDirection: TextDirection = TextDirection.System,
@@ -103,10 +104,25 @@ public enum class ThemeMode {
     Dark,
 }
 
-public enum class UserMode {
+/**
+ * The brand colour palette to preview.
+ *
+ * Contrasted forces the high-contrast palette and ignores [VersionMode].
+ */
+public enum class BrandMode {
     Part,
     Pro,
-    Rebranding,
+    Contrasted,
+}
+
+/**
+ * The colour version to preview.
+ *
+ * Rebranded has no effect when [BrandMode.Contrasted] is selected.
+ */
+public enum class VersionMode {
+    Current,
+    Rebranded,
 }
 
 public enum class NavigationMode(
@@ -148,7 +164,8 @@ public val ThemeSaver: Saver<Theme, Map<String, Int>> = Saver(
         mapOf(
             ThemeModeKey to theme.themeMode.ordinal,
             ColorModeKey to theme.colorMode.ordinal,
-            UserModeKey to theme.userMode.ordinal,
+            BrandModeKey to theme.brandMode.ordinal,
+            VersionModeKey to theme.versionMode.ordinal,
             FontScaleKey to theme.fontScale.toBits(),
             ColorBlindTypeKey to theme.colorBlindNessType.ordinal,
             ColorBlindTypeSeverityKey to theme.colorBlindNessSeverity.toBits(),
@@ -164,7 +181,8 @@ public val ThemeSaver: Saver<Theme, Map<String, Int>> = Saver(
         Theme(
             themeMode = ThemeMode.entries[map.getValue(ThemeModeKey)],
             colorMode = ColorMode.entries[map.getValue(ColorModeKey)],
-            userMode = UserMode.entries[map.getValue(UserModeKey)],
+            brandMode = BrandMode.entries[map.getValue(BrandModeKey)],
+            versionMode = VersionMode.entries[map.getValue(VersionModeKey)],
             fontScale = Float.fromBits(map.getValue(FontScaleKey)),
             colorBlindNessType = ColorBlindNessType.entries[map.getValue(ColorBlindTypeKey)],
             colorBlindNessSeverity = Float.fromBits(map.getValue(ColorBlindTypeSeverityKey)),
@@ -183,7 +201,8 @@ public const val MaxFontScale: Float = 2f
 
 private const val ThemeModeKey = "themeMode"
 private const val ColorModeKey = "colorMode"
-private const val UserModeKey = "userMode"
+private const val BrandModeKey = "brandMode"
+private const val VersionModeKey = "versionMode"
 private const val FontScaleKey = "fontScale"
 private const val ColorBlindTypeKey = "colorBlindType"
 private const val ColorBlindTypeSeverityKey = "colorBlindTypeSeverity"

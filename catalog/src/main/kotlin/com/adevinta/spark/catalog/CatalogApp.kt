@@ -84,7 +84,6 @@ import com.adevinta.spark.catalog.themes.TextDirection
 import com.adevinta.spark.catalog.themes.Theme
 import com.adevinta.spark.catalog.themes.ThemeMode
 import com.adevinta.spark.catalog.themes.ThemePicker
-import com.adevinta.spark.catalog.themes.UserMode
 import com.adevinta.spark.catalog.themes.themeprovider.ThemeProvider
 import com.adevinta.spark.catalog.themes.themeprovider.leboncoin.LeboncoinTheme
 import com.adevinta.spark.catalog.ui.BackdropScaffold
@@ -119,8 +118,8 @@ internal fun ComponentActivity.CatalogApp(
     } else {
         themeProvider.colors(
             useDarkColors = useDark,
-            isPro = theme.userMode == UserMode.Pro,
-            isRebranding = theme.userMode == UserMode.Rebranding,
+            brandMode = theme.brandMode,
+            versionMode = theme.versionMode,
             contrastLevel = contrastLevel,
         )
     }
