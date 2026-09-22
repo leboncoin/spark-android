@@ -36,6 +36,8 @@
 
     <string name="theme_picker_mode_title">Mode</string>
     <string name="theme_picker_theme_title" description="Spark theme. [CHAR_LIMIT=NONE]">Theme</string>
+    <string name="theme_picker_brand_title" description="Spark brand palette. [CHAR_LIMIT=NONE]">Brand</string>
+    <string name="theme_picker_version_title" description="Spark colour version. [CHAR_LIMIT=NONE]">Version</string>
     <string name="theme_picker_text_direction_title" description="Simulate system text direction to be either LTR or RTL. [CHAR_LIMIT=NONE]">Text direction</string>
     <string name="theme_picker_font_scale_title" description="Simulate a11y font scaling. [CHAR_LIMIT=NONE]">Font scale</string>
     <string name="theme_picker_section_theme_settings">Theme Settings</string>
@@ -43,7 +45,8 @@
     <string name="theme_picker_section_developer_options">Developer Options</string>
     <string name="theme_picker_mode_helper">System mode follows your device’s theme setting. Light and Dark modes override the system setting.</string>
     <string name="theme_picker_theme_helper">Dynamic theme uses colors from your device’s wallpaper (Android 12+). Baseline uses Spark’s default color palette.</string>
-    <string name="theme_picker_pro_theme_helper">Pro theme provides additional color variants for professional use cases.</string>
+    <string name="theme_picker_brand_helper">Part is the default palette. Pro is for professional use cases. Contrasted uses the high-contrast palette.</string>
+    <string name="theme_picker_version_helper">Current uses the legacy colours. Rebranded uses the new colours.</string>
     <string name="theme_picker_font_scale_helper">Simulates accessibility font scaling to test how components adapt to larger text sizes.</string>
     <string name="theme_picker_text_direction_helper">LTR (Left-to-Right) is used for languages like English. RTL (Right-to-Left) is used for languages like Arabic and Hebrew.</string>
     <string name="theme_picker_contrast_helper">System contrast level (read-only). Adjust in device accessibility settings.</string>

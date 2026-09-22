@@ -173,6 +173,62 @@ internal enum class IntentColors {
             onContainerColor = SparkTheme.colors.onAiContainer,
         )
     },
+
+    /**
+     * Used to highlight the focused element.
+     */
+    Focus {
+        @Composable
+        @ReadOnlyComposable
+        override fun colors() = IntentColor(
+            color = SparkTheme.colors.focus,
+            onColor = SparkTheme.colors.onFocus,
+            containerColor = SparkTheme.colors.focusContainer,
+            onContainerColor = SparkTheme.colors.onFocusContainer,
+        )
+    },
+
+    /**
+     * Used to identify new content or features.
+     */
+    New {
+        @Composable
+        @ReadOnlyComposable
+        override fun colors() = IntentColor(
+            color = SparkTheme.colors.new,
+            onColor = SparkTheme.colors.onNew,
+            containerColor = SparkTheme.colors.newContainer,
+            onContainerColor = SparkTheme.colors.onNewContainer,
+        )
+    },
+
+    /**
+     * Used to identify professional content or features.
+     */
+    Business {
+        @Composable
+        @ReadOnlyComposable
+        override fun colors() = IntentColor(
+            color = SparkTheme.colors.business,
+            onColor = SparkTheme.colors.onBusiness,
+            containerColor = SparkTheme.colors.businessContainer,
+            onContainerColor = SparkTheme.colors.onBusinessContainer,
+        )
+    },
+
+    /**
+     * Used to identify service content or features.
+     */
+    Service {
+        @Composable
+        @ReadOnlyComposable
+        override fun colors() = IntentColor(
+            color = SparkTheme.colors.service,
+            onColor = SparkTheme.colors.onService,
+            containerColor = SparkTheme.colors.serviceContainer,
+            onContainerColor = SparkTheme.colors.onServiceContainer,
+        )
+    },
     ;
 
     @Composable

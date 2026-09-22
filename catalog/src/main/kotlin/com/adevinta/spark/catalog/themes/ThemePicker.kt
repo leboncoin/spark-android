@@ -149,13 +149,25 @@ public fun ThemePicker(
                     visible = theme.colorMode == ColorMode.Baseline,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                 ) {
-                    Column {
-                        ButtonGroup(
-                            title = stringResource(id = R.string.theme_picker_theme_title),
-                            selectedOption = theme.userMode,
-                            onOptionSelect = { onThemeChange(theme.copy(userMode = it)) },
-                        )
-                        HelperText(text = stringResource(id = R.string.theme_picker_pro_theme_helper))
+                    Column(
+                        verticalArrangement = spacedBy(RelatedItemSpacing),
+                    ) {
+                        Column {
+                            ButtonGroup(
+                                title = stringResource(id = R.string.theme_picker_brand_title),
+                                selectedOption = theme.brandMode,
+                                onOptionSelect = { onThemeChange(theme.copy(brandMode = it)) },
+                            )
+                            HelperText(text = stringResource(id = R.string.theme_picker_brand_helper))
+                        }
+                        Column {
+                            ButtonGroup(
+                                title = stringResource(id = R.string.theme_picker_version_title),
+                                selectedOption = theme.versionMode,
+                                onOptionSelect = { onThemeChange(theme.copy(versionMode = it)) },
+                            )
+                            HelperText(text = stringResource(id = R.string.theme_picker_version_helper))
+                        }
                     }
                 }
             }
