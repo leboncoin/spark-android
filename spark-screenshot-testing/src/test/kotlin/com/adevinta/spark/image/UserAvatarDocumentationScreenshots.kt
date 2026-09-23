@@ -21,11 +21,17 @@
  */
 package com.adevinta.spark.image
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.DefaultTestDevices
+import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.image.UserAvatar
 import com.adevinta.spark.components.image.UserAvatarStyle
 import com.adevinta.spark.paparazziRule
@@ -71,8 +77,25 @@ internal class UserAvatarDocumentationScreenshots {
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            UserAvatar(style = UserAvatarStyle.LARGE, model = null, isOnline = false)
-            UserAvatar(style = UserAvatarStyle.LARGE, model = null, isOnline = true)
+            UserAvatar(style = UserAvatarStyle.LARGE, model = null)
+            UserAvatar(style = UserAvatarStyle.LARGE, model = null, addon = { onlineIndicator() })
         }
+    }
+
+    @Test
+    fun addonBadge() = paparazzi.sparkDocSnapshot {
+        UserAvatar(
+            style = UserAvatarStyle.LARGE,
+            model = null,
+            addon = {
+                custom {
+                    Box(
+                        Modifier
+                            .size(20.dp)
+                            .background(SparkTheme.colors.error, CircleShape),
+                    )
+                }
+            },
+        )
     }
 }

@@ -73,7 +73,7 @@ public val UserAvatarConfigurator: Configurator = Configurator(
 private fun ColumnScope.UserAvatarSample() {
     var style by remember { mutableStateOf(UserAvatarStyle.SMALL) }
     var isPro by remember { mutableStateOf(false) }
-    var isOnline by remember { mutableStateOf(false) }
+    var showOnlineIndicator by remember { mutableStateOf(false) }
     var imageState by remember { mutableStateOf(UserAvatarImageState.Empty) }
 
     val context = LocalContext.current
@@ -112,7 +112,11 @@ private fun ColumnScope.UserAvatarSample() {
             style = style,
             model = imageRequest,
             isPro = isPro,
-            isOnline = isOnline,
+            addon = if (showOnlineIndicator) {
+                { onlineIndicator() }
+            } else {
+                {}
+            },
         )
     }
 
@@ -137,10 +141,10 @@ private fun ColumnScope.UserAvatarSample() {
     }
 
     SwitchLabelled(
-        checked = isOnline,
-        onCheckedChange = { isOnline = it },
+        checked = showOnlineIndicator,
+        onCheckedChange = { showOnlineIndicator = it },
     ) {
-        Text(text = "Online", modifier = Modifier.fillMaxWidth())
+        Text(text = "Online indicator", modifier = Modifier.fillMaxWidth())
     }
 }
 
