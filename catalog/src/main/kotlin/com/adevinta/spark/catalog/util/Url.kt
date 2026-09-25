@@ -36,13 +36,13 @@ public const val GuidelinesUrl: String = "https://spark.adevinta.com"
 public const val ComponentGuidelinesUrl: String = "https://spark.adevinta.com/1186e1705"
 public const val StyleGuidelinesUrl: String = "https://m3.material.io/styles"
 public const val ReleasesUrl: String = "https://github.com/leboncoin/spark-android/releases"
-public const val DocsUrl: String = "https://adevinta.github.io/spark-android"
+public const val DocsUrl: String = "https://leboncoin.github.io/spark-android"
 public const val SourceUrl: String = "https://github.com/leboncoin/spark-android"
 public const val SparkSourceUrl: String = "https://github.com/leboncoin/spark-android/tree/main/spark/src/main"
 
 public const val SampleSourceUrl: String = "https://github.com/leboncoin/spark-android/blob/main/catalog/src/main/kotlin/com/adevinta/spark/catalog/examples/samples"
 
-public const val PackageSummaryUrl: String = "https://adevinta.github.io/spark-android/spark"
+public const val PackageSummaryUrl: String = "https://leboncoin.github.io/spark-android/spark"
 
 public const val IssueUrl: String = "https://github.com/leboncoin/spark-android/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc"
 public const val LicensesUrl: String = "https://github.com/leboncoin/spark-android/blob/main/LICENSE"
