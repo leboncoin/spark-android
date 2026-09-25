@@ -71,7 +71,7 @@ public val UserAvatarConfigurator: Configurator = Configurator(
 @OptIn(ExperimentalCoilApi::class)
 @Composable
 private fun ColumnScope.UserAvatarSample() {
-    var style by remember { mutableStateOf(UserAvatarStyle.SMALL) }
+    var style by remember { mutableStateOf(UserAvatarStyle.SM) }
     var isPro by remember { mutableStateOf(false) }
     var showOnlineIndicator by remember { mutableStateOf(false) }
     var imageState by remember { mutableStateOf(UserAvatarImageState.Empty) }

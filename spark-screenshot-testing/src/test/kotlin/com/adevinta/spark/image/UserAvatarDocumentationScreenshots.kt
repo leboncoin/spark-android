@@ -54,9 +54,9 @@ internal class UserAvatarDocumentationScreenshots {
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            UserAvatar(style = UserAvatarStyle.SMALL, model = null)
-            UserAvatar(style = UserAvatarStyle.MEDIUM, model = null)
-            UserAvatar(style = UserAvatarStyle.LARGE, model = null)
+            UserAvatar(style = UserAvatarStyle.SM, model = null)
+            UserAvatar(style = UserAvatarStyle.MD, model = null)
+            UserAvatar(style = UserAvatarStyle.XL, model = null)
         }
     }
 
@@ -66,8 +66,8 @@ internal class UserAvatarDocumentationScreenshots {
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            UserAvatar(style = UserAvatarStyle.LARGE, model = null, isPro = false)
-            UserAvatar(style = UserAvatarStyle.LARGE, model = null, isPro = true)
+            UserAvatar(style = UserAvatarStyle.XL, model = null, isPro = false)
+            UserAvatar(style = UserAvatarStyle.XL, model = null, isPro = true)
         }
     }
 
@@ -77,15 +77,15 @@ internal class UserAvatarDocumentationScreenshots {
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            UserAvatar(style = UserAvatarStyle.LARGE, model = null)
-            UserAvatar(style = UserAvatarStyle.LARGE, model = null, addon = { onlineIndicator() })
+            UserAvatar(style = UserAvatarStyle.XL, model = null)
+            UserAvatar(style = UserAvatarStyle.XL, model = null, addon = { onlineIndicator() })
         }
     }
 
     @Test
     fun addonBadge() = paparazzi.sparkDocSnapshot {
         UserAvatar(
-            style = UserAvatarStyle.LARGE,
+            style = UserAvatarStyle.XL,
             model = null,
             addon = {
                 custom {
