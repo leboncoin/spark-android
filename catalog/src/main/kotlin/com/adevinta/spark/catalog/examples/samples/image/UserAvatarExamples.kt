@@ -104,14 +104,14 @@ private fun ColumnScope.UserAvatarOnline() {
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Text("Offline and online")
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            UserAvatar(style = UserAvatarStyle.LARGE, isOnline = false)
-            UserAvatar(style = UserAvatarStyle.LARGE, isOnline = true)
+            UserAvatar(style = UserAvatarStyle.LARGE, addon = {})
+            UserAvatar(style = UserAvatarStyle.LARGE, addon = { onlineIndicator() })
         }
         Text("Online dot on all sizes")
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            UserAvatar(style = UserAvatarStyle.SMALL, isOnline = true)
-            UserAvatar(style = UserAvatarStyle.MEDIUM, isOnline = true)
-            UserAvatar(style = UserAvatarStyle.LARGE, isOnline = true)
+            UserAvatar(style = UserAvatarStyle.SMALL, addon = { onlineIndicator() })
+            UserAvatar(style = UserAvatarStyle.MEDIUM, addon = { onlineIndicator() })
+            UserAvatar(style = UserAvatarStyle.LARGE, addon = { onlineIndicator() })
         }
     }
 }

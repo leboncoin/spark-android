@@ -21,10 +21,14 @@
  */
 package com.adevinta.spark.image
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -52,6 +56,33 @@ internal class UserAvatarScreenshot {
     fun userAvatarMatrix() {
         paparazzi.sparkSnapshot {
             UserAvatarMatrix()
+        }
+    }
+
+    @Test
+    fun userAvatarAddonOverflow() {
+        paparazzi.sparkSnapshot {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(16.dp),
+            ) {
+                UserAvatarStyle.entries.forEach { style ->
+                    UserAvatar(
+                        style = style,
+                        model = null,
+                        addon = {
+                            custom {
+                                Box(
+                                    Modifier
+                                        .size(20.dp)
+                                        .background(SparkTheme.colors.error, CircleShape),
+                                )
+                            }
+                        },
+                    )
+                }
+            }
         }
     }
 
@@ -83,7 +114,7 @@ internal class UserAvatarScreenshot {
                                     style = style,
                                     model = null,
                                     isPro = isPro,
-                                    isOnline = isOnline,
+                                    addon = { if (isOnline) onlineIndicator() },
                                 )
                                 Text(
                                     text = "${if (isPro) "Pro" else "User"} ${if (isOnline) "Online" else "Offline"}",
