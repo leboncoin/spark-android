@@ -86,6 +86,31 @@ internal class UserAvatarScreenshot {
         }
     }
 
+    @Test
+    fun userAvatarLetter() {
+        paparazzi.sparkSnapshot { UserAvatarLetter() }
+        paparazzi.sparkSnapshot(name = "dark", isDark = true) { UserAvatarLetter() }
+    }
+
+    @Composable
+    private fun UserAvatarLetter() {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier.padding(16.dp),
+        ) {
+            UserAvatarStyle.entries.forEach { style ->
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    UserAvatar(style = style, model = null, letter = 'S')
+                    UserAvatar(style = style, model = null, letter = 'S', isPro = true)
+                    UserAvatar(style = style, model = null, letter = 'S', addon = { onlineIndicator() })
+                }
+            }
+        }
+    }
+
     @Composable
     private fun UserAvatarMatrix() {
         Column(

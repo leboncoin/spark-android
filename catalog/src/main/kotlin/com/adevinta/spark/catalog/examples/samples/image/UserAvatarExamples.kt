@@ -71,6 +71,14 @@ public val UserAvatarExamples: ImmutableList<Example> = persistentListOf(
     ) {
         UserAvatarPlaceholder()
     },
+    Example(
+        id = "letter",
+        name = "Letter",
+        description = "Avatar with no image shows the first letter of the user name",
+        sourceUrl = UserAvatarExampleSourceUrl,
+    ) {
+        UserAvatarLetter()
+    },
 )
 
 @Preview
@@ -124,6 +132,24 @@ private fun ColumnScope.UserAvatarPlaceholder() {
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
             UserAvatar(style = UserAvatarStyle.LARGE, model = null)
             UserAvatar(style = UserAvatarStyle.LARGE, model = null, isPro = true)
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun ColumnScope.UserAvatarLetter() {
+    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        Text("Letter on all sizes")
+        Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+            UserAvatar(style = UserAvatarStyle.SMALL, model = null, letter = 'S')
+            UserAvatar(style = UserAvatarStyle.MEDIUM, model = null, letter = 'S')
+            UserAvatar(style = UserAvatarStyle.LARGE, model = null, letter = 'S')
+        }
+        Text("Placeholder icon vs letter")
+        Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+            UserAvatar(style = UserAvatarStyle.LARGE, model = null)
+            UserAvatar(style = UserAvatarStyle.LARGE, model = null, letter = 'S')
         }
     }
 }
