@@ -41,7 +41,9 @@ import org.jetbrains.uast.toUElementOfType
 import org.jetbrains.uast.visitor.AbstractUastVisitor
 
 /** Reports misuses of Spark's `Scaffold` slots: unused `content` padding and bars that ignore window insets. */
-public class SparkScaffoldDetector : Detector(), SourceCodeScanner {
+public class SparkScaffoldDetector :
+    Detector(),
+    SourceCodeScanner {
 
     override fun getApplicableMethodNames(): List<String> = listOf("Scaffold")
 
@@ -52,7 +54,7 @@ public class SparkScaffoldDetector : Detector(), SourceCodeScanner {
             val lambda = argument as? ULambdaExpression ?: return@forEach
             when (parameter.name) {
                 "content" -> checkContentPadding(context, node, lambda)
-                "topBar", "bottomBar" -> checkBarInsets(context, node, lambda, parameter.name)
+                TOP_BAR, BOTTOM_BAR -> checkBarInsets(context, node, lambda, parameter.name)
             }
         }
     }
@@ -80,8 +82,8 @@ public class SparkScaffoldDetector : Detector(), SourceCodeScanner {
             issue = BAR_WITHOUT_INSETS_ISSUE,
             scope = node,
             location = context.getLocation(bar),
-            message = "`$slotName` content does not handle window insets: " +
-                "use a Spark app bar or apply a window insets padding modifier",
+            message = "`$slotName` content does not handle window insets: use ${SUGGESTED_BARS.getValue(slotName)} " +
+                "or apply a window insets padding modifier",
         )
     }
 
@@ -100,6 +102,14 @@ public class SparkScaffoldDetector : Detector(), SourceCodeScanner {
         private const val SCAFFOLD_PACKAGE = "com.adevinta.spark.components.scaffold"
         private const val LAYOUT_PACKAGE = "androidx.compose.foundation.layout"
         private const val WINDOW_INSETS = "$LAYOUT_PACKAGE.WindowInsets"
+
+        private const val TOP_BAR = "topBar"
+        private const val BOTTOM_BAR = "bottomBar"
+
+        private val SUGGESTED_BARS = mapOf(
+            TOP_BAR to "`TopAppBar`, `CenterAlignedTopAppBar`, `MediumTopAppBar` or `LargeTopAppBar`",
+            BOTTOM_BAR to "`BottomAppBar` or `NavigationBar`",
+        )
 
         private val INSETS_PADDING_MODIFIERS = setOf(
             "navigationBarsPadding",
