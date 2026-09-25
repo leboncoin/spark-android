@@ -48,7 +48,7 @@ class UserAvatarTest {
             PreviewTheme { UserAvatar(model = null, letter = 'S') }
         }
 
-        composeTestRule.onNodeWithContentDescription("User avatar").assertExists().assert(isImage)
+        composeTestRule.onNodeWithContentDescription("Profile photo").assertExists().assert(isImage)
         composeTestRule.onNodeWithText("S", useUnmergedTree = true).assertDoesNotExist()
     }
 
@@ -58,6 +58,6 @@ class UserAvatarTest {
             PreviewTheme { UserAvatar(model = null) }
         }
 
-        composeTestRule.onNodeWithContentDescription("User avatar").assertExists().assert(isImage)
+        composeTestRule.onNodeWithContentDescription("Profile photo").assertExists().assert(isImage)
     }
 }
