@@ -75,8 +75,14 @@ internal val nunitoFontFamily = FontFamily(
     ),
 )
 
+// MIUI and HyperOS force their own weight on variable typefaces, so every weight renders the same.
+private val isXiaomiDevice: Boolean = Build.MANUFACTURER.lowercase() in setOf("xiaomi", "redmi", "poco") ||
+    Build.BRAND.lowercase() in setOf("xiaomi", "redmi", "poco")
+
 @OptIn(ExperimentalTextApi::class)
-public val nunitoVariableFontFamily: FontFamily = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+public val nunitoVariableFontFamily: FontFamily = if (
+    Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !isXiaomiDevice
+) {
     FontFamily(
         Font(
             R.font.nunito_sans_variable,
