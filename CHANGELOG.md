@@ -2,6 +2,13 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [3.7.1](https://github.com/leboncoin/spark-android/compare/3.7.0...3.7.1) (2026-09-25)
+
+
+### Bug Fixes
+
+* **typography:** use static Nunito Sans on Xiaomi devices ([#2294](https://github.com/leboncoin/spark-android/issues/2294)) ([1f43564](https://github.com/leboncoin/spark-android/commit/1f43564ab63eef030499ba42e3cf113e3a20b28e))
+
 ## [3.7.0](https://github.com/leboncoin/spark-android/compare/3.6.2...3.7.0) (2026-09-10)
 
 
