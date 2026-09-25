@@ -296,16 +296,16 @@ src/test/foo/test.kt:21: Error: Content padding parameter innerPadding is not us
             .run()
             .expect(
                 """
-src/test/foo/test.kt:15: Warning: topBar content does not handle window insets: use a Spark app bar or apply a window insets padding modifier [SparkScaffoldBarWithoutInsets]
+src/test/foo/test.kt:15: Error: topBar content does not handle window insets: use TopAppBar, CenterAlignedTopAppBar, MediumTopAppBar or LargeTopAppBar or apply a window insets padding modifier [SparkScaffoldBarWithoutInsets]
                     Scaffold(topBar = { Text("Title") }) { it }
                                       ~~~~~~~~~~~~~~~~~
-src/test/foo/test.kt:16: Warning: bottomBar content does not handle window insets: use a Spark app bar or apply a window insets padding modifier [SparkScaffoldBarWithoutInsets]
+src/test/foo/test.kt:16: Error: bottomBar content does not handle window insets: use BottomAppBar or NavigationBar or apply a window insets padding modifier [SparkScaffoldBarWithoutInsets]
                     Scaffold(bottomBar = { Box { Text("Actions") } }) { it }
                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-src/test/foo/test.kt:17: Warning: topBar content does not handle window insets: use a Spark app bar or apply a window insets padding modifier [SparkScaffoldBarWithoutInsets]
+src/test/foo/test.kt:17: Error: topBar content does not handle window insets: use TopAppBar, CenterAlignedTopAppBar, MediumTopAppBar or LargeTopAppBar or apply a window insets padding modifier [SparkScaffoldBarWithoutInsets]
                     Scaffold(topBar = { Recursive() }) { it }
                                       ~~~~~~~~~~~~~~~
-0 errors, 3 warnings
+3 errors
             """,
             )
     }
