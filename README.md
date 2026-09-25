@@ -8,6 +8,7 @@
 </p>
 
 [![👷 Build → 🧑‍🔬 Test → 🕵️ Lint](https://github.com/leboncoin/spark-android/actions/workflows/ci.yml/badge.svg)](https://github.com/leboncoin/spark-android/actions/workflows/ci.yml)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/leboncoin/spark-android)
 
 Spark Design System is based on Material 3 Compose artifact described
 on the [official documentation](https://material.io/) and maintained by Google developers
