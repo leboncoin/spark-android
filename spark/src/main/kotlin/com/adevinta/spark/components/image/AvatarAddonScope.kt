@@ -23,12 +23,26 @@ package com.adevinta.spark.components.image
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.icons.Icon
+import com.adevinta.spark.components.surface.Surface
+import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.PenOutline
+import com.adevinta.spark.icons.Plus
+import com.adevinta.spark.icons.SparkIcon
+import com.adevinta.spark.tokens.ElevationTokens
 
 /**
  * Marker interface returned by every [AvatarAddonScope] addon function.
@@ -62,6 +76,19 @@ public interface AvatarAddonScope {
     public fun onlineIndicator(): AvatarAddonItem
 
     /**
+     * Emits the standard online presence indicator: a filled [SparkTheme.colors.success] circle
+     * with a transparent border ring punched out via [BlendMode.Clear].
+     *
+     * The indicator size derives from the enclosing [UserAvatarStyle].
+     */
+    @Composable
+    public fun iconButton(
+        onClick: () -> Unit,
+        modifier: Modifier = Modifier,
+        icon: SparkIcon = LeboncoinIcons.Plus,
+    ): AvatarAddonItem
+
+    /**
      * Emits arbitrary composable content as the avatar addon.
      *
      * @param content Composable content to place in the addon slot.
@@ -85,6 +112,16 @@ internal class AvatarAddonScopeImpl(private val style: UserAvatarStyle) : Avatar
     }
 
     @Composable
+    override fun iconButton(
+        onClick: () -> Unit,
+        modifier: Modifier,
+        icon: SparkIcon,
+    ): AvatarAddonItem {
+        IconButton(onClick, modifier, icon)
+        return AvatarAddonItemImpl
+    }
+
+    @Composable
     override fun custom(content: @Composable () -> Unit): AvatarAddonItem {
         content()
         return AvatarAddonItemImpl
@@ -94,12 +131,12 @@ internal class AvatarAddonScopeImpl(private val style: UserAvatarStyle) : Avatar
 @Composable
 private fun OnlineIndicator(style: UserAvatarStyle) {
     val indicatorColor = SparkTheme.colors.success
+    val outline = SparkTheme.colors.surface
     Canvas(modifier = Modifier.size(style.badgeSize)) {
         val halfBadge = size.width / 2f
         val borderPx = style.borderSize.toPx()
-        // Punch a transparent ring to create the border effect.
         drawCircle(
-            color = androidx.compose.ui.graphics.Color.Black,
+            color = outline,
             radius = halfBadge,
             blendMode = BlendMode.Clear,
         )
@@ -108,5 +145,42 @@ private fun OnlineIndicator(style: UserAvatarStyle) {
             color = indicatorColor,
             radius = halfBadge - borderPx,
         )
+    }
+}
+
+@Composable
+private fun IconButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    icon: SparkIcon = LeboncoinIcons.Plus,
+) {
+    val indicatorColor = SparkTheme.colors.success
+    Surface(
+        modifier = modifier
+            .size(32.dp)
+            .semantics() {
+                role = Role.Button
+            },
+        elevation = ElevationTokens.Level2,
+        shape = SparkTheme.shapes.full,
+        onClick = onClick,
+    ) {
+        Icon(
+            sparkIcon = icon,
+            contentDescription = null,
+            modifier = Modifier.requiredSize(16.dp),
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun PreviewAddons() {
+    PreviewTheme(color = { SparkTheme.colors.backgroundVariant }) {
+        OnlineIndicator(UserAvatarStyle.SMALL)
+        OnlineIndicator(UserAvatarStyle.MEDIUM)
+        OnlineIndicator(UserAvatarStyle.LARGE)
+        IconButton({})
+        IconButton({}, icon = LeboncoinIcons.PenOutline)
     }
 }
