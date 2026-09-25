@@ -158,7 +158,7 @@ private fun IconButton(
     Surface(
         modifier = modifier
             .size(32.dp)
-            .semantics() {
+            .semantics {
                 role = Role.Button
             },
         elevation = ElevationTokens.Level2,
