@@ -25,6 +25,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assert
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
@@ -49,7 +50,8 @@ class UserAvatarTest {
         }
 
         composeTestRule.onNodeWithContentDescription("Profile photo").assertExists().assert(isImage)
-        composeTestRule.onNodeWithText("S", useUnmergedTree = true).assertDoesNotExist()
+            .assert(hasText("S").not())
+        composeTestRule.onNodeWithText("S").assertDoesNotExist()
     }
 
     @Test
