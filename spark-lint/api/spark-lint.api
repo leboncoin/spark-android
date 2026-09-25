@@ -11,15 +11,16 @@ public final class com/adevinta/spark/lint/MaterialComposableHasSparkReplacement
 	public fun visitMethodCall (Lcom/android/tools/lint/detector/api/JavaContext;Lorg/jetbrains/uast/UCallExpression;Lcom/intellij/psi/PsiMethod;)V
 }
 
-public final class com/adevinta/spark/lint/ScaffoldPaddingDetector : com/android/tools/lint/detector/api/Detector, com/android/tools/lint/detector/api/SourceCodeScanner {
-	public static final field Companion Lcom/adevinta/spark/lint/ScaffoldPaddingDetector$Companion;
+public final class com/adevinta/spark/lint/SparkScaffoldDetector : com/android/tools/lint/detector/api/Detector, com/android/tools/lint/detector/api/SourceCodeScanner {
+	public static final field Companion Lcom/adevinta/spark/lint/SparkScaffoldDetector$Companion;
 	public fun <init> ()V
 	public fun getApplicableMethodNames ()Ljava/util/List;
 	public fun visitMethodCall (Lcom/android/tools/lint/detector/api/JavaContext;Lorg/jetbrains/uast/UCallExpression;Lcom/intellij/psi/PsiMethod;)V
 }
 
-public final class com/adevinta/spark/lint/ScaffoldPaddingDetector$Companion {
-	public final fun getISSUE ()Lcom/android/tools/lint/detector/api/Issue;
+public final class com/adevinta/spark/lint/SparkScaffoldDetector$Companion {
+	public final fun getBAR_WITHOUT_INSETS_ISSUE ()Lcom/android/tools/lint/detector/api/Issue;
+	public final fun getUNUSED_PADDING_ISSUE ()Lcom/android/tools/lint/detector/api/Issue;
 }
 
 public final class com/adevinta/spark/lint/StringResourceAnnotationDetector : com/android/tools/lint/detector/api/ResourceXmlDetector {

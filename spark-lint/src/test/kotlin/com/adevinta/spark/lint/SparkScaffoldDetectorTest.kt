@@ -29,18 +29,24 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
 @RunWith(JUnit4::class)
-class ScaffoldPaddingDetectorTest : LintDetectorTest() {
+class SparkScaffoldDetectorTest : LintDetectorTest() {
 
-    override fun getDetector(): Detector = ScaffoldPaddingDetector()
-    override fun getIssues(): List<Issue> = listOf(ScaffoldPaddingDetector.ISSUE)
+    override fun getDetector(): Detector = SparkScaffoldDetector()
+    override fun getIssues(): List<Issue> = listOf(
+        SparkScaffoldDetector.UNUSED_PADDING_ISSUE,
+        SparkScaffoldDetector.BAR_WITHOUT_INSETS_ISSUE,
+    )
 
     private val sparkScaffoldStub = kotlin(
         """
             package com.adevinta.spark.components.scaffold
 
             import androidx.compose.foundation.layout.PaddingValues
+            import androidx.compose.runtime.Composable
+            import androidx.compose.ui.Modifier
 
             fun Scaffold(
+                modifier: Modifier = Modifier,
                 topBar: @Composable () -> Unit = {},
                 bottomBar: @Composable () -> Unit = {},
                 content: @Composable (PaddingValues) -> Unit
@@ -52,9 +58,23 @@ class ScaffoldPaddingDetectorTest : LintDetectorTest() {
         """
             package androidx.compose.foundation.layout
 
+            import androidx.compose.runtime.Composable
+            import androidx.compose.ui.Modifier
+
             class PaddingValues
 
+            class WindowInsets {
+                companion object
+            }
+
+            val WindowInsets.Companion.navigationBars: WindowInsets get() = WindowInsets()
+
             fun Modifier.padding(paddingValues: PaddingValues): Modifier = this
+            fun Modifier.statusBarsPadding(): Modifier = this
+            fun Modifier.windowInsetsPadding(insets: WindowInsets): Modifier = this
+
+            @Composable
+            fun Box(modifier: Modifier = Modifier, content: @Composable () -> Unit = {}) {}
             """,
     ).indented()
 
@@ -70,13 +90,32 @@ class ScaffoldPaddingDetectorTest : LintDetectorTest() {
         """
             package androidx.compose.ui
 
-            object Modifier {
-                fun fillMaxSize(): Modifier = this
-            }
-
             interface Modifier {
                 companion object : Modifier
             }
+            """,
+    ).indented()
+
+    private val sparkComponentsStub = kotlin(
+        """
+            package com.adevinta.spark.components.appbar
+
+            import androidx.compose.foundation.layout.WindowInsets
+            import androidx.compose.runtime.Composable
+
+            @Composable
+            fun TopAppBar(title: @Composable () -> Unit, windowInsets: WindowInsets = WindowInsets()) {}
+            """,
+    ).indented()
+
+    private val textStub = kotlin(
+        """
+            package com.adevinta.spark.components.text
+
+            import androidx.compose.runtime.Composable
+
+            @Composable
+            fun Text(text: String) {}
             """,
     ).indented()
 
@@ -214,6 +253,137 @@ src/test/foo/test.kt:21: Error: Content padding parameter innerPadding is not us
         """,
                 ),
                 sparkScaffoldStub,
+                modifierStub,
+                paddingValuesStub,
+                composableStub,
+            )
+            .run()
+            .expectClean()
+    }
+
+    @Test
+    fun barsWithoutInsets() {
+        lint()
+            .files(
+                kotlin(
+                    """
+                package test.foo
+
+                import com.adevinta.spark.components.scaffold.*
+                import com.adevinta.spark.components.text.Text
+                import androidx.compose.foundation.layout.Box
+                import androidx.compose.runtime.*
+                import androidx.compose.ui.*
+
+                @Composable
+                fun Recursive(): Unit = Recursive()
+
+                @Composable
+                fun Test() {
+                    Scaffold(topBar = { Text("Title") }) { it }
+                    Scaffold(bottomBar = { Box { Text("Actions") } }) { it }
+                    Scaffold(topBar = { Recursive() }) { it }
+                }
+            """,
+                ),
+                sparkScaffoldStub,
+                sparkComponentsStub,
+                textStub,
+                modifierStub,
+                paddingValuesStub,
+                composableStub,
+            )
+            .run()
+            .expect(
+                """
+src/test/foo/test.kt:15: Warning: topBar content does not handle window insets: use a Spark app bar or apply a window insets padding modifier [SparkScaffoldBarWithoutInsets]
+                    Scaffold(topBar = { Text("Title") }) { it }
+                                      ~~~~~~~~~~~~~~~~~
+src/test/foo/test.kt:16: Warning: bottomBar content does not handle window insets: use a Spark app bar or apply a window insets padding modifier [SparkScaffoldBarWithoutInsets]
+                    Scaffold(bottomBar = { Box { Text("Actions") } }) { it }
+                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/test/foo/test.kt:17: Warning: topBar content does not handle window insets: use a Spark app bar or apply a window insets padding modifier [SparkScaffoldBarWithoutInsets]
+                    Scaffold(topBar = { Recursive() }) { it }
+                                      ~~~~~~~~~~~~~~~
+0 errors, 3 warnings
+            """,
+            )
+    }
+
+    @Test
+    fun barsHandlingInsets() {
+        lint()
+            .files(
+                kotlin(
+                    """
+                package test.foo
+
+                import com.adevinta.spark.components.appbar.TopAppBar
+                import com.adevinta.spark.components.scaffold.*
+                import com.adevinta.spark.components.text.Text
+                import androidx.compose.foundation.layout.*
+                import androidx.compose.runtime.*
+                import androidx.compose.ui.*
+
+                @Composable
+                fun CustomTopBar() {
+                    TopAppBar(title = { Text("Title") })
+                }
+
+                @Composable
+                fun Test() {
+                    Scaffold(topBar = { TopAppBar(title = { Text("Title") }) }) { it }
+                    Scaffold(topBar = { CustomTopBar() }) { it }
+                    Scaffold(topBar = { Box(Modifier.statusBarsPadding()) { Text("Title") } }) { it }
+                    Scaffold(
+                        bottomBar = { Box(Modifier.windowInsetsPadding(WindowInsets.navigationBars)) { Text("Actions") } },
+                    ) { it }
+                }
+            """,
+                ),
+                sparkScaffoldStub,
+                sparkComponentsStub,
+                textStub,
+                modifierStub,
+                paddingValuesStub,
+                composableStub,
+            )
+            .run()
+            .expectClean()
+    }
+
+    @Test
+    fun barsOnNonSparkScaffold() {
+        lint()
+            .files(
+                kotlin(
+                    """
+                package androidx.compose.material3
+
+                import androidx.compose.foundation.layout.PaddingValues
+                import androidx.compose.runtime.Composable
+
+                fun Scaffold(
+                    topBar: @Composable () -> Unit = {},
+                    content: @Composable (PaddingValues) -> Unit,
+                ) {}
+            """,
+                ).indented(),
+                kotlin(
+                    """
+                package test.foo
+
+                import androidx.compose.material3.Scaffold
+                import com.adevinta.spark.components.text.Text
+                import androidx.compose.runtime.*
+
+                @Composable
+                fun Test() {
+                    Scaffold(topBar = { Text("Title") }) { }
+                }
+            """,
+                ),
+                textStub,
                 modifierStub,
                 paddingValuesStub,
                 composableStub,
