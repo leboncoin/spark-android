@@ -2,6 +2,19 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [4.2.0](https://github.com/leboncoin/spark-android/compare/4.1.0...4.2.0) (2026-09-26)
+
+
+### Features
+
+* **doc:** add support for deepwiki auto refresh ([4c420c2](https://github.com/leboncoin/spark-android/commit/4c420c20669c1c5593a13e53131b6548b1b15b24))
+* **useravatar:** add scoped addon slot and letter placeholder ([#2289](https://github.com/leboncoin/spark-android/issues/2289)) ([721ad45](https://github.com/leboncoin/spark-android/commit/721ad459419260f406874ceaabbd79eb082686d6))
+
+
+### Bug Fixes
+
+* **typography:** use static Nunito Sans on Xiaomi devices ([#2294](https://github.com/leboncoin/spark-android/issues/2294)) ([84215a8](https://github.com/leboncoin/spark-android/commit/84215a8b62bbe12c7bd292f6abdd8ac0ddb22ae6))
+
 ## [4.1.0](https://github.com/leboncoin/spark-android/compare/4.0.0...4.1.0) (2026-09-22)
 
 
