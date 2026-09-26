@@ -56,6 +56,7 @@ import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.image.UserAvatar
 import com.adevinta.spark.components.image.UserAvatarStyle
 import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 
@@ -73,8 +74,9 @@ public val UserAvatarConfigurator: Configurator = Configurator(
 private fun ColumnScope.UserAvatarSample() {
     var style by remember { mutableStateOf(UserAvatarStyle.SMALL) }
     var isPro by remember { mutableStateOf(false) }
-    var isOnline by remember { mutableStateOf(false) }
+    var showOnlineIndicator by remember { mutableStateOf(false) }
     var imageState by remember { mutableStateOf(UserAvatarImageState.Empty) }
+    var letter by remember { mutableStateOf("") }
 
     val context = LocalContext.current
     val drawable = getDrawable(context, R.drawable.img_narrow_image_configurator)!!
@@ -112,7 +114,12 @@ private fun ColumnScope.UserAvatarSample() {
             style = style,
             model = imageRequest,
             isPro = isPro,
-            isOnline = isOnline,
+            letter = letter.firstOrNull(),
+            addon = if (showOnlineIndicator) {
+                { onlineIndicator() }
+            } else {
+                {}
+            },
         )
     }
 
@@ -129,6 +136,15 @@ private fun ColumnScope.UserAvatarSample() {
         onOptionSelect = { imageState = it },
     )
 
+    TextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = letter,
+        onValueChange = { letter = it.take(1) },
+        label = "Letter",
+        placeholder = "Enter a letter",
+        helper = "The letter shows in the Empty and Error image states only",
+    )
+
     SwitchLabelled(
         checked = isPro,
         onCheckedChange = { isPro = it },
@@ -137,10 +153,10 @@ private fun ColumnScope.UserAvatarSample() {
     }
 
     SwitchLabelled(
-        checked = isOnline,
-        onCheckedChange = { isOnline = it },
+        checked = showOnlineIndicator,
+        onCheckedChange = { showOnlineIndicator = it },
     ) {
-        Text(text = "Online", modifier = Modifier.fillMaxWidth())
+        Text(text = "Online indicator", modifier = Modifier.fillMaxWidth())
     }
 }
 
