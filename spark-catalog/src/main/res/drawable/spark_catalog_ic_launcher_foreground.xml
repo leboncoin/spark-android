@@ -1,0 +1,47 @@
+<!--
+  Copyright (c) 2023 Adevinta
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="@color/spark_catalog_ic_launcher_foreground_upper_tint"
+        android:pathData="M42.4 53.8v-16c0-4.1 4.2-6.9 8.08-5.38l23.04 9.01-7.13 2.83-17.11-6.32c-0.97-0.36-2 0.34-2 1.35v12.57L42.4 53.8Z" />
+    <path android:pathData="M76 45.83c0 1.18-0.73 2.24-1.84 2.68l-8.55 3.4-24.88 10.51-1.32 0.5 19.31 7.14c0.97 0.35 2-0.35 2-1.36V56.17l4.89-1.94V70.2c0 4.1-4.21 6.9-8.08 5.38l-23.67-9.23c-1.12-0.44-1.86-1.5-1.86-2.69v-1.5c0-1.18 0.73-2.24 1.84-2.68L75.6 42.89c0.26 0.44 0.41 0.94 0.41 1.47v1.47Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="0"
+                android:centerY="0"
+                android:gradientRadius="108"
+                android:type="radial">
+                <item
+                    android:color="@color/spark_catalog_ic_launcher_foreground_lower_start_gradient"
+                    android:offset="0.58" />
+                <item
+                    android:color="@color/spark_catalog_ic_launcher_foreground_lower_end_gradient"
+                    android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+</vector>

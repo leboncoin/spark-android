@@ -56,10 +56,10 @@ private fun Path.screenshotComponentsPath(packageName: String): Path =
     resolve("spark-screenshot-testing/src/test/kotlin/$SPARK_BASE/components/$packageName")
 
 private fun Path.catalogConfiguratorPath(packageName: String): Path =
-    resolve("catalog/src/main/kotlin/$SPARK_BASE/catalog/configurator/samples/$packageName")
+    resolve("spark-catalog/src/main/kotlin/$SPARK_BASE/catalog/configurator/samples/$packageName")
 
 private fun Path.catalogExamplesPath(packageName: String): Path =
-    resolve("catalog/src/main/kotlin/$SPARK_BASE/catalog/examples/samples/$packageName")
+    resolve("spark-catalog/src/main/kotlin/$SPARK_BASE/catalog/examples/samples/$packageName")
 
 private fun String.applySubstitutions(substitutions: Map<String, String>): String =
     substitutions.entries.fold(this) { content, (key, value) -> content.replace(key, value) }

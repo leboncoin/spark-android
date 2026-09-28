@@ -36,7 +36,7 @@ spark/src/main/kotlin/com/adevinta/spark/components/{package}/
 spark-screenshot-testing/src/test/kotlin/com/adevinta/spark/components/{package}/
 └── ComponentScreenshot.kt       # Paparazzi regression + documentation screenshots
 
-catalog/src/main/kotlin/com/adevinta/spark/catalog/
+spark-catalog/src/main/kotlin/com/adevinta/spark/catalog/
 ├── configurator/samples/{package}/ComponentConfigurator.kt
 └── examples/samples/{package}/ComponentExamples.kt
 ```
@@ -415,11 +415,11 @@ These examples serve multiple purposes:
   real app
 
 ```kotlin
-// catalog/src/main/kotlin/com/adevinta/spark/catalog/examples/samples/{package}/
+// spark-catalog/src/main/kotlin/com/adevinta/spark/catalog/examples/samples/{package}/
 private const val ComponentNameExampleDescription = "ComponentName examples"
 private const val ComponentNameExampleSourceUrl = "$SampleSourceUrl/ComponentNameSamples.kt"
 
-public val ComponentNameExamples: ImmutableList<Example> = persistentListOf(
+internal val ComponentNameExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "filled",
         name = "Filled ComponentName",
@@ -448,7 +448,7 @@ Components must be registered in the central catalog system to appear in the dev
 application:
 
 ```kotlin
-// catalog/src/main/kotlin/com/adevinta/spark/catalog/model/Components.kt
+// spark-catalog/src/main/kotlin/com/adevinta/spark/catalog/model/Components.kt
 private val ComponentName = Component(
     id = "component-name",
     name = "Component Display Name",
@@ -462,10 +462,13 @@ private val ComponentName = Component(
 )
 
 // Add to the main components list at the bottom of the file
-public val Components: List<Component> = listOf(
-    // ... existing components
-    ComponentName,
-).sortedBy { it.name }
+@InternalSparkApi
+public val Components: ImmutableList<Component> by lazy(mode = LazyThreadSafetyMode.NONE) {
+    persistentListOf(
+        // ... existing components
+        ComponentName,
+    )
+}
 ```
 
 #### Interactive configuration support aka the Configurator 😈
@@ -474,8 +477,8 @@ For components with multiple configuration options, provide interactive configur
 real-time parameter adjustment:
 
 ```kotlin
-// catalog/src/main/kotlin/com/adevinta/spark/catalog/configurator/samples/{package}/
-public val ComponentNameConfigurator: ImmutableList<Configurator> = persistentListOf(
+// spark-catalog/src/main/kotlin/com/adevinta/spark/catalog/configurator/samples/{package}/
+internal val ComponentNameConfigurator: ImmutableList<Configurator> = persistentListOf(
     Configurator(
         id = "componentname",
         name = "ComponentName",

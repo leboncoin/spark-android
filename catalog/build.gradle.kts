@@ -24,14 +24,12 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.spark.application)
     alias(libs.plugins.spark.compose)
-    id("kotlin-parcelize")
-    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.spark.spotless)
     alias(libs.plugins.baselineprofile)
 }
 
 android {
-    namespace = "com.adevinta.spark.catalog"
+    namespace = "com.adevinta.spark.catalog.app"
     defaultConfig.applicationId = "com.adevinta.spark.catalog"
     @Suppress("UnstableApiUsage")
     androidResources.localeFilters += setOf("en-rGB", "fr")
@@ -82,39 +80,20 @@ kotlin {
 
 dependencies {
     implementation(projects.spark)
+    implementation(projects.sparkCatalog)
 
-    implementation(libs.kotlin.reflect)
     implementation(libs.kotlinx.collections.immutable)
-
-    implementation(libs.accompanist.drawablepainter)
-    implementation(libs.colorPicker)
-    implementation(libs.unstyled.disclosure)
 
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.test)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.compose.material.iconsExtended)
-    implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.runtime.tracing)
     implementation(libs.androidx.tracing.perfetto)
     implementation(libs.androidx.tracing.perfetto.binary)
-    implementation(libs.androidx.graphics.shapes)
-    implementation(libs.androidx.metrics)
 
     implementation(libs.androidx.activity)
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.appCompat)
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.material.motion)
-
-    implementation(libs.androidx.datastore)
-    implementation(libs.kotlinx.serialization.json)
 
     coreLibraryDesugaring(libs.desugarJdkLibs)
-
-    debugImplementation(libs.androidx.compose.ui.tooling)
 
     implementation(libs.androidx.profileinstaller)
 

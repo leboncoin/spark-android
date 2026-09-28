@@ -229,10 +229,10 @@ spark/src/main/kotlin/com/adevinta/spark/components/card/
 spark-screenshot-testing/src/test/kotlin/com/adevinta/spark/components/card/
 └── CardScreenshot.kt
 
-catalog/src/main/kotlin/com/adevinta/spark/catalog/configurator/samples/card/
+spark-catalog/src/main/kotlin/com/adevinta/spark/catalog/configurator/samples/card/
 └── CardConfigurator.kt
 
-catalog/src/main/kotlin/com/adevinta/spark/catalog/examples/samples/card/
+spark-catalog/src/main/kotlin/com/adevinta/spark/catalog/examples/samples/card/
 └── CardExamples.kt
 ```
 
@@ -708,7 +708,7 @@ Before submitting a PR, ensure:
 | Resource Type | Location |
 |---------------|----------|
 | **Design specifications** | [Spark Design Guidelines](https://spark.adevinta.com) |
-| **Implementation examples** | Existing components in `/catalog/src/main/kotlin/com/adevinta/spark/catalog/examples/samples/` |
+| **Implementation examples** | Existing components in `/spark-catalog/src/main/kotlin/com/adevinta/spark/catalog/examples/samples/` |
 | **API patterns** | Component files (Button, TextField, etc.) |
 
 ### 💬 Support Channels

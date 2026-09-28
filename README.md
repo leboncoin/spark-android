@@ -24,6 +24,35 @@ Build and install the catalog app locally to browse all components:
 ./gradlew :catalog:installDebug
 ```
 
+The catalog is split into two modules:
+
+- `:catalog` is the standalone app. It holds the `Application` class, the benchmark activities, and
+  the build shipped through Firebase App Distribution.
+- `:spark-catalog` is the library with the catalog screens and `SparkCatalogActivity`.
+
+`:spark-catalog` is not published yet. Inside this repository, an app module can embed the catalog:
+
+```kotlin
+android {
+    compileOptions {
+        isCoreLibraryDesugaringEnabled = true
+    }
+}
+
+dependencies {
+    implementation(projects.sparkCatalog)
+    coreLibraryDesugaring(libs.desugarJdkLibs)
+}
+```
+
+Then start the catalog:
+
+```kotlin
+startActivity(Intent(context, SparkCatalogActivity::class.java))
+```
+
+You can use `@mipmap/spark_catalog_ic_launcher` as the launcher icon.
+
 ## 🚀 Getting Started
 
 A `SparkTheme` is available from where you can get all

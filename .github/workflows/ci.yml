@@ -141,7 +141,7 @@ jobs:
         run: git lfs pull --include="**/generated/baselineProfiles/*.txt"
       - name: 🕵️ Lint
         id: lint
-        run: ./gradlew :spark:lintRelease :spark-screenshot-testing:lintRelease :catalog:lintRelease :spark-lint:lint --continue
+        run: ./gradlew :spark:lintRelease :spark-screenshot-testing:lintRelease :catalog:lintRelease :spark-catalog:lintRelease :spark-lint:lint --continue
       - name: 📦 Archive Lint reports
         if: ${{ always() && contains(fromJSON('["success", "failure"]'), steps.lint.outcome) }}
         uses: ./.github/actions/archive-lint-reports
