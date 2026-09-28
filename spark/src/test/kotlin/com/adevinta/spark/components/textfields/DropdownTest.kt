@@ -35,6 +35,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 @RunWith(RobolectricTestRunner::class)
 class DropdownTest {
@@ -67,11 +69,11 @@ class DropdownTest {
             )
             .fetchSemanticsNode().size.height
 
-        assert(fieldHeight > 0)
-        assert(clickableHeight == fieldHeight) { "clickable height $clickableHeight != field height $fieldHeight" }
+        assertTrue(fieldHeight > 0)
+        assertEquals(fieldHeight, clickableHeight)
 
         composeTestRule.onNodeWithTag("dropdown").performClick()
 
-        assert(clicks == 1)
+        assertEquals(1, clicks)
     }
 }
