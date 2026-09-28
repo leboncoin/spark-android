@@ -9,7 +9,7 @@ import com.adevinta.spark.components.$packageName.$componentName
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
-public val $componentNameConfigurator: ImmutableList<Configurator> = persistentListOf(
+internal val $componentNameConfigurator: ImmutableList<Configurator> = persistentListOf(
     Configurator(
         id = "$componentNameLower",
         name = "$componentName",
