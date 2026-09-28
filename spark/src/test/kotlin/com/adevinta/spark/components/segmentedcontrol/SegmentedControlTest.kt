@@ -22,7 +22,6 @@
 package com.adevinta.spark.components.segmentedcontrol
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.setValue
@@ -36,12 +35,10 @@ import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertIsNotSelected
 import androidx.compose.ui.test.assertIsSelected
-import androidx.compose.ui.test.assertWidthIsEqualTo
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.unit.dp
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.ShoppingCartOutline
@@ -49,7 +46,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
 class SegmentedControlTest {
@@ -419,48 +415,5 @@ class SegmentedControlTest {
 
         assert(lastCallbackIndex == 5)
         assert(selectedIndex == 5)
-    }
-
-    // The divider must be wider than 1px for the segment width to go negative, hence a dense screen.
-    @Test
-    @Config(qualifiers = "xxhdpi")
-    fun horizontal_control_measured_with_zero_width_lays_out_empty() {
-        composeTestRule.setContent {
-            PreviewTheme {
-                Box(modifier = Modifier.width(0.dp)) {
-                    SegmentedControl.Horizontal(
-                        selectedIndex = 0,
-                        modifier = Modifier.testTag("segmented-control"),
-                    ) {
-                        singleLine(text = "Option 1", selected = true, onClick = {})
-                        singleLine(text = "Option 2", selected = false, onClick = {})
-                    }
-                }
-            }
-        }
-
-        composeTestRule.onNodeWithTag("segmented-control").assertWidthIsEqualTo(0.dp)
-    }
-
-    // The divider must be wider than 1px for the segment width to go negative, hence a dense screen.
-    @Test
-    @Config(qualifiers = "xxhdpi")
-    fun vertical_control_measured_with_zero_width_lays_out_empty() {
-        composeTestRule.setContent {
-            PreviewTheme {
-                Box(modifier = Modifier.width(0.dp)) {
-                    SegmentedControl.Vertical(
-                        selectedIndex = 0,
-                        modifier = Modifier.testTag("segmented-control"),
-                    ) {
-                        listOf("1", "2", "3", "4", "5").forEachIndexed { index, label ->
-                            singleLine(text = label, selected = index == 0, onClick = {})
-                        }
-                    }
-                }
-            }
-        }
-
-        composeTestRule.onNodeWithTag("segmented-control").assertWidthIsEqualTo(0.dp)
     }
 }

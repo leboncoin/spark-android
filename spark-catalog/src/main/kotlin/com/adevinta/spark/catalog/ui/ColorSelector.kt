@@ -40,7 +40,9 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -57,20 +59,28 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.R
+import com.adevinta.spark.catalog.util.cast
 import com.adevinta.spark.catalog.util.splitCamelWithSpaces
 import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonTinted
 import com.adevinta.spark.components.buttons.Tertiary
 import com.adevinta.spark.components.dialog.ModalScaffold
 import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.tokens.Order
 import com.adevinta.spark.tokens.SparkColors
 import com.github.skydoves.colorpicker.compose.ColorEnvelope
 import com.github.skydoves.colorpicker.compose.HsvColorPicker
 import com.github.skydoves.colorpicker.compose.rememberColorPickerController
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.reflect.KProperty1
+import kotlin.reflect.full.declaredMemberProperties
+import kotlin.reflect.full.findAnnotation
+import kotlin.reflect.full.hasAnnotation
+import kotlin.reflect.full.starProjectedType
 
 /**
  * Represents a color option that can be either a SparkColors token or a custom color.
@@ -137,7 +147,7 @@ internal fun ColorSelector(
 ) {
     var showDialog by rememberSaveable { mutableStateOf(false) }
     val colors = SparkTheme.colors
-    val sparkColorTokensData = rememberSparkColorTokens(colors, selectedColor)
+    val sparkColorTokensData by rememberSparkColorTokens(colors, selectedColor)
 
     Row(
         modifier = modifier
@@ -368,17 +378,67 @@ private fun CustomColorItem(
  * Avoid computing these tokens on each recomposition but do it only when colors changes.
  */
 @Composable
-internal fun rememberSparkColorTokens(colors: SparkColors, selectedColor: Color): SparkColorTokensData =
-    remember(colors, selectedColor) {
-        val colorOptions: List<ColorOption> = sparkColorTokenGroups.flatMap { colorGroup ->
-            colorGroup.map { property ->
-                ColorOption.Token(property.get(colors), property.name.splitCamelWithSpaces())
-            }
-        } + ColorOption.Custom(selectedColor)
-
-        SparkColorTokensData(
-            colorTokenGroups = sparkColorTokenGroups,
-            colorOptions = colorOptions.toImmutableList(),
-            colorNameLookup = colorOptions.associate { it.color to it.name },
+internal fun rememberSparkColorTokens(colors: SparkColors, selectedColor: Color): State<SparkColorTokensData> {
+    val result = remember(colors) {
+        mutableStateOf(
+            SparkColorTokensData(
+                emptyList(),
+                emptyList<ColorOption>().toImmutableList(),
+                emptyMap(),
+            ),
         )
+    }
+
+    LaunchedEffect(colors) {
+        val tokens = withContext(Dispatchers.Default) {
+            val colorTokenGroups = colors::class.declaredMemberProperties
+                .filterNot { field -> field.hasAnnotation<Deprecated>() }
+                // Remove dims and any non color tokens
+                .filter { it.returnType == Color::class.starProjectedType }
+                // Cast the type otherwise we get a star type instead of Long
+                .map { it.cast<KProperty1<SparkColors, Color>>() }
+                // Convert property to always return a Color type
+                .map { it.asColorProperty() }
+                // Remove content colors
+                .filterNot { it.name.startsWith("on") }
+                // Use the same order than the one in the specs
+                .sortedBy { it.findAnnotation<Order>()?.value ?: Int.MAX_VALUE }
+                // Group by token name like "main", "mainContainer" or "mainVariant"
+                .groupBy { it.name.takeWhile { char -> !char.isUpperCase() } }
+                .values.toList()
+
+            val colorOptions = colorTokenGroups.flatMap { colorGroup ->
+                colorGroup.map { property ->
+                    ColorOption.Token(property.get(colors), property.name.splitCamelWithSpaces()) as ColorOption
+                }
+            }.toMutableList()
+                .also {
+                    it.add(ColorOption.Custom(selectedColor))
+                }.toImmutableList()
+
+            val colorNameLookup = colorOptions.associate { it.color to it.name }
+
+            SparkColorTokensData(colorTokenGroups, colorOptions, colorNameLookup)
+        }
+        result.value = tokens
+    }
+
+    return result
+}
+
+/**
+ * @return [this] property value as [Color] even when the compiler (or R8) inlines the value as [ULong] in release mode.
+ */
+private fun KProperty1<SparkColors, Color>.asColorProperty(): KProperty1<SparkColors, Color> =
+    object : KProperty1<SparkColors, Color> by this {
+        @Suppress("USELESS_IS_CHECK")
+        override fun get(receiver: SparkColors): Color = when (val any: Any = this@asColorProperty.get(receiver)) {
+            // in debug builds
+            is Color -> any
+
+            // in release builds
+            is Long -> Color(any.toULong())
+
+            else -> error("Unexpected type: ${any::class}")
+        }
     }

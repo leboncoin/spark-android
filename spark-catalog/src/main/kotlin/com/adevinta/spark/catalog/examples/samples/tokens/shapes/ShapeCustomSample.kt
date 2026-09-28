@@ -42,12 +42,17 @@ import com.adevinta.spark.components.menu.DropdownMenuItem
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.SingleChoiceDropdown
+import com.adevinta.spark.tokens.Order
+import com.adevinta.spark.tokens.SparkShapes
+import kotlin.reflect.full.declaredMemberProperties
+import kotlin.reflect.full.findAnnotation
 
 @Composable
 internal fun ColumnScope.ShapeCustomSample() {
     val sparkShapes = SparkTheme.shapes
     val defaultValue = sparkShapes.none
     val shapeTokens = shapes
+    val shapeNames = remember(sparkShapes) { sparkShapes.propertyNames() }
 
     var selectedShape by remember { mutableStateOf(defaultValue) }
     var expanded by remember { mutableStateOf(false) }
@@ -95,8 +100,6 @@ private fun ColumnScope.ShapeItem(shape: CornerBasedShape) {
     }
 }
 
-private val shapeNames = listOf("none", "extraSmall", "small", "medium", "large", "extraLarge")
-
 private val shapes: List<CornerBasedShape>
     @Composable
     get() = listOf(
@@ -107,6 +110,11 @@ private val shapes: List<CornerBasedShape>
         SparkTheme.shapes.large,
         SparkTheme.shapes.extraLarge,
     )
+
+private fun SparkShapes.propertyNames(): List<String> = this::class
+    .declaredMemberProperties
+    .sortedBy { it.findAnnotation<Order>()?.value ?: Int.MAX_VALUE }
+    .map { it.name }
 
 @Preview
 @Composable

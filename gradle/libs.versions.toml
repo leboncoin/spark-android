@@ -38,6 +38,7 @@ androidx-compose-material3-adaptive = { module = "androidx.compose.material3.ada
 androidx-compose-runtime = { module = "androidx.compose.runtime:runtime" }
 androidx-compose-runtime-tracing = { module = "androidx.compose.runtime:runtime-tracing" }
 androidx-compose-ui = { module = "androidx.compose.ui:ui" }
+androidx-compose-ui-test = { module = "androidx.compose.ui:ui-test" }
 androidx-compose-ui-testJUnit = { module = "androidx.compose.ui:ui-test-junit4" }
 androidx-compose-ui-testManifest = { module = "androidx.compose.ui:ui-test-manifest" }
 androidx-compose-ui-text = { module = "androidx.compose.ui:ui-text-google-fonts" }
@@ -104,6 +105,7 @@ junit = "junit:junit:4.13.2"
 
 kotlin-bom = { module = "org.jetbrains.kotlin:kotlin-bom", version.ref = "kotlin" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test" }
 
 kotlinx-collections-immutable = "org.jetbrains.kotlinx:kotlinx-collections-immutable:0.5.2"

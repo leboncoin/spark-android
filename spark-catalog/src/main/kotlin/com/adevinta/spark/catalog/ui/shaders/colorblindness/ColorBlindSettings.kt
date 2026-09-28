@@ -90,10 +90,7 @@ internal fun ColumnScope.ColorBlindSetting(
     var sliderSeverity by remember(severity) { mutableFloatStateOf(severity) }
 
     Text(
-        text = stringResource(
-            id = R.string.spark_catalog_color_blindness_severity_label,
-            (sliderSeverity * 10).roundToInt(),
-        ),
+        text = stringResource(id = R.string.spark_catalog_color_blindness_severity_label, (sliderSeverity * 10).roundToInt()),
         style = SparkTheme.typography.body2.highlight,
         modifier = Modifier.padding(bottom = 8.dp),
     )

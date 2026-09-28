@@ -290,9 +290,6 @@ private fun Constraints.checkThatImageHasDefinedSize(
     model: Any?,
     compositionTrace: Throwable,
 ) {
-    // A constraint fixed to 0 is a defined size, not a missing one: size animations
-    // (animateContentSize, AnimatedContent, pagers) pass through it, and nothing is drawn.
-    if (maxWidth == 0 || maxHeight == 0) return
     val isWidthBounded = hasBoundedWidth
     val isHeightBounded = hasBoundedHeight
     val hasMinWidth = minWidth != 0
