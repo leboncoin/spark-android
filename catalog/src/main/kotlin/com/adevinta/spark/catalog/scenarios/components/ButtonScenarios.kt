@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.catalog.scenarios.components
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -38,6 +39,7 @@ internal val buttonScenarios: Map<String, @Composable () -> Unit> = mapOf(
     "button-loading" to { ButtonLoadingScenario() },
 )
 
+@SuppressLint("SparkButtonMigration")
 @Composable
 private fun ButtonStaticScenario() {
     ButtonFilled(onClick = {}, text = "Static button")
@@ -45,6 +47,7 @@ private fun ButtonStaticScenario() {
 
 /** Cycles the button intent on a fixed cadence to stress recomposition on colour change. */
 @Composable
+@SuppressLint("SparkButtonMigration")
 private fun ButtonIntentScenario() {
     val intents = ButtonIntent.entries
     var index by remember { mutableIntStateOf(0) }
@@ -59,6 +62,7 @@ private fun ButtonIntentScenario() {
 
 /** Toggles the loading flag to stress the spinner swap. */
 @Composable
+@SuppressLint("SparkButtonMigration")
 private fun ButtonLoadingScenario() {
     var loading by remember { mutableStateOf(false) }
     LaunchedEffect(Unit) {

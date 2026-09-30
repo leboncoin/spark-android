@@ -36,10 +36,15 @@ import com.intellij.psi.PsiEnumConstant
 import com.intellij.psi.PsiJavaFile
 import com.intellij.psi.PsiMethod
 import com.intellij.psi.PsiParameter
+import com.intellij.psi.util.PsiTreeUtil
+import org.jetbrains.kotlin.psi.KtClassOrObject
+import org.jetbrains.kotlin.psi.KtEnumEntry
 import org.jetbrains.uast.UCallExpression
 import org.jetbrains.uast.UExpression
 import org.jetbrains.uast.UNamedExpression
+import org.jetbrains.uast.UQualifiedReferenceExpression
 import org.jetbrains.uast.UReferenceExpression
+import org.jetbrains.uast.USimpleNameReferenceExpression
 
 /**
  * Reports calls to old style-based Spark button composables that should be replaced with the new
@@ -132,9 +137,24 @@ public class SparkButtonMigrationDetector :
      */
     private fun resolveIntentFromExpression(expr: UExpression): ButtonIntent? {
         val ref = expr as? UReferenceExpression ?: return null
-        val enumConstant = ref.resolve() as? PsiEnumConstant ?: return null
-        if (enumConstant.containingClass?.name != "ButtonIntent") return null
-        return ButtonIntent.entries.firstOrNull { it.name == enumConstant.name }
+        // The CLI resolves to a light PsiEnumConstant, the IDE can resolve to the Kotlin KtEnumEntry.
+        val entryName = when (val resolved = ref.resolve()) {
+            is PsiEnumConstant -> resolved.takeIf { it.containingClass?.name == INTENT_CLASS_NAME }?.name
+            is KtEnumEntry -> resolved.takeIf { it.enumClassName() == INTENT_CLASS_NAME }?.name
+            else -> unresolvedIntentEntryName(ref)
+        } ?: return null
+        return ButtonIntent.entries.firstOrNull { it.name == entryName }
+    }
+
+    private fun KtEnumEntry.enumClassName(): String? =
+        PsiTreeUtil.getParentOfType(this, KtClassOrObject::class.java)?.name
+
+    /** Reads `ButtonIntent.<Entry>` from source when the reference does not resolve to a known enum form. */
+    private fun unresolvedIntentEntryName(ref: UReferenceExpression): String? {
+        val qualified = ref as? UQualifiedReferenceExpression ?: return null
+        val receiverText = qualified.receiver.sourcePsi?.text ?: return null
+        if (receiverText != INTENT_CLASS_NAME && !receiverText.endsWith(".$INTENT_CLASS_NAME")) return null
+        return (qualified.selector as? USimpleNameReferenceExpression)?.identifier
     }
 
     /**
@@ -217,23 +237,29 @@ public class SparkButtonMigrationDetector :
 
         val imports = buildList {
             add("com.adevinta.spark.components.buttons.Button")
+            // Variants are extension functions on `Button`, so each one needs its own import.
+            add("com.adevinta.spark.components.buttons.${targetCallee.removePrefix("Button.")}")
             if (isAnnotatedStringOverload) add("com.adevinta.spark.components.text.Text")
         }
 
         return LintFix.create()
             .name("Replace $calleeName with $targetCallee")
+            .sharedName("Replace old Spark buttons with Button.<Variant>")
             .replace()
             .range(context.getLocation(node))
             .with(newText)
             .imports(*imports.toTypedArray())
             .shortenNames()
             .reformat(true)
+            .autoFix()
             .build()
     }
 
     internal companion object {
         /** New callees that have no content-slot overload, so a content-slot call cannot autofix. */
         private val CALLEES_WITHOUT_CONTENT_OVERLOAD = setOf("Button.Underlined")
+
+        private const val INTENT_CLASS_NAME = "ButtonIntent"
 
         val ISSUE: Issue = Issue.create(
             id = "SparkButtonMigration",

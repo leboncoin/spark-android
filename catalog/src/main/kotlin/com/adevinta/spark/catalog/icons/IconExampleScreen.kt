@@ -44,7 +44,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonFilled
+import com.adevinta.spark.components.buttons.Primary
 import com.adevinta.spark.components.chips.ChipTinted
 import com.adevinta.spark.components.iconbuttons.IconButtonFilled
 import com.adevinta.spark.components.icons.Icon
@@ -124,7 +126,7 @@ internal fun IconExampleScreen(
                 },
                 atEnd = atEnd,
             )
-            ButtonFilled(onClick = { atEnd = !atEnd }, text = name, icon = icon, atEnd = atEnd)
+            Button.Primary(onClick = { atEnd = !atEnd }, text = name, icon = icon, atEnd = atEnd)
             TagFilled(text = name, leadingIcon = icon, atEnd = atEnd)
             ChipTinted(
                 onClick = { atEnd = !atEnd },

@@ -29,10 +29,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
 import com.adevinta.spark.InternalSparkApi
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.buttons.ButtonIntent
 import com.adevinta.spark.components.buttons.ButtonSize
 import com.adevinta.spark.components.buttons.IconSide
+import com.adevinta.spark.components.buttons.Secondary
 import com.adevinta.spark.icons.CameraVideo
 import com.adevinta.spark.icons.FileOutline
 import com.adevinta.spark.icons.ImageOutline
@@ -99,15 +101,14 @@ public object FileUpload {
         enabled: Boolean = true,
         onClickLabel: String? = null,
         buttonContent: @Composable (onClick: () -> Unit) -> Unit = { onClick ->
-            ButtonFilled(
+            Button.Secondary(
+                onClick = onClick,
+                text = label,
                 modifier = Modifier
                     .fillMaxWidth()
                     .ifNotNull(onClickLabel) {
                         semantics { onClick(label = onClickLabel, action = null) }
                     },
-                onClick = onClick,
-                text = label,
-                intent = ButtonIntent.Support,
                 enabled = enabled,
             )
         },
@@ -172,15 +173,14 @@ public object FileUpload {
         enabled: Boolean = true,
         onClickLabel: String? = null,
         buttonContent: @Composable (onClick: () -> Unit) -> Unit = { onClick ->
-            ButtonFilled(
+            Button.Secondary(
+                onClick = onClick,
+                text = label,
                 modifier = Modifier
                     .fillMaxWidth()
                     .ifNotNull(onClickLabel) {
                         semantics { onClick(label = onClickLabel, action = null) }
                     },
-                onClick = onClick,
-                text = label,
-                intent = ButtonIntent.Support,
                 enabled = enabled,
             )
         },

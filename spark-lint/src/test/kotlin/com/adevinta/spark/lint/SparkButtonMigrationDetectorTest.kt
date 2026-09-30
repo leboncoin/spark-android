@@ -84,12 +84,61 @@ class SparkButtonMigrationDetectorTest : LintDetectorTest() {
             )
             .expectFixDiffs(
                 """
-                Fix for src/foo/test.kt line 9: Replace ButtonFilled with Button.Primary:
+                Autofix for src/foo/test.kt line 9: Replace ButtonFilled with Button.Primary:
                 @@ -2,0 +3 @@
                 +import com.adevinta.spark.components.buttons.Button
-                @@ -9 +10 @@
+                @@ -5,0 +7 @@
+                +import com.adevinta.spark.components.buttons.Primary
+                @@ -9 +11 @@
                 -    ButtonFilled(onClick = {}, intent = ButtonIntent.Main) { }
                 +    Button.Primary(onClick = {}) { }
+                """.trimIndent(),
+            )
+    }
+
+    /** Fixes are marked safe for bulk use, and each one imports both `Button` and its variant extension. */
+    @Test
+    fun multipleButtons_fixesApplyInBulk() {
+        lint().files(
+            kotlin(
+                """
+                package foo
+
+                import com.adevinta.spark.components.buttons.ButtonFilled
+                import com.adevinta.spark.components.buttons.ButtonIntent
+                import com.adevinta.spark.components.buttons.ButtonOutlined
+                import androidx.compose.runtime.Composable
+
+                @Composable
+                fun Test() {
+                    ButtonFilled(onClick = {}, intent = ButtonIntent.Main) { }
+                    ButtonOutlined(onClick = {}, text = "Confirm")
+                }
+                """,
+            ).indented(),
+            *Composables,
+            *SparkButtonStubs,
+        ).run()
+            .verifyFixes()
+            .robot(true)
+            .expectFixDiffs(
+                """
+                Autofix for src/foo/test.kt line 10: Replace ButtonFilled with Button.Primary:
+                @@ -2,0 +3 @@
+                +import com.adevinta.spark.components.buttons.Button
+                @@ -6,0 +8 @@
+                +import com.adevinta.spark.components.buttons.Primary
+                @@ -10 +12 @@
+                -    ButtonFilled(onClick = {}, intent = ButtonIntent.Main) { }
+                +    Button.Primary(onClick = {}) { }
+                Autofix for src/foo/test.kt line 11: Replace ButtonOutlined with Button.Tertiary:
+                @@ -2,0 +3 @@
+                +import com.adevinta.spark.components.buttons.Button
+                @@ -6,0 +8 @@
+                +import com.adevinta.spark.components.buttons.Tertiary
+                @@ -11 +13 @@
+                -    ButtonOutlined(onClick = {}, text = "Confirm")
+                +    Button.Tertiary(onClick = {}, text = "Confirm")
                 """.trimIndent(),
             )
     }
@@ -124,10 +173,12 @@ class SparkButtonMigrationDetectorTest : LintDetectorTest() {
             )
             .expectFixDiffs(
                 """
-                Fix for src/foo/test.kt line 8: Replace ButtonOutlined with Button.Tertiary:
+                Autofix for src/foo/test.kt line 8: Replace ButtonOutlined with Button.Tertiary:
                 @@ -2,0 +3 @@
                 +import com.adevinta.spark.components.buttons.Button
-                @@ -8 +9 @@
+                @@ -4,0 +6 @@
+                +import com.adevinta.spark.components.buttons.Tertiary
+                @@ -8 +10 @@
                 -    ButtonOutlined(onClick = {}, text = "Confirm")
                 +    Button.Tertiary(onClick = {}, text = "Confirm")
                 """.trimIndent(),
@@ -165,10 +216,12 @@ class SparkButtonMigrationDetectorTest : LintDetectorTest() {
             )
             .expectFixDiffs(
                 """
-                Fix for src/foo/test.kt line 9: Replace ButtonTinted with Button.Success:
+                Autofix for src/foo/test.kt line 9: Replace ButtonTinted with Button.Success:
                 @@ -3,0 +4 @@
                 +import com.adevinta.spark.components.buttons.Button
-                @@ -9 +10 @@
+                @@ -5,0 +7 @@
+                +import com.adevinta.spark.components.buttons.Success
+                @@ -9 +11 @@
                 -    ButtonTinted(onClick = {}, text = "Ok", intent = ButtonIntent.Success)
                 +    Button.Success(onClick = {}, text = "Ok")
                 """.trimIndent(),
@@ -205,10 +258,12 @@ class SparkButtonMigrationDetectorTest : LintDetectorTest() {
             )
             .expectFixDiffs(
                 """
-                Fix for src/foo/test.kt line 8: Replace ButtonGhost with Button.Ghost:
+                Autofix for src/foo/test.kt line 8: Replace ButtonGhost with Button.Ghost:
                 @@ -2,0 +3 @@
                 +import com.adevinta.spark.components.buttons.Button
-                @@ -8 +9 @@
+                @@ -4,0 +6 @@
+                +import com.adevinta.spark.components.buttons.Ghost
+                @@ -8 +10 @@
                 -    ButtonGhost(onClick = {}, text = "Cancel")
                 +    Button.Ghost(onClick = {}, text = "Cancel")
                 """.trimIndent(),
@@ -245,10 +300,12 @@ class SparkButtonMigrationDetectorTest : LintDetectorTest() {
             )
             .expectFixDiffs(
                 """
-                Fix for src/foo/test.kt line 8: Replace ButtonContrast with Button.Contrast:
+                Autofix for src/foo/test.kt line 8: Replace ButtonContrast with Button.Contrast:
                 @@ -2,0 +3 @@
                 +import com.adevinta.spark.components.buttons.Button
-                @@ -8 +9 @@
+                @@ -4,0 +6 @@
+                +import com.adevinta.spark.components.buttons.Contrast
+                @@ -8 +10 @@
                 -    ButtonContrast(onClick = {}) { }
                 +    Button.Contrast(onClick = {}) { }
                 """.trimIndent(),
@@ -288,10 +345,12 @@ class SparkButtonMigrationDetectorTest : LintDetectorTest() {
             )
             .expectFixDiffs(
                 """
-                Fix for src/foo/test.kt line 9: Replace ButtonFilled with Button.Secondary:
+                Autofix for src/foo/test.kt line 9: Replace ButtonFilled with Button.Secondary:
                 @@ -2,0 +3 @@
                 +import com.adevinta.spark.components.buttons.Button
-                @@ -9 +10 @@
+                @@ -5,0 +7 @@
+                +import com.adevinta.spark.components.buttons.Secondary
+                @@ -9 +11 @@
                 -    ButtonFilled(onClick = {}, text = "Save", intent = ButtonIntent.Support)
                 +    Button.Secondary(onClick = {}, text = "Save")
                 """.trimIndent(),
@@ -329,10 +388,11 @@ class SparkButtonMigrationDetectorTest : LintDetectorTest() {
             )
             .expectFixDiffs(
                 """
-                Fix for src/foo/test.kt line 9: Replace ButtonFilled with Button.Boost:
-                @@ -2,0 +3 @@
+                Autofix for src/foo/test.kt line 9: Replace ButtonFilled with Button.Boost:
+                @@ -2,0 +3,2 @@
+                +import com.adevinta.spark.components.buttons.Boost
                 +import com.adevinta.spark.components.buttons.Button
-                @@ -9 +10 @@
+                @@ -9 +11 @@
                 -    ButtonFilled(onClick = {}, text = "Boost", intent = ButtonIntent.Accent)
                 +    Button.Boost(onClick = {}, text = "Boost")
                 """.trimIndent(),
@@ -377,10 +437,12 @@ class SparkButtonMigrationDetectorTest : LintDetectorTest() {
             )
             .expectFixDiffs(
                 """
-                Fix for src/foo/test.kt line 9: Replace ButtonFilled with Button.Danger:
+                Autofix for src/foo/test.kt line 9: Replace ButtonFilled with Button.Danger:
                 @@ -2,0 +3 @@
                 +import com.adevinta.spark.components.buttons.Button
-                @@ -9,8 +10 @@
+                @@ -5,0 +7 @@
+                +import com.adevinta.spark.components.buttons.Danger
+                @@ -9,8 +11 @@
                 -    ButtonFilled(
                 -        onClick = {},
                 -        text = "Delete",
@@ -425,10 +487,11 @@ class SparkButtonMigrationDetectorTest : LintDetectorTest() {
             )
             .expectFixDiffs(
                 """
-                Fix for src/foo/test.kt line 9: Replace ButtonFilled with Button.Ai:
-                @@ -2,0 +3 @@
+                Autofix for src/foo/test.kt line 9: Replace ButtonFilled with Button.Ai:
+                @@ -2,0 +3,2 @@
+                +import com.adevinta.spark.components.buttons.Ai
                 +import com.adevinta.spark.components.buttons.Button
-                @@ -9 +10 @@
+                @@ -9 +11 @@
                 -    ButtonFilled(onClick = {}, text = "Ask AI", intent = ButtonIntent.Ai)
                 +    Button.Ai(onClick = {}, text = "Ask AI")
                 """.trimIndent(),
@@ -466,10 +529,12 @@ class SparkButtonMigrationDetectorTest : LintDetectorTest() {
             )
             .expectFixDiffs(
                 """
-                Fix for src/foo/test.kt line 9: Replace ButtonFilled with Button.Contrast:
+                Autofix for src/foo/test.kt line 9: Replace ButtonFilled with Button.Contrast:
                 @@ -2,0 +3 @@
                 +import com.adevinta.spark.components.buttons.Button
-                @@ -9 +10 @@
+                @@ -5,0 +7 @@
+                +import com.adevinta.spark.components.buttons.Contrast
+                @@ -9 +11 @@
                 -    ButtonFilled(onClick = {}, text = "Surface", intent = ButtonIntent.Surface)
                 +    Button.Contrast(onClick = {}, text = "Surface")
                 """.trimIndent(),
@@ -578,12 +643,13 @@ class SparkButtonMigrationDetectorTest : LintDetectorTest() {
             )
             .expectFixDiffs(
                 """
-                Fix for src/foo/test.kt line 10: Replace ButtonFilled with Button.Primary:
+                Autofix for src/foo/test.kt line 10: Replace ButtonFilled with Button.Primary:
                 @@ -2,0 +3 @@
                 +import com.adevinta.spark.components.buttons.Button
-                @@ -6,0 +8 @@
+                @@ -6,0 +8,2 @@
+                +import com.adevinta.spark.components.buttons.Primary
                 +import com.adevinta.spark.components.text.Text
-                @@ -10 +12 @@
+                @@ -10 +13 @@
                 -    ButtonFilled(onClick = {}, text = AnnotatedString("Hello"), intent = ButtonIntent.Main)
                 +    Button.Primary(onClick = {}) { Text(text = AnnotatedString("Hello")) }
                 """.trimIndent(),
@@ -621,10 +687,12 @@ class SparkButtonMigrationDetectorTest : LintDetectorTest() {
             )
             .expectFixDiffs(
                 """
-                Fix for src/foo/test.kt line 9: Replace ButtonFilled with Button.Primary:
+                Autofix for src/foo/test.kt line 9: Replace ButtonFilled with Button.Primary:
                 @@ -2,0 +3 @@
                 +import com.adevinta.spark.components.buttons.Button
-                @@ -9 +10 @@
+                @@ -5,0 +7 @@
+                +import com.adevinta.spark.components.buttons.Primary
+                @@ -9 +11 @@
                 -    ButtonFilled(onClick = {}, intent = ButtonIntent.Main) { Text("myText") }
                 +    Button.Primary(onClick = {}) { Text("myText") }
                 """.trimIndent(),
@@ -702,10 +770,11 @@ class SparkButtonMigrationDetectorTest : LintDetectorTest() {
             )
             .expectFixDiffs(
                 """
-                Fix for src/foo/test.kt line 8: Replace TextLinkButton with Button.Underlined:
-                @@ -2,0 +3 @@
+                Autofix for src/foo/test.kt line 8: Replace TextLinkButton with Button.Underlined:
+                @@ -2,0 +3,2 @@
                 +import com.adevinta.spark.components.buttons.Button
-                @@ -8 +9 @@
+                +import com.adevinta.spark.components.buttons.Underlined
+                @@ -8 +10 @@
                 -    TextLinkButton(text = "Terms", onClick = {})
                 +    Button.Underlined(text = "Terms", onClick = {})
                 """.trimIndent(),
@@ -743,10 +812,12 @@ class SparkButtonMigrationDetectorTest : LintDetectorTest() {
             )
             .expectFixDiffs(
                 """
-                Fix for src/foo/test.kt line 9: Replace TextLinkButton with Button.Underlined:
-                @@ -3,0 +4 @@
+                Autofix for src/foo/test.kt line 9: Replace TextLinkButton with Button.Underlined:
+                @@ -2,0 +3 @@
+                +import com.adevinta.spark.components.buttons.Underlined
+                @@ -3,0 +5 @@
                 +import com.adevinta.spark.components.buttons.Button
-                @@ -9 +10 @@
+                @@ -9 +11 @@
                 -    TextLinkButton(text = "Terms", onClick = {}, intent = ButtonIntent.Success)
                 +    Button.Underlined(text = "Terms", onClick = {})
                 """.trimIndent(),

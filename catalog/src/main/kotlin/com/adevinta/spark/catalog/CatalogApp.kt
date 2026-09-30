@@ -315,7 +315,7 @@ private fun HomeTabBar(
             modifier = tabBarModifier,
             titles = catalogScreensName,
             tabSelected = tabSelected,
-            onTabSelected = { newTab -> onTabSelected(catalogScreens[newTab.ordinal]) },
+            onTabSelect = { newTab -> onTabSelected(catalogScreens[newTab.ordinal]) },
         )
     }
 }

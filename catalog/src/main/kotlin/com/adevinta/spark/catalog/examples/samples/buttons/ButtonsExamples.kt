@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.catalog.examples.samples.buttons
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -51,6 +52,8 @@ import kotlinx.collections.immutable.persistentListOf
 
 private const val ButtonsExampleDescription = "Button examples"
 private const val ButtonsExampleSourceUrl = "$SampleSourceUrl/ButtonSamples.kt"
+
+@SuppressLint("SparkButtonMigration")
 public val ButtonsExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "filled",
@@ -188,8 +191,9 @@ public val ButtonsExamples: ImmutableList<Example> = persistentListOf(
 )
 
 @Composable
+@SuppressLint("SparkButtonMigration")
 private fun ButtonToggle(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     text: String,
     enabled: Boolean,
     icon: SparkIcon?,

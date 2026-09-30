@@ -40,8 +40,10 @@ import com.adevinta.spark.catalog.model.Configurator
 import com.adevinta.spark.catalog.ui.ButtonGroup
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonSize
 import com.adevinta.spark.components.buttons.ButtonTinted
+import com.adevinta.spark.components.buttons.Tertiary
 import com.adevinta.spark.components.snackbars.Snackbar
 import com.adevinta.spark.components.snackbars.SnackbarHostState
 import com.adevinta.spark.components.snackbars.SnackbarSparkVisuals
@@ -120,9 +122,7 @@ private fun ColumnScope.SnackbarSample(snackbarHostState: SnackbarHostState) {
         Text(contentText)
     }
 
-    ButtonTinted(
-        modifier = Modifier.fillMaxWidth(),
-        size = ButtonSize.Medium,
+    Button.Tertiary(
         onClick = {
             scope.launch {
                 snackbarHostState.showSnackbar(
@@ -138,6 +138,8 @@ private fun ColumnScope.SnackbarSample(snackbarHostState: SnackbarHostState) {
                 )
             }
         },
+        modifier = Modifier.fillMaxWidth(),
+        size = ButtonSize.Medium,
     ) {
         Text("Launch Snackbar")
     }

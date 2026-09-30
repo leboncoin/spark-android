@@ -372,9 +372,9 @@ public fun BackdropScaffold(
     ) {
         val scope = rememberCoroutineScope()
         BackdropStack(
-            modifier.fillMaxSize(),
-            backLayer,
-            calculateBackLayerConstraints,
+            modifier = modifier.fillMaxSize(),
+            backLayer = backLayer,
+            calculateBackLayerConstraints = calculateBackLayerConstraints,
         ) { constraints, backLayerHeight ->
             var revealedHeight = constraints.maxHeight - headerHeightPx
             if (stickyFrontLayer) {
@@ -556,9 +556,9 @@ private fun BackLayerTransition(
 @Composable
 @UiComposable
 private fun BackdropStack(
-    modifier: Modifier,
     backLayer: @Composable () -> Unit,
     calculateBackLayerConstraints: (Constraints) -> Constraints,
+    modifier: Modifier = Modifier,
     frontLayer: @Composable (Constraints, Float) -> Unit,
 ) {
     SubcomposeLayout(modifier) { constraints ->

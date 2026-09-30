@@ -32,6 +32,8 @@ import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
+import com.adevinta.spark.components.buttons.Button
+import com.adevinta.spark.components.buttons.Underlined
 import com.adevinta.spark.components.snackbars.SnackbarIntent
 import com.adevinta.spark.components.text.TextLink
 import com.adevinta.spark.components.text.TextLinkButton
@@ -115,7 +117,7 @@ public val TextLinksExamples: ImmutableList<Example> = persistentListOf(
             modifier = Modifier.fillMaxSize(),
         ) {
 
-            TextLinkButton(
+            Button.Underlined(
                 text = "Try out Android Development",
                 onClick = {
                     scope.launch {
@@ -141,9 +143,8 @@ public val TextLinksExamples: ImmutableList<Example> = persistentListOf(
             modifier = Modifier.fillMaxSize(),
         ) {
 
-            TextLinkButton(
+            Button.Underlined(
                 text = "Try out Android Development",
-                icon = LeboncoinIcons.Chain,
                 onClick = {
                     scope.launch {
                         snackbarHostState.showSnackbar(
@@ -153,6 +154,7 @@ public val TextLinksExamples: ImmutableList<Example> = persistentListOf(
                         )
                     }
                 },
+                icon = LeboncoinIcons.Chain,
             )
         }
     },

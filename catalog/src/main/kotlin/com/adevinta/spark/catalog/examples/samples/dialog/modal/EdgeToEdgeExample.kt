@@ -48,7 +48,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonFilled
+import com.adevinta.spark.components.buttons.Primary
 import com.adevinta.spark.components.dialog.ModalScaffold
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconButton
@@ -66,10 +68,7 @@ internal fun EdgeToEdgeExample() {
         contentAlignment = Alignment.Center,
     ) {
         var showDialog by rememberSaveable { mutableStateOf(false) }
-        ButtonFilled(
-            onClick = { showDialog = true },
-            text = "Show Modal",
-        )
+        Button.Primary(onClick = { showDialog = true }, text = "Show Modal")
 
         if (showDialog) {
             WindowInsets.displayCutout.only(

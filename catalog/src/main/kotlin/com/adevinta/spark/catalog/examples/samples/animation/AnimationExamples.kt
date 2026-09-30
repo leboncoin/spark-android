@@ -36,9 +36,14 @@ import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.animation.pulse
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.buttons.ButtonIntent
 import com.adevinta.spark.components.buttons.ButtonTinted
+import com.adevinta.spark.components.buttons.Danger
+import com.adevinta.spark.components.buttons.Primary
+import com.adevinta.spark.components.buttons.Success
+import com.adevinta.spark.components.buttons.Tertiary
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.Layout
 import kotlinx.collections.immutable.ImmutableList
@@ -95,15 +100,14 @@ private fun BasicPulseExample() {
             modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center,
         ) {
-            ButtonFilled(
+            Button.Primary(
+                onClick = { },
+                text = "Pulsing Button",
                 modifier = Modifier.pulse(
                     targetScale = 1.3f,
                     color = SparkTheme.colors.main,
                     shape = SparkTheme.shapes.large,
                 ),
-                text = "Pulsing Button",
-                onClick = { },
-                intent = ButtonIntent.Main,
             )
         }
     }
@@ -125,51 +129,47 @@ private fun PulseColorsExample() {
             verticalArrangement = Arrangement.spacedBy(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            ButtonFilled(
+            Button.Success(
+                onClick = { },
+                text = "Success",
                 modifier = Modifier
                     .pulse(
                         targetScale = 1.2f,
                         color = SparkTheme.colors.success,
                         shape = SparkTheme.shapes.large,
                     ),
-                text = "Success",
-                onClick = { },
-                intent = ButtonIntent.Success,
             )
 
-            ButtonFilled(
+            Button.Danger(
+                onClick = { },
+                text = "Error",
                 modifier = Modifier
                     .pulse(
                         targetScale = 1.2f,
                         color = SparkTheme.colors.error,
                         shape = SparkTheme.shapes.large,
                     ),
-                text = "Error",
-                onClick = { },
-                intent = ButtonIntent.Danger,
             )
-            ButtonFilled(
+            Button.Tertiary(
+                onClick = { },
+                text = "Warning",
                 modifier = Modifier
                     .pulse(
                         targetScale = 1.2f,
                         color = SparkTheme.colors.alert,
                         shape = SparkTheme.shapes.large,
                     ),
-                text = "Warning",
-                onClick = { },
-                intent = ButtonIntent.Alert,
             )
 
-            ButtonFilled(
+            Button.Tertiary(
+                onClick = { },
+                text = "Info",
                 modifier = Modifier
                     .pulse(
                         targetScale = 1.2f,
                         color = SparkTheme.colors.info,
                         shape = SparkTheme.shapes.large,
                     ),
-                text = "Info",
-                onClick = { },
-                intent = ButtonIntent.Info,
             )
         }
     }
@@ -192,49 +192,45 @@ private fun PulseShapesExample() {
             horizontalAlignment = Alignment.CenterHorizontally,
 
         ) {
-            ButtonFilled(
+            Button.Primary(
+                onClick = { },
+                text = "Circle",
                 modifier = Modifier
                     .pulse(
                         targetScale = 1.3f,
                         shape = CircleShape,
                     ),
-                text = "Circle",
-                onClick = { },
-                intent = ButtonIntent.Main,
             )
 
-            ButtonFilled(
+            Button.Primary(
+                onClick = { },
+                text = "Rounded",
                 modifier = Modifier
                     .pulse(
                         targetScale = 1.3f,
                         shape = SparkTheme.shapes.medium,
                     ),
-                text = "Rounded",
-                onClick = { },
-                intent = ButtonIntent.Main,
             )
         }
 
-        ButtonFilled(
+        Button.Primary(
+            onClick = { },
+            text = "Large",
             modifier = Modifier
                 .pulse(
                     targetScale = 1.3f,
                     shape = SparkTheme.shapes.large,
                 ),
-            text = "Large",
-            onClick = { },
-            intent = ButtonIntent.Main,
         )
 
-        ButtonFilled(
+        Button.Primary(
+            onClick = { },
+            text = "Small",
             modifier = Modifier
                 .pulse(
                     targetScale = 1.3f,
                     shape = SparkTheme.shapes.small,
                 ),
-            text = "Small",
-            onClick = { },
-            intent = ButtonIntent.Main,
         )
     }
 }
@@ -256,48 +252,44 @@ private fun PulseTimingExample() {
             horizontalAlignment = Alignment.CenterHorizontally,
 
         ) {
-            ButtonTinted(
+            Button.Tertiary(
+                onClick = { },
+                text = "Fast",
                 modifier = Modifier
                     .pulse(
                         targetScale = 1.2f,
                         animationSpec = tween(600),
                     ),
-                text = "Fast",
-                onClick = { },
-                intent = ButtonIntent.Main,
             )
 
-            ButtonTinted(
+            Button.Tertiary(
+                onClick = { },
+                text = "Normal",
                 modifier = Modifier
                     .pulse(
                         targetScale = 1.2f,
                         animationSpec = tween(1200),
                     ),
-                text = "Normal",
-                onClick = { },
-                intent = ButtonIntent.Main,
             )
         }
-        ButtonTinted(
+        Button.Tertiary(
+            onClick = { },
+            text = "Slow",
             modifier = Modifier
                 .pulse(
                     targetScale = 1.2f,
                     animationSpec = tween(1800),
                 ),
-            text = "Slow",
-            onClick = { },
-            intent = ButtonIntent.Main,
         )
 
-        ButtonTinted(
+        Button.Tertiary(
+            onClick = { },
+            text = "Very Slow",
             modifier = Modifier
                 .pulse(
                     targetScale = 1.2f,
                     animationSpec = tween(2400),
                 ),
-            text = "Very Slow",
-            onClick = { },
-            intent = ButtonIntent.Main,
         )
     }
 }
