@@ -44,8 +44,11 @@ import com.adevinta.spark.catalog.ui.ButtonGroup
 import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonIntent
 import com.adevinta.spark.components.buttons.ButtonTinted
+import com.adevinta.spark.components.buttons.Danger
+import com.adevinta.spark.components.buttons.Tertiary
 import com.adevinta.spark.components.card.Card
 import com.adevinta.spark.components.progress.tracker.ProgressSizes
 import com.adevinta.spark.components.progress.tracker.ProgressStep
@@ -166,23 +169,22 @@ private fun ColumnScope.ProgressTrackerSample() {
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            ButtonTinted(
-                text = "Remove Step",
-                intent = ButtonIntent.Danger,
+            Button.Danger(
                 onClick = {
                     if (items.size > 2) {
                         items = items.dropLast(1).toPersistentList()
                     }
                 },
+                text = "Remove Step",
                 modifier = Modifier.weight(1f),
             )
-            ButtonTinted(
-                text = "Add Step",
+            Button.Tertiary(
                 onClick = {
                     if (items.size < 6) {
                         items = items.adding(ProgressStep("New Step", true))
                     }
                 },
+                text = "Add Step",
                 modifier = Modifier.weight(1f),
             )
         }

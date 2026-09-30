@@ -34,7 +34,9 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonOutlined
+import com.adevinta.spark.components.buttons.Tertiary
 import com.adevinta.spark.components.popover.Popover
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.HeartFill
@@ -85,10 +87,7 @@ public val PopoverExamples: ImmutableList<Example> = persistentListOf(
                     isDismissButtonEnabled = true,
                     popoverState = state,
                 ) {
-                    ButtonOutlined(
-                        text = "Display Popover",
-                        onClick = { scope.launch { state.show() } },
-                    )
+                    Button.Tertiary(onClick = { scope.launch { state.show() } }, text = "Display Popover")
                 }
             },
         )

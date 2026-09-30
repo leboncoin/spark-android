@@ -30,7 +30,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonIntent
+import com.adevinta.spark.components.buttons.Underlined
 import com.adevinta.spark.components.snackbars.Snackbar
 import com.adevinta.spark.components.snackbars.SnackbarIntent
 import com.adevinta.spark.components.snackbars.SnackbarSparkVisuals
@@ -88,8 +90,7 @@ public val SnackbarExamples: ImmutableList<Example> = persistentListOf(
             contentAlignment = Alignment.Center,
             modifier = Modifier.fillMaxSize(),
         ) {
-            TextLinkButton(
-                intent = ButtonIntent.Success,
+            Button.Underlined(
                 text = "Click me to open snackbar",
                 onClick = {
                     scope.launch {
@@ -117,8 +118,7 @@ public val SnackbarExamples: ImmutableList<Example> = persistentListOf(
             modifier = Modifier.fillMaxSize(),
         ) {
 
-            TextLinkButton(
-                intent = ButtonIntent.Accent,
+            Button.Underlined(
                 text = "Click me to open snackbar",
                 onClick = {
                     scope.launch {

@@ -42,5 +42,6 @@ public class LintIssueRegistry : IssueRegistry() {
         StringResourceAnnotationDetector.UNSUPPORTED_ANNOTATION_ATTRIBUTE_VALUE_ISSUE,
         ScaffoldPaddingDetector.ISSUE,
         WrongConditionalModifierUsageDetector.ISSUE,
+        SparkButtonMigrationDetector.ISSUE,
     )
 }

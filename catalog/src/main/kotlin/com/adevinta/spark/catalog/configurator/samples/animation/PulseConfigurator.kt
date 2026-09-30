@@ -49,8 +49,10 @@ import com.adevinta.spark.catalog.model.Configurator
 import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.buttons.ButtonIntent
+import com.adevinta.spark.components.buttons.Primary
 import com.adevinta.spark.components.slider.Slider
 import com.adevinta.spark.components.slider.SliderIntent
 import com.adevinta.spark.components.snackbars.SnackbarHostState
@@ -101,7 +103,9 @@ private fun ColumnScope.PulseSample(snackbarHostState: SnackbarHostState) {
             .padding(vertical = 16.dp),
         contentAlignment = Alignment.Center,
     ) {
-        ButtonFilled(
+        Button.Primary(
+            onClick = { },
+            text = "Pulsing Button",
             modifier = Modifier.pulse(
                 enabled = isEnabled,
                 targetScale = targetScale,
@@ -110,9 +114,6 @@ private fun ColumnScope.PulseSample(snackbarHostState: SnackbarHostState) {
                 shape = pulseShape.shape,
                 animationSpec = tween(animationDuration),
             ),
-            text = "Pulsing Button",
-            onClick = { },
-            intent = ButtonIntent.Main,
         )
     }
 

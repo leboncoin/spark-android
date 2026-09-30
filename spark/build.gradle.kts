@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.constraintlayout.compose)
     lintPublish(projects.sparkLint)
+    lintChecks(projects.sparkLint)
     lintChecks(libs.slack.lint.compose)
 
     api(platform(projects.sparkBom))
