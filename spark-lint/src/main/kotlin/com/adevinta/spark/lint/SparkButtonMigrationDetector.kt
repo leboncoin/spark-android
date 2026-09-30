@@ -263,14 +263,14 @@ public class SparkButtonMigrationDetector :
 
         val ISSUE: Issue = Issue.create(
             id = "SparkButtonMigration",
-            briefDescription = "Old Spark button should be replaced with the new `Button.<Variant>` API",
+            briefDescription = "Old Spark button usage",
             explanation = """
                 The style-based Spark button composables (`ButtonFilled`, `ButtonOutlined`, `ButtonTinted`, \
                 `ButtonGhost`, `ButtonContrast`) and `TextLinkButton` are deprecated. Replace them with the \
                 new `Button.<Variant>` API (for example `Button.Primary`, `Button.Secondary`, \
                 `Button.Underlined`), which encodes the visual variant directly in the composable name \
                 rather than via a `style` parameter.
-            """.trimIndent(),
+            """,
             category = CORRECTNESS,
             priority = 6,
             severity = WARNING,
