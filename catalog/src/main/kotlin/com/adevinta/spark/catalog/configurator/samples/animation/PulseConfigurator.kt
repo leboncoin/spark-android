@@ -48,10 +48,8 @@ import com.adevinta.spark.animation.pulse
 import com.adevinta.spark.catalog.model.Configurator
 import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.util.PreviewTheme
-import com.adevinta.spark.catalog.util.SampleSourceUrl
+import com.adevinta.spark.catalog.util.SourceUrl
 import com.adevinta.spark.components.buttons.Button
-import com.adevinta.spark.components.buttons.ButtonFilled
-import com.adevinta.spark.components.buttons.ButtonIntent
 import com.adevinta.spark.components.buttons.Primary
 import com.adevinta.spark.components.slider.Slider
 import com.adevinta.spark.components.slider.SliderIntent
@@ -64,12 +62,15 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.milliseconds
 
+private const val AnimationConfiguratorSourceUrl =
+    "$SourceUrl/blob/main/catalog/src/main/kotlin/com/adevinta/spark/catalog/configurator/samples/animation"
+
 public val PulseConfigurator: ImmutableList<Configurator> = persistentListOf(
     Configurator(
         id = "pulse",
         name = "Pulse",
         description = "Pulse animation configuration",
-        sourceUrl = "$SampleSourceUrl/PulseConfigurator.kt",
+        sourceUrl = "$AnimationConfiguratorSourceUrl/PulseConfigurator.kt",
     ) { snackbarHostState, _ ->
         PulseSample(snackbarHostState)
     },
