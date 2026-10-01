@@ -24,7 +24,9 @@ package com.adevinta.spark.catalog.model
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.adevinta.spark.catalog.R
+import com.adevinta.spark.catalog.configurator.samples.animation.AnimatedCounterTextConfigurator
 import com.adevinta.spark.catalog.configurator.samples.animation.PulseConfigurator
+import com.adevinta.spark.catalog.configurator.samples.animation.ShakeConfigurator
 import com.adevinta.spark.catalog.configurator.samples.bottomsheet.BottomSheetConfigurator
 import com.adevinta.spark.catalog.configurator.samples.buttons.ButtonsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.buttons.IconButtonsConfigurator
@@ -261,9 +263,9 @@ private val Animations = Component(
     description = R.string.component_animation_description,
     guidelinesUrl = "$ComponentGuidelinesUrl/p/3075e9-foundations",
     docsUrl = "$PackageSummaryUrl/com.adevinta.spark.animation/index.html",
-    sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/animation/Pulse.kt",
+    sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/animation",
     examples = AnimationExamples,
-    configurators = PulseConfigurator,
+    configurators = PulseConfigurator + ShakeConfigurator + AnimatedCounterTextConfigurator,
 )
 
 private val Icons = Component(
