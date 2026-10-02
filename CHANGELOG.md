@@ -2,6 +2,36 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [4.2.0](https://github.com/leboncoin/spark-android/compare/4.1.0...4.2.0) (2026-10-02)
+
+
+### Features
+
+* **animation:** add Shake and AnimatedCounterText catalog samples ([#2310](https://github.com/leboncoin/spark-android/issues/2310)) ([c0698fc](https://github.com/leboncoin/spark-android/commit/c0698fc415c0cbf0bdd0c4dae983f8e5e5d73912))
+* **doc:** add support for deepwiki auto refresh ([4c420c2](https://github.com/leboncoin/spark-android/commit/4c420c20669c1c5593a13e53131b6548b1b15b24))
+* **lint:** detect old Spark button usages and suggest migration ([#2307](https://github.com/leboncoin/spark-android/issues/2307)) ([6f796eb](https://github.com/leboncoin/spark-android/commit/6f796ebc9d7c6f6ed44f218f7e0d03689cd75c16))
+* **useravatar:** add scoped addon slot and letter placeholder ([#2289](https://github.com/leboncoin/spark-android/issues/2289)) ([721ad45](https://github.com/leboncoin/spark-android/commit/721ad459419260f406874ceaabbd79eb082686d6))
+
+
+### Bug Fixes
+
+* **dropdown:** make the whole field area clickable ([#2303](https://github.com/leboncoin/spark-android/issues/2303)) ([8c86a92](https://github.com/leboncoin/spark-android/commit/8c86a92c075ba2195c56781fa3d50e728dca7a67))
+* **snackbar:** match the outer margin and row padding to the spec ([#2312](https://github.com/leboncoin/spark-android/issues/2312)) ([80c47c5](https://github.com/leboncoin/spark-android/commit/80c47c542e6d166ed2c4a6f06395b244ceb0078c))
+* **typography:** use static Nunito Sans on Xiaomi devices ([#2294](https://github.com/leboncoin/spark-android/issues/2294)) ([84215a8](https://github.com/leboncoin/spark-android/commit/84215a8b62bbe12c7bd292f6abdd8ac0ddb22ae6))
+
+
+### Miscellaneous
+
+* **baseline:** regenerate baseline profiles ([#2293](https://github.com/leboncoin/spark-android/issues/2293)) ([beabfb7](https://github.com/leboncoin/spark-android/commit/beabfb7332af2e7be19cc1d5f175a83eb94e0a7e))
+* **deps:** bump androidx.core:core-ktx from 1.19.0 to 1.19.1 ([#2299](https://github.com/leboncoin/spark-android/issues/2299)) ([d3f9112](https://github.com/leboncoin/spark-android/commit/d3f91123c18d3bdf54ea9d53ab11250f6dd1d3f7))
+* **deps:** bump androidx.navigation:navigation-compose from 2.10.1 to 2.10.2 ([#2297](https://github.com/leboncoin/spark-android/issues/2297)) ([3a53e54](https://github.com/leboncoin/spark-android/commit/3a53e5476fd4505ef0a337b5afdbf0476247224a))
+* **deps:** bump com.google.testparameterinjector:test-parameter-injector from 1.22 to 1.23 ([#2279](https://github.com/leboncoin/spark-android/issues/2279)) ([669dba7](https://github.com/leboncoin/spark-android/commit/669dba7ef9fd2d155881dffbc8ab5607b735ca38))
+* **deps:** bump com.google.testparameterinjector:test-parameter-injector from 1.23 to 1.24 ([#2311](https://github.com/leboncoin/spark-android/issues/2311)) ([c33dcb8](https://github.com/leboncoin/spark-android/commit/c33dcb852b03348ad78c4bd01c985ecd7bcaa88a))
+* **deps:** bump compose-multiplatform from 1.12.0 to 1.12.1 ([#2298](https://github.com/leboncoin/spark-android/issues/2298)) ([325e7a9](https://github.com/leboncoin/spark-android/commit/325e7a9e85d4614a48f7e43517a21e5320d0df99))
+* **deps:** bump github/codeql-action from 4.38.1 to 4.38.2 in /.github/workflows ([#2301](https://github.com/leboncoin/spark-android/issues/2301)) ([7dd9f25](https://github.com/leboncoin/spark-android/commit/7dd9f255c034cecd08f9962e4c1e359e27714cb2))
+* **deps:** bump gradle-wrapper from 9.7.1 to 9.8.0 ([#2300](https://github.com/leboncoin/spark-android/issues/2300)) ([0f9b2bb](https://github.com/leboncoin/spark-android/commit/0f9b2bb72ba1573607118a09cb24e326a74d71a4))
+* **deps:** bump gradle/actions/setup-gradle from 6.3.0 to 6.4.0 in /.github/actions/setup-gradle ([#2309](https://github.com/leboncoin/spark-android/issues/2309)) ([35dccc4](https://github.com/leboncoin/spark-android/commit/35dccc4f31c12b08dd8be5b67ff5deae75ae24f6))
+
 ## [4.1.0](https://github.com/leboncoin/spark-android/compare/4.0.0...4.1.0) (2026-09-22)
 
 
