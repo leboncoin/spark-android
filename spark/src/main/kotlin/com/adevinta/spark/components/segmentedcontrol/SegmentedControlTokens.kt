@@ -81,7 +81,7 @@ public object SegmentedControlTokens {
 
     public val ContainerVerticalShape: Shape
         get() = RoundedCornerShape(20.0.dp)
-    public val IndicatorBorderWidth: Dp = 2.dp
+    public val IndicatorBorderWidth: Dp = 1.dp
 
     /** Width of the divider line drawn between adjacent segments. */
     public val DividerWidth: Dp = 1.dp
