@@ -49,13 +49,15 @@ data and show/hide an indeterminate circular progress indicator on the start of 
 | `Button.Secondary` | The standard button for most use cases. The filled styling places less emphasis than Primary but still signals an important action. |
 | `Button.Tertiary` | Used for miscellaneous actions: the action is important, but may not be what the user is looking to do right then. Often paired with a Primary or Secondary button. |
 | `Button.Boost` | Used for any action attached to a conversion or monetisation flow, such as "Boost my ad" or "Upgrade". |
-| `Button.Ai` | Used for AI-powered actions. Always displays the Sparks icon to signal AI involvement. |
+| `Button.Ai` *(experimental)* | Used for AI-powered actions. Always displays the Sparks icon to signal AI involvement. |
 | `Button.Danger` | Used for destructive or irreversible actions like "Delete" or "Remove". Warns the user of negative consequences. |
 | `Button.Success` | Used for positive confirmations like "Approve" or "Mark as sold" where the outcome is beneficial. |
 | `Button.Contrast` | Used for primary actions on dark media or dark backgrounds. |
-| `Button.Text` | Used for the most minor actions. Often paired with a Primary button. Can be used with Secondary and Tertiary buttons when the primary action is for forwarding. |
+| `Button.Text` *(experimental)* | Used for the most minor actions. Often paired with a Primary button. Can be used with Secondary and Tertiary buttons when the primary action is for forwarding. |
 | `Button.Underlined` | Used for link-style actions within body text, such as "Terms and conditions" or "Privacy policy". |
-| `ButtonGhost` | Used for the most minor actions, especially when presenting multiple options. The container is not visible until interaction. |
+| `Button.Ghost` | Used for the most minor actions, especially when presenting multiple options. The container is not visible until interaction. |
+
+`Button.Ai` and `Button.Text` are marked `@ExperimentalSparkApi`.
 
 ### Button.Primary
 
@@ -147,17 +149,49 @@ Button.Underlined(
 )
 ```
 
-## Legacy API
+### Button.Ghost
 
-The following top-level composable functions remain available:
+```kotlin
+Button.Ghost(
+    onClick = { /*Click event*/ },
+    text = "Ghost",
+)
+```
 
-| Legacy | Replacement |
-|--------|-------------|
-| `ButtonFilled` | `Button.Primary` |
-| `ButtonOutlined` | `Button.Tertiary` |
-| `ButtonTinted` | (no direct replacement) |
-| `ButtonGhost` | `ButtonGhost` (unchanged) |
-| `ButtonContrast` | `Button.Contrast` |
+## Migrating from the legacy API
+
+The style-based functions `ButtonFilled`, `ButtonOutlined`, `ButtonTinted`, `ButtonGhost` and
+`ButtonContrast` remain supported. They are not deprecated yet. A later release will deprecate them
+once consumers have migrated. New code should use the `Button.*` variants.
+
+Set `SparkFeatureFlag.useRebrandedButtons` to `true` to preview the migration. The flag defaults to
+`false`. When it is on, each legacy call renders the matching `Button.*` variant from the table
+below.
+
+| Legacy call | Intent | New variant |
+|-------------|--------|-------------|
+| `ButtonFilled` | `Main` (default) | `Button.Primary` |
+| `ButtonFilled` | `Support` | `Button.Secondary` |
+| `ButtonFilled` | `Accent` | `Button.Boost` |
+| `ButtonFilled` | `Info`, `Alert`, `Neutral` | `Button.Tertiary` |
+| `ButtonOutlined`, `ButtonTinted` | `Main`, `Support`, `Accent`, `Info`, `Alert`, `Neutral` | `Button.Tertiary` |
+| `ButtonFilled`, `ButtonOutlined`, `ButtonTinted` | `Surface` | `Button.Contrast` |
+| `ButtonFilled`, `ButtonOutlined`, `ButtonTinted` | `Success` | `Button.Success` |
+| `ButtonFilled`, `ButtonOutlined`, `ButtonTinted` | `Danger` | `Button.Danger` |
+| `ButtonGhost` | Any intent except `Ai` | `Button.Ghost` |
+| `ButtonContrast` | Any intent except `Ai` | `Button.Contrast` |
+| Any legacy call | `Ai` | `Button.Ai` |
+
+`ButtonOutlined` defaults to the `Support` intent. The other legacy functions default to `Main`.
+
+Keep these differences in mind when you migrate:
+
+- The `Button.*` variants have no `intent` parameter. Pick the variant that matches the intent.
+- The `Button.*` variants have no `AnnotatedString` overload. Use the `content` slot for styled text.
+- `ButtonOutlined` uses the intent colour for its text and border. `Button.Tertiary` uses `onSurface`
+  for its text and the neutral `outline` colour for its border.
+- `ButtonContrast` uses the intent `onContainerColor` for its content. `Button.Contrast` uses
+  `onSurface`.
 
 #### ButtonFilled
 
