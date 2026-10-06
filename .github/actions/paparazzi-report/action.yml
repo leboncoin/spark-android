@@ -17,7 +17,7 @@ runs:
           echo "🚨 UI regression detected! Checkout the [paparazzi-delta](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}#artifacts) artifact." ; \
           echo -e "If these changes are expected, you can either:" ; \
           echo -e "- manually run the \`gradlew cleanRecordPaparazziRelease\` and commit the new golden images" ; \
-          echo -e "- or ask \`@spark-ui-bot paparazzi golden images\` in this PR" ; \
+          echo -e "- or run the [paparazzi-golden-images](${{ github.server_url }}/${{ github.repository }}/actions/workflows/paparazzi-golden-images.yml) action with this PR number" ; \
         ) | gh pr comment "$PR_NUMBER" --body-file -
       env:
         GITHUB_TOKEN: ${{ inputs.github-token }}
