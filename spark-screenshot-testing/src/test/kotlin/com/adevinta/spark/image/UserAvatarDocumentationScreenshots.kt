@@ -72,6 +72,17 @@ internal class UserAvatarDocumentationScreenshots {
     }
 
     @Test
+    fun letter() = paparazzi.sparkDocSnapshot {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            UserAvatar(style = UserAvatarStyle.LARGE, model = null)
+            UserAvatar(style = UserAvatarStyle.LARGE, model = null, letter = 'S')
+        }
+    }
+
+    @Test
     fun onlineIndicator() = paparazzi.sparkDocSnapshot {
         Row(
             horizontalArrangement = Arrangement.spacedBy(16.dp),

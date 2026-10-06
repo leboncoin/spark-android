@@ -80,8 +80,11 @@ import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.appbar.BottomAppBar
 import com.adevinta.spark.components.appbar.BottomAppBarSparkDefaults
 import com.adevinta.spark.components.appbar.TopAppBar
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.buttons.ButtonOutlined
+import com.adevinta.spark.components.buttons.Primary
+import com.adevinta.spark.components.buttons.Tertiary
 import com.adevinta.spark.components.dialog.ModalDefault.DialogPadding
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconButton
@@ -492,10 +495,10 @@ private fun ModalPreview() {
             ModalScaffold(
                 onClose = { /*TODO*/ },
                 mainButton = {
-                    ButtonFilled(modifier = it, onClick = { /*TODO*/ }, text = "Main Action")
+                    Button.Primary(onClick = { /*TODO*/ }, text = "Main Action", modifier = it)
                 },
                 supportButton = {
-                    ButtonOutlined(modifier = it, onClick = { /*TODO*/ }, text = "Alternative Action")
+                    Button.Tertiary(onClick = { /*TODO*/ }, text = "Alternative Action", modifier = it)
                 },
                 title = {
                     Text(text = "Title")

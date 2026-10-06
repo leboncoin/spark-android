@@ -52,8 +52,11 @@ import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.bottomsheet.BottomSheet
 import com.adevinta.spark.components.bottomsheet.DragHandle
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.buttons.ButtonIntent
+import com.adevinta.spark.components.buttons.Primary
+import com.adevinta.spark.components.buttons.Underlined
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.image.Illustration
 import com.adevinta.spark.components.image.Image
@@ -125,10 +128,7 @@ private fun ColumnScope.BottomSheetSample() {
 
     VerticalSpacer(24.dp)
 
-    ButtonFilled(
-        text = "Show BottomSheet",
-        onClick = { openBottomSheet = !openBottomSheet },
-    )
+    Button.Primary(onClick = { openBottomSheet = !openBottomSheet }, text = "Show BottomSheet")
 
     ConfiguredBottomSheet(
         bottomSheetContentExample = bottomSheetContentExample,
@@ -184,10 +184,10 @@ private fun ListContent(onHideBottomSheetClicked: () -> Unit) {
             Row(horizontalArrangement = Arrangement.Center) {
                 // If you provide logic outside of onDismissRequest to remove the sheet,
                 // you must additionally handle intended state cleanup, if any.
-                ButtonFilled(
-                    modifier = Modifier.padding(24.dp),
-                    text = "Hide Bottom Sheet",
+                Button.Primary(
                     onClick = onHideBottomSheetClicked,
+                    text = "Hide Bottom Sheet",
+                    modifier = Modifier.padding(24.dp),
                 )
             }
         }
@@ -219,11 +219,7 @@ private fun TextContent() {
             modifier = Modifier.padding(bottom = 16.dp),
             style = SparkTheme.typography.body2.highlight,
         )
-        TextLinkButton(
-            text = "Text Link",
-            onClick = {},
-            intent = ButtonIntent.Alert,
-        )
+        Button.Underlined(text = "Text Link", onClick = {})
     }
 }
 

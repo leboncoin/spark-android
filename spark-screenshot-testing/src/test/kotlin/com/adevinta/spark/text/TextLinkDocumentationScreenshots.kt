@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.text
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import com.adevinta.spark.DefaultTestDevices
 import com.adevinta.spark.SparkTheme
@@ -57,6 +58,7 @@ internal class TextLinkDocumentationScreenshots {
     }
 
     @Test
+    @SuppressLint("SparkButtonMigration")
     fun textLinkButton() = paparazzi.sparkDocSnapshot {
         Column {
             TextLinkButton(

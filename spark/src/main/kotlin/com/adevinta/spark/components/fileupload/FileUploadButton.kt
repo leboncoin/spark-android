@@ -26,10 +26,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.buttons.ButtonIntent
 import com.adevinta.spark.components.buttons.ButtonSize
 import com.adevinta.spark.components.buttons.IconSide
+import com.adevinta.spark.components.buttons.Secondary
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.tools.modifiers.ifNotNull
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
@@ -73,19 +75,18 @@ internal fun FileUploadSingleButton(
     enabled: Boolean = true,
     onClickLabel: String? = null,
     buttonContent: @Composable (onClick: () -> Unit) -> Unit = { onClick ->
-        ButtonFilled(
+        Button.Secondary(
+            onClick = onClick,
+            text = label,
             modifier = Modifier
                 .fillMaxWidth()
                 .ifNotNull(onClickLabel) {
                     semantics { onClick(label = onClickLabel, action = null) }
                 },
-            onClick = onClick,
-            text = label,
             size = size,
+            enabled = enabled,
             icon = icon,
             iconSide = iconSide,
-            intent = ButtonIntent.Support,
-            enabled = enabled,
         )
     },
 ) {
@@ -142,19 +143,18 @@ internal fun FileUploadButton(
     enabled: Boolean = true,
     onClickLabel: String? = null,
     buttonContent: @Composable (onClick: () -> Unit) -> Unit = { onClick ->
-        ButtonFilled(
+        Button.Secondary(
+            onClick = onClick,
+            text = label,
             modifier = Modifier
                 .fillMaxWidth()
                 .ifNotNull(onClickLabel) {
                     semantics { onClick(label = onClickLabel, action = null) }
                 },
-            onClick = onClick,
-            text = label,
             size = size,
+            enabled = enabled,
             icon = icon,
             iconSide = iconSide,
-            intent = ButtonIntent.Support,
-            enabled = enabled,
         )
     },
 ) {

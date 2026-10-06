@@ -56,6 +56,7 @@ import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.image.UserAvatar
 import com.adevinta.spark.components.image.UserAvatarStyle
 import com.adevinta.spark.components.text.Text
+import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 
@@ -75,6 +76,7 @@ private fun ColumnScope.UserAvatarSample() {
     var isPro by remember { mutableStateOf(false) }
     var showOnlineIndicator by remember { mutableStateOf(false) }
     var imageState by remember { mutableStateOf(UserAvatarImageState.Empty) }
+    var letter by remember { mutableStateOf("") }
 
     val context = LocalContext.current
     val drawable = getDrawable(context, R.drawable.img_narrow_image_configurator)!!
@@ -112,6 +114,7 @@ private fun ColumnScope.UserAvatarSample() {
             style = style,
             model = imageRequest,
             isPro = isPro,
+            letter = letter.firstOrNull(),
             addon = if (showOnlineIndicator) {
                 { onlineIndicator() }
             } else {
@@ -131,6 +134,15 @@ private fun ColumnScope.UserAvatarSample() {
         title = "Image state",
         selectedOption = imageState,
         onOptionSelect = { imageState = it },
+    )
+
+    TextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = letter,
+        onValueChange = { letter = it.take(1) },
+        label = "Letter",
+        placeholder = "Enter a letter",
+        helper = "The letter shows in the Empty and Error image states only",
     )
 
     SwitchLabelled(

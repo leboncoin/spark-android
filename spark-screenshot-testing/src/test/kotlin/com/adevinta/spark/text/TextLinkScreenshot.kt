@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.text
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.ui.res.stringResource
@@ -46,6 +47,7 @@ internal class TextLinkScreenshot {
     val paparazzi = paparazziRule()
 
     @Test
+    @SuppressLint("SparkButtonMigration")
     fun testTextLink() {
         paparazzi.sparkSnapshotNightMode {
             Column {
@@ -71,6 +73,7 @@ internal class TextLinkScreenshot {
     }
 
     @Test
+    @SuppressLint("SparkButtonMigration")
     fun frenchVariant() {
         paparazzi.unsafeUpdateConfig(
             deviceConfig = DefaultTestDevices.Phone.copy(

@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.buttons
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -94,6 +95,7 @@ internal class ButtonScreenshot {
     }
 
     @Composable
+    @SuppressLint("SparkButtonMigration")
     private fun ButtonsWithIcons(
         size: ButtonSize,
         enabled: Boolean,

@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.catalog.configurator.samples.buttons
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ColumnScope
@@ -164,8 +165,8 @@ private fun ButtonSamplePreview() {
 }
 
 @Composable
+@SuppressLint("SparkButtonMigration")
 private fun ConfiguredButton(
-    modifier: Modifier = Modifier,
     style: ButtonStyle,
     buttonText: String,
     onClick: () -> Unit,
@@ -175,6 +176,7 @@ private fun ConfiguredButton(
     isEnabled: Boolean,
     icon: SparkIcon?,
     iconSide: IconSide,
+    modifier: Modifier = Modifier,
 ) {
     val containerColor by animateColorAsState(
         targetValue = if (intent != ButtonIntent.Surface) {

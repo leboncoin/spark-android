@@ -31,9 +31,15 @@ import androidx.compose.ui.text.font.FontVariation
 import androidx.compose.ui.text.font.FontWeight
 import com.adevinta.spark.core.R
 
+// MIUI and HyperOS force their own weight on variable typefaces, so every weight renders the same.
+private val isXiaomiDevice: Boolean = Build.MANUFACTURER.lowercase() in setOf("xiaomi", "redmi", "poco") ||
+    Build.BRAND.lowercase() in setOf("xiaomi", "redmi", "poco")
+
 @OptIn(ExperimentalTextApi::class)
 @Composable
-internal actual fun nunitoFontFamily(): FontFamily = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+internal actual fun nunitoFontFamily(): FontFamily = if (
+    Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !isXiaomiDevice
+) {
     FontFamily(
         Font(
             R.font.nunito_sans_variable,
