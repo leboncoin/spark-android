@@ -27,9 +27,9 @@ jobs:
       - uses: actions/checkout@v7.0.1
         with:
           persist-credentials: false
-      - uses: ./.github/actions/check-git-lfs
-      - uses: ./.github/actions/setup-java
-      - uses: ./.github/actions/setup-gradle
+      - uses: $/.github/actions/check-git-lfs
+      - uses: $/.github/actions/setup-java
+      - uses: $/.github/actions/setup-gradle
 
   checks:
     name: 👮 Checks
@@ -40,9 +40,9 @@ jobs:
       - uses: actions/checkout@v7.0.1
         with:
           persist-credentials: false
-      - uses: ./.github/actions/setup-java
-      - uses: ./.github/actions/setup-gradle
-      - uses: ./.github/actions/setup-gradle-properties
+      - uses: $/.github/actions/setup-java
+      - uses: $/.github/actions/setup-gradle
+      - uses: $/.github/actions/setup-gradle-properties
       - run: ./gradlew dependencyGuard --quiet
       - run: ./gradlew spotlessCheck
       - run: ./gradlew checkKotlinAbi
@@ -56,11 +56,11 @@ jobs:
       - uses: actions/checkout@v7.0.1
         with:
           persist-credentials: false
-      - uses: ./.github/actions/setup-java
-      - uses: ./.github/actions/setup-gradle
+      - uses: $/.github/actions/setup-java
+      - uses: $/.github/actions/setup-gradle
         with:
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
-      - uses: ./.github/actions/setup-gradle-properties
+      - uses: $/.github/actions/setup-gradle-properties
       - name: 📥 Fetch baseline profiles from LFS
         run: git lfs pull --include="**/generated/baselineProfiles/*.txt"
       - name: 👷 Build
@@ -87,7 +87,7 @@ jobs:
             !**/build/libs/*-javadoc.jar
       - name: 📢 Diffuse reports
         if: ${{ always() && github.event_name == 'pull_request' && steps.build.outcome == 'success' }}
-        uses: ./.github/actions/diffuse-aar
+        uses: $/.github/actions/diffuse-aar
 
   test:
     name: 🧑‍🔬 Test
@@ -99,26 +99,26 @@ jobs:
         with:
           lfs: true
           persist-credentials: false
-      - uses: ./.github/actions/setup-java
-      - uses: ./.github/actions/setup-gradle
+      - uses: $/.github/actions/setup-java
+      - uses: $/.github/actions/setup-gradle
         with:
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
-      - uses: ./.github/actions/setup-gradle-properties
+      - uses: $/.github/actions/setup-gradle-properties
       - name: 🧑‍🔬 Test
         id: test
         run: ./gradlew ciUnitTest verifyPaparazziRelease
       - name: 📦 Archive JUnit reports
         if: ${{ always() && contains(fromJSON('["success", "failure"]'), steps.test.outcome) }}
-        uses: ./.github/actions/archive-junit-reports
+        uses: $/.github/actions/archive-junit-reports
         with:
           html: '**/build/reports/tests/test*'
           xml: '**/build/test-results/test*/**.xml'
       - name: 📦 Archive Paparazzi reports
         if: ${{ always() && contains(fromJSON('["success", "failure"]'), steps.test.outcome) }}
-        uses: ./.github/actions/archive-paparazzi-reports
+        uses: $/.github/actions/archive-paparazzi-reports
       - name: 📢 Paparazzi report
         if: ${{ failure() && steps.test.outcome == 'failure' && github.event_name == 'pull_request'}}
-        uses: ./.github/actions/paparazzi-report
+        uses: $/.github/actions/paparazzi-report
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           pr-number: ${{ github.event.pull_request.number }}
@@ -132,11 +132,11 @@ jobs:
       - uses: actions/checkout@v7.0.1
         with:
           persist-credentials: false
-      - uses: ./.github/actions/setup-java
-      - uses: ./.github/actions/setup-gradle
+      - uses: $/.github/actions/setup-java
+      - uses: $/.github/actions/setup-gradle
         with:
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
-      - uses: ./.github/actions/setup-gradle-properties
+      - uses: $/.github/actions/setup-gradle-properties
       - name: 📥 Fetch baseline profiles from LFS
         run: git lfs pull --include="**/generated/baselineProfiles/*.txt"
       - name: 🕵️ Lint
@@ -144,7 +144,7 @@ jobs:
         run: ./gradlew :spark:lintRelease :spark-screenshot-testing:lintRelease :catalog:lintRelease :spark-lint:lint --continue
       - name: 📦 Archive Lint reports
         if: ${{ always() && contains(fromJSON('["success", "failure"]'), steps.lint.outcome) }}
-        uses: ./.github/actions/archive-lint-reports
+        uses: $/.github/actions/archive-lint-reports
         with:
           html: '**/build/reports/lint-results*.html'
           sarif: '**/build/reports/lint-results*.sarif'
@@ -180,9 +180,9 @@ jobs:
       - uses: actions/checkout@v7.0.1
         with:
           persist-credentials: false
-      - uses: ./.github/actions/setup-java
-      - uses: ./.github/actions/setup-gradle
-      - uses: ./.github/actions/setup-gradle-properties
+      - uses: $/.github/actions/setup-java
+      - uses: $/.github/actions/setup-gradle
+      - uses: $/.github/actions/setup-gradle-properties
       - uses: actions/setup-python@v7
         with:
           python-version: '3.9'
@@ -258,7 +258,7 @@ jobs:
       - uses: actions/checkout@v7.0.1
         with:
           persist-credentials: false
-      - uses: ./.github/actions/setup-java
+      - uses: $/.github/actions/setup-java
 
       - name: Fetch job durations via GitHub API
         run: |
@@ -274,7 +274,7 @@ jobs:
           count=$(grep -r --include="*.kt" -c "@Test" spark-screenshot-testing/src/test | awk -F: '{s+=$2} END {print s}')
           echo "count=$count" >> $GITHUB_OUTPUT
 
-      - uses: ./.github/actions/setup-kotlin
+      - uses: $/.github/actions/setup-kotlin
 
       - name: Submit library metrics
         run: kotlin scripts/datadog/library-metrics.main.kts -- --project-dir .
@@ -310,7 +310,7 @@ jobs:
           path: jar-output/
           digest-mismatch: warn
 
-      - uses: ./.github/actions/diffuse-aar
+      - uses: $/.github/actions/diffuse-aar
 
       - name: Run diffuse on artifacts
         run: |
