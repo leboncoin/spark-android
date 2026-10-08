@@ -31,14 +31,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithCache
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.CompositingStrategy
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.drawscope.clipPath
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.Layout
@@ -61,6 +54,7 @@ import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.BuildingCircle
 import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.PenOutline
 import com.adevinta.spark.icons.UserCircleFill
 import com.adevinta.spark.tokens.highlight
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
@@ -74,6 +68,7 @@ internal fun SparkUserAvatar(
     // Useful to preview different states
     transform: (AsyncImagePainter.State) -> AsyncImagePainter.State = AsyncImagePainter.DefaultTransform,
     style: UserAvatarStyle = UserAvatarStyle.SM,
+    contentScale: ContentScale = ContentScale.Fit,
     fillParentSize: Boolean = false,
     model: Any? = null,
     color: Color = Color.Unspecified,
@@ -100,32 +95,15 @@ internal fun SparkUserAvatar(
         }
     }
     Layout(
-        modifier = modifier
-            .then(if (fillParentSize) Modifier.fillMaxSize() else Modifier.size(style.imageSize))
-            .sparkUsageOverlay()
-            .aspectRatio(1f)
-            .graphicsLayer { compositingStrategy = CompositingStrategy.Offscreen },
+        modifier = modifier.sparkUsageOverlay(),
         content = {
             SparkImage(
-                modifier = Modifier
-                    .drawWithCache {
-                        val path = Path()
-                        path.addOval(
-                            Rect(
-                                topLeft = Offset.Zero,
-                                bottomRight = Offset(size.width, size.height),
-                            ),
-                        )
-                        onDrawWithContent {
-                            clipPath(path) {
-                                this@onDrawWithContent.drawContent()
-                            }
-                        }
-                    },
+                modifier = Modifier.then(if (fillParentSize) Modifier.fillMaxSize() else Modifier.size(style.imageSize))
+                    .aspectRatio(1f),
                 model = model,
                 transform = transform,
                 contentDescription = stringResource(id = R.string.spark_user_avatar_content_description),
-                contentScale = ContentScale.Fit,
+                contentScale = contentScale,
                 emptyIcon = emptyIcon,
                 errorIcon = emptyIcon,
             )
@@ -144,28 +122,23 @@ internal fun SparkUserAvatar(
         val hasAddon = addonWidth > 0 || addonHeight > 0
         val addonLeft: Int
         val addonTop: Int
-        val totalWidth: Int
-        val totalHeight: Int
 
         if (!hasAddon) {
             addonLeft = 0
             addonTop = 0
-            totalWidth = avatarWidth
-            totalHeight = avatarHeight
         } else {
-            val r = avatarWidth / 2f
-            val cos45 = sqrt(2f) / 2f
-            val addonCenterX = (avatarWidth / 2f + r * cos45).roundToInt()
-            val addonCenterY = (avatarHeight / 2f + r * cos45).roundToInt()
-            addonLeft = addonCenterX - addonWidth / 2
-            addonTop = addonCenterY - addonHeight / 2
-            totalWidth = maxOf(avatarWidth, addonLeft + addonWidth)
-            totalHeight = maxOf(avatarHeight, addonTop + addonHeight)
+            val radius = avatarWidth / 2f
+            // cos(45°) = sin(45°) = sqrt(2)/2; centre the addon on the bottom-right circumference point.
+            val diagonal = sqrt(2f) / 2f
+            val addonCenterX = (avatarWidth / 2f).roundToInt()
+            val addonCenterY = (avatarHeight / 2f).roundToInt()
+            addonLeft = ((addonCenterX - addonWidth / 2) + radius * diagonal).roundToInt()
+            addonTop = ((addonCenterY - addonHeight / 2) + radius * diagonal).roundToInt()
         }
 
-        layout(totalWidth, totalHeight) {
+        layout(avatarWidth, avatarHeight) {
             avatarPlaceable.placeRelative(0, 0)
-            addonPlaceable?.placeRelative(addonLeft, addonTop)
+            addonPlaceable?.place(addonLeft, addonTop)
         }
     }
 }
@@ -183,6 +156,7 @@ internal fun SparkUserAvatar(
  * @param modifier applied to the avatar
  * @param style avatar diameter, from [UserAvatarStyle.XS] (24dp) to [UserAvatarStyle.XXXL] (128dp), and
  * matching online badge size; defaults to [UserAvatarStyle.SM] (32dp)
+ * @param contentScale how the loaded image fits the avatar bounds; defaults to [ContentScale.Fit]
  * @param fillParentSize ignore [style] and fill the parent; use it when a fixed-size slot already
  * sets the avatar size
  * @param model image to load, for example the user photo URL; null shows the fallback icon
@@ -199,6 +173,7 @@ internal fun SparkUserAvatar(
 public fun UserAvatar(
     modifier: Modifier = Modifier,
     style: UserAvatarStyle = UserAvatarStyle.SM,
+    contentScale: ContentScale = ContentScale.Fit,
     fillParentSize: Boolean = false,
     model: Any? = null,
     color: Color = Color.Unspecified,
@@ -209,6 +184,7 @@ public fun UserAvatar(
     SparkUserAvatar(
         modifier = modifier,
         style = style,
+        contentScale = contentScale,
         fillParentSize = fillParentSize,
         model = model,
         isPro = isPro,
@@ -224,6 +200,7 @@ private fun AvatarLetterState(letter: Char, style: UserAvatarStyle) {
     Surface(
         color = SparkTheme.colors.neutral,
         contentColor = SparkTheme.colors.onNeutral,
+        shape = SparkTheme.shapes.full,
         modifier = Modifier.fillMaxSize(),
     ) {
         Box(contentAlignment = Alignment.Center) {
@@ -307,6 +284,20 @@ internal fun UserAvatarPreview() {
             model = "",
             isPro = true,
             addon = { onlineIndicator() },
+            transform = { AsyncImagePainter.State.Empty },
+        )
+        SparkUserAvatar(
+            style = UserAvatarStyle.XL,
+            model = "",
+            isPro = true,
+            addon = { iconButton({}) },
+            transform = { AsyncImagePainter.State.Empty },
+        )
+        SparkUserAvatar(
+            style = UserAvatarStyle.XL,
+            model = "",
+            isPro = true,
+            addon = { iconButton({}, icon = LeboncoinIcons.PenOutline) },
             transform = { AsyncImagePainter.State.Empty },
         )
         SparkUserAvatar(
