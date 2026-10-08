@@ -22,9 +22,9 @@ runs:
       shell: bash
       env:
         INPUT_PR_NUMBER: ${{ inputs.pr-number }}
-    - uses: ./.github/actions/setup-java
-    - uses: ./.github/actions/setup-gradle
-    - uses: ./.github/actions/setup-gradle-properties
+    - uses: $/.github/actions/setup-java
+    - uses: $/.github/actions/setup-gradle
+    - uses: $/.github/actions/setup-gradle-properties
     - run: ./gradlew dependencyGuardBaseline --no-configuration-cache
       shell: bash
     - run: |

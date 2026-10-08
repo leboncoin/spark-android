@@ -25,21 +25,21 @@ jobs:
 
       - name: Paparazzi golden images
         if: github.event.issue.pull_request && contains(github.event.comment.body, 'paparazzi')
-        uses: ./.github/actions/paparazzi-golden-images
+        uses: $/.github/actions/paparazzi-golden-images
         with:
           github-token: ${{ secrets.PAT_SPARK || secrets.GITHUB_TOKEN }}
           pr-number: ${{ github.event.issue.number }}
 
       - name: DependencyGuardBaseline
         if: github.event.issue.pull_request && contains(github.event.comment.body, 'dependencyGuardBaseline')
-        uses: ./.github/actions/dependencyguard-baseline
+        uses: $/.github/actions/dependencyguard-baseline
         with:
           github-token: ${{ secrets.PAT_SPARK || secrets.GITHUB_TOKEN }}
           pr-number: ${{ github.event.issue.number }}
 
       - name: SpotlessApply
         if: github.event.issue.pull_request && contains(github.event.comment.body, 'spotless')
-        uses: ./.github/actions/spotless-apply
+        uses: $/.github/actions/spotless-apply
         with:
           github-token: ${{ secrets.PAT_SPARK || secrets.GITHUB_TOKEN }}
           pr-number: ${{ github.event.issue.number }}
