@@ -50,6 +50,7 @@ import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControl
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControlScope
 import com.adevinta.spark.components.segmentedcontrol.SegmentedControlShape
+import com.adevinta.spark.components.segmentedcontrol.SegmentedControlTokens
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.Building
 import com.adevinta.spark.icons.CalendarCheckFill
@@ -355,18 +356,26 @@ private fun EnergyRatingExample() {
                     if (d.color.isSpecified) {
                         if (enabled) d.color else d.color.disabled
                     } else {
-                        if (enabled) SparkTheme.colors.neutralContainer else SparkTheme.colors.surface
+                        if (enabled) {
+                            SegmentedControlTokens.IndicatorColor
+                        } else {
+                            SegmentedControlTokens.IndicatorDisabledColor
+                        }
                     }
                 }
                 val borderColor = transition.animateColor(label = "indicatorBorderColor") { d ->
                     if (d.color.isSpecified) {
-                        SparkTheme.colors.outlineHigh.transparent
+                        SegmentedControlTokens.IndicatorBorderColor.transparent
                     } else {
-                        if (enabled) SparkTheme.colors.outlineHigh else SparkTheme.colors.outlineHigh.disabled
+                        if (enabled) {
+                            SegmentedControlTokens.IndicatorBorderColor
+                        } else {
+                            SegmentedControlTokens.IndicatorBorderDisabledColor
+                        }
                     }
                 }
                 val borderSize = transition.animateDp(label = "indicatorBorderSize") { d ->
-                    if (d.color.isSpecified) 0.dp else 2.dp
+                    if (d.color.isSpecified) 0.dp else SegmentedControlTokens.IndicatorBorderWidth
                 }
 
                 Box(
