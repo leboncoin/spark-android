@@ -15,7 +15,7 @@ jobs:
       github.event.pull_request.merged == true &&
       github.event.pull_request.title == 'feat(icons): update icons' &&
       github.event.pull_request.user.login == 'github-actions[bot]'
-    uses: ./.github/workflows/create-hotfix-branch.yml
+    uses: $/.github/workflows/create-hotfix-branch.yml
     permissions:
       contents: write
     with:
