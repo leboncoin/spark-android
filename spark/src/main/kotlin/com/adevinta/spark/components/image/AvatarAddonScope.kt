@@ -177,9 +177,9 @@ private fun IconButton(
 @Composable
 private fun PreviewAddons() {
     PreviewTheme(color = { SparkTheme.colors.backgroundVariant }) {
-        OnlineIndicator(UserAvatarStyle.SMALL)
-        OnlineIndicator(UserAvatarStyle.MEDIUM)
-        OnlineIndicator(UserAvatarStyle.LARGE)
+        OnlineIndicator(UserAvatarStyle.SM)
+        OnlineIndicator(UserAvatarStyle.MD)
+        OnlineIndicator(UserAvatarStyle.XL)
         IconButton({})
         IconButton({}, icon = LeboncoinIcons.PenOutline)
     }

@@ -42,7 +42,7 @@ public val UserAvatarExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "sizes",
         name = "Sizes",
-        description = "User Avatar in SMALL, MEDIUM, and LARGE styles",
+        description = "User Avatar in SM, MD, and XL styles",
         sourceUrl = UserAvatarExampleSourceUrl,
     ) {
         UserAvatarSizes()
@@ -85,11 +85,11 @@ public val UserAvatarExamples: ImmutableList<Example> = persistentListOf(
 @Composable
 private fun ColumnScope.UserAvatarSizes() {
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        Text("All three sizes")
+        Text("SM, MD, and XL sizes")
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            UserAvatar(style = UserAvatarStyle.SMALL)
-            UserAvatar(style = UserAvatarStyle.MEDIUM)
-            UserAvatar(style = UserAvatarStyle.LARGE)
+            UserAvatar(style = UserAvatarStyle.SM)
+            UserAvatar(style = UserAvatarStyle.MD)
+            UserAvatar(style = UserAvatarStyle.XL)
         }
     }
 }
@@ -100,8 +100,8 @@ private fun ColumnScope.UserAvatarPro() {
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Text("Person icon vs building icon")
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            UserAvatar(style = UserAvatarStyle.LARGE, isPro = false)
-            UserAvatar(style = UserAvatarStyle.LARGE, isPro = true)
+            UserAvatar(style = UserAvatarStyle.XL, isPro = false)
+            UserAvatar(style = UserAvatarStyle.XL, isPro = true)
         }
     }
 }
@@ -112,14 +112,14 @@ private fun ColumnScope.UserAvatarOnline() {
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Text("Offline and online")
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            UserAvatar(style = UserAvatarStyle.LARGE, addon = {})
-            UserAvatar(style = UserAvatarStyle.LARGE, addon = { onlineIndicator() })
+            UserAvatar(style = UserAvatarStyle.XL, addon = {})
+            UserAvatar(style = UserAvatarStyle.XL, addon = { onlineIndicator() })
         }
         Text("Online dot on all sizes")
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            UserAvatar(style = UserAvatarStyle.SMALL, addon = { onlineIndicator() })
-            UserAvatar(style = UserAvatarStyle.MEDIUM, addon = { onlineIndicator() })
-            UserAvatar(style = UserAvatarStyle.LARGE, addon = { onlineIndicator() })
+            UserAvatar(style = UserAvatarStyle.SM, addon = { onlineIndicator() })
+            UserAvatar(style = UserAvatarStyle.MD, addon = { onlineIndicator() })
+            UserAvatar(style = UserAvatarStyle.XL, addon = { onlineIndicator() })
         }
     }
 }
@@ -130,8 +130,8 @@ private fun ColumnScope.UserAvatarPlaceholder() {
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Text("No model, placeholder icon shown")
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            UserAvatar(style = UserAvatarStyle.LARGE, model = null)
-            UserAvatar(style = UserAvatarStyle.LARGE, model = null, isPro = true)
+            UserAvatar(style = UserAvatarStyle.XL, model = null)
+            UserAvatar(style = UserAvatarStyle.XL, model = null, isPro = true)
         }
     }
 }
@@ -140,16 +140,16 @@ private fun ColumnScope.UserAvatarPlaceholder() {
 @Composable
 private fun ColumnScope.UserAvatarLetter() {
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        Text("Letter on all sizes")
+        Text("Letter on SM, MD, and XL sizes")
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            UserAvatar(style = UserAvatarStyle.SMALL, model = null, letter = 'S')
-            UserAvatar(style = UserAvatarStyle.MEDIUM, model = null, letter = 'S')
-            UserAvatar(style = UserAvatarStyle.LARGE, model = null, letter = 'S')
+            UserAvatar(style = UserAvatarStyle.SM, model = null, letter = 'S')
+            UserAvatar(style = UserAvatarStyle.MD, model = null, letter = 'S')
+            UserAvatar(style = UserAvatarStyle.XL, model = null, letter = 'S')
         }
         Text("Placeholder icon vs letter")
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            UserAvatar(style = UserAvatarStyle.LARGE, model = null)
-            UserAvatar(style = UserAvatarStyle.LARGE, model = null, letter = 'S')
+            UserAvatar(style = UserAvatarStyle.XL, model = null)
+            UserAvatar(style = UserAvatarStyle.XL, model = null, letter = 'S')
         }
     }
 }

@@ -145,7 +145,7 @@ a profile or pro icon when no model is provided.
 ```kotlin
 UserAvatar(
     model = user.avatarUrl,
-    style = UserAvatarStyle.MEDIUM,
+    style = UserAvatarStyle.MD,
     isPro = user.isProfessional,
     isOnline = user.isOnline,
 )
@@ -153,15 +153,19 @@ UserAvatar(
 
 ### Sizes
 
-The three styles render at 32dp, 40dp, and 64dp.
+`UserAvatarStyle` has seven sizes. The default is `SM`. The image shows `SM`, `MD`, and `XL`.
 
 ![](../../images/com.adevinta.spark.image_UserAvatarDocumentationScreenshots_sizes.png)
 
-| Style | Image size |
-|---|---|
-| `UserAvatarStyle.SMALL` | 32dp |
-| `UserAvatarStyle.MEDIUM` | 40dp |
-| `UserAvatarStyle.LARGE` | 64dp |
+| Style | Image size | Badge size | Stroke |
+|---|---|---|---|
+| `UserAvatarStyle.XS` | 24dp | 2dp | 1dp |
+| `UserAvatarStyle.SM` | 32dp | 8dp | 1dp |
+| `UserAvatarStyle.MD` | 40dp | 8dp | 1dp |
+| `UserAvatarStyle.LG` | 56dp | 16dp | 2dp |
+| `UserAvatarStyle.XL` | 64dp | 16dp | 2dp |
+| `UserAvatarStyle.XXL` | 96dp | 16dp | 2dp |
+| `UserAvatarStyle.XXXL` | 128dp | 16dp | 2dp |
 
 ### Online indicator
 
@@ -181,7 +185,7 @@ regular user, the right avatar is a pro.
 ```kotlin
 UserAvatar(
     model = null, // shows fallback icon
-    style = UserAvatarStyle.LARGE,
+    style = UserAvatarStyle.XL,
     isPro = true,
     color = SparkTheme.colors.mainContainer,
 )
