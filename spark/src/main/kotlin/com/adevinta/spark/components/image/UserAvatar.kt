@@ -24,13 +24,13 @@ package com.adevinta.spark.components.image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.layout.ContentScale
@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImagePainter
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
@@ -55,11 +56,10 @@ import com.adevinta.spark.icons.BuildingCircle
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.PenOutline
 import com.adevinta.spark.icons.UserCircleFill
+import com.adevinta.spark.tokens.highlight
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 import kotlin.math.roundToInt
 import kotlin.math.sqrt
-
-private const val AVATAR_PLACEHOLDER_ICON_SCALE = 1.2f
 
 @InternalSparkApi
 @Composable
@@ -67,7 +67,7 @@ internal fun SparkUserAvatar(
     modifier: Modifier = Modifier,
     // Useful to preview different states
     transform: (AsyncImagePainter.State) -> AsyncImagePainter.State = AsyncImagePainter.DefaultTransform,
-    style: UserAvatarStyle = UserAvatarStyle.SMALL,
+    style: UserAvatarStyle = UserAvatarStyle.SM,
     contentScale: ContentScale = ContentScale.Fit,
     fillParentSize: Boolean = false,
     model: Any? = null,
@@ -80,12 +80,10 @@ internal fun SparkUserAvatar(
         if (letter != null) {
             AvatarLetterState(letter = letter, style = style)
         } else {
-            // The circle placeholder icons keep a 2dp safe area inside a 24dp viewport. Scale by 24/20
-            // so the circle fills the avatar box and its rim aligns with the addon slot.
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .scale(AVATAR_PLACEHOLDER_ICON_SCALE),
+                    .padding(4.dp),
             ) {
                 ImageIconState(
                     sparkIcon = if (isPro) LeboncoinIcons.BuildingCircle else LeboncoinIcons.UserCircleFill,
@@ -156,7 +154,8 @@ internal fun SparkUserAvatar(
  * ![Letter](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.image_UserAvatarDocumentationScreenshots_letter.png)
  *
  * @param modifier applied to the avatar
- * @param style avatar diameter (32dp, 40dp, or 64dp) and matching online badge size
+ * @param style avatar diameter, from [UserAvatarStyle.XS] (24dp) to [UserAvatarStyle.XXXL] (128dp), and
+ * matching online badge size; defaults to [UserAvatarStyle.SM] (32dp)
  * @param contentScale how the loaded image fits the avatar bounds; defaults to [ContentScale.Fit]
  * @param fillParentSize ignore [style] and fill the parent; use it when a fixed-size slot already
  * sets the avatar size
@@ -173,7 +172,7 @@ internal fun SparkUserAvatar(
 @Composable
 public fun UserAvatar(
     modifier: Modifier = Modifier,
-    style: UserAvatarStyle = UserAvatarStyle.SMALL,
+    style: UserAvatarStyle = UserAvatarStyle.SM,
     contentScale: ContentScale = ContentScale.Fit,
     fillParentSize: Boolean = false,
     model: Any? = null,
@@ -223,22 +222,33 @@ internal val UserAvatarStyle.letterTextStyle: TextStyle
     @Composable
     @ReadOnlyComposable
     get() = when (this) {
-        UserAvatarStyle.SMALL -> SparkTheme.typography.headline2
-        UserAvatarStyle.MEDIUM -> SparkTheme.typography.display3
-        UserAvatarStyle.LARGE -> SparkTheme.typography.display2
-        // LBCSPARK-720: XS body2.highlight, LG display2, XXL display1, XXXL display1.copy(fontSize = 64.sp)
+        UserAvatarStyle.XS -> SparkTheme.typography.body2.highlight
+        UserAvatarStyle.SM -> SparkTheme.typography.headline2
+        UserAvatarStyle.MD -> SparkTheme.typography.display3
+        UserAvatarStyle.LG -> SparkTheme.typography.display2
+        UserAvatarStyle.XL -> SparkTheme.typography.display2
+        UserAvatarStyle.XXL -> SparkTheme.typography.display1
+        UserAvatarStyle.XXXL -> SparkTheme.typography.display1.copy(fontSize = 64.sp)
     }
 
 /**
+ * The size of a [UserAvatar], from [XS] (24dp) to [XXXL] (128dp).
+ *
+ * Each size sets the avatar diameter and the matching online badge and stroke sizes.
+ *
  * @param imageSize size of the image in [Dp]
  * @param badgeSize size of online badge in [Dp]
  * @param borderSize The indicator border size in [Dp]. Must be set explicitly because the border mechanism differs
  * from the Figma spec.
  */
 public enum class UserAvatarStyle(public val imageSize: Dp, public val badgeSize: Dp, public val borderSize: Dp) {
-    SMALL(imageSize = 32.dp, badgeSize = 8.dp, borderSize = 1.dp),
-    MEDIUM(imageSize = 40.dp, badgeSize = 12.dp, borderSize = 2.dp),
-    LARGE(imageSize = 64.dp, badgeSize = 16.dp, borderSize = 2.dp),
+    XS(imageSize = 24.dp, badgeSize = 2.dp, borderSize = 1.dp),
+    SM(imageSize = 32.dp, badgeSize = 8.dp, borderSize = 1.dp),
+    MD(imageSize = 40.dp, badgeSize = 8.dp, borderSize = 1.dp),
+    LG(imageSize = 56.dp, badgeSize = 16.dp, borderSize = 2.dp),
+    XL(imageSize = 64.dp, badgeSize = 16.dp, borderSize = 2.dp),
+    XXL(imageSize = 96.dp, badgeSize = 16.dp, borderSize = 2.dp),
+    XXXL(imageSize = 128.dp, badgeSize = 16.dp, borderSize = 2.dp),
 }
 
 @Preview(
@@ -249,56 +259,56 @@ public enum class UserAvatarStyle(public val imageSize: Dp, public val badgeSize
 internal fun UserAvatarPreview() {
     PreviewTheme {
         SparkUserAvatar(
-            style = UserAvatarStyle.LARGE,
+            style = UserAvatarStyle.XL,
             model = "",
             isPro = false,
             addon = { onlineIndicator() },
             transform = { AsyncImagePainter.State.Empty },
         )
         SparkUserAvatar(
-            style = UserAvatarStyle.MEDIUM,
+            style = UserAvatarStyle.MD,
             model = "",
             isPro = false,
             addon = { onlineIndicator() },
             transform = { AsyncImagePainter.State.Empty },
         )
         SparkUserAvatar(
-            style = UserAvatarStyle.SMALL,
+            style = UserAvatarStyle.SM,
             model = "",
             isPro = false,
             addon = { onlineIndicator() },
             transform = { AsyncImagePainter.State.Empty },
         )
         SparkUserAvatar(
-            style = UserAvatarStyle.LARGE,
+            style = UserAvatarStyle.XL,
             model = "",
             isPro = true,
             addon = { onlineIndicator() },
             transform = { AsyncImagePainter.State.Empty },
         )
         SparkUserAvatar(
-            style = UserAvatarStyle.LARGE,
+            style = UserAvatarStyle.XL,
             model = "",
             isPro = true,
             addon = { iconButton({}) },
             transform = { AsyncImagePainter.State.Empty },
         )
         SparkUserAvatar(
-            style = UserAvatarStyle.LARGE,
+            style = UserAvatarStyle.XL,
             model = "",
             isPro = true,
             addon = { iconButton({}, icon = LeboncoinIcons.PenOutline) },
             transform = { AsyncImagePainter.State.Empty },
         )
         SparkUserAvatar(
-            style = UserAvatarStyle.MEDIUM,
+            style = UserAvatarStyle.MD,
             model = "",
             isPro = true,
             addon = { onlineIndicator() },
             transform = { AsyncImagePainter.State.Empty },
         )
         SparkUserAvatar(
-            style = UserAvatarStyle.SMALL,
+            style = UserAvatarStyle.SM,
             model = "",
             isPro = true,
             addon = { onlineIndicator() },
