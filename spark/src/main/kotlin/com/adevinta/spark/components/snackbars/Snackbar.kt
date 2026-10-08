@@ -22,6 +22,7 @@
 package com.adevinta.spark.components.snackbars
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -61,7 +62,6 @@ import com.adevinta.spark.components.icons.IconButton
 import com.adevinta.spark.components.popover.PlainTooltip
 import com.adevinta.spark.components.popover.TooltipBox
 import com.adevinta.spark.components.scaffold.Scaffold
-import com.adevinta.spark.components.spacer.HorizontalSpacer
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.Cross
@@ -157,27 +157,32 @@ private fun SnackBarContent(
         modifier = modifier.heightIn(min = 40.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        HorizontalSpacer(8.dp)
-        Icon(
-            modifier = Modifier.size(24.dp),
-            sparkIcon = icon,
-            contentDescription = null, // this is a decorative icon
-        )
-        HorizontalSpacer(8.dp)
-        Column(
-            verticalArrangement = spacedBy(4.dp),
-            modifier = Modifier.weight(1f),
+        Row(
+            modifier = Modifier
+                .weight(1f)
+                .padding(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
-            title?.let {
-                Text(text = it, style = SparkTheme.typography.body1.highlight)
-            }
-            ProvideTextStyle(SparkTheme.typography.body2) {
-                content()
+            Icon(
+                modifier = Modifier.size(24.dp),
+                sparkIcon = icon,
+                contentDescription = null, // this is a decorative icon
+            )
+            Column(
+                verticalArrangement = spacedBy(4.dp),
+                modifier = Modifier.weight(1f),
+            ) {
+                title?.let {
+                    Text(text = it, style = SparkTheme.typography.body1.highlight)
+                }
+                ProvideTextStyle(SparkTheme.typography.body2) {
+                    content()
+                }
             }
         }
 
         onDismissClick?.let {
-            HorizontalSpacer(8.dp)
             DismissIcon(
                 color = backgroundColor,
                 onClick = onDismissClick,
@@ -304,7 +309,7 @@ public fun Snackbar(
     val sparkVisuals = data.visuals as? SnackbarSparkVisuals
     SparkSnackbar(
         intent = sparkVisuals?.intent ?: SnackbarDefaults.intent,
-        modifier = modifier.padding(12.dp),
+        modifier = modifier.padding(16.dp),
         icon = sparkVisuals?.icon,
         title = sparkVisuals?.title,
         actionLabel = sparkVisuals?.actionLabel,

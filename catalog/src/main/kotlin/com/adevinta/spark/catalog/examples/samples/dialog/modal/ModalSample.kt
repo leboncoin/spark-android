@@ -45,8 +45,11 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.buttons.ButtonOutlined
+import com.adevinta.spark.components.buttons.Primary
+import com.adevinta.spark.components.buttons.Tertiary
 import com.adevinta.spark.components.dialog.ModalDefault
 import com.adevinta.spark.components.dialog.ModalScaffold
 import com.adevinta.spark.components.icons.Icon
@@ -73,10 +76,7 @@ internal fun ModalSample(
         var showDialog by rememberSaveable { mutableStateOf(false) }
         val coroutineScope = rememberCoroutineScope()
 
-        ButtonFilled(
-            onClick = { showDialog = true },
-            text = "Show Modal",
-        )
+        Button.Primary(onClick = { showDialog = true }, text = "Show Modal")
 
         if (showDialog) {
             val controller = LocalSoftwareKeyboardController.current
@@ -140,13 +140,13 @@ private fun SupportButton(
     focusRequester: FocusRequester,
     controller: SoftwareKeyboardController?,
 ) {
-    ButtonOutlined(
-        modifier = modifier,
+    Button.Tertiary(
         onClick = {
             focusRequester.requestFocus()
             controller?.show()
         },
         text = "Alternative Action",
+        modifier = modifier,
     )
 }
 
@@ -156,8 +156,7 @@ private fun MainButton(
     coroutineScope: CoroutineScope,
     snackbarHostState: SnackbarHostState,
 ) {
-    ButtonFilled(
-        modifier = modifier,
+    Button.Primary(
         onClick = {
             coroutineScope.launch {
                 snackbarHostState.showSnackbar(
@@ -168,6 +167,7 @@ private fun MainButton(
             }
         },
         text = "Main Action",
+        modifier = modifier,
     )
 }
 

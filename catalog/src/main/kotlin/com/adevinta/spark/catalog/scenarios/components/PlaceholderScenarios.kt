@@ -32,7 +32,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonFilled
+import com.adevinta.spark.components.buttons.Primary
 import com.adevinta.spark.components.placeholder.placeholder
 import kotlinx.coroutines.delay
 
@@ -52,12 +54,12 @@ private fun PlaceholderScenario() {
     }
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         repeat(5) {
-            ButtonFilled(
+            Button.Primary(
                 onClick = {},
+                text = "Loaded content",
                 modifier = Modifier
                     .fillMaxWidth()
                     .placeholder(visible = visible),
-                text = "Loaded content",
             )
         }
     }

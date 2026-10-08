@@ -48,7 +48,9 @@ import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.SparkTheme.colors
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonOutlined
+import com.adevinta.spark.components.buttons.Tertiary
 import com.adevinta.spark.components.iconbuttons.IconButtonGhost
 import com.adevinta.spark.components.iconbuttons.IconButtonIntent
 import com.adevinta.spark.components.popover.PopoverDefaults.PopoverAnchorPadding
@@ -189,10 +191,7 @@ private fun PopoverPreview() {
                 isDismissButtonEnabled = true,
                 popoverState = popoverState,
             ) {
-                ButtonOutlined(
-                    text = "Display Popover",
-                    onClick = { scope.launch { popoverState.show() } },
-                )
+                Button.Tertiary(onClick = { scope.launch { popoverState.show() } }, text = "Display Popover")
             }
         }
     }

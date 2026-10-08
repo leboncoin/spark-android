@@ -25,6 +25,7 @@ import android.annotation.SuppressLint
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
@@ -41,8 +42,10 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import com.adevinta.spark.PreviewTheme
-import com.adevinta.spark.components.buttons.ButtonIntent
-import com.adevinta.spark.components.buttons.ButtonTinted
+import com.adevinta.spark.components.buttons.Button
+import com.adevinta.spark.components.buttons.Danger
+import com.adevinta.spark.components.buttons.Success
+import com.adevinta.spark.components.buttons.Tertiary
 import kotlin.math.roundToInt
 
 /**
@@ -175,22 +178,29 @@ private fun Shaker() {
                 )
             }
 
-            ButtonTinted(
-                modifier = Modifier
-                    .shake(shakeController),
-                onClick = {
-                    shakeController.shake(validShakeConfig)
-                    isValid = !isValid
-                },
-                intent = if (isValid) ButtonIntent.Success else ButtonIntent.Danger,
-                text = "Shake me",
-            )
+            val onShakeClick = {
+                shakeController.shake(validShakeConfig)
+                isValid = !isValid
+            }
+            Box(
+                modifier = Modifier.shake(shakeController),
+            ) {
+                if (isValid) {
+                    Button.Success(
+                        onClick = onShakeClick,
+                        text = "Shake me",
+                    )
+                } else {
+                    Button.Danger(
+                        onClick = onShakeClick,
+                        text = "Shake me",
+                    )
+                }
+            }
 
             val vibrateController = rememberShakeController()
 
-            ButtonTinted(
-                modifier = Modifier
-                    .shake(vibrateController),
+            Button.Danger(
                 onClick = {
                     vibrateController.shake(
                         ShakeConfig(
@@ -201,15 +211,14 @@ private fun Shaker() {
                         ),
                     )
                 },
-                intent = ButtonIntent.Danger,
                 text = "Vibrate me",
+                modifier = Modifier
+                    .shake(vibrateController),
             )
 
             val scaleController = rememberShakeController()
 
-            ButtonTinted(
-                modifier = Modifier
-                    .shake(scaleController),
+            Button.Tertiary(
                 onClick = {
                     scaleController.shake(
                         ShakeConfig(
@@ -219,15 +228,14 @@ private fun Shaker() {
                         ),
                     )
                 },
-                intent = ButtonIntent.Accent,
                 text = "Scale me",
+                modifier = Modifier
+                    .shake(scaleController),
             )
 
             val rotateController = rememberShakeController()
 
-            ButtonTinted(
-                modifier = Modifier
-                    .shake(rotateController),
+            Button.Tertiary(
                 onClick = {
                     rotateController.shake(
                         ShakeConfig(
@@ -237,8 +245,9 @@ private fun Shaker() {
                         ),
                     )
                 },
-                intent = ButtonIntent.Alert,
                 text = "Rotate me",
+                modifier = Modifier
+                    .shake(rotateController),
             )
         }
     }

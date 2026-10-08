@@ -19,6 +19,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+// The previews in this file document the old button, so they keep using it.
+@file:Suppress("SparkButtonMigration")
+
 package com.adevinta.spark.components.buttons
 
 import android.annotation.SuppressLint
@@ -287,6 +290,7 @@ public fun ButtonContrast(
     )
 }
 
+@SuppressLint("SparkButtonMigration")
 @Preview(
     group = "Buttons",
     name = "Button Contrast",
@@ -325,6 +329,7 @@ internal fun ButtonContrastPreview() {
     }
 }
 
+@SuppressLint("SparkButtonMigration")
 @Preview(
     group = "Buttons",
     name = "Button Contrast Intents",

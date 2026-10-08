@@ -55,7 +55,9 @@ import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.util.TrackScrollJank
 import com.adevinta.spark.catalog.util.splitCamelWithSpaces
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonGhost
+import com.adevinta.spark.components.buttons.Ghost
 import com.adevinta.spark.components.chips.ChipSelectable
 import com.adevinta.spark.components.chips.ChipStyles
 import com.adevinta.spark.components.dialog.ModalScaffold
@@ -112,12 +114,12 @@ public fun IconPickerDialog(
         mainButton = null, // No main button since selection happens on icon click
         supportButton = if (allowNullSelection) {
             { modifier ->
-                ButtonGhost(
-                    text = stringResource(R.string.icon_picker_clear),
+                Button.Ghost(
                     onClick = {
                         onIconSelected(null)
                         onDismissRequest()
                     },
+                    text = stringResource(R.string.icon_picker_clear),
                     modifier = modifier,
                 )
             }

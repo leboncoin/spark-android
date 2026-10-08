@@ -28,6 +28,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.LocalContentColor
@@ -312,8 +313,8 @@ private fun SparkTextLinkPreview() {
             snackbarHost = {
                 SnackbarHost(snackbarHostState)
             },
-        ) {
-            Column {
+        ) { contentPadding ->
+            Column(modifier = Modifier.padding(contentPadding)) {
                 Column {
                     TextLink(
                         style = SparkTheme.typography.subhead,
@@ -329,9 +330,8 @@ private fun SparkTextLinkPreview() {
                             }
                         },
                     )
-                    TextLinkButton(
+                    Button.Underlined(
                         text = "Click me",
-                        icon = LeboncoinIcons.InfoOutline,
                         onClick = {
                             scope.launch {
                                 snackbarHostState.showSnackbar(
@@ -341,6 +341,7 @@ private fun SparkTextLinkPreview() {
                                 )
                             }
                         },
+                        icon = LeboncoinIcons.InfoOutline,
                     )
                 }
             }

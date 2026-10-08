@@ -47,8 +47,11 @@ import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.examples.samples.dialog.modal.ModalSample
 import com.adevinta.spark.catalog.model.Configurator
 import com.adevinta.spark.catalog.util.SampleSourceUrl
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.buttons.ButtonOutlined
+import com.adevinta.spark.components.buttons.Primary
+import com.adevinta.spark.components.buttons.Tertiary
 import com.adevinta.spark.components.dialog.ModalDefault
 import com.adevinta.spark.components.dialog.ModalScaffold
 import com.adevinta.spark.components.icons.Icon
@@ -82,10 +85,7 @@ internal fun ColumnScope.ModalSample() {
     val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = SnackbarHostState()
 
-    ButtonFilled(
-        onClick = { showDialog = true },
-        text = "Show Modal",
-    )
+    Button.Primary(onClick = { showDialog = true }, text = "Show Modal")
 
     SwitchLabelled(
         checked = withPadding,
@@ -173,13 +173,13 @@ private fun SupportButton(
     focusRequester: FocusRequester,
     controller: SoftwareKeyboardController?,
 ) {
-    ButtonOutlined(
-        modifier = modifier,
+    Button.Tertiary(
         onClick = {
             focusRequester.requestFocus()
             controller?.show()
         },
         text = supportButtonText,
+        modifier = modifier,
     )
 }
 
@@ -190,8 +190,7 @@ private fun MainButton(
     coroutineScope: CoroutineScope,
     snackbarHostState: SnackbarHostState,
 ) {
-    ButtonFilled(
-        modifier = modifier,
+    Button.Primary(
         onClick = {
             coroutineScope.launch {
                 snackbarHostState.showSnackbar(
@@ -202,6 +201,7 @@ private fun MainButton(
             }
         },
         text = mainButtonText,
+        modifier = modifier,
     )
 }
 

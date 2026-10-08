@@ -25,7 +25,9 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonFilled
+import com.adevinta.spark.components.buttons.Primary
 import com.adevinta.spark.components.buttons.SparkButtonTags
 import org.junit.Rule
 import org.junit.Test
@@ -44,11 +46,7 @@ class ButtonTest {
     fun givenIsLoading_ThenProgressIndicatorShouldBeVisible() {
         composeTestRule.setContent {
             SparkTheme {
-                ButtonFilled(
-                    text = "buttonText",
-                    onClick = { },
-                    isLoading = true,
-                )
+                Button.Primary(onClick = { }, text = "buttonText", isLoading = true)
             }
         }
 
@@ -60,11 +58,7 @@ class ButtonTest {
     fun givenIsNotLoading_ThenProgressIndicatorShouldBeHidden() {
         composeTestRule.setContent {
             SparkTheme {
-                ButtonFilled(
-                    text = "buttonText",
-                    onClick = { },
-                    isLoading = false,
-                )
+                Button.Primary(onClick = { }, text = "buttonText", isLoading = false)
             }
         }
 

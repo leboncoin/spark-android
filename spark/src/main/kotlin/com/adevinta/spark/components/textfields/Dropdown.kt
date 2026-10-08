@@ -819,7 +819,7 @@ public fun Dropdown(
         // Transparent clickable surface on top of TextField
         Surface(
             modifier = Modifier
-                .fillMaxWidth()
+                .matchParentSize()
                 .clip(SparkTheme.shapes.large)
                 .clickable(
                     enabled = enabled,

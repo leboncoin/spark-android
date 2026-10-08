@@ -27,25 +27,42 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.CompositingStrategy
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.drawscope.clipPath
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImagePainter
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.R
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.surface.Surface
+import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.BuildingCircle
 import com.adevinta.spark.icons.LeboncoinIcons
-import com.adevinta.spark.icons.PenOutline
 import com.adevinta.spark.icons.UserCircleFill
+import com.adevinta.spark.tokens.highlight
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 import kotlin.math.roundToInt
 import kotlin.math.sqrt
@@ -57,37 +74,58 @@ internal fun SparkUserAvatar(
     // Useful to preview different states
     transform: (AsyncImagePainter.State) -> AsyncImagePainter.State = AsyncImagePainter.DefaultTransform,
     style: UserAvatarStyle = UserAvatarStyle.SM,
-    contentScale: ContentScale = ContentScale.Fit,
     fillParentSize: Boolean = false,
     model: Any? = null,
     color: Color = Color.Unspecified,
     isPro: Boolean = false,
+    letter: Char? = null,
     addon: @Composable AvatarAddonScope.(AvatarAddonItem) -> Unit = {},
 ) {
     val emptyIcon = @Composable {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(4.dp),
-        ) {
-            ImageIconState(
-                sparkIcon = if (isPro) LeboncoinIcons.BuildingCircle else LeboncoinIcons.UserCircleFill,
-                // Color.Unspecified crashes Paint.setColor on device (invalid colour-space id). Resolve it here.
-                color = color.takeOrElse { Color.Transparent },
-                size = null,
-            )
+        if (letter != null) {
+            AvatarLetterState(letter = letter, style = style)
+        } else {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(4.dp),
+            ) {
+                ImageIconState(
+                    sparkIcon = if (isPro) LeboncoinIcons.BuildingCircle else LeboncoinIcons.UserCircleFill,
+                    // Color.Unspecified crashes Paint.setColor on device (invalid colour-space id). Resolve it here.
+                    color = color.takeOrElse { Color.Transparent },
+                    size = null,
+                )
+            }
         }
     }
     Layout(
-        modifier = modifier.sparkUsageOverlay(),
+        modifier = modifier
+            .then(if (fillParentSize) Modifier.fillMaxSize() else Modifier.size(style.imageSize))
+            .sparkUsageOverlay()
+            .aspectRatio(1f)
+            .graphicsLayer { compositingStrategy = CompositingStrategy.Offscreen },
         content = {
             SparkImage(
-                modifier = Modifier.then(if (fillParentSize) Modifier.fillMaxSize() else Modifier.size(style.imageSize))
-                    .aspectRatio(1f),
+                modifier = Modifier
+                    .drawWithCache {
+                        val path = Path()
+                        path.addOval(
+                            Rect(
+                                topLeft = Offset.Zero,
+                                bottomRight = Offset(size.width, size.height),
+                            ),
+                        )
+                        onDrawWithContent {
+                            clipPath(path) {
+                                this@onDrawWithContent.drawContent()
+                            }
+                        }
+                    },
                 model = model,
                 transform = transform,
                 contentDescription = stringResource(id = R.string.spark_user_avatar_content_description),
-                contentScale = contentScale,
+                contentScale = ContentScale.Fit,
                 emptyIcon = emptyIcon,
                 errorIcon = emptyIcon,
             )
@@ -106,23 +144,28 @@ internal fun SparkUserAvatar(
         val hasAddon = addonWidth > 0 || addonHeight > 0
         val addonLeft: Int
         val addonTop: Int
+        val totalWidth: Int
+        val totalHeight: Int
 
         if (!hasAddon) {
             addonLeft = 0
             addonTop = 0
+            totalWidth = avatarWidth
+            totalHeight = avatarHeight
         } else {
-            val radius = avatarWidth / 2f
-            // cos(45°) = sin(45°) = sqrt(2)/2; centre the addon on the bottom-right circumference point.
-            val diagonal = sqrt(2f) / 2f
-            val addonCenterX = (avatarWidth / 2f).roundToInt()
-            val addonCenterY = (avatarHeight / 2f).roundToInt()
-            addonLeft = ((addonCenterX - addonWidth / 2) + radius * diagonal).roundToInt()
-            addonTop = ((addonCenterY - addonHeight / 2) + radius * diagonal).roundToInt()
+            val r = avatarWidth / 2f
+            val cos45 = sqrt(2f) / 2f
+            val addonCenterX = (avatarWidth / 2f + r * cos45).roundToInt()
+            val addonCenterY = (avatarHeight / 2f + r * cos45).roundToInt()
+            addonLeft = addonCenterX - addonWidth / 2
+            addonTop = addonCenterY - addonHeight / 2
+            totalWidth = maxOf(avatarWidth, addonLeft + addonWidth)
+            totalHeight = maxOf(avatarHeight, addonTop + addonHeight)
         }
 
-        layout(avatarWidth, avatarHeight) {
+        layout(totalWidth, totalHeight) {
             avatarPlaceable.placeRelative(0, 0)
-            addonPlaceable?.place(addonLeft, addonTop)
+            addonPlaceable?.placeRelative(addonLeft, addonTop)
         }
     }
 }
@@ -130,10 +173,12 @@ internal fun SparkUserAvatar(
 /**
  * A circular profile picture that identifies a user.
  *
- * When [model] is null or the load fails, it shows a fallback icon instead of a blank circle: a profile
- * silhouette, or a building icon for a pro account.
+ * When [model] is null or the load fails, it shows a fallback instead of a blank circle: the [letter] when
+ * given, otherwise a profile silhouette, or a building icon for a pro account.
  *
  * ![Online indicator](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.image_UserAvatarDocumentationScreenshots_onlineIndicator.png)
+ *
+ * ![Letter](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.image_UserAvatarDocumentationScreenshots_letter.png)
  *
  * @param modifier applied to the avatar
  * @param style avatar diameter, from [UserAvatarStyle.XS] (24dp) to [UserAvatarStyle.XXXL] (128dp), and
@@ -142,9 +187,11 @@ internal fun SparkUserAvatar(
  * sets the avatar size
  * @param model image to load, for example the user photo URL; null shows the fallback icon
  * @param color background behind the fallback icon; match it to the surface behind the avatar, or
- * leave Color.Unspecified for a transparent background
+ * leave Color.Unspecified for a transparent background; the letter fallback ignores it
  * @param isPro mark a professional account so the fallback shows a building icon; it shows only in
- * the fallback state
+ * the fallback state, and [letter] takes precedence over it
+ * @param letter first letter of the user name to show on a neutral circle in the fallback state; it
+ * renders as given, so pass the case you want; null shows the fallback icon
  * @param addon optional overlay badge slot; call [AvatarAddonScope.onlineIndicator] for the
  * standard presence dot, or [AvatarAddonScope.custom] for arbitrary content; defaults to empty
  **/
@@ -152,24 +199,60 @@ internal fun SparkUserAvatar(
 public fun UserAvatar(
     modifier: Modifier = Modifier,
     style: UserAvatarStyle = UserAvatarStyle.SM,
-    contentScale: ContentScale = ContentScale.Fit,
     fillParentSize: Boolean = false,
     model: Any? = null,
     color: Color = Color.Unspecified,
     isPro: Boolean = false,
+    letter: Char? = null,
     addon: @Composable AvatarAddonScope.(AvatarAddonItem) -> Unit = {},
 ) {
     SparkUserAvatar(
         modifier = modifier,
         style = style,
-        contentScale = contentScale,
         fillParentSize = fillParentSize,
         model = model,
         isPro = isPro,
+        letter = letter,
         color = color,
         addon = addon,
     )
 }
+
+@Composable
+private fun AvatarLetterState(letter: Char, style: UserAvatarStyle) {
+    val density = LocalDensity.current
+    Surface(
+        color = SparkTheme.colors.neutral,
+        contentColor = SparkTheme.colors.onNeutral,
+        modifier = Modifier.fillMaxSize(),
+    ) {
+        Box(contentAlignment = Alignment.Center) {
+            // The letter is a graphic in a fixed-size circle, so font scaling would clip it.
+            CompositionLocalProvider(LocalDensity provides Density(density.density, fontScale = 1f)) {
+                Text(
+                    text = letter.toString(),
+                    style = style.letterTextStyle,
+                    color = SparkTheme.colors.onNeutral,
+                    maxLines = 1,
+                    textAlign = TextAlign.Center,
+                )
+            }
+        }
+    }
+}
+
+internal val UserAvatarStyle.letterTextStyle: TextStyle
+    @Composable
+    @ReadOnlyComposable
+    get() = when (this) {
+        UserAvatarStyle.XS -> SparkTheme.typography.body2.highlight
+        UserAvatarStyle.SM -> SparkTheme.typography.headline2
+        UserAvatarStyle.MD -> SparkTheme.typography.display3
+        UserAvatarStyle.LG -> SparkTheme.typography.display2
+        UserAvatarStyle.XL -> SparkTheme.typography.display2
+        UserAvatarStyle.XXL -> SparkTheme.typography.display1
+        UserAvatarStyle.XXXL -> SparkTheme.typography.display1.copy(fontSize = 64.sp)
+    }
 
 /**
  * The size of a [UserAvatar], from [XS] (24dp) to [XXXL] (128dp).
@@ -227,20 +310,6 @@ internal fun UserAvatarPreview() {
             transform = { AsyncImagePainter.State.Empty },
         )
         SparkUserAvatar(
-            style = UserAvatarStyle.XL,
-            model = "",
-            isPro = true,
-            addon = { iconButton({}) },
-            transform = { AsyncImagePainter.State.Empty },
-        )
-        SparkUserAvatar(
-            style = UserAvatarStyle.XL,
-            model = "",
-            isPro = true,
-            addon = { iconButton({}, icon = LeboncoinIcons.PenOutline) },
-            transform = { AsyncImagePainter.State.Empty },
-        )
-        SparkUserAvatar(
             style = UserAvatarStyle.MD,
             model = "",
             isPro = true,
@@ -254,5 +323,14 @@ internal fun UserAvatarPreview() {
             addon = { onlineIndicator() },
             transform = { AsyncImagePainter.State.Empty },
         )
+        UserAvatarStyle.entries.forEach { style ->
+            SparkUserAvatar(
+                style = style,
+                model = "",
+                letter = 'S',
+                addon = { onlineIndicator() },
+                transform = { AsyncImagePainter.State.Empty },
+            )
+        }
     }
 }
