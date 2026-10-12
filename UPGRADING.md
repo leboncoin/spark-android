@@ -2,6 +2,117 @@
 
 Migration guides for breaking changes, newest first. For a full list of changes see [CHANGELOG.md](CHANGELOG.md).
 
+## Upgrading to 5.0
+
+### `UserAvatar` deprecated in favour of `Avatar.User` and `Avatar.Company`
+
+`UserAvatar` is deprecated. Use `Avatar.User` for a person or `Avatar.Company` for a company. A later major release removes `UserAvatar`.
+
+#### Pro accounts become `Avatar.Company`
+
+`Avatar.User` and `Avatar.Company` have no `isPro` parameter. Choose `Avatar.User` for a person or `Avatar.Company` for a company instead. The deprecated `UserAvatar` keeps `isPro` until a later major release removes it.
+
+**Before:**
+
+```kotlin
+UserAvatar(
+    model = account.logoUrl,
+    style = UserAvatarStyle.MEDIUM,
+    isPro = true,
+)
+```
+
+**After:**
+
+```kotlin
+Avatar.Company(
+    model = account.logoUrl,
+    style = AvatarSize.MD,
+)
+```
+
+#### `Avatar.User` requires `username` and has no icon placeholder
+
+`Avatar.User` has no `letter` parameter. It requires a `username` parameter instead, and derives
+the letter placeholder from its first non-whitespace character, in upper case. `Avatar.User` has
+no icon placeholder; a blank `username` shows an empty neutral circle instead. The deprecated
+`UserAvatar` keeps its `letter` parameter until a later major release removes it.
+
+**Before:**
+
+```kotlin
+UserAvatar(
+    model = user.avatarUrl,
+    style = UserAvatarStyle.MEDIUM,
+)
+```
+
+**After:**
+
+```kotlin
+Avatar.User(
+    username = user.name, // "Spark" shows "S"
+    model = user.avatarUrl,
+    style = AvatarSize.MD,
+)
+```
+
+#### Online indicator moves to the `addon` slot
+
+The `isOnline` parameter is removed. Pass `addon = { onlineIndicator() }` instead.
+
+**Before:**
+
+```kotlin
+UserAvatar(
+    model = user.avatarUrl,
+    style = UserAvatarStyle.MEDIUM,
+    isOnline = user.isOnline,
+)
+```
+
+**After:**
+
+```kotlin
+Avatar.User(
+    username = user.name,
+    model = user.avatarUrl,
+    style = AvatarSize.MD,
+    addon = { if (user.isOnline) onlineIndicator() },
+)
+```
+
+#### `UserAvatarStyle` replaced by `AvatarSize`
+
+`UserAvatarStyle` is removed. `AvatarSize` has seven values instead of three.
+
+| Removed | Use instead |
+|---|---|
+| `UserAvatarStyle.SMALL` | `AvatarSize.SM` |
+| `UserAvatarStyle.MEDIUM` | `AvatarSize.MD` |
+| `UserAvatarStyle.LARGE` | `AvatarSize.XL` |
+
+**Before:**
+
+```kotlin
+UserAvatar(
+    model = user.avatarUrl,
+    style = UserAvatarStyle.LARGE,
+)
+```
+
+**After:**
+
+```kotlin
+Avatar.User(
+    username = user.name,
+    model = user.avatarUrl,
+    style = AvatarSize.XL,
+)
+```
+
+---
+
 ## Upgrading to 3.0
 
 ### `contentSide` parameter removed from toggles
