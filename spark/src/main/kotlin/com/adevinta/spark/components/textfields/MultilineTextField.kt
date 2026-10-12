@@ -49,7 +49,7 @@ import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconSize
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.CircleCrossOutline
+import com.adevinta.spark.icons.CircleCrossFill
 import com.adevinta.spark.icons.HeartFill
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.tokens.SparkTypography
@@ -142,7 +142,7 @@ public fun MultilineTextField(
                     .semantics {
                         role = Role.Button
                     },
-                sparkIcon = LeboncoinIcons.CircleCrossOutline,
+                sparkIcon = LeboncoinIcons.CircleCrossFill,
                 contentDescription = stringResource(R.string.spark_textfield_delete_a11y),
             )
         }
@@ -259,7 +259,7 @@ public fun MultilineTextField(
                     .semantics {
                         role = Role.Button
                     },
-                sparkIcon = LeboncoinIcons.CircleCrossOutline,
+                sparkIcon = LeboncoinIcons.CircleCrossFill,
                 contentDescription = stringResource(R.string.spark_textfield_delete_a11y),
             )
         }
