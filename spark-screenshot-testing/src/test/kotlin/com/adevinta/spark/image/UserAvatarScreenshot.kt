@@ -40,7 +40,6 @@ import com.adevinta.spark.components.image.UserAvatarStyle
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshot
-import com.android.ide.common.rendering.api.SessionParams.RenderingMode
 import org.junit.Rule
 import org.junit.Test
 
@@ -49,7 +48,6 @@ internal class UserAvatarScreenshot {
     @get:Rule
     val paparazzi = paparazziRule(
         deviceConfig = DefaultTestDevices.Tablet,
-        renderingMode = RenderingMode.H_SCROLL,
     )
 
     @Test

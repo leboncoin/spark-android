@@ -42,7 +42,6 @@ import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshot
-import com.android.ide.common.rendering.api.SessionParams.RenderingMode.H_SCROLL
 import org.junit.Rule
 import org.junit.Test
 
@@ -55,7 +54,6 @@ internal class TextFieldScreenshot {
     @get:Rule
     val paparazzi = paparazziRule(
         deviceConfig = DefaultTestDevices.Tablet,
-        renderingMode = H_SCROLL,
     )
 
     @OptIn(ExperimentalLayoutApi::class)
