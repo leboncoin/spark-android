@@ -92,11 +92,13 @@ internal class SparkTextFieldMeasurePolicy(
         onLabelMeasured(labelSize)
 
         // supporting text must be measured after other elements, but we
-        // reserve space for it using its intrinsic height as a heuristic
+        // reserve space for it using its intrinsic height as a heuristic.
+        // The final width is unknown here, and the widest bound never overestimates the height,
+        // so a parent that gives the natural height never squeezes the input.
         val supportingMeasurable =
             measurables.fastFirstOrNull { it.layoutId == SupportingId }
         val supportingIntrinsicHeight =
-            supportingMeasurable?.minIntrinsicHeight(constraints.minWidth) ?: 0
+            supportingMeasurable?.minIntrinsicHeight(constraints.maxWidth) ?: 0
 
         // measure text field
         // On top, we offset either by default padding or by label's half height if its too big.
