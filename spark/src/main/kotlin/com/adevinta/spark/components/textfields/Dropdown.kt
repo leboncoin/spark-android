@@ -86,7 +86,7 @@ import com.adevinta.spark.components.popover.PlainTooltip
 import com.adevinta.spark.components.popover.TooltipBox
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.CircleCrossOutline
+import com.adevinta.spark.icons.CircleCrossFill
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkAnimatedIcons
 import com.adevinta.spark.icons.collapseExpand
@@ -640,7 +640,7 @@ public fun MultiChoiceDropdown(
                             onClick = { onSelectedClick(id) },
                             trailingIcon = {
                                 Icon(
-                                    sparkIcon = LeboncoinIcons.CircleCrossOutline,
+                                    sparkIcon = LeboncoinIcons.CircleCrossFill,
                                     modifier = Modifier.size(ChipDefaults.LeadingIconSize),
                                     contentDescription = null,
                                 )
