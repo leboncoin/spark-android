@@ -39,8 +39,8 @@ import com.adevinta.spark.catalog.configurator.samples.colorselector.ColorSelect
 import com.adevinta.spark.catalog.configurator.samples.divider.DividerConfigurator
 import com.adevinta.spark.catalog.configurator.samples.fileupload.FileUploadConfigurator
 import com.adevinta.spark.catalog.configurator.samples.gauge.GaugesConfigurator
+import com.adevinta.spark.catalog.configurator.samples.image.AvatarConfigurator
 import com.adevinta.spark.catalog.configurator.samples.image.ImageConfigurator
-import com.adevinta.spark.catalog.configurator.samples.image.UserAvatarConfigurator
 import com.adevinta.spark.catalog.configurator.samples.meter.MeterConfigurator
 import com.adevinta.spark.catalog.configurator.samples.modal.ModalConfigurator
 import com.adevinta.spark.catalog.configurator.samples.popover.PopoverConfigurator
@@ -77,7 +77,7 @@ import com.adevinta.spark.catalog.examples.samples.divider.DividerExamples
 import com.adevinta.spark.catalog.examples.samples.fileupload.FileUploadExamples
 import com.adevinta.spark.catalog.examples.samples.gauge.SegmentedGaugeExamples
 import com.adevinta.spark.catalog.examples.samples.icons.IconsExamples
-import com.adevinta.spark.catalog.examples.samples.image.UserAvatarExamples
+import com.adevinta.spark.catalog.examples.samples.image.AvatarExamples
 import com.adevinta.spark.catalog.examples.samples.meter.MeterExamples
 import com.adevinta.spark.catalog.examples.samples.placeholder.PlaceholderExamples
 import com.adevinta.spark.catalog.examples.samples.popover.PopoverExamples
@@ -319,15 +319,15 @@ private val Image = Component(
     configurators = listOf(ImageConfigurator),
 )
 
-private val UserAvatar = Component(
-    id = "user-avatar",
-    name = "User Avatar",
-    description = R.string.component_user_avatar_description,
+private val Avatar = Component(
+    id = "avatar",
+    name = "Avatar",
+    description = R.string.component_avatar_description,
     guidelinesUrl = "$ComponentGuidelinesUrl/p/096e9f-image",
     docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.image/index.html",
-    sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/image/UserAvatar.kt",
-    examples = UserAvatarExamples,
-    configurators = listOf(UserAvatarConfigurator),
+    sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/image/Avatar.kt",
+    examples = AvatarExamples,
+    configurators = listOf(AvatarConfigurator),
 )
 
 private val FileUpload = Component(
@@ -585,7 +585,7 @@ public val Components: ImmutableList<Component> by lazy(mode = LazyThreadSafetyM
         IconButtons,
         IconToggleButtons,
         Image,
-        UserAvatar,
+        Avatar,
         FileUpload,
         Meter,
         Popovers,
