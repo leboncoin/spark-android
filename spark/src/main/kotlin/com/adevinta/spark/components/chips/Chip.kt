@@ -71,7 +71,7 @@ import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.heightOrZero
 import com.adevinta.spark.components.textfields.widthOrZero
-import com.adevinta.spark.icons.CircleCrossOutline
+import com.adevinta.spark.icons.CircleCrossFill
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.TagOutline
@@ -332,7 +332,7 @@ private fun CloseIconButton(
 ) {
     AnimatedVisibility(visible = onClose != null) {
         Icon(
-            sparkIcon = LeboncoinIcons.CircleCrossOutline,
+            sparkIcon = LeboncoinIcons.CircleCrossFill,
             modifier = Modifier
                 .size(ChipDefaults.LeadingIconSize)
                 .clickable(
