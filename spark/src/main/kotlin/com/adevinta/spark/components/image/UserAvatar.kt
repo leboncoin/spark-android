@@ -79,7 +79,7 @@ internal fun SparkUserAvatar(
         placeholder = emptyIcon,
         modifier = modifier,
         transform = transform,
-        style = style,
+        size = style,
         contentScale = contentScale,
         fillParentSize = fillParentSize,
         model = model,

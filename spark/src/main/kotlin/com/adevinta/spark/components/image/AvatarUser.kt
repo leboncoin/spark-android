@@ -73,7 +73,7 @@ internal fun SparkAvatarUser(
         },
         modifier = modifier,
         transform = transform,
-        style = style,
+        size = style,
         contentScale = contentScale,
         fillParentSize = fillParentSize,
         model = model,

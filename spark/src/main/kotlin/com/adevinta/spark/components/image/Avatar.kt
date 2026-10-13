@@ -93,7 +93,7 @@ internal fun SparkAvatar(
     modifier: Modifier = Modifier,
     // Useful to preview different states
     transform: (AsyncImagePainter.State) -> AsyncImagePainter.State = AsyncImagePainter.DefaultTransform,
-    style: AvatarSize = AvatarSize.SM,
+    size: AvatarSize = AvatarSize.SM,
     contentScale: ContentScale = ContentScale.Fit,
     fillParentSize: Boolean = false,
     model: Any? = null,
@@ -103,7 +103,8 @@ internal fun SparkAvatar(
         modifier = modifier.sparkUsageOverlay(),
         content = {
             SparkImage(
-                modifier = Modifier.then(if (fillParentSize) Modifier.fillMaxSize() else Modifier.size(style.imageSize))
+                modifier = Modifier
+                    .then(if (fillParentSize) Modifier.fillMaxSize() else Modifier.size(size.imageSize))
                     .aspectRatio(1f)
                     .clip(shape),
                 model = model,
@@ -113,7 +114,7 @@ internal fun SparkAvatar(
                 emptyIcon = placeholder,
                 errorIcon = placeholder,
             )
-            AvatarAddonScopeImpl(style).addon(AvatarAddonItemImpl)
+            AvatarAddonScopeImpl(size).addon(AvatarAddonItemImpl)
         },
     ) { measurables, constraints ->
         val avatarPlaceable = measurables[0].measure(constraints)
