@@ -31,7 +31,9 @@ import com.android.tools.lint.detector.api.JavaContext
 import com.android.tools.lint.detector.api.Severity
 import com.android.tools.lint.detector.api.SourceCodeScanner
 import com.android.tools.lint.detector.api.computeKotlinArgumentMapping
+import com.intellij.psi.PsiClassOwner
 import com.intellij.psi.PsiMethod
+import com.intellij.psi.PsiModifier
 import org.jetbrains.uast.UBlockExpression
 import org.jetbrains.uast.UCallExpression
 import org.jetbrains.uast.UElement
@@ -76,7 +78,7 @@ public class SparkScaffoldDetector :
 
     private fun checkBarInsets(context: JavaContext, node: UCallExpression, bar: ULambdaExpression, slotName: String) {
         if (bar.isEmpty()) return
-        if (bar.body.calls().any { it.handlesInsets(visited = mutableSetOf()) }) return
+        if (bar.body.calls().any { it.handlesInsets(visited = mutableSetOf(), isInBar = true) }) return
 
         context.report(
             issue = BAR_WITHOUT_INSETS_ISSUE,
@@ -87,21 +89,26 @@ public class SparkScaffoldDetector :
         )
     }
 
-    private fun UCallExpression.handlesInsets(visited: MutableSet<PsiMethod>): Boolean {
-        // Unresolvable calls are unknown: assume compliant rather than risk a false positive.
+    private fun UCallExpression.handlesInsets(visited: MutableSet<PsiMethod>, isInBar: Boolean): Boolean {
         val method = resolve() ?: return true
         if (method.takesWindowInsets()) return true
         if (method.isInPackageName(LAYOUT_PACKAGE) && method.name in INSETS_PADDING_MODIFIERS) return true
+        if (method.isFunctionTypeInvoke()) return isInBar
+        if (method.hasModifierProperty(PsiModifier.ABSTRACT)) return true
 
-        val body = method.toUElementOfType<UMethod>()?.uastBody ?: return false
+        // Without source, only UI toolkit methods are known leaves, as they take a `WindowInsets` when they handle insets.
+        // Other compiled code, like a project module linted without its dependencies, is unknown.
+        val body = method.toUElementOfType<UMethod>()?.uastBody ?: return !method.isFromUiToolkit()
         if (!visited.add(method)) return false
-        return body.calls().any { it.handlesInsets(visited) }
+        return body.calls().any { it.handlesInsets(visited, isInBar = false) }
     }
 
     public companion object Companion {
         private const val SCAFFOLD_PACKAGE = "com.adevinta.spark.components.scaffold"
         private const val LAYOUT_PACKAGE = "androidx.compose.foundation.layout"
         private const val WINDOW_INSETS = "$LAYOUT_PACKAGE.WindowInsets"
+        private const val KOTLIN_FUNCTIONS_PACKAGE = "kotlin.jvm.functions."
+        private val UI_TOOLKIT_PACKAGES = listOf("androidx.compose.", "com.adevinta.spark.")
 
         private const val TOP_BAR = "topBar"
         private const val BOTTOM_BAR = "bottomBar"
@@ -123,6 +130,14 @@ public class SparkScaffoldDetector :
         // Spark app bars and inset modifiers such as `windowInsetsPadding` all take a `WindowInsets`.
         private fun PsiMethod.takesWindowInsets(): Boolean =
             parameterList.parameters.any { it.type.canonicalText == WINDOW_INSETS }
+
+        private fun PsiMethod.isFromUiToolkit(): Boolean {
+            val packageName = (containingFile as? PsiClassOwner)?.packageName ?: return false
+            return UI_TOOLKIT_PACKAGES.any { packageName.startsWith(it) }
+        }
+
+        private fun PsiMethod.isFunctionTypeInvoke(): Boolean =
+            name == "invoke" && containingClass?.qualifiedName?.startsWith(KOTLIN_FUNCTIONS_PACKAGE) == true
 
         private fun ULambdaExpression.isEmpty(): Boolean = (body as? UBlockExpression)?.expressions.isNullOrEmpty()
 
