@@ -23,13 +23,41 @@
 
 package com.adevinta.spark.catalog.util
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.core.net.toUri
+import com.adevinta.spark.catalog.R
+import com.adevinta.spark.components.snackbars.SnackbarHostState
+import kotlinx.coroutines.launch
 
-public fun Context.openUrl(url: String) {
-    val intent = Intent(Intent.ACTION_VIEW, url.toUri())
-    startActivity(intent)
+/**
+ * Opens [url] in a browser and returns `false` when no app on the device can open it.
+ */
+public fun Context.openUrl(url: String): Boolean = try {
+    startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
+    true
+} catch (_: ActivityNotFoundException) {
+    false
+}
+
+@Composable
+internal fun rememberUrlOpener(snackbarHostState: SnackbarHostState): (url: String) -> Unit {
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
+    val failureMessage = stringResource(R.string.url_open_failed)
+    return remember(context, snackbarHostState, coroutineScope, failureMessage) {
+        { url ->
+            if (!context.openUrl(url)) {
+                coroutineScope.launch { snackbarHostState.showSnackbar(failureMessage) }
+            }
+        }
+    }
 }
 
 public const val GuidelinesUrl: String = "https://spark.adevinta.com"
