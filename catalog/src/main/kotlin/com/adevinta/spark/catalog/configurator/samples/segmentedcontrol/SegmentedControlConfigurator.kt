@@ -111,11 +111,11 @@ private fun ColumnScope.SegmentedControlSample(
 
 @Composable
 private fun ConfigedSegmentedControl(
-    modifier: Modifier = Modifier,
     segmentCount: Int,
     selectedIndex: Int,
     onSegmentSelect: (Int) -> Unit,
     enabled: Boolean,
+    modifier: Modifier = Modifier,
 ) {
     Surface(
         modifier = modifier,

@@ -93,11 +93,11 @@ private fun RadioButtonSamplePreview() {
 
 @Composable
 private fun ConfiguredRadioButton(
-    modifier: Modifier = Modifier,
     label: String?,
     onClick: () -> Unit,
     selected: Boolean,
     isEnabled: Boolean,
+    modifier: Modifier = Modifier,
 ) {
     if (label.isNullOrBlank().not()) {
         RadioButtonLabelled(

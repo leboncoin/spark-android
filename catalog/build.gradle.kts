@@ -51,6 +51,8 @@ android {
         unitTests.isReturnDefaultValues = true
     }
 
+    lint.baseline = file("lint-baseline.xml")
+
     val keystore = rootDir.resolve("keystore.properties")
         .takeIf { it.exists() }
         ?.let { Properties().apply { load(it.inputStream()) } }
@@ -99,6 +101,8 @@ tasks.withType<Test>().configureEach {
 
 dependencies {
     implementation(projects.spark)
+    lintChecks(projects.sparkLint)
+    lintChecks(libs.slack.lint.compose)
 
     implementation(libs.kotlin.reflect)
     implementation(libs.kotlinx.collections.immutable)

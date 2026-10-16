@@ -149,7 +149,6 @@ private fun ChipSamplePreview() {
 
 @Composable
 private fun ConfiguredChip(
-    modifier: Modifier = Modifier,
     style: ChipStyles,
     enabled: Boolean,
     chipText: String,
@@ -158,6 +157,7 @@ private fun ConfiguredChip(
     selected: Boolean,
     closable: Boolean,
     onClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     ChipSelectable(
         modifier = modifier,

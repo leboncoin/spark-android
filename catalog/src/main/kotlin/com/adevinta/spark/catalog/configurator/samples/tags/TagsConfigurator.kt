@@ -157,11 +157,11 @@ private fun TagSamplePreview() {
 
 @Composable
 private fun ConfigedTag(
-    modifier: Modifier = Modifier,
     style: TagStyle,
     tagText: String,
     intent: TagIntent,
     icon: SparkIcon?,
+    modifier: Modifier = Modifier,
 ) {
     Surface(
         modifier = modifier,

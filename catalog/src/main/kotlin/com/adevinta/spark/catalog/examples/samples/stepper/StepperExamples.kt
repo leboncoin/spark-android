@@ -202,11 +202,11 @@ public val StepperExamples: ImmutableList<Example> = persistentListOf(
 
 @Composable
 private fun CustomStepper(
-    modifier: Modifier = Modifier,
     value: Int,
     onValueChange: (Int) -> Unit,
     title: String,
     subtitle: String,
+    modifier: Modifier = Modifier,
     range: IntRange = 0..10,
     suffix: String = "",
     step: Int = 1,
