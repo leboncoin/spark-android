@@ -42,6 +42,7 @@ android {
         if (providers.environmentVariable("GITHUB_ACTION").isPresent) {
             versionName = version.toString().replace("SNAPSHOT", System.getenv("GITHUB_SHA").take(7))
         }
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions.isCoreLibraryDesugaringEnabled = true
@@ -49,6 +50,27 @@ android {
     testOptions {
         unitTests.isIncludeAndroidResources = true
         unitTests.isReturnDefaultValues = true
+
+        managedDevices {
+            val phone = allDevices.create<com.android.build.api.dsl.ManagedVirtualDevice>("pixel6Api33") {
+                device = "Pixel 6"
+                apiLevel = 33
+                systemImageSource = "aosp"
+            }
+            val tablet = allDevices.create<com.android.build.api.dsl.ManagedVirtualDevice>("pixelTabletApi33") {
+                device = "Pixel Tablet"
+                apiLevel = 33
+                systemImageSource = "aosp"
+            }
+            val foldable = allDevices.create<com.android.build.api.dsl.ManagedVirtualDevice>("pixelFoldApi33") {
+                device = "Pixel Fold"
+                apiLevel = 33
+                systemImageSource = "aosp"
+            }
+            groups.create("catalogDevices") {
+                targetDevices += listOf(phone, tablet, foldable)
+            }
+        }
     }
 
     lint.baseline = file("lint-baseline.xml")
@@ -155,6 +177,17 @@ dependencies {
     testImplementation(libs.androidx.compose.ui.testManifest)
     testImplementation(libs.androidx.compose.ui.testJUnit.accessibility)
     testImplementation(libs.kotlinx.coroutines.test)
+
+    // ui-test in the app pulls espresso and the runner, and the test APK reuses the app's copies.
+    constraints {
+        implementation(libs.androidx.espresso.core)
+        implementation(libs.androidx.test.runner)
+    }
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.compose.ui.testJUnit)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.test.junit)
+    androidTestImplementation(libs.androidx.uiautomator)
 
     baselineProfile(project(":catalog:baselineprofile"))
 }
