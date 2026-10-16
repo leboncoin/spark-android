@@ -28,6 +28,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.spark.spotless)
     alias(libs.plugins.baselineprofile)
+    alias(libs.plugins.paparazzi)
 }
 
 android {
@@ -43,6 +44,11 @@ android {
     }
 
     compileOptions.isCoreLibraryDesugaringEnabled = true
+
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+        unitTests.isReturnDefaultValues = true
+    }
 
     val keystore = rootDir.resolve("keystore.properties")
         .takeIf { it.exists() }
@@ -78,6 +84,12 @@ kotlin {
             "com.adevinta.spark.ExperimentalSparkApi",
         )
     }
+}
+
+// Paparazzi and Robolectric both load libandroid_runtime natively, so they cannot share a test JVM.
+// https://github.com/cashapp/paparazzi/issues/1979
+tasks.withType<Test>().configureEach {
+    forkEvery = 1
 }
 
 dependencies {
@@ -117,6 +129,14 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
 
     implementation(libs.androidx.profileinstaller)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.kotlin.test)
+    testImplementation(libs.androidx.test.truth)
+    testImplementation(libs.testParameterInjector)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.androidx.compose.ui.testJUnit)
+    testImplementation(libs.androidx.compose.ui.testManifest)
 
     baselineProfile(project(":catalog:baselineprofile"))
 }
