@@ -29,13 +29,14 @@ plugins {
     alias(libs.plugins.spark.spotless)
     alias(libs.plugins.baselineprofile)
     alias(libs.plugins.paparazzi)
+    alias(libs.plugins.metro)
 }
 
 android {
     namespace = "com.adevinta.spark.catalog"
     defaultConfig.applicationId = "com.adevinta.spark.catalog"
     @Suppress("UnstableApiUsage")
-    androidResources.localeFilters += setOf("en-rGB", "fr")
+    androidResources.localeFilters += setOf("en-rGB", "fr", "en-rXA", "ar-rXB")
     defaultConfig {
         versionName = version.toString()
         if (providers.environmentVariable("GITHUB_ACTION").isPresent) {
@@ -62,6 +63,10 @@ android {
         keyPassword = keystore.getProperty("keyPassword")
         storeFile = file(keystore.getProperty("storeFile"))
         storePassword = keystore.getProperty("storePassword")
+    }
+
+    buildTypes.named("debug") {
+        isPseudoLocalesEnabled = true
     }
 
     buildTypes.named("release") {
@@ -117,9 +122,16 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
     implementation(libs.androidx.appCompat)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.navigation3.ui)
+    implementation(libs.androidx.compose.material3.adaptive.navigation3)
     implementation(libs.material.motion)
+    implementation(libs.metrox.viewmodel)
+    implementation(libs.metrox.viewmodel.compose)
 
     implementation(libs.androidx.datastore)
     implementation(libs.kotlinx.serialization.json)
@@ -137,6 +149,8 @@ dependencies {
     testImplementation(libs.robolectric)
     testImplementation(libs.androidx.compose.ui.testJUnit)
     testImplementation(libs.androidx.compose.ui.testManifest)
+    testImplementation(libs.androidx.compose.ui.testJUnit.accessibility)
+    testImplementation(libs.kotlinx.coroutines.test)
 
     baselineProfile(project(":catalog:baselineprofile"))
 }
