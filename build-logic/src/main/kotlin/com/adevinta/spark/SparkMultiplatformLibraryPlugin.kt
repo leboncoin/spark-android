@@ -28,9 +28,9 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.withType
+import com.gradleup.tapmoc.TapmocExtension
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import tapmoc.TapmocExtension
 import java.io.File
 
 internal class SparkMultiplatformLibraryPlugin : Plugin<Project> {

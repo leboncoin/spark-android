@@ -25,11 +25,11 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
+import com.gradleup.tapmoc.TapmocExtension
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompileCommon
-import tapmoc.TapmocExtension
 
 @OptIn(ExperimentalKotlinGradlePluginApi::class)
 /* Configures Kotlin Multiplatform targets, source sets, and compiler options for Spark modules. */
