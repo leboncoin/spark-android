@@ -59,7 +59,7 @@ Avatar.User(
 
 #### Online indicator moves to the `addon` slot
 
-The `isOnline` parameter is removed. Pass `addon = { onlineIndicator() }` instead.
+`Avatar.User` and `Avatar.Company` have no `isOnline` parameter. Pass `addon = { onlineIndicator() }` instead. The deprecated `UserAvatar` keeps `isOnline` and has no `addon` parameter, until a later major release removes it.
 
 **Before:**
 
@@ -84,7 +84,7 @@ Avatar.User(
 
 #### `UserAvatarStyle` replaced by `AvatarSize`
 
-`UserAvatarStyle` is removed. `AvatarSize` has seven values instead of three.
+`UserAvatarStyle` is removed. `AvatarSize` has seven values instead of three. The deprecated `UserAvatar` also takes an `AvatarSize` for its `style` parameter, so replace the removed values there too.
 
 | Removed | Use instead |
 |---|---|

@@ -21,17 +21,11 @@
  */
 package com.adevinta.spark.image
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.DefaultTestDevices
-import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.image.Avatar
 import com.adevinta.spark.components.image.AvatarSize
 import com.adevinta.spark.components.image.Company
@@ -96,36 +90,13 @@ internal class AvatarDocumentationScreenshots {
     }
 
     @Test
-    fun addonBadge() = paparazzi.sparkDocSnapshot {
+    fun addonButton() = paparazzi.sparkDocSnapshot {
         Row(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Avatar.User(
-                username = "Spark",
-                style = AvatarSize.XL,
-                addon = {
-                    custom {
-                        Box(
-                            Modifier
-                                .size(20.dp)
-                                .background(SparkTheme.colors.error, CircleShape),
-                        )
-                    }
-                },
-            )
-            Avatar.Company(
-                style = AvatarSize.XL,
-                addon = {
-                    custom {
-                        Box(
-                            Modifier
-                                .size(20.dp)
-                                .background(SparkTheme.colors.error, CircleShape),
-                        )
-                    }
-                },
-            )
+            Avatar.User(username = "Spark", style = AvatarSize.XL, addon = { iconButton(onClick = {}) })
+            Avatar.Company(style = AvatarSize.XL, addon = { iconButton(onClick = {}) })
         }
     }
 }

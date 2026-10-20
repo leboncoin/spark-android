@@ -63,7 +63,7 @@ internal fun SparkAvatarCompany(
         placeholder = { CompanyAvatarPlaceholder() },
         modifier = modifier,
         transform = transform,
-        style = style,
+        size = style,
         contentScale = contentScale,
         fillParentSize = fillParentSize,
         model = model,
@@ -80,7 +80,7 @@ internal fun SparkAvatarCompany(
  * The addon is inside the avatar bounds, at the bottom-end corner. It moves to the bottom-start
  * corner in a right-to-left layout.
  *
- * ![Addon](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.image_AvatarDocumentationScreenshots_addonBadge.png)
+ * ![Addon](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.image_AvatarDocumentationScreenshots_addonButton.png)
  *
  * @param modifier applied to the avatar
  * @param style avatar size, from [AvatarSize.XS] (24dp) to [AvatarSize.XXXL] (128dp), and the
@@ -90,7 +90,8 @@ internal fun SparkAvatarCompany(
  * fixed-size slot already sets the avatar size
  * @param model image to load, for example the company logo URL; null shows the building icon
  * @param addon optional badge slot; call [AvatarAddonScope.onlineIndicator] for the standard
- * presence dot, or [AvatarAddonScope.custom] for other content; the default is empty
+ * presence dot, [AvatarAddonScope.iconButton] for an action button, or [AvatarAddonScope.custom]
+ * for other content; the default is empty
  */
 @Suppress("UnusedReceiverParameter")
 @Composable

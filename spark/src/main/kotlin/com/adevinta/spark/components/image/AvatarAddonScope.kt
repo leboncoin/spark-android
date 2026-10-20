@@ -109,14 +109,16 @@ internal object AvatarAddonItemImpl : AvatarAddonItem
 // Suppress ComposeContentEmitterReturningValues to mirror SegmentedControlScopeImpl: scope
 // methods emit UI and return the marker so the slot type enforces only recognised builders.
 @SuppressLint("ComposeContentEmitterReturningValues")
-internal class AvatarAddonScopeImpl(private val style: AvatarSize) : AvatarAddonScope {
+internal class AvatarAddonScopeImpl(private val size: AvatarSize) : AvatarAddonScope {
 
+    @Suppress("ContentEmission")
     @Composable
     override fun onlineIndicator(): AvatarAddonItem {
-        OnlineIndicator(style)
+        OnlineIndicator(size)
         return AvatarAddonItemImpl
     }
 
+    @Suppress("ContentEmission")
     @Composable
     override fun iconButton(
         onClick: () -> Unit,
@@ -127,6 +129,7 @@ internal class AvatarAddonScopeImpl(private val style: AvatarSize) : AvatarAddon
         return AvatarAddonItemImpl
     }
 
+    @Suppress("ContentEmission")
     @Composable
     override fun custom(content: @Composable () -> Unit): AvatarAddonItem {
         content()

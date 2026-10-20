@@ -79,7 +79,7 @@ internal fun SparkUserAvatar(
         placeholder = emptyIcon,
         modifier = modifier,
         transform = transform,
-        style = style,
+        size = style,
         contentScale = contentScale,
         fillParentSize = fillParentSize,
         model = model,
@@ -108,10 +108,9 @@ internal fun SparkUserAvatar(
  * leave Color.Unspecified for a transparent background; the letter fallback ignores it
  * @param isPro mark a professional account so the fallback shows a building icon; it shows only in
  * the fallback state, and [letter] takes precedence over it
+ * @param isOnline show the online indicator on the avatar rim; defaults to false
  * @param letter first letter of the user name to show on a neutral circle in the fallback state; it
  * renders as given, so pass the case you want; null shows the fallback icon
- * @param addon optional overlay badge slot; call [AvatarAddonScope.onlineIndicator] for the
- * standard presence dot, or [AvatarAddonScope.custom] for arbitrary content; defaults to empty
  *
  * @deprecated Use [Avatar.User] for a person or [Avatar.Company] for a company.
  **/
@@ -128,8 +127,8 @@ public fun UserAvatar(
     model: Any? = null,
     color: Color = Color.Unspecified,
     isPro: Boolean = false,
+    isOnline: Boolean = false,
     letter: Char? = null,
-    addon: @Composable AvatarAddonScope.(AvatarAddonItem) -> Unit = {},
 ) {
     SparkUserAvatar(
         modifier = modifier,
@@ -140,7 +139,9 @@ public fun UserAvatar(
         isPro = isPro,
         letter = letter,
         color = color,
-        addon = addon,
+        addon = {
+            if (isOnline) onlineIndicator()
+        },
     )
 }
 
