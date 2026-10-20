@@ -23,14 +23,13 @@ package com.adevinta.spark.components.image
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImagePainter
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
@@ -62,7 +61,7 @@ internal fun SparkUserAvatar(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(4.dp),
+                    .scale(1.5f), // Scale to fill the 2dp safe padding we have with icons but that we don't want here
             ) {
                 ImageIconState(
                     sparkIcon = if (isPro) LeboncoinIcons.BuildingCircle else LeboncoinIcons.UserCircleFill,
