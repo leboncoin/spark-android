@@ -35,15 +35,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.DefaultTestDevices
 import com.adevinta.spark.SparkTheme
-import com.adevinta.spark.components.image.UserAvatar
-import com.adevinta.spark.components.image.UserAvatarStyle
+import com.adevinta.spark.components.image.Avatar
+import com.adevinta.spark.components.image.AvatarAddonItem
+import com.adevinta.spark.components.image.AvatarAddonScope
+import com.adevinta.spark.components.image.AvatarSize
+import com.adevinta.spark.components.image.Company
+import com.adevinta.spark.components.image.User
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshot
 import org.junit.Rule
 import org.junit.Test
 
-internal class UserAvatarScreenshot {
+internal class AvatarScreenshot {
 
     @get:Rule
     val paparazzi = paparazziRule(
@@ -51,96 +55,89 @@ internal class UserAvatarScreenshot {
     )
 
     @Test
-    fun userAvatarMatrix() {
-        paparazzi.sparkSnapshot {
-            UserAvatarMatrix()
-        }
+    fun avatarMatrix() {
+        paparazzi.sparkSnapshot { AvatarMatrix() }
+        paparazzi.sparkSnapshot(name = "dark", isDark = true) { AvatarMatrix() }
     }
 
     @Test
-    fun userAvatarAddonOverflow() {
-        paparazzi.sparkSnapshot {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(16.dp),
-            ) {
-                UserAvatarStyle.entries.forEach { style ->
-                    UserAvatar(
-                        style = style,
-                        model = null,
-                        addon = {
-                            custom {
-                                Box(
-                                    Modifier
-                                        .size(20.dp)
-                                        .background(SparkTheme.colors.error, CircleShape),
-                                )
-                            }
-                        },
-                    )
-                }
+    fun avatarAddonPlacement() {
+        val overflowingAddon: @Composable AvatarAddonScope.(AvatarAddonItem) -> Unit = {
+            custom {
+                Box(
+                    Modifier
+                        .size(20.dp)
+                        .background(SparkTheme.colors.error, CircleShape),
+                )
             }
         }
-    }
-
-    @Test
-    fun userAvatarLetter() {
-        paparazzi.sparkSnapshot { UserAvatarLetter() }
-        paparazzi.sparkSnapshot(name = "dark", isDark = true) { UserAvatarLetter() }
-    }
-
-    @Composable
-    private fun UserAvatarLetter() {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = Modifier.padding(16.dp),
-        ) {
-            UserAvatarStyle.entries.forEach { style ->
+        paparazzi.sparkSnapshot {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier.padding(16.dp),
+            ) {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    UserAvatar(style = style, model = null, letter = 'S')
-                    UserAvatar(style = style, model = null, letter = 'S', isPro = true)
-                    UserAvatar(style = style, model = null, letter = 'S', addon = { onlineIndicator() })
+                    AvatarSize.entries.forEach { size ->
+                        Avatar.User(username = "Spark", style = size, addon = overflowingAddon)
+                    }
+                }
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    AvatarSize.entries.forEach { size ->
+                        Avatar.Company(style = size, addon = overflowingAddon)
+                    }
                 }
             }
         }
     }
 
     @Composable
-    private fun UserAvatarMatrix() {
+    private fun AvatarMatrix() {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier.padding(16.dp),
         ) {
             Text(
-                text = "User Avatar",
+                text = "Avatar",
                 style = SparkTheme.typography.headline1,
             )
 
-            UserAvatarStyle.entries.forEach { style ->
-                Text(
-                    text = style.name,
-                    style = SparkTheme.typography.headline2,
-                )
-                Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                    listOf(false, true).forEach { isPro ->
-                        listOf(false, true).forEach { isOnline ->
+            listOf(false, true).forEach { isCompany ->
+                listOf(false, true).forEach { isOnline ->
+                    Text(
+                        text = "${if (isCompany) "Company" else "User"} " +
+                            if (isOnline) "Online" else "Offline",
+                        style = SparkTheme.typography.headline2,
+                    )
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(16.dp),
+                        verticalAlignment = Alignment.Bottom,
+                    ) {
+                        AvatarSize.entries.forEach { size ->
                             Column(
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.spacedBy(4.dp),
                             ) {
-                                UserAvatar(
-                                    style = style,
-                                    model = null,
-                                    isPro = isPro,
-                                    addon = { if (isOnline) onlineIndicator() },
-                                )
+                                if (isCompany) {
+                                    Avatar.Company(
+                                        style = size,
+                                        addon = { if (isOnline) onlineIndicator() },
+                                    )
+                                } else {
+                                    Avatar.User(
+                                        username = "Spark",
+                                        style = size,
+                                        addon = { if (isOnline) onlineIndicator() },
+                                    )
+                                }
                                 Text(
-                                    text = "${if (isPro) "Pro" else "User"} ${if (isOnline) "Online" else "Offline"}",
+                                    text = size.name,
                                     style = SparkTheme.typography.caption,
                                 )
                             }

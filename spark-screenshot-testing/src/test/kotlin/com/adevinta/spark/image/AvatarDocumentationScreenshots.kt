@@ -32,15 +32,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.DefaultTestDevices
 import com.adevinta.spark.SparkTheme
-import com.adevinta.spark.components.image.UserAvatar
-import com.adevinta.spark.components.image.UserAvatarStyle
+import com.adevinta.spark.components.image.Avatar
+import com.adevinta.spark.components.image.AvatarSize
+import com.adevinta.spark.components.image.Company
+import com.adevinta.spark.components.image.User
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkDocSnapshot
 import com.android.ide.common.rendering.api.SessionParams.RenderingMode.SHRINK
 import org.junit.Rule
 import org.junit.Test
 
-internal class UserAvatarDocumentationScreenshots {
+internal class AvatarDocumentationScreenshots {
 
     @get:Rule
     val paparazzi = paparazziRule(
@@ -54,20 +56,20 @@ internal class UserAvatarDocumentationScreenshots {
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            UserAvatar(style = UserAvatarStyle.SM, model = null)
-            UserAvatar(style = UserAvatarStyle.MD, model = null)
-            UserAvatar(style = UserAvatarStyle.XL, model = null)
+            Avatar.User(username = "Spark", style = AvatarSize.SM)
+            Avatar.User(username = "Spark", style = AvatarSize.MD)
+            Avatar.User(username = "Spark", style = AvatarSize.XL)
         }
     }
 
     @Test
-    fun types() = paparazzi.sparkDocSnapshot {
+    fun variants() = paparazzi.sparkDocSnapshot {
         Row(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            UserAvatar(style = UserAvatarStyle.XL, model = null, isPro = false)
-            UserAvatar(style = UserAvatarStyle.XL, model = null, isPro = true)
+            Avatar.User(username = "Spark", style = AvatarSize.XL)
+            Avatar.Company(style = AvatarSize.XL)
         }
     }
 
@@ -77,8 +79,8 @@ internal class UserAvatarDocumentationScreenshots {
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            UserAvatar(style = UserAvatarStyle.XL, model = null)
-            UserAvatar(style = UserAvatarStyle.XL, model = null, letter = 'S')
+            Avatar.User(username = "", style = AvatarSize.XL)
+            Avatar.User(username = "Spark", style = AvatarSize.XL)
         }
     }
 
@@ -88,25 +90,42 @@ internal class UserAvatarDocumentationScreenshots {
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            UserAvatar(style = UserAvatarStyle.XL, model = null)
-            UserAvatar(style = UserAvatarStyle.XL, model = null, addon = { onlineIndicator() })
+            Avatar.User(username = "Spark", style = AvatarSize.XL, addon = { onlineIndicator() })
+            Avatar.Company(style = AvatarSize.XL, addon = { onlineIndicator() })
         }
     }
 
     @Test
     fun addonBadge() = paparazzi.sparkDocSnapshot {
-        UserAvatar(
-            style = UserAvatarStyle.XL,
-            model = null,
-            addon = {
-                custom {
-                    Box(
-                        Modifier
-                            .size(20.dp)
-                            .background(SparkTheme.colors.error, CircleShape),
-                    )
-                }
-            },
-        )
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Avatar.User(
+                username = "Spark",
+                style = AvatarSize.XL,
+                addon = {
+                    custom {
+                        Box(
+                            Modifier
+                                .size(20.dp)
+                                .background(SparkTheme.colors.error, CircleShape),
+                        )
+                    }
+                },
+            )
+            Avatar.Company(
+                style = AvatarSize.XL,
+                addon = {
+                    custom {
+                        Box(
+                            Modifier
+                                .size(20.dp)
+                                .background(SparkTheme.colors.error, CircleShape),
+                        )
+                    }
+                },
+            )
+        }
     }
 }
