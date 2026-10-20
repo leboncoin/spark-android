@@ -28,7 +28,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
@@ -61,16 +60,13 @@ public interface AvatarAddonItem
  * is laid out. [Avatar.User] centres the addon on the circle rim at the bottom right, so the addon
  * can go outside the avatar bounds. [Avatar.Company] puts the addon inside the bottom-end corner,
  * so the addon stays inside the avatar bounds.
- *
- * The outer layout node applies [androidx.compose.ui.graphics.CompositingStrategy.Offscreen] so
- * that [BlendMode.Clear] punches a transparent border ring correctly.
  */
 @Stable
 public interface AvatarAddonScope {
 
     /**
      * Emits the standard online presence indicator: a filled [SparkTheme.colors.success] circle
-     * with a transparent border ring punched out via [BlendMode.Clear].
+     * inside a border ring in [SparkTheme.colors.surface].
      *
      * The indicator size derives from the enclosing [AvatarSize].
      */
@@ -147,9 +143,8 @@ private fun OnlineIndicator(style: AvatarSize) {
         drawCircle(
             color = outline,
             radius = halfBadge,
-            blendMode = BlendMode.Clear,
         )
-        // Draw the filled indicator dot inside the cleared ring.
+        // Draw the filled indicator dot inside the outline-coloured ring.
         drawCircle(
             color = indicatorColor,
             radius = halfBadge - borderPx,
