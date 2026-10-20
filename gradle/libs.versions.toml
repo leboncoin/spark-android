@@ -1,6 +1,6 @@
 [versions]
-agp = "9.4.0"
-compose-multiplatform = "1.12.1"
+agp = "9.4.1"
+compose-multiplatform = "1.12.2"
 androidx-activity = "1.13.0"
 androidx-appCompat = "1.8.0"
 androidx-benchmark = "1.5.0"
@@ -9,7 +9,7 @@ androidx-tracing-perfetto = "1.0.1"
 compileSdk = "37"
 dokka = "2.2.0"
 filekit = "0.16.0"
-kotlin = "2.4.20"
+kotlin = "2.4.21"
 lint = "32.3.1"
 material3 = "1.4.0"
 minCompileSdk = "24"
@@ -46,8 +46,8 @@ androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 androidx-compose-ui-util = { module = "androidx.compose.ui:ui-util" }
 
-androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.1"
-androidx-constraintlayout-compose = "androidx.constraintlayout:constraintlayout-compose:1.1.1"
+androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.2"
+androidx-constraintlayout-compose = "androidx.constraintlayout:constraintlayout-compose:1.1.2"
 
 androidx-core = "androidx.core:core-ktx:1.19.1"
 
@@ -128,7 +128,7 @@ slack-lint-compose = "com.slack.lint.compose:compose-lint-checks:1.6.1"
 # https://github.com/google/TestParameterInjector
 testParameterInjector = "com.google.testparameterinjector:test-parameter-injector:1.24"
 
-unstyled-disclosure = "com.composables:composeunstyled-disclosure:2.10.0"
+unstyled-disclosure = "com.composables:composeunstyled-disclosure:2.10.1"
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "uiautomator" }
 androidx-profileinstaller = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "profileinstaller" }
@@ -150,7 +150,7 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 nmcp = "com.gradleup.nmcp:1.6.2"
 paparazzi = "app.cash.paparazzi:2.0.0-alpha05.1"
 tapmoc = "com.gradleup.tapmoc:0.4.2"
-spotless = "com.diffplug.spotless:8.10.3"
+spotless = "com.diffplug.spotless:8.10.4"
 
 
 # Plugins defined by this project
