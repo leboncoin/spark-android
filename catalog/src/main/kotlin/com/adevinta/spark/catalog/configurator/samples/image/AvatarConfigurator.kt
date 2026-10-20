@@ -53,30 +53,34 @@ import com.adevinta.spark.catalog.ui.ButtonGroup
 import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
-import com.adevinta.spark.components.image.UserAvatar
-import com.adevinta.spark.components.image.UserAvatarStyle
+import com.adevinta.spark.components.image.Avatar
+import com.adevinta.spark.components.image.AvatarAddonItem
+import com.adevinta.spark.components.image.AvatarAddonScope
+import com.adevinta.spark.components.image.AvatarSize
+import com.adevinta.spark.components.image.Company
+import com.adevinta.spark.components.image.User
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.TextField
 import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 
-public val UserAvatarConfigurator: Configurator = Configurator(
-    id = "user-avatar",
-    name = "User Avatar",
-    description = "User Avatar configuration",
-    sourceUrl = "$SampleSourceUrl/UserAvatarSample.kt",
+public val AvatarConfigurator: Configurator = Configurator(
+    id = "avatar",
+    name = "Avatar",
+    description = "Avatar configuration",
+    sourceUrl = "$SampleSourceUrl/image/AvatarExamples.kt",
 ) { _, _ ->
-    UserAvatarSample()
+    AvatarSample()
 }
 
 @OptIn(ExperimentalCoilApi::class)
 @Composable
-private fun ColumnScope.UserAvatarSample() {
-    var style by remember { mutableStateOf(UserAvatarStyle.SM) }
-    var isPro by remember { mutableStateOf(false) }
+private fun ColumnScope.AvatarSample() {
+    var variant by remember { mutableStateOf(AvatarVariant.User) }
+    var style by remember { mutableStateOf(AvatarSize.SM) }
     var showOnlineIndicator by remember { mutableStateOf(false) }
-    var imageState by remember { mutableStateOf(UserAvatarImageState.Empty) }
-    var letter by remember { mutableStateOf("") }
+    var imageState by remember { mutableStateOf(AvatarImageState.Empty) }
+    var username by remember { mutableStateOf("Spark") }
 
     val context = LocalContext.current
     val drawable = getDrawable(context, R.drawable.img_narrow_image_configurator)!!
@@ -88,20 +92,26 @@ private fun ColumnScope.UserAvatarSample() {
 
     val previewHandler = AsyncImagePreviewHandler { _, request ->
         when (imageState) {
-            UserAvatarImageState.Success -> AsyncImagePainter.State.Success(
+            AvatarImageState.Success -> AsyncImagePainter.State.Success(
                 painter = painter,
                 result = SuccessResult(drawable.asImage(), request, DataSource.DISK),
             )
 
-            UserAvatarImageState.Loading -> AsyncImagePainter.State.Loading(painter)
+            AvatarImageState.Loading -> AsyncImagePainter.State.Loading(painter)
 
-            UserAvatarImageState.Error -> AsyncImagePainter.State.Error(
+            AvatarImageState.Error -> AsyncImagePainter.State.Error(
                 painter = painter,
                 result = ErrorResult(drawable.asImage(), request, Throwable("")),
             )
 
-            UserAvatarImageState.Empty -> AsyncImagePainter.State.Empty
+            AvatarImageState.Empty -> AsyncImagePainter.State.Empty
         }
+    }
+
+    val addon: @Composable AvatarAddonScope.(AvatarAddonItem) -> Unit = if (showOnlineIndicator) {
+        { onlineIndicator() }
+    } else {
+        {}
     }
 
     CompositionLocalProvider(
@@ -109,19 +119,30 @@ private fun ColumnScope.UserAvatarSample() {
         LocalAsyncImageModelEqualityDelegate provides AsyncImageModelEqualityDelegate.AllProperties,
         LocalInspectionMode provides true,
     ) {
-        UserAvatar(
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            style = style,
-            model = imageRequest,
-            isPro = isPro,
-            letter = letter.firstOrNull(),
-            addon = if (showOnlineIndicator) {
-                { onlineIndicator() }
-            } else {
-                {}
-            },
-        )
+        val avatarModifier = Modifier.align(Alignment.CenterHorizontally)
+        when (variant) {
+            AvatarVariant.User -> Avatar.User(
+                username = username,
+                modifier = avatarModifier,
+                style = style,
+                model = imageRequest,
+                addon = addon,
+            )
+
+            AvatarVariant.Company -> Avatar.Company(
+                modifier = avatarModifier,
+                style = style,
+                model = imageRequest,
+                addon = addon,
+            )
+        }
     }
+
+    ButtonGroup(
+        title = "Variant",
+        selectedOption = variant,
+        onOptionSelect = { variant = it },
+    )
 
     DropdownEnum(
         modifier = Modifier.fillMaxWidth(),
@@ -136,20 +157,15 @@ private fun ColumnScope.UserAvatarSample() {
         onOptionSelect = { imageState = it },
     )
 
-    TextField(
-        modifier = Modifier.fillMaxWidth(),
-        value = letter,
-        onValueChange = { letter = it.take(1) },
-        label = "Letter",
-        placeholder = "Enter a letter",
-        helper = "The letter shows in the Empty and Error image states only",
-    )
-
-    SwitchLabelled(
-        checked = isPro,
-        onCheckedChange = { isPro = it },
-    ) {
-        Text(text = "Pro", modifier = Modifier.fillMaxWidth())
+    if (variant == AvatarVariant.User) {
+        TextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = username,
+            onValueChange = { username = it },
+            label = "Username",
+            placeholder = "Enter a user name",
+            helper = "The first letter shows in the Empty and Error image states only",
+        )
     }
 
     SwitchLabelled(
@@ -160,7 +176,12 @@ private fun ColumnScope.UserAvatarSample() {
     }
 }
 
-private enum class UserAvatarImageState {
+private enum class AvatarVariant {
+    User,
+    Company,
+}
+
+private enum class AvatarImageState {
     Success,
     Loading,
     Error,
@@ -169,6 +190,6 @@ private enum class UserAvatarImageState {
 
 @Preview
 @Composable
-private fun UserAvatarSamplePreview() {
-    PreviewTheme { UserAvatarSample() }
+private fun AvatarSamplePreview() {
+    PreviewTheme { AvatarSample() }
 }

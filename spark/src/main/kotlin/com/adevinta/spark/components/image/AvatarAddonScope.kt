@@ -47,18 +47,20 @@ import com.adevinta.spark.tokens.ElevationTokens
 /**
  * Marker interface returned by every [AvatarAddonScope] addon function.
  *
- * The return type enforces that only recognised addon builders appear inside a [UserAvatar] addon
- * block. Callers must not implement this interface directly.
+ * The return type makes sure that only the addon functions of [AvatarAddonScope] go in the addon
+ * block of an avatar. Callers must not implement this interface directly.
  */
 public interface AvatarAddonItem
 
 /**
- * DSL scope for declaring an addon inside a [UserAvatar].
+ * DSL scope for declaring an addon inside an avatar.
  *
  * Methods on this scope are composable: they emit UI directly when called and return an
  * [AvatarAddonItem] marker that callers discard. This mirrors [SegmentedControlScope], with one
  * deviation: the avatar supports a single addon rather than a list, so only the last emitted node
- * is laid out at the 45-degree polar position.
+ * is laid out. [Avatar.User] centres the addon on the circle rim at the bottom right, so the addon
+ * can go outside the avatar bounds. [Avatar.Company] puts the addon inside the bottom-end corner,
+ * so the addon stays inside the avatar bounds.
  *
  * The outer layout node applies [androidx.compose.ui.graphics.CompositingStrategy.Offscreen] so
  * that [BlendMode.Clear] punches a transparent border ring correctly.
@@ -70,16 +72,20 @@ public interface AvatarAddonScope {
      * Emits the standard online presence indicator: a filled [SparkTheme.colors.success] circle
      * with a transparent border ring punched out via [BlendMode.Clear].
      *
-     * The indicator size derives from the enclosing [UserAvatarStyle].
+     * The indicator size derives from the enclosing [AvatarSize].
      */
     @Composable
     public fun onlineIndicator(): AvatarAddonItem
 
     /**
-     * Emits the standard online presence indicator: a filled [SparkTheme.colors.success] circle
-     * with a transparent border ring punched out via [BlendMode.Clear].
+     * Emits a 32dp circular button with an elevated surface and a 16dp [icon], for an action on
+     * the avatar such as an edit.
      *
-     * The indicator size derives from the enclosing [UserAvatarStyle].
+     * The button size does not change with the enclosing [AvatarSize].
+     *
+     * @param onClick called when the user clicks the button.
+     * @param modifier applied to the button.
+     * @param icon icon in the button; defaults to [LeboncoinIcons.Plus].
      */
     @Composable
     public fun iconButton(
@@ -97,20 +103,22 @@ public interface AvatarAddonScope {
     public fun custom(content: @Composable () -> Unit): AvatarAddonItem
 }
 
-// Internal so UserAvatar.kt (same module, different file) can pass it as the phantom parameter.
+// Internal so SparkAvatar (same module, different file) can pass it as the phantom parameter.
 internal object AvatarAddonItemImpl : AvatarAddonItem
 
 // Suppress ComposeContentEmitterReturningValues to mirror SegmentedControlScopeImpl: scope
 // methods emit UI and return the marker so the slot type enforces only recognised builders.
 @SuppressLint("ComposeContentEmitterReturningValues")
-internal class AvatarAddonScopeImpl(private val style: UserAvatarStyle) : AvatarAddonScope {
+internal class AvatarAddonScopeImpl(private val size: AvatarSize) : AvatarAddonScope {
 
+    @Suppress("ContentEmission")
     @Composable
     override fun onlineIndicator(): AvatarAddonItem {
-        OnlineIndicator(style)
+        OnlineIndicator(size)
         return AvatarAddonItemImpl
     }
 
+    @Suppress("ContentEmission")
     @Composable
     override fun iconButton(
         onClick: () -> Unit,
@@ -121,6 +129,7 @@ internal class AvatarAddonScopeImpl(private val style: UserAvatarStyle) : Avatar
         return AvatarAddonItemImpl
     }
 
+    @Suppress("ContentEmission")
     @Composable
     override fun custom(content: @Composable () -> Unit): AvatarAddonItem {
         content()
@@ -129,7 +138,7 @@ internal class AvatarAddonScopeImpl(private val style: UserAvatarStyle) : Avatar
 }
 
 @Composable
-private fun OnlineIndicator(style: UserAvatarStyle) {
+private fun OnlineIndicator(style: AvatarSize) {
     val indicatorColor = SparkTheme.colors.success
     val outline = SparkTheme.colors.surface
     Canvas(modifier = Modifier.size(style.badgeSize)) {
@@ -177,10 +186,14 @@ private fun IconButton(
 @Composable
 private fun PreviewAddons() {
     PreviewTheme(color = { SparkTheme.colors.backgroundVariant }) {
-        OnlineIndicator(UserAvatarStyle.SM)
-        OnlineIndicator(UserAvatarStyle.MD)
-        OnlineIndicator(UserAvatarStyle.XL)
-        IconButton({})
-        IconButton({}, icon = LeboncoinIcons.PenOutline)
+        Avatar.User(username = "Spark", style = AvatarSize.SM, addon = { onlineIndicator() })
+        Avatar.User(username = "Spark", style = AvatarSize.MD, addon = { onlineIndicator() })
+        Avatar.User(username = "Spark", style = AvatarSize.XL, addon = { onlineIndicator() })
+        Avatar.User(username = "Spark", style = AvatarSize.XL, addon = { iconButton({}) })
+        Avatar.User(
+            username = "Spark",
+            style = AvatarSize.XL,
+            addon = { iconButton({}, icon = LeboncoinIcons.PenOutline) },
+        )
     }
 }
