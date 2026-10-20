@@ -17,7 +17,7 @@ runs:
       with:
         ref: ${{ inputs.ref }}
         token: ${{ inputs.github-token }}
-    - if: ${{ inputs.pr-number }} != ''
+    - if: ${{ inputs.pr-number }}
       run: gh pr checkout "${INPUT_PR_NUMBER}"
       shell: bash
       env:
