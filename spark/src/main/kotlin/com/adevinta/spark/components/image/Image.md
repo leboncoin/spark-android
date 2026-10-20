@@ -149,13 +149,13 @@ internally and falls back to a placeholder when no image loads.
 Avatar.User(
     username = user.name,
     model = user.avatarUrl,
-    style = AvatarSize.MD,
+    size = AvatarSize.MD,
     addon = { onlineIndicator() },
 )
 
 Avatar.Company(
     model = company.logoUrl,
-    style = AvatarSize.MD,
+    size = AvatarSize.MD,
 )
 ```
 
@@ -165,9 +165,9 @@ Avatar.Company(
 
 ![](../../images/com.adevinta.spark.image_AvatarDocumentationScreenshots_sizes.png)
 
-| Size | Image size | Badge size | Stroke |
+| Size | Image size | Online dot size | Stroke |
 |---|---|---|---|
-| `AvatarSize.XS` | 24dp | 2dp | 1dp |
+| `AvatarSize.XS` | 24dp | none | 1dp |
 | `AvatarSize.SM` | 32dp | 8dp | 1dp |
 | `AvatarSize.MD` | 40dp | 8dp | 1dp |
 | `AvatarSize.LG` | 56dp | 16dp | 2dp |
@@ -181,7 +181,7 @@ Avatar.Company(
 of `username`, in upper case. A blank `username` shows an empty neutral circle; it has no icon
 placeholder.
 
-`Avatar.Company` is always a rounded square. When no image loads, it shows a building icon on a
+`Avatar.Company` is always a rounded square. It uses `SparkTheme.shapes.extraSmall` at `XS`, `SM`, and `MD`, and `SparkTheme.shapes.small` at `LG` and above. When no image loads, it shows a building icon on a
 neutral container. The left avatar is `Avatar.User`, the right avatar is `Avatar.Company`.
 
 ![](../../images/com.adevinta.spark.image_AvatarDocumentationScreenshots_variants.png)
@@ -195,7 +195,7 @@ The left avatar has a blank `username`; the right avatar has a `username` of "Sp
 ### Addon
 
 Pass `addon` to show an element on the avatar. Call `AvatarAddonScope.onlineIndicator()` for the
-standard presence dot, `AvatarAddonScope.iconButton(...)` for an action button, or
+standard presence dot (it draws nothing at `AvatarSize.XS`), `AvatarAddonScope.iconButton(...)` for an action button, or
 `AvatarAddonScope.custom { ... }` for other content. The default icon of `iconButton` is
 `LeboncoinIcons.Plus`, so the call below shows an add button.
 
@@ -203,14 +203,14 @@ standard presence dot, `AvatarAddonScope.iconButton(...)` for an action button, 
 Avatar.User(
     username = user.name,
     model = user.avatarUrl,
-    style = AvatarSize.XL,
+    size = AvatarSize.XL,
     addon = { iconButton(onClick = onAddPhoto) },
 )
 ```
 
 The addon position depends on the variant. `Avatar.User` centres the addon on the circle rim,
-where it can overflow the avatar bounds. `Avatar.Company` places the addon inside the bottom-end
-corner, where it always stays inside the avatar bounds. The left avatar in each image is
+where it can overflow the avatar bounds. `Avatar.Company` places the addon at the bottom-end
+corner, with 25% of the addon outside the avatar bounds. The left avatar in each image is
 `Avatar.User`, the right avatar is `Avatar.Company`.
 
 ![](../../images/com.adevinta.spark.image_AvatarDocumentationScreenshots_onlineIndicator.png)

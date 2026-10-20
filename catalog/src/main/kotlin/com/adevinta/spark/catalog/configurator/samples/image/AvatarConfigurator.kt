@@ -124,14 +124,14 @@ private fun ColumnScope.AvatarSample() {
             AvatarVariant.User -> Avatar.User(
                 username = username,
                 modifier = avatarModifier,
-                style = style,
+                size = style,
                 model = imageRequest,
                 addon = addon,
             )
 
             AvatarVariant.Company -> Avatar.Company(
                 modifier = avatarModifier,
-                style = style,
+                size = style,
                 model = imageRequest,
                 addon = addon,
             )

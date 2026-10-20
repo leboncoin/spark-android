@@ -12,7 +12,7 @@ Migration guides for breaking changes, newest first. For a full list of changes 
 
 `Avatar.User` and `Avatar.Company` have no `isPro` parameter. Choose `Avatar.User` for a person or `Avatar.Company` for a company instead. The deprecated `UserAvatar` keeps `isPro` until a later major release removes it.
 
-`Avatar.Company` is a rounded square, not a circle. It uses `SparkTheme.shapes.small`, and its placeholder is the `LeboncoinIcons.BuildingSquare` icon. A loaded logo is clipped to the same rounded square. `Avatar.Company` has no `color` parameter. The placeholder uses the neutral colours.
+`Avatar.Company` is a rounded square, not a circle. It uses `SparkTheme.shapes.extraSmall` at `XS`, `SM`, and `MD`, and `SparkTheme.shapes.small` at `LG` and above. Its placeholder is the `LeboncoinIcons.BuildingSquare` icon. A loaded logo is clipped to the same rounded square. `Avatar.Company` has no `color` parameter. The placeholder uses the neutral colours.
 
 **Before:**
 
@@ -36,7 +36,7 @@ import com.adevinta.spark.components.image.Company
 
 Avatar.Company(
     model = account.logoUrl,
-    style = AvatarSize.MD,
+    size = AvatarSize.MD,
 )
 ```
 
@@ -71,13 +71,15 @@ import com.adevinta.spark.components.image.User
 Avatar.User(
     username = user.name, // "Spark" shows "S"
     model = user.avatarUrl,
-    style = AvatarSize.MD,
+    size = AvatarSize.MD,
 )
 ```
 
 #### Online indicator moves to the `addon` slot
 
 `Avatar.User` and `Avatar.Company` have no `isOnline` parameter. Pass `addon = { onlineIndicator() }` instead. The deprecated `UserAvatar` keeps `isOnline` and has no `addon` parameter, until a later major release removes it.
+
+`Avatar.User` centres the addon on the circle rim. `Avatar.Company` puts the addon at the bottom-end corner, with 25% of the addon outside the avatar (at the bottom-start corner in a right-to-left layout). At `AvatarSize.XS`, `onlineIndicator()` draws nothing.
 
 **Before:**
 
@@ -102,14 +104,14 @@ import com.adevinta.spark.components.image.User
 Avatar.User(
     username = user.name,
     model = user.avatarUrl,
-    style = AvatarSize.MD,
+    size = AvatarSize.MD,
     addon = { if (user.isOnline) onlineIndicator() },
 )
 ```
 
 #### `UserAvatarStyle` replaced by `AvatarSize`
 
-`UserAvatarStyle` is removed. `AvatarSize` has seven values instead of three. The deprecated `UserAvatar` also takes an `AvatarSize` for its `style` parameter, so replace the removed values there too.
+`UserAvatarStyle` is removed. `AvatarSize` has seven values instead of three. `Avatar.User` and `Avatar.Company` take an `AvatarSize` in a `size` parameter. The deprecated `UserAvatar` takes an `AvatarSize` in its `style` parameter, so replace the removed values there too.
 
 | Removed | Use instead |
 |---|---|
@@ -139,7 +141,7 @@ import com.adevinta.spark.components.image.User
 Avatar.User(
     username = user.name,
     model = user.avatarUrl,
-    style = AvatarSize.XL,
+    size = AvatarSize.XL,
 )
 ```
 

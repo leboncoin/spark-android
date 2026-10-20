@@ -45,7 +45,7 @@ internal fun SparkUserAvatar(
     modifier: Modifier = Modifier,
     // Useful to preview different states
     transform: (AsyncImagePainter.State) -> AsyncImagePainter.State = AsyncImagePainter.DefaultTransform,
-    style: AvatarSize = AvatarSize.SM,
+    size: AvatarSize = AvatarSize.SM,
     contentScale: ContentScale = ContentScale.Fit,
     fillParentSize: Boolean = false,
     model: Any? = null,
@@ -56,7 +56,7 @@ internal fun SparkUserAvatar(
 ) {
     val emptyIcon = @Composable {
         if (letter != null) {
-            AvatarLetterState(letter = letter, style = style)
+            AvatarLetterState(letter = letter, size = size)
         } else {
             Box(
                 modifier = Modifier
@@ -78,7 +78,7 @@ internal fun SparkUserAvatar(
         placeholder = emptyIcon,
         modifier = modifier,
         transform = transform,
-        size = style,
+        size = size,
         contentScale = contentScale,
         fillParentSize = fillParentSize,
         model = model,
@@ -131,7 +131,7 @@ public fun UserAvatar(
 ) {
     SparkUserAvatar(
         modifier = modifier,
-        style = style,
+        size = style,
         contentScale = contentScale,
         fillParentSize = fillParentSize,
         model = model,
@@ -152,56 +152,56 @@ public fun UserAvatar(
 internal fun UserAvatarPreview() {
     PreviewTheme {
         SparkUserAvatar(
-            style = AvatarSize.XL,
+            size = AvatarSize.XL,
             model = "",
             isPro = false,
             addon = { onlineIndicator() },
             transform = { AsyncImagePainter.State.Empty },
         )
         SparkUserAvatar(
-            style = AvatarSize.MD,
+            size = AvatarSize.MD,
             model = "",
             isPro = false,
             addon = { onlineIndicator() },
             transform = { AsyncImagePainter.State.Empty },
         )
         SparkUserAvatar(
-            style = AvatarSize.SM,
+            size = AvatarSize.SM,
             model = "",
             isPro = false,
             addon = { onlineIndicator() },
             transform = { AsyncImagePainter.State.Empty },
         )
         SparkUserAvatar(
-            style = AvatarSize.XL,
+            size = AvatarSize.XL,
             model = "",
             isPro = true,
             addon = { onlineIndicator() },
             transform = { AsyncImagePainter.State.Empty },
         )
         SparkUserAvatar(
-            style = AvatarSize.XL,
+            size = AvatarSize.XL,
             model = "",
             isPro = true,
             addon = { iconButton({}) },
             transform = { AsyncImagePainter.State.Empty },
         )
         SparkUserAvatar(
-            style = AvatarSize.XL,
+            size = AvatarSize.XL,
             model = "",
             isPro = true,
             addon = { iconButton({}, icon = LeboncoinIcons.PenOutline) },
             transform = { AsyncImagePainter.State.Empty },
         )
         SparkUserAvatar(
-            style = AvatarSize.MD,
+            size = AvatarSize.MD,
             model = "",
             isPro = true,
             addon = { onlineIndicator() },
             transform = { AsyncImagePainter.State.Empty },
         )
         SparkUserAvatar(
-            style = AvatarSize.SM,
+            size = AvatarSize.SM,
             model = "",
             isPro = true,
             addon = { onlineIndicator() },
@@ -209,7 +209,7 @@ internal fun UserAvatarPreview() {
         )
         AvatarSize.entries.forEach { style ->
             SparkUserAvatar(
-                style = style,
+                size = style,
                 model = "",
                 letter = 'S',
                 addon = { onlineIndicator() },

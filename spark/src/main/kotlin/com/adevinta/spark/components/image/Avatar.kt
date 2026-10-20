@@ -56,15 +56,16 @@ public object Avatar
 /**
  * The size of an avatar, from [XS] (24dp) to [XXXL] (128dp).
  *
- * Each size sets the avatar diameter and the matching online badge and stroke sizes.
+ * Each size sets the avatar diameter and the matching online badge and stroke sizes. [XS] has no
+ * online badge.
  *
  * @param imageSize size of the image in [Dp]
- * @param badgeSize size of online badge in [Dp]
+ * @param badgeSize size of online badge in [Dp]; zero at [XS]
  * @param borderSize The indicator border size in [Dp]. Must be set explicitly because the border mechanism differs
  * from the Figma spec.
  */
 public enum class AvatarSize(public val imageSize: Dp, public val badgeSize: Dp, public val borderSize: Dp) {
-    XS(imageSize = 24.dp, badgeSize = 2.dp, borderSize = 1.dp),
+    XS(imageSize = 24.dp, badgeSize = 0.dp, borderSize = 1.dp),
     SM(imageSize = 32.dp, badgeSize = 8.dp, borderSize = 1.dp),
     MD(imageSize = 40.dp, badgeSize = 8.dp, borderSize = 1.dp),
     LG(imageSize = 56.dp, badgeSize = 16.dp, borderSize = 2.dp),
@@ -80,7 +81,7 @@ internal enum class AvatarAddonPlacement {
     /** Centred on the circle rim at 45 degrees (bottom-right). The addon can overflow the avatar bounds. */
     Rim,
 
-    /** Inside the avatar bounds, aligned to the bottom-end corner. The addon never overflows. */
+    /** Aligned to the bottom-end corner, with 25% of the addon outside the avatar bounds. */
     BottomEnd,
 }
 
@@ -155,8 +156,8 @@ internal fun SparkAvatar(
                 }
 
                 AvatarAddonPlacement.BottomEnd -> addonPlaceable.placeRelative(
-                    x = avatarWidth - addonWidth,
-                    y = avatarHeight - addonHeight,
+                    x = avatarWidth - (addonWidth * 0.75f).roundToInt(),
+                    y = avatarHeight - (addonHeight * 0.75f).roundToInt(),
                 )
             }
         }

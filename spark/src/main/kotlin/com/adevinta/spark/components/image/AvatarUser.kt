@@ -50,7 +50,7 @@ internal fun SparkAvatarUser(
     modifier: Modifier = Modifier,
     // Useful to preview different states
     transform: (AsyncImagePainter.State) -> AsyncImagePainter.State = AsyncImagePainter.DefaultTransform,
-    style: AvatarSize = AvatarSize.SM,
+    size: AvatarSize = AvatarSize.SM,
     contentScale: ContentScale = ContentScale.Fit,
     fillParentSize: Boolean = false,
     model: Any? = null,
@@ -62,7 +62,7 @@ internal fun SparkAvatarUser(
         addonPlacement = AvatarAddonPlacement.Rim,
         placeholder = {
             if (letter != null) {
-                AvatarLetterState(letter = letter, style = style)
+                AvatarLetterState(letter = letter, size = size)
             } else {
                 Surface(
                     color = SparkTheme.colors.neutral,
@@ -73,7 +73,7 @@ internal fun SparkAvatarUser(
         },
         modifier = modifier,
         transform = transform,
-        size = style,
+        size = size,
         contentScale = contentScale,
         fillParentSize = fillParentSize,
         model = model,
@@ -94,10 +94,10 @@ internal fun SparkAvatarUser(
  * @param username name of the user. The placeholder shows its first non-whitespace character in upper
  * case. A blank value shows the neutral circle with no letter.
  * @param modifier applied to the avatar
- * @param style avatar diameter, from [AvatarSize.XS] (24dp) to [AvatarSize.XXXL] (128dp), and the
- * matching online badge size. The default is [AvatarSize.SM] (32dp).
+ * @param size avatar diameter, from [AvatarSize.XS] (24dp) to [AvatarSize.XXXL] (128dp), and the
+ * matching online badge size (no badge at [AvatarSize.XS]). The default is [AvatarSize.SM] (32dp).
  * @param contentScale how the loaded image fits the avatar bounds. The default is [ContentScale.Fit].
- * @param fillParentSize when true, the avatar ignores [style] and fills the parent. Use it when a
+ * @param fillParentSize when true, the avatar ignores [size] and fills the parent. Use it when a
  * fixed-size slot already sets the avatar size.
  * @param model image to load, for example the URL of the user photo. Null shows the letter placeholder.
  * @param addon optional slot on the circle rim at the bottom right. The addon stays at the bottom right
@@ -110,7 +110,7 @@ internal fun SparkAvatarUser(
 public fun Avatar.User(
     username: String,
     modifier: Modifier = Modifier,
-    style: AvatarSize = AvatarSize.SM,
+    size: AvatarSize = AvatarSize.SM,
     contentScale: ContentScale = ContentScale.Fit,
     fillParentSize: Boolean = false,
     model: Any? = null,
@@ -119,7 +119,7 @@ public fun Avatar.User(
     SparkAvatarUser(
         username = username,
         modifier = modifier,
-        style = style,
+        size = size,
         contentScale = contentScale,
         fillParentSize = fillParentSize,
         model = model,
@@ -130,7 +130,7 @@ public fun Avatar.User(
 private fun usernameInitial(username: String): Char? = username.firstOrNull { !it.isWhitespace() }?.uppercaseChar()
 
 @Composable
-internal fun AvatarLetterState(letter: Char, style: AvatarSize) {
+internal fun AvatarLetterState(letter: Char, size: AvatarSize) {
     val density = LocalDensity.current
     Surface(
         color = SparkTheme.colors.neutral,
@@ -142,7 +142,7 @@ internal fun AvatarLetterState(letter: Char, style: AvatarSize) {
             CompositionLocalProvider(LocalDensity provides Density(density.density, fontScale = 1f)) {
                 Text(
                     text = letter.toString(),
-                    style = style.letterTextStyle,
+                    style = size.letterTextStyle,
                     color = SparkTheme.colors.onNeutral,
                     maxLines = 1,
                     textAlign = TextAlign.Center,
@@ -175,7 +175,7 @@ private fun AvatarUserPreview() {
         AvatarSize.entries.forEach { size ->
             SparkAvatarUser(
                 username = "spark",
-                style = size,
+                size = size,
                 model = "",
                 transform = { AsyncImagePainter.State.Empty },
                 addon = { onlineIndicator() },
@@ -183,7 +183,7 @@ private fun AvatarUserPreview() {
         }
         SparkAvatarUser(
             username = "",
-            style = AvatarSize.XL,
+            size = AvatarSize.XL,
             model = "",
             transform = { AsyncImagePainter.State.Empty },
         )
