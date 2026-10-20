@@ -194,9 +194,19 @@ The left avatar has a blank `username`; the right avatar has a `username` of "Sp
 
 ### Addon
 
-Pass `addon` to show a badge on the avatar. Call `AvatarAddonScope.onlineIndicator()` for the
+Pass `addon` to show an element on the avatar. Call `AvatarAddonScope.onlineIndicator()` for the
 standard presence dot, `AvatarAddonScope.iconButton(...)` for an action button, or
-`AvatarAddonScope.custom { ... }` for other content.
+`AvatarAddonScope.custom { ... }` for other content. The default icon of `iconButton` is
+`LeboncoinIcons.Plus`, so the call below shows an add button.
+
+```kotlin
+Avatar.User(
+    username = user.name,
+    model = user.avatarUrl,
+    style = AvatarSize.XL,
+    addon = { iconButton(onClick = onAddPhoto) },
+)
+```
 
 The addon position depends on the variant. `Avatar.User` centres the addon on the circle rim,
 where it can overflow the avatar bounds. `Avatar.Company` places the addon inside the bottom-end
@@ -205,4 +215,4 @@ corner, where it always stays inside the avatar bounds. The left avatar in each 
 
 ![](../../images/com.adevinta.spark.image_AvatarDocumentationScreenshots_onlineIndicator.png)
 
-![](../../images/com.adevinta.spark.image_AvatarDocumentationScreenshots_addonBadge.png)
+![](../../images/com.adevinta.spark.image_AvatarDocumentationScreenshots_addonButton.png)

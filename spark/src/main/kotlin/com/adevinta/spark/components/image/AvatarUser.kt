@@ -101,8 +101,9 @@ internal fun SparkAvatarUser(
  * fixed-size slot already sets the avatar size.
  * @param model image to load, for example the URL of the user photo. Null shows the letter placeholder.
  * @param addon optional slot on the circle rim at the bottom right. The addon stays at the bottom right
- * in a right-to-left layout. Call [AvatarAddonScope.onlineIndicator] for the standard presence dot, or
- * [AvatarAddonScope.custom] for other content. The default is empty.
+ * in a right-to-left layout. Call [AvatarAddonScope.onlineIndicator] for the standard presence dot,
+ * [AvatarAddonScope.iconButton] for an action button, or [AvatarAddonScope.custom] for other content.
+ * The default is empty.
  */
 @Suppress("UnusedReceiverParameter")
 @Composable

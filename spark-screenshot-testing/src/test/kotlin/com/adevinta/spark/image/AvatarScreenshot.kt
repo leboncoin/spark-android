@@ -21,14 +21,10 @@
  */
 package com.adevinta.spark.image
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -63,13 +59,7 @@ internal class AvatarScreenshot {
     @Test
     fun avatarAddonPlacement() {
         val overflowingAddon: @Composable AvatarAddonScope.(AvatarAddonItem) -> Unit = {
-            custom {
-                Box(
-                    Modifier
-                        .size(20.dp)
-                        .background(SparkTheme.colors.error, CircleShape),
-                )
-            }
+            iconButton(onClick = {})
         }
         paparazzi.sparkSnapshot {
             Column(
