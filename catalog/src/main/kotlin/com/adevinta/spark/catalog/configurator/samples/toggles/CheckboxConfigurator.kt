@@ -104,11 +104,11 @@ private fun CheckboxSamplePreview() {
 
 @Composable
 private fun ConfigedCheckbox(
-    modifier: Modifier = Modifier,
     label: String?,
     onClick: () -> Unit,
     state: ToggleableState,
     isEnabled: Boolean,
+    modifier: Modifier = Modifier,
 ) {
     if (label.isNullOrBlank().not()) {
         CheckboxLabelled(

@@ -179,7 +179,7 @@ public fun IconsScreen(
         val state = rememberLazyGridState()
         TrackScrollJank(scrollableState = state, stateName = "icons:grid")
         LazyVerticalGrid(
-            modifier = modifier
+            modifier = Modifier
                 .consumeWindowInsets(contentPadding)
                 .fillMaxSize()
                 .padding(horizontal = 16.dp),

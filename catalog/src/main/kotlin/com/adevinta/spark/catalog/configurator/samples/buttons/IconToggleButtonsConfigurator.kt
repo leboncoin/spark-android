@@ -137,15 +137,15 @@ private fun IconToggleButtonSamplePreview() {
 
 @Composable
 private fun ConfiguredIconToggleButton(
-    modifier: Modifier = Modifier,
     style: IconToggleButtonStyle,
     contentDescription: String?,
-    onCheckedChange: (Boolean) -> Unit = {},
     size: IconButtonSize,
     intent: IconButtonIntent,
     isChecked: Boolean,
     isEnabled: Boolean,
     icons: IconToggleButtonIcons,
+    modifier: Modifier = Modifier,
+    onCheckedChange: (Boolean) -> Unit = {},
 ) {
     val containerColor by animateColorAsState(
         targetValue = if (intent != IconButtonIntent.Surface) {

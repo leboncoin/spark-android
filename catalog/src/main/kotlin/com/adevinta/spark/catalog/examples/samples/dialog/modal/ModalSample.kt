@@ -88,12 +88,12 @@ internal fun ModalSample(
                 contentPadding = paddingValues,
                 inEdgeToEdge = true,
                 mainButton = if (withButtons) {
-                    { MainButton(it, coroutineScope, snackbarHostState) }
+                    { MainButton(coroutineScope, snackbarHostState, it) }
                 } else {
                     null
                 },
                 supportButton = if (withButtons) {
-                    { SupportButton(it, focusRequester, controller) }
+                    { SupportButton(focusRequester, controller, it) }
                 } else {
                     null
                 },
@@ -136,9 +136,9 @@ internal fun ModalSample(
 
 @Composable
 private fun SupportButton(
-    modifier: Modifier,
     focusRequester: FocusRequester,
     controller: SoftwareKeyboardController?,
+    modifier: Modifier = Modifier,
 ) {
     Button.Tertiary(
         onClick = {
@@ -152,9 +152,9 @@ private fun SupportButton(
 
 @Composable
 private fun MainButton(
-    modifier: Modifier,
     coroutineScope: CoroutineScope,
     snackbarHostState: SnackbarHostState,
+    modifier: Modifier = Modifier,
 ) {
     Button.Primary(
         onClick = {

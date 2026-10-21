@@ -47,7 +47,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -62,7 +61,7 @@ import com.adevinta.spark.catalog.ui.animations.LocalAnimatedVisibilityScope
 import com.adevinta.spark.catalog.ui.animations.LocalSharedTransitionScope
 import com.adevinta.spark.catalog.util.IssueUrl
 import com.adevinta.spark.catalog.util.TrackScrollJank
-import com.adevinta.spark.catalog.util.openUrl
+import com.adevinta.spark.catalog.util.rememberUrlOpener
 import com.adevinta.spark.components.divider.HorizontalDivider
 import com.adevinta.spark.components.iconbuttons.IconButtonGhost
 import com.adevinta.spark.components.icons.Icon
@@ -126,6 +125,7 @@ public fun ConfiguratorComponentScreen(
                         component = component,
                         expanded = expanded,
                         onDismissRequest = { expanded = false },
+                        snackbarHostState = snackbarHostState,
                     )
                 }
 
@@ -142,8 +142,9 @@ private fun ConfiguratorComponentMenu(
     component: Component,
     expanded: Boolean,
     onDismissRequest: () -> Unit,
+    snackbarHostState: SnackbarHostState,
 ) {
-    val context = LocalContext.current
+    val openUrl = rememberUrlOpener(snackbarHostState)
 
     DropdownMenu(
         expanded = expanded,
@@ -151,7 +152,7 @@ private fun ConfiguratorComponentMenu(
     ) {
         DropdownMenuItem(
             text = { Text(stringResource(R.string.component_menu_guidlines)) },
-            onClick = { context.openUrl(component.guidelinesUrl) },
+            onClick = { openUrl(component.guidelinesUrl) },
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Rounded.Palette,
@@ -161,7 +162,7 @@ private fun ConfiguratorComponentMenu(
         )
         DropdownMenuItem(
             text = { Text(stringResource(R.string.component_menu_dev_docs)) },
-            onClick = { context.openUrl(component.docsUrl) },
+            onClick = { openUrl(component.docsUrl) },
             leadingIcon = {
                 Icon(
                     sparkIcon = LeboncoinIcons.Computer,
@@ -171,7 +172,7 @@ private fun ConfiguratorComponentMenu(
         )
         DropdownMenuItem(
             text = { Text(stringResource(R.string.component_menu_source)) },
-            onClick = { context.openUrl(component.sourceUrl) },
+            onClick = { openUrl(component.sourceUrl) },
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Rounded.Code,
@@ -182,7 +183,7 @@ private fun ConfiguratorComponentMenu(
         HorizontalDivider()
         DropdownMenuItem(
             text = { Text(stringResource(R.string.component_menu_issue)) },
-            onClick = { context.openUrl(IssueUrl) },
+            onClick = { openUrl(IssueUrl) },
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Rounded.BugReport,
@@ -204,6 +205,8 @@ private fun ConfiguratorComponentMenuPreview() {
         ConfiguratorComponentMenu(
             component = Components.first(),
             expanded = true,
-        ) {}
+            onDismissRequest = {},
+            snackbarHostState = remember { SnackbarHostState() },
+        )
     }
 }

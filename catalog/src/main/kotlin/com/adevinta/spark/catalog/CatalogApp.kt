@@ -78,21 +78,20 @@ import com.adevinta.spark.catalog.icons.IconDemoScreen
 import com.adevinta.spark.catalog.model.Component
 import com.adevinta.spark.catalog.tabbar.CatalogTabBar
 import com.adevinta.spark.catalog.tabbar.CatalogTabs
-import com.adevinta.spark.catalog.themes.ColorMode
 import com.adevinta.spark.catalog.themes.FontScaleMode.System
 import com.adevinta.spark.catalog.themes.TextDirection
 import com.adevinta.spark.catalog.themes.Theme
-import com.adevinta.spark.catalog.themes.ThemeMode
 import com.adevinta.spark.catalog.themes.ThemePicker
+import com.adevinta.spark.catalog.themes.resolveSparkColors
 import com.adevinta.spark.catalog.themes.themeprovider.ThemeProvider
 import com.adevinta.spark.catalog.themes.themeprovider.leboncoin.LeboncoinTheme
+import com.adevinta.spark.catalog.themes.useDarkTheme
 import com.adevinta.spark.catalog.ui.BackdropScaffold
 import com.adevinta.spark.catalog.ui.BackdropScaffoldDefaults
 import com.adevinta.spark.catalog.ui.BackdropValue
 import com.adevinta.spark.catalog.ui.rememberBackdropScaffoldState
 import com.adevinta.spark.catalog.ui.shaders.colorblindness.ColorBlindNessType
 import com.adevinta.spark.catalog.ui.shaders.colorblindness.shader
-import com.adevinta.spark.tokens.asSparkColors
 import com.adevinta.spark.tokens.contrastLevel
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
@@ -106,23 +105,28 @@ internal fun ComponentActivity.CatalogApp(
 ) {
     val themeProvider: ThemeProvider = LeboncoinTheme
 
-    val useDark = (theme.themeMode == ThemeMode.System && isSystemInDarkTheme()) || theme.themeMode == ThemeMode.Dark
-    val contrastLevel = contrastLevel(LocalContext.current)
+    val context = LocalContext.current
+    val isSystemDark = isSystemInDarkTheme()
+    val useDark = useDarkTheme(theme.themeMode, isSystemDark)
+    val contrastLevel = contrastLevel(context)
+    val baselineColors = themeProvider.colors(
+        useDarkColors = useDark,
+        brandMode = theme.brandMode,
+        versionMode = theme.versionMode,
+        contrastLevel = contrastLevel,
+    )
 
-    val colors = if (theme.colorMode == ColorMode.Dynamic && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-        if (useDark) {
-            dynamicDarkColorScheme(LocalContext.current)
+    val colors = resolveSparkColors(
+        themeMode = theme.themeMode,
+        colorMode = theme.colorMode,
+        isSystemDark = isSystemDark,
+        dynamicColorScheme = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            { dark -> if (dark) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context) }
         } else {
-            dynamicLightColorScheme(LocalContext.current)
-        }.asSparkColors(useDark = true)
-    } else {
-        themeProvider.colors(
-            useDarkColors = useDark,
-            brandMode = theme.brandMode,
-            versionMode = theme.versionMode,
-            contrastLevel = contrastLevel,
-        )
-    }
+            null
+        },
+        baselineColors = baselineColors,
+    )
 
     val shapes = themeProvider.shapes()
     val typography = themeProvider.typography()

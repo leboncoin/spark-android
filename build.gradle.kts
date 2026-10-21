@@ -27,6 +27,7 @@ plugins {
     alias(libs.plugins.android.kotlin.multiplatform.library) apply false
     alias(libs.plugins.android.test) apply false
     alias(libs.plugins.kotlin.jvm) apply false
+    alias(libs.plugins.metro) apply false
     alias(libs.plugins.paparazzi) apply false
     alias(libs.plugins.dokka) apply false
     alias(libs.plugins.dependencyGuard) apply false

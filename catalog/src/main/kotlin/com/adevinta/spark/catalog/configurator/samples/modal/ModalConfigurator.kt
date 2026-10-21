@@ -123,12 +123,12 @@ internal fun ColumnScope.ModalSample() {
             onClose = { showDialog = false },
             contentPadding = if (withPadding) ModalDefault.DialogPadding else PaddingValues(0.dp),
             mainButton = if (mainButtonText.isNotBlank()) {
-                { MainButton(mainButtonText, it, coroutineScope, snackbarHostState) }
+                { MainButton(mainButtonText, coroutineScope, snackbarHostState, it) }
             } else {
                 null
             },
             supportButton = if (supportButtonText.isNotBlank()) {
-                { SupportButton(supportButtonText, it, focusRequester, controller) }
+                { SupportButton(supportButtonText, focusRequester, controller, it) }
             } else {
                 null
             },
@@ -169,9 +169,9 @@ internal fun ColumnScope.ModalSample() {
 @Composable
 private fun SupportButton(
     supportButtonText: String,
-    modifier: Modifier,
     focusRequester: FocusRequester,
     controller: SoftwareKeyboardController?,
+    modifier: Modifier = Modifier,
 ) {
     Button.Tertiary(
         onClick = {
@@ -186,9 +186,9 @@ private fun SupportButton(
 @Composable
 private fun MainButton(
     mainButtonText: String,
-    modifier: Modifier,
     coroutineScope: CoroutineScope,
     snackbarHostState: SnackbarHostState,
+    modifier: Modifier = Modifier,
 ) {
     Button.Primary(
         onClick = {

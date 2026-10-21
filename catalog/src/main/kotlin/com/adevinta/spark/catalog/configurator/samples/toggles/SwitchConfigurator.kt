@@ -148,13 +148,13 @@ private fun SwitchSamplePreview() {
 
 @Composable
 private fun ConfiguredSwitch(
-    modifier: Modifier = Modifier,
     label: String?,
     onClick: (Boolean) -> Unit,
     checked: Boolean,
     icons: SwitchIcons?,
     isEnabled: Boolean,
     verticalAlignment: Alignment.Vertical,
+    modifier: Modifier = Modifier,
 ) {
     if (label.isNullOrBlank().not()) {
         SwitchLabelled(

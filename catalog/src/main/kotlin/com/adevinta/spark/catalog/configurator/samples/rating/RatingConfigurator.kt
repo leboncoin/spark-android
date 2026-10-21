@@ -123,9 +123,9 @@ private enum class RatingSize(val size: Dp) {
 
 @Composable
 private fun ConfiguredRating(
-    modifier: Modifier = Modifier,
     @FloatRange(from = 0.5, to = 5.0) value: Float,
     onRatingChanged: (Int) -> Unit,
+    modifier: Modifier = Modifier,
     size: Dp = RatingDefault.SmallStarSize,
     enabled: Boolean = true,
 ) {

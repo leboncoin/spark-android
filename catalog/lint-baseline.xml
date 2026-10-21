@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 9.4.0" type="baseline" client="gradle" dependencies="true" name="AGP (9.4.0)" variant="all" version="9.4.0">
+
+    <issue
+        id="ComposeModifierComposed"
+        message="Modifier.composed { ... } is no longer recommended due to performance issues.&#xA;&#xA;You should use the Modifier.Node API instead, as it was designed from the ground up to be far more performant than composed modifiers.&#xA;&#xA;See https://slackhq.github.io/compose-lints/rules/#migrate-to-modifiernode for more information."
+        errorLine1="): Modifier = composed {"
+        errorLine2="              ^">
+        <location
+            file="src/main/kotlin/com/adevinta/spark/catalog/util/GradientScrim.kt"
+            line="55"
+            column="15"/>
+    </issue>
+
+    <issue
+        id="ComposeCompositionLocalUsage"
+        message="`CompositionLocal`s are implicit dependencies and creating new ones should be avoided.&#xA;&#xA;See https://slackhq.github.io/compose-lints/rules/#compositionlocals for more information."
+        errorLine1="public val LocalSharedTransitionScope: ProvidableCompositionLocal&lt;SharedTransitionScope> ="
+        errorLine2="^">
+        <location
+            file="src/main/kotlin/com/adevinta/spark/catalog/ui/animations/SharedTransition.kt"
+            line="32"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="ComposeCompositionLocalUsage"
+        message="`CompositionLocal`s are implicit dependencies and creating new ones should be avoided.&#xA;&#xA;See https://slackhq.github.io/compose-lints/rules/#compositionlocals for more information."
+        errorLine1="public val LocalAnimatedVisibilityScope: ProvidableCompositionLocal&lt;AnimatedVisibilityScope> ="
+        errorLine2="^">
+        <location
+            file="src/main/kotlin/com/adevinta/spark/catalog/ui/animations/SharedTransition.kt"
+            line="34"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="ComposeModifierMissing"
+        message="This @Composable function emits content but doesn&apos;t have a modifier parameter.&#xA;&#xA;See https://slackhq.github.io/compose-lints/rules/#when-should-i-expose-modifier-parameters for more information."
+        errorLine1="public fun ColumnScope.ColorBlindSetting("
+        errorLine2="                       ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/adevinta/spark/catalog/ui/shaders/colorblindness/ColorBlindSettings.kt"
+            line="83"
+            column="24"/>
+    </issue>
+
+    <issue
+        id="ComposeModifierMissing"
+        message="This @Composable function emits content but doesn&apos;t have a modifier parameter.&#xA;&#xA;See https://slackhq.github.io/compose-lints/rules/#when-should-i-expose-modifier-parameters for more information."
+        errorLine1="public fun ConfiguratorComponentScreen("
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/adevinta/spark/catalog/configurator/component/Component.kt"
+            line="82"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="ComposeModifierMissing"
+        message="This @Composable function emits content but doesn&apos;t have a modifier parameter.&#xA;&#xA;See https://slackhq.github.io/compose-lints/rules/#when-should-i-expose-modifier-parameters for more information."
+        errorLine1="public fun Component("
+        errorLine2="           ~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/adevinta/spark/catalog/examples/component/Component.kt"
+            line="94"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="ComposeModifierMissing"
+        message="This @Composable function emits content but doesn&apos;t have a modifier parameter.&#xA;&#xA;See https://slackhq.github.io/compose-lints/rules/#when-should-i-expose-modifier-parameters for more information."
+        errorLine1="public fun ComponentConfiguratorItem("
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/adevinta/spark/catalog/examples/component/ComponentItem.kt"
+            line="83"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="ComposeModifierMissing"
+        message="This @Composable function emits content but doesn&apos;t have a modifier parameter.&#xA;&#xA;See https://slackhq.github.io/compose-lints/rules/#when-should-i-expose-modifier-parameters for more information."
+        errorLine1="public fun Example(example: Example) {"
+        errorLine2="           ~~~~~~~">
+        <location
+            file="src/main/kotlin/com/adevinta/spark/catalog/examples/example/Example.kt"
+            line="59"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="ComposeMultipleContentEmitters"
+        message="Composable functions should only be emitting content into the composition from one source at their top level.&#xA;&#xA;See https://slackhq.github.io/compose-lints/rules/#do-not-emit-multiple-pieces-of-content for more information."
+        errorLine1="@Composable"
+        errorLine2="^">
+        <location
+            file="src/main/kotlin/com/adevinta/spark/catalog/examples/samples/chips/ChipsExamples.kt"
+            line="330"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="ComposeMultipleContentEmitters"
+        message="Composable functions should only be emitting content into the composition from one source at their top level.&#xA;&#xA;See https://slackhq.github.io/compose-lints/rules/#do-not-emit-multiple-pieces-of-content for more information."
+        errorLine1="@Composable"
+        errorLine2="^">
+        <location
+            file="src/main/kotlin/com/adevinta/spark/catalog/examples/samples/chips/filter/FiltersExamples.kt"
+            line="70"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="ComposeMultipleContentEmitters"
+        message="Composable functions should only be emitting content into the composition from one source at their top level.&#xA;&#xA;See https://slackhq.github.io/compose-lints/rules/#do-not-emit-multiple-pieces-of-content for more information."
+        errorLine1="@Composable"
+        errorLine2="^">
+        <location
+            file="src/main/kotlin/com/adevinta/spark/catalog/examples/samples/chips/filter/FiltersExamples.kt"
+            line="110"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="ComposeMultipleContentEmitters"
+        message="Composable functions should only be emitting content into the composition from one source at their top level.&#xA;&#xA;See https://slackhq.github.io/compose-lints/rules/#do-not-emit-multiple-pieces-of-content for more information."
+        errorLine1="@Composable"
+        errorLine2="^">
+        <location
+            file="src/main/kotlin/com/adevinta/spark/catalog/examples/samples/chips/filter/FiltersExamples.kt"
+            line="178"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="ComposeMultipleContentEmitters"
+        message="Composable functions should only be emitting content into the composition from one source at their top level.&#xA;&#xA;See https://slackhq.github.io/compose-lints/rules/#do-not-emit-multiple-pieces-of-content for more information."
+        errorLine1="@Composable"
+        errorLine2="^">
+        <location
+            file="src/main/kotlin/com/adevinta/spark/catalog/configurator/samples/animation/ShakeConfigurator.kt"
+            line="206"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="ComposeMultipleContentEmitters"
+        message="Composable functions should only be emitting content into the composition from one source at their top level.&#xA;&#xA;See https://slackhq.github.io/compose-lints/rules/#do-not-emit-multiple-pieces-of-content for more information."
+        errorLine1="@Composable"
+        errorLine2="^">
+        <location
+            file="src/main/kotlin/com/adevinta/spark/catalog/configurator/samples/stepper/StepperConfigurator.kt"
+            line="375"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="ComposeMultipleContentEmitters"
+        message="Composable functions should only be emitting content into the composition from one source at their top level.&#xA;&#xA;See https://slackhq.github.io/compose-lints/rules/#do-not-emit-multiple-pieces-of-content for more information."
+        errorLine1="@Composable"
+        errorLine2="^">
+        <location
+            file="src/main/kotlin/com/adevinta/spark/catalog/examples/samples/toggles/SwitchExamples.kt"
+            line="175"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="ComposeParameterOrder"
+        message="Parameters in a composable function should be ordered following this pattern: params without defaults, modifiers, params with defaults and optionally, a trailing function that might not have a default param.&#xA;Current params are: `[severity: Float = 0.5f, colorBlindNessType: ColorBlindNessType = ColorBlindNessType.None, onSeverityChange: (Float) -> Unit, onTypeChange: (ColorBlindNessType) -> Unit]` but should be `[onSeverityChange: (Float) -> Unit, severity: Float = 0.5f, colorBlindNessType: ColorBlindNessType = ColorBlindNessType.None, onTypeChange: (ColorBlindNessType) -> Unit]`.&#xA;See https://slackhq.github.io/compose-lints/rules/#ordering-composable-parameters-properly for more information."
+        errorLine1="public fun ColumnScope.ColorBlindSetting("
+        errorLine2="                                        ^">
+        <location
+            file="src/main/kotlin/com/adevinta/spark/catalog/ui/shaders/colorblindness/ColorBlindSettings.kt"
+            line="83"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="ComposeParameterOrder"
+        message="Parameters in a composable function should be ordered following this pattern: params without defaults, modifiers, params with defaults and optionally, a trailing function that might not have a default param.&#xA;Current params are: `[modifier: Modifier = Modifier, component: Component, onClick: () -> Unit, origin: ComponentOrigin = ComponentOrigin.Example, countIndicator: Int = 0]` but should be `[component: Component, onClick: () -> Unit, modifier: Modifier = Modifier, origin: ComponentOrigin = ComponentOrigin.Example, countIndicator: Int = 0]`.&#xA;See https://slackhq.github.io/compose-lints/rules/#ordering-composable-parameters-properly for more information."
+        errorLine1="public fun ComponentItem("
+        errorLine2="                        ^">
+        <location
+            file="src/main/kotlin/com/adevinta/spark/catalog/examples/component/ComponentItem.kt"
+            line="137"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="ComposeParameterOrder"
+        message="Parameters in a composable function should be ordered following this pattern: params without defaults, modifiers, params with defaults and optionally, a trailing function that might not have a default param.&#xA;Current params are: `[modifier: Modifier = Modifier, components: List&lt;Component>, pagerState: PagerState, contentPadding: PaddingValues, navigationMode: NavigationMode]` but should be `[components: List&lt;Component>, pagerState: PagerState, contentPadding: PaddingValues, navigationMode: NavigationMode, modifier: Modifier = Modifier]`.&#xA;See https://slackhq.github.io/compose-lints/rules/#ordering-composable-parameters-properly for more information."
+        errorLine1="public fun ConfiguratorComponentsScreen("
+        errorLine2="                                       ^">
+        <location
+            file="src/main/kotlin/com/adevinta/spark/catalog/configurator/ComponentsScreen.kt"
+            line="63"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="ComposeParameterOrder"
+        message="Parameters in a composable function should be ordered following this pattern: params without defaults, modifiers, params with defaults and optionally, a trailing function that might not have a default param.&#xA;Current params are: `[modifier: Modifier = Modifier, components: ImmutableList&lt;Component>, pagerState: PagerState, contentPadding: PaddingValues, navigationMode: NavigationMode]` but should be `[components: ImmutableList&lt;Component>, pagerState: PagerState, contentPadding: PaddingValues, navigationMode: NavigationMode, modifier: Modifier = Modifier]`.&#xA;See https://slackhq.github.io/compose-lints/rules/#ordering-composable-parameters-properly for more information."
+        errorLine1="public fun ComponentsScreen("
+        errorLine2="                           ^">
+        <location
+            file="src/main/kotlin/com/adevinta/spark/catalog/examples/ComponentsScreen.kt"
+            line="78"
+            column="28"/>
+    </issue>
+
+    <issue
+        id="ComposeParameterOrder"
+        message="Parameters in a composable function should be ordered following this pattern: params without defaults, modifiers, params with defaults and optionally, a trailing function that might not have a default param.&#xA;Current params are: `[modifier: Modifier = Modifier, contentPadding: PaddingValues, pagerState: PagerState, navigationMode: NavigationMode]` but should be `[contentPadding: PaddingValues, pagerState: PagerState, navigationMode: NavigationMode, modifier: Modifier = Modifier]`.&#xA;See https://slackhq.github.io/compose-lints/rules/#ordering-composable-parameters-properly for more information."
+        errorLine1="public fun IconDemoScreen("
+        errorLine2="                         ^">
+        <location
+            file="src/main/kotlin/com/adevinta/spark/catalog/icons/IconDemoScreen.kt"
+            line="68"
+            column="26"/>
+    </issue>
+
+    <issue
+        id="ComposeRedundantComposable"
+        message="This declaration is annotated with @Composable but doesn&apos;t call any other @Composable functions or read any @Composable properties (like a CompositionLocal&apos;s current), so it doesn&apos;t use the composition and the @Composable annotation can be removed.&#xA;&#xA;See https://slackhq.github.io/compose-lints/rules/#remove-unnecessary-composable-annotations for more information."
+        errorLine1="    @Composable"
+        errorLine2="    ~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/adevinta/spark/catalog/themes/themeprovider/leboncoin/LeboncoinTheme.kt"
+            line="74"
+            column="5"/>
+    </issue>
+
+</issues>

@@ -60,7 +60,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -73,13 +72,15 @@ import com.adevinta.spark.catalog.model.Component
 import com.adevinta.spark.catalog.ui.animations.LocalAnimatedVisibilityScope
 import com.adevinta.spark.catalog.ui.animations.LocalSharedTransitionScope
 import com.adevinta.spark.catalog.util.TrackScrollJank
-import com.adevinta.spark.catalog.util.openUrl
+import com.adevinta.spark.catalog.util.rememberUrlOpener
 import com.adevinta.spark.components.divider.DividerIntent
 import com.adevinta.spark.components.divider.HorizontalDivider
 import com.adevinta.spark.components.iconbuttons.IconButtonGhost
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.menu.DropdownMenu
 import com.adevinta.spark.components.menu.DropdownMenuItem
+import com.adevinta.spark.components.snackbars.SnackbarHost
+import com.adevinta.spark.components.snackbars.SnackbarHostState
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.Chain
 import com.adevinta.spark.icons.Computer
@@ -106,6 +107,7 @@ public fun Component(
         }
     }
     val state = rememberLazyListState()
+    val snackbarHostState = remember { SnackbarHostState() }
     TrackScrollJank(scrollableState = state, stateName = "component:list")
     val origin = ComponentOrigin.Example.name
     with(LocalSharedTransitionScope.current) {
@@ -181,6 +183,7 @@ public fun Component(
                                     component = component,
                                     expanded = expanded,
                                     onDismissRequest = { expanded = false },
+                                    snackbarHostState = snackbarHostState,
                                 )
                             }
                         }
@@ -246,6 +249,12 @@ public fun Component(
                     }
                 }
             }
+            SnackbarHost(
+                hostState = snackbarHostState,
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(contentPadding),
+            )
         }
     }
 }
@@ -255,8 +264,9 @@ private fun ComponentQuickActionsMenu(
     component: Component,
     expanded: Boolean,
     onDismissRequest: () -> Unit,
+    snackbarHostState: SnackbarHostState,
 ) {
-    val context = LocalContext.current
+    val openUrl = rememberUrlOpener(snackbarHostState)
 
     DropdownMenu(
         expanded = expanded,
@@ -265,7 +275,7 @@ private fun ComponentQuickActionsMenu(
         DropdownMenuItem(
             text = { Text(stringResource(R.string.component_menu_guidlines)) },
             onClick = {
-                context.openUrl(component.guidelinesUrl)
+                openUrl(component.guidelinesUrl)
                 onDismissRequest()
             },
             leadingIcon = {
@@ -278,7 +288,7 @@ private fun ComponentQuickActionsMenu(
         DropdownMenuItem(
             text = { Text(stringResource(R.string.component_menu_dev_docs)) },
             onClick = {
-                context.openUrl(component.docsUrl)
+                openUrl(component.docsUrl)
                 onDismissRequest()
             },
             leadingIcon = {
@@ -291,7 +301,7 @@ private fun ComponentQuickActionsMenu(
         DropdownMenuItem(
             text = { Text(stringResource(R.string.component_menu_source)) },
             onClick = {
-                context.openUrl(component.sourceUrl)
+                openUrl(component.sourceUrl)
                 onDismissRequest()
             },
             leadingIcon = {

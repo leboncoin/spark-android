@@ -161,14 +161,14 @@ public val ButtonsExamples: ImmutableList<Example> = persistentListOf(
         ButtonSample(
             button = { _, text, enabled, icon, iconSide, isLoading ->
                 ButtonToggle(
-                    modifier = Modifier.semantics {
-                        role = Role.Switch
-                    },
                     text,
                     enabled,
                     icon,
                     iconSide,
                     isLoading,
+                    modifier = Modifier.semantics {
+                        role = Role.Switch
+                    },
                 )
             },
         )
@@ -193,12 +193,12 @@ public val ButtonsExamples: ImmutableList<Example> = persistentListOf(
 @Composable
 @SuppressLint("SparkButtonMigration")
 private fun ButtonToggle(
-    modifier: Modifier = Modifier,
     text: String,
     enabled: Boolean,
     icon: SparkIcon?,
     iconSide: IconSide,
     isLoading: Boolean,
+    modifier: Modifier = Modifier,
 ) {
     var isToggled by remember { mutableStateOf(false) }
     Box(modifier = modifier) {

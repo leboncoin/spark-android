@@ -144,15 +144,15 @@ private fun IconButtonSamplePreview() {
 
 @Composable
 private fun ConfiguredIconButton(
-    modifier: Modifier = Modifier,
     style: IconButtonStyle,
     contentDescription: String?,
-    onClick: () -> Unit = {},
     size: IconButtonSize,
     intent: IconButtonIntent,
     isEnabled: Boolean,
     isLoading: Boolean,
     icon: SparkIcon,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {},
 ) {
     val containerColor by animateColorAsState(
         targetValue = if (intent != IconButtonIntent.Surface) {

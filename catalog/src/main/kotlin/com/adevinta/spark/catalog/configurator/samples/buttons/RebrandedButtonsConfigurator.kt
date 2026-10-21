@@ -150,7 +150,6 @@ private fun RebrandedButtonSamplePreview() {
 
 @Composable
 private fun ConfiguredRebrandedButton(
-    modifier: Modifier = Modifier,
     style: RebrandedButtonStyle,
     buttonText: String,
     onClick: () -> Unit,
@@ -159,6 +158,7 @@ private fun ConfiguredRebrandedButton(
     isEnabled: Boolean,
     icon: SparkIcon?,
     iconSide: IconSide,
+    modifier: Modifier = Modifier,
 ) {
     when (style) {
         RebrandedButtonStyle.Primary -> Button.Primary(
