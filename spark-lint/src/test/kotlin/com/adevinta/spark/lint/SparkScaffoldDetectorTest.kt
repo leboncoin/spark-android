@@ -22,6 +22,8 @@
 package com.adevinta.spark.lint
 
 import com.android.tools.lint.checks.infrastructure.LintDetectorTest
+import com.android.tools.lint.checks.infrastructure.TestFiles.binaryStub
+import com.android.tools.lint.checks.infrastructure.TestMode.Companion.REORDER_ARGUMENTS
 import com.android.tools.lint.detector.api.Detector
 import com.android.tools.lint.detector.api.Issue
 import org.junit.Test
@@ -67,14 +69,17 @@ class SparkScaffoldDetectorTest : LintDetectorTest() {
                 companion object
             }
 
-            val WindowInsets.Companion.navigationBars: WindowInsets get() = WindowInsets()
+            val WindowInsets.Companion.navigationBars: WindowInsets
+                get() = WindowInsets()
 
             fun Modifier.padding(paddingValues: PaddingValues): Modifier = this
             fun Modifier.statusBarsPadding(): Modifier = this
             fun Modifier.windowInsetsPadding(insets: WindowInsets): Modifier = this
 
             @Composable
-            fun Box(modifier: Modifier = Modifier, content: @Composable () -> Unit = {}) {}
+            fun Box(modifier: Modifier = Modifier, content: @Composable () -> Unit = {}) {
+                content()
+            }
             """,
     ).indented()
 
@@ -118,6 +123,32 @@ class SparkScaffoldDetectorTest : LintDetectorTest() {
             fun Text(text: String) {}
             """,
     ).indented()
+
+    private val compiledBarStub = binaryStub(
+        "libs/compiled-bar.jar",
+        java(
+            """
+            package test.lib;
+
+            public class CompiledBars {
+                public static void CompiledBar() {}
+            }
+            """,
+        ).indented(),
+    )
+
+    private val compiledToolkitStub = binaryStub(
+        "libs/compiled-toolkit.jar",
+        java(
+            """
+            package androidx.compose.material3;
+
+            public class CompiledTexts {
+                public static void CompiledText() {}
+            }
+            """,
+        ).indented(),
+    )
 
     @Test
     fun unreferencedParameters() {
@@ -348,8 +379,79 @@ src/test/foo/test.kt:17: Error: topBar content does not handle window insets: us
                 paddingValuesStub,
                 composableStub,
             )
+            // Lint's argument reordering produces overlapping edits on the nested `Box` in `bottomBar`.
+            .skipTestModes(REORDER_ARGUMENTS)
             .run()
             .expectClean()
+    }
+
+    @Test
+    fun barsWithAbstractCallsAndLambdaInvocations() {
+        lint()
+            .files(
+                kotlin(
+                    """
+                package test.foo
+
+                import com.adevinta.spark.components.scaffold.*
+                import androidx.compose.runtime.*
+
+                interface BarNavigator {
+                    fun newComposable(): @Composable () -> Unit
+                }
+
+                @Composable
+                fun Test(navigator: BarNavigator, bar: @Composable () -> Unit) {
+                    Scaffold(bottomBar = { navigator.newComposable().invoke() }) { it }
+                    Scaffold(bottomBar = { bar() }) { it }
+                }
+            """,
+                ),
+                sparkScaffoldStub,
+                modifierStub,
+                paddingValuesStub,
+                composableStub,
+            )
+            .run()
+            .expectClean()
+    }
+
+    @Test
+    fun barsBuiltFromCompiledComposables() {
+        lint()
+            .files(
+                kotlin(
+                    """
+                package test.foo
+
+                import com.adevinta.spark.components.scaffold.*
+                import androidx.compose.material3.CompiledTexts.CompiledText
+                import androidx.compose.runtime.*
+                import test.lib.CompiledBars.CompiledBar
+
+                @Composable
+                fun Test() {
+                    Scaffold(bottomBar = { CompiledBar() }) { it }
+                    Scaffold(bottomBar = { CompiledText() }) { it }
+                }
+            """,
+                ),
+                compiledBarStub,
+                compiledToolkitStub,
+                sparkScaffoldStub,
+                modifierStub,
+                paddingValuesStub,
+                composableStub,
+            )
+            .run()
+            .expect(
+                """
+src/test/foo/test.kt:12: Error: bottomBar content does not handle window insets: use BottomAppBar or NavigationBar or apply a window insets padding modifier [SparkScaffoldBarWithoutInsets]
+                    Scaffold(bottomBar = { CompiledText() }) { it }
+                                         ~~~~~~~~~~~~~~~~~~
+1 error
+            """,
+            )
     }
 
     @Test
