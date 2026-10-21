@@ -50,9 +50,9 @@ internal class AvatarDocumentationScreenshots {
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Avatar.User(username = "Spark", style = AvatarSize.SM)
-            Avatar.User(username = "Spark", style = AvatarSize.MD)
-            Avatar.User(username = "Spark", style = AvatarSize.XL)
+            Avatar.User(username = "Spark", size = AvatarSize.SM)
+            Avatar.User(username = "Spark", size = AvatarSize.MD)
+            Avatar.User(username = "Spark", size = AvatarSize.XL)
         }
     }
 
@@ -62,8 +62,8 @@ internal class AvatarDocumentationScreenshots {
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Avatar.User(username = "Spark", style = AvatarSize.XL)
-            Avatar.Company(style = AvatarSize.XL)
+            Avatar.User(username = "Spark", size = AvatarSize.XL)
+            Avatar.Company(size = AvatarSize.XL)
         }
     }
 
@@ -73,8 +73,8 @@ internal class AvatarDocumentationScreenshots {
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Avatar.User(username = "", style = AvatarSize.XL)
-            Avatar.User(username = "Spark", style = AvatarSize.XL)
+            Avatar.User(username = "", size = AvatarSize.XL)
+            Avatar.User(username = "Spark", size = AvatarSize.XL)
         }
     }
 
@@ -84,8 +84,8 @@ internal class AvatarDocumentationScreenshots {
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Avatar.User(username = "Spark", style = AvatarSize.XL, addon = { onlineIndicator() })
-            Avatar.Company(style = AvatarSize.XL, addon = { onlineIndicator() })
+            Avatar.User(username = "Spark", size = AvatarSize.XL, addon = { onlineIndicator() })
+            Avatar.Company(size = AvatarSize.XL, addon = { onlineIndicator() })
         }
     }
 
@@ -95,8 +95,8 @@ internal class AvatarDocumentationScreenshots {
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Avatar.User(username = "Spark", style = AvatarSize.XL, addon = { iconButton(onClick = {}) })
-            Avatar.Company(style = AvatarSize.XL, addon = { iconButton(onClick = {}) })
+            Avatar.User(username = "Spark", size = AvatarSize.XL, addon = { iconButton(onClick = {}) })
+            Avatar.Company(size = AvatarSize.XL, addon = { iconButton(onClick = {}) })
         }
     }
 }

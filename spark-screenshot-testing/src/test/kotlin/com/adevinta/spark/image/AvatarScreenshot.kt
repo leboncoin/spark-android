@@ -71,7 +71,7 @@ internal class AvatarScreenshot {
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     AvatarSize.entries.forEach { size ->
-                        Avatar.User(username = "Spark", style = size, addon = overflowingAddon)
+                        Avatar.User(username = "Spark", size = size, addon = overflowingAddon)
                     }
                 }
                 Row(
@@ -79,7 +79,7 @@ internal class AvatarScreenshot {
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     AvatarSize.entries.forEach { size ->
-                        Avatar.Company(style = size, addon = overflowingAddon)
+                        Avatar.Company(size = size, addon = overflowingAddon)
                     }
                 }
             }
@@ -116,13 +116,13 @@ internal class AvatarScreenshot {
                             ) {
                                 if (isCompany) {
                                     Avatar.Company(
-                                        style = size,
+                                        size = size,
                                         addon = { if (isOnline) onlineIndicator() },
                                     )
                                 } else {
                                     Avatar.User(
                                         username = "Spark",
-                                        style = size,
+                                        size = size,
                                         addon = { if (isOnline) onlineIndicator() },
                                     )
                                 }
