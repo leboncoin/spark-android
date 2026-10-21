@@ -150,7 +150,7 @@ SegmentedControl.Vertical(
 
 Pass `indicatorContent` to replace the default pill. The lambda receives the current `selectedIndex`, so the indicator can reflect the active value — useful for colour-coded scales.
 
-The default indicator (`SegmentedControlDefaults.Indicator`) draws a `neutralContainer` fill with a 2 dp `outlineHigh` border.
+The default indicator (`SegmentedControlDefaults.Indicator`) draws a `supportContainer` fill with a 1 dp `support` border, using their `disabled` variants when the control is disabled.
 
 ### Custom Segments
 
