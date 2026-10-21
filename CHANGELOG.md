@@ -2,6 +2,15 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [4.2.1](https://github.com/leboncoin/spark-android/compare/4.2.0...4.2.1) (2026-10-21)
+
+
+### Bug Fixes
+
+* **avatar:** fill placeholder icon, fix online ring and addon placement ([#2338](https://github.com/leboncoin/spark-android/issues/2338)) ([1fb2bbf](https://github.com/leboncoin/spark-android/commit/1fb2bbf2e424ee727a6f19c11e09950caebe1dc2))
+* **screenshot:** work around layoutlib BackgroundThread race ([#2340](https://github.com/leboncoin/spark-android/issues/2340)) ([1b018da](https://github.com/leboncoin/spark-android/commit/1b018da5c87a18236b3f4cc27542adbca51d8ebe))
+* **segmented-control:** draw the selected item border at 1dp ([#2314](https://github.com/leboncoin/spark-android/issues/2314)) ([09301b1](https://github.com/leboncoin/spark-android/commit/09301b10f625b732702a253ac64c6c303078845f))
+
 ## [4.2.0](https://github.com/leboncoin/spark-android/compare/4.1.0...4.2.0) (2026-10-20)
 
 
