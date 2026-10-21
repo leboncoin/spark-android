@@ -28,6 +28,7 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.tooling.preview.Preview
@@ -51,19 +52,28 @@ internal fun SparkAvatarCompany(
     modifier: Modifier = Modifier,
     // Useful to preview different states
     transform: (AsyncImagePainter.State) -> AsyncImagePainter.State = AsyncImagePainter.DefaultTransform,
-    style: AvatarSize = AvatarSize.SM,
+    size: AvatarSize = AvatarSize.SM,
     contentScale: ContentScale = ContentScale.Fit,
     fillParentSize: Boolean = false,
     model: Any? = null,
     addon: @Composable AvatarAddonScope.(AvatarAddonItem) -> Unit = {},
 ) {
+    val shape = if (
+        size == AvatarSize.SM ||
+        size == AvatarSize.XS ||
+        size == AvatarSize.MD
+    ) {
+        SparkTheme.shapes.extraSmall
+    } else {
+        SparkTheme.shapes.small
+    }
     SparkAvatar(
-        shape = SparkTheme.shapes.small,
+        shape = shape,
         addonPlacement = AvatarAddonPlacement.BottomEnd,
-        placeholder = { CompanyAvatarPlaceholder() },
+        placeholder = { CompanyAvatarPlaceholder(shape = shape) },
         modifier = modifier,
         transform = transform,
-        size = style,
+        size = size,
         contentScale = contentScale,
         fillParentSize = fillParentSize,
         model = model,
@@ -75,18 +85,19 @@ internal fun SparkAvatarCompany(
  * A rounded-square picture that identifies a company, for example a professional seller.
  *
  * When [model] is null or the image does not load, the avatar shows a building icon on a neutral
- * container with a thin border.
+ * container with a thin border. The avatar uses [SparkTheme.shapes].extraSmall at [AvatarSize.XS],
+ * [AvatarSize.SM], and [AvatarSize.MD], and [SparkTheme.shapes].small at larger sizes.
  *
- * The addon is inside the avatar bounds, at the bottom-end corner. It moves to the bottom-start
- * corner in a right-to-left layout.
+ * The addon is at the bottom-end corner, with 25% of the addon outside the avatar bounds. It moves
+ * to the bottom-start corner in a right-to-left layout.
  *
  * ![Addon](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.image_AvatarDocumentationScreenshots_addonButton.png)
  *
  * @param modifier applied to the avatar
- * @param style avatar size, from [AvatarSize.XS] (24dp) to [AvatarSize.XXXL] (128dp), and the
- * matching online badge size; the default is [AvatarSize.SM] (32dp)
+ * @param size avatar size, from [AvatarSize.XS] (24dp) to [AvatarSize.XXXL] (128dp), and the
+ * matching online badge size (no badge at [AvatarSize.XS]); the default is [AvatarSize.SM] (32dp)
  * @param contentScale how the loaded image fits the avatar bounds; the default is [ContentScale.Fit]
- * @param fillParentSize when true, the avatar ignores [style] and fills the parent; use it when a
+ * @param fillParentSize when true, the avatar ignores [size] and fills the parent; use it when a
  * fixed-size slot already sets the avatar size
  * @param model image to load, for example the company logo URL; null shows the building icon
  * @param addon optional badge slot; call [AvatarAddonScope.onlineIndicator] for the standard
@@ -97,7 +108,7 @@ internal fun SparkAvatarCompany(
 @Composable
 public fun Avatar.Company(
     modifier: Modifier = Modifier,
-    style: AvatarSize = AvatarSize.SM,
+    size: AvatarSize = AvatarSize.SM,
     contentScale: ContentScale = ContentScale.Fit,
     fillParentSize: Boolean = false,
     model: Any? = null,
@@ -105,7 +116,7 @@ public fun Avatar.Company(
 ) {
     SparkAvatarCompany(
         modifier = modifier,
-        style = style,
+        size = size,
         contentScale = contentScale,
         fillParentSize = fillParentSize,
         model = model,
@@ -114,10 +125,10 @@ public fun Avatar.Company(
 }
 
 @Composable
-private fun CompanyAvatarPlaceholder() {
+private fun CompanyAvatarPlaceholder(shape: Shape) {
     Surface(
         modifier = Modifier.fillMaxSize(),
-        shape = SparkTheme.shapes.small,
+        shape = shape,
         color = SparkTheme.colors.neutralContainer,
         border = BorderStroke(width = 1.dp, color = SparkTheme.colors.outline.dim2),
     ) {
@@ -154,7 +165,7 @@ private fun CompanyAvatarPreview() {
             ) {
                 AvatarSize.entries.forEach { size ->
                     SparkAvatarCompany(
-                        style = size,
+                        size = size,
                         model = "",
                         transform = { AsyncImagePainter.State.Empty },
                         addon = { if (withAddon) onlineIndicator() },

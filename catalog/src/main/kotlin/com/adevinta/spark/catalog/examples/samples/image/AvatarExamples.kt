@@ -81,15 +81,15 @@ private fun ColumnScope.AvatarSizes() {
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Text("User in SM, MD, and XL sizes")
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            Avatar.User(username = "Spark", style = AvatarSize.SM)
-            Avatar.User(username = "Spark", style = AvatarSize.MD)
-            Avatar.User(username = "Spark", style = AvatarSize.XL)
+            Avatar.User(username = "Spark", size = AvatarSize.SM)
+            Avatar.User(username = "Spark", size = AvatarSize.MD)
+            Avatar.User(username = "Spark", size = AvatarSize.XL)
         }
         Text("Company in SM, MD, and XL sizes")
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            Avatar.Company(style = AvatarSize.SM)
-            Avatar.Company(style = AvatarSize.MD)
-            Avatar.Company(style = AvatarSize.XL)
+            Avatar.Company(size = AvatarSize.SM)
+            Avatar.Company(size = AvatarSize.MD)
+            Avatar.Company(size = AvatarSize.XL)
         }
     }
 }
@@ -100,8 +100,8 @@ private fun ColumnScope.AvatarVariants() {
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Text("User and Company")
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            Avatar.User(username = "Spark", style = AvatarSize.XL)
-            Avatar.Company(style = AvatarSize.XL)
+            Avatar.User(username = "Spark", size = AvatarSize.XL)
+            Avatar.Company(size = AvatarSize.XL)
         }
     }
 }
@@ -112,22 +112,22 @@ private fun ColumnScope.AvatarOnline() {
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Text("Offline and online")
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            Avatar.User(username = "Spark", style = AvatarSize.XL)
-            Avatar.User(username = "Spark", style = AvatarSize.XL, addon = { onlineIndicator() })
-            Avatar.Company(style = AvatarSize.XL)
-            Avatar.Company(style = AvatarSize.XL, addon = { onlineIndicator() })
+            Avatar.User(username = "Spark", size = AvatarSize.XL)
+            Avatar.User(username = "Spark", size = AvatarSize.XL, addon = { onlineIndicator() })
+            Avatar.Company(size = AvatarSize.XL)
+            Avatar.Company(size = AvatarSize.XL, addon = { onlineIndicator() })
         }
         Text("Online dot on the rim of the User avatar")
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            Avatar.User(username = "Spark", style = AvatarSize.SM, addon = { onlineIndicator() })
-            Avatar.User(username = "Spark", style = AvatarSize.MD, addon = { onlineIndicator() })
-            Avatar.User(username = "Spark", style = AvatarSize.XL, addon = { onlineIndicator() })
+            Avatar.User(username = "Spark", size = AvatarSize.SM, addon = { onlineIndicator() })
+            Avatar.User(username = "Spark", size = AvatarSize.MD, addon = { onlineIndicator() })
+            Avatar.User(username = "Spark", size = AvatarSize.XL, addon = { onlineIndicator() })
         }
         Text("Online dot inside the bottom-end corner of the Company avatar")
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            Avatar.Company(style = AvatarSize.SM, addon = { onlineIndicator() })
-            Avatar.Company(style = AvatarSize.MD, addon = { onlineIndicator() })
-            Avatar.Company(style = AvatarSize.XL, addon = { onlineIndicator() })
+            Avatar.Company(size = AvatarSize.SM, addon = { onlineIndicator() })
+            Avatar.Company(size = AvatarSize.MD, addon = { onlineIndicator() })
+            Avatar.Company(size = AvatarSize.XL, addon = { onlineIndicator() })
         }
     }
 }
@@ -138,14 +138,14 @@ private fun ColumnScope.AvatarLetter() {
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Text("Letter on SM, MD, and XL sizes")
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            Avatar.User(username = "Spark", style = AvatarSize.SM)
-            Avatar.User(username = "Spark", style = AvatarSize.MD)
-            Avatar.User(username = "Spark", style = AvatarSize.XL)
+            Avatar.User(username = "Spark", size = AvatarSize.SM)
+            Avatar.User(username = "Spark", size = AvatarSize.MD)
+            Avatar.User(username = "Spark", size = AvatarSize.XL)
         }
         Text("Blank user name shows no letter")
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            Avatar.User(username = "", style = AvatarSize.XL)
-            Avatar.User(username = "Spark", style = AvatarSize.XL)
+            Avatar.User(username = "", size = AvatarSize.XL)
+            Avatar.User(username = "Spark", size = AvatarSize.XL)
         }
     }
 }

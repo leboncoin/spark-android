@@ -35,9 +35,12 @@ import androidx.compose.ui.test.getBoundsInRoot
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpRect
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.height
+import androidx.compose.ui.unit.width
 import com.adevinta.spark.PreviewTheme
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -64,12 +67,25 @@ class AvatarCompanyTest {
     }
 
     @Test
-    fun addon_is_inside_avatar_bounds() {
-        setAvatars(LayoutDirection.Ltr, AvatarSize.entries)
+    fun addon_overflows_bottom_end_by_a_quarter_of_its_size() {
+        val sizes = AvatarSize.entries - AvatarSize.XS
+        setAvatars(LayoutDirection.Ltr, sizes)
 
-        AvatarSize.entries.forEach { size ->
+        sizes.forEach { size ->
             val (avatar, addon) = boundsOf(size)
-            assertTrue("addon $addon is outside avatar $avatar at $size", avatar.contains(addon))
+            assertTrue("addon has no size at $size", addon.width > 0.dp && addon.height > 0.dp)
+            assertDpEquals(
+                "end overflow at $size",
+                overflow(addon.width),
+                addon.right - avatar.right,
+                PIXEL_ROUNDING,
+            )
+            assertDpEquals(
+                "bottom overflow at $size",
+                overflow(addon.height),
+                addon.bottom - avatar.bottom,
+                PIXEL_ROUNDING,
+            )
         }
     }
 
@@ -78,8 +94,8 @@ class AvatarCompanyTest {
         setAvatars(LayoutDirection.Ltr, listOf(AvatarSize.XL))
 
         val (avatar, addon) = boundsOf(AvatarSize.XL)
-        assertEquals(avatar.right, addon.right)
-        assertEquals(avatar.bottom, addon.bottom)
+        assertDpEquals(avatar.right + overflow(addon.width), addon.right, PIXEL_ROUNDING)
+        assertDpEquals(avatar.bottom + overflow(addon.height), addon.bottom, PIXEL_ROUNDING)
     }
 
     @Test
@@ -87,8 +103,8 @@ class AvatarCompanyTest {
         setAvatars(LayoutDirection.Rtl, listOf(AvatarSize.XL))
 
         val (avatar, addon) = boundsOf(AvatarSize.XL)
-        assertEquals(avatar.left, addon.left)
-        assertEquals(avatar.bottom, addon.bottom)
+        assertDpEquals(avatar.left - overflow(addon.width), addon.left, PIXEL_ROUNDING)
+        assertDpEquals(avatar.bottom + overflow(addon.height), addon.bottom, PIXEL_ROUNDING)
     }
 
     private fun setAvatars(layoutDirection: LayoutDirection, sizes: List<AvatarSize>) {
@@ -98,7 +114,7 @@ class AvatarCompanyTest {
                     sizes.forEach { size ->
                         Avatar.Company(
                             modifier = Modifier.testTag(avatarTag(size)),
-                            style = size,
+                            size = size,
                             addon = {
                                 custom {
                                     Box(
@@ -123,6 +139,16 @@ class AvatarCompanyTest {
 
     private fun addonTag(size: AvatarSize) = "addon-$size"
 
-    private fun DpRect.contains(other: DpRect): Boolean =
-        other.left >= left && other.top >= top && other.right <= right && other.bottom <= bottom
+    private fun overflow(addonSize: Dp): Dp = addonSize * 0.25f
+
+    private fun assertDpEquals(expected: Dp, actual: Dp, delta: Dp) =
+        assertDpEquals(null, expected, actual, delta)
+
+    private fun assertDpEquals(message: String?, expected: Dp, actual: Dp, delta: Dp) =
+        assertEquals(message, expected.value, actual.value, delta.value)
+
+    private companion object {
+        // The placement rounds 75% of the addon size to whole pixels.
+        val PIXEL_ROUNDING = 0.5.dp
+    }
 }

@@ -28,7 +28,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
@@ -59,20 +58,18 @@ public interface AvatarAddonItem
  * [AvatarAddonItem] marker that callers discard. This mirrors [SegmentedControlScope], with one
  * deviation: the avatar supports a single addon rather than a list, so only the last emitted node
  * is laid out. [Avatar.User] centres the addon on the circle rim at the bottom right, so the addon
- * can go outside the avatar bounds. [Avatar.Company] puts the addon inside the bottom-end corner,
- * so the addon stays inside the avatar bounds.
- *
- * The outer layout node applies [androidx.compose.ui.graphics.CompositingStrategy.Offscreen] so
- * that [BlendMode.Clear] punches a transparent border ring correctly.
+ * can go outside the avatar bounds. [Avatar.Company] puts the addon at the bottom-end corner, with
+ * 25% of the addon outside the avatar bounds.
  */
 @Stable
 public interface AvatarAddonScope {
 
     /**
      * Emits the standard online presence indicator: a filled [SparkTheme.colors.success] circle
-     * with a transparent border ring punched out via [BlendMode.Clear].
+     * inside a border ring in [SparkTheme.colors.surface].
      *
-     * The indicator size derives from the enclosing [AvatarSize].
+     * The indicator size derives from the enclosing [AvatarSize]. At [AvatarSize.XS] the
+     * indicator draws nothing.
      */
     @Composable
     public fun onlineIndicator(): AvatarAddonItem
@@ -138,18 +135,18 @@ internal class AvatarAddonScopeImpl(private val size: AvatarSize) : AvatarAddonS
 }
 
 @Composable
-private fun OnlineIndicator(style: AvatarSize) {
+private fun OnlineIndicator(avatarSize: AvatarSize) {
+    if (avatarSize == AvatarSize.XS) return
     val indicatorColor = SparkTheme.colors.success
     val outline = SparkTheme.colors.surface
-    Canvas(modifier = Modifier.size(style.badgeSize)) {
+    Canvas(modifier = Modifier.size(avatarSize.badgeSize)) {
         val halfBadge = size.width / 2f
-        val borderPx = style.borderSize.toPx()
+        val borderPx = avatarSize.borderSize.toPx()
         drawCircle(
             color = outline,
             radius = halfBadge,
-            blendMode = BlendMode.Clear,
         )
-        // Draw the filled indicator dot inside the cleared ring.
+        // Draw the filled indicator dot inside the outline-coloured ring.
         drawCircle(
             color = indicatorColor,
             radius = halfBadge - borderPx,
@@ -186,13 +183,13 @@ private fun IconButton(
 @Composable
 private fun PreviewAddons() {
     PreviewTheme(color = { SparkTheme.colors.backgroundVariant }) {
-        Avatar.User(username = "Spark", style = AvatarSize.SM, addon = { onlineIndicator() })
-        Avatar.User(username = "Spark", style = AvatarSize.MD, addon = { onlineIndicator() })
-        Avatar.User(username = "Spark", style = AvatarSize.XL, addon = { onlineIndicator() })
-        Avatar.User(username = "Spark", style = AvatarSize.XL, addon = { iconButton({}) })
+        Avatar.User(username = "Spark", size = AvatarSize.SM, addon = { onlineIndicator() })
+        Avatar.User(username = "Spark", size = AvatarSize.MD, addon = { onlineIndicator() })
+        Avatar.User(username = "Spark", size = AvatarSize.XL, addon = { onlineIndicator() })
+        Avatar.User(username = "Spark", size = AvatarSize.XL, addon = { iconButton({}) })
         Avatar.User(
             username = "Spark",
-            style = AvatarSize.XL,
+            size = AvatarSize.XL,
             addon = { iconButton({}, icon = LeboncoinIcons.PenOutline) },
         )
     }
