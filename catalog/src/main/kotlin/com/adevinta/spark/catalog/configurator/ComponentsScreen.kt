@@ -45,6 +45,7 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
+import androidx.window.core.layout.WindowSizeClass.Companion.WIDTH_DP_EXPANDED_LOWER_BOUND
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.CatalogHomeScreen
 import com.adevinta.spark.catalog.R
@@ -102,7 +103,12 @@ internal fun ComponentsListScreen(
     val configuratorsComponents by remember(components) {
         mutableStateOf(components.filter { it.configurators.firstOrNull() != null })
     }
-    val columns = Layout.columns / 2
+    val isWidthExpanded = Layout.windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_EXPANDED_LOWER_BOUND)
+    val columns = if (isWidthExpanded) {
+        Layout.columns / 3
+    } else {
+        Layout.columns / 2
+    }
     val state = rememberLazyGridState()
     TrackScrollJank(scrollableState = state, stateName = "configurator:component:grid")
 
@@ -160,6 +166,7 @@ internal fun ComponentsListScreen(
                 val configuratorCount = component.configurators.size
                 ComponentConfiguratorItem(
                     component = component,
+                    isWidthExpanded = isWidthExpanded,
                     countIndicator = configuratorCount,
                     onClick = { selectedComponent, selectedConfigurator ->
                         val componentId = selectedComponent.id

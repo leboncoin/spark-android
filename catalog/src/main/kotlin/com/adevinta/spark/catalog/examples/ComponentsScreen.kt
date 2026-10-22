@@ -49,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDeepLink
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navDeepLink
+import androidx.window.core.layout.WindowSizeClass.Companion.WIDTH_DP_EXPANDED_LOWER_BOUND
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.AppBasePath
 import com.adevinta.spark.catalog.CatalogHomeScreen
@@ -116,7 +117,12 @@ internal fun ComponentsListScreen(
     val examplesComponents by remember(components) {
         mutableStateOf(components.filter { it.examples.isNotEmpty() })
     }
-    val columns = Layout.columns / 2
+    val isWidthExpanded = Layout.windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_EXPANDED_LOWER_BOUND)
+    val columns = if (isWidthExpanded) {
+        Layout.columns / 3
+    } else {
+        Layout.columns / 2
+    }
     val state = rememberLazyGridState()
     TrackScrollJank(scrollableState = state, stateName = "example:component:grid")
     LazyVerticalGrid(
@@ -173,6 +179,7 @@ internal fun ComponentsListScreen(
                 ComponentItem(
                     // modifier = Modifier.semantics { onClick("Aller aux exemples", null) },
                     component = component,
+                    isWidthExpanded = isWidthExpanded,
                     countIndicator = component.examples.size,
                     onClick = {
                         onExampleSectionClick(component.id)
