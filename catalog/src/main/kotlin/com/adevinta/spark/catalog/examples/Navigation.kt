@@ -24,6 +24,7 @@ package com.adevinta.spark.catalog.examples
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
@@ -81,7 +82,11 @@ internal fun NavGraphBuilder.examplesDestination(
     ) { navBackStackEntry ->
         val exampleSection = navBackStackEntry.toRoute<ExampleSection>()
         val componentId = exampleSection.componentId
-        val component = components.first { component -> component.id == componentId }
+        val component = components.firstOrNull { component -> component.id == componentId }
+        if (component == null) {
+            LaunchedEffect(Unit) { navController.popBackStack() }
+            return@composable
+        }
         CompositionLocalProvider(LocalAnimatedVisibilityScope provides this) {
             Component(
                 component = component,
@@ -98,8 +103,14 @@ internal fun NavGraphBuilder.examplesDestination(
         val exampleShowcase = navBackStackEntry.toRoute<ExampleShowcase>()
         val componentId = exampleShowcase.componentId
         val exampleId = exampleShowcase.exampleId
-        val component = components.first { component -> component.id == componentId }
-        val example = component.examples.first { it.id == exampleId }
+        val example = components
+            .firstOrNull { component -> component.id == componentId }
+            ?.examples
+            ?.firstOrNull { it.id == exampleId }
+        if (example == null) {
+            LaunchedEffect(Unit) { navController.popBackStack() }
+            return@composable
+        }
         CompositionLocalProvider(LocalAnimatedVisibilityScope provides this) {
             Example(
                 example = example,

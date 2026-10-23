@@ -21,22 +21,17 @@
  */
 package com.adevinta.spark.catalog.examples.component
 
-import androidx.compose.animation.BoundsTransform
 import androidx.compose.animation.EnterExitState
+import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
-import androidx.compose.animation.core.ArcMode
 import androidx.compose.animation.core.ExperimentalAnimationSpecApi
-import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDp
-import androidx.compose.animation.core.keyframes
-import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -142,15 +137,9 @@ public fun ComponentItem(
     countIndicator: Int = 0,
 ) {
     val animatedVisibilityScope = LocalAnimatedVisibilityScope.current
-    val boundsTransform = BoundsTransform { initialBounds, targetBounds ->
-        keyframes {
-            durationMillis = 500
-            initialBounds at 0 using ArcMode.ArcBelow using FastOutSlowInEasing
-            targetBounds at 500
-        }
-    }
+    val hasEntered = animatedVisibilityScope.rememberHasEntered()
     with(LocalSharedTransitionScope.current) {
-        val cardRadius by animatedVisibilityScope.transition
+        val cardRadius = animatedVisibilityScope.transition
             .animateDp(label = "card radius") { enterExit ->
                 when (enterExit) {
                     EnterExitState.PreEnter -> 0.dp
@@ -158,6 +147,14 @@ public fun ComponentItem(
                     EnterExitState.PostExit -> 12.dp
                 }
             }
+        val overlayClip = remember(cardRadius) { AnimatedRoundedClip { cardRadius.value } }
+        val context = LocalContext.current
+        val illustrationRequest = remember(context, component.illustration) {
+            ImageRequest.Builder(context)
+                .data(component.illustration)
+                .crossfade(true)
+                .build()
+        }
         Card.Elevated(
             onClick = onClick,
             modifier = modifier
@@ -172,9 +169,11 @@ public fun ComponentItem(
                         ),
                     ),
                     animatedVisibilityScope = animatedVisibilityScope,
-                    boundsTransform = boundsTransform,
-                    resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
-                    clipInOverlayDuringTransition = OverlayClip(RoundedCornerShape(cardRadius)),
+                    boundsTransform = ComponentBoundsTransform,
+                    // Scaling keeps the card square while the bounds morph, so its surface
+                    // does not stretch into a tall strip around the illustration.
+                    resizeMode = SharedTransitionScope.ResizeMode.scaleToBounds(),
+                    clipInOverlayDuringTransition = overlayClip,
                     placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
                 ),
             contentPadding = PaddingValues.Zero,
@@ -188,28 +187,18 @@ public fun ComponentItem(
                             color = SparkTheme.colors.applyTonalElevation(SparkTheme.colors.surface, 1.dp),
                         ),
                 ) {
-                    Image(
-                        modifier = Modifier
-                            .matchParentSize()
-                            .sharedElement(
-                                rememberSharedContentState(
-                                    ExamplesSharedElementKey(
-                                        exampleId = component.id,
-                                        origin = origin.name,
-                                        type = ExamplesSharedElementType.Illustration,
-                                    ),
+                    with(animatedVisibilityScope) {
+                        Image(
+                            modifier = Modifier
+                                .matchParentSize()
+                                .animateEnterExit(
+                                    enter = if (hasEntered) EnterTransition.None else materialFadeIn(),
+                                    exit = materialFadeOut(),
                                 ),
-                                boundsTransform = { initialBounds, targetBounds ->
-                                    spring(dampingRatio = .8f, stiffness = 380f)
-                                },
-                                animatedVisibilityScope = animatedVisibilityScope,
-                            ),
-                        model = ImageRequest.Builder(LocalContext.current)
-                            .data(component.illustration)
-                            .crossfade(true)
-                            .build(),
-                        contentDescription = null,
-                    )
+                            model = illustrationRequest,
+                            contentDescription = null,
+                        )
+                    }
                 }
                 Text(
                     text = component.name,
@@ -225,7 +214,10 @@ public fun ComponentItem(
                                 ),
                             ),
                             animatedVisibilityScope = animatedVisibilityScope,
-                            resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
+                            boundsTransform = ComponentBoundsTransform,
+                            // Scaling morphs the text between the two sizes instead of
+                            // re-wrapping it to the animated width on every frame.
+                            resizeMode = SharedTransitionScope.ResizeMode.scaleToBounds(),
                         ),
                     style = SparkTheme.typography.body2,
                 )
@@ -238,7 +230,7 @@ public fun ComponentItem(
                                 .align(Alignment.BottomEnd)
                                 .padding(ComponentItemInnerPadding)
                                 .animateEnterExit(
-                                    enter = materialFadeIn(),
+                                    enter = if (hasEntered) EnterTransition.None else materialFadeIn(),
                                     exit = materialFadeOut(),
                                 ),
                             count = countIndicator,

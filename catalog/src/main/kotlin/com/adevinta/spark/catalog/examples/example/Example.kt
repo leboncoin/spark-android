@@ -23,7 +23,6 @@ package com.adevinta.spark.catalog.examples.example
 
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
-import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
@@ -40,6 +39,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.catalog.examples.ExamplesSharedElementKey
 import com.adevinta.spark.catalog.examples.ExamplesSharedElementType
+import com.adevinta.spark.catalog.examples.component.ComponentContentSpring
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.ui.animations.LocalAnimatedVisibilityScope
 import com.adevinta.spark.catalog.ui.animations.LocalSharedTransitionScope
@@ -78,9 +78,7 @@ public fun Example(example: Example) {
                         type = ExamplesSharedElementType.Background,
                     ),
                 ),
-                boundsTransform = { _, _ ->
-                    spring(dampingRatio = .8f, stiffness = 380f)
-                },
+                boundsTransform = { _, _ -> ComponentContentSpring },
                 resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
                 placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
                 animatedVisibilityScope = LocalAnimatedVisibilityScope.current,

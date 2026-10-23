@@ -22,6 +22,7 @@
 package com.adevinta.spark.catalog
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -42,6 +43,7 @@ import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.trace
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.catalog.model.Component
 import com.adevinta.spark.catalog.model.Components
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.scenarios.benchmarkScenarios
@@ -68,11 +70,22 @@ internal class BenchmarkActivity : ComponentActivity() {
         val componentId = intent.getStringExtra(EXTRA_COMPONENT_ID)
         val exampleIndex = intent.getIntExtra(EXTRA_EXAMPLE_INDEX, 0)
 
+        val scenario = scenarioId?.let { benchmarkScenarios[it] }
+        val component = componentId?.let { id -> Components.firstOrNull { it.id == id } }
+        val example = component?.examples?.getOrNull(exampleIndex)
+        val isScenarioInvalid = scenarioId != null && scenario == null
+        val isExampleInvalid = scenarioId == null && componentId != null && example == null
+        if (isScenarioInvalid || isExampleInvalid) {
+            Log.w("BenchmarkActivity", "Invalid benchmark extras, closing")
+            finish()
+            return
+        }
+
         setContent {
             SparkTheme {
                 when {
-                    scenarioId != null -> ScenarioShowcase(scenarioId)
-                    componentId != null -> SingleExampleShowcase(componentId, exampleIndex)
+                    scenarioId != null && scenario != null -> ScenarioShowcase(scenarioId, scenario)
+                    component != null && example != null -> SingleExampleShowcase(component, example)
                     else -> AllComponentsShowcase()
                 }
             }
@@ -88,11 +101,7 @@ internal class BenchmarkActivity : ComponentActivity() {
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-private fun ScenarioShowcase(scenarioId: String) {
-    val scenario = remember(scenarioId) {
-        benchmarkScenarios[scenarioId]
-            ?: error("Unknown benchmark scenario: $scenarioId")
-    }
+private fun ScenarioShowcase(scenarioId: String, scenario: @Composable () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -108,10 +117,8 @@ private fun ScenarioShowcase(scenarioId: String) {
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-private fun SingleExampleShowcase(componentId: String, exampleIndex: Int) {
+private fun SingleExampleShowcase(component: Component, example: Example) {
     val snackbarHostState = remember { SnackbarHostState() }
-    val component = remember { Components.first { it.id == componentId } }
-    val example = remember { component.examples[exampleIndex] }
 
     Column(
         modifier = Modifier

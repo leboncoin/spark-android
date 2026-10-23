@@ -25,13 +25,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
-import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.ContentDrawScope
+import androidx.compose.ui.node.DrawModifierNode
+import androidx.compose.ui.node.ModifierNodeElement
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
@@ -52,24 +52,59 @@ public fun Modifier.drawForegroundGradientScrim(
     numStops: Int = 16,
     startY: Float = 0f,
     endY: Float = 1f,
-): Modifier = composed {
-    val colors = remember(color, numStops) {
-        val baseAlpha = color.alpha
-        List(numStops) { i ->
-            val x = i * 1f / (numStops - 1)
-            val opacity = x.pow(decay)
-            color.copy(alpha = baseAlpha * opacity)
+): Modifier = this then GradientScrimElement(color, decay, numStops, startY, endY)
+
+private data class GradientScrimElement(
+    val color: Color,
+    val decay: Float,
+    val numStops: Int,
+    val startY: Float,
+    val endY: Float,
+) : ModifierNodeElement<GradientScrimNode>() {
+    override fun create() = GradientScrimNode(color, decay, numStops, startY, endY)
+
+    override fun update(node: GradientScrimNode) {
+        node.update(color, decay, numStops, startY, endY)
+    }
+}
+
+private class GradientScrimNode(color: Color, decay: Float, numStops: Int, var startY: Float, var endY: Float) :
+    Modifier.Node(),
+    DrawModifierNode {
+    private var color = color
+    private var decay = decay
+    private var numStops = numStops
+    private var brush = gradientBrush(color, decay, numStops)
+
+    fun update(color: Color, decay: Float, numStops: Int, startY: Float, endY: Float) {
+        if (color != this.color || decay != this.decay || numStops != this.numStops) {
+            this.color = color
+            this.decay = decay
+            this.numStops = numStops
+            brush = gradientBrush(color, decay, numStops)
         }
+        this.startY = startY
+        this.endY = endY
     }
 
-    drawWithContent {
+    override fun ContentDrawScope.draw() {
         drawContent()
         drawRect(
             topLeft = Offset(x = 0f, y = startY * size.height),
             size = size.copy(height = (endY - startY) * size.height),
-            brush = Brush.verticalGradient(colors = colors),
+            brush = brush,
         )
     }
+}
+
+private fun gradientBrush(color: Color, decay: Float, numStops: Int): Brush {
+    val baseAlpha = color.alpha
+    val colors = List(numStops) { i ->
+        val x = i * 1f / (numStops - 1)
+        val opacity = x.pow(decay)
+        color.copy(alpha = baseAlpha * opacity)
+    }
+    return Brush.verticalGradient(colors = colors)
 }
 
 @Preview

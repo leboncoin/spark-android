@@ -113,33 +113,38 @@ private fun ColumnScope.ImageSample() {
     var aspectRatio by remember { mutableStateOf(ImageAspectRatio.Custom) }
     var imageShape by remember { mutableStateOf(ImageShape.Medium) }
     var selectedImage by remember { mutableStateOf(SelectedImage.Narrow) }
-    val drawable = getDrawable(LocalContext.current, selectedImage.res)!!
+    val context = LocalContext.current
+    val drawable = remember(context, selectedImage) { getDrawable(context, selectedImage.res)!! }
     val painter = rememberDrawablePainter(drawable)
-    val imageRequest = ImageRequest.Builder(LocalContext.current)
-        .crossfade(true)
-        .data(state.ordinal)
-        .build()
+    val imageRequest = remember(context, state) {
+        ImageRequest.Builder(context)
+            .crossfade(true)
+            .data(state.ordinal)
+            .build()
+    }
 
     val imageMaxWidth = when {
         LocalWindowSizeClass.current.isWidthAtLeastBreakpoint(WIDTH_DP_EXPANDED_LOWER_BOUND) -> 350.dp
         LocalWindowSizeClass.current.isWidthAtLeastBreakpoint(WIDTH_DP_MEDIUM_LOWER_BOUND) -> 250.dp
         else -> 200.dp
     }
-    val previewHandler = AsyncImagePreviewHandler { _, request ->
-        when (state) {
-            ImageState.Error -> AsyncImagePainter.State.Error(
-                painter = painter,
-                result = ErrorResult(drawable.asImage(), request, Throwable("")),
-            )
+    val previewHandler = remember(state, painter, drawable) {
+        AsyncImagePreviewHandler { _, request ->
+            when (state) {
+                ImageState.Error -> AsyncImagePainter.State.Error(
+                    painter = painter,
+                    result = ErrorResult(drawable.asImage(), request, Throwable("")),
+                )
 
-            ImageState.Empty -> AsyncImagePainter.State.Empty
+                ImageState.Empty -> AsyncImagePainter.State.Empty
 
-            ImageState.Loading -> AsyncImagePainter.State.Loading(painter)
+                ImageState.Loading -> AsyncImagePainter.State.Loading(painter)
 
-            ImageState.Success -> AsyncImagePainter.State.Success(
-                painter = painter,
-                result = SuccessResult(drawable.asImage(), request, DataSource.DISK),
-            )
+                ImageState.Success -> AsyncImagePainter.State.Success(
+                    painter = painter,
+                    result = SuccessResult(drawable.asImage(), request, DataSource.DISK),
+                )
+            }
         }
     }
     CompositionLocalProvider(

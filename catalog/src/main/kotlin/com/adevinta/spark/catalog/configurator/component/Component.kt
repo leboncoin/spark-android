@@ -21,9 +21,11 @@
  */
 package com.adevinta.spark.catalog.configurator.component
 
+import androidx.compose.animation.EnterExitState
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.ExperimentalAnimationSpecApi
+import androidx.compose.animation.core.animateDp
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -54,6 +56,8 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.examples.ExamplesSharedElementKey
 import com.adevinta.spark.catalog.examples.ExamplesSharedElementType
+import com.adevinta.spark.catalog.examples.component.AnimatedRoundedClip
+import com.adevinta.spark.catalog.examples.component.ComponentBoundsTransform
 import com.adevinta.spark.catalog.examples.component.ComponentOrigin
 import com.adevinta.spark.catalog.model.Component
 import com.adevinta.spark.catalog.model.Components
@@ -86,7 +90,17 @@ public fun ConfiguratorComponentScreen(
     val scrollState = rememberScrollState()
     TrackScrollJank(scrollableState = scrollState, stateName = "configurator-component:screen")
     val snackbarHostState = remember { SnackbarHostState() }
+    val animatedVisibilityScope = LocalAnimatedVisibilityScope.current
     with(LocalSharedTransitionScope.current) {
+        val cardRadius = animatedVisibilityScope.transition
+            .animateDp(label = "card radius") { enterExit ->
+                when (enterExit) {
+                    EnterExitState.PreEnter -> 12.dp
+                    EnterExitState.Visible -> 0.dp
+                    EnterExitState.PostExit -> 0.dp
+                }
+            }
+        val overlayClip = remember(cardRadius) { AnimatedRoundedClip { cardRadius.value } }
         Scaffold(
             modifier = Modifier.sharedBounds(
                 sharedContentState = rememberSharedContentState(
@@ -96,8 +110,10 @@ public fun ConfiguratorComponentScreen(
                         type = ExamplesSharedElementType.Background,
                     ),
                 ),
-                animatedVisibilityScope = LocalAnimatedVisibilityScope.current,
+                animatedVisibilityScope = animatedVisibilityScope,
+                boundsTransform = ComponentBoundsTransform,
                 resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
+                clipInOverlayDuringTransition = overlayClip,
                 placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
             ),
             snackbarHost = { SnackbarHost(snackbarHostState) },

@@ -26,6 +26,7 @@ import android.content.Context
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -79,6 +80,10 @@ internal fun NavGraphBuilder.iconsDemoDestination(
         } else {
             getDrawableIcon(context, iconName)
         }
+        if (icon == null) {
+            LaunchedEffect(Unit) { navController.popBackStack() }
+            return@composable
+        }
         IconExampleScreen(
             icon = icon,
             name = iconName,
@@ -92,13 +97,12 @@ internal fun NavGraphBuilder.iconsDemoDestination(
 private fun String.toSnakeCase(): String =
     replace(Regex("([a-z])([A-Z])"), "$1_$2").lowercase()
 
-private fun getAnimatedIcon(name: String): SparkIcon.AnimatedPainter =
-    allAnimatedIconsMetadata.first { it.name == name }.iconProvider()
+private fun getAnimatedIcon(name: String): SparkIcon.AnimatedPainter? =
+    allAnimatedIconsMetadata.firstOrNull { it.name == name }?.iconProvider()
 
 @SuppressLint("DiscouragedApi")
-private fun getDrawableIcon(context: Context, name: String): SparkIcon.DrawableRes {
+private fun getDrawableIcon(context: Context, name: String): SparkIcon.DrawableRes? {
     val resourceName = "spark_icons_lbc_${name.toSnakeCase()}"
     val resId = context.resources.getIdentifier(resourceName, "drawable", context.packageName)
-    check(resId != 0) { "Icon $name no found in resources" }
-    return SparkIcon.DrawableRes(resId)
+    return if (resId == 0) null else SparkIcon.DrawableRes(resId)
 }
