@@ -2,6 +2,20 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [4.3.0](https://github.com/leboncoin/spark-android/compare/4.2.1...4.3.0) (2026-10-23)
+
+
+### Features
+
+* **Scaffold:** update SparkScaffoldDetector behavior ([#2329](https://github.com/leboncoin/spark-android/issues/2329)) ([aaf2691](https://github.com/leboncoin/spark-android/commit/aaf2691ec472b12e6e511f95be0fa37cfc92cd0c))
+
+
+### Miscellaneous
+
+* **baseline:** regenerate baseline profiles ([#2328](https://github.com/leboncoin/spark-android/issues/2328)) ([f78b42f](https://github.com/leboncoin/spark-android/commit/f78b42fec47ff64b2994abd2b8a6b5324bc948f3))
+* **deps:** bump gradle-wrapper from 9.8.1 to 9.8.2 ([#2343](https://github.com/leboncoin/spark-android/issues/2343)) ([4652a69](https://github.com/leboncoin/spark-android/commit/4652a6949db1ae66a6696f5d6f96fc199b755892))
+* **deps:** bump org.jetbrains.kotlinx:kotlinx-serialization-json from 1.11.0 to 1.12.0 ([#2344](https://github.com/leboncoin/spark-android/issues/2344)) ([b5762cc](https://github.com/leboncoin/spark-android/commit/b5762cc37fc38760d091bcbbddda008140072e4c))
+
 ## [4.2.1](https://github.com/leboncoin/spark-android/compare/4.2.0...4.2.1) (2026-10-21)
 
 
