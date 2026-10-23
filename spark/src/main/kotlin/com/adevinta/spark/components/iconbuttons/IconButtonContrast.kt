@@ -27,7 +27,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.PreviewTheme
+import com.adevinta.spark.components.buttons.ButtonStyle
 import com.adevinta.spark.components.progress.Spinner
 import com.adevinta.spark.icons.GearOutline
 import com.adevinta.spark.icons.LeboncoinIcons
@@ -47,8 +49,8 @@ import com.adevinta.spark.icons.SparkIcon
  * @param isLoading show or hide a [Spinner] instead of the [icon] to indicate a
  * loading state
  * @param size one of the [IconButtonSize] values that sets width and height of the IconButton
- * @param contentDescription text used by accessibility services to describe what this icon button
- * represents. This text should be localized, such as by using [androidx.compose.ui.res.stringResource] or similar
+ * @param contentDescription localised text read by screen readers and shown as the tooltip of this icon button.
+ * `null` gives the button no accessible name and no tooltip, so pass `null` only for a purely decorative icon.
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this icon button. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this icon button in different states.
@@ -68,6 +70,22 @@ public fun IconButtonContrast(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
 ) {
+    if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
+        RouteToRebrandedIconButton(
+            intent = intent,
+            style = ButtonStyle.Contrast,
+            icon = icon,
+            onClick = onClick,
+            modifier = modifier,
+            enabled = enabled,
+            isLoading = isLoading,
+            size = size,
+            contentDescription = contentDescription,
+            interactionSource = interactionSource,
+            atEnd = atEnd,
+        )
+        return
+    }
     val colors = IconButtonDefaults.contrastIconButtonColors(intent.colors())
     SparkIconButton(
         icon = icon,

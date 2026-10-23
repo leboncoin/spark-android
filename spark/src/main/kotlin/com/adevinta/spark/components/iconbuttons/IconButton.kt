@@ -32,12 +32,21 @@ import androidx.compose.material3.TooltipAnchorPosition
 import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
+import com.adevinta.spark.R
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.popover.PlainTooltip
 import com.adevinta.spark.components.popover.TooltipBox
@@ -66,7 +75,8 @@ import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
  * @param isLoading show or hide a [Spinner] instead of the [icon] to indicate a
  * loading state
  * @param size one of the [IconButtonSize] values that sets width and height of the IconButton
- * @param border an optional [BorderStroke] to be applied to the IconButton
+ * @param border an optional [BorderStroke] to be applied to the IconButton. When `null`, the border
+ * comes from [IconButtonColors.borderColor], if [colors] defines one.
  * @param contentDescription text used by accessibility services to describe what this icon button
  * represents. This text should be localized, such as by using [androidx.compose.ui.res.stringResource] or similar
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
@@ -89,14 +99,16 @@ internal fun SparkIconButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
 ) {
+    // The label lives on the clickable node, so it survives the Icon to Spinner swap.
     val content: @Composable () -> Unit = {
         Icon(
             sparkIcon = icon,
-            contentDescription = contentDescription,
+            contentDescription = null,
             size = size.iconSize,
             atEnd = atEnd,
         )
     }
+    val loadingStateDescription = stringResource(R.string.spark_icon_button_loading_a11y)
     Box(modifier = modifier) {
         TooltipBox(
             positionProvider = TooltipDefaults.rememberTooltipPositionProvider(
@@ -108,17 +120,24 @@ internal fun SparkIconButton(
                 }
             },
             state = rememberTooltipState(),
+            // Without a label there is nothing to show, so long press and hover show no tooltip.
+            enableUserInput = !contentDescription.isNullOrBlank(),
         ) {
             Surface(
-                onClick = onClick,
+                onClick = { if (!isLoading) onClick() },
                 modifier = Modifier
                     .minimumTouchTargetSize()
-                    .sparkUsageOverlay(),
+                    .sparkUsageOverlay()
+                    .semantics {
+                        role = Role.Button
+                        contentDescription?.let { this.contentDescription = it }
+                        if (isLoading) stateDescription = loadingStateDescription
+                    },
                 enabled = enabled,
                 shape = IconButtonTokens.shape,
                 color = colors.containerColor(enabled = enabled).value,
                 contentColor = colors.contentColor(enabled).value,
-                border = border,
+                border = border ?: colors.borderColor(enabled)?.let { BorderStroke(IconButtonTokens.BorderWidth, it) },
                 interactionSource = interactionSource,
             ) {
                 Box(
@@ -132,6 +151,8 @@ internal fun SparkIconButton(
                                     IconButtonSize.Small, IconButtonSize.Medium -> SpinnerSize.Small
                                     IconButtonSize.Large -> SpinnerSize.Medium
                                 },
+                                // The button node carries the label and the loading state.
+                                modifier = Modifier.clearAndSetSemantics { },
                             )
                         } else {
                             content()
@@ -142,6 +163,13 @@ internal fun SparkIconButton(
         }
     }
 }
+
+/**
+ * Receiver for the rebranded icon button variants, such as `IconButton.Primary` or
+ * `IconButton.Tertiary`.
+ */
+@Immutable
+public object IconButton
 
 @Preview(
     group = "IconButtons",
