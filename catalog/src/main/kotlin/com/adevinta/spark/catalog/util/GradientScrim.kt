@@ -32,6 +32,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.node.DrawModifierNode
 import androidx.compose.ui.node.ModifierNodeElement
+import androidx.compose.ui.platform.InspectorInfo
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
@@ -65,6 +66,15 @@ private data class GradientScrimElement(
 
     override fun update(node: GradientScrimNode) {
         node.update(color, decay, numStops, startY, endY)
+    }
+
+    override fun InspectorInfo.inspectableProperties() {
+        name = "drawForegroundGradientScrim"
+        properties["color"] = color
+        properties["decay"] = decay
+        properties["numStops"] = numStops
+        properties["startY"] = startY
+        properties["endY"] = endY
     }
 }
 
