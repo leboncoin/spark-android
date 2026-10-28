@@ -21,12 +21,16 @@
  */
 package com.adevinta.spark.catalog.examples.component
 
+import androidx.compose.animation.BoundsTransform
 import androidx.compose.animation.EnterExitState
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.animation.core.ArcMode
 import androidx.compose.animation.core.ExperimentalAnimationSpecApi
+import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDp
+import androidx.compose.animation.core.keyframes
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
@@ -43,6 +47,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEachIndexed
@@ -78,6 +83,7 @@ import soup.compose.material.motion.animation.materialFadeOut
 public fun ComponentConfiguratorItem(
     component: Component,
     onClick: (component: Component, configuratorId: String) -> Unit,
+    isWidthExpanded: Boolean,
     countIndicator: Int = 0,
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -96,6 +102,7 @@ public fun ComponentConfiguratorItem(
                 )
             },
             component = component,
+            isWidthExpanded = isWidthExpanded,
             countIndicator = countIndicator,
             origin = ComponentOrigin.Configurator,
             onClick = {
@@ -130,14 +137,18 @@ public fun ComponentConfiguratorItem(
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class, ExperimentalAnimationSpecApi::class)
 @Composable
 public fun ComponentItem(
-    modifier: Modifier = Modifier,
     component: Component,
     onClick: () -> Unit,
+    isWidthExpanded: Boolean,
+    modifier: Modifier = Modifier,
     origin: ComponentOrigin = ComponentOrigin.Example,
     countIndicator: Int = 0,
 ) {
     val animatedVisibilityScope = LocalAnimatedVisibilityScope.current
     val hasEntered = animatedVisibilityScope.rememberHasEntered()
+    val showLarge = isWidthExpanded && component.illustrationLarge != null
+    val illustration = if (showLarge) component.illustrationLarge else component.illustration
+    val aspectRatio = if (showLarge) ComponentItemLargeAspectRatio else 1f
     with(LocalSharedTransitionScope.current) {
         val cardRadius = animatedVisibilityScope.transition
             .animateDp(label = "card radius") { enterExit ->
@@ -149,17 +160,11 @@ public fun ComponentItem(
             }
         val overlayClip = remember(cardRadius) { AnimatedRoundedClip { cardRadius.value } }
         val context = LocalContext.current
-        val illustrationRequest = remember(context, component.illustration) {
-            ImageRequest.Builder(context)
-                .data(component.illustration)
-                .crossfade(true)
-                .build()
-        }
         Card.Elevated(
             onClick = onClick,
             modifier = modifier
                 .semantics(mergeDescendants = true) {}
-                .aspectRatio(1f)
+                .aspectRatio(aspectRatio)
                 .sharedBounds(
                     sharedContentState = rememberSharedContentState(
                         ExamplesSharedElementKey(
@@ -195,7 +200,7 @@ public fun ComponentItem(
                                     enter = if (hasEntered) EnterTransition.None else materialFadeIn(),
                                     exit = materialFadeOut(),
                                 ),
-                            model = illustrationRequest,
+                            model = illustration,
                             contentDescription = null,
                         )
                     }
@@ -249,9 +254,10 @@ public enum class ComponentOrigin {
     Configurator,
 }
 
-private val ComponentItemHeight = 200.dp
-private val ComponentItemOuterPadding = 4.dp
 private val ComponentItemInnerPadding = 16.dp
+
+// Ratio of the Figma Web frames (368 x 200) that the `_large` illustrations come from.
+private const val ComponentItemLargeAspectRatio = 368f / 200f
 
 @PreviewLightDark
 @Composable
@@ -270,6 +276,7 @@ private fun ComponentItemPreview() {
             ),
             countIndicator = 3,
             onClick = {},
+            isWidthExpanded = false,
         )
         ComponentItem(
             component = Component(
@@ -285,6 +292,42 @@ private fun ComponentItemPreview() {
                 configurators = persistentListOf(),
             ),
             onClick = {},
+            isWidthExpanded = false,
+        )
+    }
+}
+
+@Preview(name = "Compact - Light", widthDp = 360)
+@Composable
+private fun ComponentItemCompactPreview() {
+    ComponentItemWidthPreview(isWidthExpanded = false)
+}
+
+@Preview(name = "Expanded - Light", widthDp = 840)
+@Composable
+private fun ComponentItemExpandedPreview() {
+    ComponentItemWidthPreview(isWidthExpanded = true)
+}
+
+@Composable
+private fun ComponentItemWidthPreview(isWidthExpanded: Boolean) {
+    PreviewTheme {
+        ComponentItem(
+            component = Component(
+                id = "popovers",
+                name = "Popovers",
+                description = R.string.component_popovers_description,
+                illustration = R.drawable.popover,
+                illustrationLarge = R.drawable.popover_large,
+                guidelinesUrl = "https://www.google.com/#q=constituto",
+                docsUrl = "https://www.google.com/#q=dictas",
+                sourceUrl = "http://www.bing.com/search?q=inani",
+                examples = persistentListOf(),
+                configurators = persistentListOf(),
+            ),
+            countIndicator = 3,
+            onClick = {},
+            isWidthExpanded = isWidthExpanded,
         )
     }
 }
