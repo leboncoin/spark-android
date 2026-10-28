@@ -137,10 +137,10 @@ public fun ComponentConfiguratorItem(
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class, ExperimentalAnimationSpecApi::class)
 @Composable
 public fun ComponentItem(
-    modifier: Modifier = Modifier,
     component: Component,
     onClick: () -> Unit,
     isWidthExpanded: Boolean,
+    modifier: Modifier = Modifier,
     origin: ComponentOrigin = ComponentOrigin.Example,
     countIndicator: Int = 0,
 ) {
@@ -160,12 +160,6 @@ public fun ComponentItem(
             }
         val overlayClip = remember(cardRadius) { AnimatedRoundedClip { cardRadius.value } }
         val context = LocalContext.current
-        val illustrationRequest = remember(context, component.illustration) {
-            ImageRequest.Builder(context)
-                .data(component.illustration)
-                .crossfade(true)
-                .build()
-        }
         Card.Elevated(
             onClick = onClick,
             modifier = modifier
@@ -260,8 +254,6 @@ public enum class ComponentOrigin {
     Configurator,
 }
 
-private val ComponentItemHeight = 200.dp
-private val ComponentItemOuterPadding = 4.dp
 private val ComponentItemInnerPadding = 16.dp
 
 // Ratio of the Figma Web frames (368 x 200) that the `_large` illustrations come from.
@@ -306,14 +298,12 @@ private fun ComponentItemPreview() {
 }
 
 @Preview(name = "Compact - Light", widthDp = 360)
-@Preview(name = "Compact - Dark", widthDp = 360, uiMode = UI_MODE_NIGHT_YES or UI_MODE_TYPE_NORMAL)
 @Composable
 private fun ComponentItemCompactPreview() {
     ComponentItemWidthPreview(isWidthExpanded = false)
 }
 
 @Preview(name = "Expanded - Light", widthDp = 840)
-@Preview(name = "Expanded - Dark", widthDp = 840, uiMode = UI_MODE_NIGHT_YES or UI_MODE_TYPE_NORMAL)
 @Composable
 private fun ComponentItemExpandedPreview() {
     ComponentItemWidthPreview(isWidthExpanded = true)
