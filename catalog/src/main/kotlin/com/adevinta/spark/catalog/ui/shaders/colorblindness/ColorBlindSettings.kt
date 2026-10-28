@@ -31,9 +31,10 @@ import androidx.compose.foundation.systemGestureExclusion
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Slider
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -86,23 +87,20 @@ public fun ColumnScope.ColorBlindSetting(
     onSeverityChange: (Float) -> Unit,
     onTypeChange: (ColorBlindNessType) -> Unit,
 ) {
-    val severityLabel by remember(severity) {
-        derivedStateOf {
-            (severity * 10).roundToInt()
-        }
-    }
+    var sliderSeverity by remember(severity) { mutableFloatStateOf(severity) }
 
     Text(
-        text = stringResource(id = R.string.color_blindness_severity_label, severityLabel),
+        text = stringResource(id = R.string.color_blindness_severity_label, (sliderSeverity * 10).roundToInt()),
         style = SparkTheme.typography.body2.highlight,
         modifier = Modifier.padding(bottom = 8.dp),
     )
     Slider(
         modifier = Modifier.systemGestureExclusion(),
-        value = severity,
+        value = sliderSeverity,
         valueRange = 0f..1f,
         steps = 9,
-        onValueChange = onSeverityChange,
+        onValueChange = { sliderSeverity = it },
+        onValueChangeFinished = { onSeverityChange(sliderSeverity) },
     )
 
     Column {
