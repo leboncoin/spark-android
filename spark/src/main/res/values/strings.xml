@@ -72,6 +72,10 @@
     <string name="spark_textfield_delete_a11y">Cancel</string>
     <!--endregion-->
 
+    <!--region IconButton-->
+    <string name="spark_icon_button_loading_a11y" description="State description announced while an icon button shows its loading spinner [CHAR_LIMIT=NONE]">Loading</string>
+    <!--endregion-->
+
     <!--region DragHandle-->
     <string name="spark_drag_handle_a11y">Drag handle</string>
     <!--endregion-->

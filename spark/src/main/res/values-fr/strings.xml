@@ -77,6 +77,10 @@
     <string name="spark_drag_handle_a11y">Poignée de déplacement</string>
     <!--endregion-->
 
+    <!--region IconButton-->
+    <string name="spark_icon_button_loading_a11y">Chargement en cours</string>
+    <!--endregion-->
+
     <!--region Stepper-->
     <string name="spark_combobox_multiple_chip_click_a11y">Remove %1$s</string>
     <string name="spark_dropdown_menu_item_no_result_label">Pas de résultat</string>
