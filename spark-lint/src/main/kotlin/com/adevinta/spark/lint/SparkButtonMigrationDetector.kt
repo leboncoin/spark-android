@@ -39,9 +39,9 @@ import com.intellij.psi.PsiParameter
 import com.intellij.psi.util.PsiTreeUtil
 import org.jetbrains.kotlin.psi.KtClassOrObject
 import org.jetbrains.kotlin.psi.KtEnumEntry
+import org.jetbrains.kotlin.psi.KtValueArgument
 import org.jetbrains.uast.UCallExpression
 import org.jetbrains.uast.UExpression
-import org.jetbrains.uast.UNamedExpression
 import org.jetbrains.uast.UQualifiedReferenceExpression
 import org.jetbrains.uast.UReferenceExpression
 import org.jetbrains.uast.USimpleNameReferenceExpression
@@ -61,7 +61,8 @@ public class SparkButtonMigrationDetector :
         val packageName = (method.containingFile as? PsiJavaFile)?.packageName ?: return
         val calleeName = node.methodName ?: method.name
         if (packageName != oldComposablePackage[calleeName]) return
-        val params = node.resolve()?.parameterList?.parameters
+        val params = method.parameterList.parameters
+        val args = argumentsByParameterName(context, node, method)
 
         val directVariant = directVariantForOldComposable[calleeName]
         val message: String
@@ -70,15 +71,15 @@ public class SparkButtonMigrationDetector :
             // TextLinkButton and similar always map to one callee, whatever the intent.
             val targetCallee = variantToCallee[directVariant] ?: return
             message = "`$calleeName` is an old Spark button. Replace it with `$targetCallee`."
-            fix = buildFix(context, node, calleeName, targetCallee, params)
+            fix = args?.let { buildFix(context, node, calleeName, targetCallee, params, it) }
         } else {
             val style = oldComposableToStyle[calleeName] ?: return
-            val intent = resolveIntent(node, calleeName, params)
+            val intent = resolveIntent(calleeName, args)
             if (intent != null) {
                 val variant = mapToVariant(intent, style)
                 val targetCallee = variantToCallee[variant] ?: return
                 message = "`$calleeName` is an old style-based Spark button. Replace it with `$targetCallee`."
-                fix = buildFix(context, node, calleeName, targetCallee, params)
+                fix = args?.let { buildFix(context, node, calleeName, targetCallee, params, it) }
             } else {
                 message =
                     "`$calleeName` is an old style-based Spark button. The `intent` argument could not be resolved to a constant `ButtonIntent`; migrate this call by hand."
@@ -97,36 +98,14 @@ public class SparkButtonMigrationDetector :
      * Resolves the [ButtonIntent] for a call to one of the old button composables.
      *
      * Returns null when the `intent` argument is present but is not a constant enum reference
-     * (for example, a variable, a function call, or a `when` expression).
+     * (for example, a variable, a function call, or a `when` expression), or when [args] is null
+     * because the argument binding could not be trusted.
      */
-    private fun resolveIntent(
-        node: UCallExpression,
-        calleeName: String,
-        params: Array<PsiParameter>?,
-    ): ButtonIntent? {
-        val arg = findIntentArgument(node, params)
+    private fun resolveIntent(calleeName: String, args: Map<String, UExpression>?): ButtonIntent? {
+        if (args == null) return null
+        val arg = args["intent"]
             ?: return defaultIntentForOldComposable[calleeName] // absent → use per-button default
         return resolveIntentFromExpression(arg) // present → resolve or return null (unresolved)
-    }
-
-    /**
-     * Finds the argument bound to the `intent` parameter in [node].
-     *
-     * Binds by parameter, not by raw argument index: UAST omits defaulted optional parameters from
-     * `valueArguments`, so a positional index into that list does not align with the parameter list.
-     * `getArgumentForParameter` handles named args, positional args, and returns null when the
-     * parameter uses its default value. This handles all three overloads where `intent` appears at
-     * different positions without relying on a hard-coded index.
-     *
-     * Returns null when no argument for `intent` is present in the call (the caller relies on the
-     * default parameter value).
-     */
-    private fun findIntentArgument(node: UCallExpression, params: Array<PsiParameter>?): UExpression? {
-        if (params == null) return null
-        val intentIndex = params.indexOfFirst { it.name == "intent" }
-        if (intentIndex < 0) return null
-        val arg = node.getArgumentForParameter(intentIndex) ?: return null
-        return if (arg is UNamedExpression) arg.expression else arg
     }
 
     /**
@@ -158,6 +137,32 @@ public class SparkButtonMigrationDetector :
     }
 
     /**
+     * Binds each argument of [node] to the name of the [method] parameter it fills.
+     *
+     * Returns null when the binding is not trustworthy: an argument maps to a parameter that [method]
+     * does not declare, or a named argument maps to a parameter with a different name. This happens
+     * when the IDE resolves overloads inconsistently, and rewriting with that binding would move
+     * values into the wrong parameters.
+     */
+    private fun argumentsByParameterName(
+        context: JavaContext,
+        node: UCallExpression,
+        method: PsiMethod,
+    ): Map<String, UExpression>? {
+        val paramNames = method.parameterList.parameters.map { it.name }.toSet()
+        val mapping = context.evaluator.computeArgumentMapping(node, method)
+        if (mapping.size != node.valueArgumentCount) return null
+        val result = mutableMapOf<String, UExpression>()
+        for ((arg, param) in mapping) {
+            if (param.name !in paramNames) return null
+            val sourceName = (arg.sourcePsi?.parent as? KtValueArgument)?.getArgumentName()?.asName?.asString()
+            if (sourceName != null && sourceName != param.name) return null
+            result[param.name] = arg
+        }
+        return result
+    }
+
+    /**
      * Builds a [LintFix] that rewrites the old button call to the new `Button.<Variant>` API using
      * named arguments.
      *
@@ -176,10 +181,9 @@ public class SparkButtonMigrationDetector :
         node: UCallExpression,
         calleeName: String,
         targetCallee: String,
-        params: Array<PsiParameter>?,
+        params: Array<PsiParameter>,
+        args: Map<String, UExpression>,
     ): LintFix? {
-        if (params == null) return null
-
         // Identify overload via the resolved parameter list
         val textParam = params.firstOrNull { it.name == "text" }
         val isContentOverload = params.any { it.name == "content" }
@@ -193,13 +197,11 @@ public class SparkButtonMigrationDetector :
         var trailingLambdaText: String? = null
         var annotatedStringTextExpr: String? = null
 
-        // Iterate the parameter list and bind each parameter to its argument through
-        // `getArgumentForParameter`. This aligns named and positional arguments correctly and
-        // returns null for any parameter left at its default value, which is then omitted.
-        for ((index, param) in params.withIndex()) {
-            val rawArg = node.getArgumentForParameter(index) ?: continue
-            val arg = if (rawArg is UNamedExpression) rawArg.expression else rawArg
+        // Emit arguments in parameter order, looked up by parameter name. Parameters left at their
+        // default value have no argument and are omitted.
+        for (param in params) {
             val paramName = param.name
+            val arg = args[paramName] ?: continue
 
             // Drop parameters that do not exist in the new API
             if (paramName == "intent" || paramName == "shape") continue
@@ -249,7 +251,6 @@ public class SparkButtonMigrationDetector :
             .range(context.getLocation(node))
             .with(newText)
             .imports(*imports.toTypedArray())
-            .shortenNames()
             .reformat(true)
             .autoFix()
             .build()
