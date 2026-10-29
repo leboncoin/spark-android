@@ -27,8 +27,10 @@ import androidx.compose.animation.graphics.res.animatedVectorResource
 import androidx.compose.animation.graphics.res.rememberAnimatedVectorPainter
 import androidx.compose.animation.graphics.vector.AnimatedImageVector
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import com.adevinta.spark.icons.SparkIcon
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
@@ -46,7 +48,14 @@ import org.jetbrains.compose.resources.painterResource
 public actual fun rememberSparkIconPainter(sparkIcon: SparkIcon, atEnd: Boolean): Painter = when (sparkIcon) {
     is SparkIcon.Vector -> rememberVectorPainter(sparkIcon.imageVector)
 
-    is SparkIcon.DrawableRes -> rememberDrawablePainter(getDrawable(LocalContext.current, sparkIcon.drawableId))
+    is SparkIcon.DrawableRes -> {
+        val context = LocalContext.current
+        val configuration = LocalConfiguration.current
+        val drawable = remember(context, configuration, sparkIcon.drawableId) {
+            getDrawable(context, sparkIcon.drawableId)
+        }
+        rememberDrawablePainter(drawable)
+    }
 
     is SparkIcon.AnimatedDrawableRes -> {
         val icon = AnimatedImageVector.animatedVectorResource(sparkIcon.drawableId)
