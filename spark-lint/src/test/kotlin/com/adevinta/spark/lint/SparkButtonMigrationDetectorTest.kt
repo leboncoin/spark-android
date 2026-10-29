@@ -1018,6 +1018,38 @@ class SparkButtonMigrationDetectorTest : LintDetectorTest() {
             )
     }
 
+    /** Reported call: `ButtonGhost` with a named Neutral intent between modifier and icon. */
+    @Test
+    fun buttonGhost_namedNeutralIntent_withIconAndStringResource_rewritesToGhost() {
+        lint().files(
+            kotlin(
+                """
+                package foo
+
+                import androidx.compose.ui.Modifier
+                import com.adevinta.spark.components.buttons.ButtonGhost
+                import com.adevinta.spark.components.buttons.ButtonIntent
+                import androidx.compose.runtime.Composable
+
+                @Composable
+                fun Test(onClick: () -> Unit, modifier: Modifier) {
+                    ButtonGhost(
+                        onClick = onClick,
+                        modifier = modifier,
+                        intent = ButtonIntent.Neutral,
+                        icon = LeboncoinIcons.ClockArrow,
+                        text = stringResource(id = R.string.login_account_blocked_suggest_two_factor_activation_cta_later),
+                    )
+                }
+                """,
+            ).indented(),
+            callSiteStubs,
+            *Composables,
+            *SparkButtonStubs,
+        ).run()
+            .expectContains("Replace it with")
+    }
+
     /** Every constant intent passed by name after other arguments selects the mapped variant. */
     @Test
     fun buttonFilled_everyNamedIntent_selectsMappedVariant() {
