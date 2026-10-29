@@ -23,6 +23,7 @@ package com.adevinta.spark.iconbutton
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -53,7 +54,6 @@ import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.UserOutline
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshotNightMode
-import com.android.ide.common.rendering.api.SessionParams.RenderingMode.V_SCROLL
 import org.junit.Rule
 import org.junit.Test
 
@@ -61,7 +61,6 @@ internal class RebrandedIconButtonScreenshot {
 
     @get:Rule
     val paparazzi = paparazziRule(
-        renderingMode = V_SCROLL,
         deviceConfig = DefaultTestDevices.Tablet,
     )
 
@@ -128,7 +127,7 @@ internal class RebrandedIconButtonScreenshot {
     }
 
     @Composable
-    private fun IconButtonStates(content: @Composable (enabled: Boolean, isLoading: Boolean) -> Unit) {
+    private fun ColumnScope.IconButtonStates(content: @Composable (enabled: Boolean, isLoading: Boolean) -> Unit) {
         content(true, false)
         content(false, false)
         content(true, true)

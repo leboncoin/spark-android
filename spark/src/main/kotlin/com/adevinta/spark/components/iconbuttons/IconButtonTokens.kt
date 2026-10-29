@@ -43,8 +43,8 @@ public object IconButtonTokens {
         get() = SparkTheme.shapes.full
 
     /**
-     * The border width of outlined icon buttons, such as the legacy outlined style and the
-     * rebranded Tertiary, Danger and Success variants.
+     * The width of the border that outlined icon buttons draw: 1 dp. The legacy outlined style and
+     * the [IconButton.Tertiary], [IconButton.Danger], and [IconButton.Success] variants use it.
      */
     public val BorderWidth: Dp = 1.dp
 }

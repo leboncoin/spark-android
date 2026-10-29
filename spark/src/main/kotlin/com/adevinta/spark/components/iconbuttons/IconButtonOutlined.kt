@@ -50,8 +50,9 @@ import com.adevinta.spark.icons.SparkIcon
  * @param isLoading show or hide a [Spinner] instead of the [icon] to indicate a
  * loading state
  * @param size one of the [IconButtonSize] values that sets width and height of the IconButton
- * @param contentDescription localised text read by screen readers and shown as the tooltip of this icon button.
- * `null` gives the button no accessible name and no tooltip, so pass `null` only for a purely decorative icon.
+ * @param contentDescription The localised text that screen readers announce and that the icon button
+ * shows as its tooltip. A `null` or blank value shows no tooltip, and `null` also leaves the icon
+ * button without an accessible name, so pass `null` only for a purely decorative icon.
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this icon button. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this icon button in different states.

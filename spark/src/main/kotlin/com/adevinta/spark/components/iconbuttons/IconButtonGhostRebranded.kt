@@ -34,27 +34,38 @@ import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
 
 /**
- * Ghost icon buttons are used for the lowest priority actions, especially when presenting multiple options.
- * Until the icon button is interacted with, its container is not visible. The icon follows the
- * [androidx.compose.material3.LocalContentColor] of its parent.
+ * A low-emphasis icon button with a transparent container, for the lowest priority actions.
+ *
+ * Use it for actions of the lowest priority, especially when the view presents several options. It
+ * suits actions inside other components, such as snackbars, dialogs, and cards. The icon follows the
+ * [androidx.compose.material3.LocalContentColor] of its parent, so the icon button adapts to the
+ * surface it sits on. For a prominent action, use another variant.
+ * For the behaviour that every variant shares, see [IconButton].
  *
  * ![IconButton Ghost](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.iconbutton_RebrandedIconButtonDocumentationScreenshots_iconButtonGhost.png)
  *
- * @param icon a content to be drawn inside the IconButton
- * @param onClick called when this icon button is clicked
- * @param contentDescription text used by accessibility services to describe what this icon button
- * represents. This text should be localized, such as by using [androidx.compose.ui.res.stringResource] or similar
- * @param modifier the [Modifier] to be applied to this icon button
- * @param size one of the [IconButtonSize] values that sets width and height of the IconButton
- * @param enabled controls the enabled state of this icon button. When `false`, this component will
- * not respond to user input, and it will appear visually disabled and disabled to accessibility
- * services.
- * @param isLoading show or hide a [Spinner] instead of the [icon] to indicate a
- * loading state
- * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
- * for this icon button. You can create and pass in your own `remember`ed instance to observe
- * [Interaction]s and customize the appearance / behavior of this icon button in different states.
- * @param atEnd Whether the animated vector should be rendered at the end of all its animations.
+ * @receiver The [IconButton] object that groups the variants. The function does not read it.
+ * @param icon The [SparkIcon] to draw at the centre of the icon button.
+ * @param onClick The callback that runs when the user clicks the icon button. It does not run while
+ * [isLoading] is `true`.
+ * @param contentDescription The localised text that screen readers announce and that the icon button
+ * shows as its tooltip. Required, with no default. Load it with
+ * [androidx.compose.ui.res.stringResource]. A blank value shows no tooltip.
+ * @param modifier The [Modifier] to apply to the icon button.
+ * @param size The [IconButtonSize] of the icon button: [IconButtonSize.Small] (32 dp),
+ * [IconButtonSize.Medium] (44 dp), or [IconButtonSize.Large] (56 dp). Default:
+ * [IconButtonSize.Medium].
+ * @param enabled Whether the icon button responds to user input. If `false`, it ignores input, draws
+ * its disabled colours, and accessibility services report it as disabled. Default: `true`.
+ * @param isLoading Whether the icon button shows its loading state. If `true`, a [Spinner] replaces
+ * the [icon], the icon button stays enabled but ignores clicks, and screen readers announce the
+ * state "Loading" with the content description. If `false`, the icon button shows the [icon].
+ * Default: `false`.
+ * @param interactionSource The [MutableInteractionSource] that emits the [Interaction] events of the
+ * icon button, such as press and focus. Pass your own `remember`ed instance to observe those events.
+ * @param atEnd Whether an animated [icon] is drawn at the end of its animation. Changing the value
+ * from `false` to `true` plays the animation of an animated vector icon. A static icon ignores the
+ * value. Default: `false`.
  */
 @Suppress("UnusedReceiverParameter")
 @Composable

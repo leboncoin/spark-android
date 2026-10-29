@@ -61,27 +61,36 @@ import com.adevinta.spark.tools.modifiers.minimumTouchTargetSize
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
 /**
- * Icon buttons help people take supplementary actions with a single tap. They’re used when a
- * compact button is required, such as in a toolbar or image list.
+ * Draws the icon button that the [IconButton] variants and the legacy icon buttons share.
  *
- * @param icon a content to be drawn inside the IconButton
- * @param colors `IconButtonColors` that will be used to resolve the colors used for this icon
- * button in different states.
- * @param onClick called when this icon button is clicked
- * @param modifier the [Modifier] to be applied to this icon button
- * @param enabled controls the enabled state of this icon button. When `false`, this component will
- * not respond to user input, and it will appear visually disabled and disabled to accessibility
- * services.
- * @param isLoading show or hide a [Spinner] instead of the [icon] to indicate a
- * loading state
- * @param size one of the [IconButtonSize] values that sets width and height of the IconButton
- * @param border an optional [BorderStroke] to be applied to the IconButton. When `null`, the border
- * comes from [IconButtonColors.borderColor], if [colors] defines one.
- * @param contentDescription text used by accessibility services to describe what this icon button
- * represents. This text should be localized, such as by using [androidx.compose.ui.res.stringResource] or similar
- * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
- * for this icon button. You can create and pass in your own `remember`ed instance to observe
- * [Interaction]s and customize the appearance / behavior of this icon button in different states.
+ * The caller chooses the colours. This function adds the content description, the tooltip, the
+ * loading state, and the minimum touch target. For the behaviour that every icon button shares,
+ * see [IconButton].
+ *
+ * @param icon The [SparkIcon] to draw at the centre of the icon button.
+ * @param colors The [IconButtonColors] that resolve the container, content, and border colours in
+ * the enabled and disabled states.
+ * @param onClick The callback that runs when the user clicks the icon button. It does not run while
+ * [isLoading] is `true`.
+ * @param modifier The [Modifier] to apply to the icon button.
+ * @param enabled Whether the icon button responds to user input. If `false`, it ignores input, draws
+ * its disabled colours, and accessibility services report it as disabled. Default: `true`.
+ * @param isLoading Whether the icon button shows its loading state. If `true`, a [Spinner] replaces
+ * the [icon], the icon button ignores clicks, and screen readers announce the state "Loading" with
+ * the content description. If `false`, the icon button shows the [icon]. Default: `false`.
+ * @param size The [IconButtonSize] of the icon button: [IconButtonSize.Small] (32 dp),
+ * [IconButtonSize.Medium] (44 dp), or [IconButtonSize.Large] (56 dp). Default:
+ * [IconButtonSize.Medium].
+ * @param border The [BorderStroke] to draw around the icon button. If `null`, the border comes from
+ * [colors], and the icon button has no border when [colors] defines none.
+ * @param contentDescription The localised text that screen readers announce and that the icon button
+ * shows as its tooltip. A `null` or blank value shows no tooltip, and `null` also leaves the icon
+ * button without an accessible name.
+ * @param interactionSource The [MutableInteractionSource] that emits the [Interaction] events of the
+ * icon button, such as press and focus. Pass your own `remember`ed instance to observe those events.
+ * @param atEnd Whether an animated [icon] is drawn at the end of its animation. Changing the value
+ * from `false` to `true` plays the animation of an animated vector icon. A static icon ignores the
+ * value. Default: `false`.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @InternalSparkApi
@@ -165,8 +174,48 @@ internal fun SparkIconButton(
 }
 
 /**
- * Receiver for the rebranded icon button variants, such as `IconButton.Primary` or
- * `IconButton.Tertiary`.
+ * Groups the rebranded icon button variants. Use an icon button for a supplementary action that
+ * needs only an icon, such as an action in a toolbar or an image list.
+ *
+ * Each variant is an extension function of this object, so you call it as `IconButton.Primary(...)`.
+ * All variants take the same parameters and behave the same way. They differ only in colour and
+ * border.
+ *
+ * When you choose a variant, start from the importance of the action in the view:
+ *
+ * | Variant | Appearance | Use for |
+ * |---------|------------|---------|
+ * | [IconButton.Primary] | Main colour container | The one action of a view that matters most |
+ * | [IconButton.Secondary] | Support colour container | Most actions |
+ * | [IconButton.Tertiary] | Transparent container, outline border | Important actions that are not the likely next step |
+ * | [IconButton.Boost] | Accent colour container | Conversion and monetisation actions, such as boosting an ad |
+ * | [IconButton.Ai] | AI colour container (experimental) | AI-powered actions |
+ * | [IconButton.Danger] | Transparent container, outline border, error colour icon | Destructive or irreversible actions |
+ * | [IconButton.Success] | Transparent container, outline border, success colour icon | Positive confirmations |
+ * | [IconButton.Contrast] | Surface colour container | Coloured or image backgrounds |
+ * | [IconButton.Ghost] | No container, icon follows the content colour | The lowest priority actions |
+ *
+ * The following example shows a primary icon button that opens the settings:
+ *
+ * ```kotlin
+ * IconButton.Primary(
+ *     icon = LeboncoinIcons.GearOutline,
+ *     onClick = { openSettings() },
+ *     contentDescription = stringResource(R.string.settings),
+ * )
+ * ```
+ *
+ * Every variant provides the following accessibility behaviour:
+ * - The content description is required. Screen readers announce it, and the icon button shows it
+ *   as a tooltip on long press and on pointer hover. A blank value shows no tooltip.
+ * - The role is `Button`.
+ * - While `isLoading` is `true`, the content description stays on the icon button, screen readers
+ *   announce the state "Loading", and the icon button ignores clicks.
+ * - The layout reserves a touch target of at least 44 dp, even for [IconButtonSize.Small].
+ *
+ * For an action with a text label, use [com.adevinta.spark.components.buttons.Button].
+ *
+ * @see IconButtonSize
  */
 @Immutable
 public object IconButton
