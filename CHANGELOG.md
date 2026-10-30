@@ -2,6 +2,13 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [4.3.1](https://github.com/leboncoin/spark-android/compare/4.3.0...4.3.1) (2026-10-30)
+
+
+### Miscellaneous
+
+* **baseline:** regenerate baseline profiles ([#2358](https://github.com/leboncoin/spark-android/issues/2358)) ([d2632a9](https://github.com/leboncoin/spark-android/commit/d2632a95c09981b839caddaaf1d8c06ae1523637))
+
 ## [4.3.0](https://github.com/leboncoin/spark-android/compare/4.2.1...4.3.0) (2026-10-29)
 
 
