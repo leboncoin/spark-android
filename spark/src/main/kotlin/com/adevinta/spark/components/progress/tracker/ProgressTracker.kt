@@ -38,6 +38,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
@@ -86,6 +87,7 @@ import com.adevinta.spark.icons.SparkAnimatedIcons
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.addButton
 import com.adevinta.spark.tokens.dim1
+import com.adevinta.spark.tokens.dim2
 import com.adevinta.spark.tokens.disabled
 import com.adevinta.spark.tokens.highlight
 import com.adevinta.spark.tokens.transparent
@@ -241,6 +243,7 @@ private fun ProgressTracker(
         items.fastForEachIndexed { index, progressStep ->
             StepLabel(
                 label = progressStep.label,
+                sublabel = progressStep.sublabel,
                 enabled = progressStep.enabled,
                 orientation = orientation,
                 index = index,
@@ -312,17 +315,23 @@ private fun StepLabel(
     orientation: LayoutOrientation,
     modifier: Modifier = Modifier,
     label: CharSequence = "",
+    sublabel: CharSequence? = null,
     index: Int = 0,
     selected: Boolean = false,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
-    if (label.isBlank()) return Spacer(modifier = Modifier.size(0.dp))
+    if (label.isBlank() && sublabel.isNullOrBlank()) return Spacer(modifier = Modifier.size(0.dp))
     val transition = updateTransition(selected, label = "ProgressTrackerSelectedState")
     val labelColor by transition.animateColor(
         label = "Label color $index",
     ) {
         if (it) SparkTheme.colors.onSurface else SparkTheme.colors.onSurface.dim1
+    }
+    val sublabelColor by transition.animateColor(
+        label = "Sublabel color $index",
+    ) {
+        if (it) SparkTheme.colors.onSurface.dim1 else SparkTheme.colors.onSurface.dim2
     }
     val labelProgress by transition.animateFloat(
         label = "LabelProgress $index",
@@ -352,20 +361,61 @@ private fun StepLabel(
                 }
             }
         val textAlign = if (orientation == Horizontal) TextAlign.Center else TextAlign.Start
-        when (label) {
-            is AnnotatedString -> Text(
-                text = label,
-                textAlign = textAlign,
-                style = textStyle,
-                modifier = labelModifier,
-            )
+        if (sublabel.isNullOrBlank()) {
+            when (label) {
+                is AnnotatedString -> Text(
+                    text = label,
+                    textAlign = textAlign,
+                    style = textStyle,
+                    modifier = labelModifier,
+                )
 
-            else -> Text(
-                text = label.toString(),
-                textAlign = textAlign,
-                style = textStyle,
+                else -> Text(
+                    text = label.toString(),
+                    textAlign = textAlign,
+                    style = textStyle,
+                    modifier = labelModifier,
+                )
+            }
+        } else {
+            Column(
                 modifier = labelModifier,
-            )
+                horizontalAlignment = if (orientation == Horizontal) Alignment.CenterHorizontally else Alignment.Start,
+            ) {
+                val textModifier = if (orientation == Horizontal) Modifier.fillMaxWidth() else Modifier
+                when (label) {
+                    is AnnotatedString -> Text(
+                        text = label,
+                        textAlign = textAlign,
+                        style = textStyle,
+                        modifier = textModifier,
+                    )
+
+                    else -> Text(
+                        text = label.toString(),
+                        textAlign = textAlign,
+                        style = textStyle,
+                        modifier = textModifier,
+                    )
+                }
+                when (sublabel) {
+                    is AnnotatedString -> Text(
+                        text = sublabel,
+                        textAlign = textAlign,
+                        style = SparkTheme.typography.caption,
+                        color = sublabelColor,
+                        modifier = textModifier,
+                    )
+
+                    else -> Text(
+                        text = sublabel.toString(),
+                        textAlign = textAlign,
+                        style = SparkTheme.typography.caption,
+                        color = sublabelColor,
+                        modifier = textModifier,
+                    )
+                }
+            }
         }
     }
 }
@@ -682,5 +732,25 @@ private fun PreviewProgressIndicator() {
                 interactionSource = interactionSource,
             )
         }
+    }
+}
+
+@Composable
+@Preview
+private fun PreviewProgressWithSublabel() {
+    PreviewTheme(padding = PaddingValues(0.dp)) {
+        val items = persistentListOf(
+            ProgressStep("Step 1", true, sublabel = "10:00 AM"),
+            ProgressStep("Step 2", true, sublabel = "In progress"),
+            ProgressStep("Step 3", false, sublabel = "Pending"),
+        )
+        ProgressTrackerRow(
+            items = items,
+            selectedStep = 1,
+        )
+        ProgressTrackerColumn(
+            items = items,
+            selectedStep = 1,
+        )
     }
 }
