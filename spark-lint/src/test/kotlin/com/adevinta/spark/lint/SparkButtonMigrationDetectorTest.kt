@@ -854,4 +854,194 @@ class SparkButtonMigrationDetectorTest : LintDetectorTest() {
             )
             .expectFixDiffs("")
     }
+
+    // ── Argument binding ────────────────────────────────────────────────────
+
+    private val callSiteStubs = kotlin(
+        """
+        package foo
+
+        import androidx.compose.ui.Modifier
+        import com.adevinta.spark.icons.SparkIcon
+
+        class Dp
+        val Int.dp: Dp get() = Dp()
+        fun Modifier.fillMaxWidth(): Modifier = this
+        fun Modifier.padding(vertical: Dp): Modifier = this
+        fun stringResource(id: Int): String = ""
+        object R {
+            object string {
+                const val accountemailpart_modern_edit_action_save = 1
+                const val login_account_blocked_suggest_two_factor_activation_cta_later = 2
+            }
+        }
+        class State(val submitEnabled: Boolean)
+        object LeboncoinIcons {
+            val ClockArrow: SparkIcon = object : SparkIcon {}
+        }
+        """,
+    ).indented()
+
+    /** Named arguments in a different order from the declaration each keep their own parameter. */
+    @Test
+    fun buttonFilled_namedArgumentsOutOfOrder_keepTheirParameters() {
+        lint().files(
+            kotlin(
+                """
+                package foo
+
+                import androidx.compose.ui.Modifier
+                import com.adevinta.spark.components.buttons.ButtonFilled
+                import androidx.compose.runtime.Composable
+
+                @Composable
+                fun Test(state: State, onSaveClick: () -> Unit) {
+                    ButtonFilled(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 16.dp),
+                        text = stringResource(R.string.accountemailpart_modern_edit_action_save),
+                        enabled = state.submitEnabled,
+                        onClick = onSaveClick,
+                    )
+                }
+                """,
+            ).indented(),
+            callSiteStubs,
+            *Composables,
+            *SparkButtonStubs,
+        ).run()
+            .expectFixDiffs(
+                """
+                Autofix for src/foo/test.kt line 9: Replace ButtonFilled with Button.Primary:
+                @@ -3,0 +4 @@
+                +import com.adevinta.spark.components.buttons.Button
+                @@ -5,0 +7 @@
+                +import com.adevinta.spark.components.buttons.Primary
+                @@ -9,2 +11 @@
+                -    ButtonFilled(
+                -        modifier = Modifier
+                +    Button.Primary(onClick = onSaveClick, text = stringResource(R.string.accountemailpart_modern_edit_action_save), modifier = Modifier
+                @@ -12,5 +13 @@
+                -            .padding(vertical = 16.dp),
+                -        text = stringResource(R.string.accountemailpart_modern_edit_action_save),
+                -        enabled = state.submitEnabled,
+                -        onClick = onSaveClick,
+                -    )
+                +            .padding(vertical = 16.dp), enabled = state.submitEnabled)
+                """.trimIndent(),
+            )
+    }
+
+    /** Positional arguments bind to the declared parameter order and are emitted as named arguments. */
+    @Test
+    fun buttonFilled_positionalArguments_emittedAsNamed() {
+        lint().files(
+            kotlin(
+                """
+                package foo
+
+                import androidx.compose.ui.Modifier
+                import com.adevinta.spark.components.buttons.ButtonFilled
+                import com.adevinta.spark.components.buttons.ButtonSize
+                import androidx.compose.runtime.Composable
+
+                @Composable
+                fun Test(modifier: Modifier) {
+                    ButtonFilled({}, "Save", modifier, ButtonSize.Large)
+                }
+                """,
+            ).indented(),
+            *Composables,
+            *SparkButtonStubs,
+        ).run()
+            .expectFixDiffs(
+                """
+                Autofix for src/foo/test.kt line 10: Replace ButtonFilled with Button.Primary:
+                @@ -3,0 +4 @@
+                +import com.adevinta.spark.components.buttons.Button
+                @@ -6,0 +8 @@
+                +import com.adevinta.spark.components.buttons.Primary
+                @@ -10 +12 @@
+                -    ButtonFilled({}, "Save", modifier, ButtonSize.Large)
+                +    Button.Primary(onClick = {}, text = "Save", modifier = modifier, size = ButtonSize.Large)
+                """.trimIndent(),
+            )
+    }
+
+    /** A named `intent` after other named arguments selects the variant and is dropped. */
+    @Test
+    fun buttonFilled_namedSurfaceIntentAmongOtherArgs_rewritesToContrast() {
+        lint().files(
+            kotlin(
+                """
+                package foo
+
+                import androidx.compose.ui.Modifier
+                import com.adevinta.spark.components.buttons.ButtonFilled
+                import com.adevinta.spark.components.buttons.ButtonIntent
+                import androidx.compose.runtime.Composable
+
+                @Composable
+                fun Test(modifier: Modifier, onClick: () -> Unit) {
+                    ButtonFilled(
+                        onClick = onClick,
+                        modifier = modifier,
+                        intent = ButtonIntent.Surface,
+                        icon = LeboncoinIcons.ClockArrow,
+                        text = stringResource(id = R.string.login_account_blocked_suggest_two_factor_activation_cta_later),
+                    )
+                }
+                """,
+            ).indented(),
+            callSiteStubs,
+            *Composables,
+            *SparkButtonStubs,
+        ).run()
+            .expectFixDiffs(
+                """
+                Autofix for src/foo/test.kt line 10: Replace ButtonFilled with Button.Contrast:
+                @@ -3,0 +4 @@
+                +import com.adevinta.spark.components.buttons.Button
+                @@ -6,0 +8 @@
+                +import com.adevinta.spark.components.buttons.Contrast
+                @@ -10,7 +12 @@
+                -    ButtonFilled(
+                -        onClick = onClick,
+                -        modifier = modifier,
+                -        intent = ButtonIntent.Surface,
+                -        icon = LeboncoinIcons.ClockArrow,
+                -        text = stringResource(id = R.string.login_account_blocked_suggest_two_factor_activation_cta_later),
+                -    )
+                +    Button.Contrast(onClick = onClick, text = stringResource(id = R.string.login_account_blocked_suggest_two_factor_activation_cta_later), modifier = modifier, icon = LeboncoinIcons.ClockArrow)
+                """.trimIndent(),
+            )
+    }
+
+    /** Every constant intent passed by name after other arguments selects the mapped variant. */
+    @Test
+    fun buttonFilled_everyNamedIntent_selectsMappedVariant() {
+        for (intent in ButtonIntent.entries) {
+            val target = variantToCallee.getValue(mapToVariant(intent, ButtonStyle.Filled))
+            lint().files(
+                kotlin(
+                    """
+                    package foo
+
+                    import com.adevinta.spark.components.buttons.ButtonFilled
+                    import com.adevinta.spark.components.buttons.ButtonIntent
+                    import androidx.compose.runtime.Composable
+
+                    @Composable
+                    fun Test() {
+                        ButtonFilled(onClick = {}, enabled = false, intent = ButtonIntent.${intent.name}, text = "Go")
+                    }
+                    """,
+                ).indented(),
+                *Composables,
+                *SparkButtonStubs,
+            ).run()
+                .expectContains("Replace it with $target.")
+        }
+    }
 }
