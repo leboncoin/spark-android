@@ -38,13 +38,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.core.content.getSystemService
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.metrics.performance.JankStats
 import androidx.navigation.NavController
 import com.adevinta.spark.catalog.datastore.theme.ThemePropertiesHandler
-import com.adevinta.spark.catalog.datastore.theme.collectAsStateWithDefault
 import com.adevinta.spark.catalog.model.Components
+import com.adevinta.spark.catalog.themes.Theme
 import com.adevinta.spark.catalog.themes.ThemeMode
 import com.adevinta.spark.catalog.ui.navigation.provideAssistContent
 import kotlinx.coroutines.flow.collectLatest
@@ -104,17 +105,20 @@ public class MainActivity : AppCompatActivity() {
             val coroutineScope = rememberCoroutineScope()
             val theme by propertiesHandler
                 .properties
-                .collectAsStateWithDefault(this@MainActivity)
+                .collectAsStateWithLifecycle<Theme?>(initialValue = null)
 
-            CatalogApp(
-                theme = theme,
-                components = Components,
-                onThemeChange = {
-                    coroutineScope.launch {
-                        propertiesHandler.updateProperties(it)
-                    }
-                },
-            )
+            // Compose the app only once the saved theme is loaded, so start-up does not compose it twice.
+            theme?.let { loadedTheme ->
+                CatalogApp(
+                    theme = loadedTheme,
+                    components = Components,
+                    onThemeChange = {
+                        coroutineScope.launch {
+                            propertiesHandler.updateProperties(it)
+                        }
+                    },
+                )
+            }
         }
     }
 

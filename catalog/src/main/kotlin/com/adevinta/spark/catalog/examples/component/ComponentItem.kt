@@ -23,6 +23,7 @@ package com.adevinta.spark.catalog.examples.component
 
 import androidx.compose.animation.BoundsTransform
 import androidx.compose.animation.EnterExitState
+import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.ArcMode
@@ -30,13 +31,11 @@ import androidx.compose.animation.core.ExperimentalAnimationSpecApi
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.keyframes
-import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -48,6 +47,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEachIndexed
@@ -83,6 +83,7 @@ import soup.compose.material.motion.animation.materialFadeOut
 public fun ComponentConfiguratorItem(
     component: Component,
     onClick: (component: Component, configuratorId: String) -> Unit,
+    isWidthExpanded: Boolean,
     countIndicator: Int = 0,
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -101,6 +102,7 @@ public fun ComponentConfiguratorItem(
                 )
             },
             component = component,
+            isWidthExpanded = isWidthExpanded,
             countIndicator = countIndicator,
             origin = ComponentOrigin.Configurator,
             onClick = {
@@ -135,22 +137,20 @@ public fun ComponentConfiguratorItem(
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class, ExperimentalAnimationSpecApi::class)
 @Composable
 public fun ComponentItem(
-    modifier: Modifier = Modifier,
     component: Component,
     onClick: () -> Unit,
+    isWidthExpanded: Boolean,
+    modifier: Modifier = Modifier,
     origin: ComponentOrigin = ComponentOrigin.Example,
     countIndicator: Int = 0,
 ) {
     val animatedVisibilityScope = LocalAnimatedVisibilityScope.current
-    val boundsTransform = BoundsTransform { initialBounds, targetBounds ->
-        keyframes {
-            durationMillis = 500
-            initialBounds at 0 using ArcMode.ArcBelow using FastOutSlowInEasing
-            targetBounds at 500
-        }
-    }
+    val hasEntered = animatedVisibilityScope.rememberHasEntered()
+    val showLarge = isWidthExpanded && component.illustrationLarge != null
+    val illustration = if (showLarge) component.illustrationLarge else component.illustration
+    val aspectRatio = if (showLarge) ComponentItemLargeAspectRatio else 1f
     with(LocalSharedTransitionScope.current) {
-        val cardRadius by animatedVisibilityScope.transition
+        val cardRadius = animatedVisibilityScope.transition
             .animateDp(label = "card radius") { enterExit ->
                 when (enterExit) {
                     EnterExitState.PreEnter -> 0.dp
@@ -158,11 +158,13 @@ public fun ComponentItem(
                     EnterExitState.PostExit -> 12.dp
                 }
             }
+        val overlayClip = remember(cardRadius) { AnimatedRoundedClip { cardRadius.value } }
+        val context = LocalContext.current
         Card.Elevated(
             onClick = onClick,
             modifier = modifier
                 .semantics(mergeDescendants = true) {}
-                .aspectRatio(1f)
+                .aspectRatio(aspectRatio)
                 .sharedBounds(
                     sharedContentState = rememberSharedContentState(
                         ExamplesSharedElementKey(
@@ -172,9 +174,11 @@ public fun ComponentItem(
                         ),
                     ),
                     animatedVisibilityScope = animatedVisibilityScope,
-                    boundsTransform = boundsTransform,
-                    resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
-                    clipInOverlayDuringTransition = OverlayClip(RoundedCornerShape(cardRadius)),
+                    boundsTransform = ComponentBoundsTransform,
+                    // Scaling keeps the card square while the bounds morph, so its surface
+                    // does not stretch into a tall strip around the illustration.
+                    resizeMode = SharedTransitionScope.ResizeMode.scaleToBounds(),
+                    clipInOverlayDuringTransition = overlayClip,
                     placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
                 ),
             contentPadding = PaddingValues.Zero,
@@ -188,28 +192,18 @@ public fun ComponentItem(
                             color = SparkTheme.colors.applyTonalElevation(SparkTheme.colors.surface, 1.dp),
                         ),
                 ) {
-                    Image(
-                        modifier = Modifier
-                            .matchParentSize()
-                            .sharedElement(
-                                rememberSharedContentState(
-                                    ExamplesSharedElementKey(
-                                        exampleId = component.id,
-                                        origin = origin.name,
-                                        type = ExamplesSharedElementType.Illustration,
-                                    ),
+                    with(animatedVisibilityScope) {
+                        Image(
+                            modifier = Modifier
+                                .matchParentSize()
+                                .animateEnterExit(
+                                    enter = if (hasEntered) EnterTransition.None else materialFadeIn(),
+                                    exit = materialFadeOut(),
                                 ),
-                                boundsTransform = { initialBounds, targetBounds ->
-                                    spring(dampingRatio = .8f, stiffness = 380f)
-                                },
-                                animatedVisibilityScope = animatedVisibilityScope,
-                            ),
-                        model = ImageRequest.Builder(LocalContext.current)
-                            .data(component.illustration)
-                            .crossfade(true)
-                            .build(),
-                        contentDescription = null,
-                    )
+                            model = illustration,
+                            contentDescription = null,
+                        )
+                    }
                 }
                 Text(
                     text = component.name,
@@ -225,7 +219,10 @@ public fun ComponentItem(
                                 ),
                             ),
                             animatedVisibilityScope = animatedVisibilityScope,
-                            resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
+                            boundsTransform = ComponentBoundsTransform,
+                            // Scaling morphs the text between the two sizes instead of
+                            // re-wrapping it to the animated width on every frame.
+                            resizeMode = SharedTransitionScope.ResizeMode.scaleToBounds(),
                         ),
                     style = SparkTheme.typography.body2,
                 )
@@ -238,7 +235,7 @@ public fun ComponentItem(
                                 .align(Alignment.BottomEnd)
                                 .padding(ComponentItemInnerPadding)
                                 .animateEnterExit(
-                                    enter = materialFadeIn(),
+                                    enter = if (hasEntered) EnterTransition.None else materialFadeIn(),
                                     exit = materialFadeOut(),
                                 ),
                             count = countIndicator,
@@ -257,9 +254,10 @@ public enum class ComponentOrigin {
     Configurator,
 }
 
-private val ComponentItemHeight = 200.dp
-private val ComponentItemOuterPadding = 4.dp
 private val ComponentItemInnerPadding = 16.dp
+
+// Ratio of the Figma Web frames (368 x 200) that the `_large` illustrations come from.
+private const val ComponentItemLargeAspectRatio = 368f / 200f
 
 @PreviewLightDark
 @Composable
@@ -278,6 +276,7 @@ private fun ComponentItemPreview() {
             ),
             countIndicator = 3,
             onClick = {},
+            isWidthExpanded = false,
         )
         ComponentItem(
             component = Component(
@@ -293,6 +292,42 @@ private fun ComponentItemPreview() {
                 configurators = persistentListOf(),
             ),
             onClick = {},
+            isWidthExpanded = false,
+        )
+    }
+}
+
+@Preview(name = "Compact - Light", widthDp = 360)
+@Composable
+private fun ComponentItemCompactPreview() {
+    ComponentItemWidthPreview(isWidthExpanded = false)
+}
+
+@Preview(name = "Expanded - Light", widthDp = 840)
+@Composable
+private fun ComponentItemExpandedPreview() {
+    ComponentItemWidthPreview(isWidthExpanded = true)
+}
+
+@Composable
+private fun ComponentItemWidthPreview(isWidthExpanded: Boolean) {
+    PreviewTheme {
+        ComponentItem(
+            component = Component(
+                id = "popovers",
+                name = "Popovers",
+                description = R.string.component_popovers_description,
+                illustration = R.drawable.popover,
+                illustrationLarge = R.drawable.popover_large,
+                guidelinesUrl = "https://www.google.com/#q=constituto",
+                docsUrl = "https://www.google.com/#q=dictas",
+                sourceUrl = "http://www.bing.com/search?q=inani",
+                examples = persistentListOf(),
+                configurators = persistentListOf(),
+            ),
+            countIndicator = 3,
+            onClick = {},
+            isWidthExpanded = isWidthExpanded,
         )
     }
 }

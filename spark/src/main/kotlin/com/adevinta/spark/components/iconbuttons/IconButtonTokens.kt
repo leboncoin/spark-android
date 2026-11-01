@@ -24,6 +24,8 @@ package com.adevinta.spark.components.iconbuttons
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
 
 /**
@@ -39,4 +41,10 @@ public object IconButtonTokens {
         @Composable
         @ReadOnlyComposable
         get() = SparkTheme.shapes.full
+
+    /**
+     * The width of the border that outlined icon buttons draw: 1 dp. The legacy outlined style and
+     * the [IconButton.Tertiary], [IconButton.Danger], and [IconButton.Success] variants use it.
+     */
+    public val BorderWidth: Dp = 1.dp
 }

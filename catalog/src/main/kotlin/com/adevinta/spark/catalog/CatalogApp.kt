@@ -28,8 +28,6 @@ import android.os.Build
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.ReportDrawnWhen
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -78,6 +76,7 @@ import com.adevinta.spark.catalog.icons.IconDemoScreen
 import com.adevinta.spark.catalog.model.Component
 import com.adevinta.spark.catalog.tabbar.CatalogTabBar
 import com.adevinta.spark.catalog.tabbar.CatalogTabs
+import com.adevinta.spark.catalog.themes.CatalogMotion
 import com.adevinta.spark.catalog.themes.ColorMode
 import com.adevinta.spark.catalog.themes.FontScaleMode.System
 import com.adevinta.spark.catalog.themes.TextDirection
@@ -144,19 +143,15 @@ internal fun ComponentActivity.CatalogApp(
             TextDirection.System -> LocalLayoutDirection.current
         }
 
-        val runtimeShader = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            RuntimeShader(shader)
+        val colorBlindNessType = theme.colorBlindNessType
+        val colorBlindNessSeverity = theme.colorBlindNessSeverity
+        val runtimeShader = if (
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            colorBlindNessType != ColorBlindNessType.None
+        ) {
+            remember { RuntimeShader(shader) }
         } else {
             null
-        }
-
-        val colorBlindNessType = theme.colorBlindNessType
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            runtimeShader?.setFloatUniform("severity", theme.colorBlindNessSeverity)
-            runtimeShader?.setIntUniform(
-                "colorblindType",
-                colorBlindNessType.ordinal,
-            )
         }
 
         DeviceConfigurationOverride(
@@ -170,15 +165,14 @@ internal fun ComponentActivity.CatalogApp(
                 modifier = Modifier
                     .fillMaxSize()
                     .then(
-                        if (
-                            Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
-                            colorBlindNessType != ColorBlindNessType.None
-                        ) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && runtimeShader != null) {
                             Modifier.graphicsLayer {
+                                runtimeShader.setFloatUniform("severity", colorBlindNessSeverity)
+                                runtimeShader.setIntUniform("colorblindType", colorBlindNessType.ordinal)
                                 clip = true
                                 renderEffect = RenderEffect
                                     .createRuntimeShaderEffect(
-                                        /* shader = */ runtimeShader!!,
+                                        /* shader = */ runtimeShader,
                                         /* uniformShaderName = */ "composable",
                                     )
                                     .asComposeRenderEffect()
@@ -226,7 +220,7 @@ internal fun ComponentActivity.CatalogApp(
                                 coroutineScope.launch {
                                     pagerState.animateScrollToPage(
                                         it.ordinal,
-                                        animationSpec = tween(durationMillis = 250, easing = FastOutSlowInEasing),
+                                        animationSpec = CatalogMotion.TabPagerScroll,
                                     )
                                 }
                             },

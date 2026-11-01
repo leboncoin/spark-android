@@ -23,7 +23,10 @@ package com.adevinta.spark.components.fileupload
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,8 +40,10 @@ import io.github.vinceglb.filekit.dialogs.FileKitMode
 import io.github.vinceglb.filekit.dialogs.compose.rememberCameraPickerLauncher
 import io.github.vinceglb.filekit.dialogs.compose.rememberFilePickerLauncher
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * High-level wrapper composable that integrates file upload pattern with any component.
@@ -135,6 +140,18 @@ public fun rememberFileUploadPattern(
         }
     }
 
+    val scope = rememberCoroutineScope()
+    val currentOnFilesSelect by rememberUpdatedState(onFilesSelect)
+    // UploadedFile reads its metadata through content provider queries, so build it off the main thread.
+    val deliver: (List<PlatformFile>) -> Unit = { files ->
+        scope.launch {
+            val newFiles = withContext(Dispatchers.IO) {
+                files.map { file -> UploadedFile(file = file) }.toImmutableList()
+            }
+            currentOnFilesSelect(newFiles)
+        }
+    }
+
     val fileKitType = type.toFileKitType()
     val filePicker = if (isSingleMode) {
         rememberFilePickerLauncher(
@@ -143,8 +160,7 @@ public fun rememberFileUploadPattern(
             dialogSettings = dialogSettings,
         ) { pickedFile ->
             if (pickedFile == null) return@rememberFilePickerLauncher
-            val newFile = UploadedFile(file = pickedFile)
-            onFilesSelect(persistentListOf(newFile))
+            deliver(listOf(pickedFile))
         }
     } else {
         rememberFilePickerLauncher(
@@ -153,18 +169,13 @@ public fun rememberFileUploadPattern(
             directory = directory,
             dialogSettings = dialogSettings,
         ) { result ->
-            val newFiles = result?.map { file ->
-                UploadedFile(file = file)
-            }.orEmpty().toImmutableList()
-            onFilesSelect(newFiles)
+            deliver(result.orEmpty())
         }
     }
 
     val cameraPicker = rememberCameraPickerLauncher { newPhoto ->
         if (newPhoto == null) return@rememberCameraPickerLauncher
-
-        val newFile = UploadedFile(file = newPhoto)
-        onFilesSelect(persistentListOf(newFile))
+        deliver(listOf(newPhoto))
     }
 
     val launchPicker: () -> Unit = {

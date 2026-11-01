@@ -21,18 +21,15 @@
  */
 package com.adevinta.spark.catalog.examples.component
 
-import androidx.compose.animation.BoundsTransform
 import androidx.compose.animation.EnterExitState
+import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
-import androidx.compose.animation.core.ArcMode
 import androidx.compose.animation.core.ExperimentalAnimationSpecApi
-import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDp
-import androidx.compose.animation.core.keyframes
-import androidx.compose.animation.core.spring
-import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -49,7 +46,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Code
 import androidx.compose.material.icons.rounded.Palette
@@ -98,18 +94,12 @@ public fun Component(
 ) {
     val ltr = LocalLayoutDirection.current
     val animatedVisibilityScope = LocalAnimatedVisibilityScope.current
-    BoundsTransform { initialBounds, targetBounds ->
-        keyframes {
-            durationMillis = 500
-            initialBounds at 0 using ArcMode.ArcBelow using FastOutSlowInEasing
-            targetBounds at 500
-        }
-    }
+    val hasEntered = animatedVisibilityScope.rememberHasEntered()
     val state = rememberLazyListState()
     TrackScrollJank(scrollableState = state, stateName = "component:list")
     val origin = ComponentOrigin.Example.name
     with(LocalSharedTransitionScope.current) {
-        val cardRadius by animatedVisibilityScope.transition
+        val cardRadius = animatedVisibilityScope.transition
             .animateDp(label = "card radius") { enterExit ->
                 when (enterExit) {
                     EnterExitState.PreEnter -> 12.dp
@@ -117,6 +107,7 @@ public fun Component(
                     EnterExitState.PostExit -> 0.dp
                 }
             }
+        val overlayClip = remember(cardRadius) { AnimatedRoundedClip { cardRadius.value } }
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -128,12 +119,13 @@ public fun Component(
                             type = ExamplesSharedElementType.Background,
                         ),
                     ),
-//                    boundsTransform = boundsTransform,
+                    boundsTransform = ComponentBoundsTransform,
                     resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
                     animatedVisibilityScope = animatedVisibilityScope,
-                    clipInOverlayDuringTransition = OverlayClip(RoundedCornerShape(cardRadius)),
+                    clipInOverlayDuringTransition = overlayClip,
                     placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
-                ),
+                )
+                .background(SparkTheme.colors.background),
         ) {
             with(animatedVisibilityScope) {
                 LazyColumn(
@@ -166,7 +158,8 @@ public fun Component(
                                             ),
                                         ),
                                         animatedVisibilityScope = animatedVisibilityScope,
-                                        resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
+                                        boundsTransform = ComponentBoundsTransform,
+                                        resizeMode = SharedTransitionScope.ResizeMode.scaleToBounds(),
                                     ),
                                 )
                             }
@@ -206,7 +199,21 @@ public fun Component(
                             ExampleItem(
                                 example = example,
                                 onClick = onExampleClick,
+                                // The list motion sits outside the shared bounds, so the item
+                                // that morphs into the example screen keeps its surface instead
+                                // of fading and sliding inside the morph.
                                 modifier = Modifier
+                                    .animateEnterExit(
+                                        enter = if (hasEntered) {
+                                            EnterTransition.None
+                                        } else {
+                                            materialFadeThroughIn() +
+                                                slideInVertically(componentSlideSpec(staggerIndex = index - 1)) { it } +
+                                                materialElevationScaleIn()
+                                        },
+                                        exit = materialFadeThroughOut() +
+                                            slideOutVertically(componentSlideSpec()) { it },
+                                    )
                                     .sharedBounds(
                                         rememberSharedContentState(
                                             ExamplesSharedElementKey(
@@ -215,20 +222,10 @@ public fun Component(
                                                 type = ExamplesSharedElementType.Background,
                                             ),
                                         ),
-                                        boundsTransform = { initialBounds, targetBounds ->
-                                            spring(dampingRatio = .8f, stiffness = 380f)
-                                        },
+                                        boundsTransform = { _, _ -> ComponentContentSpring },
                                         resizeMode = SharedTransitionScope.ResizeMode.RemeasureToBounds,
                                         placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
                                         animatedVisibilityScope = animatedVisibilityScope,
-                                    )
-                                    .animateEnterExit(
-                                        enter = materialFadeThroughIn() +
-                                            slideInVertically(
-                                                tween(durationMillis = 500, delayMillis = (index - 1) * 50),
-                                            ) { it } +
-                                            materialElevationScaleIn(),
-                                        exit = materialFadeThroughOut(),
                                     ),
                             )
                         }

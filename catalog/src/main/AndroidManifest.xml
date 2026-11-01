@@ -92,6 +92,20 @@
             </intent-filter>
         </activity>
 
+        <!-- Pulled in by compose ui-test through androidx.test:core. The catalog does not use them. -->
+        <activity
+            android:name="androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity"
+            tools:ignore="MissingClass"
+            tools:node="remove" />
+        <activity
+            android:name="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"
+            tools:ignore="MissingClass"
+            tools:node="remove" />
+        <activity
+            android:name="androidx.test.core.app.InstrumentationActivityInvoker$EmptyFloatingActivity"
+            tools:ignore="MissingClass"
+            tools:node="remove" />
+
     </application>
 
 </manifest>

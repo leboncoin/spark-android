@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.fileupload
 
+import android.content.Intent
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -44,9 +45,10 @@ import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.tools.modifiers.ifNotNull
 import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.PlatformFile
+import io.github.vinceglb.filekit.context
 import io.github.vinceglb.filekit.dialogs.FileKitDialogSettings
 import io.github.vinceglb.filekit.dialogs.FileKitType
-import io.github.vinceglb.filekit.dialogs.openFileWithDefaultApplication
+import io.github.vinceglb.filekit.dialogs.toAndroidUri
 import io.github.vinceglb.filekit.mimeType
 import io.github.vinceglb.filekit.mimeType.MimeType
 import io.github.vinceglb.filekit.name
@@ -285,8 +287,8 @@ public object FileUploadDefaults {
     /**
      * Opens a file with the system's default application for that file type.
      *
-     * This function uses FileKit's `openFileWithDefaultApplication` to open the file.
-     * For example, a PDF file will open in the default PDF viewer, an image will open
+     * This function behaves like FileKit's `openFileWithDefaultApplication` but uses the cached
+     * [UploadedFile.mimeType]. For example, a PDF file will open in the default PDF viewer, an image will open
      * in the default image viewer, etc.
      *
      * Note that Android, if you're opening files from custom locations (e.g., `FileKit.filesDir` or
@@ -297,7 +299,12 @@ public object FileUploadDefaults {
      * @param file The uploaded file to open
      */
     public fun openFile(file: UploadedFile) {
-        FileKit.openFileWithDefaultApplication(file.file)
+        // Mirrors FileKit.openFileWithDefaultApplication but reuses the cached MIME type, which avoids
+        // content provider queries on the calling thread.
+        val intent = Intent(Intent.ACTION_VIEW)
+            .setDataAndType(file.file.toAndroidUri(), file.mimeType?.toString() ?: "*/*")
+            .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_ACTIVITY_NEW_TASK)
+        FileKit.context.startActivity(intent)
     }
 }
 

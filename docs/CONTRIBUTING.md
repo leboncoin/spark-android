@@ -438,6 +438,8 @@ Each component must provide interactive examples that demonstrate core functiona
 
 Add your component to the central registry ([see](https://github.com/leboncoin/spark-android/blob/f108bfd6ce313005eb2ff9fa563345497829b5f1/catalog/src/main/kotlin/com/adevinta/spark/catalog/model/Components.kt#L387-L398))
 
+Set `illustration` and `illustrationLarge` on the `Component` entry. To export the images from Figma and add them to the catalog.
+
 > [!TIP]
 > If you want to plan your examples before doing the implementation you can use the WipIllustration component that shows an illustration with a work in progress text. 🚧
 

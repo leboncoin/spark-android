@@ -83,28 +83,32 @@ private fun ColumnScope.AvatarSample() {
     var username by remember { mutableStateOf("Spark") }
 
     val context = LocalContext.current
-    val drawable = getDrawable(context, R.drawable.img_narrow_image_configurator)!!
+    val drawable = remember(context) { getDrawable(context, R.drawable.img_narrow_image_configurator)!! }
     val painter = rememberDrawablePainter(drawable)
-    val imageRequest = ImageRequest.Builder(context)
-        .crossfade(true)
-        .data(imageState.ordinal)
-        .build()
+    val imageRequest = remember(context, imageState) {
+        ImageRequest.Builder(context)
+            .crossfade(true)
+            .data(imageState.ordinal)
+            .build()
+    }
 
-    val previewHandler = AsyncImagePreviewHandler { _, request ->
-        when (imageState) {
-            AvatarImageState.Success -> AsyncImagePainter.State.Success(
-                painter = painter,
-                result = SuccessResult(drawable.asImage(), request, DataSource.DISK),
-            )
+    val previewHandler = remember(imageState, painter, drawable) {
+        AsyncImagePreviewHandler { _, request ->
+            when (imageState) {
+                AvatarImageState.Success -> AsyncImagePainter.State.Success(
+                    painter = painter,
+                    result = SuccessResult(drawable.asImage(), request, DataSource.DISK),
+                )
 
-            AvatarImageState.Loading -> AsyncImagePainter.State.Loading(painter)
+                AvatarImageState.Loading -> AsyncImagePainter.State.Loading(painter)
 
-            AvatarImageState.Error -> AsyncImagePainter.State.Error(
-                painter = painter,
-                result = ErrorResult(drawable.asImage(), request, Throwable("")),
-            )
+                AvatarImageState.Error -> AsyncImagePainter.State.Error(
+                    painter = painter,
+                    result = ErrorResult(drawable.asImage(), request, Throwable("")),
+                )
 
-            AvatarImageState.Empty -> AsyncImagePainter.State.Empty
+                AvatarImageState.Empty -> AsyncImagePainter.State.Empty
+            }
         }
     }
 

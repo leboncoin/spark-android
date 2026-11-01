@@ -454,6 +454,7 @@ private val ComponentName = Component(
     name = "Component Display Name",
     description = R.string.component_description,
     illustration = R.drawable.component_illustration, // Optional, it'll use the spark logo by default
+    illustrationLarge = R.drawable.component_illustration_large, // Optional, shown on expanded windows
     guidelinesUrl = "$ComponentGuidelinesUrl/component-path",
     docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.component/index.html",
     sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/component/Component.kt",
@@ -468,7 +469,7 @@ public val Components: List<Component> = listOf(
 ).sortedBy { it.name }
 ```
 
-#### Interactive configuration support aka the Configurator 😈
+#### Interactive configuration support aka the Configurator
 
 For components with multiple configuration options, provide interactive configurators that allow
 real-time parameter adjustment:
