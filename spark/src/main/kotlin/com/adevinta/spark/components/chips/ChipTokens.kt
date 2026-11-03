@@ -22,16 +22,19 @@
 package com.adevinta.spark.components.chips
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.icons.CircleCrossFill
+import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.SparkIcon
 
 /**
- * Component tokens for chip components. Centralises all flag-driven token resolution so that
- * chip composables read from a single source of truth instead of inlining the flag check at
- * every call site. When the rebranding feature flag is eventually removed, only this file changes.
+ * Component tokens for chip components. Centralises token resolution so that chip composables read
+ * from a single source of truth instead of inlining the lookup at every call site. It also holds
+ * fixed icons.
  */
 public object ChipTokens {
 
@@ -39,19 +42,18 @@ public object ChipTokens {
      * The resolved container shape for chips.
      */
     public val shape: Shape
-        @Composable get() = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
-            SparkTheme.shapes.large
-        } else {
-            SparkTheme.shapes.small
-        }
+        @Composable
+        @ReadOnlyComposable
+        get() = SparkTheme.shapes.large
 
     /**
-     * The resolved spacing between the leading icon and the label.
+     * The spacing between the leading icon and the label.
      */
-    public val leadingIconSpacing: Dp
-        @Composable get() = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
-            8.dp
-        } else {
-            4.dp
-        }
+    public val leadingIconSpacing: Dp = 8.dp
+
+    /**
+     * The icon that [Chip] shows for the close action when `onClose` is set. It is fixed and cannot
+     * change per chip.
+     */
+    public val clearIcon: SparkIcon = LeboncoinIcons.CircleCrossFill
 }

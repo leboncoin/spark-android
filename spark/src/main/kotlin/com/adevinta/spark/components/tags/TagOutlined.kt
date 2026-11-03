@@ -35,6 +35,9 @@ import com.adevinta.spark.icons.SparkIcon
 
 /**
  * Outlined tag represent support information
+ *
+ * ![Tag Outlined](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.tags_TagDocumentationScreenshots_tagOutlined.png)
+ *
  * @param modifier The [Modifier] to be applied to the component
  * @param intent The [TagIntent] color to use
  * @param leadingIcon The spark icon shown at the start of the tag
@@ -58,7 +61,7 @@ public fun TagOutlined(
         colors = colors,
         modifier = modifier,
         border = BorderStroke(
-            TagDefaults.OutlinedBorderSize,
+            TagTokens.OutlinedBorderSize,
             colors.contentColor,
         ),
         leadingIcon = leadingIcon,
@@ -70,6 +73,9 @@ public fun TagOutlined(
 
 /**
  * Outlined tag represent support information
+ *
+ * ![Tag Outlined](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.tags_TagDocumentationScreenshots_tagOutlined.png)
+ *
  * @param text The item label
  * @param modifier The [Modifier] to be applied to the component
  * @param intent The [TagIntent] color to use
@@ -95,7 +101,7 @@ public fun TagOutlined(
         colors = colors,
         modifier = modifier,
         border = BorderStroke(
-            TagDefaults.OutlinedBorderSize,
+            TagTokens.OutlinedBorderSize,
             colors.contentColor,
         ),
         leadingIcon = leadingIcon,
@@ -106,6 +112,9 @@ public fun TagOutlined(
 
 /**
  * Outlined tag represent support information
+ *
+ * ![Tag Outlined](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.tags_TagDocumentationScreenshots_tagOutlined.png)
+ *
  * @param text The item label
  * @param modifier The [Modifier] to be applied to the component
  * @param intent The [TagIntent] color to use
@@ -131,7 +140,7 @@ public fun TagOutlined(
         colors = colors,
         modifier = modifier,
         border = BorderStroke(
-            TagDefaults.OutlinedBorderSize,
+            TagTokens.OutlinedBorderSize,
             colors.contentColor,
         ),
         leadingIcon = leadingIcon,

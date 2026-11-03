@@ -36,9 +36,11 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.Key
@@ -63,6 +65,10 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.R
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.stepper.Stepper.Input
+import com.adevinta.spark.components.stepper.Stepper.InputForm
+import com.adevinta.spark.components.stepper.Stepper.Nudger
+import com.adevinta.spark.components.stepper.Stepper.NudgerForm
 import com.adevinta.spark.components.stepper.internal.SparkNudger
 import com.adevinta.spark.components.stepper.internal.SparkStepperInput
 import com.adevinta.spark.components.stepper.internal.formatInteger
@@ -99,6 +105,7 @@ public object Stepper {
      * @param modifier The [Modifier] to be applied to the component
      * @param range The min/max accepted value by the stepper until it blocks increments and decrements
      * @param suffix optional string displayed after [value]
+     * @param placeholder text shown in the empty state when [value] is `null`
      * @param step the quantity to be increased/decreased on each increment/decrement
      * @param enabled True controls the enabled state of the stepper. When `false`, the stepper will
      * be neither editable nor focusable, visually stepper will appear in the disabled UI state
@@ -113,6 +120,7 @@ public object Stepper {
         modifier: Modifier = Modifier,
         range: IntRange = 0..10,
         suffix: String = "",
+        placeholder: String = "-",
         step: Int = 1,
         enabled: Boolean = true,
         flexible: Boolean = false,
@@ -122,9 +130,10 @@ public object Stepper {
         SparkNudger(
             value = value,
             onValueChange = onValueChange,
-            modifier = modifier,
+            modifier = modifier.sparkUsageOverlay(),
             range = range,
             suffix = suffix,
+            placeholder = placeholder,
             step = step,
             enabled = enabled,
             flexible = flexible,
@@ -141,6 +150,7 @@ public object Stepper {
      * @param state The [StepperState] that holds the current value, range, and step
      * @param modifier The [Modifier] to be applied to the component
      * @param suffix optional string displayed after the value
+     * @param placeholder text shown in the empty state
      * @param enabled True controls the enabled state of the stepper
      * @param flexible if true, component will fill max width, otherwise get default width
      * @param testTag A test tag to find the internal stepper in a test
@@ -151,6 +161,7 @@ public object Stepper {
         state: StepperState,
         modifier: Modifier = Modifier,
         suffix: String = "",
+        placeholder: String = "-",
         enabled: Boolean = true,
         flexible: Boolean = false,
         testTag: String? = null,
@@ -159,9 +170,10 @@ public object Stepper {
         SparkNudger(
             value = state.value,
             onValueChange = { state.value = it },
-            modifier = modifier,
+            modifier = modifier.sparkUsageOverlay(),
             range = state.range,
             suffix = suffix,
+            placeholder = placeholder,
             step = state.step,
             enabled = enabled,
             flexible = flexible,
@@ -182,6 +194,7 @@ public object Stepper {
      * @param modifier The [Modifier] to be applied to the component
      * @param range The min/max accepted value by the stepper until it blocks increments and decrements
      * @param suffix optional string displayed after [value]
+     * @param placeholder text shown in the empty state when [value] is `null`
      * @param step the quantity to be increased/decreased on each increment/decrement
      * @param enabled True controls the enabled state of the stepper
      * @param required add an asterisk to the label to indicate that this field is required
@@ -199,6 +212,7 @@ public object Stepper {
         modifier: Modifier = Modifier,
         range: IntRange = 0..10,
         suffix: String = "",
+        placeholder: String = "-",
         step: Int = 1,
         enabled: Boolean = true,
         required: Boolean = false,
@@ -223,6 +237,7 @@ public object Stepper {
                 onValueChange = onValueChange,
                 range = range,
                 enabled = enabled,
+                placeholder = placeholder,
                 suffix = suffix,
                 step = step,
                 flexible = flexible,
@@ -242,6 +257,7 @@ public object Stepper {
      * @param helper The optional helper text to be displayed at the bottom outside the text input container
      * @param modifier The [Modifier] to be applied to the component
      * @param suffix optional string displayed after the value
+     * @param placeholder text shown in the empty state
      * @param enabled True controls the enabled state of the stepper
      * @param required add an asterisk to the label to indicate that this field is required
      * @param status indicates the validation state of the stepper
@@ -256,6 +272,7 @@ public object Stepper {
         helper: String?,
         modifier: Modifier = Modifier,
         suffix: String = "",
+        placeholder: String = "-",
         enabled: Boolean = true,
         required: Boolean = false,
         status: FormFieldStatus? = null,
@@ -268,9 +285,10 @@ public object Stepper {
             onValueChange = { state.value = it },
             label = label,
             helper = helper,
-            modifier = modifier,
+            modifier = modifier.sparkUsageOverlay(),
             range = state.range,
             suffix = suffix,
+            placeholder = placeholder,
             step = state.step,
             enabled = enabled,
             required = required,
@@ -291,6 +309,7 @@ public object Stepper {
      * @param modifier The [Modifier] to be applied to the component
      * @param range The min/max accepted value by the stepper
      * @param suffix optional string displayed after the value
+     * @param placeholder text shown in the empty state when [value] is `null`
      * @param step the quantity to be increased/decreased on each increment/decrement
      * @param enabled True controls the enabled state of the stepper
      * @param status indicates the validation state of the stepper
@@ -304,6 +323,7 @@ public object Stepper {
         modifier: Modifier = Modifier,
         range: IntRange = 0..10,
         suffix: String = "",
+        placeholder: String = "-",
         step: Int = 1,
         enabled: Boolean = true,
         status: FormFieldStatus? = null,
@@ -313,7 +333,10 @@ public object Stepper {
         val textFieldState = remember { TextFieldState(value?.formatInteger().orEmpty()) }
         val currentInput = { textFieldState.text.toString().stripGroupingSeparators().toIntOrNull() }
 
-        LaunchedEffect(value) {
+        // A commit can leave `value` unchanged (clamped back to the stored value), so it must also re-sync the text.
+        var commitCount by remember { mutableIntStateOf(0) }
+
+        SideEffect(value, commitCount) {
             if (currentInput() != value) {
                 textFieldState.edit {
                     delete(0, length)
@@ -327,10 +350,14 @@ public object Stepper {
             value = value,
             onIncrement = { onValueChange(applyStep(currentInput(), step, range)) },
             onDecrement = { onValueChange(applyStep(currentInput(), -step, range)) },
-            onCommit = { onValueChange(currentInput()?.coerceIn(range)) },
-            modifier = modifier,
+            onCommit = {
+                onValueChange(currentInput()?.coerceIn(range))
+                commitCount++
+            },
+            modifier = modifier.sparkUsageOverlay(),
             range = range,
             suffix = suffix,
+            placeholder = placeholder,
             step = step,
             enabled = enabled,
             status = status,
@@ -348,6 +375,7 @@ public object Stepper {
      * @param modifier The [Modifier] to be applied to the component
      * @param range The min/max accepted value by the stepper
      * @param suffix optional string displayed after the value
+     * @param placeholder text shown in the empty state
      * @param step the quantity to be increased/decreased on each increment/decrement
      * @param enabled True controls the enabled state of the stepper
      * @param status indicates the validation state of the stepper
@@ -360,6 +388,7 @@ public object Stepper {
         modifier: Modifier = Modifier,
         range: IntRange = 0..10,
         suffix: String = "",
+        placeholder: String = "-",
         step: Int = 1,
         enabled: Boolean = true,
         status: FormFieldStatus? = null,
@@ -372,9 +401,10 @@ public object Stepper {
             onIncrement = { state.increment(step, range) },
             onDecrement = { state.decrement(step, range) },
             onCommit = { state.commitValue(range) },
-            modifier = modifier,
+            modifier = modifier.sparkUsageOverlay(),
             range = range,
             suffix = suffix,
+            placeholder = placeholder,
             step = step,
             enabled = enabled,
             status = status,
@@ -395,6 +425,7 @@ public object Stepper {
      * @param modifier The [Modifier] to be applied to the component
      * @param range The min/max accepted value by the stepper
      * @param suffix optional string displayed after the value
+     * @param placeholder text shown in the empty state when [value] is `null`
      * @param step the quantity to be increased/decreased on each increment/decrement
      * @param enabled True controls the enabled state of the stepper
      * @param required add an asterisk to the label to indicate that this field is required
@@ -412,6 +443,7 @@ public object Stepper {
         modifier: Modifier = Modifier,
         range: IntRange = 0..10,
         suffix: String = "",
+        placeholder: String = "-",
         step: Int = 1,
         enabled: Boolean = true,
         required: Boolean = false,
@@ -436,6 +468,7 @@ public object Stepper {
                 enabled = enabled,
                 status = status,
                 suffix = suffix,
+                placeholder = placeholder,
                 step = step,
                 flexible = flexible,
                 testTag = testTag,
@@ -454,6 +487,7 @@ public object Stepper {
      * @param modifier The [Modifier] to be applied to the component
      * @param range The min/max accepted value by the stepper
      * @param suffix optional string displayed after the value
+     * @param placeholder text shown in the empty state
      * @param step the quantity to be increased/decreased on each increment/decrement
      * @param enabled True controls the enabled state of the stepper
      * @param required add an asterisk to the label to indicate that this field is required
@@ -470,6 +504,7 @@ public object Stepper {
         modifier: Modifier = Modifier,
         range: IntRange = 0..10,
         suffix: String = "",
+        placeholder: String = "-",
         step: Int = 1,
         enabled: Boolean = true,
         required: Boolean = false,
@@ -493,6 +528,7 @@ public object Stepper {
                 enabled = enabled,
                 status = status,
                 suffix = suffix,
+                placeholder = placeholder,
                 step = step,
                 flexible = flexible,
                 testTag = testTag,

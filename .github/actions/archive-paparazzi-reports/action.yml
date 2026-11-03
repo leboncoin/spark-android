@@ -9,8 +9,8 @@ runs:
         name: paparazzi-html
         path: '**/build/reports/paparazzi'
     - name: 'Archive deltas'
-      if: ${{ hashFiles('**/build/paparazzi/failures/**.png') != '' }}
+      if: ${{ hashFiles('**/build/paparazzi/failures/**/*.png') != '' }}
       uses: actions/upload-artifact@v7
       with:
         name: paparazzi-delta
-        path: '**/build/paparazzi/failures/**.png'
+        path: '**/build/paparazzi/failures/**/*.png'

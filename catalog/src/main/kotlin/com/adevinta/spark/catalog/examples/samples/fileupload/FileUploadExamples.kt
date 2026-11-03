@@ -35,10 +35,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonOutlined
 import com.adevinta.spark.components.buttons.ButtonSize
 import com.adevinta.spark.components.buttons.ButtonTinted
 import com.adevinta.spark.components.buttons.IconSide
+import com.adevinta.spark.components.buttons.Tertiary
 import com.adevinta.spark.components.fileupload.FileUpload
 import com.adevinta.spark.components.fileupload.FileUploadDefaults
 import com.adevinta.spark.components.fileupload.FileUploadList
@@ -348,7 +350,7 @@ private fun CustomButtonContentExample() {
             label = "Select file",
             modifier = Modifier.fillMaxWidth(),
             buttonContent = { onClick ->
-                ButtonTinted(
+                Button.Tertiary(
                     onClick = onClick,
                     text = "Upload with Tinted Button",
                     icon = LeboncoinIcons.ImageOutline,
@@ -364,7 +366,7 @@ private fun CustomButtonContentExample() {
             label = "Select file",
             modifier = Modifier.fillMaxWidth(),
             buttonContent = { onClick ->
-                ButtonOutlined(
+                Button.Tertiary(
                     onClick = onClick,
                     text = "Upload with Outlined Button",
                     icon = LeboncoinIcons.ImageOutline,

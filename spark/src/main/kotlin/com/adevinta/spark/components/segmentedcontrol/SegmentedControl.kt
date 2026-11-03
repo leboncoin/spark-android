@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.segmentedcontrol
 
+import android.R.attr.onClick
 import android.annotation.SuppressLint
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
@@ -32,6 +33,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
@@ -76,6 +78,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.card.CardDefaults.paddingValues
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconSize
 import com.adevinta.spark.components.popover.PlainTooltip
@@ -161,7 +164,7 @@ public object SegmentedControl {
             isHorizontal = true,
             minSegments = SegmentedControlTokens.MinSegments,
             maxSegments = SegmentedControlTokens.MaxHorizontalSegments,
-            shape = SegmentedControlShape.Pill.shape,
+            shape = SegmentedControlTokens.ItemHorizontalShape,
             indicatorContent = indicatorContent,
             content = content,
         )
@@ -226,7 +229,7 @@ private fun segmentLabelStyle(
 private object SegmentedButtonItemImpl : SegmentedButtonItem
 
 private val DefaultHorizontalIndicator: @Composable (Int, Boolean) -> Unit = { _, enabled ->
-    SegmentedControlDefaults.Indicator(shape = SegmentedControlShape.Pill.shape, enabled = enabled)
+    SegmentedControlDefaults.Indicator(shape = SegmentedControlTokens.ItemHorizontalShape, enabled = enabled)
 }
 
 private fun row0Count(segmentCount: Int): Int = (segmentCount + 1) / 2
@@ -427,11 +430,13 @@ private object SegmentedControlScopeImpl : SegmentedControlScope {
         selected: Boolean,
         onClick: () -> Unit,
         modifier: Modifier,
+        paddingValues: PaddingValues,
         rippleColor: Color,
         content: @Composable () -> Unit,
     ): SegmentedButtonItem {
         SegmentWrapper(
             modifier = modifier,
+            paddingValues = paddingValues,
             selected = selected,
             onClick = onClick,
             rippleColor = rippleColor,
@@ -446,13 +451,14 @@ private object SegmentedControlScopeImpl : SegmentedControlScope {
         selected: Boolean,
         onClick: () -> Unit,
         modifier: Modifier = Modifier,
+        paddingValues: PaddingValues = SegmentedControlDefaults.customItemPadding,
         rippleColor: Color = SparkTheme.colors.outlineHigh,
         content: @Composable () -> Unit,
     ) {
         val itemInfo = LocalSegmentItemInfo.current
         Box(
             modifier = modifier
-                .padding(4.dp)
+                .padding(6.dp)
                 .clip(itemInfo.shape)
                 .selectable(
                     selected = selected,
@@ -462,7 +468,7 @@ private object SegmentedControlScopeImpl : SegmentedControlScope {
                     interactionSource = null,
                     onClick = onClick,
                 )
-                .padding(8.dp),
+                .padding(paddingValues),
             contentAlignment = Alignment.Center,
         ) {
             content()
@@ -590,37 +596,12 @@ private fun SegmentedControlImpl(
                 }
             }.single().measure(Constraints())
 
-            val dividerPlaceables = subcompose(SegmentSlot.Dividers) {
-                repeat(segmentCount - 1) { index ->
-                    // Hide dividers adjacent to the selected segment
-                    val hidden = index == selectedIndex || index == selectedIndex - 1
-                    val color by animateColorAsState(
-                        if (hidden) {
-                            SegmentedControlTokens.DividerColor.transparent
-                        } else {
-                            SegmentedControlTokens.DividerColor
-                        },
-                        label = "dividerColor",
-                    )
-                    Box(
-                        modifier = Modifier
-                            .width(SegmentedControlTokens.DividerWidth)
-                            .requiredHeight(SegmentedControlTokens.DividerHeight)
-                            .background(color),
-                    )
-                }
-            }.map { it.measure(Constraints.fixed(dividerWidth, rowHeight)) }
-
             layout(constraints.maxWidth, rowHeight) {
                 indicatorPlaceable.placeRelative(0, 0)
                 var x = 0
                 segPlaceables.forEachIndexed { i, p ->
                     p.placeRelative(x, 0)
                     x += segWidth
-                    if (i < dividerPlaceables.size) {
-                        dividerPlaceables[i].placeRelative(x, 0)
-                        x += dividerWidth
-                    }
                 }
             }
         } else {
@@ -786,6 +767,26 @@ private fun PreviewSegmentedControl() {
                 number(2, selected = selectedIndex2 == 1, onClick = { selectedIndex2 = 1 })
                 number(3, selected = selectedIndex2 == 2, onClick = { selectedIndex2 = 2 })
                 number(4, selected = selectedIndex2 == 3, onClick = { selectedIndex2 = 3 })
+            }
+
+            Text("Custom")
+            Horizontal(
+                selectedIndex = 1,
+            ) {
+                custom(false, onClick = { selectedIndex2 = 1 }) {
+                    Column {
+                        Text("A")
+                        Text("A")
+                        Text("A")
+                    }
+                }
+                custom(true, onClick = { selectedIndex2 = 1 }, paddingValues = PaddingValues.Zero) {
+                    Column {
+                        Text("AAAAAAAAAAAAAAA")
+                        Text("AAAAAAAAA")
+                        Text("AAAAAAAAAA")
+                    }
+                }
             }
         }
     }

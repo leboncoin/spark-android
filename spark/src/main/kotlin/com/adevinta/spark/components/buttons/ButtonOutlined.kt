@@ -19,6 +19,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+// The previews in this file document the old button, so they keep using it.
+@file:Suppress("SparkButtonMigration")
+
 package com.adevinta.spark.components.buttons
 
 import android.annotation.SuppressLint
@@ -27,6 +30,7 @@ import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -71,7 +75,6 @@ public fun ButtonOutlined(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     size: ButtonSize = ButtonSize.Medium,
-    shape: ButtonShape = SparkButtonDefaults.DefaultShape,
     intent: ButtonIntent = ButtonIntent.Support,
     enabled: Boolean = true,
     icon: SparkIcon? = null,
@@ -83,7 +86,7 @@ public fun ButtonOutlined(
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         val variant = ButtonStyleMapper.map(intent, ButtonStyle.Outlined)
-        RouteToNewButton(
+        RouteToRebrandedButton(
             variant = variant,
             onClick = onClick,
             modifier = modifier,
@@ -102,6 +105,7 @@ public fun ButtonOutlined(
         targetValue = intent.colors().color,
         label = "content color",
     )
+    MaterialTheme.colorScheme.outline
     val disabledContentColor = contentColor.disabled
 
     val colors = ButtonDefaults.outlinedButtonColors(
@@ -112,7 +116,6 @@ public fun ButtonOutlined(
         onClick = onClick,
         modifier = modifier,
         size = size,
-        shape = ButtonTokens.shape,
         enabled = enabled,
         elevation = null,
         border = SparkButtonDefaults.outlinedBorder(if (enabled) contentColor else disabledContentColor),
@@ -152,7 +155,6 @@ public fun ButtonOutlined(
     text: String,
     modifier: Modifier = Modifier,
     size: ButtonSize = ButtonSize.Medium,
-    shape: ButtonShape = SparkButtonDefaults.DefaultShape,
     intent: ButtonIntent = ButtonIntent.Support,
     enabled: Boolean = true,
     icon: SparkIcon? = null,
@@ -163,7 +165,7 @@ public fun ButtonOutlined(
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         val variant = ButtonStyleMapper.map(intent, ButtonStyle.Outlined)
-        RouteToNewButton(
+        RouteToRebrandedButton(
             variant = variant,
             onClick = onClick,
             modifier = modifier,
@@ -194,7 +196,6 @@ public fun ButtonOutlined(
         text = text,
         modifier = modifier,
         size = size,
-        shape = ButtonTokens.buttonShape,
         enabled = enabled,
         elevation = null,
         border = SparkButtonDefaults.outlinedBorder(if (enabled) contentColor else disabledContentColor),
@@ -244,7 +245,7 @@ public fun ButtonOutlined(
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         val variant = ButtonStyleMapper.map(intent, ButtonStyle.Outlined)
-        RouteToNewButton(
+        RouteToRebrandedButton(
             variant = variant,
             onClick = onClick,
             modifier = modifier,
@@ -272,7 +273,6 @@ public fun ButtonOutlined(
         text = text,
         modifier = modifier,
         size = size,
-        shape = ButtonTokens.buttonShape,
         enabled = enabled,
         elevation = null,
         border = SparkButtonDefaults.outlinedBorder(contentColor),
@@ -285,6 +285,7 @@ public fun ButtonOutlined(
     )
 }
 
+@SuppressLint("SparkButtonMigration")
 @Preview(
     group = "Buttons",
     name = "Button Outlined",
@@ -313,6 +314,7 @@ internal fun ButtonOutlinedPreview() {
     }
 }
 
+@SuppressLint("SparkButtonMigration")
 @Preview(
     group = "Buttons",
     name = "Button Outlined Intents",

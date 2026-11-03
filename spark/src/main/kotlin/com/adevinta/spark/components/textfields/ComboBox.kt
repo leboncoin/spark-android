@@ -72,8 +72,6 @@ import com.adevinta.spark.components.menu.MultipleChoiceExposedDropdownMenu
 import com.adevinta.spark.components.menu.SingleChoiceDropdownItemColumnScope
 import com.adevinta.spark.components.menu.SingleChoiceExposedDropdownMenu
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.CircleCrossOutline
-import com.adevinta.spark.icons.LeboncoinIcons
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
@@ -108,6 +106,7 @@ import kotlinx.collections.immutable.persistentListOf
  * @see MultiChoiceComboBox for a version that supports multiple selections
  * @sample com.adevinta.spark.samples.components.combobox.SingleChoiceComboBoxSample
  * @sample com.adevinta.spark.samples.components.combobox.SingleChoiceComboBoxFilteringSample
+ * ![SingleChoiceComboBox](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.combobox_ComboBoxDocumentationScreenshots_singleChoiceComboBox.png)
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -227,6 +226,7 @@ public data class SelectedChoice(val id: String, val label: String)
  * @param dropdownContent Content of the dropdown menu, using [MultiChoiceDropdownItemColumnScope]
  * @see SingleChoiceComboBox for a version that supports single selection
  * @sample com.adevinta.spark.samples.components.combobox.MultiChoiceComboBoxSample
+ * ![MultiChoiceComboBox](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.combobox_ComboBoxDocumentationScreenshots_multiChoiceComboBox.png)
  */
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
@@ -323,7 +323,7 @@ public fun MultiChoiceComboBox(
                             onClick = { onSelectedClick(id) },
                             trailingIcon = {
                                 Icon(
-                                    sparkIcon = LeboncoinIcons.CircleCrossOutline,
+                                    sparkIcon = TextFieldTokens.clearIcon,
                                     modifier = Modifier.size(ChipDefaults.LeadingIconSize),
                                     contentDescription = null,
                                 )

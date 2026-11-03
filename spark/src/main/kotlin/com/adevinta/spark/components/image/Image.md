@@ -1,8 +1,8 @@
 # Package com.adevinta.spark.components.image
 
 The image package provides three composables for displaying visual content: `Image` for remote/async
-images with managed loading states, `Illustration` for local static assets, and `UserAvatar` for
-circular profile pictures.
+images with managed loading states, `Illustration` for local static assets, and `Avatar` for
+profile and company pictures.
 
 ## Image
 
@@ -137,46 +137,82 @@ bundled with the app. Use `Image` for any content loaded at runtime.
 
 ---
 
-## UserAvatar
+## Avatar
 
-`UserAvatar` displays a circular profile picture. It uses `Image` internally and falls back to
-a profile or pro icon when no model is provided.
+`Avatar.User` and `Avatar.Company` show a profile picture or a company logo. Each uses `Image`
+internally and falls back to a placeholder when no image loads.
+
+> [!IMPORTANT]
+> `UserAvatar` is deprecated. Use `Avatar.User` for a person or `Avatar.Company` for a company.
 
 ```kotlin
-UserAvatar(
+Avatar.User(
+    username = user.name,
     model = user.avatarUrl,
-    style = UserAvatarStyle.MEDIUM,
-    isPro = user.isProfessional,
-    isOnline = user.isOnline,
+    size = AvatarSize.MD,
+    addon = { onlineIndicator() },
+)
+
+Avatar.Company(
+    model = company.logoUrl,
+    size = AvatarSize.MD,
 )
 ```
 
 ### Sizes
 
-| Style | Image size |
-|---|---|
-| `UserAvatarStyle.SMALL` | 32dp |
-| `UserAvatarStyle.MEDIUM` | 40dp |
-| `UserAvatarStyle.LARGE` | 64dp |
+`AvatarSize` has seven values. The default is `SM`. The image shows `SM`, `MD`, and `XL`.
 
-### Online indicator
+![](../../images/com.adevinta.spark.image_AvatarDocumentationScreenshots_sizes.png)
 
-Set `isOnline = true` to display a green dot badge at the bottom-right of the avatar. The badge
-scales with the chosen `UserAvatarStyle`.
+| Size | Image size | Online dot size | Stroke |
+|---|---|---|---|
+| `AvatarSize.XS` | 24dp | none | 1dp |
+| `AvatarSize.SM` | 32dp | 8dp | 1dp |
+| `AvatarSize.MD` | 40dp | 8dp | 1dp |
+| `AvatarSize.LG` | 56dp | 16dp | 2dp |
+| `AvatarSize.XL` | 64dp | 16dp | 2dp |
+| `AvatarSize.XXL` | 96dp | 16dp | 2dp |
+| `AvatarSize.XXXL` | 128dp | 16dp | 2dp |
 
-### Pro badge
+### User and company
 
-Set `isPro = true` to swap the fallback icon from a generic profile silhouette to a pro indicator.
-The pro icon is only visible when no image is loaded (empty or error state).
+`Avatar.User` is always a circle. When no image loads, it shows the first non-whitespace character
+of `username`, in upper case. A blank `username` shows an empty neutral circle; it has no icon
+placeholder.
+
+`Avatar.Company` is always a rounded square. It uses `SparkTheme.shapes.extraSmall` at `XS`, `SM`, and `MD`, and `SparkTheme.shapes.small` at `LG` and above. When no image loads, it shows a building icon on a
+neutral container. The left avatar is `Avatar.User`, the right avatar is `Avatar.Company`.
+
+![](../../images/com.adevinta.spark.image_AvatarDocumentationScreenshots_variants.png)
+
+### Letter placeholder
+
+The left avatar has a blank `username`; the right avatar has a `username` of "Spark".
+
+![](../../images/com.adevinta.spark.image_AvatarDocumentationScreenshots_letter.png)
+
+### Addon
+
+Pass `addon` to show an element on the avatar. Call `AvatarAddonScope.onlineIndicator()` for the
+standard presence dot (it draws nothing at `AvatarSize.XS`), `AvatarAddonScope.iconButton(...)` for an action button, or
+`AvatarAddonScope.custom { ... }` for other content. The default icon of `iconButton` is
+`LeboncoinIcons.Plus`, so the call below shows an add button.
 
 ```kotlin
-UserAvatar(
-    model = null, // shows fallback icon
-    style = UserAvatarStyle.LARGE,
-    isPro = true,
-    color = SparkTheme.colors.mainContainer,
+Avatar.User(
+    username = user.name,
+    model = user.avatarUrl,
+    size = AvatarSize.XL,
+    addon = { iconButton(onClick = onAddPhoto) },
 )
 ```
 
-The `color` parameter tints the fallback icon's background surface. Leave as `Color.Unspecified`
-to use the default neutral colour.
+The addon position depends on the variant. `Avatar.User` centres the addon on the circle rim,
+where it can overflow the avatar bounds. `Avatar.Company` places the addon at the bottom-end
+corner, with 25% of the addon outside the avatar bounds. The left avatar in each image is
+`Avatar.User`, the right avatar is `Avatar.Company`.
+
+![](../../images/com.adevinta.spark.image_AvatarDocumentationScreenshots_onlineIndicator.png)
+
+![](../../images/com.adevinta.spark.image_AvatarDocumentationScreenshots_addonButton.png)

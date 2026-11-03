@@ -86,8 +86,6 @@ import com.adevinta.spark.components.popover.PlainTooltip
 import com.adevinta.spark.components.popover.TooltipBox
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.CircleCrossOutline
-import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkAnimatedIcons
 import com.adevinta.spark.icons.collapseExpand
 import com.adevinta.spark.tokens.SparkTypography
@@ -368,6 +366,8 @@ public fun SelectTextField(
  * [MutableInteractionSource] if you want to observe [Interaction]s and customize the
  * appearance / behavior of this TextField in different [Interaction]s.
  * @param dropdownContent The content to be displayed inside ExposedDropdownMenuBox.
+ *
+ * ![Dropdown](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.dropdown_DropdownDocumentationScreenshots_dropdown.png)
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @ExperimentalSparkApi
@@ -638,7 +638,7 @@ public fun MultiChoiceDropdown(
                             onClick = { onSelectedClick(id) },
                             trailingIcon = {
                                 Icon(
-                                    sparkIcon = LeboncoinIcons.CircleCrossOutline,
+                                    sparkIcon = TextFieldTokens.clearIcon,
                                     modifier = Modifier.size(ChipDefaults.LeadingIconSize),
                                     contentDescription = null,
                                 )
@@ -817,7 +817,7 @@ public fun Dropdown(
         // Transparent clickable surface on top of TextField
         Surface(
             modifier = Modifier
-                .fillMaxWidth()
+                .matchParentSize()
                 .clip(SparkTheme.shapes.large)
                 .clickable(
                     enabled = enabled,

@@ -60,7 +60,7 @@
     <string name="spark_dialog_pane_a11y">Boîte de dialogue</string>
     <!--endregion-->
 
-    <string name="spark_annotatedStringResource_test">Les <b>Meilleures</b> <annotation typography="large">pratiques</annotation> pour les textes sur <i><annotation color="main">Android</annotation></i></string>
+    <string name="spark_annotatedStringResource_test" tools:ignore="UnusedResources">Les <b>Meilleures</b> <annotation typography="large">pratiques</annotation> pour les textes sur <i><annotation color="main">Android</annotation></i></string>
     <string name="spark_annotatedStringResource_test_args">Salut, <b><annotation variable="who" typography="large" color="main">who</annotation></b>!</string>
 
     <!--region TextField-->
@@ -75,6 +75,10 @@
     <string name="spark_textfield_state_error_content_description">Le champ contient une erreur</string>
     <string name="spark_textfield_delete_a11y">Tout supprimer</string>
     <string name="spark_drag_handle_a11y">Poignée de déplacement</string>
+    <!--endregion-->
+
+    <!--region IconButton-->
+    <string name="spark_icon_button_loading_a11y">Chargement en cours</string>
     <!--endregion-->
 
     <!--region Stepper-->

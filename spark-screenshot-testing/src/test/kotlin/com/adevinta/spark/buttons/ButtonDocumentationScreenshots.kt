@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.buttons
 
+import android.annotation.SuppressLint
 import com.adevinta.spark.DefaultTestDevices
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.buttons.ButtonContrast
@@ -43,6 +44,7 @@ internal class ButtonDocumentationScreenshots {
         deviceConfig = DefaultTestDevices.DocPhone,
     )
 
+    @SuppressLint("SparkButtonMigration")
     @Test
     fun buttonFilled() = paparazzi.sparkDocSnapshot {
         ButtonFilled(
@@ -51,6 +53,7 @@ internal class ButtonDocumentationScreenshots {
         )
     }
 
+    @SuppressLint("SparkButtonMigration")
     @Test
     fun buttonOutlined() = paparazzi.sparkDocSnapshot(color = { SparkTheme.colors.backgroundVariant }) {
         ButtonOutlined(
@@ -59,6 +62,7 @@ internal class ButtonDocumentationScreenshots {
         )
     }
 
+    @SuppressLint("SparkButtonMigration")
     @Test
     fun buttonTinted() = paparazzi.sparkDocSnapshot {
         ButtonTinted(
@@ -67,6 +71,7 @@ internal class ButtonDocumentationScreenshots {
         )
     }
 
+    @SuppressLint("SparkButtonMigration")
     @Test
     fun buttonGhost() = paparazzi.sparkDocSnapshot(color = { SparkTheme.colors.backgroundVariant }) {
         ButtonGhost(
@@ -75,6 +80,7 @@ internal class ButtonDocumentationScreenshots {
         )
     }
 
+    @SuppressLint("SparkButtonMigration")
     @Test
     fun buttonContrast() = paparazzi.sparkDocSnapshot(color = { SparkTheme.colors.backgroundVariant }) {
         ButtonContrast(

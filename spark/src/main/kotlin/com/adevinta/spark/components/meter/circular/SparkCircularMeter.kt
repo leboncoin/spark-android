@@ -19,8 +19,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+// This file implements the Spark meter on top of the Material indicator.
+@file:Suppress("MaterialComposableHasSparkReplacement")
+
 package com.adevinta.spark.components.meter.circular
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
@@ -40,6 +44,7 @@ import com.adevinta.spark.components.meter.MeterDefaults
 import com.adevinta.spark.components.meter.MeterIntent
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
+@SuppressLint("MaterialComposableHasSparkReplacement")
 @InternalSparkApi
 @Composable
 internal fun SparkCircularMeter(

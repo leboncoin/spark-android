@@ -33,10 +33,8 @@ import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Shape
 import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.SparkTheme
-import com.adevinta.spark.components.iconbuttons.IconButtonTokens
 import androidx.compose.material3.FilledIconButton as MaterialFilledIconButton
 import androidx.compose.material3.FilledTonalIconButton as MaterialFilledTonalIconButton
 import androidx.compose.material3.IconButton as MaterialIconButton
@@ -106,7 +104,6 @@ public fun IconButton(
  * @param enabled controls the enabled state of this icon button. When `false`, this component will
  * not respond to user input, and it will appear visually disabled and disabled to accessibility
  * services.
- * @param shape defines the shape of this icon button's container
  * @param colors `IconButtonColors` that will be used to resolve the colors used for this icon
  * button in different states. See [IconButtonDefaults.filledIconButtonColors].
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
@@ -121,17 +118,15 @@ public fun FilledIconButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    shape: Shape = SparkTheme.shapes.full,
     colors: IconButtonColors = IconButtonDefaults.filledIconButtonColors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
-    val shape = IconButtonTokens.resolveFullShape(shape)
     MaterialFilledIconButton(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
-        shape = shape,
+        shape = SparkTheme.shapes.full,
         colors = colors,
         interactionSource = interactionSource,
         content = content,
@@ -161,7 +156,6 @@ public fun FilledIconButton(
  * @param enabled controls the enabled state of this icon button. When `false`, this component will
  * not respond to user input, and it will appear visually disabled and disabled to accessibility
  * services.
- * @param shape defines the shape of this icon button's container
  * @param colors `IconButtonColors` that will be used to resolve the colors used for this icon
  * button in different states. See [IconButtonDefaults.filledIconButtonColors].
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
@@ -176,19 +170,17 @@ public fun FilledTonalIconButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    shape: Shape = SparkTheme.shapes.full,
     colors: IconButtonColors = IconButtonDefaults.filledTonalIconButtonColors(
         containerColor = SparkTheme.colors.mainContainer,
     ),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
-    val shape = IconButtonTokens.resolveFullShape(shape)
     MaterialFilledTonalIconButton(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
-        shape = shape,
+        shape = SparkTheme.shapes.full,
         colors = colors,
         interactionSource = interactionSource,
         content = content,
@@ -219,8 +211,6 @@ public fun FilledTonalIconButton(
  * @param enabled controls the enabled state of this icon button. When `false`, this component will
  * not respond to user input, and it will appear visually disabled and disabled to accessibility
  * services.
- * @param shape defines the shape of this icon button's container and border (when [border] is not
- * null)
  * @param colors `IconButtonColors` that will be used to resolve the colors used for this icon
  * button in different states. See [IconButtonDefaults.outlinedIconButtonColors].
  * @param border the border to draw around the container of this icon button. Pass `null` for no
@@ -237,18 +227,16 @@ public fun OutlinedIconButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    shape: Shape = SparkTheme.shapes.full,
     colors: IconButtonColors = IconButtonDefaults.outlinedIconButtonColors(),
     border: BorderStroke? = IconButtonDefaults.outlinedIconButtonBorder(enabled),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
 ) {
-    val shape = IconButtonTokens.resolveFullShape(shape)
     MaterialOutlinedIconButton(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
-        shape = shape,
+        shape = SparkTheme.shapes.full,
         colors = colors,
         border = border,
         interactionSource = interactionSource,

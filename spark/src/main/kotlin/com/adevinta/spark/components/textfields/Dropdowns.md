@@ -61,6 +61,8 @@ Dropdown(
 Like single selection, the selection system is handled by the developer. It enables you to have a 
 multi selection dropdown logics that don't force you into using a specific model but your own.
 
+In the multi-choice variant, each selected choice shows as a chip with a cross icon. A tap on a chip calls `onSelectedClick` with the id of that choice.
+
 Here's an example of a multi selection dropdown that you could use in your project:
 
 ```kotlin

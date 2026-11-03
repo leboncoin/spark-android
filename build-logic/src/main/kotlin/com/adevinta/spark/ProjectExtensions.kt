@@ -25,11 +25,9 @@ import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.dsl.LibraryExtension
 import com.android.build.api.dsl.TestExtension
-import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension
-import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
@@ -51,14 +49,6 @@ internal val Project.isAndroidMultiplatformLibrary: Boolean get() = pluginManage
 internal val Project.isKotlinMultiplatform: Boolean get() = pluginManager.hasPlugin(
     "org.jetbrains.kotlin.multiplatform",
 )
-
-/**
- * True for modules that declare [com.adevinta.spark.InternalSparkApi] and
- * [com.adevinta.spark.ExperimentalSparkApi]. Modules that don't define these annotations (e.g.
- * spark-icons) must not opt-in to them at the compiler level.
- */
-internal val Project.hasSparkInternalAnnotations: Boolean
-    get() = name != "spark-icons"
 
 internal val Project.isAndroidTest: Boolean get() = pluginManager.hasPlugin("com.android.test")
 internal val Project.isAndroid: Boolean get() = pluginManager.hasPlugin("com.android.base")
@@ -88,10 +78,6 @@ internal fun Project.androidTest(
 internal fun Project.configureAndroid(
     configure: CommonExtension.() -> Unit,
 ) = android {
-    compileOptions.apply {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
     configure()
 }
 
@@ -104,10 +90,6 @@ internal fun Project.getVersionsCatalog(): VersionCatalog = runCatching {
 internal inline fun <reified T : KotlinBaseExtension> Project.configureKotlin(
     crossinline configure: T.() -> Unit = {},
 ) {
-    configure<JavaPluginExtension> {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
     configure<T> {
         val kotlin = when (this) {
             is KotlinAndroidProjectExtension -> this

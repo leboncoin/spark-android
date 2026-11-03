@@ -26,6 +26,7 @@ import com.adevinta.spark.catalog.examples.samples.tokens.elevation.ElevationCus
 import com.adevinta.spark.catalog.examples.samples.tokens.elevation.ElevationSample
 import com.adevinta.spark.catalog.examples.samples.tokens.shapes.ShapeCustomSample
 import com.adevinta.spark.catalog.examples.samples.tokens.shapes.ShapeSample
+import com.adevinta.spark.catalog.examples.samples.tokens.typography.TypographySample
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import kotlinx.collections.immutable.ImmutableList
@@ -72,5 +73,13 @@ public val TokensExamples: ImmutableList<Example> = persistentListOf(
         sourceUrl = TokensExampleSourceUrl,
     ) {
         ElevationCustomSample()
+    },
+    Example(
+        id = "typography",
+        name = "Typography",
+        description = "Showcase the typography tokens",
+        sourceUrl = TokensExampleSourceUrl,
+    ) {
+        TypographySample()
     },
 )

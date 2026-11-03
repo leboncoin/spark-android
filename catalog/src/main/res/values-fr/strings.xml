@@ -35,6 +35,8 @@
 
     <string name="theme_picker_mode_title">Mode</string>
     <string name="theme_picker_theme_title" description="Thème de marque Spark. [CHAR_LIMIT=NONE]">Thème</string>
+    <string name="theme_picker_brand_title" description="Palette de marque Spark. [CHAR_LIMIT=NONE]">Marque</string>
+    <string name="theme_picker_version_title" description="Version des couleurs Spark. [CHAR_LIMIT=NONE]">Version</string>
     <string name="theme_picker_text_direction_title" description="Simuler la direction du texte du système en LTR ou RTL. [CHAR_LIMIT=NONE]">Sens du texte</string>
     <string name="theme_picker_font_scale_title" description="Simuler la mise à l’échelle de la police a11y. [CHAR_LIMIT=NONE]">Échelle de la police</string>
     <string name="theme_picker_section_theme_settings">Paramètres du thème</string>
@@ -42,7 +44,8 @@
     <string name="theme_picker_section_developer_options">Options développeur</string>
     <string name="theme_picker_mode_helper">Le mode Système suit le paramètre de thème de votre appareil. Les modes Clair et Sombre remplacent le paramètre système.</string>
     <string name="theme_picker_theme_helper">Le thème dynamique utilise les couleurs du fond d’écran de votre appareil (Android 12+). Le thème de base utilise la palette de couleurs par défaut de Spark.</string>
-    <string name="theme_picker_pro_theme_helper">Le thème Pro fournit des variantes de couleurs supplémentaires pour les cas d’utilisation professionnels.</string>
+    <string name="theme_picker_brand_helper">Part est la palette par défaut. Pro est destinée aux cas d\’utilisation professionnels. Contrasté utilise la palette à contraste élevé.</string>
+    <string name="theme_picker_version_helper">Actuel utilise les couleurs précédentes. Rebrandé utilise les nouvelles couleurs.</string>
     <string name="theme_picker_font_scale_helper">Simule la mise à l’échelle de la police d’accessibilité pour tester comment les composants s’adaptent aux tailles de texte plus grandes.</string>
     <string name="theme_picker_text_direction_helper">LTR (de gauche à droite) est utilisé pour des langues comme l’anglais. RTL (de droite à gauche) est utilisé pour des langues comme l’arabe et l’hébreu.</string>
     <string name="theme_picker_contrast_helper">Niveau de contraste système (lecture seule). Ajustez dans les paramètres d’accessibilité de l’appareil.</string>
@@ -98,6 +101,9 @@
     <string name="component_image_content_scale_none_description">Pas de mise à l’échelle, l’image reste à sa taille d’origine</string>
     <string name="component_image_content_scale_fill_bounds_description">Étirer l’image pour remplir 100 % des limites du composant d’image</string>
     <!--endregion-->
+    <!--region Avatar-->
+    <string name="component_avatar_description">Le composant Avatar affiche l’image d’un utilisateur ou d’une entreprise. La variante User est circulaire et affiche la première lettre du nom de l’utilisateur lorsqu’aucune image n’est disponible. La variante Company est un carré arrondi et affiche une icône de bâtiment. Les deux variantes acceptent un addon optionnel, par exemple un indicateur de statut en ligne.</string>
+    <!--endregion-->
     <!--region Radio button-->
     <string name="component_radiobutton_description">Composant utilisé lorsqu’un seul choix peut être sélectionné dans une série d’options.</string>
     <!--endregion-->
@@ -122,7 +128,7 @@
     <string name="component_textlink_description">Un lien textuelle est une référence à une ressource. Elle peut être externe (par exemple, une autre page Web) ou interne (par exemple, un élément spécifique de la page actuelle).</string>
 
     <string name="component_slider_description">Un slider/curseur est un composant interactif qui permet aux utilisateurs de définir des valeurs en déplaçant une poignée dans une plage définie.</string>
-    <string name="component_animation_description">Les animations fournissent un retour visuel et améliorent l’expérience utilisateur par le mouvement. L’animation de pulsation crée un effet pulsant qui attire l’attention sur les éléments interactifs.</string>
+    <string name="component_animation_description">Les animations fournissent un retour visuel et améliorent l’expérience utilisateur par le mouvement. La pulsation attire l’attention sur les éléments interactifs, le tremblement signale une erreur ou une action refusée, et le compteur animé fait glisser les caractères modifiés quand une valeur augmente ou diminue.</string>
     <string name="component_badge_description">Les badges sont des indicateurs visuels pour les valeurs numériques telles que les totaux et les scores, ou pour mettre en évidence les informations de statut.</string>
     <string name="component_placeholder_description">Les squelettes fournissent un retour visuel pendant les états de chargement, affichant une interface utilisateur qui imite la structure du contenu réel évitant les sauts de pages une fois les élements chargés</string>
     <string name="component_segmentedgauge_description">La Jauge Segmenté est un indicateur visuel non interactif composée de cellules coloré. Elle affiche un niveau ou une valeur sur une echelle (par ex. de “bas” à “haut” )</string>

@@ -30,7 +30,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.ExperimentalSparkApi
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonGhost
+import com.adevinta.spark.components.buttons.Ghost
 import com.adevinta.spark.components.dialog.AlertDialog
 import com.adevinta.spark.components.iconbuttons.IconButtonFilled
 import com.adevinta.spark.components.icons.Icon
@@ -66,21 +68,21 @@ internal fun AlertDialogSample() {
                 )
             },
             confirmButton = {
-                ButtonGhost(
-                    text = "Confirm",
+                Button.Ghost(
                     onClick = {
                         // Handle confirm
                         showDialog = false
                     },
+                    text = "Confirm",
                 )
             },
             dismissButton = {
-                ButtonGhost(
-                    text = "Cancel",
+                Button.Ghost(
                     onClick = {
                         // Handle dismiss
                         showDialog = false
                     },
+                    text = "Cancel",
                 )
             },
         )
@@ -116,16 +118,16 @@ internal fun AlertDialogWithIconSample() {
                 )
             },
             confirmButton = {
-                ButtonGhost(
-                    text = "Delete",
+                Button.Ghost(
                     onClick = {
                         // Handle delete
                         showDialog = false
                     },
+                    text = "Delete",
                 )
             },
             dismissButton = {
-                ButtonGhost(
+                Button.Ghost(
                     text = "Cancel",
                     onClick = {
                         // Handle cancel
@@ -156,7 +158,7 @@ internal fun AlertDialogSimpleSample() {
                 Text("This is a simple alert dialog with only a title and message.")
             },
             confirmButton = {
-                ButtonGhost(
+                Button.Ghost(
                     text = "OK",
                     onClick = {
                         // Handle OK
@@ -192,7 +194,7 @@ internal fun AlertDialogLongTextSample() {
                 )
             },
             confirmButton = {
-                ButtonGhost(
+                Button.Ghost(
                     text = "I Agree",
                     onClick = {
                         // Handle agreement
@@ -201,7 +203,7 @@ internal fun AlertDialogLongTextSample() {
                 )
             },
             dismissButton = {
-                ButtonGhost(
+                Button.Ghost(
                     text = "Decline",
                     onClick = {
                         // Handle decline

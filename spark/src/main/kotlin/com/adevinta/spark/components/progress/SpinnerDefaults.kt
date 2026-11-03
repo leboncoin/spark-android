@@ -26,19 +26,6 @@ import androidx.compose.ui.unit.dp
 
 public object SpinnerDefaults {
     public val Size: SpinnerSize = SpinnerSize.Medium
-    internal val IndicatorStrokeWidth = 2.dp
-
-    internal const val RotationDurationInMillis = 1000
-
-    // How far the base point moves around the circle
-    internal const val BaseRotationAngle = 360f
-
-    // Each rotation we want to offset the start position by this much, so we continue where
-    // the previous rotation ended. This is the maximum angle covered during one rotation.
-    internal const val RotationAngleOffset = BaseRotationAngle % 360f
-
-    // Start at 12 o'clock
-    internal const val StartAngleOffset = 270f
 }
 
 public enum class SpinnerSize(public val dp: Dp) {

@@ -44,7 +44,7 @@ import com.adevinta.spark.tokens.disabled
 /**
  * Used for any action attached to a conversion or monetisation flow, such as "Boost my ad" or "Upgrade".
  *
- * ![Button Boost](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonBoost.png)
+ * ![Button Boost](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_RebrandedButtonDocumentationScreenshots_buttonBoost.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
@@ -98,7 +98,7 @@ internal fun SparkButtonBoost(
 /**
  * Used for any action attached to a conversion or monetisation flow, such as "Boost my ad" or "Upgrade".
  *
- * ![Button Boost](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonBoost.png)
+ * ![Button Boost](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_RebrandedButtonDocumentationScreenshots_buttonBoost.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
@@ -144,7 +144,7 @@ public fun Button.Boost(
 /**
  * Used for any action attached to a conversion or monetisation flow, such as "Boost my ad" or "Upgrade".
  *
- * ![Button Boost](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonBoost.png)
+ * ![Button Boost](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_RebrandedButtonDocumentationScreenshots_buttonBoost.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param text The text to be displayed in the button

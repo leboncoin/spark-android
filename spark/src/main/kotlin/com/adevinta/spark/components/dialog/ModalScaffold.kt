@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.dialog
 
+import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -49,6 +50,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.movableContentOf
 import androidx.compose.runtime.movableContentWithReceiverOf
 import androidx.compose.runtime.remember
@@ -78,8 +80,11 @@ import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.appbar.BottomAppBar
 import com.adevinta.spark.components.appbar.BottomAppBarSparkDefaults
 import com.adevinta.spark.components.appbar.TopAppBar
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.buttons.ButtonOutlined
+import com.adevinta.spark.components.buttons.Primary
+import com.adevinta.spark.components.buttons.Tertiary
 import com.adevinta.spark.components.dialog.ModalDefault.DialogPadding
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconButton
@@ -124,8 +129,8 @@ public fun ModalScaffold(
     contentPadding: PaddingValues = DialogPadding,
     contentWindowInsets: WindowInsets = ScaffoldDefaults.contentWindowInsets,
     snackbarHost: @Composable () -> Unit = {},
-    mainButton: (@Composable (Modifier) -> Unit)? = null,
-    supportButton: (@Composable (Modifier) -> Unit)? = null,
+    @SuppressLint("SlotReused") mainButton: (@Composable (Modifier) -> Unit)? = null,
+    @SuppressLint("SlotReused") supportButton: (@Composable (Modifier) -> Unit)? = null,
     title: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
     inEdgeToEdge: Boolean = LocalSparkFeatureFlag.current.isContainingActivityEdgeToEdge,
@@ -370,7 +375,6 @@ private fun PhoneLandscapeModalScaffold(
     title: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
     contentWindowInsets: WindowInsets = ScaffoldDefaults.contentWindowInsets,
-    illustrationContentScale: ContentScale = ContentScale.Fit,
     inEdgeToEdge: Boolean = false,
     content: @Composable (PaddingValues) -> Unit,
 ) {
@@ -428,19 +432,6 @@ private fun PhoneLandscapeModalScaffold(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(Layout.gutter),
             ) {
-                illustration?.let {
-                    Box(
-                        modifier = Modifier.weight(.8f),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        Illustration(
-                            drawableRes = it,
-                            contentDescription = null,
-                            modifier = Modifier.fillMaxWidth(.8f),
-                            contentScale = illustrationContentScale,
-                        )
-                    }
-                }
                 Box(
                     modifier = Modifier
                         .weight(1f)
@@ -466,6 +457,7 @@ private fun CloseIconButton(onClose: () -> Unit) {
 
 @Suppress("DEPRECATION")
 @Composable
+@ReadOnlyComposable
 private fun SetUpEdgeToEdgeDialog() {
     val window = (LocalView.current.parent as DialogWindowProvider).window
     window.statusBarColor = Color.Transparent.toArgb()
@@ -503,10 +495,10 @@ private fun ModalPreview() {
             ModalScaffold(
                 onClose = { /*TODO*/ },
                 mainButton = {
-                    ButtonFilled(modifier = it, onClick = { /*TODO*/ }, text = "Main Action")
+                    Button.Primary(onClick = { /*TODO*/ }, text = "Main Action", modifier = it)
                 },
                 supportButton = {
-                    ButtonOutlined(modifier = it, onClick = { /*TODO*/ }, text = "Alternative Action")
+                    Button.Tertiary(onClick = { /*TODO*/ }, text = "Alternative Action", modifier = it)
                 },
                 title = {
                     Text(text = "Title")

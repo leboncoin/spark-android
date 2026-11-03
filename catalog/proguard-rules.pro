@@ -13,18 +13,20 @@
 -renamesourcefileattribute SourceFile
 -verbose
 
--keep class com.adevinta.spark.tools.preview.UserProProvider { *; }
-
 # Keep all spark-icons resources explicitly in the catalog app
 -keep class com.adevinta.spark.icons.R$drawable {
     public static <fields>;
 }
 
 # Keep colors as we use reflection to display them in examples
--keepclasseswithmembers class com.adevinta.spark.tokens.SparkColors {
-    *;
-}
+-keepclassmembers class com.adevinta.spark.tokens.SparkColors { long get*(); }
 
 # Rules for Filekit
 -keep class com.sun.jna.** { *; }
 -keep class * implements com.sun.jna.** { *; }
+
+# Prevent R8 full-mode class merging of compose-animation internals into unrelated classes.
+# Without this, ART verify mode (used by CompilationMode.None() in benchmarks) rejects the
+# merged bytecode due to type mismatches between ScaleToBoundsImpl and RemeasureImpl.
+-keep class androidx.compose.animation.ScaleToBoundsImpl
+-keep class androidx.compose.animation.RemeasureImpl

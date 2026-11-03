@@ -271,6 +271,8 @@ private fun Cell(
  * the gauge.
  *
  * @see SegmentedGauge
+ * ![Segmented Gauge Short light](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.gauge_SegmentedGaugeDocumentationScreenshots_segmentedGauge_five_segment_types_light.png)
+ * ![Segmented Gauge Short dark](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.gauge_SegmentedGaugeDocumentationScreenshots_segmentedGauge_five_segment_types_dark.png)
  */
 @ExperimentalSparkApi
 @Composable
@@ -310,6 +312,12 @@ public fun SegmentedGaugeShort(
  *
  * @see SegmentedGaugeShort
  *
+ * ![Segmented Gauge five segment types light](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.gauge_SegmentedGaugeDocumentationScreenshots_segmentedGauge_five_segment_types_light.png)
+ * ![Segmented Gauge five segment types dark](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.gauge_SegmentedGaugeDocumentationScreenshots_segmentedGauge_five_segment_types_dark.png)
+ * ![Segmented Gauge sizes light](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.gauge_SegmentedGaugeDocumentationScreenshots_segmentedGauge_sizes_light.png)
+ * ![Segmented Gauge sizes dark](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.gauge_SegmentedGaugeDocumentationScreenshots_segmentedGauge_sizes_dark.png)
+ * ![Segmented Gauge custom colors light](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.gauge_SegmentedGaugeDocumentationScreenshots_segmentedGauge_custom_colors_light.png)
+ * ![Segmented Gauge custom colors dark](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.gauge_SegmentedGaugeDocumentationScreenshots_segmentedGauge_custom_colors_dark.png)
  */
 @ExperimentalSparkApi
 @Composable

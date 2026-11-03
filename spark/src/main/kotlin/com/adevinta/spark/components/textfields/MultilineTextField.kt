@@ -49,7 +49,6 @@ import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconSize
 import com.adevinta.spark.components.text.Text
-import com.adevinta.spark.icons.CircleCrossOutline
 import com.adevinta.spark.icons.HeartFill
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.tokens.SparkTypography
@@ -106,6 +105,8 @@ import kotlinx.coroutines.flow.flowOf
  *
  * @see TextField
  * @see SelectTextField
+ * ![Multiline Text Field showcase light](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.textfields_TextFieldDocumentationScreenshots_multilineTextFieldShowcase_light.png)
+ * ![Multiline Text Field showcase dark](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.textfields_TextFieldDocumentationScreenshots_multilineTextFieldShowcase_dark.png)
  */
 @Composable
 public fun MultilineTextField(
@@ -140,7 +141,7 @@ public fun MultilineTextField(
                     .semantics {
                         role = Role.Button
                     },
-                sparkIcon = LeboncoinIcons.CircleCrossOutline,
+                sparkIcon = TextFieldTokens.clearIcon,
                 contentDescription = stringResource(R.string.spark_textfield_delete_a11y),
             )
         }
@@ -257,7 +258,7 @@ public fun MultilineTextField(
                     .semantics {
                         role = Role.Button
                     },
-                sparkIcon = LeboncoinIcons.CircleCrossOutline,
+                sparkIcon = TextFieldTokens.clearIcon,
                 contentDescription = stringResource(R.string.spark_textfield_delete_a11y),
             )
         }

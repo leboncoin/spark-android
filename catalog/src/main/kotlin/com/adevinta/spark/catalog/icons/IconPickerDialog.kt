@@ -35,10 +35,10 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -55,7 +55,9 @@ import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.util.TrackScrollJank
 import com.adevinta.spark.catalog.util.splitCamelWithSpaces
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonGhost
+import com.adevinta.spark.components.buttons.Ghost
 import com.adevinta.spark.components.chips.ChipSelectable
 import com.adevinta.spark.components.chips.ChipStyles
 import com.adevinta.spark.components.dialog.ModalScaffold
@@ -81,11 +83,8 @@ public fun IconPickerDialog(
     if (!showDialog) return
 
     val context = LocalContext.current
-    var icons: List<NamedAsset> by remember {
-        mutableStateOf(emptyList())
-    }
-    LaunchedEffect(Unit) {
-        icons = getAllIconsRes(context)
+    val icons by produceState(initialValue = IconCatalog.current) {
+        if (value.isEmpty()) value = IconCatalog.load(context)
     }
     var query: String by rememberSaveable { mutableStateOf("") }
     var showIcons by rememberSaveable { mutableStateOf(true) }
@@ -112,12 +111,12 @@ public fun IconPickerDialog(
         mainButton = null, // No main button since selection happens on icon click
         supportButton = if (allowNullSelection) {
             { modifier ->
-                ButtonGhost(
-                    text = stringResource(R.string.icon_picker_clear),
+                Button.Ghost(
                     onClick = {
                         onIconSelected(null)
                         onDismissRequest()
                     },
+                    text = stringResource(R.string.icon_picker_clear),
                     modifier = modifier,
                 )
             }

@@ -32,19 +32,6 @@ import com.adevinta.spark.components.IntentColors
  */
 public enum class SpinnerIntent {
     /**
-     * Used to match default color of such UI controls as toggles, Slider, etc.
-     */
-    @Deprecated(
-        message = "Basic has been removed with the rebranding, use Support instead",
-        replaceWith = ReplaceWith("SpinnerIntent.Support"),
-        level = DeprecationLevel.ERROR,
-    )
-    Basic {
-        @Composable
-        override fun colors(): IntentColor = IntentColors.Support.colors()
-    },
-
-    /**
      * Used to make UI component visually accentuated.
      */
     Accent {

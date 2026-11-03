@@ -56,6 +56,8 @@ internal object SparkPublication {
             add("nmcpAggregation", project(":spark-bom"))
             add("nmcpAggregation", project(":spark-icons"))
             add("nmcpAggregation", project(":spark"))
+            add("nmcpAggregation", project(":spark-core"))
+            add("nmcpAggregation", project(":spark-annotation"))
         }
     }
 
@@ -73,7 +75,7 @@ internal object SparkPublication {
         repositories {
             mavenLocal {
                 name = "Local"
-                url = uri(rootProject.layout.buildDirectory.dir(".m2/repository"))
+                url = uri(layout.buildDirectory.dir(".m2/repository"))
             }
         }
     }

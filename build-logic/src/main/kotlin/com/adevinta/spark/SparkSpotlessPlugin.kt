@@ -34,7 +34,7 @@ internal class SparkSpotlessPlugin : Plugin<Project> {
 
             val ktlint = spark().libraries.`ktlint-bom`.get().version
             configure<SpotlessExtension> {
-                val licenseHeader = rootProject.file("spotless/spotless.kt")
+                val licenseHeader = rootDir.resolve("spotless/spotless.kt")
                 format("misc") {
                     target("*.md", "src/**/*.md", "*.xml", "src/**/*.xml", ".gitignore")
                     targetExclude("dependencies/*.txt")

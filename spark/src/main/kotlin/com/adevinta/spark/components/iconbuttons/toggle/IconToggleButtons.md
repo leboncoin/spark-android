@@ -14,9 +14,9 @@ Icon toggle buttons come in various styles:
 - Contrast
 - Ghost
 
-| Enabled                                                                                    | Disabled                                                                                    | Shapes                                                                                    |
-|--------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|
-| ![](../../images/com.adevinta.spark.iconbutton_IconToggleButtonScreenshot_enabled.png)     | ![](../../images/com.adevinta.spark.iconbutton_IconToggleButtonScreenshot_disabled.png)     | ![](../../images/com.adevinta.spark.iconbutton_IconToggleButtonScreenshot_shape.png)      |
+| Enabled                                                                                    | Disabled                                                                                    |
+|--------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| ![](../../images/com.adevinta.spark.iconbutton_IconToggleButtonScreenshot_enabled.png)     | ![](../../images/com.adevinta.spark.iconbutton_IconToggleButtonScreenshot_disabled.png)     |
 
 ### Sizes
 

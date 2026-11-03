@@ -74,13 +74,14 @@ public object SegmentedControlTokens {
     public val ContainerHorizontalShape: Shape
         @Composable
         @ReadOnlyComposable
-        get() = SparkTheme.shapes.full
+        get() = SparkTheme.shapes.extraLarge
+
+    public val ItemHorizontalShape: Shape
+        get() = RoundedCornerShape(24.0.dp)
 
     public val ContainerVerticalShape: Shape
-        @Composable
-        @ReadOnlyComposable
         get() = RoundedCornerShape(20.0.dp)
-    public val IndicatorBorderWidth: Dp = 2.dp
+    public val IndicatorBorderWidth: Dp = 1.dp
 
     /** Width of the divider line drawn between adjacent segments. */
     public val DividerWidth: Dp = 1.dp

@@ -63,6 +63,29 @@ ChipSelectable(
 }
 ```
 
+### Closable chips
+
+Pass `onClose` to add a close icon that the user can tap. Pass `onCloseLabel` as well, because it is required
+when `onClose` is not null. The label is the accessibility description of the action.
+It must describe the result of the action, for example "Remove filter".
+
+```kotlin
+ChipSelectable(
+    onClick = { expanded = true },
+    selected = value in animals,
+    onClose = if (value in animals) {
+        { value = "" }
+    } else {
+        null
+    },
+    onCloseLabel = "Remove filter",
+) {
+    Text(text = value.ifEmpty { "Animals" })
+}
+```
+
+The close icon is fixed (`ChipTokens.clearIcon`). You cannot change it for a single chip.
+
 ### Handling selection
 Chips support selection with the ChipSelectable Variant.
 
@@ -71,11 +94,10 @@ You'll need to add the `selectableGroup` modifier to the parent container of the
 
 and specify the `Role.RadioButton` semantics for each chip to indicate that only one of the chip
 can be selected at a time.
- ```kotlin
-fun Modifier.semantics {
-    this.role = Role.RadioButton
-}
+```kotlin
+Modifier.semantics { role = Role.RadioButton }
 ```
+
 ```kotlin
 val filters by remember {
     mutableStateOf(
@@ -114,11 +136,11 @@ FlowRow(
     filters.forEach { filter ->
         val selected = filter in selectedFilters
         ChipSelectable(
-            text = filter.name,
+            text = filter,
             selected = selected,
             leadingIcon = if (selected) LeboncoinIcons.Check else null,
             onClick = {
-                unionSelected = if (selected) {
+                selectedFilters = if (selected) {
                     selectedFilters - filter
                 } else {
                     selectedFilters + filter

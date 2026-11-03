@@ -51,11 +51,11 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -95,7 +95,6 @@ import com.adevinta.spark.icons.R as IconR
     ExperimentalSharedTransitionApi::class,
     ExperimentalLayoutApi::class,
     ExperimentalFoundationApi::class,
-    ExperimentalAnimationSpecApi::class,
 )
 @Composable
 public fun IconsScreen(
@@ -108,15 +107,14 @@ public fun IconsScreen(
     val context = LocalContext.current
     val clipboard = LocalClipboard.current
     val coroutineScope = rememberCoroutineScope()
-    var icons: List<NamedAsset> by remember {
-        mutableStateOf(emptyList())
-    }
-    LaunchedEffect(Unit) {
-        icons = getAllIconsRes(context)
+    val icons by produceState(initialValue = IconCatalog.current) {
+        if (value.isEmpty()) value = IconCatalog.load(context)
     }
     var query: String by rememberSaveable { mutableStateOf("") }
     var showIcons by rememberSaveable { mutableStateOf(true) }
     var showAnimatedIcons by rememberSaveable { mutableStateOf(true) }
+    // Only the last clicked icon needs a shared element, for both the forward and the back transition.
+    var sharedIconName by rememberSaveable { mutableStateOf<String?>(null) }
 
     val filteredIcons by remember(query, showIcons, showAnimatedIcons) {
         derivedStateOf {
@@ -210,6 +208,7 @@ public fun IconsScreen(
                                 },
                                 onLongClickLabel = stringResource(R.string.icons_item_long_click_a11y),
                                 onClick = {
+                                    sharedIconName = iconName
                                     onIconClick(iconName, isAnimated)
                                 },
                                 onClickLabel = stringResource(R.string.icons_item_click_a11y),
@@ -220,24 +219,20 @@ public fun IconsScreen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(4.dp),
                     ) {
-                        val boundsTransform = BoundsTransform { initialBounds, targetBounds ->
-                            keyframes {
-                                durationMillis = 300
-                                initialBounds at 0 using ArcMode.ArcBelow using FastOutSlowInEasing
-                                targetBounds at 300
-                            }
+                        val sharedElementModifier = if (iconName == sharedIconName) {
+                            Modifier.sharedElement(
+                                sharedTransitionScope.rememberSharedContentState(key = "icon-$iconName"),
+                                animatedVisibilityScope = animatedContentScope,
+                                boundsTransform = IconBoundsTransform,
+                                placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
+                            )
+                        } else {
+                            Modifier
                         }
                         Icon(
                             sparkIcon = sparkIcon,
                             contentDescription = null,
-                            modifier = Modifier
-                                .sharedElement(
-                                    sharedTransitionScope.rememberSharedContentState(key = "icon-$iconName"),
-                                    animatedVisibilityScope = animatedContentScope,
-                                    boundsTransform = boundsTransform,
-                                    placeholderSize = SharedTransitionScope.PlaceholderSize.AnimatedSize,
-                                )
-                                .size(40.dp),
+                            modifier = sharedElementModifier.size(40.dp),
                         )
                         Text(
                             text = iconName.splitCamelWithSpaces(),
@@ -249,6 +244,29 @@ public fun IconsScreen(
             }
         }
     }
+}
+
+@OptIn(ExperimentalSharedTransitionApi::class, ExperimentalAnimationSpecApi::class)
+internal val IconBoundsTransform = BoundsTransform { initialBounds, targetBounds ->
+    keyframes {
+        durationMillis = 300
+        initialBounds at 0 using ArcMode.ArcBelow using FastOutSlowInEasing
+        targetBounds at 300
+    }
+}
+
+/**
+ * Process-wide cache of the icon list, so the icons screen and the icon picker have items on their first frame
+ * after the first load.
+ */
+internal object IconCatalog {
+    @Volatile
+    private var cached: List<NamedAsset>? = null
+
+    val current: List<NamedAsset> get() = cached.orEmpty()
+
+    suspend fun load(context: Context): List<NamedAsset> =
+        cached ?: getAllIconsRes(context.applicationContext).also { cached = it }
 }
 
 @Stable

@@ -75,6 +75,7 @@ public enum class LabelVerticalAlignment {
  * @param intent The intent defining the color of the divider.
  * @param label The optional label to be displayed on the divider.
  * @param labelHorizontalAlignment The horizontal alignment of the label.
+ * ![Horizontal Divider](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.divider_DividerDocumentationScreenshots_horizontalDivider.png)
  */
 @SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
@@ -144,6 +145,7 @@ public fun HorizontalDivider(
  * @param intent The intent defining the color of the divider.
  * @param label The optional label to be displayed on the divider.
  * @param labelVerticalAlignment The vertical alignment of the label.
+ * ![Vertical Divider](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.divider_DividerDocumentationScreenshots_verticalDivider.png)
  */
 @SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
@@ -290,7 +292,6 @@ private fun TextComposable(textOverflow: TextOverflow = TextOverflow.Ellipsis) {
         textAlign = TextAlign.Center,
         overflow = textOverflow,
         style = SparkTheme.typography.body1,
-        // text = "jdkdkskjdkkklnljxcljcxlcjvxxcljljxcsdksj\n\ndljjjcdljcjdljcljdsljfdld\nlkjkjisd\nsdsksjddsk\njdksdjslds",
         text = "label",
     )
 }

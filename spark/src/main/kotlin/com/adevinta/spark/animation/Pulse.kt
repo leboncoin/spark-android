@@ -47,8 +47,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
-import com.adevinta.spark.components.buttons.ButtonIntent
-import com.adevinta.spark.components.buttons.ButtonTinted
+import com.adevinta.spark.components.buttons.Button
+import com.adevinta.spark.components.buttons.Danger
+import com.adevinta.spark.components.buttons.Success
 import com.adevinta.spark.tokens.dim3
 import com.adevinta.spark.tools.modifiers.ifTrue
 
@@ -140,22 +141,20 @@ private fun Pulser() {
         ) {
             var isValid by remember { mutableStateOf(true) }
 
-            val intent = if (isValid) ButtonIntent.Success else ButtonIntent.Danger
             val pulseColor = if (isValid) SparkTheme.colors.successContainer else SparkTheme.colors.errorContainer
-            ButtonTinted(
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .pulse(
-                        color = pulseColor,
-                        shape = SparkTheme.shapes.large,
-                        targetScale = 1.5f,
-                    ),
-                onClick = {
-                    isValid = !isValid
-                },
-                intent = intent,
-                text = "Vibing",
-            )
+            val modifier = Modifier
+                .align(Alignment.Center)
+                .pulse(
+                    color = pulseColor,
+                    shape = SparkTheme.shapes.large,
+                    targetScale = 1.5f,
+                )
+            val onClick = { isValid = !isValid }
+            if (isValid) {
+                Button.Success(onClick = onClick, text = "Vibing", modifier = modifier)
+            } else {
+                Button.Danger(onClick = onClick, text = "Vibing", modifier = modifier)
+            }
         }
     }
 }

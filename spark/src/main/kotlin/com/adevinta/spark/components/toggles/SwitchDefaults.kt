@@ -24,6 +24,9 @@ package com.adevinta.spark.components.toggles
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.tokens.dim3
+import com.adevinta.spark.tokens.dim4
+import com.adevinta.spark.tokens.dim5
 import com.adevinta.spark.tokens.disabled
 import androidx.compose.material3.SwitchDefaults as MaterialSwitchDefaults
 
@@ -36,7 +39,7 @@ public object SwitchDefaults {
         checkedBorderColor: Color = Color.Transparent,
         checkedIconColor: Color = checkedTrackColor,
         uncheckedThumbColor: Color = SparkTheme.colors.surface,
-        uncheckedTrackColor: Color = SparkTheme.colors.outline,
+        uncheckedTrackColor: Color = SparkTheme.colors.neutral.dim3,
         uncheckedBorderColor: Color = Color.Transparent,
         uncheckedIconColor: Color = uncheckedTrackColor,
         disabledCheckedThumbColor: Color = checkedThumbColor,
@@ -44,7 +47,7 @@ public object SwitchDefaults {
         disabledCheckedBorderColor: Color = checkedBorderColor,
         disabledCheckedIconColor: Color = checkedIconColor.disabled,
         disabledUncheckedThumbColor: Color = uncheckedThumbColor,
-        disabledUncheckedTrackColor: Color = uncheckedTrackColor.disabled,
+        disabledUncheckedTrackColor: Color = uncheckedTrackColor.dim4,
         disabledUncheckedBorderColor: Color = checkedBorderColor,
         disabledUncheckedIconColor: Color = uncheckedIconColor.disabled,
     ) = MaterialSwitchDefaults.colors(

@@ -60,7 +60,9 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.bottomsheet.SheetDefaults.ContentTopPadding
 import com.adevinta.spark.components.bottomsheet.SheetDefaults.ContentTopPaddingNoHandle
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonFilled
+import com.adevinta.spark.components.buttons.Primary
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.list.ListItem
 import com.adevinta.spark.components.text.Text
@@ -82,6 +84,8 @@ import kotlinx.coroutines.launch
  * @param modifier Optional [Modifier] for the bottom sheet.
  * @param sheetState the state of the bottom sheet.
  * @param content The content to be displayed inside the bottom sheet.
+ *
+ * ![BottomSheet](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.bottomsheet_BottomSheetDocumentationScreenshots_bottomSheetBody.png)
  */
 @Composable
 @ExperimentalMaterial3Api
@@ -204,10 +208,7 @@ private fun ModalBottomSheetSample() {
             Text("Skip Partially Expanded State")
         }
 
-        ButtonFilled(
-            text = "Show Bottom Sheet",
-            onClick = { openBottomSheet = !openBottomSheet },
-        )
+        Button.Primary(onClick = { openBottomSheet = !openBottomSheet }, text = "Show Bottom Sheet")
     }
 
     if (openBottomSheet) {
@@ -225,9 +226,7 @@ private fun ModalBottomSheetSample() {
                     ) {
                         // Note: If you provide logic outside of onDismissRequest to remove the sheet,
                         // you must additionally handle intended state cleanup, if any.
-                        ButtonFilled(
-                            modifier = Modifier.padding(24.dp),
-                            text = "Hide Bottom Sheet",
+                        Button.Primary(
                             onClick = {
                                 scope.launch { bottomSheetState.hide() }.invokeOnCompletion {
                                     if (!bottomSheetState.isVisible) {
@@ -235,6 +234,8 @@ private fun ModalBottomSheetSample() {
                                     }
                                 }
                             },
+                            text = "Hide Bottom Sheet",
+                            modifier = Modifier.padding(24.dp),
                         )
                     }
                 }

@@ -27,14 +27,17 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
+import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
+import com.adevinta.spark.components.tags.Highlight
+import com.adevinta.spark.components.tags.HighlightBadge
+import com.adevinta.spark.components.tags.Tag
 import com.adevinta.spark.components.tags.TagFilled
-import com.adevinta.spark.components.tags.TagHighlight
-import com.adevinta.spark.components.tags.TagHighlightBadge
 import com.adevinta.spark.components.tags.TagIntent
 import com.adevinta.spark.components.tags.TagOutlined
 import com.adevinta.spark.components.tags.TagTinted
+import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.RocketOutline
 import com.adevinta.spark.icons.SparkIcon
@@ -44,7 +47,7 @@ import kotlinx.collections.immutable.persistentListOf
 private const val TagsExampleDescription = "Tags examples"
 private const val TagsExampleSourceUrl = "$SampleSourceUrl/TagSamples.kt"
 
-@OptIn(ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class, ExperimentalSparkApi::class)
 public val TagsExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "filled",
@@ -105,8 +108,18 @@ public val TagsExamples: ImmutableList<Example> = persistentListOf(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            TagHighlight()
-            TagHighlightBadge()
+            Tag.Highlight()
+            Tag.HighlightBadge()
+        }
+    },
+    Example(
+        id = "ai",
+        name = "Tag \"AI\"",
+        description = "The AI tag highlights content generated or curated by AI.",
+        sourceUrl = TagsExampleSourceUrl,
+    ) {
+        Tag.Ai {
+            Text("À la une")
         }
     },
     Example(

@@ -1,0 +1,110 @@
+/*
+ * Copyright (c) 2023 Adevinta
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+package com.adevinta.spark.tab
+
+import androidx.compose.foundation.layout.Column
+import androidx.compose.runtime.Composable
+import com.adevinta.spark.DefaultTestDevices
+import com.adevinta.spark.components.badge.Badge
+import com.adevinta.spark.components.tab.Tab
+import com.adevinta.spark.components.tab.TabGroup
+import com.adevinta.spark.components.tab.TabIntent
+import com.adevinta.spark.components.tab.TabSize
+import com.adevinta.spark.icons.BubbleTextOutline
+import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.paparazziRule
+import com.adevinta.spark.sparkDocSnapshot
+import com.android.ide.common.rendering.api.SessionParams.RenderingMode.SHRINK
+import org.junit.Rule
+import org.junit.Test
+
+internal class TabsDocumentationScreenshots {
+
+    @get:Rule
+    val paparazzi = paparazziRule(renderingMode = SHRINK, deviceConfig = DefaultTestDevices.DocPhone)
+
+    @Test
+    fun tabsIntentShowcase() {
+        paparazzi.sparkDocSnapshot {
+            Column {
+                TabIntent.entries.forEach {
+                    Tabs(intent = it)
+                }
+            }
+        }
+    }
+
+    @Test
+    fun tabsSizeShowcase() {
+        paparazzi.sparkDocSnapshot {
+            Column {
+                TabSize.entries.forEach {
+                    Tabs(size = it)
+                }
+            }
+        }
+    }
+
+    @Test
+    fun tabsSpacingShowcase() {
+        paparazzi.sparkDocSnapshot {
+            Column {
+                Tabs(spacedEvenly = true)
+                Tabs(spacedEvenly = false)
+            }
+        }
+    }
+
+    @Composable
+    private fun Tabs(
+        intent: TabIntent = TabIntent.Support,
+        size: TabSize = TabSize.Medium,
+        spacedEvenly: Boolean = true,
+    ) {
+        TabGroup(
+            selectedTabIndex = 0,
+            intent = intent,
+            spacedEvenly = spacedEvenly,
+        ) {
+            Tab(
+                selected = true,
+                onClick = {},
+                intent = intent,
+                size = size,
+                text = "Home",
+                enabled = false,
+            )
+            Tab(
+                selected = false,
+                onClick = {},
+                intent = intent,
+                size = size,
+                text = "Message",
+                icon = LeboncoinIcons.BubbleTextOutline,
+                enabled = false,
+                trailingContent = {
+                    Badge(count = 5)
+                },
+            )
+        }
+    }
+}

@@ -50,8 +50,11 @@ import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.bottomsheet.BottomSheet
 import com.adevinta.spark.components.bottomsheet.DragHandle
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.buttons.ButtonSize
+import com.adevinta.spark.components.buttons.Primary
+import com.adevinta.spark.components.buttons.Underlined
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.image.Illustration
 import com.adevinta.spark.components.image.Image
@@ -173,11 +176,9 @@ private fun ConfiguredBottomSheet(
         }
     }
     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-        ButtonFilled(
-            size = ButtonSize.Large,
-            text = "Show BottomSheet",
-            onClick = { openBottomSheet = !openBottomSheet },
-        )
+        Button.Primary(onClick = {
+            openBottomSheet = !openBottomSheet
+        }, text = "Show BottomSheet", size = ButtonSize.Large)
     }
     if (openBottomSheet) {
         BottomSheet(
@@ -207,10 +208,7 @@ private fun ListContent(onHideBottomSheetClicked: () -> Unit) {
     LazyColumn {
         stickyHeader {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-                ButtonFilled(
-                    text = "Hide Bottom Sheet",
-                    onClick = onHideBottomSheetClicked,
-                )
+                Button.Primary(onClick = onHideBottomSheetClicked, text = "Hide Bottom Sheet")
             }
         }
 
@@ -241,7 +239,7 @@ private fun TextContent() {
             modifier = Modifier.padding(bottom = 16.dp),
             style = SparkTheme.typography.body2.highlight,
         )
-        TextLinkButton(text = "Text Link", onClick = {})
+        Button.Underlined(text = "Text Link", onClick = {})
     }
 }
 

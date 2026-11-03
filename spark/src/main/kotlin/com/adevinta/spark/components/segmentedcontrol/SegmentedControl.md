@@ -150,7 +150,7 @@ SegmentedControl.Vertical(
 
 Pass `indicatorContent` to replace the default pill. The lambda receives the current `selectedIndex`, so the indicator can reflect the active value — useful for colour-coded scales.
 
-The default indicator (`SegmentedControlDefaults.Indicator`) draws a `neutralContainer` fill with a 2 dp `outlineHigh` border.
+The default indicator (`SegmentedControlDefaults.Indicator`) draws a `supportContainer` fill with a 1 dp `support` border, using their `disabled` variants when the control is disabled.
 
 ### Custom Segments
 
@@ -210,18 +210,29 @@ var selected by remember { mutableIntStateOf(7) }
 SegmentedControl.Vertical(
     selectedIndex = selected,
     shape = SegmentedControlShape.Pill,
-    indicatorContent = { selectedIndex ->
+    indicatorContent = { selectedIndex, enabled ->
         val data = ratings[selectedIndex]
         val transition = updateTransition(data, label = "indicator")
         val background by transition.animateColor(label = "bg") { d ->
-            if (d.color.isSpecified) d.color else SparkTheme.colors.neutralContainer
+            if (d.color.isSpecified) {
+                if (enabled) d.color else d.color.disabled
+            } else {
+                if (enabled) SegmentedControlTokens.IndicatorColor else SegmentedControlTokens.IndicatorDisabledColor
+            }
         }
         val borderColor by transition.animateColor(label = "border") { d ->
-            if (d.color.isSpecified) SparkTheme.colors.outlineHigh.copy(alpha = 0f)
-            else SparkTheme.colors.outlineHigh
+            if (d.color.isSpecified) {
+                SegmentedControlTokens.IndicatorBorderColor.transparent
+            } else {
+                if (enabled) {
+                    SegmentedControlTokens.IndicatorBorderColor
+                } else {
+                    SegmentedControlTokens.IndicatorBorderDisabledColor
+                }
+            }
         }
         val borderSize by transition.animateDp(label = "borderSize") { d ->
-            if (d.color.isSpecified) 0.dp else 2.dp
+            if (d.color.isSpecified) 0.dp else SegmentedControlTokens.IndicatorBorderWidth
         }
         Box(
             modifier = Modifier

@@ -23,6 +23,7 @@ package com.adevinta.spark.catalog.configurator
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -80,11 +81,15 @@ internal fun NavGraphBuilder.configuratorsDestination(
         val componentId = configuratorShowcase.componentId
         val configuratorId = configuratorShowcase.configuratorId
         val component =
-            components.first { component ->
+            components.firstOrNull { component ->
                 component.configurators.firstOrNull() != null &&
                     component.id == componentId
             }
-        val configurator = component.configurators.first { it.id == configuratorId }
+        val configurator = component?.configurators?.firstOrNull { it.id == configuratorId }
+        if (component == null || configurator == null) {
+            LaunchedEffect(Unit) { navController.popBackStack() }
+            return@composable
+        }
         CompositionLocalProvider(LocalAnimatedVisibilityScope provides this) {
             ConfiguratorComponentScreen(
                 component = component,

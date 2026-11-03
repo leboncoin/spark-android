@@ -61,7 +61,9 @@ import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.util.cast
 import com.adevinta.spark.catalog.util.splitCamelWithSpaces
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonTinted
+import com.adevinta.spark.components.buttons.Tertiary
 import com.adevinta.spark.components.dialog.ModalScaffold
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.Order
@@ -229,12 +231,12 @@ private fun ColorPickerDialog(
         title = { Text(stringResource(R.string.color_picker_title)) },
         onClose = onDismiss,
         mainButton = {
-            ButtonTinted(
-                modifier = it,
-                text = stringResource(R.string.color_picker_select_custom),
+            Button.Tertiary(
                 onClick = {
                     onColorSelected(selectedCustomColor)
                 },
+                text = stringResource(R.string.color_picker_select_custom),
+                modifier = it,
             )
         },
     ) {

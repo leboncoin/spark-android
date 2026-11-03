@@ -48,7 +48,9 @@ import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.SparkTheme.colors
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonOutlined
+import com.adevinta.spark.components.buttons.Tertiary
 import com.adevinta.spark.components.iconbuttons.IconButtonGhost
 import com.adevinta.spark.components.iconbuttons.IconButtonIntent
 import com.adevinta.spark.components.popover.PopoverDefaults.PopoverAnchorPadding
@@ -82,6 +84,7 @@ import kotlinx.coroutines.launch
  * @param enableUserInput [Boolean] which determines if this TooltipBox will handle
  * long press and mouse hover to trigger the tooltip through the state provided.
  * @param content the composable that the Popover will anchor to.
+ * ![Popover](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.popover_PopoverDocumentationScreenshots_popoverContent.png)
  */
 
 @ExperimentalSparkApi
@@ -126,9 +129,7 @@ public fun Popover(
                             .padding(all = PopoverContentPadding)
                             .weight(1f, fill = true),
                     ) {
-                        CompositionLocalProvider(
-                            content = popover,
-                        )
+                        popover()
                     }
                     if (isDismissButtonEnabled) {
                         IconButtonGhost(
@@ -190,10 +191,7 @@ private fun PopoverPreview() {
                 isDismissButtonEnabled = true,
                 popoverState = popoverState,
             ) {
-                ButtonOutlined(
-                    text = "Display Popover",
-                    onClick = { scope.launch { popoverState.show() } },
-                )
+                Button.Tertiary(onClick = { scope.launch { popoverState.show() } }, text = "Display Popover")
             }
         }
     }

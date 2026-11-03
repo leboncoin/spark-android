@@ -1,0 +1,6 @@
+public abstract interface annotation class com/adevinta/spark/ExperimentalSparkApi : java/lang/annotation/Annotation {
+}
+
+public abstract interface annotation class com/adevinta/spark/InternalSparkApi : java/lang/annotation/Annotation {
+}
+

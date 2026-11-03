@@ -79,12 +79,34 @@ internal fun Paparazzi.sparkSnapshotWithColors(
     drawBackground: Boolean = true,
     colors: SparkColors,
     composable: @Composable () -> Unit,
-): Unit = snapshot(name) {
-    SparkThemeContent(
-        colors = colors,
-        drawBackground = drawBackground,
-        composable = composable,
-    )
+) {
+    ensureBackgroundThreadReady()
+    snapshot(name) {
+        SparkThemeContent(
+            colors = colors,
+            drawBackground = drawBackground,
+            composable = composable,
+        )
+    }
+}
+
+// Workaround for https://github.com/cashapp/paparazzi/issues/2503, call it after Paparazzi loads layoutlib.
+private fun ensureBackgroundThreadReady() {
+    val backgroundThread = Class.forName("com.android.internal.os.BackgroundThread")
+    val handler = backgroundThread.getDeclaredField("sHandler").apply { isAccessible = true }
+    if (handler.get(null) != null) return
+    val instance = backgroundThread.getDeclaredField("sInstance").apply { isAccessible = true }
+    val constructor = backgroundThread.getDeclaredConstructor().apply { isAccessible = true }
+    val getHandler = backgroundThread.getMethod("getHandler")
+    synchronized(backgroundThread) {
+        if (handler.get(null) != null) return
+        val thread = constructor.newInstance() as Thread
+        instance.set(null, thread)
+        synchronized(thread) {
+            thread.start()
+            getHandler.invoke(null)
+        }
+    }
 }
 
 @Composable
@@ -97,7 +119,6 @@ private fun SparkThemeContent(
     CompositionLocalProvider(LocalInspectionMode provides true) {
         SparkTheme(
             colors = colors,
-            sparkFeatureFlag = SparkFeatureFlag(useRebrandedShapes = true),
         ) {
             // The first box shields from ComposeView which forces the first layout node
             // to match its size. This allows the content below to wrap as needed.
@@ -160,6 +181,7 @@ internal fun Paparazzi.sparkDocSnapshot(
     color: @Composable () -> Color = { SparkTheme.colors.background },
     composable: @Composable () -> Unit,
 ) {
+    ensureBackgroundThreadReady()
     snapshot {
         Row {
             DocSnapshotHalf(
@@ -212,7 +234,6 @@ private fun RowScope.DocSnapshotHalf(
     CompositionLocalProvider(LocalInspectionMode provides true) {
         SparkTheme(
             colors = colors,
-            sparkFeatureFlag = SparkFeatureFlag(useRebrandedShapes = true),
         ) {
             val color = color()
             Box(

@@ -24,13 +24,14 @@ package com.adevinta.spark.components.textfields
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
-import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.icons.CircleCrossFill
+import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.SparkIcon
 
 /**
- * Component tokens for text field components. Centralises all flag-driven token resolution so that
- * text field composables read from a single source of truth instead of inlining the flag check at
- * every call site. When the rebranding feature flag is eventually removed, only this file changes.
+ * Component tokens for text field components. Centralises token resolution so that text field
+ * composables read from a single source of truth instead of inlining the lookup at every call site.
  */
 public object TextFieldTokens {
 
@@ -39,9 +40,13 @@ public object TextFieldTokens {
      */
     public val shape: CornerBasedShape
         @Composable @ReadOnlyComposable
-        get() = if (LocalSparkFeatureFlag.current.useRebrandedShapes) {
-            SparkTheme.shapes.full
-        } else {
-            SparkTheme.shapes.large
-        }
+        get() = SparkTheme.shapes.full
+
+    /**
+     * The clear icon. [MultilineTextField] shows it on its clear button. [MultiChoiceComboBox] and
+     * [MultiChoiceDropdown] show it as the trailing icon of each selected-choice chip. It is a
+     * separate value from [com.adevinta.spark.components.chips.ChipTokens.clearIcon] that points to
+     * the same icon.
+     */
+    public val clearIcon: SparkIcon = LeboncoinIcons.CircleCrossFill
 }

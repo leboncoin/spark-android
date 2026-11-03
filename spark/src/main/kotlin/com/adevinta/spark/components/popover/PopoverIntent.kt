@@ -63,19 +63,6 @@ public enum class PopoverIntent {
     },
 
     /**
-     * Used to match default color of such UI controls as toggles, Slider, etc.
-     */
-    @Deprecated(
-        message = "Basic has been removed with the rebranding, use Support instead",
-        replaceWith = ReplaceWith("PopoverIntent.Support"),
-        level = DeprecationLevel.ERROR,
-    )
-    Basic {
-        @Composable
-        override fun containerColor(): Color = SparkTheme.colors.supportContainer
-    },
-
-    /**
      * Used for feedbacks that are positive.
      */
     Success {

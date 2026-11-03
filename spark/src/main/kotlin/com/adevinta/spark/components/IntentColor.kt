@@ -35,25 +35,6 @@ internal data class IntentColor(
 
 internal enum class IntentColors {
     /**
-     * Used to match default color of such UI controls as toggles, Slider, etc.
-     */
-    @Deprecated(
-        message = "Basic has been removed with the rebranding, use Support instead",
-        replaceWith = ReplaceWith("IntentColors.Support"),
-        level = DeprecationLevel.ERROR,
-    )
-    Basic {
-        @Composable
-        @ReadOnlyComposable
-        override fun colors() = IntentColor(
-            color = SparkTheme.colors.support,
-            onColor = SparkTheme.colors.onSupport,
-            containerColor = SparkTheme.colors.supportContainer,
-            onContainerColor = SparkTheme.colors.onSupportContainer,
-        )
-    },
-
-    /**
      * Used to make UI component visually accentuated.
      */
     Accent {
@@ -190,6 +171,62 @@ internal enum class IntentColors {
             onColor = SparkTheme.colors.onAi,
             containerColor = SparkTheme.colors.aiContainer,
             onContainerColor = SparkTheme.colors.onAiContainer,
+        )
+    },
+
+    /**
+     * Used to highlight the focused element.
+     */
+    Focus {
+        @Composable
+        @ReadOnlyComposable
+        override fun colors() = IntentColor(
+            color = SparkTheme.colors.focus,
+            onColor = SparkTheme.colors.onFocus,
+            containerColor = SparkTheme.colors.focusContainer,
+            onContainerColor = SparkTheme.colors.onFocusContainer,
+        )
+    },
+
+    /**
+     * Used to identify new content or features.
+     */
+    New {
+        @Composable
+        @ReadOnlyComposable
+        override fun colors() = IntentColor(
+            color = SparkTheme.colors.new,
+            onColor = SparkTheme.colors.onNew,
+            containerColor = SparkTheme.colors.newContainer,
+            onContainerColor = SparkTheme.colors.onNewContainer,
+        )
+    },
+
+    /**
+     * Used to identify professional content or features.
+     */
+    Business {
+        @Composable
+        @ReadOnlyComposable
+        override fun colors() = IntentColor(
+            color = SparkTheme.colors.business,
+            onColor = SparkTheme.colors.onBusiness,
+            containerColor = SparkTheme.colors.businessContainer,
+            onContainerColor = SparkTheme.colors.onBusinessContainer,
+        )
+    },
+
+    /**
+     * Used to identify service content or features.
+     */
+    Service {
+        @Composable
+        @ReadOnlyComposable
+        override fun colors() = IntentColor(
+            color = SparkTheme.colors.service,
+            onColor = SparkTheme.colors.onService,
+            containerColor = SparkTheme.colors.serviceContainer,
+            onContainerColor = SparkTheme.colors.onServiceContainer,
         )
     },
     ;

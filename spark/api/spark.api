@@ -218,7 +218,6 @@ public final class com/adevinta/spark/components/appbar/TopAppBarStateKt {
 public abstract class com/adevinta/spark/components/badge/BadgeIntent : java/lang/Enum {
 	public static final field Accent Lcom/adevinta/spark/components/badge/BadgeIntent;
 	public static final field Alert Lcom/adevinta/spark/components/badge/BadgeIntent;
-	public static final field Basic Lcom/adevinta/spark/components/badge/BadgeIntent;
 	public static final field Danger Lcom/adevinta/spark/components/badge/BadgeIntent;
 	public static final field Info Lcom/adevinta/spark/components/badge/BadgeIntent;
 	public static final field Main Lcom/adevinta/spark/components/badge/BadgeIntent;
@@ -407,7 +406,6 @@ public final class com/adevinta/spark/components/buttons/ButtonGhostKt {
 public abstract class com/adevinta/spark/components/buttons/ButtonIntent : java/lang/Enum {
 	public static final field Accent Lcom/adevinta/spark/components/buttons/ButtonIntent;
 	public static final field Alert Lcom/adevinta/spark/components/buttons/ButtonIntent;
-	public static final field Basic Lcom/adevinta/spark/components/buttons/ButtonIntent;
 	public static final field Danger Lcom/adevinta/spark/components/buttons/ButtonIntent;
 	public static final field Info Lcom/adevinta/spark/components/buttons/ButtonIntent;
 	public static final field Main Lcom/adevinta/spark/components/buttons/ButtonIntent;
@@ -586,7 +584,6 @@ public final class com/adevinta/spark/components/chips/ChipDefaults {
 public abstract class com/adevinta/spark/components/chips/ChipIntent : java/lang/Enum {
 	public static final field Accent Lcom/adevinta/spark/components/chips/ChipIntent;
 	public static final field Alert Lcom/adevinta/spark/components/chips/ChipIntent;
-	public static final field Basic Lcom/adevinta/spark/components/chips/ChipIntent;
 	public static final field Danger Lcom/adevinta/spark/components/chips/ChipIntent;
 	public static final field Info Lcom/adevinta/spark/components/chips/ChipIntent;
 	public static final field Main Lcom/adevinta/spark/components/chips/ChipIntent;
@@ -1163,7 +1160,6 @@ public final class com/adevinta/spark/components/iconbuttons/IconButtonGhostKt {
 public abstract class com/adevinta/spark/components/iconbuttons/IconButtonIntent : java/lang/Enum {
 	public static final field Accent Lcom/adevinta/spark/components/iconbuttons/IconButtonIntent;
 	public static final field Alert Lcom/adevinta/spark/components/iconbuttons/IconButtonIntent;
-	public static final field Basic Lcom/adevinta/spark/components/iconbuttons/IconButtonIntent;
 	public static final field Danger Lcom/adevinta/spark/components/iconbuttons/IconButtonIntent;
 	public static final field Info Lcom/adevinta/spark/components/iconbuttons/IconButtonIntent;
 	public static final field Main Lcom/adevinta/spark/components/iconbuttons/IconButtonIntent;
@@ -1288,7 +1284,6 @@ public final class com/adevinta/spark/components/icons/IconDefaults {
 public abstract class com/adevinta/spark/components/icons/IconIntent : java/lang/Enum {
 	public static final field Accent Lcom/adevinta/spark/components/icons/IconIntent;
 	public static final field Alert Lcom/adevinta/spark/components/icons/IconIntent;
-	public static final field Basic Lcom/adevinta/spark/components/icons/IconIntent;
 	public static final field Current Lcom/adevinta/spark/components/icons/IconIntent;
 	public static final field Danger Lcom/adevinta/spark/components/icons/IconIntent;
 	public static final field Main Lcom/adevinta/spark/components/icons/IconIntent;
@@ -1651,7 +1646,6 @@ public final class com/adevinta/spark/components/popover/ComposableSingletons$Po
 public abstract class com/adevinta/spark/components/popover/PopoverIntent : java/lang/Enum {
 	public static final field Accent Lcom/adevinta/spark/components/popover/PopoverIntent;
 	public static final field Alert Lcom/adevinta/spark/components/popover/PopoverIntent;
-	public static final field Basic Lcom/adevinta/spark/components/popover/PopoverIntent;
 	public static final field Error Lcom/adevinta/spark/components/popover/PopoverIntent;
 	public static final field Info Lcom/adevinta/spark/components/popover/PopoverIntent;
 	public static final field Main Lcom/adevinta/spark/components/popover/PopoverIntent;
@@ -1718,7 +1712,6 @@ public final class com/adevinta/spark/components/progress/SpinnerDefaults {
 public abstract class com/adevinta/spark/components/progress/SpinnerIntent : java/lang/Enum {
 	public static final field Accent Lcom/adevinta/spark/components/progress/SpinnerIntent;
 	public static final field Alert Lcom/adevinta/spark/components/progress/SpinnerIntent;
-	public static final field Basic Lcom/adevinta/spark/components/progress/SpinnerIntent;
 	public static final field Current Lcom/adevinta/spark/components/progress/SpinnerIntent;
 	public static final field Danger Lcom/adevinta/spark/components/progress/SpinnerIntent;
 	public static final field Info Lcom/adevinta/spark/components/progress/SpinnerIntent;
@@ -1794,7 +1787,6 @@ public final class com/adevinta/spark/components/progress/tracker/ProgressStyles
 }
 
 public abstract class com/adevinta/spark/components/progress/tracker/ProgressTrackerIntent : java/lang/Enum {
-	public static final field Basic Lcom/adevinta/spark/components/progress/tracker/ProgressTrackerIntent;
 	public static final field Neutral Lcom/adevinta/spark/components/progress/tracker/ProgressTrackerIntent;
 	public static final field Success Lcom/adevinta/spark/components/progress/tracker/ProgressTrackerIntent;
 	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
@@ -1817,7 +1809,6 @@ public final class com/adevinta/spark/components/progressbar/ComposableSingleton
 public abstract class com/adevinta/spark/components/progressbar/ProgressbarIntent : java/lang/Enum {
 	public static final field Accent Lcom/adevinta/spark/components/progressbar/ProgressbarIntent;
 	public static final field Alert Lcom/adevinta/spark/components/progressbar/ProgressbarIntent;
-	public static final field Basic Lcom/adevinta/spark/components/progressbar/ProgressbarIntent;
 	public static final field Danger Lcom/adevinta/spark/components/progressbar/ProgressbarIntent;
 	public static final field Info Lcom/adevinta/spark/components/progressbar/ProgressbarIntent;
 	public static final field Main Lcom/adevinta/spark/components/progressbar/ProgressbarIntent;
@@ -1957,7 +1948,6 @@ public final class com/adevinta/spark/components/slider/SliderDefaults {
 public abstract class com/adevinta/spark/components/slider/SliderIntent : java/lang/Enum {
 	public static final field Accent Lcom/adevinta/spark/components/slider/SliderIntent;
 	public static final field Alert Lcom/adevinta/spark/components/slider/SliderIntent;
-	public static final field Basic Lcom/adevinta/spark/components/slider/SliderIntent;
 	public static final field Error Lcom/adevinta/spark/components/slider/SliderIntent;
 	public static final field Info Lcom/adevinta/spark/components/slider/SliderIntent;
 	public static final field Main Lcom/adevinta/spark/components/slider/SliderIntent;
@@ -2013,7 +2003,6 @@ public final class com/adevinta/spark/components/snackbars/SnackbarHostState {
 public final class com/adevinta/spark/components/snackbars/SnackbarIntent : java/lang/Enum {
 	public static final field Accent Lcom/adevinta/spark/components/snackbars/SnackbarIntent;
 	public static final field Alert Lcom/adevinta/spark/components/snackbars/SnackbarIntent;
-	public static final field Basic Lcom/adevinta/spark/components/snackbars/SnackbarIntent;
 	public static final field Error Lcom/adevinta/spark/components/snackbars/SnackbarIntent;
 	public static final field Info Lcom/adevinta/spark/components/snackbars/SnackbarIntent;
 	public static final field Main Lcom/adevinta/spark/components/snackbars/SnackbarIntent;
@@ -2142,7 +2131,6 @@ public final class com/adevinta/spark/components/tab/TabGroupKt {
 }
 
 public abstract class com/adevinta/spark/components/tab/TabIntent : java/lang/Enum {
-	public static final field Basic Lcom/adevinta/spark/components/tab/TabIntent;
 	public static final field Main Lcom/adevinta/spark/components/tab/TabIntent;
 	public static final field Support Lcom/adevinta/spark/components/tab/TabIntent;
 	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
@@ -2246,7 +2234,6 @@ public final class com/adevinta/spark/components/tags/TagHighlightKt {
 public abstract class com/adevinta/spark/components/tags/TagIntent : java/lang/Enum {
 	public static final field Accent Lcom/adevinta/spark/components/tags/TagIntent;
 	public static final field Alert Lcom/adevinta/spark/components/tags/TagIntent;
-	public static final field Basic Lcom/adevinta/spark/components/tags/TagIntent;
 	public static final field Danger Lcom/adevinta/spark/components/tags/TagIntent;
 	public static final field Info Lcom/adevinta/spark/components/tags/TagIntent;
 	public static final field Main Lcom/adevinta/spark/components/tags/TagIntent;
@@ -2525,7 +2512,6 @@ public final class com/adevinta/spark/components/toggles/SwitchKt {
 public abstract class com/adevinta/spark/components/toggles/ToggleIntent : java/lang/Enum {
 	public static final field Accent Lcom/adevinta/spark/components/toggles/ToggleIntent;
 	public static final field Alert Lcom/adevinta/spark/components/toggles/ToggleIntent;
-	public static final field Basic Lcom/adevinta/spark/components/toggles/ToggleIntent;
 	public static final field Danger Lcom/adevinta/spark/components/toggles/ToggleIntent;
 	public static final field Info Lcom/adevinta/spark/components/toggles/ToggleIntent;
 	public static final field Main Lcom/adevinta/spark/components/toggles/ToggleIntent;
@@ -2701,8 +2687,6 @@ public final class com/adevinta/spark/tokens/SparkColors {
 	public final fun getAlertContainer-0d7_KjU ()J
 	public final fun getBackground-0d7_KjU ()J
 	public final fun getBackgroundVariant-0d7_KjU ()J
-	public final fun getBasic-0d7_KjU ()J
-	public final fun getBasicContainer-0d7_KjU ()J
 	public final fun getDim1 ()F
 	public final fun getDim2 ()F
 	public final fun getDim3 ()F
@@ -2724,8 +2708,6 @@ public final class com/adevinta/spark/tokens/SparkColors {
 	public final fun getOnAlertContainer-0d7_KjU ()J
 	public final fun getOnBackground-0d7_KjU ()J
 	public final fun getOnBackgroundVariant-0d7_KjU ()J
-	public final fun getOnBasic-0d7_KjU ()J
-	public final fun getOnBasicContainer-0d7_KjU ()J
 	public final fun getOnError-0d7_KjU ()J
 	public final fun getOnErrorContainer-0d7_KjU ()J
 	public final fun getOnInfo-0d7_KjU ()J

@@ -19,6 +19,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+// The previews in this file document the old button, so they keep using it.
+@file:Suppress("SparkButtonMigration")
+
 package com.adevinta.spark.components.buttons
 
 import android.annotation.SuppressLint
@@ -49,7 +52,7 @@ import com.adevinta.spark.tokens.disabled
 /**
  * Contrast buttons are used on coloured or image backgrounds where standard buttons lack visibility.
  *
- * ![Button Contrast](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonContrast.png)
+ * ![Button Contrast](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_RebrandedButtonDocumentationScreenshots_buttonContrast.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
@@ -70,7 +73,6 @@ public fun ButtonContrast(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     size: ButtonSize = ButtonSize.Medium,
-    shape: ButtonShape = SparkButtonDefaults.DefaultShape,
     intent: ButtonIntent = ButtonIntent.Main,
     enabled: Boolean = true,
     icon: SparkIcon? = null,
@@ -82,7 +84,7 @@ public fun ButtonContrast(
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         val variant = ButtonStyleMapper.map(intent, ButtonStyle.Contrast)
-        RouteToNewButton(
+        RouteToRebrandedButton(
             variant = variant,
             onClick = onClick,
             modifier = modifier,
@@ -115,7 +117,6 @@ public fun ButtonContrast(
         content = content,
         modifier = modifier,
         size = size,
-        shape = ButtonTokens.shape,
         enabled = enabled,
         elevation = ButtonDefaults.buttonElevation(),
         colors = buttonColors,
@@ -155,7 +156,6 @@ public fun ButtonContrast(
     text: String,
     modifier: Modifier = Modifier,
     size: ButtonSize = ButtonSize.Medium,
-    shape: ButtonShape = SparkButtonDefaults.DefaultShape,
     intent: ButtonIntent = ButtonIntent.Main,
     enabled: Boolean = true,
     icon: SparkIcon? = null,
@@ -166,7 +166,7 @@ public fun ButtonContrast(
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         val variant = ButtonStyleMapper.map(intent, ButtonStyle.Contrast)
-        RouteToNewButton(
+        RouteToRebrandedButton(
             variant = variant,
             onClick = onClick,
             modifier = modifier,
@@ -200,7 +200,6 @@ public fun ButtonContrast(
         text = text,
         modifier = modifier,
         size = size,
-        shape = ButtonTokens.buttonShape,
         enabled = enabled,
         elevation = ButtonDefaults.buttonElevation(),
         colors = buttonColors,
@@ -246,7 +245,7 @@ public fun ButtonContrast(
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         val variant = ButtonStyleMapper.map(intent, ButtonStyle.Contrast)
-        RouteToNewButton(
+        RouteToRebrandedButton(
             variant = variant,
             onClick = onClick,
             modifier = modifier,
@@ -291,6 +290,7 @@ public fun ButtonContrast(
     )
 }
 
+@SuppressLint("SparkButtonMigration")
 @Preview(
     group = "Buttons",
     name = "Button Contrast",
@@ -329,6 +329,7 @@ internal fun ButtonContrastPreview() {
     }
 }
 
+@SuppressLint("SparkButtonMigration")
 @Preview(
     group = "Buttons",
     name = "Button Contrast Intents",
@@ -355,7 +356,7 @@ internal fun ButtonContrastIntentPreview() {
  * Contrast buttons are used on coloured or image backgrounds where standard buttons lack visibility.
  * They use a surface container to stand out against any background.
  *
- * ![Button Contrast](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonContrast.png)
+ * ![Button Contrast](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_RebrandedButtonDocumentationScreenshots_buttonContrast.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
@@ -393,7 +394,6 @@ internal fun SparkButtonContrast(
         onClick = onClick,
         modifier = modifier,
         size = size,
-        shape = ButtonTokens.shape,
         enabled = enabled,
         elevation = ButtonDefaults.buttonElevation(),
         colors = colors,
@@ -410,7 +410,7 @@ internal fun SparkButtonContrast(
  * Contrast buttons are used on coloured or image backgrounds where standard buttons lack visibility.
  * They use a surface container to stand out against any background.
  *
- * ![Button Contrast](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonContrast.png)
+ * ![Button Contrast](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_RebrandedButtonDocumentationScreenshots_buttonContrast.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button
@@ -457,7 +457,7 @@ public fun Button.Contrast(
  * Contrast buttons are used on coloured or image backgrounds where standard buttons lack visibility.
  * They use a surface container to stand out against any background.
  *
- * ![Button Contrast](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_NewButtonDocumentationScreenshots_buttonContrast.png)
+ * ![Button Contrast](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.buttons_RebrandedButtonDocumentationScreenshots_buttonContrast.png)
  *
  * @param onClick Will be called when the user clicks the button
  * @param text The text to be displayed in the button

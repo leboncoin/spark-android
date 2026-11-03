@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.fileupload
 
+import android.content.Intent
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -29,10 +30,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
 import com.adevinta.spark.InternalSparkApi
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.buttons.ButtonIntent
 import com.adevinta.spark.components.buttons.ButtonSize
 import com.adevinta.spark.components.buttons.IconSide
+import com.adevinta.spark.components.buttons.Secondary
 import com.adevinta.spark.icons.CameraVideo
 import com.adevinta.spark.icons.FileOutline
 import com.adevinta.spark.icons.ImageOutline
@@ -42,9 +45,10 @@ import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.tools.modifiers.ifNotNull
 import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.PlatformFile
+import io.github.vinceglb.filekit.context
 import io.github.vinceglb.filekit.dialogs.FileKitDialogSettings
 import io.github.vinceglb.filekit.dialogs.FileKitType
-import io.github.vinceglb.filekit.dialogs.openFileWithDefaultApplication
+import io.github.vinceglb.filekit.dialogs.toAndroidUri
 import io.github.vinceglb.filekit.mimeType
 import io.github.vinceglb.filekit.mimeType.MimeType
 import io.github.vinceglb.filekit.name
@@ -80,6 +84,7 @@ public object FileUpload {
      *
      * @sample com.adevinta.spark.components.fileupload.FileUploadSamples
      * @sample com.adevinta.spark.components.fileupload.FileUploadMultipleSamples
+     * ![FileUpload Button](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.fileupload_FileUploadDocumentationScreenshots_fileUploadButtons.png)
      */
     @InternalSparkApi
     @Composable
@@ -98,15 +103,14 @@ public object FileUpload {
         enabled: Boolean = true,
         onClickLabel: String? = null,
         buttonContent: @Composable (onClick: () -> Unit) -> Unit = { onClick ->
-            ButtonFilled(
+            Button.Secondary(
+                onClick = onClick,
+                text = label,
                 modifier = Modifier
                     .fillMaxWidth()
                     .ifNotNull(onClickLabel) {
                         semantics { onClick(label = onClickLabel, action = null) }
                     },
-                onClick = onClick,
-                text = label,
-                intent = ButtonIntent.Support,
                 enabled = enabled,
             )
         },
@@ -153,6 +157,7 @@ public object FileUpload {
      *
      * @sample com.adevinta.spark.components.fileupload.FileUploadSamples
      * @sample com.adevinta.spark.components.fileupload.FileUploadCustomButtonSamples
+     * ![FileUpload Button](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.fileupload_FileUploadDocumentationScreenshots_fileUploadButtons.png)
      */
     @InternalSparkApi
     @Composable
@@ -170,15 +175,14 @@ public object FileUpload {
         enabled: Boolean = true,
         onClickLabel: String? = null,
         buttonContent: @Composable (onClick: () -> Unit) -> Unit = { onClick ->
-            ButtonFilled(
+            Button.Secondary(
+                onClick = onClick,
+                text = label,
                 modifier = Modifier
                     .fillMaxWidth()
                     .ifNotNull(onClickLabel) {
                         semantics { onClick(label = onClickLabel, action = null) }
                     },
-                onClick = onClick,
-                text = label,
-                intent = ButtonIntent.Support,
                 enabled = enabled,
             )
         },
@@ -283,8 +287,8 @@ public object FileUploadDefaults {
     /**
      * Opens a file with the system's default application for that file type.
      *
-     * This function uses FileKit's `openFileWithDefaultApplication` to open the file.
-     * For example, a PDF file will open in the default PDF viewer, an image will open
+     * This function behaves like FileKit's `openFileWithDefaultApplication` but uses the cached
+     * [UploadedFile.mimeType]. For example, a PDF file will open in the default PDF viewer, an image will open
      * in the default image viewer, etc.
      *
      * Note that Android, if you're opening files from custom locations (e.g., `FileKit.filesDir` or
@@ -295,7 +299,12 @@ public object FileUploadDefaults {
      * @param file The uploaded file to open
      */
     public fun openFile(file: UploadedFile) {
-        FileKit.openFileWithDefaultApplication(file.file)
+        // Mirrors FileKit.openFileWithDefaultApplication but reuses the cached MIME type, which avoids
+        // content provider queries on the calling thread.
+        val intent = Intent(Intent.ACTION_VIEW)
+            .setDataAndType(file.file.toAndroidUri(), file.mimeType?.toString() ?: "*/*")
+            .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_ACTIVITY_NEW_TASK)
+        FileKit.context.startActivity(intent)
     }
 }
 

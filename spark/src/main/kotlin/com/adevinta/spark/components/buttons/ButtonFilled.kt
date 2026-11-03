@@ -19,6 +19,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+// The previews in this file document the old button, so they keep using it.
+@file:Suppress("SparkButtonMigration")
+
 package com.adevinta.spark.components.buttons
 
 import android.annotation.SuppressLint
@@ -74,7 +77,6 @@ public fun ButtonFilled(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     size: ButtonSize = ButtonSize.Medium,
-    shape: ButtonShape = SparkButtonDefaults.DefaultShape,
     intent: ButtonIntent = ButtonIntent.Main,
     enabled: Boolean = true,
     icon: SparkIcon? = null,
@@ -85,7 +87,7 @@ public fun ButtonFilled(
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         val variant = ButtonStyleMapper.map(intent, ButtonStyle.Filled)
-        RouteToNewButton(
+        RouteToRebrandedButton(
             variant = variant,
             onClick = onClick,
             modifier = modifier,
@@ -118,7 +120,6 @@ public fun ButtonFilled(
         onClick = onClick,
         modifier = modifier,
         size = size,
-        shape = ButtonTokens.shape,
         enabled = enabled,
         elevation = ButtonDefaults.buttonElevation(),
         colors = colors,
@@ -160,7 +161,6 @@ public fun ButtonFilled(
     text: String,
     modifier: Modifier = Modifier,
     size: ButtonSize = ButtonSize.Medium,
-    shape: ButtonShape = SparkButtonDefaults.DefaultShape,
     intent: ButtonIntent = ButtonIntent.Main,
     enabled: Boolean = true,
     icon: SparkIcon? = null,
@@ -171,7 +171,7 @@ public fun ButtonFilled(
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         val variant = ButtonStyleMapper.map(intent, ButtonStyle.Filled)
-        RouteToNewButton(
+        RouteToRebrandedButton(
             variant = variant,
             onClick = onClick,
             modifier = modifier,
@@ -207,7 +207,6 @@ public fun ButtonFilled(
         text = text,
         modifier = modifier,
         size = size,
-        shape = ButtonTokens.buttonShape,
         enabled = enabled,
         elevation = ButtonDefaults.buttonElevation(),
         colors = colors,
@@ -257,7 +256,7 @@ public fun ButtonFilled(
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         val variant = ButtonStyleMapper.map(intent, ButtonStyle.Filled)
-        RouteToNewButton(
+        RouteToRebrandedButton(
             variant = variant,
             onClick = onClick,
             modifier = modifier,
@@ -293,7 +292,6 @@ public fun ButtonFilled(
         text = text,
         modifier = modifier,
         size = size,
-        shape = ButtonTokens.buttonShape,
         enabled = enabled,
         elevation = ButtonDefaults.buttonElevation(),
         colors = colors,
@@ -305,6 +303,7 @@ public fun ButtonFilled(
     )
 }
 
+@SuppressLint("SparkButtonMigration")
 @Preview(
     group = "Buttons",
     name = "Button Filled",
@@ -341,6 +340,7 @@ internal fun MainButtonPreview() {
     }
 }
 
+@SuppressLint("SparkButtonMigration")
 @Preview(
     group = "Buttons",
     name = "Button Filled Intents",
@@ -363,6 +363,7 @@ internal fun ButtonFilledIntentPreview() {
     }
 }
 
+@SuppressLint("SparkButtonMigration")
 @Preview(
     group = "Buttons",
     name = "Button Sizes",

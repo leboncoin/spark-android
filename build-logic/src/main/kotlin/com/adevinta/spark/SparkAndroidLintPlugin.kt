@@ -22,6 +22,7 @@
 package com.adevinta.spark
 
 import com.android.build.api.dsl.Lint
+import com.gradleup.tapmoc.TapmocExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
@@ -32,6 +33,10 @@ internal class SparkAndroidLintPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             apply(plugin = "com.android.lint")
+            pluginManager.apply("com.gradleup.tapmoc")
+            extensions.configure<TapmocExtension> {
+                java(17)
+            }
 
             configureKotlin<KotlinJvmProjectExtension>()
 

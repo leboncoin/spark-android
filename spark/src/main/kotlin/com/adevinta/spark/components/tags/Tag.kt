@@ -46,17 +46,19 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
-import com.adevinta.spark.components.chips.ChipDefaults.LeadingIconEndSpacing
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.surface.Surface
-import com.adevinta.spark.components.tags.TagDefaults.LeadingIconSize
+import com.adevinta.spark.components.tags.TagTokens.LeadingIconSize
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.AccessoriesCriteria
+import com.adevinta.spark.icons.BroomstickSparks
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
+import com.adevinta.spark.icons.Sparks
 import com.adevinta.spark.tokens.contentColorFor
 import com.adevinta.spark.tokens.highlight
 import com.adevinta.spark.tools.modifiers.SlotArea
@@ -93,13 +95,14 @@ internal fun BaseSparkTag(
         border = border,
     ) {
         ProvideTextStyle(
-            value = SparkTheme.typography.caption.highlight,
+            value = TagTokens.contentTypo,
         ) {
             Row(
                 Modifier
                     .defaultMinSize(minHeight = size.minHeight.dp)
-                    .padding(vertical = size.verticalPadding.dp, horizontal = HorizontalPadding),
-                horizontalArrangement = Arrangement.spacedBy(LeadingIconEndSpacing, Alignment.Start),
+                    .padding(TagTokens.contentPadding)
+                    .padding(vertical = size.verticalPadding.dp),
+                horizontalArrangement = Arrangement.spacedBy(TagTokens.ContentSpacing, Alignment.Start),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 AnimatedVisibility(
@@ -159,6 +162,44 @@ internal fun BaseSparkTag(
         leadingContent = iconContent,
         content = content,
     )
+}
+
+public object Tag {
+    /**
+     * A tag that marks AI-generated or AI-assisted content. Styled with the Spark AI colour tokens
+     * (`ai`, `aiContainer`, `onAiContainer`).
+     *
+     * ![Tag Ai](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.tags_TagDocumentationScreenshots_tagAi.png)
+     *
+     * @param modifier Modifier for the tag container.
+     * @param leadingIcon The icon displayed before the content. Defaults to [TagDefaults.Ai.icon].
+     * @param atEnd Whether the animated vector should be rendered at the end of its animations.
+     * @param content The main content of the tag, usually a [Text].
+     */
+    @ExperimentalSparkApi
+    @Composable
+    public fun Ai(
+        modifier: Modifier = Modifier,
+        leadingIcon: SparkIcon = TagDefaults.Ai.icon,
+        atEnd: Boolean = false,
+        content: @Composable RowScope.() -> Unit,
+    ) {
+        BaseSparkTag(
+            colors = TagColors(
+                backgroundColor = TagTokens.Ai.containerColor,
+                contentColor = TagTokens.Ai.contentColor,
+            ),
+            modifier = modifier,
+            border = BorderStroke(
+                TagTokens.OutlinedBorderSize,
+                TagTokens.Ai.borderColor,
+            ),
+            tint = TagTokens.Ai.iconTint,
+            leadingIcon = leadingIcon,
+        ) {
+            content()
+        }
+    }
 }
 
 @Composable
@@ -263,15 +304,6 @@ internal fun SparkTag(
 public data class TagColors(val backgroundColor: Color, val contentColor: Color)
 
 public object TagDefaults {
-    /**
-     * The outlined tag's border size
-     */
-    internal val OutlinedBorderSize = 1.dp
-
-    /**
-     * The size of a tag's leading icon
-     */
-    internal val LeadingIconSize = 12.dp
 
     @Composable
     @InternalSparkApi
@@ -306,16 +338,18 @@ public object TagDefaults {
             contentColor = contentColor,
         )
     }
-}
 
-private val HorizontalPadding = 8.dp
+    public object Ai {
+        public val icon: SparkIcon = LeboncoinIcons.Sparks
+    }
+}
 
 @Preview(
     group = "Tags",
     name = "Tag",
 )
 @Composable
-private fun SparkTagPreview() {
+private fun PreviewSparkTag() {
     PreviewTheme {
         val colors = TagDefaults.filledColors()
         BaseSparkTag(colors = colors, atEnd = false) {
@@ -329,6 +363,23 @@ private fun SparkTagPreview() {
             }
         }
         BaseSparkTag(leadingIcon = LeboncoinIcons.AccessoriesCriteria, colors = colors) {
+        }
+    }
+}
+
+@Preview(
+    group = "Tags",
+    name = "Ai",
+)
+@Composable
+private fun PreviewAiTag() {
+    PreviewTheme {
+        val colors = TagDefaults.filledColors()
+        Tag.Ai(atEnd = false) {
+            Text("À la une")
+        }
+        Tag.Ai(leadingIcon = LeboncoinIcons.BroomstickSparks, atEnd = false) {
+            Text("À la deux")
         }
     }
 }

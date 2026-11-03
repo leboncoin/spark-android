@@ -26,7 +26,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
@@ -91,7 +91,7 @@ private fun ColumnScope.MeterSample() {
 
     val displayValue = if (animateEntrance) {
         var animatedValue by remember(entranceKey) { mutableFloatStateOf(range.start) }
-        LaunchedEffect(entranceKey) { animatedValue = value }
+        SideEffect(entranceKey) { animatedValue = value }
         animatedValue
     } else {
         value

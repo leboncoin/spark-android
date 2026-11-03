@@ -47,7 +47,6 @@ import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.paparazziRule
 import com.adevinta.spark.sparkSnapshotNightMode
-import com.android.ide.common.rendering.api.SessionParams.RenderingMode.H_SCROLL
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Rule
 import org.junit.Test
@@ -61,7 +60,6 @@ internal class MultilineTextFieldScreenshot {
     @get:Rule
     val paparazzi = paparazziRule(
         deviceConfig = DefaultTestDevices.Tablet,
-        renderingMode = H_SCROLL,
     )
 
     @Test

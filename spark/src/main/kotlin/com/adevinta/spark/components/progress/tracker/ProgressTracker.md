@@ -11,10 +11,10 @@ Each step displays its label via stepLabel. Selection and click are handled.
 A step indicator is displayed via StepIndicator for each step. Its state is updated according to
 selection.
 
-|            | Light                                                                                                                | Dark                                                                                                                |
-|------------|----------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
-| Horizontal | ![](../../images/com.adevinta.spark.progress.tracker_ProgressTrackerDocScreenshot_progressRowShowcase_light.png)    | ![](../../images/com.adevinta.spark.progress.tracker_ProgressTrackerDocScreenshot_progressRowShowcase_dark.png)    |
-| Vertical   | ![](../../images/com.adevinta.spark.progress.tracker_ProgressTrackerDocScreenshot_progressColumnShowcase_light.png) | ![](../../images/com.adevinta.spark.progress.tracker_ProgressTrackerDocScreenshot_progressColumnShowcase_dark.png) |
+| Orientation | Preview                                                                                                             |
+|-------------|---------------------------------------------------------------------------------------------------------------------|
+| Horizontal  | ![](../../images/com.adevinta.spark.progress.tracker_ProgressTrackerDocumentationScreenshots_progressRowShowcase.png)    |
+| Vertical    | ![](../../images/com.adevinta.spark.progress.tracker_ProgressTrackerDocumentationScreenshots_progressColumnShowcase.png) |
 
 The minimal usage of the component is the step list to be displayed.
 
@@ -34,4 +34,4 @@ There are 3 possible sizes: Large(Default), medium and small.
 Only the large one should be interactive, if it's not the case please ask your designer to consider
 using the Large size as recommended in the design specs.
 
-![](../../images/com.adevinta.spark.progress.tracker_ProgressTrackerDocScreenshot_progressSizesShowcase.png)
+![](../../images/com.adevinta.spark.progress.tracker_ProgressTrackerDocumentationScreenshots_progressSizesShowcase.png)

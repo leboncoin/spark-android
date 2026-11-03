@@ -34,6 +34,9 @@ import com.adevinta.spark.icons.SparkIcon
 
 /**
  * Tinted tag represent support information like `OutlinedTag`
+ *
+ * ![Tag Tinted](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.tags_TagDocumentationScreenshots_tagTinted.png)
+ *
  * @param modifier The [Modifier] to be applied to the component
  * @param intent The [TagIntent] color to use
  * @param leadingIcon The spark icon shown at the start of the tag
@@ -64,6 +67,9 @@ public fun TagTinted(
 
 /**
  * Tinted tag represent support information like `OutlinedTag`
+ *
+ * ![Tag Tinted](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.tags_TagDocumentationScreenshots_tagTinted.png)
+ *
  * @param text The item label
  * @param modifier The [Modifier] to be applied to the component
  * @param intent The [TagIntent] color to use
@@ -95,6 +101,9 @@ public fun TagTinted(
 
 /**
  * Tinted tag represent support information like `OutlinedTag`
+ *
+ * ![Tag Tinted](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.tags_TagDocumentationScreenshots_tagTinted.png)
+ *
  * @param text The item label
  * @param modifier The [Modifier] to be applied to the component
  * @param intent The [TagIntent] color to use

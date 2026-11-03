@@ -41,8 +41,10 @@ import com.adevinta.spark.catalog.ui.ButtonGroup
 import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonIntent
 import com.adevinta.spark.components.buttons.IconSide
+import com.adevinta.spark.components.buttons.Underlined
 import com.adevinta.spark.components.snackbars.SnackbarHostState
 import com.adevinta.spark.components.spacer.VerticalSpacer
 import com.adevinta.spark.components.text.Text
@@ -90,12 +92,8 @@ private fun ColumnScope.TextLinkSample(snackbarHostState: SnackbarHostState) {
     VerticalSpacer(8.dp)
     Text(text = "Text Link Button Component", style = SparkTheme.typography.headline1)
 
-    TextLinkButton(
+    Button.Underlined(
         text = "Click me",
-        intent = intent,
-        icon = if (isIconAdded) LeboncoinIcons.HeartFill else null,
-        iconSide = iconSide,
-        isLoading = isLoading,
         onClick = {
             isLoading = !isLoading
 
@@ -107,6 +105,9 @@ private fun ColumnScope.TextLinkSample(snackbarHostState: SnackbarHostState) {
                 )
             }
         },
+        icon = if (isIconAdded) LeboncoinIcons.HeartFill else null,
+        iconSide = iconSide,
+        isLoading = isLoading,
     )
 
     SwitchLabelled(

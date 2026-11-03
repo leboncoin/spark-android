@@ -26,6 +26,8 @@ plugins {
     alias(libs.plugins.spark.compose)
     id("kotlin-parcelize")
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.spark.spotless)
+    alias(libs.plugins.baselineprofile)
 }
 
 android {
@@ -42,14 +44,14 @@ android {
 
     compileOptions.isCoreLibraryDesugaringEnabled = true
 
-    val keystore = rootProject.file("keystore.properties")
+    val keystore = rootDir.resolve("keystore.properties")
         .takeIf { it.exists() }
         ?.let { Properties().apply { load(it.inputStream()) } }
 
-    val debug by signingConfigs.getting
+    val debug = signingConfigs.getByName("debug")
     //noinspection WrongGradleMethod
-    val release by signingConfigs.creating {
-        if (keystore == null) return@creating
+    val release = signingConfigs.create("release") {
+        if (keystore == null) return@create
         keyAlias = keystore.getProperty("keyAlias")
         keyPassword = keystore.getProperty("keyPassword")
         storeFile = file(keystore.getProperty("storeFile"))
@@ -58,6 +60,14 @@ android {
 
     buildTypes.named("release") {
         signingConfig = if (keystore != null) release else debug
+    }
+
+    buildTypes.create("benchmark") {
+        initWith(buildTypes.getByName("release"))
+        matchingFallbacks += listOf("release")
+        isDebuggable = false
+        signingConfig = signingConfigs.getByName("debug")
+        proguardFiles("benchmark-rules.pro")
     }
 }
 
@@ -86,6 +96,9 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material.iconsExtended)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.runtime.tracing)
+    implementation(libs.androidx.tracing.perfetto)
+    implementation(libs.androidx.tracing.perfetto.binary)
     implementation(libs.androidx.graphics.shapes)
     implementation(libs.androidx.metrics)
 
@@ -102,4 +115,8 @@ dependencies {
     coreLibraryDesugaring(libs.desugarJdkLibs)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
+
+    implementation(libs.androidx.profileinstaller)
+
+    baselineProfile(project(":catalog:baselineprofile"))
 }

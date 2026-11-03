@@ -43,8 +43,11 @@ import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.components.appbar.BottomAppBar
 import com.adevinta.spark.components.appbar.BottomAppBarSparkDefaults
 import com.adevinta.spark.components.appbar.TopAppBar
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.buttons.ButtonOutlined
+import com.adevinta.spark.components.buttons.Primary
+import com.adevinta.spark.components.buttons.Tertiary
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.icons.IconButton
 import com.adevinta.spark.components.scaffold.Scaffold
@@ -93,12 +96,10 @@ private fun StickyBottomAppBarExample() {
                 BottomAppBar(
                     scrollBehavior = bottomAppBarScrollBehavior,
                     actions = {
-                        ButtonOutlined(
-                            onClick = { /* Handle support action */ },
-                            text = "Cancel",
-                            modifier = Modifier.weight(1f),
-                        )
-                        ButtonFilled(
+                        Button.Tertiary(onClick = {
+                            /* Handle support action */
+                        }, text = "Cancel", modifier = Modifier.weight(1f))
+                        Button.Primary(
                             onClick = { /* Handle main action */ },
                             text = "Save",
                             modifier = Modifier.weight(1f),

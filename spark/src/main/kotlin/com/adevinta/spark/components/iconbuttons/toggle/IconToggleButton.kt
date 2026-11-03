@@ -43,7 +43,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
-import com.adevinta.spark.components.buttons.ButtonShape
 import com.adevinta.spark.components.iconbuttons.IconButtonColors
 import com.adevinta.spark.components.iconbuttons.IconButtonDefaults
 import com.adevinta.spark.components.iconbuttons.IconButtonIntent
@@ -76,7 +75,6 @@ import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
  * @param enabled controls the enabled state of this icon button. When `false`, this component will
  * not respond to user input, and it will appear visually disabled and disabled to accessibility
  * services.
- * @param shape to be applied to the IconButton background. It should be one of [ButtonShape] values
  * @param size one of the [IconButtonSize] values that sets width and height of the IconButton
  * @param border an optional [BorderStroke] to be applied to the IconButton
  * @param contentDescription text used by accessibility services to describe what this icon button
@@ -96,7 +94,6 @@ internal fun SparkIconToggleButton(
     colors: IconButtonColors,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    shape: ButtonShape = IconButtonDefaults.DefaultShape,
     size: IconButtonSize = IconButtonDefaults.DefaultSize,
     border: BorderStroke? = null,
     contentDescription: String? = null,
@@ -118,7 +115,6 @@ internal fun SparkIconToggleButton(
                 positioning = TooltipAnchorPosition.Above,
             ),
         ) {
-            val shape = IconButtonTokens.resolveShape(shape.shape)
             Surface(
                 checked = checked,
                 onCheckedChange = onCheckedChange,
@@ -127,7 +123,7 @@ internal fun SparkIconToggleButton(
                     .sparkUsageOverlay()
                     .semantics { role = Role.Checkbox },
                 enabled = enabled,
-                shape = shape,
+                shape = IconButtonTokens.shape,
                 border = border,
                 color = colors.containerColor(enabled).value,
                 contentColor = colors.contentColor(enabled).value,

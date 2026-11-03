@@ -25,7 +25,6 @@ import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.SizeTransform
-import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.saveable.Saver
@@ -43,7 +42,8 @@ import soup.compose.material.motion.animation.materialSharedAxisZOut
 public data class Theme(
     val themeMode: ThemeMode = ThemeMode.System,
     val colorMode: ColorMode = ColorMode.Baseline,
-    val userMode: UserMode = UserMode.Part,
+    val brandMode: BrandMode = BrandMode.Part,
+    val versionMode: VersionMode = VersionMode.Current,
     val fontScale: Float = 1.0f,
     val fontScaleMode: FontScaleMode = FontScaleMode.System,
     val textDirection: TextDirection = TextDirection.System,
@@ -52,7 +52,6 @@ public data class Theme(
     val navigationMode: NavigationMode = NavigationMode.Default,
     val highlightSparkComponents: Boolean = false,
     val highlightSparkTokens: Boolean = false,
-    val useRebrandedShapes: Boolean = true,
     val useRebrandedButtons: Boolean = true,
 )
 
@@ -101,17 +100,39 @@ public enum class ThemeMode {
     System,
     Light,
     Dark,
+    ;
+
+    public fun isDark(isSystemDark: Boolean): Boolean = when (this) {
+        System -> isSystemDark
+        Light -> false
+        Dark -> true
+    }
 }
 
-public enum class UserMode {
+/**
+ * The brand colour palette to preview.
+ *
+ * Contrasted forces the high-contrast palette and ignores [VersionMode].
+ */
+public enum class BrandMode {
     Part,
     Pro,
-    Rebranding,
+    Contrasted,
+}
+
+/**
+ * The colour version to preview.
+ *
+ * Rebranded has no effect when [BrandMode.Contrasted] is selected.
+ */
+public enum class VersionMode {
+    Current,
+    Rebranded,
 }
 
 public enum class NavigationMode(
-    public val enterTransition: EnterTransition = fadeIn(animationSpec = tween(700)),
-    public val exitTransition: ExitTransition = fadeOut(animationSpec = tween(700)),
+    public val enterTransition: EnterTransition = fadeIn(animationSpec = CatalogMotion.NavigationFade),
+    public val exitTransition: ExitTransition = fadeOut(animationSpec = CatalogMotion.NavigationFade),
     public val popEnterTransition: EnterTransition = enterTransition,
     public val popExitTransition: ExitTransition = exitTransition,
     public val sizeTransform:
@@ -148,7 +169,8 @@ public val ThemeSaver: Saver<Theme, Map<String, Int>> = Saver(
         mapOf(
             ThemeModeKey to theme.themeMode.ordinal,
             ColorModeKey to theme.colorMode.ordinal,
-            UserModeKey to theme.userMode.ordinal,
+            BrandModeKey to theme.brandMode.ordinal,
+            VersionModeKey to theme.versionMode.ordinal,
             FontScaleKey to theme.fontScale.toBits(),
             ColorBlindTypeKey to theme.colorBlindNessType.ordinal,
             ColorBlindTypeSeverityKey to theme.colorBlindNessSeverity.toBits(),
@@ -156,7 +178,6 @@ public val ThemeSaver: Saver<Theme, Map<String, Int>> = Saver(
             TextDirectionKey to theme.textDirection.ordinal,
             HighlightSparkComponentsKey to if (theme.highlightSparkComponents) 1 else 0,
             HighlightSparkTokensKey to if (theme.highlightSparkTokens) 1 else 0,
-            UseRebrandedShapesKey to if (theme.useRebrandedShapes) 1 else 0,
             UseRebrandedButtonsKey to if (theme.useRebrandedButtons) 1 else 0,
         )
     },
@@ -164,7 +185,8 @@ public val ThemeSaver: Saver<Theme, Map<String, Int>> = Saver(
         Theme(
             themeMode = ThemeMode.entries[map.getValue(ThemeModeKey)],
             colorMode = ColorMode.entries[map.getValue(ColorModeKey)],
-            userMode = UserMode.entries[map.getValue(UserModeKey)],
+            brandMode = BrandMode.entries[map.getValue(BrandModeKey)],
+            versionMode = VersionMode.entries[map.getValue(VersionModeKey)],
             fontScale = Float.fromBits(map.getValue(FontScaleKey)),
             colorBlindNessType = ColorBlindNessType.entries[map.getValue(ColorBlindTypeKey)],
             colorBlindNessSeverity = Float.fromBits(map.getValue(ColorBlindTypeSeverityKey)),
@@ -172,7 +194,6 @@ public val ThemeSaver: Saver<Theme, Map<String, Int>> = Saver(
             textDirection = TextDirection.entries[map.getValue(TextDirectionKey)],
             highlightSparkComponents = map.getValue(HighlightSparkComponentsKey) == 1,
             highlightSparkTokens = map.getValue(HighlightSparkTokensKey) == 1,
-            useRebrandedShapes = map.getValue(UseRebrandedShapesKey) == 1,
             useRebrandedButtons = map.getValue(UseRebrandedButtonsKey) == 1,
         )
     },
@@ -183,7 +204,8 @@ public const val MaxFontScale: Float = 2f
 
 private const val ThemeModeKey = "themeMode"
 private const val ColorModeKey = "colorMode"
-private const val UserModeKey = "userMode"
+private const val BrandModeKey = "brandMode"
+private const val VersionModeKey = "versionMode"
 private const val FontScaleKey = "fontScale"
 private const val ColorBlindTypeKey = "colorBlindType"
 private const val ColorBlindTypeSeverityKey = "colorBlindTypeSeverity"
@@ -191,5 +213,4 @@ private const val NavigationModeKey = "navigationMode"
 private const val TextDirectionKey = "textDirection"
 private const val HighlightSparkComponentsKey = "highlightSparkComponents"
 private const val HighlightSparkTokensKey = "highlightSparkTokens"
-private const val UseRebrandedShapesKey = "useRebrandedShapes"
 private const val UseRebrandedButtonsKey = "useRebrandedButtons"

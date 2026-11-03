@@ -35,7 +35,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.window.DialogProperties
 import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonGhost
+import com.adevinta.spark.components.buttons.Ghost
 import com.adevinta.spark.components.buttons.IconSide
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.icons.CopyFill
@@ -167,7 +169,7 @@ internal fun AlertDialogPreview() {
                 )
             },
             confirmButton = {
-                ButtonGhost(
+                Button.Ghost(
                     onClick = {
                     },
                     text = "Confirm",
@@ -176,7 +178,7 @@ internal fun AlertDialogPreview() {
                 )
             },
             dismissButton = {
-                ButtonGhost(
+                Button.Ghost(
                     onClick = {
                     },
                     text = "Dismiss",

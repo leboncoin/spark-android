@@ -92,6 +92,7 @@ import kotlin.math.roundToInt
  * @param allowSemantics Whether to enable semantic properties for accessibility. Set to false when
  * using the component as part of a larger component that handles its own semantics to avoid duplicate announcements.
  * @param testTag Optional tag for UI testing, if defined then all stars will have a test tag in the format "$testTag Star $index" where index is 0-4.
+ * ![Rating Input](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.rating_RatingDocumentationScreenshots_ratingInput.png)
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

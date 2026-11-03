@@ -28,6 +28,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.LocalContentColor
@@ -110,6 +111,8 @@ import kotlinx.coroutines.launch
  * functionality to the text. For example, to draw selection around the text.
  * @param style style configuration for the text such as color, font, line height etc.
  * @param onClick callback when textLink container is clicked.
+ *
+ * ![TextLink](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.text_TextLinkDocumentationScreenshots_textLink.png)
  */
 
 @Composable
@@ -176,6 +179,8 @@ public fun TextLink(
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this button. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this button in different states.
+ *
+ * ![TextLinkButton](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.text_TextLinkDocumentationScreenshots_textLinkButton.png)
  */
 @Composable
 public fun TextLinkButton(
@@ -308,8 +313,8 @@ private fun SparkTextLinkPreview() {
             snackbarHost = {
                 SnackbarHost(snackbarHostState)
             },
-        ) {
-            Column {
+        ) { contentPadding ->
+            Column(modifier = Modifier.padding(contentPadding)) {
                 Column {
                     TextLink(
                         style = SparkTheme.typography.subhead,
@@ -325,9 +330,8 @@ private fun SparkTextLinkPreview() {
                             }
                         },
                     )
-                    TextLinkButton(
+                    Button.Underlined(
                         text = "Click me",
-                        icon = LeboncoinIcons.InfoOutline,
                         onClick = {
                             scope.launch {
                                 snackbarHostState.showSnackbar(
@@ -337,6 +341,7 @@ private fun SparkTextLinkPreview() {
                                 )
                             }
                         },
+                        icon = LeboncoinIcons.InfoOutline,
                     )
                 }
             }

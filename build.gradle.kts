@@ -37,8 +37,5 @@ plugins {
 
     alias(libs.plugins.spark.root)
     alias(libs.plugins.spark.dokka)
-}
-
-allprojects {
-    apply(plugin = "com.adevinta.spark.spotless")
+    alias(libs.plugins.baselineprofile) apply false
 }

@@ -2,6 +2,326 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [4.3.1](https://github.com/leboncoin/spark-android/compare/4.3.0...4.3.1) (2026-11-03)
+
+
+### Bug Fixes
+
+* **button:** lint rule to migrate to rebranded button was not picking up button using text param ([#2363](https://github.com/leboncoin/spark-android/issues/2363)) ([bc7a2cc](https://github.com/leboncoin/spark-android/commit/bc7a2ccf785aefa868cf485e3893579b02ced4f7))
+* **clear:** replace direct usages by a component token ([#2364](https://github.com/leboncoin/spark-android/issues/2364)) ([bb8eac1](https://github.com/leboncoin/spark-android/commit/bb8eac1d413544a7e87de542b5ba2e3f27f9253d))
+
+
+### Miscellaneous
+
+* **baseline:** regenerate baseline profiles ([#2358](https://github.com/leboncoin/spark-android/issues/2358)) ([d2632a9](https://github.com/leboncoin/spark-android/commit/d2632a95c09981b839caddaaf1d8c06ae1523637))
+
+## [4.3.0](https://github.com/leboncoin/spark-android/compare/4.2.1...4.3.0) (2026-10-29)
+
+
+### Features
+
+* **button:** add rebranded icon button variants ([#2350](https://github.com/leboncoin/spark-android/issues/2350)) ([ea3e338](https://github.com/leboncoin/spark-android/commit/ea3e338c2d50f9bb4bd7ac93cf6abcc82c30e010))
+* **Scaffold:** update SparkScaffoldDetector behavior ([#2329](https://github.com/leboncoin/spark-android/issues/2329)) ([aaf2691](https://github.com/leboncoin/spark-android/commit/aaf2691ec472b12e6e511f95be0fa37cfc92cd0c))
+
+
+### Bug Fixes
+
+* **button:** lint rule was not able to map correctly arguments to the correct parameter after a autofix ([#2356](https://github.com/leboncoin/spark-android/issues/2356)) ([2bd9175](https://github.com/leboncoin/spark-android/commit/2bd917564be08d696fb2948fb8b86886b61036ed))
+* move file upload queries off main, guard catalog intents ([#2352](https://github.com/leboncoin/spark-android/issues/2352)) ([a87912f](https://github.com/leboncoin/spark-android/commit/a87912f2ce91b3865da1627f476df02b9c68eca6))
+
+
+### Miscellaneous
+
+* **baseline:** regenerate baseline profiles ([#2328](https://github.com/leboncoin/spark-android/issues/2328)) ([f78b42f](https://github.com/leboncoin/spark-android/commit/f78b42fec47ff64b2994abd2b8a6b5324bc948f3))
+* **deps:** bump androidx.datastore:datastore from 1.2.1 to 1.3.0 ([#2348](https://github.com/leboncoin/spark-android/issues/2348)) ([dad6691](https://github.com/leboncoin/spark-android/commit/dad6691803b3977d5ac78ef64eb85053a6348ec0))
+* **deps:** bump com.google.testparameterinjector:test-parameter-injector from 1.24 to 1.25 ([#2347](https://github.com/leboncoin/spark-android/issues/2347)) ([a6ba735](https://github.com/leboncoin/spark-android/commit/a6ba735af16ee10871b346c3a5de807e0c98de4a))
+* **deps:** bump github/codeql-action from 4.39.0 to 4.39.1 in /.github/workflows ([#2346](https://github.com/leboncoin/spark-android/issues/2346)) ([a1dc4a5](https://github.com/leboncoin/spark-android/commit/a1dc4a51c079e12aab3a2123df1fdafeb99b884a))
+* **deps:** bump gradle-wrapper from 9.8.1 to 9.8.2 ([#2343](https://github.com/leboncoin/spark-android/issues/2343)) ([4652a69](https://github.com/leboncoin/spark-android/commit/4652a6949db1ae66a6696f5d6f96fc199b755892))
+* **deps:** bump org.jetbrains.kotlinx:kotlinx-serialization-json from 1.11.0 to 1.12.0 ([#2344](https://github.com/leboncoin/spark-android/issues/2344)) ([b5762cc](https://github.com/leboncoin/spark-android/commit/b5762cc37fc38760d091bcbbddda008140072e4c))
+* **deps:** bump zizmorcore/zizmor-action from 0.7.1 to 0.8.0 in /.github/workflows ([#2345](https://github.com/leboncoin/spark-android/issues/2345)) ([3c05f6f](https://github.com/leboncoin/spark-android/commit/3c05f6f26c0ebd07cff1c660d78673c197d08f2c))
+
+
+### Performance
+
+* **catalog:** reduce weight of component illustrations and add missing ones ([#2353](https://github.com/leboncoin/spark-android/issues/2353)) ([24759c3](https://github.com/leboncoin/spark-android/commit/24759c3d75228080ead8acf6cc0bb71a05c7c2a3))
+
+## [4.2.1](https://github.com/leboncoin/spark-android/compare/4.2.0...4.2.1) (2026-10-21)
+
+
+### Bug Fixes
+
+* **avatar:** fill placeholder icon, fix online ring and addon placement ([#2338](https://github.com/leboncoin/spark-android/issues/2338)) ([1fb2bbf](https://github.com/leboncoin/spark-android/commit/1fb2bbf2e424ee727a6f19c11e09950caebe1dc2))
+* **screenshot:** work around layoutlib BackgroundThread race ([#2340](https://github.com/leboncoin/spark-android/issues/2340)) ([1b018da](https://github.com/leboncoin/spark-android/commit/1b018da5c87a18236b3f4cc27542adbca51d8ebe))
+* **segmented-control:** draw the selected item border at 1dp ([#2314](https://github.com/leboncoin/spark-android/issues/2314)) ([09301b1](https://github.com/leboncoin/spark-android/commit/09301b10f625b732702a253ac64c6c303078845f))
+
+## [4.2.0](https://github.com/leboncoin/spark-android/compare/4.1.0...4.2.0) (2026-10-20)
+
+
+### Features
+
+* **animation:** add Shake and AnimatedCounterText catalog samples ([#2310](https://github.com/leboncoin/spark-android/issues/2310)) ([c0698fc](https://github.com/leboncoin/spark-android/commit/c0698fc415c0cbf0bdd0c4dae983f8e5e5d73912))
+* **avatar:** add Avatar.User and Avatar.Company variants ([#2326](https://github.com/leboncoin/spark-android/issues/2326)) ([a1bd31d](https://github.com/leboncoin/spark-android/commit/a1bd31dbadd253ae901bf96f624ec5a4462e8408))
+* **doc:** add support for deepwiki auto refresh ([4c420c2](https://github.com/leboncoin/spark-android/commit/4c420c20669c1c5593a13e53131b6548b1b15b24))
+* **Lint:** add SparkScaffoldBarWithoutInsets ([#2292](https://github.com/leboncoin/spark-android/issues/2292)) ([e241983](https://github.com/leboncoin/spark-android/commit/e241983846a0509bb676226466aeb25ca5be1c27))
+* **lint:** detect old Spark button usages and suggest migration ([#2307](https://github.com/leboncoin/spark-android/issues/2307)) ([6f796eb](https://github.com/leboncoin/spark-android/commit/6f796ebc9d7c6f6ed44f218f7e0d03689cd75c16))
+* **useravatar:** add scoped addon slot and letter placeholder ([#2289](https://github.com/leboncoin/spark-android/issues/2289)) ([721ad45](https://github.com/leboncoin/spark-android/commit/721ad459419260f406874ceaabbd79eb082686d6))
+* **useravatar:** add scoped addon slot and remove isOnline ([#2288](https://github.com/leboncoin/spark-android/issues/2288)) ([97b2aaa](https://github.com/leboncoin/spark-android/commit/97b2aaa8f1d5e654c9c07f63dcfaa15625fe04db))
+* **useravatar:** replace three sizes with seven design sizes ([#2290](https://github.com/leboncoin/spark-android/issues/2290)) ([1eaea15](https://github.com/leboncoin/spark-android/commit/1eaea15f7dec4955456b42f6d9dbc692bce0f245))
+
+
+### Bug Fixes
+
+* **avatar:** keep isOnline on deprecated UserAvatar ([#2336](https://github.com/leboncoin/spark-android/issues/2336)) ([cfb7487](https://github.com/leboncoin/spark-android/commit/cfb7487572a396047eb09b105211cbc7430e07d0))
+* **ci:** remove the chat bot command workflow and mentions of calling the bot ([#2315](https://github.com/leboncoin/spark-android/issues/2315)) ([dedfac3](https://github.com/leboncoin/spark-android/commit/dedfac3f04b0257d824492ee381f71dd4012ac4c))
+* **dropdown:** make the whole field area clickable ([#2303](https://github.com/leboncoin/spark-android/issues/2303)) ([8c86a92](https://github.com/leboncoin/spark-android/commit/8c86a92c075ba2195c56781fa3d50e728dca7a67))
+* **gha:** conditionnal expression ([#2330](https://github.com/leboncoin/spark-android/issues/2330)) ([73ad5ed](https://github.com/leboncoin/spark-android/commit/73ad5ede76eec4e2f156f28b4dd8f8a565c7d20c))
+* **snackbar:** match the outer margin and row padding to the spec ([#2312](https://github.com/leboncoin/spark-android/issues/2312)) ([80c47c5](https://github.com/leboncoin/spark-android/commit/80c47c542e6d166ed2c4a6f06395b244ceb0078c))
+* **textfield:** stop the supporting message clipping at natural height ([#2325](https://github.com/leboncoin/spark-android/issues/2325)) ([fea5e32](https://github.com/leboncoin/spark-android/commit/fea5e32587a7d64745833b0a9b22e7f5714fffcc))
+* **typography:** use static Nunito Sans on Xiaomi devices ([#2294](https://github.com/leboncoin/spark-android/issues/2294)) ([84215a8](https://github.com/leboncoin/spark-android/commit/84215a8b62bbe12c7bd292f6abdd8ac0ddb22ae6))
+* use the filled cross icon on clear and remove actions ([#2318](https://github.com/leboncoin/spark-android/issues/2318)) ([c8cb658](https://github.com/leboncoin/spark-android/commit/c8cb658c7a3c3f071d9bbd4b867bd999055c6631))
+
+
+### Miscellaneous
+
+* **baseline:** regenerate baseline profiles ([#2293](https://github.com/leboncoin/spark-android/issues/2293)) ([beabfb7](https://github.com/leboncoin/spark-android/commit/beabfb7332af2e7be19cc1d5f175a83eb94e0a7e))
+* **baseline:** regenerate baseline profiles ([#2317](https://github.com/leboncoin/spark-android/issues/2317)) ([15f4704](https://github.com/leboncoin/spark-android/commit/15f4704faf24083f6f37bcc9c55a78ef392312a4))
+* **deps:** bump androidx.constraintlayout:constraintlayout from 2.2.1 to 2.2.2 ([#2148](https://github.com/leboncoin/spark-android/issues/2148)) ([b9737ba](https://github.com/leboncoin/spark-android/commit/b9737baa81ece0c63f63837a317d0df4b75e4731))
+* **deps:** bump androidx.constraintlayout:constraintlayout-compose from 1.1.1 to 1.1.2 ([#2147](https://github.com/leboncoin/spark-android/issues/2147)) ([79f8bb5](https://github.com/leboncoin/spark-android/commit/79f8bb5fc58145481fe289e5323b2dfc1709e74f))
+* **deps:** bump androidx.core:core-ktx from 1.19.0 to 1.19.1 ([#2299](https://github.com/leboncoin/spark-android/issues/2299)) ([d3f9112](https://github.com/leboncoin/spark-android/commit/d3f91123c18d3bdf54ea9d53ab11250f6dd1d3f7))
+* **deps:** bump androidx.navigation:navigation-compose from 2.10.1 to 2.10.2 ([#2297](https://github.com/leboncoin/spark-android/issues/2297)) ([3a53e54](https://github.com/leboncoin/spark-android/commit/3a53e5476fd4505ef0a337b5afdbf0476247224a))
+* **deps:** bump app.cash.paparazzi from 2.0.0-alpha04 to 2.0.0-alpha05.1 ([#1968](https://github.com/leboncoin/spark-android/issues/1968)) ([dfd8932](https://github.com/leboncoin/spark-android/commit/dfd893275ff5a61fe40aae982cd7e747b3342543))
+* **deps:** bump com.composables:composeunstyled-disclosure from 2.10.0 to 2.10.1 ([#2335](https://github.com/leboncoin/spark-android/issues/2335)) ([bf4247e](https://github.com/leboncoin/spark-android/commit/bf4247eb9cfde6403a7f47527e68f8e681c4b81f))
+* **deps:** bump com.diffplug.spotless from 8.10.2 to 8.10.3 ([#2304](https://github.com/leboncoin/spark-android/issues/2304)) ([7ecd160](https://github.com/leboncoin/spark-android/commit/7ecd16011a6c83f92e38f5545fc6ec1e781d9f75))
+* **deps:** bump com.diffplug.spotless from 8.10.3 to 8.10.4 ([#2319](https://github.com/leboncoin/spark-android/issues/2319)) ([63fcd63](https://github.com/leboncoin/spark-android/commit/63fcd639814cb98f6b8e3e9c5b62edac89ac9dc3))
+* **deps:** bump com.google.testparameterinjector:test-parameter-injector from 1.22 to 1.23 ([#2279](https://github.com/leboncoin/spark-android/issues/2279)) ([669dba7](https://github.com/leboncoin/spark-android/commit/669dba7ef9fd2d155881dffbc8ab5607b735ca38))
+* **deps:** bump com.google.testparameterinjector:test-parameter-injector from 1.23 to 1.24 ([#2311](https://github.com/leboncoin/spark-android/issues/2311)) ([c33dcb8](https://github.com/leboncoin/spark-android/commit/c33dcb852b03348ad78c4bd01c985ecd7bcaa88a))
+* **deps:** bump com.gradleup.tapmoc from 0.4.2 to 0.5.0 ([#2332](https://github.com/leboncoin/spark-android/issues/2332)) ([6a2dfc3](https://github.com/leboncoin/spark-android/commit/6a2dfc3f1735ff7ac68bf69a0e5dca0ca249e53d))
+* **deps:** bump com.slack.lint.compose:compose-lint-checks from 1.6.0 to 1.6.1 ([#2321](https://github.com/leboncoin/spark-android/issues/2321)) ([1e8c95d](https://github.com/leboncoin/spark-android/commit/1e8c95ded35adcc4e1042e12f24e418ad5110c6d))
+* **deps:** bump compose-multiplatform from 1.12.0 to 1.12.1 ([#2298](https://github.com/leboncoin/spark-android/issues/2298)) ([325e7a9](https://github.com/leboncoin/spark-android/commit/325e7a9e85d4614a48f7e43517a21e5320d0df99))
+* **deps:** bump compose-multiplatform from 1.12.1 to 1.12.2 ([#2331](https://github.com/leboncoin/spark-android/issues/2331)) ([4b10cde](https://github.com/leboncoin/spark-android/commit/4b10cde5c2e700062d7aaf7694071f535f3aca5d))
+* **deps:** bump github/codeql-action from 4.38.1 to 4.38.2 in /.github/workflows ([#2301](https://github.com/leboncoin/spark-android/issues/2301)) ([7dd9f25](https://github.com/leboncoin/spark-android/commit/7dd9f255c034cecd08f9962e4c1e359e27714cb2))
+* **deps:** bump github/codeql-action from 4.38.2 to 4.38.3 in /.github/workflows ([#2324](https://github.com/leboncoin/spark-android/issues/2324)) ([53b9018](https://github.com/leboncoin/spark-android/commit/53b9018b6501c9bcc25eb17d5bcdcfff362de99c))
+* **deps:** bump github/codeql-action from 4.38.3 to 4.39.0 in /.github/workflows ([#2334](https://github.com/leboncoin/spark-android/issues/2334)) ([7c8b77d](https://github.com/leboncoin/spark-android/commit/7c8b77d1322d04519f31e4bec066d43907221d8c))
+* **deps:** bump gradle-wrapper from 9.7.1 to 9.8.0 ([#2300](https://github.com/leboncoin/spark-android/issues/2300)) ([0f9b2bb](https://github.com/leboncoin/spark-android/commit/0f9b2bb72ba1573607118a09cb24e326a74d71a4))
+* **deps:** bump gradle-wrapper from 9.8.0 to 9.8.1 ([#2323](https://github.com/leboncoin/spark-android/issues/2323)) ([f3d4d5c](https://github.com/leboncoin/spark-android/commit/f3d4d5c9eb960f6d485b40f33daf7b916911c3d5))
+* **deps:** bump gradle/actions/setup-gradle from 6.3.0 to 6.4.0 in /.github/actions/setup-gradle ([#2309](https://github.com/leboncoin/spark-android/issues/2309)) ([35dccc4](https://github.com/leboncoin/spark-android/commit/35dccc4f31c12b08dd8be5b67ff5deae75ae24f6))
+* **deps:** bump kotlin from 2.4.20 to 2.4.21 ([#2320](https://github.com/leboncoin/spark-android/issues/2320)) ([c04f21f](https://github.com/leboncoin/spark-android/commit/c04f21f26c79bb9866b45b13a85ae49b6de802b9))
+* **deps:** bump org.jetbrains.compose.material3.adaptive:adaptive from 1.2.0 to 1.3.0 ([#2322](https://github.com/leboncoin/spark-android/issues/2322)) ([97431d9](https://github.com/leboncoin/spark-android/commit/97431d9bbbd2b0848cf7e0daa8affceb76c5d930))
+* **deps:** bump the android-build-tools group across 1 directory with 5 updates ([#2240](https://github.com/leboncoin/spark-android/issues/2240)) ([994d3e0](https://github.com/leboncoin/spark-android/commit/994d3e04547074d96bce74c6454abdc8e0b5d5bf))
+* **deps:** bump the android-build-tools group with 5 updates ([#2327](https://github.com/leboncoin/spark-android/issues/2327)) ([a63b36e](https://github.com/leboncoin/spark-android/commit/a63b36eae937a5dd27fd1a43d6411fd76144c401))
+* **deps:** bump zizmorcore/zizmor-action from 0.6.4 to 0.7.1 in /.github/workflows ([#2333](https://github.com/leboncoin/spark-android/issues/2333)) ([64574ad](https://github.com/leboncoin/spark-android/commit/64574ad1395c5026f13f845f7417b4958ccaf065))
+* **gha:** migrate to self-repository syntax ([#2313](https://github.com/leboncoin/spark-android/issues/2313)) ([1d38e7c](https://github.com/leboncoin/spark-android/commit/1d38e7c20512603c1481a3a07891dfa001e3ac75))
+
+## [4.1.0](https://github.com/leboncoin/spark-android/compare/4.0.0...4.1.0) (2026-09-22)
+
+
+### Features
+
+* add Focus, New, Business, and Service intents ([#2283](https://github.com/leboncoin/spark-android/issues/2283)) ([e35c543](https://github.com/leboncoin/spark-android/commit/e35c543eb5801795582b36104b2ad728fa2a6135))
+* **shapes:** apply rebranded shapes ([#2281](https://github.com/leboncoin/spark-android/issues/2281)) ([0ae3c29](https://github.com/leboncoin/spark-android/commit/0ae3c290f321b7f1ee01df06e5b619dfe6ada602))
+
+
+### Bug Fixes
+
+* **build:** include spark-core and spark-annotation in nmcp aggregation ([#2267](https://github.com/leboncoin/spark-android/issues/2267)) ([5e5e0c0](https://github.com/leboncoin/spark-android/commit/5e5e0c0aa1e95e1470f6c015c6cbd91b549f2f59))
+* **build:** pin animation-graphics version for spark-core publishing ([#2270](https://github.com/leboncoin/spark-android/issues/2270)) ([8d4ca8b](https://github.com/leboncoin/spark-android/commit/8d4ca8b16825ab6bd48473dc76477ab26c9b9ca4))
+* **buttons:** use transparent background for outlined button variants ([#2277](https://github.com/leboncoin/spark-android/issues/2277)) ([7438603](https://github.com/leboncoin/spark-android/commit/743860327337e21158b92cee870d7c0beaaf14c5))
+* **useravatar:** resolve Color.Unspecified before Surface background ([#2282](https://github.com/leboncoin/spark-android/issues/2282)) ([fcabcd5](https://github.com/leboncoin/spark-android/commit/fcabcd5382d316133d5c4abe2f0c2a4310cda9a9))
+
+
+### Miscellaneous
+
+* **baseline:** regenerate baseline profiles ([#2272](https://github.com/leboncoin/spark-android/issues/2272)) ([55df42a](https://github.com/leboncoin/spark-android/commit/55df42a7973163dbdf769a8c5a6aaeacc586af3e))
+* **deps:** bump androidx.compose:compose-bom from 2026.08.00 to 2026.09.00 ([#2268](https://github.com/leboncoin/spark-android/issues/2268)) ([2b40dde](https://github.com/leboncoin/spark-android/commit/2b40dde868d7ca3a9f78cf503f5b65a34a11cc30))
+* **deps:** bump com.composables:composeunstyled-disclosure from 2.9.2 to 2.10.0 ([#2278](https://github.com/leboncoin/spark-android/issues/2278)) ([9a0a46e](https://github.com/leboncoin/spark-android/commit/9a0a46ec273084fb16323ecc3db4da6a2df3f939))
+* **deps:** bump com.github.skydoves:colorpicker-compose from 1.2.0 to 1.3.0 ([#2274](https://github.com/leboncoin/spark-android/issues/2274)) ([9ba3e7b](https://github.com/leboncoin/spark-android/commit/9ba3e7b50b8d05976057c1b937a072a113b30fcc))
+* **deps:** bump github/codeql-action from 4.38.0 to 4.38.1 in /.github/workflows ([#2276](https://github.com/leboncoin/spark-android/issues/2276)) ([3f61821](https://github.com/leboncoin/spark-android/commit/3f61821daf8e7c0c477c3bb0f0bf5cc7a05129dc))
+* **deps:** bump io.coil-kt.coil3:coil-bom from 3.6.2 to 3.6.3 ([#2280](https://github.com/leboncoin/spark-android/issues/2280)) ([7f17f15](https://github.com/leboncoin/spark-android/commit/7f17f1559a49fd1f1a6bd81a21e963904f929a85))
+
+
+### Refactoring
+
+* replace keyed LaunchedEffect with SideEffect ([#2265](https://github.com/leboncoin/spark-android/issues/2265)) ([fdfe068](https://github.com/leboncoin/spark-android/commit/fdfe06847d2378a7cfe29389217e58c2a6671dce))
+
+## [4.0.0](https://github.com/leboncoin/spark-android/compare/3.7.0...4.0.0) (2026-09-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* **tag:** add Tag.Ai variant and unify variants under Tag namespace ([#2238](https://github.com/leboncoin/spark-android/issues/2238))
+* **intent:** remove deprecated Basic intent shims ([#1902](https://github.com/leboncoin/spark-android/issues/1902))
+
+### Features
+
+* **core:** extract spark-core KMP module with theme, tokens, and icons ([#1928](https://github.com/leboncoin/spark-android/issues/1928)) ([f5ce38c](https://github.com/leboncoin/spark-android/commit/f5ce38cb76dd3f8f5a48b27a7b7ee2d230b9e761))
+* **intent:** remove deprecated Basic intent shims ([#1902](https://github.com/leboncoin/spark-android/issues/1902)) ([f906fd3](https://github.com/leboncoin/spark-android/commit/f906fd38d445cfdc0075c54d936ad128caa048b5))
+* **tag:** add Tag.Ai variant and unify variants under Tag namespace ([#2238](https://github.com/leboncoin/spark-android/issues/2238)) ([8bfb9e4](https://github.com/leboncoin/spark-android/commit/8bfb9e48e318be451eb72fae4fbd093fbb52ac84))
+* **typography:** add catalog example, configurator, and screenshots ([#2261](https://github.com/leboncoin/spark-android/issues/2261)) ([3d93266](https://github.com/leboncoin/spark-android/commit/3d932660d60c126daf7d5ac8c16575130d5ae55e))
+
+
+### Miscellaneous
+
+* **baseline:** regenerate baseline profiles ([#2254](https://github.com/leboncoin/spark-android/issues/2254)) ([d49b507](https://github.com/leboncoin/spark-android/commit/d49b507c3d992750cef2cc6db067952a424f7b71))
+* **deps:** bump androidx-benchmark from 1.5.0-rc02 to 1.5.0 ([#2256](https://github.com/leboncoin/spark-android/issues/2256)) ([40d846b](https://github.com/leboncoin/spark-android/commit/40d846bfb647a54ac221e85300cd753937628d97))
+* **deps:** bump androidx.compose:compose-bom from 2026.06.00 to 2026.08.00 ([#2173](https://github.com/leboncoin/spark-android/issues/2173)) ([d372c01](https://github.com/leboncoin/spark-android/commit/d372c016b683c9669cb43d0bce2daf7edc985b24))
+* **deps:** bump androidx.navigation:navigation-compose from 2.10.0 to 2.10.1 ([#2257](https://github.com/leboncoin/spark-android/issues/2257)) ([dc13022](https://github.com/leboncoin/spark-android/commit/dc130225bdd8d6c26bae7b7be573b3fa072b018e))
+* **deps:** bump com.diffplug.spotless from 8.10.1 to 8.10.2 ([#2247](https://github.com/leboncoin/spark-android/issues/2247)) ([e90775d](https://github.com/leboncoin/spark-android/commit/e90775d6e38defce845e2b5bfe545bef0f4b8b0c))
+* **deps:** bump compose-multiplatform from 1.11.1 to 1.12.0 ([#2262](https://github.com/leboncoin/spark-android/issues/2262)) ([a118e2f](https://github.com/leboncoin/spark-android/commit/a118e2f016495e13cec09885036d7707978f460a))
+* **deps:** bump filekit from 0.15.0 to 0.16.0 ([#2252](https://github.com/leboncoin/spark-android/issues/2252)) ([0139a47](https://github.com/leboncoin/spark-android/commit/0139a472628ddbdb4ae34f8db645bc3a82f25fe9))
+* **deps:** bump github/codeql-action from 4.37.9 to 4.38.0 in /.github/workflows ([#2260](https://github.com/leboncoin/spark-android/issues/2260)) ([3f84d55](https://github.com/leboncoin/spark-android/commit/3f84d55c1a08db94eb0453c66f682888db7b055b))
+* **deps:** bump io.coil-kt.coil3:coil-bom from 3.5.0 to 3.6.2 ([#2246](https://github.com/leboncoin/spark-android/issues/2246)) ([b52a71f](https://github.com/leboncoin/spark-android/commit/b52a71fdf6f06930b2d00e93168add8894762d2f))
+* **deps:** bump kotlin from 2.4.10 to 2.4.20 ([#2251](https://github.com/leboncoin/spark-android/issues/2251)) ([23c7d27](https://github.com/leboncoin/spark-android/commit/23c7d27304150480c46d56ac32b70cfe1968893a))
+* **deps:** bump robolectric to 4.17 ([#2263](https://github.com/leboncoin/spark-android/issues/2263)) ([6807658](https://github.com/leboncoin/spark-android/commit/6807658ecacee0a5f166fda24607d90a9abae889))
+* **deps:** bump zizmorcore/zizmor-action from 0.6.3 to 0.6.4 in /.github/workflows ([#2259](https://github.com/leboncoin/spark-android/issues/2259)) ([b37ad74](https://github.com/leboncoin/spark-android/commit/b37ad7449cf47b3c82efa2d2a2e0b53b4aa7c81d))
+
+## [3.7.0](https://github.com/leboncoin/spark-android/compare/3.6.2...3.7.0) (2026-09-10)
+
+
+### Features
+
+* **font:** use nunito variable font ([#2249](https://github.com/leboncoin/spark-android/issues/2249)) ([f2da744](https://github.com/leboncoin/spark-android/commit/f2da744ecec25f40735a267f202872a13ac7966b))
+
+
+### Miscellaneous
+
+* **baseline:** regenerate baseline profiles ([#2244](https://github.com/leboncoin/spark-android/issues/2244)) ([9003079](https://github.com/leboncoin/spark-android/commit/9003079df6a7cfcbe0ec1307cf01c2f74b6202ff))
+* **deps:** bump actions/deploy-pages from 5.0.0 to 5.0.1 in /.github/workflows ([#2243](https://github.com/leboncoin/spark-android/issues/2243)) ([ead2692](https://github.com/leboncoin/spark-android/commit/ead2692c5e6eb74868a5c35e036511b54ce8e8bd))
+* **deps:** bump com.gradleup.nmcp from 1.6.1 to 1.6.2 ([#2242](https://github.com/leboncoin/spark-android/issues/2242)) ([7c70109](https://github.com/leboncoin/spark-android/commit/7c701095c5b0891159fe3d73fe4ed12ef28173da))
+
+## [3.6.2](https://github.com/leboncoin/spark-android/compare/3.6.1...3.6.2) (2026-09-02)
+
+
+### Bug Fixes
+
+* **tabgroup:** multiple component we produced outside of a layout ([#2237](https://github.com/leboncoin/spark-android/issues/2237)) ([f0e0c9c](https://github.com/leboncoin/spark-android/commit/f0e0c9cc4be6999de651d756fcc2cd8b3c5f0495))
+
+## [3.6.1](https://github.com/leboncoin/spark-android/compare/3.6.0...3.6.1) (2026-09-02)
+
+
+### Bug Fixes
+
+* **switch:** correct unchecked and disabled track colors ([#2209](https://github.com/leboncoin/spark-android/issues/2209)) ([cfae260](https://github.com/leboncoin/spark-android/commit/cfae26030ff19af3661dceb9cfdd0bd1c53cc932))
+
+
+### Miscellaneous
+
+* **baseline:** regenerate baseline profiles ([#2224](https://github.com/leboncoin/spark-android/issues/2224)) ([07677a4](https://github.com/leboncoin/spark-android/commit/07677a45396a52b2783d1959a0c3ff01320a8caa))
+* **deps:** bump actions/setup-java from 5 to 6 in /.github/actions/setup-java ([#2223](https://github.com/leboncoin/spark-android/issues/2223)) ([3c2e8c0](https://github.com/leboncoin/spark-android/commit/3c2e8c0e1d76c8101e68f6553e1d88055808ddae))
+* **deps:** bump agp from 9.3.1 to 9.3.2 ([#2220](https://github.com/leboncoin/spark-android/issues/2220)) ([8243093](https://github.com/leboncoin/spark-android/commit/8243093954c8f4cf65a6745b1dde1cbf300f1f24))
+* **deps:** bump androidx-benchmark from 1.5.0-beta01 to 1.5.0-rc01 ([#2219](https://github.com/leboncoin/spark-android/issues/2219)) ([2672216](https://github.com/leboncoin/spark-android/commit/2672216c6c07554f04d9fb7f5682397bf4b9944c))
+* **deps:** bump androidx-benchmark from 1.5.0-rc01 to 1.5.0-rc02 ([#2228](https://github.com/leboncoin/spark-android/issues/2228)) ([2f6f861](https://github.com/leboncoin/spark-android/commit/2f6f8615f9166772a62880b0c2b6cb3b7ccf1af0))
+* **deps:** bump androidx.navigation:navigation-compose from 2.9.8 to 2.10.0 ([#2226](https://github.com/leboncoin/spark-android/issues/2226)) ([1b389b7](https://github.com/leboncoin/spark-android/commit/1b389b73dfea743a369bc6e56436896e1a706f2f))
+* **deps:** bump androidx.test.uiautomator:uiautomator from 2.3.0 to 2.4.0 ([#2222](https://github.com/leboncoin/spark-android/issues/2222)) ([a0e687f](https://github.com/leboncoin/spark-android/commit/a0e687f77911cfc4dc97d6b61c91833bc289f5ed))
+* **deps:** bump com.composables:composeunstyled-disclosure from 2.9.0 to 2.9.2 ([#2235](https://github.com/leboncoin/spark-android/issues/2235)) ([ac3400d](https://github.com/leboncoin/spark-android/commit/ac3400de84b57a72039c7c642f49452b4b46ba37))
+* **deps:** bump com.diffplug.spotless from 8.10.0 to 8.10.1 ([#2229](https://github.com/leboncoin/spark-android/issues/2229)) ([249306f](https://github.com/leboncoin/spark-android/commit/249306fe353dc670db00ee9a52906ab660d0b86c))
+* **deps:** bump com.slack.lint.compose:compose-lint-checks from 1.5.4 to 1.6.0 ([#2227](https://github.com/leboncoin/spark-android/issues/2227)) ([146fd49](https://github.com/leboncoin/spark-android/commit/146fd494191806f4abb100760261ca88acc6908c))
+* **deps:** bump github/codeql-action from 4.37.7 to 4.37.8 in /.github/workflows ([#2221](https://github.com/leboncoin/spark-android/issues/2221)) ([e9cb653](https://github.com/leboncoin/spark-android/commit/e9cb65396f74ddadf4ad25d04a5d4e189e2d034a))
+* **deps:** bump github/codeql-action from 4.37.8 to 4.37.9 in /.github/workflows ([#2231](https://github.com/leboncoin/spark-android/issues/2231)) ([6426237](https://github.com/leboncoin/spark-android/commit/64262375fa3ece3bcac839b31847112d9a735307))
+* **deps:** bump gradle-wrapper from 9.7.0 to 9.7.1 ([#2218](https://github.com/leboncoin/spark-android/issues/2218)) ([7ab45ff](https://github.com/leboncoin/spark-android/commit/7ab45ff42f31fd65f20640bd610e042e4c09d6be))
+* **deps:** bump org.jetbrains.kotlinx:kotlinx-collections-immutable from 0.5.1 to 0.5.2 ([#2232](https://github.com/leboncoin/spark-android/issues/2232)) ([30bf916](https://github.com/leboncoin/spark-android/commit/30bf9169f8865cd8bab351e2e9f8cc5029c5fc1a))
+* **deps:** bump zizmorcore/zizmor-action from 0.6.2 to 0.6.3 in /.github/workflows ([#2234](https://github.com/leboncoin/spark-android/issues/2234)) ([4bf346d](https://github.com/leboncoin/spark-android/commit/4bf346d42d97bbd8ce4bf84546264a4d1336a6d1))
+* remove @SimonMarquis from CODEOWNERS ([#2216](https://github.com/leboncoin/spark-android/issues/2216)) ([bc5abd5](https://github.com/leboncoin/spark-android/commit/bc5abd5cf25ebddf3bf40049a1c22587321000d2))
+* remove @SimonMarquis from CODEOWNERS for global path ([#2215](https://github.com/leboncoin/spark-android/issues/2215)) ([be77ce4](https://github.com/leboncoin/spark-android/commit/be77ce41723de9f7cf20109eb2699089287bf9c3))
+
+
+### Documentation
+
+* add documentation screenshots for remaining Spark components ([#2212](https://github.com/leboncoin/spark-android/issues/2212)) ([1bc7561](https://github.com/leboncoin/spark-android/commit/1bc7561ce40d37482b16ecf965f75cb94be9da32))
+* adopt sparkDocSnapshot in doc tests and add KDoc image references ([#2210](https://github.com/leboncoin/spark-android/issues/2210)) ([bb9e70d](https://github.com/leboncoin/spark-android/commit/bb9e70da1ebf8f0ff294a3e027b15cc3a07e1fbc))
+* **placeholder:** add screenshots to KDoc for placeholder modifiers ([#2211](https://github.com/leboncoin/spark-android/issues/2211)) ([e25f7ca](https://github.com/leboncoin/spark-android/commit/e25f7cac1759a06afc2742dc00dc6b152a3d693a))
+
+## [3.6.0](https://github.com/leboncoin/spark-android/compare/3.5.2...3.6.0) (2026-08-21)
+
+
+### Features
+
+* **benchmark:** add macrobenchmark module with baseline profiles and CI ([#2158](https://github.com/leboncoin/spark-android/issues/2158)) ([25b38fa](https://github.com/leboncoin/spark-android/commit/25b38fac7ee0ec24baa14f27bdbffe6bb8201e46))
+* **icons:** update icons ([#2206](https://github.com/leboncoin/spark-android/issues/2206)) ([d43e781](https://github.com/leboncoin/spark-android/commit/d43e781bf46e5a7557caf2b945f439538aa9d214))
+
+## [3.5.2](https://github.com/leboncoin/spark-android/compare/3.5.1...3.5.2) (2026-08-20)
+
+
+### Bug Fixes
+
+* **tabgroup:** remove background ([#2194](https://github.com/leboncoin/spark-android/issues/2194)) ([4dd3967](https://github.com/leboncoin/spark-android/commit/4dd3967088f24be1385f991e55061f9ac801f7c2))
+
+
+### Miscellaneous
+
+* **deps:** bump com.diffplug.spotless from 8.9.0 to 8.10.0 ([#2193](https://github.com/leboncoin/spark-android/issues/2193)) ([156e412](https://github.com/leboncoin/spark-android/commit/156e4128301a214ccc49eb41e32a60d69dca0efc))
+
+
+### Refactoring
+
+* **image:** inline FoundationImage and remove SparkIllustration wrapper ([#2187](https://github.com/leboncoin/spark-android/issues/2187)) ([fcf8e71](https://github.com/leboncoin/spark-android/commit/fcf8e715f4ee55282e0f5630e635490439c008f6))
+
+## [3.5.1](https://github.com/leboncoin/spark-android/compare/3.5.0...3.5.1) (2026-08-19)
+
+
+### Bug Fixes
+
+* **drawer:** use SparkTheme.shapes for the default drawer shape ([#2180](https://github.com/leboncoin/spark-android/issues/2180)) ([fc8b6ee](https://github.com/leboncoin/spark-android/commit/fc8b6ee4045307e8087c378eb5a7946db5d2fe34))
+* **fileupload:** forward size, icon and iconSide to the underlying button ([#2179](https://github.com/leboncoin/spark-android/issues/2179)) ([f493671](https://github.com/leboncoin/spark-android/commit/f493671903bd9f30473246edb9dbd97da2e42bbd))
+* **popover:** remove empty CompositionLocalProvider wrapper ([#2186](https://github.com/leboncoin/spark-android/issues/2186)) ([772c477](https://github.com/leboncoin/spark-android/commit/772c477e658ddf43bd1e56ac12d13116dd3fc45f))
+* **progress:** forward style param and use fastForEachIndexed ([#2181](https://github.com/leboncoin/spark-android/issues/2181)) ([8bc3913](https://github.com/leboncoin/spark-android/commit/8bc39135c381bbc69dc61e2c0d288404a44cdec6))
+* **rating:** read value directly without remember ([#2182](https://github.com/leboncoin/spark-android/issues/2182)) ([2fc1ccc](https://github.com/leboncoin/spark-android/commit/2fc1ccc22260dc52d0bb12a8fc5b610a4b215a46))
+* **res:** key annotated plural string caches on count and format args ([#2178](https://github.com/leboncoin/spark-android/issues/2178)) ([aeac099](https://github.com/leboncoin/spark-android/commit/aeac099ef9538318c187f8b6b7f9e533f95be0b9))
+* **snackbar:** remove dead ImageRequest.Builder allocation ([#2177](https://github.com/leboncoin/spark-android/issues/2177)) ([c7f5b59](https://github.com/leboncoin/spark-android/commit/c7f5b594cac91762cc8704f2ee1b60c1ed884b25))
+* **stepper:** expose placeholder in public API ([#2191](https://github.com/leboncoin/spark-android/issues/2191)) ([6dd3fc3](https://github.com/leboncoin/spark-android/commit/6dd3fc38d6fddd5d0e92ce837b49ff309d8ee412))
+
+
+### Miscellaneous
+
+* **deps:** remove unused compose material3 dependency ([#2188](https://github.com/leboncoin/spark-android/issues/2188)) ([fef0b38](https://github.com/leboncoin/spark-android/commit/fef0b3860b4c3202448076c080bde70cfe9d0164))
+* **divider:** remove commented-out debug text ([#2189](https://github.com/leboncoin/spark-android/issues/2189)) ([6e943b1](https://github.com/leboncoin/spark-android/commit/6e943b1c3c2c979c39689f7ec2f5d9e478d99147))
+* **progress:** remove unused spinner animation constants ([#2183](https://github.com/leboncoin/spark-android/issues/2183)) ([6ae727f](https://github.com/leboncoin/spark-android/commit/6ae727ffcc1eb2e34549ae34eeeaa4600323dc72))
+* **res:** remove unused large string annotation mapping ([#2185](https://github.com/leboncoin/spark-android/issues/2185)) ([c78484a](https://github.com/leboncoin/spark-android/commit/c78484a3d82818ce6064b96570be3904675f049a))
+
+
+### Refactoring
+
+* **dialog:** remove landscape illustration from ModalScaffold ([#2184](https://github.com/leboncoin/spark-android/issues/2184)) ([b3cedbc](https://github.com/leboncoin/spark-android/commit/b3cedbca1cde7a7e1785a3805ff8378dc466f18a))
+
+## [3.5.0](https://github.com/leboncoin/spark-android/compare/3.4.0...3.5.0) (2026-08-18)
+
+
+### Features
+
+* **segmented-control:** Conform component shape and padding to specs ([#2169](https://github.com/leboncoin/spark-android/issues/2169)) ([5b93b52](https://github.com/leboncoin/spark-android/commit/5b93b52e7ae0d42c02923e3d0aa4dafdd4aaebf5))
+* **stepper:** introduce Nudger and Input variants with new Stepper object API ([#2163](https://github.com/leboncoin/spark-android/issues/2163)) ([9a4094f](https://github.com/leboncoin/spark-android/commit/9a4094f6105c54494845dad8b2edad718b3c5622))
+* **tokens:** make highlight text weight themeable ([#2175](https://github.com/leboncoin/spark-android/issues/2175)) ([59ccfc7](https://github.com/leboncoin/spark-android/commit/59ccfc7cad4dabdf293915b4f848770e5460c4b4))
+
+
+### Bug Fixes
+
+* **build:** support Gradle Isolated Projects ([#2168](https://github.com/leboncoin/spark-android/issues/2168)) ([b371dc2](https://github.com/leboncoin/spark-android/commit/b371dc2da8385c99781ea3942cd1e8efd5a19414))
+* **ci:** restore credentials in dependabot baseline job ([#2164](https://github.com/leboncoin/spark-android/issues/2164)) ([9b44006](https://github.com/leboncoin/spark-android/commit/9b44006214ef5085ac57d79a7d89315c74fcab85))
+* **lint:** remove unneeded Composable annotation from ComposeRedundantComposable rule ([#2006](https://github.com/leboncoin/spark-android/issues/2006)) ([a829e8a](https://github.com/leboncoin/spark-android/commit/a829e8a1fbfef3383854edc46e5056dc70fa03f5))
+
+
+### Miscellaneous
+
+* **deps:** bump actions/checkout from 7.0.0 to 7.0.1 in /.github/workflows ([#2083](https://github.com/leboncoin/spark-android/issues/2083)) ([78b3947](https://github.com/leboncoin/spark-android/commit/78b394700272583558f7ea984f8d11145f4a1524))
+* **deps:** bump androidx-appCompat from 1.7.1 to 1.8.0 ([#2170](https://github.com/leboncoin/spark-android/issues/2170)) ([6668118](https://github.com/leboncoin/spark-android/commit/66681181ff32b8240133770e693639891460669b))
+* **deps:** bump com.diffplug.spotless from 8.8.0 to 8.9.0 ([#2136](https://github.com/leboncoin/spark-android/issues/2136)) ([71230ca](https://github.com/leboncoin/spark-android/commit/71230ca56dadb5b988aa7038ad5b4d3b6fa2ec9d))
+* **deps:** bump com.slack.lint.compose:compose-lint-checks from 1.4.3 to 1.5.4 ([#2171](https://github.com/leboncoin/spark-android/issues/2171)) ([1df7299](https://github.com/leboncoin/spark-android/commit/1df72992a19dac47e40329de4cf309b9bec2f2c4))
+* **deps:** bump filekit from 0.14.2 to 0.15.0 ([#2162](https://github.com/leboncoin/spark-android/issues/2162)) ([410df35](https://github.com/leboncoin/spark-android/commit/410df3528722e83c09c33c052ee444bc74dd3bf3))
+* **deps:** bump github/codeql-action from 4 to 4.37.4 in /.github/workflows ([#2154](https://github.com/leboncoin/spark-android/issues/2154)) ([8b2eb05](https://github.com/leboncoin/spark-android/commit/8b2eb05c8dd15a1201e8e24dffdf266695db0769))
+* **deps:** bump github/codeql-action from 4.37.4 to 4.37.7 in /.github/workflows ([#2174](https://github.com/leboncoin/spark-android/issues/2174)) ([00d45a7](https://github.com/leboncoin/spark-android/commit/00d45a7cc421a21bc8a13998752c423f09660c23))
+* **deps:** bump gradle-wrapper from 9.6.1 to 9.7.0 ([#2160](https://github.com/leboncoin/spark-android/issues/2160)) ([21d3bb5](https://github.com/leboncoin/spark-android/commit/21d3bb5a331b4eb8c558ca1a7e19ef4fa5f31b4f))
+* **deps:** bump gradle/actions/setup-gradle from 6.2.0 to 6.3.0 in /.github/actions/setup-gradle ([#2156](https://github.com/leboncoin/spark-android/issues/2156)) ([63e3746](https://github.com/leboncoin/spark-android/commit/63e3746339496b6ee4497d01ac6edfbf6a8007f2))
+* **deps:** bump org.jetbrains.kotlinx:kotlinx-collections-immutable from 0.5.0 to 0.5.1 ([#2097](https://github.com/leboncoin/spark-android/issues/2097)) ([79b22ad](https://github.com/leboncoin/spark-android/commit/79b22ad8473d8d41afcab7b78f78e297d7c3bde6))
+* **deps:** bump toshimaru/auto-author-assign from 3.0.3 to 3.1.0 in /.github/workflows ([#2172](https://github.com/leboncoin/spark-android/issues/2172)) ([2319043](https://github.com/leboncoin/spark-android/commit/23190437e1e78525f644b7cd65ce76d00f2d77c9))
+* **deps:** bump zizmorcore/zizmor-action from 0.6.1 to 0.6.2 in /.github/workflows ([#2155](https://github.com/leboncoin/spark-android/issues/2155)) ([e99a17e](https://github.com/leboncoin/spark-android/commit/e99a17e6ca360de162da8f4711c6d58f8e165107))
+* **llm:** Ignore folder and files that contextualize the repo ([#2176](https://github.com/leboncoin/spark-android/issues/2176)) ([532139e](https://github.com/leboncoin/spark-android/commit/532139e52d709e44426a9a48bfb25c8ccfd8dc4c))
+
+
+### Documentation
+
+* fix KDoc URL in README ([#2159](https://github.com/leboncoin/spark-android/issues/2159)) ([dea36e4](https://github.com/leboncoin/spark-android/commit/dea36e45da58c5fe094cb07b8faf7f9a46b66b39))
+* **progress:** add ProgressIndicators.md and update Spinner.md with … ([#2151](https://github.com/leboncoin/spark-android/issues/2151)) ([ccbae5c](https://github.com/leboncoin/spark-android/commit/ccbae5c3d533f19f90e8722bb7f18749f447e04a))
+* standardize generator script command ([#2161](https://github.com/leboncoin/spark-android/issues/2161)) ([6819d15](https://github.com/leboncoin/spark-android/commit/6819d15436f499e950f7f1a5336a5f4e006abf40))
+
 ## [3.4.0](https://github.com/leboncoin/spark-android/compare/3.3.0...3.4.0) (2026-08-03)
 
 

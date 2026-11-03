@@ -97,6 +97,7 @@ import java.io.File
  * @param onClick Optional callback invoked when the file preview is clicked. If null, the preview is not clickable.
  * @param clearIcon Icon to use for the clear button. Defaults to [LeboncoinIcons.Cross].
  * @sample com.adevinta.spark.components.fileupload.FilePreviewStatesSamples
+ * ![PreviewFile](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.fileupload_FileUploadDocumentationScreenshots_fileUploadPreview.png)
  */
 @InternalSparkApi
 @Composable

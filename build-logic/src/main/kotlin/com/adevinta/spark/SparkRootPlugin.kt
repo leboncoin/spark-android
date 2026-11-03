@@ -29,7 +29,6 @@ internal class SparkRootPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             apply<SparkSpotlessPlugin>()
-            SparkUnitTests.configureRootProject(project)
             SparkPublication.configureRootProject(project)
         }
     }

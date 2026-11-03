@@ -41,7 +41,7 @@ catalog/src/main/kotlin/com/adevinta/spark/catalog/
 └── examples/samples/{package}/ComponentExamples.kt
 ```
 
-> **Tip:** Run `kotlin scripts/generate-component.main.kts` to scaffold all seven files at once.
+> **Tip:** Run `./scripts/generate-component.main.kts` to scaffold all seven files at once.
 > Pass `--variants Elevated Outlined` to pre-populate variant stubs.
 
 #### Reference Implementation: Button Component
@@ -49,10 +49,8 @@ catalog/src/main/kotlin/com/adevinta/spark/catalog/
 The Button component exemplifies this structure:
 
 - `Button.kt` - Public API object with `Filled`, `Outlined`, `Ghost`, `Tinted`, `Contrast` variants
-- `ButtonDefaults.kt` - Color mappings, elevation tokens, and shape definitions
 - `ButtonIntent.kt` - Semantic color intentions (Main, Support, etc.)
 - `ButtonSize.kt` - Standardized sizing scale (Small, Medium, Large)
-- `ButtonShape.kt` - Shape abstractions (Square, Rounded, Pill)
 - `Buttons.md` - Component documentation with screenshots and usage examples
 
 ### API Design Principles
@@ -456,6 +454,7 @@ private val ComponentName = Component(
     name = "Component Display Name",
     description = R.string.component_description,
     illustration = R.drawable.component_illustration, // Optional, it'll use the spark logo by default
+    illustrationLarge = R.drawable.component_illustration_large, // Optional, shown on expanded windows
     guidelinesUrl = "$ComponentGuidelinesUrl/component-path",
     docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.component/index.html",
     sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/component/Component.kt",
@@ -470,7 +469,7 @@ public val Components: List<Component> = listOf(
 ).sortedBy { it.name }
 ```
 
-#### Interactive configuration support aka the Configurator 😈
+#### Interactive configuration support aka the Configurator
 
 For components with multiple configuration options, provide interactive configurators that allow
 real-time parameter adjustment:

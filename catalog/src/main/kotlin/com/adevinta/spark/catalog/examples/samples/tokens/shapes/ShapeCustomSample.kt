@@ -43,27 +43,31 @@ import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.SingleChoiceDropdown
 import com.adevinta.spark.tokens.Order
+import com.adevinta.spark.tokens.SparkShapes
 import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.full.findAnnotation
 
 @Composable
 internal fun ColumnScope.ShapeCustomSample() {
-    val defaultValue = SparkTheme.shapes.none
+    val sparkShapes = SparkTheme.shapes
+    val defaultValue = sparkShapes.none
+    val shapeTokens = shapes
+    val shapeNames = remember(sparkShapes) { sparkShapes.propertyNames() }
 
     var selectedShape by remember { mutableStateOf(defaultValue) }
     var expanded by remember { mutableStateOf(false) }
 
     SingleChoiceDropdown(
         modifier = Modifier.fillMaxWidth(),
-        value = shapes.first { it == selectedShape }.propertyName(),
+        value = shapeNames[shapeTokens.indexOf(selectedShape)],
         label = "Shape",
         expanded = expanded,
         onExpandedChange = { expanded = !expanded },
         onDismissRequest = { expanded = false },
         dropdownContent = {
-            shapes.forEach { shape ->
+            shapeTokens.forEachIndexed { index, shape ->
                 DropdownMenuItem(
-                    text = { Text(shape.propertyName()) },
+                    text = { Text(shapeNames[index]) },
                     onClick = {
                         selectedShape = shape
                         expanded = false
@@ -107,13 +111,10 @@ private val shapes: List<CornerBasedShape>
         SparkTheme.shapes.extraLarge,
     )
 
-@Suppress("ReplaceGetOrSet")
-@Composable
-private fun CornerBasedShape.propertyName(): String = SparkTheme.shapes::class
+private fun SparkShapes.propertyNames(): List<String> = this::class
     .declaredMemberProperties
     .sortedBy { it.findAnnotation<Order>()?.value ?: Int.MAX_VALUE }
-    .get(shapes.indexOf(this))
-    .name
+    .map { it.name }
 
 @Preview
 @Composable

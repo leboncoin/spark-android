@@ -72,7 +72,8 @@ internal fun Flow<Theme>.collectAsStateWithDefault(context: Context): State<Them
 
 private fun ThemeProperties.toTheme(): Theme = Theme(
     fontScale = fontScale,
-    userMode = userMode,
+    brandMode = brandMode,
+    versionMode = versionMode,
     themeMode = themeMode,
     colorMode = colorMode,
     fontScaleMode = fontScaleMode,
@@ -82,13 +83,13 @@ private fun ThemeProperties.toTheme(): Theme = Theme(
     textDirection = textDirection,
     highlightSparkComponents = highlightSparkComponents,
     highlightSparkTokens = highlightSparkTokens,
-    useRebrandedShapes = useRebrandedShapes,
     useRebrandedButtons = useRebrandedButtons,
 )
 
 private fun Theme.toDataStoreThemeProperties(): ThemeProperties = ThemeProperties(
     fontScale = fontScale,
-    userMode = userMode,
+    brandMode = brandMode,
+    versionMode = versionMode,
     themeMode = themeMode,
     colorMode = colorMode,
     fontScaleMode = fontScaleMode,
@@ -98,6 +99,5 @@ private fun Theme.toDataStoreThemeProperties(): ThemeProperties = ThemePropertie
     textDirection = textDirection,
     highlightSparkComponents = highlightSparkComponents,
     highlightSparkTokens = highlightSparkTokens,
-    useRebrandedShapes = useRebrandedShapes,
     useRebrandedButtons = useRebrandedButtons,
 )

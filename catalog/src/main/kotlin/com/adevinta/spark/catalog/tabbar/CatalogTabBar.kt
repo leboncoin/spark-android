@@ -93,10 +93,10 @@ private fun AppIcon() {
 @SuppressLint("MaterialComposableHasSparkReplacement")
 @Composable
 internal fun CatalogTabs(
-    modifier: Modifier = Modifier,
     titles: ImmutableList<String>,
     tabSelected: CatalogHomeScreen,
-    onTabSelected: (CatalogHomeScreen) -> Unit,
+    onTabSelect: (CatalogHomeScreen) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     SecondaryScrollableTabRow(
         selectedTabIndex = tabSelected.ordinal,
@@ -116,7 +116,7 @@ internal fun CatalogTabs(
     ) {
         titles.forEachIndexed { index, title ->
             val selected = index == tabSelected.ordinal
-            CatalogTab(selected, onTabSelected, index, title)
+            CatalogTab(selected, onTabSelect, index, title)
         }
     }
 }
@@ -162,7 +162,7 @@ private fun CatalogTabBarPreview() {
                 modifier = tabBarModifier,
                 titles = CatalogHomeScreen.entries.map { it.name }.toImmutableList(),
                 tabSelected = CatalogHomeScreen.Examples,
-                onTabSelected = { },
+                onTabSelect = { },
             )
         }
     }

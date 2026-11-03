@@ -28,6 +28,7 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.rememberTransition
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CornerBasedShape
@@ -160,6 +161,8 @@ public object SegmentedControlDefaults {
         },
         label = "segmentIconColor",
     )
+
+    public val customItemPadding: PaddingValues = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
 }
 
 /**

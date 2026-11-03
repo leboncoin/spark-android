@@ -48,7 +48,10 @@ import com.adevinta.spark.catalog.ui.ButtonGroup
 import com.adevinta.spark.catalog.ui.DropdownEnum
 import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonOutlined
+import com.adevinta.spark.components.buttons.Tertiary
+import com.adevinta.spark.components.buttons.Underlined
 import com.adevinta.spark.components.iconbuttons.IconButtonFilled
 import com.adevinta.spark.components.image.Illustration
 import com.adevinta.spark.components.image.Image
@@ -164,10 +167,7 @@ private fun ConfiguredPopover(
                         text = "Do you want to have this cookie now?",
                         style = SparkTheme.typography.body2.highlight,
                     )
-                    TextLinkButton(
-                        text = "Text Link",
-                        onClick = {},
-                    )
+                    Button.Underlined(text = "Text Link", onClick = {})
                 }
 
                 PopoverContentExamples.Image -> Image(
@@ -193,10 +193,7 @@ private fun ConfiguredPopover(
         ) {
             when (popoverTriggerExample) {
                 PopoverTriggerExamples.Button -> {
-                    ButtonOutlined(
-                        text = "Display Popover",
-                        onClick = { scope.launch { popoverState.show() } },
-                    )
+                    Button.Tertiary(onClick = { scope.launch { popoverState.show() } }, text = "Display Popover")
                 }
 
                 PopoverTriggerExamples.Icon -> {

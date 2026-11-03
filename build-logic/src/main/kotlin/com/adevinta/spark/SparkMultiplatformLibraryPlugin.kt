@@ -23,6 +23,7 @@ package com.adevinta.spark
 
 import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryExtension
 import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget
+import com.gradleup.tapmoc.TapmocExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
@@ -30,15 +31,21 @@ import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import java.io.File
 
 internal class SparkMultiplatformLibraryPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             apply(plugin = "com.android.kotlin.multiplatform.library")
+            pluginManager.apply("com.gradleup.tapmoc")
+            extensions.configure<TapmocExtension> {
+                java(11)
+                kotlin(spark().versions.kotlin.requiredVersion)
+            }
             extensions.configure<KotlinMultiplatformExtension> {
                 targets.withType<KotlinMultiplatformAndroidLibraryTarget>().configureEach {
                     compilerOptions {
-                        jvmTarget.set(JvmTarget.JVM_21)
+                        jvmTarget.set(JvmTarget.JVM_11)
                     }
                 }
                 extensions.configure<KotlinMultiplatformAndroidLibraryExtension> {

@@ -28,7 +28,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -36,7 +35,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.PreviewTheme
-import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.iconbuttons.IconButtonTokens
 import com.adevinta.spark.components.stepper.StepperDefaults
 import com.adevinta.spark.components.stepper.applyStep
@@ -99,7 +97,7 @@ internal fun SparkNudger(
             contentDescription = "", // handled by semantics modifier
             enabled = canDecrement,
             colors = colors,
-            shape = IconButtonTokens.resolveFullShape(SparkTheme.shapes.large) as CornerBasedShape,
+            shape = IconButtonTokens.shape,
             interactionSource = interactionSource,
             onClick = { onValueChange(applyStep(value, -step, range)) },
         )
@@ -130,7 +128,7 @@ internal fun SparkNudger(
             contentDescription = "", // handled by semantics modifier
             enabled = canIncrement,
             colors = colors,
-            shape = IconButtonTokens.resolveFullShape(SparkTheme.shapes.large) as CornerBasedShape,
+            shape = IconButtonTokens.shape,
             interactionSource = interactionSource,
             onClick = { onValueChange(applyStep(value, step, range)) },
         )

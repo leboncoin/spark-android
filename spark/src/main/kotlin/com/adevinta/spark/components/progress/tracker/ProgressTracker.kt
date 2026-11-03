@@ -47,6 +47,7 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -114,6 +115,8 @@ import androidx.compose.material3.VerticalDivider as MaterialVerticalDivider
  * @property selectedStep The index of the currently selected step. All steps before this index will be marked as done.
  *
  * @see [ProgressTrackerColumn]
+ * ![Progress Tracker Row showcase](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.progress.tracker_ProgressTrackerDocumentationScreenshots_progressRowShowcase.png)
+ * ![Progress Tracker sizes showcase](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.progress.tracker_ProgressTrackerDocumentationScreenshots_progressSizesShowcase.png)
  */
 @Composable
 @ExperimentalSparkApi
@@ -160,6 +163,7 @@ public fun ProgressTrackerRow(
  * @property selectedStep The index of the currently selected step. All steps before this index will be marked as done.
  *
  * @see [ProgressTrackerRow]
+ * ![Progress Tracker Column showcase](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.progress.tracker_ProgressTrackerDocumentationScreenshots_progressColumnShowcase.png)
  */
 @Composable
 @ExperimentalSparkApi
@@ -184,6 +188,7 @@ public fun ProgressTrackerColumn(
         orientation = Vertical,
         modifier = modifier,
         intent = intent,
+        style = style,
         size = size,
         readOnly = readOnly,
         hasIndicatorContent = hasIndicatorContent,
@@ -246,7 +251,7 @@ private fun ProgressTracker(
         }
     }
     val stepIndicators = @Composable {
-        items.forEachIndexed { index, progressStep ->
+        items.fastForEachIndexed { index, progressStep ->
             // If selectedStep is null, no step is shown as selected
             val isDone = index < (selectedStep ?: -1)
             StepIndicator(
@@ -286,6 +291,7 @@ internal enum class LayoutOrientation {
 }
 
 @Composable
+@ReadOnlyComposable
 internal fun progressTrackerMeasurePolicy(
     orientation: LayoutOrientation,
     indicatorSize: TextUnit,

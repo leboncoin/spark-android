@@ -26,6 +26,7 @@ import androidx.annotation.FloatRange
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.movableContentOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -145,6 +146,7 @@ internal fun formattedRatingValue(locale: Locale, value: Float): String = rememb
  * @param commentCount number of collected ratings
  * @param locale the locale to use to format the rating value
  * @param labelSide the side of the label
+ * ![Rating Simple](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.rating_RatingDocumentationScreenshots_ratingSimple.png)
  */
 @Composable
 @ExperimentalSparkApi
@@ -204,6 +206,7 @@ internal enum class RatingSize {
 }
 
 @Composable
+@ReadOnlyComposable
 internal fun firstLocale(): Locale = LocalConfiguration.current.locales[0]
 
 @Composable

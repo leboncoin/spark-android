@@ -25,6 +25,8 @@ plugins {
     alias(libs.plugins.spark.publishing)
     alias(libs.plugins.spark.dependencyGuard)
     alias(libs.plugins.spark.dokka)
+    alias(libs.plugins.spark.spotless)
+    alias(libs.plugins.baselineprofile)
 }
 
 android {
@@ -53,11 +55,12 @@ android {
 dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.constraintlayout.compose)
-    implementation(libs.androidx.compose.material3)
     lintPublish(projects.sparkLint)
+    lintChecks(projects.sparkLint)
     lintChecks(libs.slack.lint.compose)
 
     api(platform(projects.sparkBom))
+    api(projects.sparkCore)
     api(projects.sparkIcons)
 
     implementation(libs.accompanist.drawablepainter)
@@ -100,4 +103,17 @@ dependencies {
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.androidx.compose.ui.testJUnit)
     androidTestImplementation(libs.androidx.compose.ui.testManifest)
+
+    baselineProfile(project(":catalog:baselineprofile"))
+}
+
+// Baseline Profile Gradle plugin configuration.
+baselineProfile {
+
+    // Filters the generated profile rules.
+    filter {
+        include("com.adevinta.spark.**")
+        exclude("com.adevinta.spark.catalog.**")
+        exclude("com.adevinta.spark.icons.**")
+    }
 }

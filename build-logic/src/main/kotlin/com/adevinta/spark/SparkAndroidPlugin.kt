@@ -21,14 +21,21 @@
  */
 package com.adevinta.spark
 
+import com.gradleup.tapmoc.TapmocExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 
 /** Configures Kotlin and Android build settings shared across all Android modules. */
 public class SparkAndroidPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
+            pluginManager.apply("com.gradleup.tapmoc")
+            extensions.configure<TapmocExtension> {
+                java(11)
+                kotlin(spark().versions.kotlin.requiredVersion)
+            }
             configureKotlin<KotlinAndroidProjectExtension>()
 
             configureAndroid {

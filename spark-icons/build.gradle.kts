@@ -26,6 +26,8 @@ plugins {
     alias(libs.plugins.spark.dokka)
     alias(libs.plugins.spark.publishing)
     alias(libs.plugins.spark.dependencyGuard)
+    alias(libs.plugins.spark.spotless)
+    alias(libs.plugins.baselineprofile)
 }
 
 kotlin {
@@ -34,12 +36,11 @@ kotlin {
             jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
         }
         namespace = "com.adevinta.spark.icons"
-        // Doesn't seem to be available for kmp?
-//        resourcePrefix = "spark_icons_"
     }
     sourceSets {
         commonMain.dependencies {
             api(project.dependencies.platform(projects.sparkBom))
+            implementation(projects.sparkAnnotation)
             implementation(libs.compose.ui)
             implementation(libs.compose.runtime)
             implementation(libs.compose.components.resources)
@@ -50,6 +51,13 @@ kotlin {
 }
 dependencies {
     androidRuntimeClasspath(libs.compose.ui.tooling)
+    baselineProfile(project(":catalog:baselineprofile"))
+}
+
+baselineProfile {
+    filter {
+        include("com.adevinta.spark.icons.**")
+    }
 }
 
 compose.resources {

@@ -1,0 +1,103 @@
+name: '🔧 Hotfix: create branch'
+
+on:
+  workflow_call:
+    inputs:
+      cherry_pick_sha:
+        description: 'Optional commit SHA to cherry-pick onto the hotfix branch'
+        required: false
+        type: string
+    secrets:
+      PAT_SPARK:
+        required: true
+  workflow_dispatch:
+    inputs:
+      cherry_pick_sha:
+        description: 'Optional commit SHA to cherry-pick onto the hotfix branch'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: 'create-hotfix-branch'
+  cancel-in-progress: false
+
+jobs:
+  create-hotfix-branch:
+    if: github.repository == 'leboncoin/spark-android'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PAT_SPARK }}
+          persist-credentials: false
+
+      - name: Find last semver tag and compute hotfix branch name
+        id: hotfix
+        run: |
+          last_tag=$(git tag --sort=-version:refname | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | head -1)
+          if [ -z "$last_tag" ]; then
+            echo "::error::No semver tag found matching X.Y.Z"
+            exit 1
+          fi
+          echo "Last tag: $last_tag"
+          IFS='.' read -r major minor patch <<< "$last_tag"
+          next_patch=$((patch + 1))
+          branch="hotfix/${major}.${minor}.${next_patch}"
+          echo "tag=$last_tag" >> "$GITHUB_OUTPUT"
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+
+      - name: Create or reuse hotfix branch
+        env:
+          BRANCH: ${{ steps.hotfix.outputs.branch }}
+          TAG: ${{ steps.hotfix.outputs.tag }}
+        run: |
+          if git ls-remote --exit-code --heads origin "$BRANCH"; then
+            echo "Branch $BRANCH already exists remotely, checking it out"
+            git checkout "$BRANCH"
+            git reset --hard "origin/$BRANCH"
+          else
+            git checkout -b "$BRANCH" "refs/tags/$TAG"
+          fi
+
+      - name: Pin hotfix branch to patch-only versioning
+        run: |
+          git config user.name 'spark-ui-bot'
+          git config user.email 'spark-ui-bot@users.noreply.github.com'
+          jq '.packages["."].versioning = "always-bump-patch"' release-please-config.json > tmp.json
+          mv tmp.json release-please-config.json
+          if git diff --quiet -- release-please-config.json; then
+            echo "release-please-config.json already pinned, skipping commit"
+          else
+            git add release-please-config.json
+            git commit -m 'ci: pin hotfix branch to patch-only versioning'
+          fi
+
+      - name: Cherry-pick commit
+        if: inputs.cherry_pick_sha != ''
+        env:
+          MERGE_SHA: ${{ inputs.cherry_pick_sha }}
+        run: |
+          git config user.name 'spark-ui-bot'
+          git config user.email 'spark-ui-bot@users.noreply.github.com'
+          if git merge-base --is-ancestor "$MERGE_SHA" HEAD 2>/dev/null; then
+            echo "Commit $MERGE_SHA already present on branch, skipping cherry-pick"
+          else
+            if ! git cherry-pick "$MERGE_SHA"; then
+              echo "Cherry-pick conflict detected, resolving by accepting incoming changes"
+              git checkout --theirs .
+              git add -A
+              git cherry-pick --continue --no-edit
+            fi
+          fi
+
+      - name: Push hotfix branch
+        env:
+          BRANCH: ${{ steps.hotfix.outputs.branch }}
+          PAT: ${{ secrets.PAT_SPARK }}
+        run: |
+          git remote set-url origin "https://x-access-token:${PAT}@github.com/${{ github.repository }}.git"
+          git push origin "$BRANCH"

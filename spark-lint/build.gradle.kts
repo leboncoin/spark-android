@@ -22,6 +22,7 @@
 plugins {
     alias(libs.plugins.spark.kotlinJvm)
     alias(libs.plugins.spark.lint)
+    alias(libs.plugins.spark.spotless)
 }
 
 java {

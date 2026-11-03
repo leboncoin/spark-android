@@ -71,7 +71,6 @@ import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.textfields.heightOrZero
 import com.adevinta.spark.components.textfields.widthOrZero
-import com.adevinta.spark.icons.CircleCrossOutline
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.TagOutline
@@ -138,7 +137,7 @@ private fun SparkChip(
  * Chips help users quickly recognize an important information that has been entered by them,
  * trigger actions, make selections, or filter content.
  *
- * @param containerColor the color used asa background for this chip.
+ * @param containerColor the color used as a background for this chip.
  * @param onClick called when this chip is clicked
  * @param modifier the [Modifier] to be applied to this chip
  * @param enabled controls the enabled state of this chip. When `false`, this component will not
@@ -188,12 +187,11 @@ private fun SparkChipSelectable(
  *
  * @param style one of [ChipStyles] that defines chips background and border.
  * @param onClose when provided will add the closing indicator and make it clickable. note that adding it will require
- * [onCloseLabel] to be provided as well.
+ * [onCloseLabel] to be provided as well. The close icon is [ChipTokens.clearIcon] and is fixed.
  * @param onCloseLabel semantic / accessibility label for the onClose action. It should describe to the user what
  * will happen if [onClose] is tapped.
  * @param intent The [ChipIntent] colors that will be used for the content and background of this chip in
  * different states.
- * @param style one of [ChipStyles] that defines chips background and border.
  * @param onClick called when this chip is clicked
  * @param modifier the [Modifier] to be applied to this chip
  * @param enabled controls the enabled state of this chip. When `false`, this component will not
@@ -258,7 +256,7 @@ public fun Chip(
  * @param selected whether this chip is selected or not
  * @param style one of [ChipStyles] that defines chips background and border.
  * @param onClose when provided will add the closing indicator and make it clickable. note that adding it will require
- * [onCloseLabel] to be provided as well.
+ * [onCloseLabel] to be provided as well. The close icon is [ChipTokens.clearIcon] and is fixed.
  * @param onCloseLabel semantic / accessibility label for the onClose action. It should describe to the user what
  * will happen if [onClose] is tapped.
  * @param intent The [ChipIntent] colors that will be used for the content and background of this chip in
@@ -332,7 +330,7 @@ private fun CloseIconButton(
 ) {
     AnimatedVisibility(visible = onClose != null) {
         Icon(
-            sparkIcon = LeboncoinIcons.CircleCrossOutline,
+            sparkIcon = ChipTokens.clearIcon,
             modifier = Modifier
                 .size(ChipDefaults.LeadingIconSize)
                 .clickable(
@@ -360,7 +358,7 @@ private fun CloseIconButton(
  * @param text label for this chip, set `null` if no label is needed
  * @param modifier the [Modifier] to be applied to this chip
  * @param onClose when provided will add the closing indicator and make it clickable. note that adding it will require
- * [onCloseLabel] to be provided as well.
+ * [onCloseLabel] to be provided as well. The close icon is [ChipTokens.clearIcon] and is fixed.
  * @param onCloseLabel semantic / accessibility label for the onClose action. It should describe to the user what
  * will happen if [onClose] is tapped.
  * @param intent The [ChipIntent] colors that will be used for the content and background of this chip in
@@ -427,7 +425,7 @@ public fun Chip(
  *
  * @param style one of [ChipStyles] that defines chips background and border.
  * @param onClose when provided will add the closing indicator and make it clickable. note that adding it will require
- * [onCloseLabel] to be provided as well.
+ * [onCloseLabel] to be provided as well. The close icon is [ChipTokens.clearIcon] and is fixed.
  * @param onCloseLabel semantic / accessibility label for the onClose action. It should describe to the user what
  * will happen if [onClose] is tapped.
  * @param intent The [ChipIntent] colors that will be used for the content and background of this chip in

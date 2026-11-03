@@ -8,6 +8,7 @@
 </p>
 
 [![👷 Build → 🧑‍🔬 Test → 🕵️ Lint](https://github.com/leboncoin/spark-android/actions/workflows/ci.yml/badge.svg)](https://github.com/leboncoin/spark-android/actions/workflows/ci.yml)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/leboncoin/spark-android)
 
 Spark Design System is based on Material 3 Compose artifact described
 on the [official documentation](https://material.io/) and maintained by Google developers
@@ -87,13 +88,13 @@ SparkTheme(
 
 ### Feature flags
 
-`SparkFeatureFlag` gates opt-in behaviour such as rebranded shapes and development highlighters. Construct it once and pass it to `SparkTheme`.
+`SparkFeatureFlag` gates opt-in behaviour such as rebranded buttons and development highlighters. Construct it once and pass it to `SparkTheme`.
 
 ```kotlin
 SparkTheme(
     colors = myColors,
     sparkFeatureFlag = SparkFeatureFlag(
-        useRebrandedShapes = true,
+        useRebrandedButtons = true,
         isContainingActivityEdgeToEdge = true,
     ),
 ) {

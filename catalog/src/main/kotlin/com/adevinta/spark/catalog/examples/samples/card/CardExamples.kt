@@ -34,7 +34,9 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonFilled
+import com.adevinta.spark.components.buttons.Primary
 import com.adevinta.spark.components.card.Card
 import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.icons.HeartOutline
@@ -282,10 +284,7 @@ private fun ColumnScope.CardContent() {
                 SparkText(
                     text = "Cards can include interactive elements like buttons.",
                 )
-                ButtonFilled(
-                    text = "Action",
-                    onClick = {},
-                )
+                Button.Primary(onClick = {}, text = "Action")
             }
         }
     }

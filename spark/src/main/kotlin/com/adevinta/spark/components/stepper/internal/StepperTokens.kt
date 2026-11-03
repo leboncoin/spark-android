@@ -32,7 +32,6 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
-import com.adevinta.spark.components.iconbuttons.IconButtonTokens
 import com.adevinta.spark.components.textfields.TextFieldTokens
 
 @Immutable
@@ -46,10 +45,8 @@ public object StepperTokens {
         get() = SparkTheme.colors.outlineHigh
 
     public val borderThickness: Dp
-        @Composable @ReadOnlyComposable
         get() = 1.dp
     public val borderFocusedThickness: Dp
-        @Composable @ReadOnlyComposable
         get() = 2.dp
 
     @Immutable
@@ -69,7 +66,7 @@ public object StepperTokens {
     public object Nudger {
         public val buttonsShape: Shape
             @Composable @ReadOnlyComposable
-            get() = IconButtonTokens.resolveFullShape(SparkTheme.shapes.full)
+            get() = SparkTheme.shapes.full
     }
 
     /**

@@ -43,7 +43,9 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonFilled
+import com.adevinta.spark.components.buttons.Primary
 import com.adevinta.spark.components.navigation.NavigationDrawerItem
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.Family
@@ -152,7 +154,7 @@ internal fun ModalNavigationDrawerPreview() {
                 ) {
                     Text(text = if (drawerState.isClosed) ">>> Swipe >>>" else "<<< Swipe <<<")
                     Spacer(Modifier.height(20.dp))
-                    ButtonFilled(onClick = { scope.launch { drawerState.open() } }) {
+                    Button.Primary(onClick = { scope.launch { drawerState.open() } }) {
                         Text("Click to open")
                     }
                 }

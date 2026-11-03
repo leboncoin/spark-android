@@ -47,7 +47,10 @@ rootProject.name = "spark-android"
 
 include(":spark")
 include(":spark-bom")
+include(":spark-core")
+include(":spark-annotation")
 include(":spark-icons")
 include(":spark-lint")
 include(":spark-screenshot-testing")
 include(":catalog")
+include(":catalog:baselineprofile")

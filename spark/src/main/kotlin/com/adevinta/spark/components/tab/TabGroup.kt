@@ -23,6 +23,7 @@ package com.adevinta.spark.components.tab
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentSize
@@ -52,7 +53,6 @@ import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.badge.Badge
 import com.adevinta.spark.components.divider.HorizontalDivider
-import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.tab.TabGroupDefaults.tabIndicatorOffset
 import com.adevinta.spark.icons.BubbleTextOutline
 import com.adevinta.spark.icons.LeboncoinIcons
@@ -103,18 +103,16 @@ internal fun SparkTabGroup(
     },
     tabs: @Composable () -> Unit,
 ) {
-    Surface(
-        modifier = modifier,
-    ) {
-        val scrollState = rememberScrollState()
-        val coroutineScope = rememberCoroutineScope()
-        val scrollableTabData = remember(scrollState, coroutineScope) {
-            ScrollableTabData(
-                scrollState = scrollState,
-                coroutineScope = coroutineScope,
-            )
-        }
-        var tabRowWidth by remember { mutableIntStateOf(Int.MAX_VALUE) }
+    val scrollState = rememberScrollState()
+    val coroutineScope = rememberCoroutineScope()
+    val scrollableTabData = remember(scrollState, coroutineScope) {
+        ScrollableTabData(
+            scrollState = scrollState,
+            coroutineScope = coroutineScope,
+        )
+    }
+    var tabRowWidth by remember { mutableIntStateOf(Int.MAX_VALUE) }
+    Box(modifier = modifier) {
         BoxWithConstraints {
             tabRowWidth = constraints.maxWidth
         }
@@ -319,6 +317,10 @@ internal class TabPosition internal constructor(val left: Dp, val width: Dp) {
  * This provides a layer of separation between the tab row and the content displayed underneath.
  * @param tabs the tabs inside this tab group. Typically this will be multiple [Tab]s. Each element
  * inside this lambda will be measured and placed evenly across the row, each taking up equal space.
+ *
+ * ![Tabs intent showcase](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.tab_TabsDocumentationScreenshots_tabsIntentShowcase.png)
+ * ![Tabs size showcase](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.tab_TabsDocumentationScreenshots_tabsSizeShowcase.png)
+ * ![Tabs spacing showcase](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.tab_TabsDocumentationScreenshots_tabsSpacingShowcase.png)
  */
 @Composable
 public fun TabGroup(

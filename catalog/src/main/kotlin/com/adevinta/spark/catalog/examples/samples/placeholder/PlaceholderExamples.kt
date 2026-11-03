@@ -46,7 +46,9 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.model.Example
 import com.adevinta.spark.catalog.util.SampleSourceUrl
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonFilled
+import com.adevinta.spark.components.buttons.Primary
 import com.adevinta.spark.components.placeholder.illustrationPlaceholder
 import com.adevinta.spark.components.placeholder.placeholder
 import com.adevinta.spark.components.placeholder.textPlaceholder
@@ -445,10 +447,7 @@ private fun ColumnScope.PlaceholderLoadingStates() {
     var isLoading by remember { mutableStateOf(true) }
 
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        ButtonFilled(
-            text = if (isLoading) "Stop Loading" else "Start Loading",
-            onClick = { isLoading = !isLoading },
-        )
+        Button.Primary(onClick = { isLoading = !isLoading }, text = if (isLoading) "Stop Loading" else "Start Loading")
 
         Text("Content that toggles between loading and loaded states")
 

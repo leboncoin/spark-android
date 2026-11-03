@@ -27,8 +27,7 @@ import android.net.Uri
 import android.os.Build
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.LocalActivity
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.tween
+import androidx.activity.compose.ReportDrawnWhen
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -77,13 +76,13 @@ import com.adevinta.spark.catalog.icons.IconDemoScreen
 import com.adevinta.spark.catalog.model.Component
 import com.adevinta.spark.catalog.tabbar.CatalogTabBar
 import com.adevinta.spark.catalog.tabbar.CatalogTabs
+import com.adevinta.spark.catalog.themes.CatalogMotion
 import com.adevinta.spark.catalog.themes.ColorMode
 import com.adevinta.spark.catalog.themes.FontScaleMode.System
 import com.adevinta.spark.catalog.themes.TextDirection
 import com.adevinta.spark.catalog.themes.Theme
 import com.adevinta.spark.catalog.themes.ThemeMode
 import com.adevinta.spark.catalog.themes.ThemePicker
-import com.adevinta.spark.catalog.themes.UserMode
 import com.adevinta.spark.catalog.themes.themeprovider.ThemeProvider
 import com.adevinta.spark.catalog.themes.themeprovider.leboncoin.LeboncoinTheme
 import com.adevinta.spark.catalog.ui.BackdropScaffold
@@ -106,7 +105,7 @@ internal fun ComponentActivity.CatalogApp(
 ) {
     val themeProvider: ThemeProvider = LeboncoinTheme
 
-    val useDark = (theme.themeMode == ThemeMode.System && isSystemInDarkTheme()) || theme.themeMode == ThemeMode.Dark
+    val useDark = theme.themeMode.isDark(isSystemDark = isSystemInDarkTheme())
     val contrastLevel = contrastLevel(LocalContext.current)
 
     val colors = if (theme.colorMode == ColorMode.Dynamic && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -114,12 +113,12 @@ internal fun ComponentActivity.CatalogApp(
             dynamicDarkColorScheme(LocalContext.current)
         } else {
             dynamicLightColorScheme(LocalContext.current)
-        }.asSparkColors(useDark = true)
+        }.asSparkColors(useDark = useDark)
     } else {
         themeProvider.colors(
             useDarkColors = useDark,
-            isPro = theme.userMode == UserMode.Pro,
-            isRebranding = theme.userMode == UserMode.Rebranding,
+            brandMode = theme.brandMode,
+            versionMode = theme.versionMode,
             contrastLevel = contrastLevel,
         )
     }
@@ -135,7 +134,6 @@ internal fun ComponentActivity.CatalogApp(
             useSparkTokensHighlighter = theme.highlightSparkTokens,
             useSparkComponentsHighlighter = theme.highlightSparkComponents,
             isContainingActivityEdgeToEdge = true,
-            useRebrandedShapes = theme.useRebrandedShapes,
             useRebrandedButtons = theme.useRebrandedButtons,
         ),
     ) {
@@ -145,19 +143,15 @@ internal fun ComponentActivity.CatalogApp(
             TextDirection.System -> LocalLayoutDirection.current
         }
 
-        val runtimeShader = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            RuntimeShader(shader)
+        val colorBlindNessType = theme.colorBlindNessType
+        val colorBlindNessSeverity = theme.colorBlindNessSeverity
+        val runtimeShader = if (
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            colorBlindNessType != ColorBlindNessType.None
+        ) {
+            remember { RuntimeShader(shader) }
         } else {
             null
-        }
-
-        val colorBlindNessType = theme.colorBlindNessType
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            runtimeShader?.setFloatUniform("severity", theme.colorBlindNessSeverity)
-            runtimeShader?.setIntUniform(
-                "colorblindType",
-                colorBlindNessType.ordinal,
-            )
         }
 
         DeviceConfigurationOverride(
@@ -171,15 +165,14 @@ internal fun ComponentActivity.CatalogApp(
                 modifier = Modifier
                     .fillMaxSize()
                     .then(
-                        if (
-                            Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
-                            colorBlindNessType != ColorBlindNessType.None
-                        ) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && runtimeShader != null) {
                             Modifier.graphicsLayer {
+                                runtimeShader.setFloatUniform("severity", colorBlindNessSeverity)
+                                runtimeShader.setIntUniform("colorblindType", colorBlindNessType.ordinal)
                                 clip = true
                                 renderEffect = RenderEffect
                                     .createRuntimeShaderEffect(
-                                        /* shader = */ runtimeShader!!,
+                                        /* shader = */ runtimeShader,
                                         /* uniformShaderName = */ "composable",
                                     )
                                     .asComposeRenderEffect()
@@ -199,6 +192,8 @@ internal fun ComponentActivity.CatalogApp(
                     initialPage = initialPage.ordinal,
                     pageCount = { homeScreenValues.size },
                 )
+
+                ReportDrawnWhen { pagerState.layoutInfo.visiblePagesInfo.isNotEmpty() }
 
                 BackdropScaffold(
                     scaffoldState = rememberBackdropScaffoldState(BackdropValue.Concealed),
@@ -225,7 +220,7 @@ internal fun ComponentActivity.CatalogApp(
                                 coroutineScope.launch {
                                     pagerState.animateScrollToPage(
                                         it.ordinal,
-                                        animationSpec = tween(durationMillis = 250, easing = FastOutSlowInEasing),
+                                        animationSpec = CatalogMotion.TabPagerScroll,
                                     )
                                 }
                             },
@@ -314,7 +309,7 @@ private fun HomeTabBar(
             modifier = tabBarModifier,
             titles = catalogScreensName,
             tabSelected = tabSelected,
-            onTabSelected = { newTab -> onTabSelected(catalogScreens[newTab.ordinal]) },
+            onTabSelect = { newTab -> onTabSelected(catalogScreens[newTab.ordinal]) },
         )
     }
 }

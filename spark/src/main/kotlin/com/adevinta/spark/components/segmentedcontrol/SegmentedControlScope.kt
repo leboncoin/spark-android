@@ -21,10 +21,12 @@
  */
 package com.adevinta.spark.components.segmentedcontrol
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.icons.SparkIcon
 
@@ -185,6 +187,7 @@ public interface SegmentedControlScope {
         selected: Boolean,
         onClick: () -> Unit,
         modifier: Modifier = Modifier,
+        paddingValues: PaddingValues = SegmentedControlDefaults.customItemPadding,
         rippleColor: Color = SparkTheme.colors.outlineHigh,
         content: @Composable () -> Unit,
     ): SegmentedButtonItem

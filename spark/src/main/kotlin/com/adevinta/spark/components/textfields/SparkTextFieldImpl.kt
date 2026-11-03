@@ -37,7 +37,6 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.text.input.InputTransformation
 import androidx.compose.foundation.text.input.TextFieldLineLimits
@@ -65,16 +64,19 @@ import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.LayoutIdParentData
 import androidx.compose.ui.layout.Placeable
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.lerp
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
+import kotlin.math.roundToInt
 import androidx.compose.ui.unit.lerp as lerpDp
 
 /**
@@ -530,7 +532,7 @@ internal fun SparkTextFieldLayout(
                     .heightIn(min = MinSupportingTextLineHeight)
                     .fillMaxWidth()
                     .wrapContentHeight()
-                    .paddingFromBaseline(top = 16.dp)
+                    .padding(top = supportingTextTopPadding())
                 Box(modifier = helperModifier) {
                     supporting()
                 }
@@ -538,6 +540,23 @@ internal fun SparkTextFieldLayout(
         },
         measurePolicy = measurePolicy,
     )
+}
+
+/**
+ * Top padding that puts the first baseline of the caption supporting text at
+ * [SupportingTextFirstBaseline]. It replaces `Modifier.paddingFromBaseline`, whose intrinsic height
+ * ignores the baseline and adds the full offset, which made the measure policy reserve too much
+ * height for the supporting text.
+ */
+@Composable
+private fun supportingTextTopPadding(): Dp {
+    val textMeasurer = rememberTextMeasurer(cacheSize = 0)
+    val style = SparkTheme.typography.caption
+    val density = LocalDensity.current
+    return remember(textMeasurer, style, density) {
+        val firstBaseline = textMeasurer.measure(text = "", style = style).firstBaseline.roundToInt()
+        with(density) { (SupportingTextFirstBaseline.roundToPx() - firstBaseline).coerceAtLeast(0).toDp() }
+    }
 }
 
 internal fun widthOrZero(placeable: Placeable?) = placeable?.width ?: 0
@@ -692,6 +711,7 @@ internal val VerticalContentPadding = 12.dp
 internal val MinTextLineHeight = 24.dp
 internal val MinFocusedLabelLineHeight = 16.dp
 internal val MinSupportingTextLineHeight = 16.dp
+private val SupportingTextFirstBaseline = 16.dp
 
 internal val IconDefaultSizeModifier = Modifier.defaultMinSize(24.dp, 24.dp)
 

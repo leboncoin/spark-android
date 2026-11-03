@@ -55,7 +55,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.util.PreviewTheme
+import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.ButtonFilled
+import com.adevinta.spark.components.buttons.Primary
 import com.adevinta.spark.components.card.Card
 import com.adevinta.spark.components.text.Text
 
@@ -212,12 +214,9 @@ private fun PreviewAnimatedNullableVisibility() {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    ButtonFilled(
-                        text = "Show Message",
-                        onClick = { message = "Hello, World! 👋" },
-                    )
+                    Button.Primary(onClick = { message = "Hello, World! 👋" }, text = "Show Message")
 
-                    ButtonFilled(
+                    Button.Primary(
                         text = "Hide Message",
                         onClick = { message = null },
                     )
@@ -261,12 +260,12 @@ private fun PreviewAnimatedNullableVisibility() {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    ButtonFilled(
+                    Button.Primary(
                         text = "Increment",
                         onClick = { counter = (counter ?: 0) + 1 },
                     )
 
-                    ButtonFilled(
+                    Button.Primary(
                         text = "Reset",
                         onClick = { counter = null },
                     )
@@ -310,12 +309,12 @@ private fun PreviewAnimatedNullableVisibility() {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    ButtonFilled(
+                    Button.Primary(
                         text = "Show Status",
                         onClick = { isRowVisible = "Status: Active 🟢" },
                     )
 
-                    ButtonFilled(
+                    Button.Primary(
                         text = "Hide Status",
                         onClick = { isRowVisible = null },
                     )
@@ -378,14 +377,14 @@ private fun PreviewRegularAnimatedVisibility() {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    ButtonFilled(
+                    Button.Primary(
                         text = "Show Message",
                         onClick = {
                             message = "Hello, World! 👋"
                         },
                     )
 
-                    ButtonFilled(
+                    Button.Primary(
                         text = "Hide Message",
                         onClick = {
                             message = null
@@ -433,14 +432,14 @@ private fun PreviewRegularAnimatedVisibility() {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    ButtonFilled(
+                    Button.Primary(
                         text = "Increment",
                         onClick = {
                             counter = (counter ?: 0) + 1
                         },
                     )
 
-                    ButtonFilled(
+                    Button.Primary(
                         text = "Reset",
                         onClick = {
                             counter = null
@@ -486,14 +485,14 @@ private fun PreviewRegularAnimatedVisibility() {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    ButtonFilled(
+                    Button.Primary(
                         text = "Show Status",
                         onClick = {
                             status = "Status: Active 🟢"
                         },
                     )
 
-                    ButtonFilled(
+                    Button.Primary(
                         text = "Hide Status",
                         onClick = {
                             status = null

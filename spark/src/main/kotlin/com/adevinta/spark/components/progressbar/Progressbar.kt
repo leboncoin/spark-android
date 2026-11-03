@@ -75,6 +75,7 @@ internal fun SparkProgressbar(
  * @param modifier Modifier to be applied to the Progressbar
  * @param isRounded Controls the border shape of the progressbar. When `true`,
  * this progressbar will have rounded border shape, & the default is rounded
+ * ![Progressbar](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.progress_ProgressbarDocumentationScreenshots_progressbar.png)
  */
 
 @Composable
@@ -102,6 +103,7 @@ public fun Progressbar(
  * @param modifier Modifier to be applied to the Progressbar
  * @param isRounded Controls the border shape of the progressbar. When `true`,
  * this progressbar will have rounded border shape, & the default is rounded
+ * ![Progressbar Indeterminate](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.progress_ProgressbarDocumentationScreenshots_progressbarIndeterminate.png)
  */
 
 @Composable
