@@ -27,10 +27,14 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.icons.CircleCrossFill
+import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.SparkIcon
 
 /**
  * Component tokens for chip components. Centralises token resolution so that chip composables read
- * from a single source of truth instead of inlining the lookup at every call site.
+ * from a single source of truth instead of inlining the lookup at every call site. It also holds
+ * fixed icons.
  */
 public object ChipTokens {
 
@@ -46,4 +50,10 @@ public object ChipTokens {
      * The spacing between the leading icon and the label.
      */
     public val leadingIconSpacing: Dp = 8.dp
+
+    /**
+     * The icon that [Chip] shows for the close action when `onClose` is set. It is fixed and cannot
+     * change per chip.
+     */
+    public val clearIcon: SparkIcon = LeboncoinIcons.CircleCrossFill
 }
