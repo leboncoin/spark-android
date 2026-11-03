@@ -25,6 +25,9 @@ import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import com.adevinta.spark.SparkTheme
+import com.adevinta.spark.icons.CircleCrossFill
+import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.SparkIcon
 
 /**
  * Component tokens for text field components. Centralises token resolution so that text field
@@ -38,4 +41,12 @@ public object TextFieldTokens {
     public val shape: CornerBasedShape
         @Composable @ReadOnlyComposable
         get() = SparkTheme.shapes.full
+
+    /**
+     * The clear icon. [MultilineTextField] shows it on its clear button. [MultiChoiceComboBox] and
+     * [MultiChoiceDropdown] show it as the trailing icon of each selected-choice chip. It is a
+     * separate value from [com.adevinta.spark.components.chips.ChipTokens.clearIcon] that points to
+     * the same icon.
+     */
+    public val clearIcon: SparkIcon = LeboncoinIcons.CircleCrossFill
 }
