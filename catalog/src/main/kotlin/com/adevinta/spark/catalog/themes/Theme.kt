@@ -100,6 +100,13 @@ public enum class ThemeMode {
     System,
     Light,
     Dark,
+    ;
+
+    public fun isDark(isSystemDark: Boolean): Boolean = when (this) {
+        System -> isSystemDark
+        Light -> false
+        Dark -> true
+    }
 }
 
 /**

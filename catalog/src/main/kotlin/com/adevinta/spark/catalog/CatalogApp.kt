@@ -105,7 +105,7 @@ internal fun ComponentActivity.CatalogApp(
 ) {
     val themeProvider: ThemeProvider = LeboncoinTheme
 
-    val useDark = (theme.themeMode == ThemeMode.System && isSystemInDarkTheme()) || theme.themeMode == ThemeMode.Dark
+    val useDark = theme.themeMode.isDark(isSystemDark = isSystemInDarkTheme())
     val contrastLevel = contrastLevel(LocalContext.current)
 
     val colors = if (theme.colorMode == ColorMode.Dynamic && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -113,7 +113,7 @@ internal fun ComponentActivity.CatalogApp(
             dynamicDarkColorScheme(LocalContext.current)
         } else {
             dynamicLightColorScheme(LocalContext.current)
-        }.asSparkColors(useDark = true)
+        }.asSparkColors(useDark = useDark)
     } else {
         themeProvider.colors(
             useDarkColors = useDark,
