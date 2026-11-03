@@ -2,6 +2,19 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [4.3.1](https://github.com/leboncoin/spark-android/compare/4.3.0...4.3.1) (2026-11-03)
+
+
+### Bug Fixes
+
+* **button:** lint rule to migrate to rebranded button was not picking up button using text param ([#2363](https://github.com/leboncoin/spark-android/issues/2363)) ([bc7a2cc](https://github.com/leboncoin/spark-android/commit/bc7a2ccf785aefa868cf485e3893579b02ced4f7))
+* **clear:** replace direct usages by a component token ([#2364](https://github.com/leboncoin/spark-android/issues/2364)) ([bb8eac1](https://github.com/leboncoin/spark-android/commit/bb8eac1d413544a7e87de542b5ba2e3f27f9253d))
+
+
+### Miscellaneous
+
+* **baseline:** regenerate baseline profiles ([#2358](https://github.com/leboncoin/spark-android/issues/2358)) ([d2632a9](https://github.com/leboncoin/spark-android/commit/d2632a95c09981b839caddaaf1d8c06ae1523637))
+
 ## [4.3.0](https://github.com/leboncoin/spark-android/compare/4.2.1...4.3.0) (2026-10-29)
 
 
