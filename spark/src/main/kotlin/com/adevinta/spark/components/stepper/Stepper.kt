@@ -38,7 +38,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.Key
@@ -331,7 +333,10 @@ public object Stepper {
         val textFieldState = remember { TextFieldState(value?.formatInteger().orEmpty()) }
         val currentInput = { textFieldState.text.toString().stripGroupingSeparators().toIntOrNull() }
 
-        SideEffect(value) {
+        // A commit can leave `value` unchanged (clamped back to the stored value), so it must also re-sync the text.
+        var commitCount by remember { mutableIntStateOf(0) }
+
+        SideEffect(value, commitCount) {
             if (currentInput() != value) {
                 textFieldState.edit {
                     delete(0, length)
@@ -345,7 +350,10 @@ public object Stepper {
             value = value,
             onIncrement = { onValueChange(applyStep(currentInput(), step, range)) },
             onDecrement = { onValueChange(applyStep(currentInput(), -step, range)) },
-            onCommit = { onValueChange(currentInput()?.coerceIn(range)) },
+            onCommit = {
+                onValueChange(currentInput()?.coerceIn(range))
+                commitCount++
+            },
             modifier = modifier.sparkUsageOverlay(),
             range = range,
             suffix = suffix,
