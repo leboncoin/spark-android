@@ -196,7 +196,9 @@ private fun FilePreviewStatesExample() {
 
 @Composable
 private fun SingleFileUploadExample() {
-    var selectedFile by rememberSaveable { mutableStateOf<UploadedFile?>(null) }
+    var selectedFile by rememberSaveable(stateSaver = FileUploadDefaults.UploadedFileSaver) {
+        mutableStateOf<UploadedFile?>(null)
+    }
 
     Column(modifier = Modifier.fillMaxWidth()) {
         FileUpload.ButtonSingleSelect(
@@ -284,9 +286,15 @@ private fun MultipleFilesReplacedExample() {
 
 @Composable
 private fun ButtonCustomizationExample() {
-    var selectedFile1 by rememberSaveable { mutableStateOf<UploadedFile?>(null) }
-    var selectedFile2 by rememberSaveable { mutableStateOf<UploadedFile?>(null) }
-    var selectedFile3 by rememberSaveable { mutableStateOf<UploadedFile?>(null) }
+    var selectedFile1 by rememberSaveable(stateSaver = FileUploadDefaults.UploadedFileSaver) {
+        mutableStateOf<UploadedFile?>(null)
+    }
+    var selectedFile2 by rememberSaveable(stateSaver = FileUploadDefaults.UploadedFileSaver) {
+        mutableStateOf<UploadedFile?>(null)
+    }
+    var selectedFile3 by rememberSaveable(stateSaver = FileUploadDefaults.UploadedFileSaver) {
+        mutableStateOf<UploadedFile?>(null)
+    }
 
     Column(modifier = Modifier.fillMaxWidth()) {
         FileUpload.ButtonSingleSelect(
@@ -341,8 +349,12 @@ private fun ButtonCustomizationExample() {
 
 @Composable
 private fun CustomButtonContentExample() {
-    var selectedFile1 by rememberSaveable { mutableStateOf<UploadedFile?>(null) }
-    var selectedFile2 by rememberSaveable { mutableStateOf<UploadedFile?>(null) }
+    var selectedFile1 by rememberSaveable(stateSaver = FileUploadDefaults.UploadedFileSaver) {
+        mutableStateOf<UploadedFile?>(null)
+    }
+    var selectedFile2 by rememberSaveable(stateSaver = FileUploadDefaults.UploadedFileSaver) {
+        mutableStateOf<UploadedFile?>(null)
+    }
 
     Column(modifier = Modifier.fillMaxWidth()) {
         FileUpload.ButtonSingleSelect(
@@ -398,7 +410,9 @@ private fun CustomButtonContentExample() {
 
 @Composable
 private fun UploadProgressErrorExample() {
-    var uploadedFile by rememberSaveable { mutableStateOf<UploadedFile?>(null) }
+    var uploadedFile by rememberSaveable(stateSaver = FileUploadDefaults.UploadedFileSaver) {
+        mutableStateOf<UploadedFile?>(null)
+    }
     var uploadProgress by rememberSaveable { mutableFloatStateOf(0f) }
     var uploadError by rememberSaveable { mutableStateOf<String?>(null) }
 
