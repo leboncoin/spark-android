@@ -568,7 +568,9 @@ private fun SegmentedControlImpl(
         }
 
         if (isHorizontal) {
-            val segWidth = (constraints.maxWidth - dividerWidth * (segmentCount - 1)) / segmentCount
+            // The dividers can be wider than the incoming max width (e.g. 0px), clamp to keep valid constraints.
+            val segWidth = ((constraints.maxWidth - dividerWidth * (segmentCount - 1)) / segmentCount)
+                .coerceAtLeast(0)
             val rowHeight = maxOf(
                 segMeasurables.maxOfOrNull { it.maxIntrinsicHeight(segWidth) } ?: 0,
                 constraints.minHeight,
@@ -607,8 +609,9 @@ private fun SegmentedControlImpl(
         } else {
             val r0Count = row0Count(segmentCount)
             val row1Count = segmentCount / 2
-            val row0SegWidth = (constraints.maxWidth - dividerWidth * (r0Count - 1)) / r0Count
-            val row1SegWidth = (constraints.maxWidth - dividerWidth * (row1Count - 1)) / row1Count
+            // The dividers can be wider than the incoming max width (e.g. 0px), clamp to keep valid constraints.
+            val row0SegWidth = ((constraints.maxWidth - dividerWidth * (r0Count - 1)) / r0Count).coerceAtLeast(0)
+            val row1SegWidth = ((constraints.maxWidth - dividerWidth * (row1Count - 1)) / row1Count).coerceAtLeast(0)
             val row0Height = segMeasurables.take(r0Count).maxOfOrNull { it.maxIntrinsicHeight(row0SegWidth) } ?: 0
             val row1Height = segMeasurables.drop(r0Count).maxOfOrNull { it.maxIntrinsicHeight(row1SegWidth) } ?: 0
             val rowHeight = maxOf(row0Height, row1Height, constraints.minHeight)
