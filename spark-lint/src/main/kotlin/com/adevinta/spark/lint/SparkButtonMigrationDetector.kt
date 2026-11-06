@@ -39,6 +39,7 @@ import com.intellij.psi.PsiParameter
 import com.intellij.psi.util.PsiTreeUtil
 import org.jetbrains.kotlin.psi.KtClassOrObject
 import org.jetbrains.kotlin.psi.KtEnumEntry
+import org.jetbrains.kotlin.psi.KtLambdaArgument
 import org.jetbrains.kotlin.psi.KtValueArgument
 import org.jetbrains.uast.UCallExpression
 import org.jetbrains.uast.UExpression
@@ -61,8 +62,10 @@ public class SparkButtonMigrationDetector :
         val packageName = (method.containingFile as? PsiJavaFile)?.packageName ?: return
         val calleeName = node.methodName ?: method.name
         if (packageName != oldComposablePackage[calleeName]) return
-        val params = method.parameterList.parameters
-        val args = argumentsByParameterName(context, node, method)
+        val method = overloadFittingCall(context, node, method)
+        val params = declaredParameters(method)
+        val binding = argumentsByParameterName(context, node, method)
+        val args = binding.arguments
 
         val directVariant = directVariantForOldComposable[calleeName]
         val message: String
@@ -75,7 +78,11 @@ public class SparkButtonMigrationDetector :
         } else {
             val style = oldComposableToStyle[calleeName] ?: return
             val intent = resolveIntent(calleeName, args)
-            if (intent != null) {
+            if (binding.untrustedReason != null) {
+                message =
+                    "`$calleeName` is an old style-based Spark button. The call arguments could not be mapped to the parameters of the resolved overload (${binding.untrustedReason}); migrate this call by hand."
+                fix = null
+            } else if (intent != null) {
                 val variant = mapToVariant(intent, style)
                 val targetCallee = variantToCallee[variant] ?: return
                 message = "`$calleeName` is an old style-based Spark button. Replace it with `$targetCallee`."
@@ -137,19 +144,74 @@ public class SparkButtonMigrationDetector :
     }
 
     /**
+     * Returns the overload of [resolved] that the arguments of [node] fit.
+     *
+     * The IDE can resolve a call to the wrong overload, for example the content-slot overload for a call
+     * that passes `text`. When the resolved overload does not fit, this looks at its sibling overloads.
+     * Two `text` overloads (`String` and `AnnotatedString`) can both fit. The `AnnotatedString` overload
+     * wins only when the `text` argument has that type, because the `String` overload is the common one.
+     * Returns [resolved] when no sibling fits, so the caller reports the original failure.
+     */
+    private fun overloadFittingCall(context: JavaContext, node: UCallExpression, resolved: PsiMethod): PsiMethod {
+        if (argumentsByParameterName(context, node, resolved).arguments != null) return resolved
+        val fitting = resolved.containingClass
+            ?.findMethodsByName(resolved.name, false)
+            ?.filter { it != resolved }
+            ?.mapNotNull { candidate ->
+                argumentsByParameterName(context, node, candidate).arguments?.let { candidate to it }
+            }
+            .orEmpty()
+        if (fitting.size <= 1) return fitting.firstOrNull()?.first ?: resolved
+        val textType = fitting.firstNotNullOfOrNull { it.second["text"] }?.getExpressionType()?.canonicalText
+        val wantsAnnotated = textType?.endsWith("AnnotatedString") == true
+        return fitting.firstOrNull { (candidate, _) ->
+            val textParam = declaredParameters(candidate).firstOrNull { it.name == "text" }
+            (textParam?.type?.canonicalText?.endsWith("AnnotatedString") == true) == wantsAnnotated
+        }?.first ?: resolved
+    }
+
+    /**
+     * Returns the parameters that the Kotlin source declares for [method].
+     *
+     * Compiled Compose functions end with synthetic parameters (`Composer` and `int` flags), which
+     * decompiled signatures name `composer`, `i` and `i2`. Those never take an argument from a call.
+     */
+    private fun declaredParameters(method: PsiMethod): List<PsiParameter> {
+        val all = method.parameterList.parameters.toList()
+        val composerIndex = all.indexOfFirst { it.type.canonicalText.substringAfterLast('.') == "Composer" }
+        val declared = if (composerIndex >= 0) all.take(composerIndex) else all
+        return declared.filterNot { it.name.startsWith("$") }
+    }
+
+    /**
      * Binds each argument of [node] to the name of the [method] parameter it fills.
      *
-     * Returns null when the binding is not trustworthy: an argument maps to a parameter that [method]
-     * does not declare, or a named argument maps to a parameter with a different name. This happens
-     * when the IDE resolves overloads inconsistently, and rewriting with that binding would move
-     * values into the wrong parameters.
+     * The lint evaluator binds first. When its binding is not trustworthy, the call site decides: a named
+     * argument keeps its own name, a trailing lambda fills `content`, and any other argument fills the
+     * parameter at its position. The evaluator falls back to a positional mapping that is wrong for
+     * named arguments, which is why the call site is the second source.
+     *
+     * Returns an untrusted binding with a reason when the call site also fails: an argument names a
+     * parameter that [method] does not declare, or fills the same parameter twice. This happens when the
+     * IDE resolves overloads inconsistently, and rewriting with that binding would move values into the
+     * wrong parameters.
      */
     private fun argumentsByParameterName(
         context: JavaContext,
         node: UCallExpression,
         method: PsiMethod,
+    ): ArgumentBinding {
+        val paramNames = declaredParameters(method).map { it.name }
+        bindWithEvaluator(context, node, method, paramNames)?.let { return ArgumentBinding(it, null) }
+        return bindFromCallSite(node, method, paramNames)
+    }
+
+    private fun bindWithEvaluator(
+        context: JavaContext,
+        node: UCallExpression,
+        method: PsiMethod,
+        paramNames: List<String>,
     ): Map<String, UExpression>? {
-        val paramNames = method.parameterList.parameters.map { it.name }.toSet()
         val mapping = context.evaluator.computeArgumentMapping(node, method)
         if (mapping.size != node.valueArgumentCount) return null
         val result = mutableMapOf<String, UExpression>()
@@ -160,6 +222,35 @@ public class SparkButtonMigrationDetector :
             result[param.name] = arg
         }
         return result
+    }
+
+    private fun bindFromCallSite(
+        node: UCallExpression,
+        method: PsiMethod,
+        paramNames: List<String>,
+    ): ArgumentBinding {
+        val result = mutableMapOf<String, UExpression>()
+        node.valueArguments.forEachIndexed { index, arg ->
+            val sourceArg = arg.sourcePsi as? KtValueArgument ?: arg.sourcePsi?.parent as? KtValueArgument
+            val name = when {
+                sourceArg?.getArgumentName() != null -> sourceArg.getArgumentName()?.asName?.asString()
+                sourceArg is KtLambdaArgument -> "content".takeIf { it in paramNames } ?: paramNames.lastOrNull()
+                else -> paramNames.getOrNull(index)
+            }
+            if (name == null || name !in paramNames) {
+                return ArgumentBinding.untrusted("argument ${index + 1} does not match a parameter of `${method.name}`")
+            }
+            if (result.put(name, arg) != null) {
+                return ArgumentBinding.untrusted("parameter `$name` of `${method.name}` is filled twice")
+            }
+        }
+        return ArgumentBinding(result, null)
+    }
+
+    private class ArgumentBinding(val arguments: Map<String, UExpression>?, val untrustedReason: String?) {
+        companion object {
+            fun untrusted(reason: String) = ArgumentBinding(null, reason)
+        }
     }
 
     /**
@@ -181,7 +272,7 @@ public class SparkButtonMigrationDetector :
         node: UCallExpression,
         calleeName: String,
         targetCallee: String,
-        params: Array<PsiParameter>,
+        params: List<PsiParameter>,
         args: Map<String, UExpression>,
     ): LintFix? {
         // Identify overload via the resolved parameter list

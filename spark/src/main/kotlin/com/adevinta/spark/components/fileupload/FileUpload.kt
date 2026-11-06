@@ -26,6 +26,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.saveable.Saver
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
@@ -52,6 +53,7 @@ import io.github.vinceglb.filekit.dialogs.toAndroidUri
 import io.github.vinceglb.filekit.mimeType
 import io.github.vinceglb.filekit.mimeType.MimeType
 import io.github.vinceglb.filekit.name
+import io.github.vinceglb.filekit.path
 import io.github.vinceglb.filekit.size
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.serialization.Serializable
@@ -244,6 +246,43 @@ public data class UploadedFile(
  */
 @InternalSparkApi
 public object FileUploadDefaults {
+
+    /**
+     * A [Saver] that lets an [UploadedFile] survive configuration changes and process death in
+     * `rememberSaveable`.
+     *
+     * A [UploadedFile] cannot be stored in a `Bundle`, so `rememberSaveable` without a saver crashes when the
+     * state is saved while a file is selected. This saver stores the file path, [UploadedFile.enabled],
+     * [UploadedFile.isLoading] and [UploadedFile.errorMessage]. It does not store [UploadedFile.progress]: the
+     * restored file has no progress, so the caller must set it again.
+     *
+     * The saver keeps the path, not the access right. After process death a picked `content://` file can be
+     * unreadable. The restore then returns `null` and the selection is cleared. For lasting access, use FileKit
+     * bookmarks (https://filekit.mintlify.app/core/bookmark-data).
+     *
+     * ```
+     * var file by rememberSaveable(stateSaver = FileUploadDefaults.UploadedFileSaver) {
+     *     mutableStateOf<UploadedFile?>(null)
+     * }
+     * ```
+     */
+    public val UploadedFileSaver: Saver<UploadedFile?, Any> = Saver(
+        save = { uploaded ->
+            uploaded?.let { arrayListOf(it.file.path, it.enabled, it.isLoading, it.errorMessage) }
+        },
+        restore = { saved ->
+            @Suppress("UNCHECKED_CAST")
+            val values = saved as List<Any?>
+            runCatching {
+                UploadedFile(
+                    file = PlatformFile(values[0] as String),
+                    enabled = values[1] as Boolean,
+                    isLoading = values[2] as Boolean,
+                    errorMessage = values[3] as String?,
+                )
+            }.getOrNull()
+        },
+    )
 
     /**
      * Maps a [UploadedFile] to an icon representing its type.

@@ -21,6 +21,10 @@
  */
 package com.adevinta.spark.stepper
 
+import androidx.compose.foundation.focusable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,6 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.hasSetTextAction
@@ -35,6 +40,9 @@ import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performSemanticsAction
+import androidx.compose.ui.test.performTextReplacement
+import androidx.compose.ui.unit.dp
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.stepper.Stepper
 import com.adevinta.spark.components.stepper.StepperInputState
@@ -204,6 +212,44 @@ class StepperInputTest {
 
         composeTestRule.waitForIdle()
         assertEquals(0, lastValue)
+    }
+
+    @Test
+    fun `Input controlled - blur resets text when clamped value equals stored value`() {
+        val testTag = "inputStepper"
+        val otherTag = "otherFocusable"
+        val commits = mutableListOf<Int?>()
+
+        composeTestRule.setContent {
+            PreviewTheme {
+                var value by remember { mutableStateOf<Int?>(10) }
+                Column {
+                    Stepper.Input(
+                        value = value,
+                        onValueChange = {
+                            commits += it
+                            value = it
+                        },
+                        modifier = Modifier.testTag(testTag),
+                        range = 0..10,
+                        step = 1,
+                        testTag = testTag,
+                    )
+                    Box(Modifier.size(10.dp).testTag(otherTag).focusable())
+                }
+            }
+        }
+
+        composeTestRule.onNode(hasSetTextAction()).performSemanticsAction(SemanticsActions.RequestFocus)
+        composeTestRule.waitForIdle()
+        composeTestRule.onNode(hasSetTextAction()).performTextReplacement("99")
+        composeTestRule.onNodeWithTag(otherTag).performSemanticsAction(SemanticsActions.RequestFocus)
+        composeTestRule.waitForIdle()
+
+        val text = composeTestRule.onNode(hasSetTextAction())
+            .fetchSemanticsNode().config[SemanticsProperties.EditableText].text
+        assertEquals(listOf<Int?>(10), commits)
+        assertEquals("10", text)
     }
 
     @Test

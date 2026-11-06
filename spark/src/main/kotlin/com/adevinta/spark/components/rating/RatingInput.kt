@@ -40,6 +40,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -55,7 +56,6 @@ import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.ProgressBarRangeInfo
@@ -107,9 +107,8 @@ public fun RatingInput(
 ) {
     if (value !in RatingDefaults.InputIntRange) return
 
-    val haptics = LocalHapticFeedback.current
-    var ratingContainerWidth = 0f
-    var lastDragRating = value
+    val haptics by rememberUpdatedState(LocalHapticFeedback.current)
+    val currentOnRatingChanged by rememberUpdatedState(onRatingChanged)
 
     Row(
         modifier = modifier
@@ -126,22 +125,20 @@ public fun RatingInput(
                 enabled = enabled,
                 interactionSource = remember { MutableInteractionSource() },
             )
-            .onSizeChanged { size ->
-                ratingContainerWidth = size.width.toFloat()
-            }
             .pointerInput(enabled) {
                 if (!enabled) return@pointerInput
+                var lastDragRating = 0
                 detectHorizontalDragGestures(
                     onDragStart = { offset ->
-                        lastDragRating = calculateRatingFromPosition(offset.x, ratingContainerWidth)
+                        lastDragRating = calculateRatingFromPosition(offset.x, size.width.toFloat())
                     },
                     onDragEnd = {},
                     onDragCancel = {},
                     onHorizontalDrag = { change, _ ->
-                        val newRating = calculateRatingFromPosition(change.position.x, ratingContainerWidth)
+                        val newRating = calculateRatingFromPosition(change.position.x, size.width.toFloat())
                         if (newRating != lastDragRating) {
                             haptics.performHapticFeedback(HapticFeedbackType.LongPress)
-                            onRatingChanged(newRating)
+                            currentOnRatingChanged(newRating)
                             lastDragRating = newRating
                         }
                     },

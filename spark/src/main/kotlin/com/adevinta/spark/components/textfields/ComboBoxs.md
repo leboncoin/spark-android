@@ -46,6 +46,7 @@ SingleChoiceComboBox(
 ### Multi selection
 
 The multi-selection ComboBox allows users to select multiple options, with selected choices displayed as chips below the text field. The selection system is handled by the developer, enabling custom multi-selection logic.
+Each selected choice shows as a chip with a cross icon. A tap on a chip calls `onSelectedClick` with the id of that choice.
 
 Here's an example of a multi-selection ComboBox:
 

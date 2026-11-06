@@ -200,6 +200,21 @@ FileUpload.Button(
 )
 ```
 
+## Saving the Selected File
+
+`UploadedFile` cannot be stored in a `Bundle`. Using it in `rememberSaveable` without a saver crashes when the
+state is saved, for example on rotation. Pass `FileUploadDefaults.UploadedFileSaver` as the `stateSaver`:
+
+```kotlin
+var selectedFile by rememberSaveable(stateSaver = FileUploadDefaults.UploadedFileSaver) {
+    mutableStateOf<UploadedFile?>(null)
+}
+```
+
+The saver stores the file path, `enabled`, `isLoading` and `errorMessage`. It does not store `progress`, so set it again after a restore.
+
+The saver keeps the path, not the access right. After process death a picked `content://` file can be unreadable. The restore then returns `null` and the selection is cleared. For lasting access, use [FileKit bookmarks](https://filekit.mintlify.app/core/bookmark-data).
+
 ## Opening Files
 
 You can open files with the system's default application using `FileUploadDefaults.openFile()`:
