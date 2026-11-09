@@ -2,6 +2,36 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [4.3.2](https://github.com/leboncoin/spark-android/compare/4.3.1...4.3.2) (2026-11-09)
+
+
+### Bug Fixes
+
+* **catalog:** use one dark mode rule and reset night mode for System ([#2367](https://github.com/leboncoin/spark-android/issues/2367)) ([1a73621](https://github.com/leboncoin/spark-android/commit/1a7362138a4ffd49c5c80183bcb71ccfddb52b81))
+* **image:** stop reporting zero-sized constraints as an undefined size ([#2377](https://github.com/leboncoin/spark-android/issues/2377)) ([3079c48](https://github.com/leboncoin/spark-android/commit/3079c4828bdf928277513afb006c84017482bda6))
+* **rating:** read current callback and width in drag handler ([#2369](https://github.com/leboncoin/spark-android/issues/2369)) ([1025901](https://github.com/leboncoin/spark-android/commit/102590137d9b17dc02e9e64ea2d113fa2a5a5533))
+* **segmented-control:** clamp segment width to zero on narrow constraints ([#2371](https://github.com/leboncoin/spark-android/issues/2371)) ([c33b495](https://github.com/leboncoin/spark-android/commit/c33b495493708febf1f92d0e1d98ec4815d0830d))
+* **stepper:** re-sync input text after a clamped commit ([#2365](https://github.com/leboncoin/spark-android/issues/2365)) ([279760f](https://github.com/leboncoin/spark-android/commit/279760fb9ba746282f1ae031a756c451ea3d0228))
+* **textfield:** clamp the remaining intrinsic width to zero next to the addons ([#2373](https://github.com/leboncoin/spark-android/issues/2373)) ([d84fd2f](https://github.com/leboncoin/spark-android/commit/d84fd2fa576c75c4a8a0bb90eaeece38b7dbbe89))
+
+
+### Miscellaneous
+
+* **deps:** bump androidx.test.uiautomator:uiautomator from 2.4.0 to 2.4.1 ([#2386](https://github.com/leboncoin/spark-android/issues/2386)) ([29e0e86](https://github.com/leboncoin/spark-android/commit/29e0e865c9988e382ec24078ca338bcaa00916d0))
+* **deps:** bump com.composables:composeunstyled-disclosure from 2.10.1 to 2.10.2 ([#2361](https://github.com/leboncoin/spark-android/issues/2361)) ([a8ef9c2](https://github.com/leboncoin/spark-android/commit/a8ef9c23da42419253de6f0eb0179ea8add1198e))
+* **deps:** bump filekit from 0.16.0 to 0.17.0 ([#2360](https://github.com/leboncoin/spark-android/issues/2360)) ([7570216](https://github.com/leboncoin/spark-android/commit/757021645cd7f34ac9df7887819aac5eee530e56))
+* **deps:** bump github/codeql-action from 4.39.1 to 4.39.2 in /.github/workflows ([#2378](https://github.com/leboncoin/spark-android/issues/2378)) ([1ab4807](https://github.com/leboncoin/spark-android/commit/1ab48077099c2cb52b93489133bdd9eeaeec9c44))
+* **deps:** bump github/codeql-action from 4.39.2 to 4.39.3 in /.github/workflows ([#2385](https://github.com/leboncoin/spark-android/issues/2385)) ([fbddf7f](https://github.com/leboncoin/spark-android/commit/fbddf7fb4ddaeeb5da04306880d76c6a2d8eaa0d))
+* **deps:** bump gradle/actions/setup-gradle from 6.4.0 to 6.4.1 in /.github/actions/setup-gradle ([#2362](https://github.com/leboncoin/spark-android/issues/2362)) ([46ec032](https://github.com/leboncoin/spark-android/commit/46ec03201b2b1f751543f8eb0e5ada4e70abd608))
+* **deps:** bump toshimaru/auto-author-assign from 3.1.0 to 3.1.1 in /.github/workflows ([#2368](https://github.com/leboncoin/spark-android/issues/2368)) ([5b11d29](https://github.com/leboncoin/spark-android/commit/5b11d29ce193e22a764d16c5a1fdf962eb582ef5))
+* **deps:** bump zizmorcore/zizmor-action from 0.8.0 to 0.8.1 in /.github/workflows ([#2375](https://github.com/leboncoin/spark-android/issues/2375)) ([8c307c6](https://github.com/leboncoin/spark-android/commit/8c307c612786163705cf49e11ad808b3b7827cd2))
+
+
+### Refactoring
+
+* **catalog:** remove kotlin-reflect dependency ([#2382](https://github.com/leboncoin/spark-android/issues/2382)) ([a17a4f1](https://github.com/leboncoin/spark-android/commit/a17a4f133e7c5f9e524970201896519091f9779c))
+* **catalog:** remove ui-test dependency from catalog app ([#2374](https://github.com/leboncoin/spark-android/issues/2374)) ([7c5d25a](https://github.com/leboncoin/spark-android/commit/7c5d25a4b5acf5e16f677dd209be76759cfd9d34))
+
 ## [4.3.1](https://github.com/leboncoin/spark-android/compare/4.3.0...4.3.1) (2026-11-03)
 
 
