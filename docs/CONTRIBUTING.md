@@ -93,21 +93,18 @@ Configure your development environment for Spark Android development. This secti
     git lfs install
     ```
 
-4. **[Java 17](https://github.com/leboncoin/spark-android/issues/74)**
+4. **Java Development Kit (JDK)**
 
-    We currently use a version of AGP which requires developers to use **JDK 17** on Gradle JDK.
+    **JDK 17 or later** is required to build the project and run the Gradle daemon.
 
-    _If you're on macOS, you can install it with [brew](https://formulae.brew.sh/formula/openjdk@17)_
+    _If you're on macOS, you can install it with [Homebrew](https://formulae.brew.sh/formula/openjdk@17)_:
 
     ```bash
     brew install openjdk@17
     ```
 
-    > ℹ️ If you're using a device with [Apple silicon (M1/M2)](https://support.apple.com/en-us/HT211814) then you might need to install
-    > a [zulu distribution](https://www.azul.com/downloads/zulu-community/?version=java-17-lts&architecture=x86-64-bit&package=jdk)
-
-    Alternatively, install it directly from **Android Studio**:  
-    `File` → `Settings` → `Build, Execution, Deployment` → `Build Tools` → `Gradle` → `Gradle JDK`
+    Alternatively, configure or download it directly from **Android Studio**:  
+    `Settings` → `Build, Execution, Deployment` → `Build Tools` → `Gradle` → `Gradle JDK`
 
 ---
 
