@@ -58,6 +58,7 @@ internal object SparkPublication {
             add("nmcpAggregation", project(":spark"))
             add("nmcpAggregation", project(":spark-core"))
             add("nmcpAggregation", project(":spark-annotation"))
+            add("nmcpAggregation", project(":spark-catalog"))
         }
     }
 
