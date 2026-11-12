@@ -28,7 +28,6 @@ import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.kotlin.dsl.apply
-import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.get
@@ -58,6 +57,7 @@ internal object SparkPublication {
             add("nmcpAggregation", project(":spark"))
             add("nmcpAggregation", project(":spark-core"))
             add("nmcpAggregation", project(":spark-annotation"))
+            add("nmcpAggregation", project(":spark-catalog"))
         }
     }
 

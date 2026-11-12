@@ -21,10 +21,12 @@
  */
 package com.adevinta.spark.catalog
 
+import android.content.res.Configuration
 import android.graphics.RenderEffect
 import android.graphics.RuntimeShader
 import android.net.Uri
 import android.os.Build
+import android.view.ContextThemeWrapper
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.ReportDrawnWhen
@@ -48,6 +50,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -58,14 +61,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asComposeRenderEffect
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.test.DarkMode
-import androidx.compose.ui.test.DeviceConfigurationOverride
-import androidx.compose.ui.test.FontScale
-import androidx.compose.ui.test.LayoutDirection
-import androidx.compose.ui.test.then
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkFeatureFlag
@@ -81,7 +81,6 @@ import com.adevinta.spark.catalog.themes.ColorMode
 import com.adevinta.spark.catalog.themes.FontScaleMode.System
 import com.adevinta.spark.catalog.themes.TextDirection
 import com.adevinta.spark.catalog.themes.Theme
-import com.adevinta.spark.catalog.themes.ThemeMode
 import com.adevinta.spark.catalog.themes.ThemePicker
 import com.adevinta.spark.catalog.themes.themeprovider.ThemeProvider
 import com.adevinta.spark.catalog.themes.themeprovider.leboncoin.LeboncoinTheme
@@ -154,12 +153,10 @@ internal fun ComponentActivity.CatalogApp(
             null
         }
 
-        DeviceConfigurationOverride(
-            override = DeviceConfigurationOverride.DarkMode(useDark)
-                then DeviceConfigurationOverride.LayoutDirection(layoutDirection)
-                then DeviceConfigurationOverride.FontScale(
-                    theme.takeUnless { it.fontScaleMode == System }?.fontScale ?: LocalDensity.current.fontScale,
-                ),
+        CatalogConfigurationOverride(
+            isDarkMode = useDark,
+            layoutDirection = layoutDirection,
+            fontScale = theme.takeUnless { it.fontScaleMode == System }?.fontScale ?: LocalDensity.current.fontScale,
         ) {
             Box(
                 modifier = Modifier
@@ -210,9 +207,9 @@ internal fun ComponentActivity.CatalogApp(
                             modifier = Modifier
                                 .requiredHeightIn(
                                     min =
-                                    BackdropScaffoldDefaults.PeekHeight +
-                                        WindowInsets.statusBars.asPaddingValues()
-                                            .calculateTopPadding(),
+                                        BackdropScaffoldDefaults.PeekHeight +
+                                                WindowInsets.statusBars.asPaddingValues()
+                                                    .calculateTopPadding(),
                                 )
                                 .statusBarsPadding(),
                             tabSelected = homeScreenValues[pagerState.currentPage],
@@ -328,3 +325,40 @@ private fun getInitialScreen(uri: Uri?): CatalogHomeScreen {
 internal enum class CatalogHomeScreen { Examples, Configurator, Icons }
 
 internal const val AppBasePath = "spark://"
+
+/** Applies the in-app dark mode, layout direction, and font scale to [content]; keeps `LocalActivity` resolvable. */
+@Composable
+private fun CatalogConfigurationOverride(
+    isDarkMode: Boolean,
+    layoutDirection: LayoutDirection,
+    fontScale: Float,
+    content: @Composable () -> Unit,
+) {
+    val baseContext = LocalContext.current
+    val baseConfiguration = LocalConfiguration.current
+    val configuration = remember(baseConfiguration, isDarkMode, layoutDirection, fontScale) {
+        Configuration(baseConfiguration).apply {
+            val nightMode = if (isDarkMode) Configuration.UI_MODE_NIGHT_YES else Configuration.UI_MODE_NIGHT_NO
+            uiMode = (uiMode and Configuration.UI_MODE_NIGHT_MASK.inv()) or nightMode
+
+            val layoutDirectionMode = when (layoutDirection) {
+                LayoutDirection.Ltr -> Configuration.SCREENLAYOUT_LAYOUTDIR_LTR
+                LayoutDirection.Rtl -> Configuration.SCREENLAYOUT_LAYOUTDIR_RTL
+            }
+            screenLayout = (screenLayout and Configuration.SCREENLAYOUT_LAYOUTDIR_MASK.inv()) or layoutDirectionMode
+
+            this.fontScale = fontScale
+        }
+    }
+    val context = remember(baseContext, configuration) {
+        ContextThemeWrapper(baseContext, 0).apply { applyOverrideConfiguration(configuration) }
+    }
+
+    CompositionLocalProvider(
+        LocalContext provides context,
+        LocalConfiguration provides configuration,
+        LocalLayoutDirection provides layoutDirection,
+        LocalDensity provides Density(LocalDensity.current.density, fontScale),
+        content = content,
+    )
+}
