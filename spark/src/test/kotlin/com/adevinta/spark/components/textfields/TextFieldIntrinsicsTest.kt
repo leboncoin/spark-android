@@ -51,11 +51,7 @@ class TextFieldIntrinsicsTest {
         composeTestRule.setContent {
             PreviewTheme {
                 // IntrinsicSize.Min queries the field's intrinsic height for the 0dp width it is given.
-                Column(
-                    modifier = Modifier
-                        .width(0.dp)
-                        .height(IntrinsicSize.Min),
-                ) {
+                Column(modifier = Modifier.width(0.dp).height(IntrinsicSize.Min)) {
                     TextField(
                         value = "",
                         onValueChange = {},

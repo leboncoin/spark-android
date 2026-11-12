@@ -207,9 +207,9 @@ internal fun ComponentActivity.CatalogApp(
                             modifier = Modifier
                                 .requiredHeightIn(
                                     min =
-                                        BackdropScaffoldDefaults.PeekHeight +
-                                                WindowInsets.statusBars.asPaddingValues()
-                                                    .calculateTopPadding(),
+                                    BackdropScaffoldDefaults.PeekHeight +
+                                        WindowInsets.statusBars.asPaddingValues()
+                                            .calculateTopPadding(),
                                 )
                                 .statusBarsPadding(),
                             tabSelected = homeScreenValues[pagerState.currentPage],

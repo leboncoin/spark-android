@@ -317,7 +317,8 @@ private fun Int.substractConstraintSafely(from: Int): Int {
     if (this == Constraints.Infinity) {
         return this
     }
-    return this - from
+    // The addons can be wider than the available width, clamp to keep valid constraints for the children.
+    return (this - from).coerceAtLeast(0)
 }
 
 /**
