@@ -46,6 +46,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -63,11 +65,14 @@ import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.contentColorFor
 import com.adevinta.spark.tokens.highlight
+import com.adevinta.spark.tokens.dim3
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
+import com.adevinta.spark.tools.modifiers.ifFalse
 
 @Composable
 internal fun SparkCard(
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     shape: Shape = SparkTheme.shapes.medium,
     colors: CardColors = CardDefaults.cardColors(),
     elevation: CardElevation = CardDefaults.cardElevation(),
@@ -75,11 +80,11 @@ internal fun SparkCard(
     content: @Composable ColumnScope.() -> Unit,
 ) {
     Surface(
-        modifier = modifier,
+        modifier = modifier.ifFalse(enabled) { disabled() },
         shape = shape,
-        color = colors.containerColor(enabled = true).value,
-        contentColor = colors.contentColor(enabled = true).value,
-        elevation = elevation.tonalElevation(enabled = true, interactionSource = null).value,
+        color = colors.containerColor(enabled = enabled).value,
+        contentColor = colors.contentColor(enabled = enabled).value,
+        elevation = elevation.tonalElevation(enabled = enabled, interactionSource = null).value,
         border = border,
     ) {
         Column(content = content)
@@ -89,6 +94,7 @@ internal fun SparkCard(
 @Composable
 internal fun SparkCard(
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     shape: Shape = SparkTheme.shapes.large,
     colors: Color = SparkTheme.colors.surface,
     borderColor: Color = SparkTheme.colors.outline,
@@ -108,7 +114,7 @@ internal fun SparkCard(
         modifier = modifier.sparkUsageOverlay(),
         shape = shape,
         color = colors,
-        elevation = elevation.tonalElevation(enabled = true, interactionSource = null).value,
+        elevation = elevation.tonalElevation(enabled = enabled, interactionSource = null).value,
         border = border,
     ) {
         Column {
@@ -124,6 +130,7 @@ internal fun SparkCard(
 internal fun SparkCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     shape: Shape = SparkTheme.shapes.large,
     color: Color = SparkTheme.colors.surface,
     borderColor: Color = SparkTheme.colors.outline,
@@ -135,8 +142,8 @@ internal fun SparkCard(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable ColumnScope.() -> Unit,
 ) {
-    val animatedBorderColor by animateColorAsState(borderColor)
-    val animatedBackgroundColor by animateColorAsState(color)
+    val animatedBorderColor by animateColorAsState(if (enabled) borderColor else borderColor.dim3)
+    val animatedBackgroundColor by animateColorAsState(if (enabled) color else color.dim3)
     val border = if (borderColor != Color.Unspecified) {
         BorderStroke(borderWidth, animatedBorderColor)
     } else {
@@ -145,10 +152,11 @@ internal fun SparkCard(
     Surface(
         onClick = onClick,
         modifier = modifier.sparkUsageOverlay(),
+        enabled = enabled,
         shape = shape,
         color = animatedBackgroundColor,
         interactionSource = interactionSource,
-        elevation = elevation.tonalElevation(enabled = true, interactionSource = null).value,
+        elevation = elevation.tonalElevation(enabled = enabled, interactionSource = null).value,
         border = border,
     ) {
         Column {
@@ -239,6 +247,7 @@ internal fun SparkCard(
 @Composable
 public fun Card(
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     shape: Shape = SparkTheme.shapes.medium,
     colors: CardColors = CardDefaults.cardColors(),
     border: BorderStroke? = null,
@@ -246,6 +255,7 @@ public fun Card(
 ) {
     SparkCard(
         modifier = modifier,
+        enabled = enabled,
         shape = shape,
         colors = colors,
         border = border,
@@ -277,6 +287,7 @@ public object Card {
     @Composable
     public fun Elevated(
         modifier: Modifier = Modifier,
+        enabled: Boolean = true,
         shape: Shape = SparkTheme.shapes.medium,
         colors: Color = SparkTheme.colors.surface,
         contentPadding: PaddingValues = PaddingValues(16.dp),
@@ -310,6 +321,7 @@ public object Card {
     public fun Elevated(
         onClick: () -> Unit,
         modifier: Modifier = Modifier,
+        enabled: Boolean = true,
         shape: Shape = SparkTheme.shapes.medium,
         colors: Color = SparkTheme.colors.surface,
         contentPadding: PaddingValues = PaddingValues(16.dp),
@@ -343,6 +355,7 @@ public object Card {
     @Composable
     public fun Outlined(
         modifier: Modifier = Modifier,
+        enabled: Boolean = true,
         shape: Shape = SparkTheme.shapes.medium,
         colors: Color = SparkTheme.colors.surface,
         borderColor: Color = SparkTheme.colors.outline,
@@ -379,6 +392,7 @@ public object Card {
     public fun Outlined(
         onClick: () -> Unit,
         modifier: Modifier = Modifier,
+        enabled: Boolean = true,
         shape: Shape = SparkTheme.shapes.medium,
         colors: Color = SparkTheme.colors.surface,
         borderColor: Color = SparkTheme.colors.outline,
@@ -413,6 +427,7 @@ public object Card {
     @Composable
     public fun Flat(
         modifier: Modifier = Modifier,
+        enabled: Boolean = true,
         shape: Shape = SparkTheme.shapes.medium,
         colors: Color = SparkTheme.colors.surface,
         contentPadding: PaddingValues = PaddingValues(16.dp),
@@ -446,6 +461,7 @@ public object Card {
     public fun Flat(
         onClick: () -> Unit,
         modifier: Modifier = Modifier,
+        enabled: Boolean = true,
         shape: Shape = SparkTheme.shapes.medium,
         colors: Color = SparkTheme.colors.surface,
         contentPadding: PaddingValues = PaddingValues(16.dp),
@@ -479,6 +495,7 @@ public object Card {
     @Composable
     public fun HighlightElevated(
         modifier: Modifier = Modifier,
+        enabled: Boolean = true,
         shape: Shape = SparkTheme.shapes.medium,
         headingColor: Color = SparkTheme.colors.main,
         contentPadding: PaddingValues = CardDefaults.paddingValues(),
@@ -515,6 +532,7 @@ public object Card {
     public fun HighlightElevated(
         onClick: () -> Unit,
         modifier: Modifier = Modifier,
+        enabled: Boolean = true,
         shape: Shape = SparkTheme.shapes.medium,
         headingColor: Color = SparkTheme.colors.main,
         contentPadding: PaddingValues = CardDefaults.paddingValues(),
@@ -550,6 +568,7 @@ public object Card {
     @Composable
     public fun HighlightFlat(
         modifier: Modifier = Modifier,
+        enabled: Boolean = true,
         shape: Shape = SparkTheme.shapes.medium,
         headingColor: Color = SparkTheme.colors.main,
         contentPadding: PaddingValues = CardDefaults.paddingValues(),
@@ -586,6 +605,7 @@ public object Card {
     public fun HighlightFlat(
         onClick: () -> Unit,
         modifier: Modifier = Modifier,
+        enabled: Boolean = true,
         shape: Shape = SparkTheme.shapes.medium,
         headingColor: Color = SparkTheme.colors.main,
         contentPadding: PaddingValues = CardDefaults.paddingValues(),
@@ -621,6 +641,7 @@ public object Card {
     @Composable
     public fun HighlightOutlined(
         modifier: Modifier = Modifier,
+        enabled: Boolean = true,
         shape: Shape = SparkTheme.shapes.medium,
         headingAndBorderColor: Color = SparkTheme.colors.main,
         borderWidth: Dp = 2.dp,
@@ -658,6 +679,7 @@ public object Card {
     public fun HighlightOutlined(
         onClick: () -> Unit,
         modifier: Modifier = Modifier,
+        enabled: Boolean = true,
         shape: Shape = SparkTheme.shapes.medium,
         headingAndBorderColor: Color = SparkTheme.colors.main,
         borderWidth: Dp = 2.dp,
@@ -768,6 +790,7 @@ public fun Card(
 @Composable
 public fun OutlinedCard(
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     shape: Shape = SparkTheme.shapes.medium,
     colors: CardColors = CardDefaults.outlinedCardColors(),
     border: BorderStroke = CardDefaults.outlinedCardBorder(),
@@ -775,6 +798,7 @@ public fun OutlinedCard(
 ) {
     SparkCard(
         modifier = modifier,
+        enabled = enabled,
         shape = shape,
         colors = colors,
         elevation = CardDefaults.outlinedCardElevation(),
@@ -869,12 +893,14 @@ public fun OutlinedCard(
 @Composable
 public fun ElevatedCard(
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     shape: Shape = SparkTheme.shapes.medium,
     colors: CardColors = CardDefaults.elevatedCardColors(),
     content: @Composable ColumnScope.() -> Unit,
 ) {
     SparkCard(
         modifier = modifier,
+        enabled = enabled,
         shape = shape,
         colors = colors,
         elevation = CardDefaults.elevatedCardElevation(),
@@ -1024,4 +1050,18 @@ internal fun PreviewHighlightCard() {
             )
         }
     }
+}
+
+internal fun Modifier.disabled(disabled: Boolean = true): Modifier = if (disabled) {
+    pointerInput(Unit) {
+        awaitPointerEventScope {
+            while (true) {
+                awaitPointerEvent(pass = PointerEventPass.Initial)
+                    .changes
+                    .forEach { it.consume() }
+            }
+        }
+    }
+} else {
+    this
 }
