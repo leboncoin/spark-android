@@ -22,7 +22,7 @@ The minimal usage of the component is the step list to be displayed.
 
 val items = persistentListOf(
     ProgressStep("Lorem ipsume", true),
-    ProgressStep("Lorem ipsume dolar sit amet", true),
+    ProgressStep("Lorem ipsume dolar sit amet", true, sublabel = "Optional detail"),
     ProgressStep("Lorem ipsume", false),
 )
 ProgressTrackerRow(items = items)
