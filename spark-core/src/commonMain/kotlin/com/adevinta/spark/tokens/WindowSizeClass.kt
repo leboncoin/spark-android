@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.tokens
 
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfoV2
 import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.window.core.layout.WindowSizeClass
@@ -29,7 +30,7 @@ import androidx.window.core.layout.WindowSizeClass
  * CompositionLocal used to pass [WindowSizeClass] down the tree.
  *
  * This allows components to access window size information for responsive layouts.
- * Use [currentWindowAdaptiveInfo] to calculate the current window's adaptive info.
+ * Use [currentWindowAdaptiveInfoV2] to calculate the current window's adaptive info.
  */
 public val LocalWindowSizeClass: ProvidableCompositionLocal<WindowSizeClass> = staticCompositionLocalOf {
     error("No WindowSizeClass available")

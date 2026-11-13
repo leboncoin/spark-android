@@ -36,12 +36,14 @@ import androidx.compose.ui.unit.dp
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.icons.Icon
+import com.adevinta.spark.components.segmentedcontrol.SegmentedControlScope
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.PenOutline
 import com.adevinta.spark.icons.Plus
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.tokens.ElevationTokens
+import com.adevinta.spark.tokens.SparkColors
 
 /**
  * Marker interface returned by every [AvatarAddonScope] addon function.
@@ -65,8 +67,8 @@ public interface AvatarAddonItem
 public interface AvatarAddonScope {
 
     /**
-     * Emits the standard online presence indicator: a filled [SparkTheme.colors.success] circle
-     * inside a border ring in [SparkTheme.colors.surface].
+     * Emits the standard online presence indicator: a filled [SparkColors.success] circle
+     * inside a border ring in [SparkColors.surface].
      *
      * The indicator size derives from the enclosing [AvatarSize]. At [AvatarSize.XS] the
      * indicator draws nothing.

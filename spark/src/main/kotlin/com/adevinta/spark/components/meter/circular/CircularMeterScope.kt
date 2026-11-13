@@ -41,6 +41,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.animation.AnimatedCounterText
 import com.adevinta.spark.components.icons.Icon
+import com.adevinta.spark.components.meter.Meter
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.tokens.dim1

@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.textfields
 
-import android.R.attr.textStyle
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.interaction.FocusInteraction
 import androidx.compose.foundation.interaction.Interaction
@@ -265,7 +264,6 @@ public fun TextField(
  * when the transformation is changed. If the transformation is changed on an existing text field,
  * it will be applied to the next user edit. the transformation will not immediately affect the
  * current [state].
- * @param textStyle the style to be applied to the input text
  * @param keyboardOptions software keyboard options that contains configuration such as
  * [KeyboardType] and [ImeAction]
  * @param onKeyboardAction Called when the user presses the action button in the input method editor
