@@ -25,7 +25,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.platform.LocalInspectionMode
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontVariation
+import androidx.compose.ui.text.font.FontWeight
+import com.adevinta.spark.core.Res
+import com.adevinta.spark.core.nunito_sans_bold
+import com.adevinta.spark.core.nunito_sans_bold_italic
+import com.adevinta.spark.core.nunito_sans_italic
+import com.adevinta.spark.core.nunito_sans_italic_variable
+import com.adevinta.spark.core.nunito_sans_regular
+import com.adevinta.spark.core.nunito_sans_semi_bold
+import com.adevinta.spark.core.nunito_sans_semi_bold_italic
+import com.adevinta.spark.core.nunito_sans_variable
+import org.jetbrains.compose.resources.FontResource
+import org.jetbrains.compose.resources.Font
 
 /**
  * Creates a [SparkFontFamily] with the given [fontFamily] and [useSparkTokensHighlighter].
@@ -54,8 +69,43 @@ public class SparkFontFamily(private val useSparkTokensHighlighter: Boolean, pri
 }
 
 /**
- * The default Nunito Sans font family used by Spark.
- * Platform-specific implementations provide the actual fonts.
+ * Whether the platform renders variable font axes correctly.
+ *
+ * When this is false, [nunitoFontFamily] uses the static Nunito Sans files instead.
  */
+internal expect fun supportsVariableFonts(): Boolean
+
+/** The default Nunito Sans font family used by Spark. */
 @Composable
-internal expect fun nunitoFontFamily(): FontFamily
+internal fun nunitoFontFamily(): FontFamily = if (supportsVariableFonts()) {
+    // Nunito Sans ships the italic as a second variable file, so each style has its own resource.
+    FontFamily(
+        nunitoVariableFont(Res.font.nunito_sans_variable, weight = 400, style = FontStyle.Normal),
+        nunitoVariableFont(Res.font.nunito_sans_variable, weight = 600, style = FontStyle.Normal),
+        nunitoVariableFont(Res.font.nunito_sans_variable, weight = 700, style = FontStyle.Normal),
+        nunitoVariableFont(Res.font.nunito_sans_italic_variable, weight = 400, style = FontStyle.Italic),
+        nunitoVariableFont(Res.font.nunito_sans_italic_variable, weight = 600, style = FontStyle.Italic),
+        nunitoVariableFont(Res.font.nunito_sans_italic_variable, weight = 700, style = FontStyle.Italic),
+    )
+} else {
+    FontFamily(
+        Font(resource = Res.font.nunito_sans_regular, weight = FontWeight.Normal),
+        Font(resource = Res.font.nunito_sans_italic, weight = FontWeight.Normal, style = FontStyle.Italic),
+        Font(resource = Res.font.nunito_sans_semi_bold, weight = FontWeight.SemiBold),
+        Font(resource = Res.font.nunito_sans_semi_bold_italic, weight = FontWeight.SemiBold, style = FontStyle.Italic),
+        Font(resource = Res.font.nunito_sans_bold, weight = FontWeight.Bold),
+        Font(resource = Res.font.nunito_sans_bold_italic, weight = FontWeight.Bold, style = FontStyle.Italic),
+    )
+}
+
+@Composable
+private fun nunitoVariableFont(resource: FontResource, weight: Int, style: FontStyle): Font = Font(
+    resource = resource,
+    weight = FontWeight(weight),
+    style = style,
+    variationSettings = FontVariation.Settings(
+        FontVariation.weight(weight),
+        FontVariation.width(100f),
+        FontVariation.Setting("YTLC", 500f),
+    ),
+)

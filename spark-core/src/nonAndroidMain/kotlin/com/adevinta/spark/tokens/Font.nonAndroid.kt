@@ -21,25 +21,4 @@
  */
 package com.adevinta.spark.tokens
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
-import com.adevinta.spark.core.Res
-import com.adevinta.spark.core.nunito_sans_bold
-import com.adevinta.spark.core.nunito_sans_bold_italic
-import com.adevinta.spark.core.nunito_sans_italic
-import com.adevinta.spark.core.nunito_sans_regular
-import com.adevinta.spark.core.nunito_sans_semi_bold
-import com.adevinta.spark.core.nunito_sans_semi_bold_italic
-import org.jetbrains.compose.resources.Font
-
-@Composable
-internal actual fun nunitoFontFamily(): FontFamily = FontFamily(
-    Font(resource = Res.font.nunito_sans_regular, weight = FontWeight.Normal),
-    Font(resource = Res.font.nunito_sans_italic, weight = FontWeight.Normal, style = FontStyle.Italic),
-    Font(resource = Res.font.nunito_sans_semi_bold, weight = FontWeight.SemiBold),
-    Font(resource = Res.font.nunito_sans_semi_bold_italic, weight = FontWeight.SemiBold, style = FontStyle.Italic),
-    Font(resource = Res.font.nunito_sans_bold, weight = FontWeight.Bold),
-    Font(resource = Res.font.nunito_sans_bold_italic, weight = FontWeight.Bold, style = FontStyle.Italic),
-)
+internal actual fun supportsVariableFonts(): Boolean = true

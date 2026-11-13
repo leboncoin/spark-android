@@ -22,51 +22,10 @@
 package com.adevinta.spark.tokens
 
 import android.os.Build
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.text.ExperimentalTextApi
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontVariation
-import androidx.compose.ui.text.font.FontWeight
-import com.adevinta.spark.core.R
 
 // MIUI and HyperOS force their own weight on variable typefaces, so every weight renders the same.
 private val isXiaomiDevice: Boolean = Build.MANUFACTURER.lowercase() in setOf("xiaomi", "redmi", "poco") ||
     Build.BRAND.lowercase() in setOf("xiaomi", "redmi", "poco")
 
-@OptIn(ExperimentalTextApi::class)
-@Composable
-internal actual fun nunitoFontFamily(): FontFamily = if (
-    Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !isXiaomiDevice
-) {
-    FontFamily(
-        Font(
-            R.font.nunito_sans_variable,
-            weight = FontWeight(400),
-            variationSettings = FontVariation.Settings(
-                FontVariation.weight(400),
-                FontVariation.width(100f),
-                FontVariation.Setting("YTLC", 500f),
-            ),
-        ),
-        Font(
-            R.font.nunito_sans_variable,
-            weight = FontWeight(700),
-            variationSettings = FontVariation.Settings(
-                FontVariation.weight(700),
-                FontVariation.width(100f),
-                FontVariation.Setting("YTLC", 500f),
-            ),
-        ),
-    )
-} else {
-    FontFamily(
-        Font(resId = R.font.nunito_sans_regular, weight = FontWeight.Normal),
-        Font(resId = R.font.nunito_sans_italic, weight = FontWeight.Normal, style = FontStyle.Italic),
-        Font(resId = R.font.nunito_sans_semi_bold, weight = FontWeight.SemiBold),
-        Font(resId = R.font.nunito_sans_semi_bold_italic, weight = FontWeight.SemiBold, style = FontStyle.Italic),
-        Font(resId = R.font.nunito_sans_bold, weight = FontWeight.Bold),
-        Font(resId = R.font.nunito_sans_bold_italic, weight = FontWeight.Bold, style = FontStyle.Italic),
-    )
-}
+// Compose applies variable font settings only on API 26 and later.
+internal actual fun supportsVariableFonts(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !isXiaomiDevice
