@@ -22,7 +22,6 @@
 package com.adevinta.spark.tools.modifiers
 
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.semantics.SemanticsModifier
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.hideFromAccessibility
 import androidx.compose.ui.semantics.semantics
@@ -33,7 +32,7 @@ import androidx.compose.ui.semantics.semantics
  * not be announced.
  *
  * To remove redundant semantics that are already covered by a parent node, use
- * [SemanticsModifier.clearAndSetSemantics] instead.
+ * [Modifier.clearAndSetSemantics] instead.
  */
 public fun Modifier.invisibleSemantic(): Modifier =
     semantics { hideFromAccessibility() }

@@ -31,6 +31,6 @@ internal enum class TagSize(val minHeight: Int, val verticalPadding: Int) {
     /** Standard tag size for most use cases */
     Medium(minHeight = 20, verticalPadding = 2),
 
-    /** Larger tag size for emphasis with the [TagHighlight] */
+    /** Larger tag size for emphasis with the [Tag.Highlight] */
     Large(minHeight = 24, verticalPadding = 4),
 }

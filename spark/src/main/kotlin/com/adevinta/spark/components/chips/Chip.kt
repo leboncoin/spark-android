@@ -84,8 +84,6 @@ import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
  * Chips help users quickly recognize an important information that has been entered by them,
  * trigger actions, make selections, or filter content.
  *
- * @param colors one of [ChipColors] that will be used to resolve the colors used for this chip in
- * different states, as well as the color of the border to draw around the container of this chip.
  * @param onClick called when this chip is clicked
  * @param modifier the [Modifier] to be applied to this chip
  * @param enabled controls the enabled state of this chip. When `false`, this component will not
