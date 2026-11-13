@@ -684,7 +684,7 @@ implementation 'com.adevinta.spark:spark-android:x.x.x-SNAPSHOT'
 Generate comprehensive API documentation:
 
 ```bash
-./gradlew dokkaHtmlMultiModule --no-configuration-cache
+./gradlew dokkaGeneratePublicationHtml
 ```
 
 Documentation will be generated in the `build/dokka` folder and you can then preview it locally.
