@@ -2,6 +2,82 @@
 
 Migration guides for breaking changes, newest first. For a full list of changes see [CHANGELOG.md](CHANGELOG.md).
 
+## Upgrading to 5.0
+
+Version 5.0 has one breaking change. The Android font resources of `spark-core` are removed.
+
+### Nunito Sans font resources move from `R.font` to `Res.font`
+
+Spark now builds one Nunito Sans font family in `commonMain`, and Android and desktop both use it. The Android font resources `R.font.nunito_sans_*` are removed from `spark-core`. Use `Res.font.nunito_sans_*` from `com.adevinta.spark.core` instead.
+
+You are affected when your code or your XML references a `nunito_sans_*` font that comes from `spark-core`. If you only use `SparkTheme` and `SparkTheme.typography`, you do not change any code.
+
+#### Compose code
+
+`Res.font.nunito_sans_*` is a `FontResource`, not an Android resource ID. Load it with the Compose Multiplatform `Font` function. That function is `@Composable`.
+
+**Before:**
+
+```kotlin
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import com.adevinta.spark.core.R
+
+val family = FontFamily(
+    Font(resId = R.font.nunito_sans_regular, weight = FontWeight.Normal),
+    Font(resId = R.font.nunito_sans_bold, weight = FontWeight.Bold),
+)
+```
+
+**After:**
+
+```kotlin
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import com.adevinta.spark.core.Res
+import com.adevinta.spark.core.nunito_sans_bold
+import com.adevinta.spark.core.nunito_sans_regular
+import org.jetbrains.compose.resources.Font
+
+@Composable
+fun rememberFamily(): FontFamily = FontFamily(
+    Font(resource = Res.font.nunito_sans_regular, weight = FontWeight.Normal),
+    Font(resource = Res.font.nunito_sans_bold, weight = FontWeight.Bold),
+)
+```
+
+#### XML and View code
+
+`Res.font` has no XML form. A `@font/nunito_sans_*` reference in a layout or a style no longer builds. Copy the font file that you need into the `res/font` folder of your own module, and keep the same file name.
+
+#### Resource names
+
+| Before (Android `R.font`)       | After (`Res.font`)                 |
+|---------------------------------|------------------------------------|
+| `nunito_sans_regular`           | `nunito_sans_regular`              |
+| `nunito_sans_italic`            | `nunito_sans_italic`               |
+| `nunito_sans_semi_bold`         | `nunito_sans_semi_bold`            |
+| `nunito_sans_semi_bold_italic`  | `nunito_sans_semi_bold_italic`     |
+| `nunito_sans_bold`              | `nunito_sans_bold`                 |
+| `nunito_sans_bold_italic`       | `nunito_sans_bold_italic`          |
+| `nunito_sans_variable`          | `nunito_sans_variable`             |
+| none                            | `nunito_sans_italic_variable` (new)|
+
+#### Text looks different after the upgrade
+
+The call sites do not change, but the rendered text does.
+
+- On Android API 26 and later, SemiBold text (weight 600) now renders as SemiBold. It rendered as Bold before.
+- On the same devices, italic text uses the real italic font. Compose faked the italic before.
+- On desktop, text now uses the variable fonts at weights 400, 600 and 700. It used the static fonts before.
+- Android API 24 and 25, and Xiaomi, Redmi and Poco devices, keep the static fonts. Variable fonts do not render correctly on them. Text on these devices does not change.
+
+Three screenshot references in the Spark repository changed with this release. When you have screenshot tests, expect differences in screens that show text, and record new reference images.
+
+---
+
 ## Upgrading to 4.2
 
 ### `UserAvatar` deprecated in favour of `Avatar.User` and `Avatar.Company`
