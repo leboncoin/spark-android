@@ -130,9 +130,11 @@ public final class com/adevinta/spark/core/Font0_commonMainKt {
 	public static final fun getNunito_sans_bold (Lcom/adevinta/spark/core/Res$font;)Lorg/jetbrains/compose/resources/FontResource;
 	public static final fun getNunito_sans_bold_italic (Lcom/adevinta/spark/core/Res$font;)Lorg/jetbrains/compose/resources/FontResource;
 	public static final fun getNunito_sans_italic (Lcom/adevinta/spark/core/Res$font;)Lorg/jetbrains/compose/resources/FontResource;
+	public static final fun getNunito_sans_italic_variable (Lcom/adevinta/spark/core/Res$font;)Lorg/jetbrains/compose/resources/FontResource;
 	public static final fun getNunito_sans_regular (Lcom/adevinta/spark/core/Res$font;)Lorg/jetbrains/compose/resources/FontResource;
 	public static final fun getNunito_sans_semi_bold (Lcom/adevinta/spark/core/Res$font;)Lorg/jetbrains/compose/resources/FontResource;
 	public static final fun getNunito_sans_semi_bold_italic (Lcom/adevinta/spark/core/Res$font;)Lorg/jetbrains/compose/resources/FontResource;
+	public static final fun getNunito_sans_variable (Lcom/adevinta/spark/core/Res$font;)Lorg/jetbrains/compose/resources/FontResource;
 }
 
 public final class com/adevinta/spark/core/Res {
