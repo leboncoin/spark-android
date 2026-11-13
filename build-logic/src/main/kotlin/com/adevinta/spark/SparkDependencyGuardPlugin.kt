@@ -34,7 +34,7 @@ internal class SparkDependencyGuardPlugin : Plugin<Project> {
 
             configure<DependencyGuardPluginExtension> {
                 if (isKotlinMultiplatform) {
-                    if (isAndroid) configuration("androidRuntimeClasspath")
+                    if (isAndroid || isAndroidMultiplatformLibrary) configuration("androidRuntimeClasspath")
                     configuration("jvmMainRuntimeClasspath")
                 } else {
                     configuration("releaseRuntimeClasspath")
