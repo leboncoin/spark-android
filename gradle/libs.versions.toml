@@ -69,8 +69,8 @@ androidx-test-truth = "androidx.test.ext:truth:1.7.0"
 
 androidx-window = "androidx.window:window:1.5.1"
 
-compose-runtime = { module ="org.jetbrains.compose.ui:ui", version.ref = "compose-multiplatform" }
-compose-ui = { module ="org.jetbrains.compose.runtime:runtime", version.ref = "compose-multiplatform" }
+compose-runtime = { module ="org.jetbrains.compose.runtime:runtime", version.ref = "compose-multiplatform" }
+compose-ui = { module ="org.jetbrains.compose.ui:ui", version.ref = "compose-multiplatform" }
 compose-components-resources = { module ="org.jetbrains.compose.components:components-resources", version.ref = "compose-multiplatform" }
 compose-animation = { module ="org.jetbrains.compose.animation:animation", version.ref = "compose-multiplatform" }
 compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "compose-multiplatform" }
