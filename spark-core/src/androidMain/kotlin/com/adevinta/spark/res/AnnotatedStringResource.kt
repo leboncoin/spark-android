@@ -94,9 +94,10 @@ public fun annotatedStringResource(@StringRes id: Int, formatArgs: PersistentMap
     val density = LocalDensity.current
     val colors = SparkTheme.colors
     val typography = SparkTheme.typography
-    return remember(id, formatArgs) {
-        resources.buildSpannedStringWithArgs(id, formatArgs).asAnnotatedString(density, colors, typography)
+    val text = remember(id, formatArgs) {
+        resources.buildSpannedStringWithArgs(id, formatArgs)
     }
+    return text.asAnnotatedString(density, colors, typography)
 }
 
 /**
@@ -118,10 +119,10 @@ public fun annotatedStringResource(@StringRes id: Int, vararg formatArgs: Any): 
     val density = LocalDensity.current
     val colors = SparkTheme.colors
     val typography = SparkTheme.typography
-    return remember(id, formatArgs) {
-        val text = resources.getText(id, *formatArgs)
-        text.asAnnotatedString(density, colors, typography)
+    val text = remember(id, formatArgs) {
+        resources.getText(id, *formatArgs)
     }
+    return text.asAnnotatedString(density, colors, typography)
 }
 
 private fun Resources.buildSpannedStringWithArgs(
@@ -156,10 +157,10 @@ public fun annotatedStringResource(@StringRes id: Int): AnnotatedString {
 
     val colors = SparkTheme.colors
     val typography = SparkTheme.typography
-    return remember(id) {
-        val text = resources.getText(id)
-        text.asAnnotatedString(density, colors, typography)
+    val text = remember(id) {
+        resources.getText(id)
     }
+    return text.asAnnotatedString(density, colors, typography)
 }
 
 /**
@@ -179,10 +180,10 @@ public fun annotatedPluralStringResource(
     val density = LocalDensity.current
     val colors = SparkTheme.colors
     val typography = SparkTheme.typography
-    return remember(id, count) {
-        val text = resources.getQuantityText(id, count)
-        text.asAnnotatedString(density, colors, typography)
+    val text = remember(id, count) {
+        resources.getQuantityText(id, count)
     }
+    return text.asAnnotatedString(density, colors, typography)
 }
 
 /**
@@ -203,10 +204,10 @@ public fun annotatedPluralStringResource(
     val density = LocalDensity.current
     val colors = SparkTheme.colors
     val typography = SparkTheme.typography
-    return remember(id, count, formatArgs) {
-        val text = resources.buildSpannedStringWithArgs(id, count, formatArgs)
-        text.asAnnotatedString(density, colors, typography)
+    val text = remember(id, count, formatArgs) {
+        resources.buildSpannedStringWithArgs(id, count, formatArgs)
     }
+    return text.asAnnotatedString(density, colors, typography)
 }
 
 /**
@@ -231,10 +232,10 @@ public fun annotatedPluralStringResource(
     val density = LocalDensity.current
     val colors = SparkTheme.colors
     val typography = SparkTheme.typography
-    return remember(id, count, formatArgs) {
-        val text = resources.getQuantityText(id, count, *formatArgs)
-        text.asAnnotatedString(density, colors, typography)
+    val text = remember(id, count, formatArgs) {
+        resources.getQuantityText(id, count, *formatArgs)
     }
+    return text.asAnnotatedString(density, colors, typography)
 }
 
 @Composable
