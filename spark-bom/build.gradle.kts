@@ -32,5 +32,6 @@ dependencies {
         api("com.adevinta.spark:spark-core:$version")
         api("com.adevinta.spark:spark-icons:$version")
         api("com.adevinta.spark:spark-annotation:$version")
+        api("com.adevinta.spark:spark-catalog:$version")
     }
 }
