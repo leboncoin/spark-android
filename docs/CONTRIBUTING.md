@@ -557,6 +557,21 @@ Alternatively, use the `🔎 Lint` run configuration.
 ./gradlew updateKotlinAbi
 ```
 
+### BOM Check
+
+> [!WARNING]
+> A new published module fails the build until you list it in two places. Add the module path to `SparkPublication.publishedModules` and add a constraint to the BOM. The build fails at configuration for the first, and `checkBom` fails for the second.
+
+```kotlin
+// build-logic/src/main/kotlin/com/adevinta/spark/SparkPublication.kt
+":spark-new-module",
+
+// spark-bom/build.gradle.kts
+api("com.adevinta.spark:spark-new-module:$version")
+```
+
+Run `./gradlew checkBom` to verify. The `check` task and CI run it. See [Publish a new module](../RELEASING.md#publish-a-new-module) for the full steps.
+
 ### Architecture Compliance
 
 All components must adhere to established architectural patterns:
@@ -676,7 +691,7 @@ To test your implementation locally:
 ./gradlew publishToMavenLocal -Pversion=x.x.x-SNAPSHOT
 
 # Use in your project with mavenLocal() repository
-implementation 'com.adevinta.spark:spark-android:x.x.x-SNAPSHOT'
+implementation 'com.adevinta.spark:spark:x.x.x-SNAPSHOT'
 ```
 
 ### API Documentation Generation

@@ -31,7 +31,7 @@ The catalog is split into two modules:
   the build shipped through Firebase App Distribution.
 - `:spark-catalog` is the library with the catalog screens and `SparkCatalogActivity`.
 
-`:spark-catalog` is not published yet. Inside this repository, an app module can embed the catalog:
+`:spark-catalog` is published as `com.adevinta.spark:spark-catalog`. Inside this repository, an app module can embed the catalog:
 
 ```kotlin
 android {

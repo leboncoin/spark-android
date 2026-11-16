@@ -46,6 +46,7 @@ jobs:
       - run: ./gradlew dependencyGuard --quiet
       - run: ./gradlew spotlessCheck
       - run: ./gradlew checkKotlinAbi
+      - run: ./gradlew checkBom
 
   build:
     name: 👷 Build

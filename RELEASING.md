@@ -53,6 +53,27 @@ gitGraph
     checkout main
     merge release-please--branches--main--next
 ```
+
+## Publish a new module
+
+A new published module goes in two places. `./gradlew checkBom` verifies the BOM.
+
+1. Apply the publishing plugin in the module `build.gradle.kts`:
+   ```kotlin
+   alias(libs.plugins.spark.publishing)
+   ```
+2. Add the module path to `SparkPublication.publishedModules` in `build-logic/src/main/kotlin/com/adevinta/spark/SparkPublication.kt`:
+   ```kotlin
+   ":spark-new-module",
+   ```
+3. Add a constraint to `spark-bom/build.gradle.kts`:
+   ```kotlin
+   api("com.adevinta.spark:spark-new-module:$version")
+   ```
+4. Run `./gradlew checkBom`.
+
+The build fails when a module applies the plugin but is missing from the list. `checkBom` fails when a listed module is missing from the BOM. The `check` task and the CI "Checks" job run it.
+
 ## Icon Updates
 
 Icon changes are automated via `.github/workflows/pr-icon-updates.yml`, which opens a PR titled `feat(icons): update icons`. By default this is treated as a patch bump.

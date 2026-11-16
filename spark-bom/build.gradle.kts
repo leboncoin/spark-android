@@ -28,6 +28,7 @@ plugins {
 dependencies {
     constraints {
         // Declare the dependencies to include in the BoM
+        // Keep it in sync with SparkPublication.publishedModules. The checkBom task fails on a missing module.
         api("com.adevinta.spark:spark:$version")
         api("com.adevinta.spark:spark-core:$version")
         api("com.adevinta.spark:spark-icons:$version")
