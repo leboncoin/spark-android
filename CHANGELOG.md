@@ -2,6 +2,43 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [5.0.0](https://github.com/leboncoin/spark-android/compare/4.3.2...5.0.0) (2026-11-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* **typography:** use one variable Nunito Sans family on all targets ([#2392](https://github.com/leboncoin/spark-android/issues/2392))
+
+### Features
+
+* **catalog:** extract the catalog into the spark-catalog library ([#2305](https://github.com/leboncoin/spark-android/issues/2305)) ([66bcdfe](https://github.com/leboncoin/spark-android/commit/66bcdfe1bd34ceb91c12e7d0487087cffb201465))
+
+
+### Bug Fixes
+
+* **build:** guard the Android classpath of KMP library modules ([#2393](https://github.com/leboncoin/spark-android/issues/2393)) ([fd9567d](https://github.com/leboncoin/spark-android/commit/fd9567d3443f7d45577f03a0c80eeaa4e8aa8efa))
+* **build:** swap crossed compose-runtime and compose-ui aliases ([#2390](https://github.com/leboncoin/spark-android/issues/2390)) ([03bf5d5](https://github.com/leboncoin/spark-android/commit/03bf5d54b8ded50ca1a7de64c773395c2f1635b2))
+* **core:** refresh annotated string colours on theme change ([#2391](https://github.com/leboncoin/spark-android/issues/2391)) ([c3e5c0d](https://github.com/leboncoin/spark-android/commit/c3e5c0dad7bc1234ef67cac16f8802151dd16ba9))
+* **typography:** use one variable Nunito Sans family on all targets ([#2392](https://github.com/leboncoin/spark-android/issues/2392)) ([56f4575](https://github.com/leboncoin/spark-android/commit/56f45759cf278bafe8726292e6c5b75dc0ebd1b0))
+
+
+### Miscellaneous
+
+* **baseline:** regenerate baseline profiles ([#2381](https://github.com/leboncoin/spark-android/issues/2381)) ([43dce01](https://github.com/leboncoin/spark-android/commit/43dce0100e6ff7aa0ae3081670b3c9fd99a7e968))
+* **deps:** bump com.diffplug.spotless from 8.10.4 to 8.11.0 ([#2379](https://github.com/leboncoin/spark-android/issues/2379)) ([65cd82a](https://github.com/leboncoin/spark-android/commit/65cd82a18bdd51a89800325ddf70876c745e743a))
+* **deps:** bump dokka from 2.2.0 to 2.3.0 ([#2384](https://github.com/leboncoin/spark-android/issues/2384)) ([310beec](https://github.com/leboncoin/spark-android/commit/310beecccfb97fa001f973bed2d0f90a469ffca2))
+* **deps:** bump gradle-wrapper from 9.8.2 to 9.9.0 ([#2387](https://github.com/leboncoin/spark-android/issues/2387)) ([fa2babd](https://github.com/leboncoin/spark-android/commit/fa2babd4834fa78c7acf08b63e44b8c6d2a44228))
+
+
+### Refactoring
+
+* fix unresolved KDoc links and remove stale [@param](https://github.com/param) tags ([#2389](https://github.com/leboncoin/spark-android/issues/2389)) ([9f24740](https://github.com/leboncoin/spark-android/commit/9f2474091d073400a656b662a9f8b235512d3cc2))
+
+
+### Documentation
+
+* **upgrading:** add the 5.0 guide for the Nunito Sans font move ([#2394](https://github.com/leboncoin/spark-android/issues/2394)) ([f631add](https://github.com/leboncoin/spark-android/commit/f631addfc1f3e586825a912c8938e4d25e691b74))
+
 ## [4.3.2](https://github.com/leboncoin/spark-android/compare/4.3.1...4.3.2) (2026-11-09)
 
 
