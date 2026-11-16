@@ -107,7 +107,7 @@ kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test" }
 
 kotlinx-collections-immutable = "org.jetbrains.kotlinx:kotlinx-collections-immutable:0.5.2"
-kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.12.0"
+kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.13.0"
 
 ktlint-bom = "com.pinterest.ktlint:ktlint-bom:1.8.0"
 
