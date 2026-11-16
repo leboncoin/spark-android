@@ -2,6 +2,14 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [5.0.1](https://github.com/leboncoin/spark-android/compare/5.0.0...5.0.1) (2026-11-16)
+
+
+### Bug Fixes
+
+* **catalog:** catalog is not in bom forcing an explicit version ([#2399](https://github.com/leboncoin/spark-android/issues/2399)) ([1916b49](https://github.com/leboncoin/spark-android/commit/1916b49bb8be32dccaa3b403489eaf6de377045a))
+* **ci:** upgrade python dependencies as v3.9 is not available anymore in GHA ([#2397](https://github.com/leboncoin/spark-android/issues/2397)) ([8c234ea](https://github.com/leboncoin/spark-android/commit/8c234eaa70e6537e9340a0e22c8d8533c41d0451))
+
 ## [5.0.0](https://github.com/leboncoin/spark-android/compare/4.3.2...5.0.0) (2026-11-13)
 
 
