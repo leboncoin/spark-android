@@ -67,7 +67,7 @@ dependencies {
     implementation(libs.androidx.core)
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.savedstate)
-    implementation(libs.androidx.window)
+    implementation(libs.androidx.window.core)
 
     api(libs.androidx.compose.animation.graphics)
     api(libs.androidx.compose.foundation)
