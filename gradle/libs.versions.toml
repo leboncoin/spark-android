@@ -45,9 +45,6 @@ androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 androidx-compose-ui-util = { module = "androidx.compose.ui:ui-util" }
 
-androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.2"
-androidx-constraintlayout-compose = "androidx.constraintlayout:constraintlayout-compose:1.1.2"
-
 androidx-core = "androidx.core:core-ktx:1.19.1"
 
 androidx-graphics-shapes = "androidx.graphics:graphics-shapes:1.1.0"
@@ -85,7 +82,6 @@ compose-ui-tooling-preview = { module = "org.jetbrains.compose.ui:ui-tooling-pre
 coil-bom = "io.coil-kt.coil3:coil-bom:3.6.3"
 coil-compose = { module = "io.coil-kt.coil3:coil-compose" }
 
-constraintsExplorer = "com.zachklipp:constraints-explorer:1.1.0"
 colorPicker = "com.github.skydoves:colorpicker-compose:1.3.0"
 
 # https://developer.android.com/topic/libraries/architecture/datastore

@@ -21,12 +21,20 @@
  */
 package com.adevinta.spark.divider
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.DeviceConfig
 import com.adevinta.spark.SparkTheme
@@ -67,6 +75,15 @@ internal class DividerScreenshot {
                 label = { TextComposable() },
                 labelHorizontalAlignment = LabelHorizontalAlignment.Start,
             )
+            // Regression: empty label must not leave stray 16.dp gaps (PR #1208 bug 1)
+            HorizontalDivider(
+                label = { Box {} },
+            )
+            // Regression: oversized label must not collapse the divider lines (PR #1208 bug 2)
+            HorizontalDivider(
+                modifier = Modifier.width(200.dp),
+                label = { OverflowTextComposable() },
+            )
 
             Row {
                 VerticalDivider(
@@ -101,6 +118,67 @@ internal class DividerScreenshot {
             }
         }
     }
+
+    @Test
+    fun dividerRtl() {
+        paparazzi.sparkSnapshot {
+            CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+                Column {
+                    HorizontalDivider(
+                        label = { TextComposable() },
+                        labelHorizontalAlignment = LabelHorizontalAlignment.Start,
+                    )
+                    HorizontalDivider(label = { TextComposable() })
+                    HorizontalDivider(
+                        label = { TextComposable() },
+                        labelHorizontalAlignment = LabelHorizontalAlignment.End,
+                    )
+                }
+            }
+        }
+    }
+
+    // The parent is narrower than two minimum lines: the lines must stay inside it.
+    @Test
+    fun dividerNarrow() {
+        paparazzi.sparkSnapshot {
+            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                LabelHorizontalAlignment.entries.forEach { alignment ->
+                    HorizontalDivider(
+                        modifier = Modifier.width(60.dp),
+                        label = { TextComposable() },
+                        labelHorizontalAlignment = alignment,
+                    )
+                }
+                Row(modifier = Modifier.height(60.dp)) {
+                    LabelVerticalAlignment.entries.forEach { alignment ->
+                        VerticalDivider(
+                            label = { TextComposable() },
+                            labelVerticalAlignment = alignment,
+                        )
+                        HorizontalSpacer(space = 16.dp)
+                    }
+                }
+            }
+        }
+    }
+
+    // Intrinsic measurements must work: a parent can ask for them with IntrinsicSize.
+    @Test
+    fun dividerIntrinsicSize() {
+        paparazzi.sparkSnapshot {
+            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                Column(modifier = Modifier.width(IntrinsicSize.Min)) {
+                    HorizontalDivider(label = { TextComposable() })
+                }
+                Row(modifier = Modifier.height(IntrinsicSize.Min)) {
+                    VerticalDivider(label = { TextComposable() })
+                    HorizontalSpacer(space = 16.dp)
+                    Box(modifier = Modifier.width(16.dp).height(16.dp))
+                }
+            }
+        }
+    }
 }
 
 @Composable
@@ -110,5 +188,16 @@ private fun TextComposable(textOverflow: TextOverflow = TextOverflow.Ellipsis) {
         overflow = textOverflow,
         style = SparkTheme.typography.body1,
         text = "label",
+    )
+}
+
+@Composable
+private fun OverflowTextComposable() {
+    Text(
+        textAlign = TextAlign.Center,
+        overflow = TextOverflow.Ellipsis,
+        maxLines = 1,
+        style = SparkTheme.typography.body1,
+        text = "This label is intentionally very long to verify the divider lines keep their 40dp minimum",
     )
 }
