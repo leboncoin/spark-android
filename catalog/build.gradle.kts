@@ -35,9 +35,6 @@ android {
     androidResources.localeFilters += setOf("en-rGB", "fr")
     defaultConfig {
         versionName = version.toString()
-        if (providers.environmentVariable("GITHUB_ACTION").isPresent) {
-            versionName = version.toString().replace("SNAPSHOT", System.getenv("GITHUB_SHA").take(7))
-        }
     }
 
     compileOptions.isCoreLibraryDesugaringEnabled = true

@@ -25,9 +25,7 @@ import org.gradle.api.Project
 import org.gradle.api.tasks.testing.Test
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
 import org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED
-import org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED
 import org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED
-import org.gradle.api.tasks.testing.logging.TestLogEvent.STARTED
 import org.gradle.kotlin.dsl.withType
 import org.gradle.language.base.plugins.LifecycleBasePlugin
 
@@ -38,6 +36,8 @@ internal object SparkUnitTests {
     private const val CI_UNIT_TEST_TASK_NAME = "ciUnitTest"
     private const val COMPILE_CI_UNIT_TEST_NAME = "compileCiUnitTest"
     private const val LOG = "SparkUnitTests:"
+    private const val SCREENSHOT_TESTING_PROJECT_PATH = ":spark-screenshot-testing"
+    private val ANDROID_UNIT_TEST_SOURCE_DIRS = listOf("test", "androidUnitTest", "commonTest")
 
     fun configureSubproject(project: Project) {
         project.pluginManager.withPlugin("com.android.base") {
@@ -68,28 +68,38 @@ internal object SparkUnitTests {
         project.logger.debug("$LOG Creating CI unit test tasks for project '$project' and variant '$variant'")
         // com.android.test modules (for example the baseline profile generator) have no unit test variant task,
         // so match lazily and depend on nothing when the task is absent.
+        // A module without unit test sources depends on nothing, so that CI does not compile its main code for no test.
+        val hasUnitTests = ANDROID_UNIT_TEST_SOURCE_DIRS.any { project.file("src/$it").isDirectory }
         project.tasks.register(CI_UNIT_TEST_TASK_NAME) {
             group = LifecycleBasePlugin.VERIFICATION_GROUP
-            dependsOn(project.tasks.matching { it.name == variantUnitTestTaskName })
+            if (hasUnitTests) dependsOn(project.tasks.matching { it.name == variantUnitTestTaskName })
         }
         project.tasks.register(COMPILE_CI_UNIT_TEST_NAME) {
             group = LifecycleBasePlugin.VERIFICATION_GROUP
-            dependsOn(project.tasks.matching { it.name == variantCompileUnitTestTaskName })
+            if (hasUnitTests) dependsOn(project.tasks.matching { it.name == variantCompileUnitTestTaskName })
         }
     }
 
     private fun configureTestTasks(project: Project) {
+        val isScreenshotModule = project.path == SCREENSHOT_TESTING_PROJECT_PATH
         project.tasks.withType<Test>().configureEach {
             // Bump max heap space for paparazzi
             // https://github.com/cashapp/paparazzi/issues/915
             maxHeapSize = "1g"
+            if (isScreenshotModule) {
+                // Run the screenshot test classes in parallel JVMs, with half of the cores (at least one fork).
+                // Each fork needs its own heap, so raise it. Same formula as element-x-android and android-pass.
+                // Paparazzi can race on a snapshot write when two forks share an image (cashapp/paparazzi#1727):
+                // rerun the job when a test reports a missing image.
+                maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).coerceAtLeast(1)
+                maxHeapSize = "2g"
+            }
             // Robolectric 4.17 accesses jdk.internal.access on newer JDKs; open the package to it.
             jvmArgs("--add-opens=java.base/jdk.internal.access=ALL-UNNAMED")
             testLogging {
-                showStandardStreams = true
                 showStackTraces = true
                 exceptionFormat = FULL
-                events(STARTED, PASSED, FAILED, SKIPPED)
+                events(FAILED, SKIPPED)
             }
             reports {
                 // Disable HTML reports until Paparazzi supports Gradle 9.3+ APIs
