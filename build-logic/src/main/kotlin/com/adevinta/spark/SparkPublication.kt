@@ -42,6 +42,21 @@ import kotlin.time.toJavaDuration
 
 internal object SparkPublication {
 
+    /**
+     * Every project that applies the publishing plugin, uploaded together to Maven Central.
+     *
+     * A new published module goes in two places: this list and the BOM constraints in
+     * `spark-bom/build.gradle.kts`. The `checkBom` task fails when the BOM constraints miss a module.
+     */
+    val publishedModules = listOf(
+        ":spark-bom",
+        ":spark-icons",
+        ":spark",
+        ":spark-core",
+        ":spark-annotation",
+        ":spark-catalog",
+    )
+
     fun configureRootProject(project: Project) = with(project) {
         apply(plugin = "com.gradleup.nmcp.aggregation")
         configure<NmcpAggregationExtension> {
@@ -53,16 +68,17 @@ internal object SparkPublication {
             }
         }
         dependencies {
-            add("nmcpAggregation", project(":spark-bom"))
-            add("nmcpAggregation", project(":spark-icons"))
-            add("nmcpAggregation", project(":spark"))
-            add("nmcpAggregation", project(":spark-core"))
-            add("nmcpAggregation", project(":spark-annotation"))
-            add("nmcpAggregation", project(":spark-catalog"))
+            publishedModules.forEach { add("nmcpAggregation", project(it)) }
         }
     }
 
     fun configureSubproject(project: Project) = with(project) {
+        check(path in publishedModules) {
+            "$path applies the publishing plugin but is missing from SparkPublication.publishedModules.\n" +
+                "Add \"$path\" to SparkPublication.publishedModules in build-logic.\n" +
+                "Then add this line to the BOM constraints in spark-bom/build.gradle.kts:\n" +
+                "    api(\"com.adevinta.spark:${path.removePrefix(":")}:\$version\")"
+        }
         apply(plugin = "org.gradle.maven-publish")
         apply(plugin = "org.gradle.signing")
         apply(plugin = "com.gradleup.nmcp")
@@ -70,6 +86,7 @@ internal object SparkPublication {
         configureRepository()
         registerPublication()
         configureSigning()
+        pluginManager.withPlugin("org.gradle.java-platform") { SparkBomCheck.configureBomProject(project) }
     }
 
     private fun Project.configureRepository() = configure<PublishingExtension> {
