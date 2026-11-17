@@ -87,8 +87,8 @@ dependencies {
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.runtime.tracing)
-    implementation(libs.androidx.tracing.perfetto)
-    implementation(libs.androidx.tracing.perfetto.binary)
+    "benchmarkImplementation"(libs.androidx.tracing.perfetto)
+    "benchmarkImplementation"(libs.androidx.tracing.perfetto.binary)
 
     implementation(libs.androidx.activity)
     implementation(libs.androidx.activity.compose)

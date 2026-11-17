@@ -53,7 +53,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.constraintlayout.compose)
     lintPublish(projects.sparkLint)
     lintChecks(projects.sparkLint)
@@ -69,7 +68,7 @@ dependencies {
     implementation(libs.androidx.core)
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.savedstate)
-    implementation(libs.androidx.window)
+    implementation(libs.androidx.window.core)
 
     api(libs.androidx.compose.animation.graphics)
     api(libs.androidx.compose.foundation)
@@ -79,7 +78,6 @@ dependencies {
     api(libs.androidx.compose.ui.text)
     api(libs.androidx.compose.ui.tooling.preview)
     debugImplementation(libs.androidx.compose.ui.tooling)
-    debugImplementation(libs.constraintsExplorer)
     implementation(libs.androidx.compose.ui.util)
     api(platform(libs.coil.bom))
     api(libs.coil.compose)
