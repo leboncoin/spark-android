@@ -7,10 +7,18 @@ updates:
       - "/.github/workflows/*"
     schedule:
       interval: "daily"
+    cooldown:
+      default-days: 7
+    groups:
+      github-actions:
+        patterns:
+          - "*"
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
       interval: "daily"
+    cooldown:
+      default-days: 7
     registries: "*"
     labels: [ ]
     groups:
@@ -24,7 +32,21 @@ updates:
           - com.android.lint
           - com.android.settings
           - com.android.test
+      kotlin:
+        patterns:
+          - org.jetbrains.kotlin:*
+          - org.jetbrains.kotlin.*
+      compose:
+        patterns:
+          - androidx.compose*
+          - org.jetbrains.compose*
     open-pull-requests-limit: 20
+  - package-ecosystem: "pip"
+    directory: "/.github"
+    schedule:
+      interval: "daily"
+    cooldown:
+      default-days: 7
 registries:
   maven-google:
     type: "maven-repository"

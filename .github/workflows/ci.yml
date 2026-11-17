@@ -14,13 +14,15 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  security-events: write
-  pull-requests: write
+  contents: read
 
 jobs:
 
   validation:
     name: 🛃 Validation
+    permissions:
+      contents: read
+      pull-requests: write
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -33,6 +35,9 @@ jobs:
 
   checks:
     name: 👮 Checks
+    permissions:
+      contents: read
+      pull-requests: write
     needs: validation
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -50,6 +55,9 @@ jobs:
 
   build:
     name: 👷 Build
+    permissions:
+      contents: read
+      pull-requests: write
     needs: validation
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -92,6 +100,9 @@ jobs:
 
   test:
     name: 🧑‍🔬 Test
+    permissions:
+      contents: read
+      pull-requests: write
     needs: validation
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -126,6 +137,10 @@ jobs:
 
   lint:
     name: 🕵️ Lint
+    permissions:
+      contents: read
+      pull-requests: write
+      security-events: write
     needs: validation
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -174,6 +189,9 @@ jobs:
 
   dokka:
     name: 📋 Dokka
+    permissions:
+      contents: read
+      pull-requests: write
     needs: validation
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -251,6 +269,9 @@ jobs:
 
   datadog-ci:
     name: 📊 Datadog CI Metrics
+    permissions:
+      actions: read
+      contents: read
     needs: [finish]
     if: ${{ !cancelled() && needs.finish.result == 'success' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest

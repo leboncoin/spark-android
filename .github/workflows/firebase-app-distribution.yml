@@ -25,6 +25,9 @@ on:
   schedule:
     - cron: 0 0 * * *
 
+permissions:
+  contents: read
+
 env:
   GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/firebase-service-account.json
 
@@ -57,9 +60,9 @@ jobs:
           KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_ALIAS_PASSWORD }}
       - uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 24
           package-manager-cache: false
-      - run: npm install -g firebase-tools@12.4.7
+      - run: npm install -g firebase-tools@15.36.0
       - run: echo "$FIREBASE_SERVICE_ACCOUNT" > "firebase-service-account.json"
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}

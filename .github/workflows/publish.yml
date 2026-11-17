@@ -5,6 +5,13 @@ on:
     tags: ['*']
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
 jobs:
   publish:
     if: github.repository == 'leboncoin/spark-android'
