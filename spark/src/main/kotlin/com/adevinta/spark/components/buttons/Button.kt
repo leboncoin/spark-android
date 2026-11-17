@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.buttons
 
-import android.annotation.SuppressLint
 import androidx.annotation.VisibleForTesting
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
@@ -65,7 +64,7 @@ import com.adevinta.spark.tokens.disabled
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
 @InternalSparkApi
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 internal fun BaseSparkButton(
     onClick: () -> Unit,

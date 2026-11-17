@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.dialog
 
-import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -129,8 +128,8 @@ public fun ModalScaffold(
     contentPadding: PaddingValues = DialogPadding,
     contentWindowInsets: WindowInsets = ScaffoldDefaults.contentWindowInsets,
     snackbarHost: @Composable () -> Unit = {},
-    @SuppressLint("SlotReused") mainButton: (@Composable (Modifier) -> Unit)? = null,
-    @SuppressLint("SlotReused") supportButton: (@Composable (Modifier) -> Unit)? = null,
+    @Suppress("SlotReused") mainButton: (@Composable (Modifier) -> Unit)? = null,
+    @Suppress("SlotReused") supportButton: (@Composable (Modifier) -> Unit)? = null,
     title: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
     inEdgeToEdge: Boolean = LocalSparkFeatureFlag.current.isContainingActivityEdgeToEdge,

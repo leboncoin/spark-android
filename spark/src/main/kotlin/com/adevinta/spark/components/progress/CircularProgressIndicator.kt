@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.progress
 
-import android.annotation.SuppressLint
 import androidx.annotation.FloatRange
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.foundation.layout.size
@@ -36,7 +35,7 @@ import com.adevinta.spark.components.progress.ProgressIndicatorDefaults.Circular
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 import androidx.compose.material3.CircularProgressIndicator as MaterialCircularProgressIndicator
 
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @InternalSparkApi
 @Composable
 internal fun SparkCircularProgressIndicator(

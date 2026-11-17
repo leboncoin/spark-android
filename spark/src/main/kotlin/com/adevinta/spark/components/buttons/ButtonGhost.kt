@@ -24,7 +24,6 @@
 
 package com.adevinta.spark.components.buttons
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -84,7 +83,7 @@ public fun ButtonGhost(
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
-    @SuppressLint("SlotReused") content: @Composable RowScope.() -> Unit,
+    @Suppress("SlotReused") content: @Composable RowScope.() -> Unit,
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         val variant = ButtonStyleMapper.map(intent, ButtonStyle.Ghost)
@@ -301,7 +300,7 @@ public fun ButtonGhost(
     )
 }
 
-@SuppressLint("SparkButtonMigration")
+@Suppress("SparkButtonMigration")
 @Preview
 @Composable
 internal fun ButtonGhostPreview() {
@@ -335,7 +334,7 @@ internal fun ButtonGhostPreview() {
     }
 }
 
-@SuppressLint("SparkButtonMigration")
+@Suppress("SparkButtonMigration")
 @Preview
 @Composable
 internal fun ButtonGhostIntentPreview() {

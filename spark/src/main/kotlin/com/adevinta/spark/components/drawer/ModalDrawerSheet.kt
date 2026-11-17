@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.drawer
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -48,7 +47,7 @@ import com.adevinta.spark.icons.MailBoxOpenOutline
 import com.adevinta.spark.tokens.SparkShapes
 import com.adevinta.spark.tokens.contentColorFor
 
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @ExperimentalSparkApi
 @Composable
 internal fun SparkModalDrawerSheet(

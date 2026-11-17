@@ -24,7 +24,6 @@
 
 package com.adevinta.spark.components.meter.circular
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
@@ -44,7 +43,7 @@ import com.adevinta.spark.components.meter.MeterDefaults
 import com.adevinta.spark.components.meter.MeterIntent
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
-@SuppressLint("MaterialComposableHasSparkReplacement")
+@Suppress("MaterialComposableHasSparkReplacement")
 @InternalSparkApi
 @Composable
 internal fun SparkCircularMeter(

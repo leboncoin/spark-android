@@ -1,0 +1,3 @@
+# Gitignored files that Orca copies from the main checkout into each new worktree.
+# local.properties holds sdk.dir, which Gradle needs to build the Android modules.
+local.properties

@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.navigation
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -51,7 +50,7 @@ import com.adevinta.spark.icons.StoreOutline
 import com.adevinta.spark.tokens.contentColorFor
 import androidx.compose.material3.PermanentDrawerSheet as MaterialPermanentDrawerSheet
 
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @InternalSparkApi
 @Composable
 internal fun SparkPermanentDrawerSheet(

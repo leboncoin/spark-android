@@ -22,7 +22,6 @@
 package com.adevinta.spark.components.segmentedcontrol
 
 import android.R.attr.onClick
-import android.annotation.SuppressLint
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
@@ -238,7 +237,7 @@ private enum class SegmentSlot { Segments, Indicator, Dividers, RowDivider }
 
 // We suppress the content emitter with returning values as we use it to enforce which composable we accept inside the
 // segmented control slot
-@SuppressLint("ComposeContentEmitterReturningValues")
+@Suppress("ComposeContentEmitterReturningValues")
 private object SegmentedControlScopeImpl : SegmentedControlScope {
 
     @Composable

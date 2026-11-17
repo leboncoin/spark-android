@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.list
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
@@ -39,7 +38,7 @@ import com.adevinta.spark.icons.LeboncoinIcons
 import androidx.compose.material3.ListItem as MaterialListItem
 
 @ExperimentalSparkApi
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 internal fun SparkListItem(
     headlineContent: @Composable () -> Unit,

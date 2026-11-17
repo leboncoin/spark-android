@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.catalog.ui.shaders.colorblindness
 
-import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
@@ -78,7 +77,7 @@ half4 main(float2 coord) {
 }
 """
 
-@SuppressLint("MaterialComposableHasSparkReplacement")
+@Suppress("MaterialComposableHasSparkReplacement")
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 internal fun ColumnScope.ColorBlindSetting(

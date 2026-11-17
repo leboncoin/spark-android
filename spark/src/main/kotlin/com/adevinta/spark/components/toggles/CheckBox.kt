@@ -23,7 +23,6 @@
 
 package com.adevinta.spark.components.toggles
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement.spacedBy
@@ -47,7 +46,7 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
 @Composable
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @InternalSparkApi
 internal fun SparkCheckbox(
     state: ToggleableState,

@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.icons
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -65,7 +64,7 @@ import androidx.compose.material3.OutlinedIconButton as MaterialOutlinedIconButt
  * [Interaction]s and customize the appearance / behavior of this icon button in different states.
  * @param content the content of this icon button, typically an [Icon]
  */
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 @ExperimentalSparkApi
 public fun IconButton(
@@ -112,7 +111,7 @@ public fun IconButton(
  * @param content the content of this icon button, typically an [Icon]
  */
 @ExperimentalSparkApi
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun FilledIconButton(
     onClick: () -> Unit,
@@ -164,7 +163,7 @@ public fun FilledIconButton(
  * @param content the content of this icon button, typically an [Icon]
  */
 @ExperimentalSparkApi
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun FilledTonalIconButton(
     onClick: () -> Unit,
@@ -221,7 +220,7 @@ public fun FilledTonalIconButton(
  * @param content the content of this icon button, typically an [Icon]
  */
 @ExperimentalSparkApi
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun OutlinedIconButton(
     onClick: () -> Unit,

@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.icons
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -66,7 +65,7 @@ import androidx.compose.material3.OutlinedIconToggleButton as MaterialOutlinedIc
  * [Interaction]s and customize the appearance / behavior of this icon button in different states.
  * @param content the content of this icon button, typically an [Icon]
  */
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun IconToggleButton(
     checked: Boolean,
@@ -115,7 +114,7 @@ public fun IconToggleButton(
  * @param content the content of this icon button, typically an [Icon]
  */
 
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun FilledIconToggleButton(
     checked: Boolean,
@@ -169,7 +168,7 @@ public fun FilledIconToggleButton(
  * [Interaction]s and customize the appearance / behavior of this icon button in different states.
  * @param content the content of this icon button, typically an [Icon]
  */
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun FilledTonalIconToggleButton(
     checked: Boolean,
@@ -223,7 +222,7 @@ public fun FilledTonalIconToggleButton(
  * [Interaction]s and customize the appearance / behavior of this icon button in different states.
  * @param content the content of this icon button, typically an [Icon]
  */
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun OutlinedIconToggleButton(
     checked: Boolean,

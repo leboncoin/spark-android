@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.catalog.tabbar
 
-import android.annotation.SuppressLint
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
@@ -90,7 +89,7 @@ private fun AppIcon() {
     )
 }
 
-@SuppressLint("MaterialComposableHasSparkReplacement")
+@Suppress("MaterialComposableHasSparkReplacement")
 @Composable
 internal fun CatalogTabs(
     titles: ImmutableList<String>,
@@ -121,7 +120,7 @@ internal fun CatalogTabs(
     }
 }
 
-@SuppressLint("MaterialComposableHasSparkReplacement")
+@Suppress("MaterialComposableHasSparkReplacement")
 @Composable
 private fun CatalogTab(
     selected: Boolean,

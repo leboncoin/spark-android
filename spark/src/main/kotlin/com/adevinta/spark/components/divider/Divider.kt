@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.divider
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Row
@@ -77,7 +76,7 @@ public enum class LabelVerticalAlignment {
  * @param labelHorizontalAlignment The horizontal alignment of the label.
  * ![Horizontal Divider](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.divider_DividerDocumentationScreenshots_horizontalDivider.png)
  */
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun HorizontalDivider(
     modifier: Modifier = Modifier,
@@ -147,7 +146,7 @@ public fun HorizontalDivider(
  * @param labelVerticalAlignment The vertical alignment of the label.
  * ![Vertical Divider](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.divider_DividerDocumentationScreenshots_verticalDivider.png)
  */
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun VerticalDivider(
     modifier: Modifier = Modifier,

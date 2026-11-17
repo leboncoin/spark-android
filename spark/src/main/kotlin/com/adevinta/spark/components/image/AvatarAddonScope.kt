@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.image
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
@@ -107,7 +106,7 @@ internal object AvatarAddonItemImpl : AvatarAddonItem
 
 // Suppress ComposeContentEmitterReturningValues to mirror SegmentedControlScopeImpl: scope
 // methods emit UI and return the marker so the slot type enforces only recognised builders.
-@SuppressLint("ComposeContentEmitterReturningValues")
+@Suppress("ComposeContentEmitterReturningValues")
 internal class AvatarAddonScopeImpl(private val size: AvatarSize) : AvatarAddonScope {
 
     @Suppress("ContentEmission")

@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.menu
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.Interaction
@@ -127,7 +126,7 @@ import androidx.compose.material3.DropdownMenu as MaterialDropdownMenu
  * @param offset [DpOffset] to be added to the position of the menu
  * ![DropdownMenu](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.menu_DropdownMenuDocumentationScreenshots_dropdownMenuItem.png)
  */
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun DropdownMenu(
     expanded: Boolean,
@@ -170,7 +169,7 @@ public fun DropdownMenu(
  *   the width of the text field to which it's attached.
  * @param content the content of the menu
  */
-@SuppressLint("ComposeUnstableReceiver")
+@Suppress("ComposeUnstableReceiver")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 public fun ExposedDropdownMenuBoxScope.ExposedDropdownMenu(
@@ -212,7 +211,7 @@ public fun ExposedDropdownMenuBoxScope.ExposedDropdownMenu(
  *   the width of the text field to which it's attached.
  * @param content the content of the menu
  */
-@SuppressLint("ComposeUnstableReceiver")
+@Suppress("ComposeUnstableReceiver")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 public fun ExposedDropdownMenuBoxScope.SingleChoiceExposedDropdownMenu(
@@ -256,7 +255,7 @@ public fun ExposedDropdownMenuBoxScope.SingleChoiceExposedDropdownMenu(
  *   the width of the text field to which it's attached.
  * @param content the content of the menu
  */
-@SuppressLint("ComposeUnstableReceiver")
+@Suppress("ComposeUnstableReceiver")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 public fun ExposedDropdownMenuBoxScope.MultipleChoiceExposedDropdownMenu(
@@ -708,7 +707,7 @@ public fun DropdownMenuItemColumnScope.NoContentItem(
  *
  * ![DropdownMenuGroupItem](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.menu_DropdownMenuDocumentationScreenshots_dropdownMenuGroupItem.png)
  */
-@SuppressLint("ComposeUnstableReceiver") // Used as namespace
+@Suppress("ComposeUnstableReceiver") // Used as namespace
 @Composable
 @ExperimentalSparkApi
 public fun <T : DropdownMenuItemColumnScope> T.DropdownMenuGroupItem(

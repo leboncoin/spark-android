@@ -24,7 +24,6 @@
 
 package com.adevinta.spark.components.image
 
-import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.foundation.Image
@@ -79,7 +78,7 @@ import androidx.compose.foundation.Image as FoundationImage
  * into the destination. The default is [FilterQuality.Low] which scales using a bilinear
  * sampling algorithm
  */
-@SuppressLint("MaterialComposableHasSparkReplacement")
+@Suppress("MaterialComposableHasSparkReplacement")
 @Composable
 public fun Illustration(
     bitmap: ImageBitmap,
@@ -125,7 +124,7 @@ public fun Illustration(
  * @param colorFilter Optional ColorFilter to apply for the [ImageVector] when it is rendered
  * onscreen
  */
-@SuppressLint("MaterialComposableHasSparkReplacement")
+@Suppress("MaterialComposableHasSparkReplacement")
 @Composable
 public fun Illustration(
     imageVector: ImageVector,
@@ -172,7 +171,7 @@ public fun Illustration(
  * the default renders the [Painter] completely opaque
  * @param colorFilter Optional colorFilter to apply for the [Painter] when it is rendered onscreen
  */
-@SuppressLint("MaterialComposableHasSparkReplacement")
+@Suppress("MaterialComposableHasSparkReplacement")
 @Composable
 public fun Illustration(
     painter: Painter?,
@@ -215,7 +214,7 @@ public fun Illustration(
  * the default renders the [Painter] completely opaque
  * @param colorFilter Optional colorFilter to apply for the [Painter] when it is rendered onscreen
  */
-@SuppressLint("MaterialComposableHasSparkReplacement")
+@Suppress("MaterialComposableHasSparkReplacement")
 @Composable
 public fun Illustration(
     @DrawableRes drawableRes: Int,
@@ -260,7 +259,7 @@ public fun Illustration(
  * the default renders the [Painter] completely opaque
  * @param colorFilter Optional colorFilter to apply for the [Painter] when it is rendered onscreen
  */
-@SuppressLint("MaterialComposableHasSparkReplacement")
+@Suppress("MaterialComposableHasSparkReplacement")
 @Composable
 public fun Illustration(
     sparkIcon: SparkIcon,

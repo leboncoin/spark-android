@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.catalog.configurator.samples.buttons
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ColumnScope
@@ -165,7 +164,7 @@ private fun ButtonSamplePreview() {
 }
 
 @Composable
-@SuppressLint("SparkButtonMigration")
+@Suppress("SparkButtonMigration")
 private fun ConfiguredButton(
     style: ButtonStyle,
     buttonText: String,

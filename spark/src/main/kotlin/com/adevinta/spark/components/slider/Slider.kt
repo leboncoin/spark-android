@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.slider
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -70,7 +69,7 @@ import com.adevinta.spark.tokens.transparent
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 import androidx.compose.material3.Slider as MaterialSlider
 
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @OptIn(ExperimentalMaterial3Api::class)
 @InternalSparkApi
 @Composable

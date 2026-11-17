@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.dialog
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.AlertDialogDefaults
@@ -45,7 +44,7 @@ import com.adevinta.spark.icons.HeartFill
 import com.adevinta.spark.icons.LeboncoinIcons
 
 @ExperimentalSparkApi
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 internal fun SparkAlertDialog(
     onDismissRequest: () -> Unit,
@@ -143,7 +142,7 @@ public fun AlertDialog(
     group = "Dialog",
     name = "AlertDialog",
 )
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 internal fun AlertDialogPreview() {
     PreviewTheme {

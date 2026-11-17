@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.drawer
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -53,7 +52,7 @@ import com.adevinta.spark.icons.MailBoxOpenOutline
 import kotlinx.coroutines.launch
 import androidx.compose.material3.rememberDrawerState as rememberMaterialDrawerState
 
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @OptIn(ExperimentalMaterial3Api::class)
 @ExperimentalSparkApi
 @Composable
@@ -105,7 +104,7 @@ public fun DismissibleNavigationDrawer(
     )
 }
 
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @ExperimentalMaterial3Api
 @Composable
 public fun rememberDrawerState(

@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.appbar
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -58,7 +57,7 @@ import com.adevinta.spark.tokens.contentColorFor
 import androidx.compose.material3.NavigationBarItem as MaterialNavigationBarItem
 
 @Composable
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 internal fun SparkNavigationBar(
     elevation: Dp,
     modifier: Modifier = Modifier,
@@ -154,7 +153,7 @@ public fun NavigationBar(
  * for this item. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this item in different states.
  */
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun RowScope.NavigationBarItem(
     selected: Boolean,

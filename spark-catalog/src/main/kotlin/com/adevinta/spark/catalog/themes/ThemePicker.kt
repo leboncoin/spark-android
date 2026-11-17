@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.catalog.themes
 
-import android.annotation.SuppressLint
 import android.app.UiModeManager
 import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
@@ -83,7 +82,7 @@ import com.composeunstyled.DisclosureButton
 import com.composeunstyled.UnstyledDisclosure
 import java.text.NumberFormat
 
-@SuppressLint("MaterialComposableHasSparkReplacement")
+@Suppress("MaterialComposableHasSparkReplacement")
 @Composable
 internal fun ThemePicker(
     theme: Theme,
