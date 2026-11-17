@@ -58,6 +58,7 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: 20
+          package-manager-cache: false
       - run: npm install -g firebase-tools@12.4.7
       - run: echo "$FIREBASE_SERVICE_ACCOUNT" > "firebase-service-account.json"
         env:
