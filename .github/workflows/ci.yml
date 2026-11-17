@@ -66,7 +66,7 @@ jobs:
         run: git lfs pull --include="**/generated/baselineProfiles/*.txt"
       - name: 👷 Build
         id: build
-        run: ./gradlew assembleRelease :spark-icons:assembleAndroidMain jvmJar
+        run: ./gradlew assembleRelease :spark:assembleAndroidMain :spark-icons:assembleAndroidMain jvmJar
       - name: 📦 Archive APKs
         uses: actions/upload-artifact@v7
         with:
@@ -142,7 +142,7 @@ jobs:
         run: git lfs pull --include="**/generated/baselineProfiles/*.txt"
       - name: 🕵️ Lint
         id: lint
-        run: ./gradlew :spark:lintRelease :spark-screenshot-testing:lintRelease :catalog:lintRelease :spark-catalog:lintRelease :spark-lint:lint --continue
+        run: ./gradlew :spark:lintAndroidMain :spark-screenshot-testing:lintRelease :catalog:lintRelease :spark-catalog:lintRelease :spark-lint:lint --continue
       - name: 📦 Archive Lint reports
         if: ${{ always() && contains(fromJSON('["success", "failure"]'), steps.lint.outcome) }}
         uses: $/.github/actions/archive-lint-reports
@@ -320,7 +320,7 @@ jobs:
           echo "=== apk-output ===" && find apk-output -type f
           echo "=== jar-output ===" && find jar-output -type f
           "$diffuse" info --apk $(find apk-output -name "*-release.apk" | head -1) > apk.txt
-          "$diffuse" info --aar $(find aar-output -name "spark-release.aar" | head -1) > spark.txt
+          "$diffuse" info --aar $(find aar-output -name "spark.aar" | head -1) > spark.txt
           "$diffuse" info --aar $(find aar-output -name "spark-icons*.aar" | head -1) > spark-icons.txt
           "$diffuse" info --jar $(find jar-output -name "*-jvm-*.jar" | head -1) > spark-icons-jvm.txt
 

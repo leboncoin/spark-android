@@ -20,8 +20,11 @@
  * SOFTWARE.
  */
 plugins {
-    alias(libs.plugins.spark.library)
-    alias(libs.plugins.spark.compose)
+    alias(libs.plugins.spark.multiplatform)
+    alias(libs.plugins.spark.multiplatform.library)
+    alias(libs.plugins.spark.compose.multiplatform)
+    // Android-KMP modules create lint tasks only with the standalone lint plugin.
+    alias(libs.plugins.android.lint)
     alias(libs.plugins.spark.publishing)
     alias(libs.plugins.spark.dependencyGuard)
     alias(libs.plugins.spark.dokka)
@@ -29,25 +32,74 @@ plugins {
     alias(libs.plugins.baselineprofile)
 }
 
-android {
-    namespace = "com.adevinta.spark"
-    resourcePrefix = "spark_"
-
-    defaultConfig {
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+kotlin {
+    android {
+        namespace = "com.adevinta.spark"
+        androidResources {
+            resourcePrefix = "spark_"
+        }
+        optimization {
+            consumerKeepRules.file("consumer-rules.pro")
+        }
+        withHostTest {
+            isIncludeAndroidResources = true
+            isReturnDefaultValues = true
+        }
+        withDeviceTest {
+            instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        }
     }
+    sourceSets {
+        commonMain.dependencies {
+            api(project.dependencies.platform(projects.sparkBom))
+            api(projects.sparkCore)
+            api(projects.sparkIcons)
 
-    testOptions {
-        unitTests.isIncludeAndroidResources = true
-        unitTests.isReturnDefaultValues = true
-    }
+            api(libs.compose.foundation)
+            api(libs.compose.material3)
+            api(libs.compose.material3.adaptive)
+            api(libs.compose.ui)
+            api(libs.compose.ui.tooling.preview)
+            api(project.dependencies.platform(libs.coil.bom))
+            api(libs.coil.compose)
+            api(libs.kotlinx.collections.immutable)
+            // FileKit for file picker dialogs in the configurator
+            api(libs.filekit)
+            api(libs.filekit.dialogs)
+        }
+        androidMain.dependencies {
+            implementation(project.dependencies.platform(libs.androidx.compose.bom))
+            implementation(libs.accompanist.drawablepainter)
 
-    kotlin {
-        compilerOptions {
-            optIn.addAll(
-                "com.adevinta.spark.InternalSparkApi",
-                "com.adevinta.spark.ExperimentalSparkApi",
-            )
+            implementation(libs.androidx.appCompat.resources)
+            implementation(libs.androidx.core)
+            implementation(libs.androidx.lifecycle.viewmodel)
+            implementation(libs.androidx.savedstate)
+            implementation(libs.androidx.window)
+
+            api(libs.androidx.compose.animation.graphics)
+            api(libs.androidx.compose.ui.text)
+            implementation(libs.androidx.compose.ui.util)
+        }
+        getByName("androidHostTest").dependencies {
+            implementation(project.dependencies.platform(libs.androidx.compose.bom))
+            implementation(libs.junit)
+            implementation(libs.kotlin.test)
+            implementation(libs.androidx.test.truth)
+            implementation(libs.androidx.test.runner)
+            implementation(libs.testParameterInjector)
+            implementation(libs.robolectric)
+            implementation(libs.androidx.compose.ui.testJUnit)
+            implementation(libs.androidx.compose.ui.testManifest)
+        }
+        getByName("androidDeviceTest").dependencies {
+            implementation(project.dependencies.platform(libs.androidx.compose.bom))
+            implementation(libs.junit)
+            implementation(libs.kotlin.test)
+            implementation(libs.androidx.test.truth)
+            implementation(libs.androidx.test.runner)
+            implementation(libs.androidx.compose.ui.testJUnit)
+            implementation(libs.androidx.compose.ui.testManifest)
         }
     }
 }
@@ -57,49 +109,7 @@ dependencies {
     lintChecks(projects.sparkLint)
     lintChecks(libs.slack.lint.compose)
 
-    api(platform(projects.sparkBom))
-    api(projects.sparkCore)
-    api(projects.sparkIcons)
-
-    implementation(libs.accompanist.drawablepainter)
-
-    implementation(libs.androidx.appCompat.resources)
-    implementation(libs.androidx.core)
-    implementation(libs.androidx.lifecycle.viewmodel)
-    implementation(libs.androidx.savedstate)
-    implementation(libs.androidx.window)
-
-    api(libs.androidx.compose.animation.graphics)
-    api(libs.androidx.compose.foundation)
-    api(libs.androidx.compose.material3)
-    api(libs.androidx.compose.material3.adaptive)
-    api(libs.androidx.compose.ui)
-    api(libs.androidx.compose.ui.text)
-    api(libs.androidx.compose.ui.tooling.preview)
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    implementation(libs.androidx.compose.ui.util)
-    api(platform(libs.coil.bom))
-    api(libs.coil.compose)
-    api(libs.kotlinx.collections.immutable)
-    // FileKit for file picker dialogs in the configurator
-    api(libs.filekit)
-    api(libs.filekit.dialogs)
-
-    testImplementation(libs.junit)
-    testImplementation(libs.kotlin.test)
-    testImplementation(libs.androidx.test.truth)
-    testImplementation(libs.androidx.test.runner)
-    testImplementation(libs.testParameterInjector)
-    testImplementation(libs.robolectric)
-    testImplementation(libs.androidx.compose.ui.testJUnit)
-    testImplementation(libs.androidx.compose.ui.testManifest)
-
-    androidTestImplementation(libs.junit)
-    androidTestImplementation(libs.kotlin.test)
-    androidTestImplementation(libs.androidx.test.truth)
-    androidTestImplementation(libs.androidx.test.runner)
-    androidTestImplementation(libs.androidx.compose.ui.testJUnit)
-    androidTestImplementation(libs.androidx.compose.ui.testManifest)
+    androidRuntimeClasspath(libs.compose.ui.tooling)
 
     baselineProfile(project(":catalog:baselineprofile"))
 }

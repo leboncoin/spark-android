@@ -40,13 +40,33 @@ internal object SparkUnitTests {
     private const val LOG = "SparkUnitTests:"
 
     fun configureSubproject(project: Project) {
+        project.pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {
+            createMultiplatformCiUnitTestTask(project)
+        }
         project.pluginManager.withPlugin("com.android.base") {
-            createAndroidCiUnitTestTask(project)
+            // Multiplatform modules already have their CI unit test tasks.
+            if (!project.isKotlinMultiplatform) createAndroidCiUnitTestTask(project)
         }
         project.pluginManager.withPlugin("org.jetbrains.kotlin.jvm") {
             createJvmCiUnitTestTask(project)
         }
         configureTestTasks(project)
+    }
+
+    private fun createMultiplatformCiUnitTestTask(project: Project) {
+        project.logger.debug("$LOG Creating CI unit test tasks for multiplatform project '$project'")
+        // The Android host test tasks exist only when the module calls withHostTest {}, and the jvm tasks only
+        // when the module declares a jvm target, so match lazily and depend on nothing when a task is absent.
+        val testTaskNames = setOf("testAndroidHostTest", "jvmTest")
+        val compileTestTaskNames = setOf("compileAndroidHostTestSources", "jvmTestClasses")
+        project.tasks.register(CI_UNIT_TEST_TASK_NAME) {
+            group = LifecycleBasePlugin.VERIFICATION_GROUP
+            dependsOn(project.tasks.matching { it.name in testTaskNames })
+        }
+        project.tasks.register(COMPILE_CI_UNIT_TEST_NAME) {
+            group = LifecycleBasePlugin.VERIFICATION_GROUP
+            dependsOn(project.tasks.matching { it.name in compileTestTaskNames })
+        }
     }
 
     private fun createJvmCiUnitTestTask(project: Project) {

@@ -80,5 +80,7 @@ public class SparkMultiplatformPlugin : Plugin<Project> {
         dependencies {
             add("commonMainImplementation", platform(spark().libraries.`kotlin-bom`))
         }
+
+        SparkUnitTests.configureSubproject(this)
     }
 }

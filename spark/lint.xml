@@ -27,15 +27,4 @@
             value="LocalSparkColors,LocalSparkShapes,LocalSparkTypography,LocalSparkFeatureFlag,LocalElevationOverlay,LocalWindowSizeClass,LocalSparkExceptionHandler,LocalSegmentItemInfo,LocalCircularMeterStyling" />
     </issue>
     <issue id="AutoboxingStateCreation" severity="warning"/>
-    <!--
-     This seems to be an issue with Lint itself, where it's impossible to suppress with annotations.
-     https://github.com/slackhq/compose-lints/issues/57
-    -->
-    <issue id="ComposeModifierMissing">
-        <ignore path="src/main/kotlin/com/adevinta/spark/components/spacer/Spacers.kt" />
-        <ignore path="src/main/kotlin/com/adevinta/spark/SparkTheme.kt" />
-    </issue>
-    <issue id="ComposeUnstableCollections">
-        <ignore path="src/main/kotlin/com/adevinta/spark/components/text/Text.kt" />
-    </issue>
 </lint>

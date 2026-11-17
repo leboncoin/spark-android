@@ -90,7 +90,7 @@
     <!--endregion-->
 
     <!--region Meter-->
-    <plurals name="spark_meter_a11y">
+    <plurals name="spark_meter_a11y" tools:ignore="UnusedQuantity">
         <item quantity="one">%d pour cent</item>
         <item quantity="many">%d de pour cent</item>
         <item quantity="other">%d pour cent</item>

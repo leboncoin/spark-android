@@ -81,7 +81,8 @@ internal class SparkDokkaPlugin : Plugin<Project> {
 
     private fun Project.configureSubProject() = extensions.configure<DokkaExtension> {
         dokkaSourceSets.configureEach {
-            if (name != "release") return@configureEach
+            // Android modules document the release variant, multiplatform modules their common source set.
+            if (name != "release" && name != "commonMain") return@configureEach
             // Parse Module and Package docs
             // https://kotlinlang.org/docs/dokka-module-and-package-docs.html
             projectDir.resolve("src").walk()
