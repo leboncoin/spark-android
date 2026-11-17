@@ -31,7 +31,10 @@ import androidx.compose.runtime.CompositionLocalProvider
  * makes the text in cursive, colors in red/green/blue and shapes in full cut corners.
  * @property useSparkComponentsHighlighter Highlight visually with an overlay where the spark components are used
  * or not. Setting it to true show an overlay on spark components.
- * @property isContainingActivityEdgeToEdge Whether the containing activity has edge-to-edge enabled.
+ * @property isContainingActivityEdgeToEdge Set to true when the containing activity has edge-to-edge enabled on
+ * devices where the system does not enforce it. Components already treat the activity as edge-to-edge when the
+ * device runs API 35 or higher and the app targets API 35 or higher, unless the app opts out where the system
+ * still allows it.
  * @property useRebrandedButtons When true, old intent+style combinations resolve to new semantic button variants.
  */
 public data class SparkFeatureFlag(

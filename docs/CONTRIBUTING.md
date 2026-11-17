@@ -626,6 +626,7 @@ public data class SparkFeatureFlag(
     val useSparkTokensHighlighter: Boolean = false,
     /** Show an overlay on Spark components to highlight where they are used. */
     val useSparkComponentsHighlighter: Boolean = false,
+    /** Edge-to-edge on devices where the system does not enforce it (below API 35, or an app that targets API 34 or lower). */
     val isContainingActivityEdgeToEdge: Boolean = false,
     /** When true, old intent+style combinations resolve to new semantic button variants. */
     val useRebrandedButtons: Boolean = false,

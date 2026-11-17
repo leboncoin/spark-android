@@ -21,6 +21,8 @@
  */
 package com.adevinta.spark.components.dialog
 
+import android.content.Context
+import android.os.Build
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -49,16 +51,16 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.movableContentOf
 import androidx.compose.runtime.movableContentWithReceiverOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.paneTitle
@@ -69,12 +71,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.DialogWindowProvider
+import androidx.core.view.WindowCompat
 import androidx.window.core.layout.WindowSizeClass.Companion.HEIGHT_DP_MEDIUM_LOWER_BOUND
 import androidx.window.core.layout.WindowSizeClass.Companion.WIDTH_DP_MEDIUM_LOWER_BOUND
 import com.adevinta.spark.ExperimentalSparkApi
 import com.adevinta.spark.LocalSparkFeatureFlag
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.R
+import com.adevinta.spark.SparkFeatureFlag
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.appbar.BottomAppBar
 import com.adevinta.spark.components.appbar.BottomAppBarSparkDefaults
@@ -117,7 +121,10 @@ import com.adevinta.spark.tokens.LocalWindowSizeClass
  * @param actions the actions displayed at the end of the top app bar. This should typically be
  *  * [IconButton]s. The default layout here is a [Row], so icons inside will be placed horizontally.
  * @param inEdgeToEdge tell the component that the host activity uses edge-to-edge.
- * This must be set explicitly because no API can reliably detect it.
+ * By default this is `true` when [SparkFeatureFlag.isContainingActivityEdgeToEdge] is `true`, or when the system
+ * enforces edge-to-edge: the device runs API 35 or higher and the app targets API 35 or higher. An app that
+ * targets API 35 and sets `android:windowOptOutEdgeToEdgeEnforcement` is not edge-to-edge, but the system ignores
+ * this opt-out when both the device and the app are at API 36 or higher.
  * @param content the center custom Composable for modal content
  */
 @ExperimentalSparkApi
@@ -132,7 +139,7 @@ public fun ModalScaffold(
     @Suppress("SlotReused") supportButton: (@Composable (Modifier) -> Unit)? = null,
     title: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
-    inEdgeToEdge: Boolean = LocalSparkFeatureFlag.current.isContainingActivityEdgeToEdge,
+    inEdgeToEdge: Boolean = isHostEdgeToEdge(),
     content: @Composable (PaddingValues) -> Unit,
 ) {
     val size = LocalWindowSizeClass.current
@@ -454,17 +461,48 @@ private fun CloseIconButton(onClose: () -> Unit) {
     }
 }
 
-@Suppress("DEPRECATION")
 @Composable
-@ReadOnlyComposable
 private fun SetUpEdgeToEdgeDialog() {
-    val window = (LocalView.current.parent as DialogWindowProvider).window
-    window.statusBarColor = Color.Transparent.toArgb()
-    window.navigationBarColor = Color.Transparent.toArgb()
-    window.navigationBarColor = Color.Transparent.toArgb()
-    // FLAG_LAYOUT_NO_LIMITS would make large popups unscrollable, so it is intentionally omitted.
-    // window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-    window.setDimAmount(0f)
+    val view = LocalView.current
+    val window = (view.parent as DialogWindowProvider).window
+    val lightSystemBars = SparkTheme.colors.surface.luminance() >= 0.5f
+    SideEffect {
+        WindowCompat.enableEdgeToEdge(window)
+        WindowCompat.getInsetsController(window, view).apply {
+            isAppearanceLightStatusBars = lightSystemBars
+            isAppearanceLightNavigationBars = lightSystemBars
+        }
+        // FLAG_LAYOUT_NO_LIMITS would make large popups unscrollable, so it is intentionally omitted.
+        // window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        window.setDimAmount(0f)
+    }
+}
+
+/**
+ * Whether the host activity draws edge-to-edge, either because [SparkFeatureFlag.isContainingActivityEdgeToEdge]
+ * says so or because the system enforces it.
+ */
+@Composable
+private fun isHostEdgeToEdge(): Boolean {
+    val isFlagged = LocalSparkFeatureFlag.current.isContainingActivityEdgeToEdge
+    val context = LocalContext.current
+    val isEnforced = remember(context) { context.isEdgeToEdgeEnforced() }
+    return isFlagged || isEnforced
+}
+
+private fun Context.isEdgeToEdgeEnforced(): Boolean {
+    val targetSdk = applicationInfo.targetSdkVersion
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.VANILLA_ICE_CREAM) return false
+    if (targetSdk < Build.VERSION_CODES.VANILLA_ICE_CREAM) return false
+    val isOptOutIgnored = Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA &&
+        targetSdk >= Build.VERSION_CODES.BAKLAVA
+    if (isOptOutIgnored) return true
+    val attributes = obtainStyledAttributes(intArrayOf(android.R.attr.windowOptOutEdgeToEdgeEnforcement))
+    return try {
+        !attributes.getBoolean(0, false)
+    } finally {
+        attributes.recycle()
+    }
 }
 
 /** Adds two [PaddingValues] together. Not provided by Google so defined here. */

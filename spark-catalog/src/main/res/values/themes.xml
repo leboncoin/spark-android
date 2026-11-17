@@ -24,8 +24,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Spark.Theme.Catalog" parent="@style/Theme.AppCompat.Light.NoActionBar">
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
         <item name="android:windowLightStatusBar" tools:targetApi="o_mr1">true</item>
         <item name="dialogTheme">@style/Spark.ThemeOverlay.Catalog.Dialog</item>

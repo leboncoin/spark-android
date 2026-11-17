@@ -119,6 +119,8 @@ SparkTheme(
 
 `SparkFeatureFlag` gates opt-in behaviour such as rebranded buttons and development highlighters. Construct it once and pass it to `SparkTheme`.
 
+Spark components already treat the activity as edge-to-edge when the device runs API 35 or higher and the app targets API 35 or higher. Set `isContainingActivityEdgeToEdge = true` only when your activity calls `enableEdgeToEdge` on older devices too.
+
 ```kotlin
 SparkTheme(
     colors = myColors,

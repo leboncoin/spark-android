@@ -107,7 +107,7 @@ if (showModal) {
 | `supportButton` | `null` | Secondary bottom-bar action; receives a `Modifier` for sizing |
 | `snackbarHost` | `{}` | Slot for a `SnackbarHost` |
 | `contentPadding` | `PaddingValues(horizontal = 24.dp)` | Padding applied around `content` |
-| `inEdgeToEdge` | feature flag | Set `true` when the host activity is edge-to-edge |
+| `inEdgeToEdge` | feature flag or system enforcement | `true` when `isContainingActivityEdgeToEdge` is `true`, or when the device runs API 35+ and the app targets API 35+ (unless an app at API 35 opts out) |
 
 ### Dismiss behaviour
 
