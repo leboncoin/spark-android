@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.bottomsheet
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -133,7 +132,7 @@ public fun BottomSheet(
  */
 
 @Composable
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @ExperimentalMaterial3Api
 internal fun SparkModalBottomSheet(
     onDismissRequest: () -> Unit,

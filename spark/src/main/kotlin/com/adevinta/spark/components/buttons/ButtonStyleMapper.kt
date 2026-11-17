@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.buttons
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.runtime.Composable
@@ -117,7 +116,7 @@ internal fun RouteToRebrandedButton(
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
-    @SuppressLint("SlotReused") content: @Composable RowScope.() -> Unit,
+    @Suppress("SlotReused") content: @Composable RowScope.() -> Unit,
 ) {
     when (variant) {
         ButtonVariant.Ai -> Button.Ai(

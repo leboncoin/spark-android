@@ -24,7 +24,6 @@
 
 package com.adevinta.spark.components.buttons
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -82,7 +81,7 @@ public fun ButtonOutlined(
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     atEnd: Boolean = false,
-    @SuppressLint("SlotReused") content: @Composable RowScope.() -> Unit,
+    @Suppress("SlotReused") content: @Composable RowScope.() -> Unit,
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         val variant = ButtonStyleMapper.map(intent, ButtonStyle.Outlined)
@@ -285,7 +284,7 @@ public fun ButtonOutlined(
     )
 }
 
-@SuppressLint("SparkButtonMigration")
+@Suppress("SparkButtonMigration")
 @Preview(
     group = "Buttons",
     name = "Button Outlined",
@@ -314,7 +313,7 @@ internal fun ButtonOutlinedPreview() {
     }
 }
 
-@SuppressLint("SparkButtonMigration")
+@Suppress("SparkButtonMigration")
 @Preview(
     group = "Buttons",
     name = "Button Outlined Intents",

@@ -24,7 +24,6 @@
 
 package com.adevinta.spark.components.scaffold
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -91,7 +90,7 @@ import androidx.compose.material3.Scaffold as MaterialScaffold
  * properly offset top and bottom bars. If using `Modifier.verticalScroll`, apply this modifier to
  * the child of the scroll, and not on the scroll itself.
  */
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 public fun Scaffold(
     modifier: Modifier = Modifier,

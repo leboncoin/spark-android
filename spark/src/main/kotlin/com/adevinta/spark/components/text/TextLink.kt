@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.text
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -249,7 +248,7 @@ public fun TextLinkButton(
  * for this button. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this button in different states.
  */
-@SuppressLint("VisibleForTests")
+@Suppress("VisibleForTests")
 @Composable
 public fun TextLinkButton(
     onClick: () -> Unit,
@@ -261,7 +260,7 @@ public fun TextLinkButton(
     iconSide: IconSide = IconSide.START,
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    @SuppressLint("SlotReused") content: @Composable RowScope.() -> Unit,
+    @Suppress("SlotReused") content: @Composable RowScope.() -> Unit,
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         SparkButtonUnderlined(

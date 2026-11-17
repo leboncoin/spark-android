@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.tab
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -87,7 +86,7 @@ import androidx.compose.material3.Tab as MaterialTab
  * and customize the appearance / behavior of this tab in different states.
  * @param trailingContent optional trailing content, typically a [com.adevinta.spark.components.badge.Badge]
  **/
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @InternalSparkApi
 @Composable
 internal fun SparkTab(

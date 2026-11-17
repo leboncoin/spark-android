@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.components.drawer
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -54,7 +53,7 @@ import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.icons.LetterFill
 import com.adevinta.spark.tokens.contentColorFor
 
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @ExperimentalSparkApi
 @Composable
 internal fun SparkDismissibleDrawerSheet(
@@ -117,7 +116,7 @@ public fun DismissibleDrawerSheet(
     group = "Drawer",
     name = "DismissibleDrawerSheet",
 )
-@SuppressLint("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
 @Composable
 internal fun DismissibleDrawerSheetPreview() {
     PreviewTheme(

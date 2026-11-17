@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.image
 
-import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
@@ -109,7 +108,7 @@ internal class ImageDocumentationScreenshots {
         }
     }
 
-    @SuppressLint("LocalContextGetResourceValueCall")
+    @Suppress("LocalContextGetResourceValueCall")
     @Composable
     private fun StateImage(state: ImageState, label: String) {
         val context = LocalContext.current
@@ -149,7 +148,7 @@ internal class ImageDocumentationScreenshots {
         }
     }
 
-    @SuppressLint("LocalContextGetResourceValueCall")
+    @Suppress("LocalContextGetResourceValueCall")
     @Composable
     private fun ContentScaleImage(
         @DrawableRes imageRes: Int,

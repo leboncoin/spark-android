@@ -24,7 +24,6 @@
 
 package com.adevinta.spark.components.buttons
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -83,7 +82,7 @@ public fun ButtonFilled(
     iconSide: IconSide = IconSide.START,
     isLoading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    @SuppressLint("SlotReused") content: @Composable RowScope.() -> Unit,
+    @Suppress("SlotReused") content: @Composable RowScope.() -> Unit,
 ) {
     if (LocalSparkFeatureFlag.current.useRebrandedButtons) {
         val variant = ButtonStyleMapper.map(intent, ButtonStyle.Filled)
@@ -303,7 +302,7 @@ public fun ButtonFilled(
     )
 }
 
-@SuppressLint("SparkButtonMigration")
+@Suppress("SparkButtonMigration")
 @Preview(
     group = "Buttons",
     name = "Button Filled",
@@ -340,7 +339,7 @@ internal fun MainButtonPreview() {
     }
 }
 
-@SuppressLint("SparkButtonMigration")
+@Suppress("SparkButtonMigration")
 @Preview(
     group = "Buttons",
     name = "Button Filled Intents",
@@ -363,7 +362,7 @@ internal fun ButtonFilledIntentPreview() {
     }
 }
 
-@SuppressLint("SparkButtonMigration")
+@Suppress("SparkButtonMigration")
 @Preview(
     group = "Buttons",
     name = "Button Sizes",

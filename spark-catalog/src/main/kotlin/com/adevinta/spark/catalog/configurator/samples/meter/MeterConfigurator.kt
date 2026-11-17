@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.catalog.configurator.samples.meter
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -72,7 +71,7 @@ internal val MeterConfigurator: ImmutableList<Configurator> = persistentListOf(
     },
 )
 
-@SuppressLint("MaterialComposableHasSparkReplacement")
+@Suppress("MaterialComposableHasSparkReplacement")
 @Composable
 private fun ColumnScope.MeterSample() {
     var value by rememberSaveable { mutableFloatStateOf(70f) }

@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.slider
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Column
@@ -118,7 +117,7 @@ internal class SliderScreenshot {
         }
     }
 
-    @SuppressLint("ComposableNaming")
+    @Suppress("ComposableNaming")
     @OptIn(ExperimentalSparkApi::class, ExperimentalLayoutApi::class)
     @Composable
     private fun Sliders(

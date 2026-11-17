@@ -21,7 +21,6 @@
  */
 package com.adevinta.spark.animation
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Arrangement
@@ -120,7 +119,7 @@ public data class ShakeConfig(
  * @see ShakeConfig
  * @see rememberShakeController
  */
-@SuppressLint("ComposeModifierComposed")
+@Suppress("ComposeModifierComposed")
 public fun Modifier.shake(shakeController: ShakeController): Modifier = composed {
     shakeController.shakeConfig?.let { shakeConfig ->
         val shake = remember { Animatable(0f) }
