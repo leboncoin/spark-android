@@ -2,6 +2,13 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [5.0.2](https://github.com/leboncoin/spark-android/compare/5.0.1...5.0.2) (2026-11-17)
+
+
+### Features
+
+* **icons:** update icons ([#2400](https://github.com/leboncoin/spark-android/issues/2400)) ([6fd188f](https://github.com/leboncoin/spark-android/commit/6fd188f18d3da0a24200ad2e9cf670e3cc2c8ffa))
+
 ## [5.0.1](https://github.com/leboncoin/spark-android/compare/5.0.0...5.0.1) (2026-11-16)
 
 
