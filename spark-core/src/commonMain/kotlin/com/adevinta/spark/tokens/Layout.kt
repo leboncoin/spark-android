@@ -34,7 +34,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -44,9 +43,22 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.layout.IntrinsicMeasurable
+import androidx.compose.ui.layout.IntrinsicMeasureScope
+import androidx.compose.ui.layout.Measurable
+import androidx.compose.ui.layout.MeasureResult
+import androidx.compose.ui.layout.MeasureScope
+import androidx.compose.ui.node.CompositionLocalConsumerModifierNode
+import androidx.compose.ui.node.LayoutModifierNode
+import androidx.compose.ui.node.ModifierNodeElement
+import androidx.compose.ui.node.currentValueOf
+import androidx.compose.ui.platform.InspectorInfo
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
+import androidx.compose.ui.unit.Constraints
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.constrain
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.isFinite
 import androidx.window.core.layout.WindowSizeClass
@@ -88,34 +100,88 @@ public object Layout {
             }
 
     public val bodyMaxWidth: Dp
-        @Composable get() = when {
-            // Not yet available in CMP
-//            windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_EXTRA_LARGE_LOWER_BOUND) -> 1040.dp
-//            windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_LARGE_LOWER_BOUND) -> 840.dp
-            windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_EXPANDED_LOWER_BOUND) -> 840.dp
+        @Composable get() = computeBodyMaxWidth(windowSize)
+}
 
-            windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_MEDIUM_LOWER_BOUND) -> Dp.Infinity
+private fun computeBodyMaxWidth(windowSize: WindowSizeClass): Dp = when {
+    // Not yet available in CMP
+//    windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_EXTRA_LARGE_LOWER_BOUND) -> 1040.dp
+//    windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_LARGE_LOWER_BOUND) -> 840.dp
+    windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_EXPANDED_LOWER_BOUND) -> 840.dp
 
-            else -> Dp.Infinity
-        }
+    windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_MEDIUM_LOWER_BOUND) -> Dp.Infinity
+
+    else -> Dp.Infinity
 }
 
 /**
  * Support wide screen by making the content width max based on window size class, centered horizontally.
  */
-@Suppress("ComposeModifierComposed") // bodyMaxWidth uses window size class which requires composition
+@Suppress("ComposeModifierComposed") // WindowInsets.systemBars is a composable getter
 public fun Modifier.bodyWidth(): Modifier = fillMaxWidth()
     .wrapContentWidth(align = Alignment.CenterHorizontally)
-    .composed {
-        val bodyMaxWidth = Layout.bodyMaxWidth
-        if (bodyMaxWidth.isFinite) widthIn(max = bodyMaxWidth) else this
-    }
+    .then(BodyMaxWidthElement)
     .composed {
         windowInsetsPadding(
             WindowInsets.systemBars
                 .only(WindowInsetsSides.Horizontal),
         )
     }
+
+private data object BodyMaxWidthElement : ModifierNodeElement<BodyMaxWidthNode>() {
+    override fun create(): BodyMaxWidthNode = BodyMaxWidthNode()
+
+    override fun update(node: BodyMaxWidthNode) = Unit
+
+    override fun InspectorInfo.inspectableProperties() {
+        name = "bodyMaxWidth"
+    }
+}
+
+/**
+ * Limits the width to [Layout.bodyMaxWidth], as `widthIn(max = Layout.bodyMaxWidth)` did, and passes the
+ * constraints through when that width is infinite. It reads [LocalWindowSizeClass] in the measure phase, so a
+ * change of the window size class invalidates the measurement without a recomposition.
+ */
+private class BodyMaxWidthNode :
+    Modifier.Node(),
+    LayoutModifierNode,
+    CompositionLocalConsumerModifierNode {
+
+    // The max width in pixels, or null when the max width is infinite.
+    private fun Density.maxWidthPx(): Int? {
+        val maxWidth = computeBodyMaxWidth(currentValueOf(LocalWindowSizeClass))
+        return if (maxWidth.isFinite) maxWidth.roundToPx().coerceAtLeast(0) else null
+    }
+
+    override fun MeasureScope.measure(measurable: Measurable, constraints: Constraints): MeasureResult {
+        val maxWidthPx = maxWidthPx()
+        val childConstraints = if (maxWidthPx != null) {
+            constraints.constrain(Constraints(maxWidth = maxWidthPx))
+        } else {
+            constraints
+        }
+        val placeable = measurable.measure(childConstraints)
+        return layout(placeable.width, placeable.height) { placeable.placeRelative(0, 0) }
+    }
+
+    override fun IntrinsicMeasureScope.minIntrinsicWidth(measurable: IntrinsicMeasurable, height: Int): Int =
+        constrainIntrinsicWidth(measurable.minIntrinsicWidth(height))
+
+    override fun IntrinsicMeasureScope.maxIntrinsicWidth(measurable: IntrinsicMeasurable, height: Int): Int =
+        constrainIntrinsicWidth(measurable.maxIntrinsicWidth(height))
+
+    override fun IntrinsicMeasureScope.minIntrinsicHeight(measurable: IntrinsicMeasurable, width: Int): Int =
+        measurable.minIntrinsicHeight(width)
+
+    override fun IntrinsicMeasureScope.maxIntrinsicHeight(measurable: IntrinsicMeasurable, width: Int): Int =
+        measurable.maxIntrinsicHeight(width)
+
+    private fun Density.constrainIntrinsicWidth(width: Int): Int {
+        val maxWidthPx = maxWidthPx() ?: return width
+        return width.coerceIn(0, maxWidthPx)
+    }
+}
 
 @Composable
 @PreviewScreenSizes
