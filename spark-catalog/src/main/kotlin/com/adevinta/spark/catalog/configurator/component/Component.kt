@@ -38,10 +38,6 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.BugReport
-import androidx.compose.material.icons.rounded.Code
-import androidx.compose.material.icons.rounded.Palette
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -79,6 +75,8 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.Chain
 import com.adevinta.spark.icons.Computer
 import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.PaintPalette
+import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.tokens.Layout
 
 @OptIn(ExperimentalSharedTransitionApi::class, ExperimentalAnimationSpecApi::class)
@@ -170,7 +168,7 @@ private fun ConfiguratorComponentMenu(
             onClick = { context.openUrl(component.guidelinesUrl) },
             leadingIcon = {
                 Icon(
-                    imageVector = Icons.Rounded.Palette,
+                    sparkIcon = LeboncoinIcons.PaintPalette,
                     contentDescription = null,
                 )
             },
@@ -190,7 +188,7 @@ private fun ConfiguratorComponentMenu(
             onClick = { context.openUrl(component.sourceUrl) },
             leadingIcon = {
                 Icon(
-                    imageVector = Icons.Rounded.Code,
+                    sparkIcon = SparkIcon.DrawableRes(R.drawable.spark_catalog_ic_code),
                     contentDescription = null,
                 )
             },
@@ -201,7 +199,7 @@ private fun ConfiguratorComponentMenu(
             onClick = { context.openUrl(IssueUrl) },
             leadingIcon = {
                 Icon(
-                    imageVector = Icons.Rounded.BugReport,
+                    sparkIcon = SparkIcon.DrawableRes(R.drawable.spark_catalog_ic_bug_report),
                     contentDescription = null,
                 )
             },

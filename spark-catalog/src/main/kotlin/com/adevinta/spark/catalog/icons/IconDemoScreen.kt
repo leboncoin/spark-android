@@ -26,42 +26,16 @@ import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavDeepLink
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navDeepLink
-import com.adevinta.spark.catalog.AppBasePath
+import androidx.navigation3.runtime.NavKey
 import com.adevinta.spark.catalog.CatalogHomeScreen
-import com.adevinta.spark.catalog.SparkCatalogActivity
 import com.adevinta.spark.catalog.themes.NavigationMode
-import com.adevinta.spark.catalog.ui.navigation.ChangeSelectedNavControllerOnPageChange
-import com.adevinta.spark.catalog.ui.navigation.NavHostSpark
-import kotlinx.coroutines.flow.filter
+import com.adevinta.spark.catalog.ui.navigation.CatalogNavDisplay
+import com.adevinta.spark.catalog.ui.navigation.rememberCatalogBackStack
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal object IconsList
-
-internal val IconsList.deepLinks: List<NavDeepLink>
-    get() = listOf(
-        navDeepLink<IconsList>(basePath = "${AppBasePath}icons"),
-    )
-
-@Composable
-private fun MonitorPagerChanges(
-    pagerState: PagerState,
-    catalogScreen: CatalogHomeScreen,
-    navController: androidx.navigation.NavController,
-    activity: SparkCatalogActivity,
-) {
-    LaunchedEffect(pagerState) {
-        snapshotFlow { pagerState.currentPage }
-            .filter { it == catalogScreen.ordinal }
-            .collect { activity.activeNavController = navController }
-    }
-}
+internal object IconsList : NavKey
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
@@ -72,24 +46,18 @@ internal fun IconDemoScreen(
     navigationMode: NavigationMode,
 ) {
     SharedTransitionLayout {
-        val navController = rememberNavController()
-
-        ChangeSelectedNavControllerOnPageChange(
-            pagerState = pagerState,
-            catalogScreen = CatalogHomeScreen.Icons,
-            navController = navController,
-        )
-
-        NavHostSpark(
+        val backStack = rememberCatalogBackStack(root = IconsList)
+        CatalogNavDisplay(
             modifier = modifier,
-            navController = navController,
-            startDestination = IconsList,
+            catalogScreen = CatalogHomeScreen.Icons,
+            pagerState = pagerState,
+            backStack = backStack,
             navigationMode = navigationMode,
-            builder = {
-                iconsDemoDestination(
-                    navController = navController,
+            entries = {
+                iconsDemoEntries(
+                    backStack = backStack,
                     contentPadding = contentPadding,
-                    this@SharedTransitionLayout,
+                    sharedTransitionScope = this@SharedTransitionLayout,
                 )
             },
         )

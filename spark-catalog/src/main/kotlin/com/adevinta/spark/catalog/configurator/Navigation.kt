@@ -22,62 +22,53 @@
 package com.adevinta.spark.catalog.configurator
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
+import androidx.compose.material3.adaptive.navigation3.ListDetailSceneStrategy
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
-import androidx.navigation.NavDeepLink
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.composable
-import androidx.navigation.navDeepLink
-import androidx.navigation.toRoute
-import com.adevinta.spark.catalog.AppBasePath
+import androidx.navigation3.runtime.EntryProviderScope
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.ui.LocalNavAnimatedContentScope
 import com.adevinta.spark.catalog.configurator.component.ConfiguratorComponentScreen
 import com.adevinta.spark.catalog.model.Component
 import com.adevinta.spark.catalog.ui.animations.LocalAnimatedVisibilityScope
+import com.adevinta.spark.catalog.ui.navigation.DetailPlaceholder
+import com.adevinta.spark.catalog.ui.navigation.openFrom
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal object ConfiguratorsList
-
-internal val ConfiguratorsList.deepLinks: List<NavDeepLink>
-    get() = listOf(
-        navDeepLink<ConfiguratorsList>(basePath = "${AppBasePath}configurator"),
-    )
+internal object ConfiguratorsList : NavKey
 
 @Serializable
-internal data class ConfiguratorShowcase(val componentId: String, val configuratorId: String) {
-    companion object {
-        val deepLinks = listOf(
-            navDeepLink<ConfiguratorShowcase>(basePath = "${AppBasePath}configurator/detail"),
-        )
-    }
-}
+internal data class ConfiguratorShowcase(val componentId: String, val configuratorId: String) : NavKey
 
-internal fun NavGraphBuilder.configuratorsDestination(
-    navController: NavHostController,
+/** Entries of the configurator tab. The component list is the list pane and one configurator is the detail pane. */
+@OptIn(ExperimentalMaterial3AdaptiveApi::class)
+internal fun EntryProviderScope<NavKey>.configuratorsEntries(
+    backStack: MutableList<NavKey>,
     components: List<Component>,
     contentPadding: PaddingValues,
 ) {
-    composable<ConfiguratorsList>(
-        deepLinks = ConfiguratorsList.deepLinks,
+    entry<ConfiguratorsList>(
+        metadata = ListDetailSceneStrategy.listPane(detailPlaceholder = { DetailPlaceholder() }),
     ) {
-        CompositionLocalProvider(LocalAnimatedVisibilityScope provides this) {
+        CompositionLocalProvider(LocalAnimatedVisibilityScope provides LocalNavAnimatedContentScope.current) {
             ComponentsListScreen(
                 components = components,
                 contentPadding = contentPadding,
                 onConfiguratorSelected = { id, index ->
-                    navController.navigate(
-                        route = ConfiguratorShowcase(componentId = id, configuratorId = index),
+                    backStack.openFrom(
+                        parent = ConfiguratorsList,
+                        destination = ConfiguratorShowcase(componentId = id, configuratorId = index),
                     )
                 },
             )
         }
     }
 
-    composable<ConfiguratorShowcase>(
-        deepLinks = ConfiguratorShowcase.deepLinks,
-    ) { navBackStackEntry ->
-        val configuratorShowcase = navBackStackEntry.toRoute<ConfiguratorShowcase>()
+    entry<ConfiguratorShowcase>(
+        metadata = ListDetailSceneStrategy.detailPane(),
+    ) { configuratorShowcase ->
         val componentId = configuratorShowcase.componentId
         val configuratorId = configuratorShowcase.configuratorId
         val component =
@@ -87,10 +78,10 @@ internal fun NavGraphBuilder.configuratorsDestination(
             }
         val configurator = component?.configurators?.firstOrNull { it.id == configuratorId }
         if (component == null || configurator == null) {
-            LaunchedEffect(Unit) { navController.popBackStack() }
-            return@composable
+            LaunchedEffect(Unit) { backStack.remove(configuratorShowcase) }
+            return@entry
         }
-        CompositionLocalProvider(LocalAnimatedVisibilityScope provides this) {
+        CompositionLocalProvider(LocalAnimatedVisibilityScope provides LocalNavAnimatedContentScope.current) {
             ConfiguratorComponentScreen(
                 component = component,
                 configurator = configurator,

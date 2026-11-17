@@ -21,97 +21,88 @@
  */
 package com.adevinta.spark.catalog.examples
 
-import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
+import androidx.compose.material3.adaptive.navigation3.ListDetailSceneStrategy
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.composable
-import androidx.navigation.navDeepLink
-import androidx.navigation.toRoute
-import com.adevinta.spark.catalog.AppBasePath
+import androidx.navigation3.runtime.EntryProviderScope
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.ui.LocalNavAnimatedContentScope
 import com.adevinta.spark.catalog.examples.component.Component
 import com.adevinta.spark.catalog.examples.example.Example
 import com.adevinta.spark.catalog.model.Component
 import com.adevinta.spark.catalog.ui.animations.LocalAnimatedVisibilityScope
+import com.adevinta.spark.catalog.ui.navigation.DetailPlaceholder
+import com.adevinta.spark.catalog.ui.navigation.openFrom
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class ExampleSection(val componentId: String) {
-    companion object {
-        val deepLinks = listOf(
-            navDeepLink<ExampleSection>(basePath = "${AppBasePath}examples/component"),
-        )
-    }
-}
+internal data class ExampleSection(val componentId: String) : NavKey
 
 @Serializable
-internal data class ExampleShowcase(val componentId: String, val exampleId: String) {
+internal data class ExampleShowcase(val componentId: String, val exampleId: String) : NavKey
 
-    companion object {
-        val deepLinks = listOf(
-            navDeepLink<ExampleShowcase>(basePath = "${AppBasePath}examples/component/detail"),
-        )
-    }
-}
-
-@OptIn(ExperimentalSharedTransitionApi::class)
-internal fun NavGraphBuilder.examplesDestination(
-    navController: NavHostController,
+/**
+ * Entries of the examples tab. The component list is the list pane, the examples of a component are the detail pane,
+ * and one example is the extra pane.
+ */
+@OptIn(ExperimentalMaterial3AdaptiveApi::class)
+internal fun EntryProviderScope<NavKey>.examplesEntries(
+    backStack: MutableList<NavKey>,
     components: ImmutableList<Component>,
     contentPadding: PaddingValues,
 ) {
-    composable<ExamplesList>(
-        deepLinks = ExamplesList.deepLinks,
+    entry<ExamplesList>(
+        metadata = ListDetailSceneStrategy.listPane(detailPlaceholder = { DetailPlaceholder() }),
     ) {
-        CompositionLocalProvider(LocalAnimatedVisibilityScope provides this) {
+        CompositionLocalProvider(LocalAnimatedVisibilityScope provides LocalNavAnimatedContentScope.current) {
             ComponentsListScreen(
                 components = components,
                 contentPadding = contentPadding,
                 onExampleSectionClick = { id ->
-                    navController.navigate(route = ExampleSection(componentId = id))
+                    backStack.openFrom(parent = ExamplesList, destination = ExampleSection(componentId = id))
                 },
             )
         }
     }
 
-    composable<ExampleSection>(
-        deepLinks = ExampleSection.deepLinks,
-    ) { navBackStackEntry ->
-        val exampleSection = navBackStackEntry.toRoute<ExampleSection>()
+    entry<ExampleSection>(
+        metadata = ListDetailSceneStrategy.detailPane(),
+    ) { exampleSection ->
         val componentId = exampleSection.componentId
         val component = components.firstOrNull { component -> component.id == componentId }
         if (component == null) {
-            LaunchedEffect(Unit) { navController.popBackStack() }
-            return@composable
+            LaunchedEffect(Unit) { backStack.remove(exampleSection) }
+            return@entry
         }
-        CompositionLocalProvider(LocalAnimatedVisibilityScope provides this) {
+        CompositionLocalProvider(LocalAnimatedVisibilityScope provides LocalNavAnimatedContentScope.current) {
             Component(
                 component = component,
                 contentPadding = contentPadding,
                 onExampleClick = { exampleId ->
-                    navController.navigate(route = ExampleShowcase(componentId = componentId, exampleId = exampleId))
+                    backStack.openFrom(
+                        parent = exampleSection,
+                        destination = ExampleShowcase(componentId = componentId, exampleId = exampleId),
+                    )
                 },
             )
         }
     }
-    composable<ExampleShowcase>(
-        deepLinks = ExampleShowcase.deepLinks,
-    ) { navBackStackEntry ->
-        val exampleShowcase = navBackStackEntry.toRoute<ExampleShowcase>()
-        val componentId = exampleShowcase.componentId
-        val exampleId = exampleShowcase.exampleId
+
+    entry<ExampleShowcase>(
+        metadata = ListDetailSceneStrategy.extraPane(),
+    ) { exampleShowcase ->
         val example = components
-            .firstOrNull { component -> component.id == componentId }
+            .firstOrNull { component -> component.id == exampleShowcase.componentId }
             ?.examples
-            ?.firstOrNull { it.id == exampleId }
+            ?.firstOrNull { it.id == exampleShowcase.exampleId }
         if (example == null) {
-            LaunchedEffect(Unit) { navController.popBackStack() }
-            return@composable
+            LaunchedEffect(Unit) { backStack.remove(exampleShowcase) }
+            return@entry
         }
-        CompositionLocalProvider(LocalAnimatedVisibilityScope provides this) {
+        CompositionLocalProvider(LocalAnimatedVisibilityScope provides LocalNavAnimatedContentScope.current) {
             Example(
                 example = example,
             )

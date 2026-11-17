@@ -24,6 +24,7 @@ package com.adevinta.spark.catalog.configurator
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.consumeWindowInsets
@@ -44,8 +45,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.rememberNavController
-import androidx.window.core.layout.WindowSizeClass.Companion.WIDTH_DP_EXPANDED_LOWER_BOUND
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.CatalogHomeScreen
 import com.adevinta.spark.catalog.R
@@ -53,8 +52,9 @@ import com.adevinta.spark.catalog.examples.component.ComponentConfiguratorItem
 import com.adevinta.spark.catalog.model.Component
 import com.adevinta.spark.catalog.themes.NavigationMode
 import com.adevinta.spark.catalog.ui.animations.LocalSharedTransitionScope
-import com.adevinta.spark.catalog.ui.navigation.ChangeSelectedNavControllerOnPageChange
-import com.adevinta.spark.catalog.ui.navigation.NavHostSpark
+import com.adevinta.spark.catalog.ui.navigation.CatalogNavDisplay
+import com.adevinta.spark.catalog.ui.navigation.ListColumns
+import com.adevinta.spark.catalog.ui.navigation.rememberCatalogBackStack
 import com.adevinta.spark.catalog.util.TrackScrollJank
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tokens.Layout
@@ -69,22 +69,17 @@ internal fun ConfiguratorComponentsScreen(
     navigationMode: NavigationMode,
 ) {
     SharedTransitionLayout {
-        val navController = rememberNavController()
-
-        ChangeSelectedNavControllerOnPageChange(
-            pagerState = pagerState,
-            catalogScreen = CatalogHomeScreen.Configurator,
-            navController = navController,
-        )
+        val backStack = rememberCatalogBackStack(root = ConfiguratorsList)
         CompositionLocalProvider(LocalSharedTransitionScope provides this) {
-            NavHostSpark(
+            CatalogNavDisplay(
                 modifier = modifier,
-                navController = navController,
-                startDestination = ConfiguratorsList,
+                catalogScreen = CatalogHomeScreen.Configurator,
+                pagerState = pagerState,
+                backStack = backStack,
                 navigationMode = navigationMode,
-                builder = {
-                    configuratorsDestination(
-                        navController = navController,
+                entries = {
+                    configuratorsEntries(
+                        backStack = backStack,
                         contentPadding = contentPadding,
                         components = components,
                     )
@@ -103,78 +98,79 @@ internal fun ComponentsListScreen(
     val configuratorsComponents by remember(components) {
         mutableStateOf(components.filter { it.configurators.firstOrNull() != null })
     }
-    val isWidthExpanded = Layout.windowSize.isWidthAtLeastBreakpoint(WIDTH_DP_EXPANDED_LOWER_BOUND)
-    val columns = if (isWidthExpanded) {
-        Layout.columns / 3
-    } else {
-        Layout.columns / 2
-    }
     val state = rememberLazyGridState()
     TrackScrollJank(scrollableState = state, stateName = "configurator:component:grid")
 
-    LazyVerticalGrid(
+    // The list can fill the tab or share it with a detail pane, so the grid follows its own width.
+    BoxWithConstraints(
         modifier = Modifier
             .fillMaxSize()
             .consumeWindowInsets(contentPadding),
-        columns = GridCells.Fixed(columns),
-        state = state,
-        verticalArrangement = Arrangement.spacedBy(Layout.gutter),
-        horizontalArrangement = Arrangement.spacedBy(Layout.gutter),
-        contentPadding = PaddingValues(
-            start = Layout.bodyMargin /
-                2 +
-                contentPadding.calculateLeftPadding(
-                    LocalLayoutDirection.current,
-                ),
-            end = Layout.bodyMargin /
-                2 +
-                contentPadding.calculateRightPadding(
-                    LocalLayoutDirection.current,
-                ),
-            top = contentPadding.calculateTopPadding(),
-            bottom = contentPadding.calculateBottomPadding(),
-        ),
     ) {
-        item(
-            key = -2,
-            contentType = ComponentsItemType.Header,
-            span = { GridItemSpan(columns) },
+        val isWidthExpanded = ListColumns.isExpanded(maxWidth)
+        val columns = ListColumns.count(maxWidth)
+        LazyVerticalGrid(
+            modifier = Modifier.fillMaxSize(),
+            columns = GridCells.Fixed(columns),
+            state = state,
+            verticalArrangement = Arrangement.spacedBy(Layout.gutter),
+            horizontalArrangement = Arrangement.spacedBy(Layout.gutter),
+            contentPadding = PaddingValues(
+                start = Layout.bodyMargin /
+                    2 +
+                    contentPadding.calculateLeftPadding(
+                        LocalLayoutDirection.current,
+                    ),
+                end = Layout.bodyMargin /
+                    2 +
+                    contentPadding.calculateRightPadding(
+                        LocalLayoutDirection.current,
+                    ),
+                top = contentPadding.calculateTopPadding(),
+                bottom = contentPadding.calculateBottomPadding(),
+            ),
         ) {
-            Column(
-                modifier = Modifier.padding(
-                    horizontal = Layout.bodyMargin / 2,
-                    vertical = Layout.gutter,
-                ),
-                verticalArrangement = Arrangement.Absolute.spacedBy(4.dp),
+            item(
+                key = -2,
+                contentType = ComponentsItemType.Header,
+                span = { GridItemSpan(columns) },
             ) {
-                Text(
-                    text = stringResource(R.string.spark_catalog_configurator_component_screen_title),
-                    style = SparkTheme.typography.headline1,
-                )
-                Text(
-                    text = stringResource(R.string.spark_catalog_configurator_component_screen_description),
-                    style = SparkTheme.typography.body2,
-                )
+                Column(
+                    modifier = Modifier.padding(
+                        horizontal = Layout.bodyMargin / 2,
+                        vertical = Layout.gutter,
+                    ),
+                    verticalArrangement = Arrangement.Absolute.spacedBy(4.dp),
+                ) {
+                    Text(
+                        text = stringResource(R.string.spark_catalog_configurator_component_screen_title),
+                        style = SparkTheme.typography.headline1,
+                    )
+                    Text(
+                        text = stringResource(R.string.spark_catalog_configurator_component_screen_description),
+                        style = SparkTheme.typography.body2,
+                    )
+                }
             }
+            items(
+                items = configuratorsComponents,
+                key = { it.id },
+                span = { GridItemSpan(1) },
+                contentType = { ComponentsItemType.Component },
+                itemContent = { component ->
+                    val configuratorCount = component.configurators.size
+                    ComponentConfiguratorItem(
+                        component = component,
+                        isWidthExpanded = isWidthExpanded,
+                        countIndicator = configuratorCount,
+                        onClick = { selectedComponent, selectedConfigurator ->
+                            val componentId = selectedComponent.id
+                            onConfiguratorSelected(componentId, selectedConfigurator)
+                        },
+                    )
+                },
+            )
         }
-        items(
-            items = configuratorsComponents,
-            key = { it.id },
-            span = { GridItemSpan(1) },
-            contentType = { ComponentsItemType.Component },
-            itemContent = { component ->
-                val configuratorCount = component.configurators.size
-                ComponentConfiguratorItem(
-                    component = component,
-                    isWidthExpanded = isWidthExpanded,
-                    countIndicator = configuratorCount,
-                    onClick = { selectedComponent, selectedConfigurator ->
-                        val componentId = selectedComponent.id
-                        onConfiguratorSelected(componentId, selectedConfigurator)
-                    },
-                )
-            },
-        )
     }
 }
 

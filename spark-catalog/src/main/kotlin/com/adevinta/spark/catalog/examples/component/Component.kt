@@ -46,9 +46,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Code
-import androidx.compose.material.icons.rounded.Palette
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -66,6 +63,9 @@ import com.adevinta.spark.catalog.examples.ExamplesSharedElementKey
 import com.adevinta.spark.catalog.examples.ExamplesSharedElementType
 import com.adevinta.spark.catalog.examples.example.ExampleItem
 import com.adevinta.spark.catalog.model.Component
+import com.adevinta.spark.catalog.themes.materialElevationScaleIn
+import com.adevinta.spark.catalog.themes.materialFadeThroughIn
+import com.adevinta.spark.catalog.themes.materialFadeThroughOut
 import com.adevinta.spark.catalog.ui.animations.LocalAnimatedVisibilityScope
 import com.adevinta.spark.catalog.ui.animations.LocalSharedTransitionScope
 import com.adevinta.spark.catalog.util.TrackScrollJank
@@ -80,10 +80,9 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.Chain
 import com.adevinta.spark.icons.Computer
 import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.PaintPalette
+import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.tokens.Layout
-import soup.compose.material.motion.animation.materialElevationScaleIn
-import soup.compose.material.motion.animation.materialFadeThroughIn
-import soup.compose.material.motion.animation.materialFadeThroughOut
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalSharedTransitionApi::class, ExperimentalAnimationSpecApi::class)
 @Composable
@@ -267,7 +266,7 @@ private fun ComponentQuickActionsMenu(
             },
             leadingIcon = {
                 Icon(
-                    imageVector = Icons.Rounded.Palette,
+                    sparkIcon = LeboncoinIcons.PaintPalette,
                     contentDescription = null,
                 )
             },
@@ -293,7 +292,7 @@ private fun ComponentQuickActionsMenu(
             },
             leadingIcon = {
                 Icon(
-                    imageVector = Icons.Rounded.Code,
+                    sparkIcon = SparkIcon.DrawableRes(R.drawable.spark_catalog_ic_code),
                     contentDescription = null,
                 )
             },

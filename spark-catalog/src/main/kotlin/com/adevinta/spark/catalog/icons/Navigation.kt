@@ -25,52 +25,48 @@ import android.content.Context
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
+import androidx.compose.material3.adaptive.navigation3.ListDetailSceneStrategy
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.composable
-import androidx.navigation.navDeepLink
-import androidx.navigation.toRoute
-import com.adevinta.spark.catalog.AppBasePath
+import androidx.navigation3.runtime.EntryProviderScope
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.ui.LocalNavAnimatedContentScope
+import com.adevinta.spark.catalog.ui.navigation.DetailPlaceholder
+import com.adevinta.spark.catalog.ui.navigation.openFrom
 import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.allAnimatedIconsMetadata
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class IconShowcase(val iconName: String, val isIconAnimated: Boolean) {
-    companion object {
-        val deepLinks = listOf(
-            navDeepLink<IconShowcase>(basePath = "${AppBasePath}icons/detail"),
-        )
-    }
-}
+internal data class IconShowcase(val iconName: String, val isIconAnimated: Boolean) : NavKey
 
-@OptIn(ExperimentalSharedTransitionApi::class)
-internal fun NavGraphBuilder.iconsDemoDestination(
-    navController: NavHostController,
+/** Entries of the icons tab. The icon grid is the list pane and one icon is the detail pane. */
+@OptIn(ExperimentalSharedTransitionApi::class, ExperimentalMaterial3AdaptiveApi::class)
+internal fun EntryProviderScope<NavKey>.iconsDemoEntries(
+    backStack: MutableList<NavKey>,
     contentPadding: PaddingValues,
     sharedTransitionScope: SharedTransitionScope,
 ) {
-    composable<IconsList>(
-        deepLinks = IconsList.deepLinks,
+    entry<IconsList>(
+        metadata = ListDetailSceneStrategy.listPane(detailPlaceholder = { DetailPlaceholder() }),
     ) {
         IconsScreen(
             contentPadding = contentPadding,
             sharedTransitionScope = sharedTransitionScope,
-            animatedContentScope = this@composable,
+            animatedContentScope = LocalNavAnimatedContentScope.current,
             onIconClick = { name, isAnimated ->
-                navController.navigate(
-                    route = IconShowcase(iconName = name, isIconAnimated = isAnimated),
+                backStack.openFrom(
+                    parent = IconsList,
+                    destination = IconShowcase(iconName = name, isIconAnimated = isAnimated),
                 )
             },
         )
     }
 
-    composable<IconShowcase>(
-        deepLinks = IconShowcase.deepLinks,
-    ) { navBackStackEntry ->
-        val iconShowcase = navBackStackEntry.toRoute<IconShowcase>()
+    entry<IconShowcase>(
+        metadata = ListDetailSceneStrategy.detailPane(),
+    ) { iconShowcase ->
         val iconName = iconShowcase.iconName
         val isIconAnimated = iconShowcase.isIconAnimated
         val context = LocalContext.current
@@ -80,15 +76,15 @@ internal fun NavGraphBuilder.iconsDemoDestination(
             getDrawableIcon(context, iconName)
         }
         if (icon == null) {
-            LaunchedEffect(Unit) { navController.popBackStack() }
-            return@composable
+            LaunchedEffect(Unit) { backStack.remove(iconShowcase) }
+            return@entry
         }
         IconExampleScreen(
             icon = icon,
             name = iconName,
             isAnimated = isIconAnimated,
             sharedTransitionScope = sharedTransitionScope,
-            animatedContentScope = this@composable,
+            animatedContentScope = LocalNavAnimatedContentScope.current,
         )
     }
 }

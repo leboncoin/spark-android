@@ -41,7 +41,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.metrics.performance.JankStats
-import androidx.navigation.NavController
+import androidx.navigation3.runtime.NavKey
 import com.adevinta.spark.catalog.datastore.theme.ThemePropertiesHandler
 import com.adevinta.spark.catalog.model.Components
 import com.adevinta.spark.catalog.themes.Theme
@@ -52,7 +52,8 @@ import kotlinx.coroutines.launch
 
 public class SparkCatalogActivity : AppCompatActivity() {
 
-    internal var activeNavController: NavController? = null
+    /** The back stack of the visible home tab. Provides the assist content. */
+    internal var activeBackStack: List<NavKey>? = null
 
     // Tracks jank on the front layer; logs janky frames for local debugging.
     internal val jankStats: JankStats by lazy(LazyThreadSafetyMode.NONE) {
@@ -147,7 +148,7 @@ public class SparkCatalogActivity : AppCompatActivity() {
 
     override fun onProvideAssistContent(outContent: AssistContent) {
         super.onProvideAssistContent(outContent)
-        activeNavController?.provideAssistContent(outContent = outContent)
+        activeBackStack?.provideAssistContent(outContent = outContent)
     }
 }
 

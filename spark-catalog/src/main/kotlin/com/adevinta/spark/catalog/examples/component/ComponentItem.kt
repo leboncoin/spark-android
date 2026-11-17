@@ -58,6 +58,8 @@ import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.examples.ExamplesSharedElementKey
 import com.adevinta.spark.catalog.examples.ExamplesSharedElementType
 import com.adevinta.spark.catalog.model.Component
+import com.adevinta.spark.catalog.themes.materialFadeIn
+import com.adevinta.spark.catalog.themes.materialFadeOut
 import com.adevinta.spark.catalog.ui.animations.LocalAnimatedVisibilityScope
 import com.adevinta.spark.catalog.ui.animations.LocalSharedTransitionScope
 import com.adevinta.spark.catalog.util.PreviewTheme
@@ -76,8 +78,6 @@ import com.adevinta.spark.icons.LeboncoinIcons
 import com.adevinta.spark.tokens.applyTonalElevation
 import com.adevinta.spark.tools.modifiers.invisibleSemantic
 import kotlinx.collections.immutable.persistentListOf
-import soup.compose.material.motion.animation.materialFadeIn
-import soup.compose.material.motion.animation.materialFadeOut
 
 @Composable
 internal fun ComponentConfiguratorItem(

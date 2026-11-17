@@ -65,6 +65,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
@@ -326,7 +327,12 @@ internal enum class CatalogHomeScreen { Examples, Configurator, Icons }
 
 internal const val AppBasePath = "spark://"
 
-/** Applies the in-app dark mode, layout direction, and font scale to [content]; keeps `LocalActivity` resolvable. */
+/**
+ * Applies the in-app dark mode, layout direction, and font scale to [content]; keeps `LocalActivity` resolvable.
+ *
+ * [LocalResources] follows the override too, so that `stringResource` and the other resource readers resolve
+ * night-qualified and other configuration-qualified resources against the overridden configuration.
+ */
 @Composable
 private fun CatalogConfigurationOverride(
     isDarkMode: Boolean,
@@ -357,6 +363,7 @@ private fun CatalogConfigurationOverride(
     CompositionLocalProvider(
         LocalContext provides context,
         LocalConfiguration provides configuration,
+        LocalResources provides context.resources,
         LocalLayoutDirection provides layoutDirection,
         LocalDensity provides Density(LocalDensity.current.density, fontScale),
         content = content,

@@ -55,8 +55,8 @@ dependencies {
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.compose.material.iconsExtended)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material3.adaptive.navigation3)
     implementation(libs.androidx.graphics.shapes)
     implementation(libs.androidx.metrics)
 
@@ -64,8 +64,8 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
     api(libs.androidx.appCompat)
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.material.motion)
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.navigation3.ui)
 
     implementation(libs.androidx.datastore)
     implementation(libs.kotlinx.serialization.json)

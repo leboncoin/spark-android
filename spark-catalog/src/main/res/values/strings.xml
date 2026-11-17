@@ -28,6 +28,7 @@
 
     <string name="spark_catalog_examples">Examples</string>
     <string name="spark_catalog_no_examples_title">No examples available</string>
+    <string name="spark_catalog_list_detail_placeholder">Select an item in the list to see it here</string>
     <string name="spark_catalog_no_examples_description">This component doesn’t have any examples yet.</string>
     <string name="spark_catalog_no_examples_configurator_hint">Try the Configurator tab to explore this component</string>
     <string name="spark_catalog_component_menu_links">Component links</string>

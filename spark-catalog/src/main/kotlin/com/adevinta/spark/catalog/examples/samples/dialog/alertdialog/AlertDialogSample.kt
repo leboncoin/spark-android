@@ -21,8 +21,6 @@
  */
 package com.adevinta.spark.catalog.examples.samples.dialog.alertdialog
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Warning
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -39,6 +37,7 @@ import com.adevinta.spark.components.icons.Icon
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.icons.CircleCrossOutline
 import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.icons.WarningFill
 
 @OptIn(ExperimentalSparkApi::class)
 @Preview
@@ -54,7 +53,7 @@ internal fun AlertDialogSample() {
             },
             icon = {
                 Icon(
-                    imageVector = Icons.Filled.Warning,
+                    sparkIcon = LeboncoinIcons.WarningFill,
                     contentDescription = null,
                 )
             },

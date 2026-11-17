@@ -21,23 +21,13 @@
  */
 package com.adevinta.spark.catalog.themes
 
-import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.SizeTransform
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.saveable.Saver
-import androidx.navigation.NavBackStackEntry
 import com.adevinta.spark.catalog.ui.shaders.colorblindness.ColorBlindNessType
-import soup.compose.material.motion.animation.materialFadeThroughIn
-import soup.compose.material.motion.animation.materialFadeThroughOut
-import soup.compose.material.motion.animation.materialSharedAxisXIn
-import soup.compose.material.motion.animation.materialSharedAxisXOut
-import soup.compose.material.motion.animation.materialSharedAxisYIn
-import soup.compose.material.motion.animation.materialSharedAxisYOut
-import soup.compose.material.motion.animation.materialSharedAxisZIn
-import soup.compose.material.motion.animation.materialSharedAxisZOut
 
 internal data class Theme(
     val themeMode: ThemeMode = ThemeMode.System,
@@ -135,9 +125,7 @@ internal enum class NavigationMode(
     internal val exitTransition: ExitTransition = fadeOut(animationSpec = CatalogMotion.NavigationFade),
     internal val popEnterTransition: EnterTransition = enterTransition,
     internal val popExitTransition: ExitTransition = exitTransition,
-    internal val sizeTransform:
-    (@JvmSuppressWildcards AnimatedContentTransitionScope<NavBackStackEntry>.() -> SizeTransform?)? =
-        null,
+    internal val sizeTransform: SizeTransform? = null,
 ) {
     Default,
     SharedAxisX(
