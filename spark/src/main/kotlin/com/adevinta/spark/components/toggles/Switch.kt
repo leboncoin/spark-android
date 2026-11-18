@@ -37,7 +37,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.IntentColors
@@ -71,7 +70,7 @@ internal fun SparkSwitch(
             Icon(
                 sparkIcon = if (checked) it.checked else it.unchecked,
                 contentDescription = null,
-                modifier = Modifier.size(12.dp),
+                modifier = Modifier.size(SwitchTokens.thumbIconSize),
             )
         }
     }
@@ -160,6 +159,7 @@ public object Switch {
         SparkSelectionCard(
             checked = checked,
             onCheckedChange = onCheckedChange,
+            style = SwitchTokens.Card.style,
             modifier = modifier,
             enabled = enabled,
             layout = layout,

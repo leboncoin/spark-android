@@ -157,6 +157,7 @@ public object Checkbox {
         SparkSelectionCard(
             state = state,
             onClick = onClick,
+            style = CheckboxTokens.Card.style,
             modifier = modifier,
             enabled = enabled,
             error = error,

@@ -42,7 +42,6 @@ import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.tooling.preview.Preview
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
-import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.components.IntentColors
 import com.adevinta.spark.components.surface.Surface
 import com.adevinta.spark.components.text.Text
@@ -60,6 +59,7 @@ private val SelectionCardIndication: Indication = ripple()
  *
  * @param state the state of the card. Any state other than [ToggleableState.Off] draws the selected border.
  * @param onClick called when the user clicks the card.
+ * @param style the resolved card tokens of the control.
  * @param modifier the [Modifier] applied to the card.
  * @param enabled whether the card reacts to clicks. A disabled card is dimmed once, as a whole.
  * @param error whether the card draws the error border.
@@ -73,6 +73,7 @@ private val SelectionCardIndication: Indication = ripple()
 internal fun SparkSelectionCard(
     state: ToggleableState,
     onClick: () -> Unit,
+    style: SelectionCardStyle,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     error: Boolean = false,
@@ -91,6 +92,7 @@ internal fun SparkSelectionCard(
             role = Role.Checkbox,
             onClick = onClick,
         ),
+        style = style,
         modifier = modifier,
         enabled = enabled,
         error = error,
@@ -108,6 +110,7 @@ internal fun SparkSelectionCard(
  *
  * @param checked whether the card is checked. A checked card draws the selected border.
  * @param onCheckedChange called with the new value when the user clicks the card.
+ * @param style the resolved card tokens of the control.
  * @param modifier the [Modifier] applied to the card.
  * @param enabled whether the card reacts to clicks. A disabled card is dimmed once, as a whole.
  * @param layout the position of the [toggle] relative to the [content].
@@ -120,6 +123,7 @@ internal fun SparkSelectionCard(
 internal fun SparkSelectionCard(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
+    style: SelectionCardStyle,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     layout: SelectionCardLayout = SelectionCardLayout.Horizontal,
@@ -137,6 +141,7 @@ internal fun SparkSelectionCard(
             role = Role.Switch,
             onValueChange = onCheckedChange,
         ),
+        style = style,
         modifier = modifier,
         enabled = enabled,
         error = false,
@@ -155,6 +160,7 @@ internal fun SparkSelectionCard(
  *
  * @param selected whether the card is selected. A selected card draws the selected border.
  * @param onClick called when the user clicks the card.
+ * @param style the resolved card tokens of the control.
  * @param modifier the [Modifier] applied to the card.
  * @param enabled whether the card reacts to clicks. A disabled card is dimmed once, as a whole.
  * @param error whether the card draws the error border.
@@ -168,6 +174,7 @@ internal fun SparkSelectionCard(
 internal fun SparkSelectionCard(
     selected: Boolean,
     onClick: () -> Unit,
+    style: SelectionCardStyle,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     error: Boolean = false,
@@ -186,6 +193,7 @@ internal fun SparkSelectionCard(
             role = Role.RadioButton,
             onClick = onClick,
         ),
+        style = style,
         modifier = modifier,
         enabled = enabled,
         error = error,
@@ -198,11 +206,13 @@ internal fun SparkSelectionCard(
 /**
  * Draws the card. The [selectionModifier] owns the click target, the role and the state semantics.
  * The non-interactive [Surface] only draws the fill, the border and the shape, so it adds no semantics state.
+ * The border draws inside the bounds of the card, so its animated width never moves the content.
  */
 @Composable
 private fun SelectionCardContainer(
     selected: Boolean,
     selectionModifier: Modifier,
+    style: SelectionCardStyle,
     modifier: Modifier,
     enabled: Boolean,
     error: Boolean,
@@ -210,20 +220,20 @@ private fun SelectionCardContainer(
     toggle: @Composable () -> Unit,
     content: @Composable ColumnScope.() -> Unit,
 ) {
-    val shape = SparkTheme.shapes.small
+    val shape = style.shape
     Surface(
         modifier = modifier
-            .then(if (enabled) Modifier else Modifier.alpha(SparkTheme.colors.dim3))
+            .then(if (enabled) Modifier else Modifier.alpha(style.disabledAlpha))
             .clip(shape)
             .then(selectionModifier)
             .sparkUsageOverlay(),
         shape = shape,
-        border = SelectionCardDefaults.border(selected = selected, error = error),
+        border = style.border(selected = selected, error = error),
     ) {
         when (layout) {
             SelectionCardLayout.Horizontal -> Row(
-                modifier = Modifier.padding(SelectionCardDefaults.ContentPadding),
-                horizontalArrangement = Arrangement.spacedBy(SelectionCardDefaults.ToggleSpacing),
+                modifier = Modifier.padding(style.contentPadding),
+                horizontalArrangement = Arrangement.spacedBy(style.horizontalStartSpacing),
                 verticalAlignment = Alignment.Top,
             ) {
                 toggle()
@@ -234,8 +244,8 @@ private fun SelectionCardContainer(
             }
 
             SelectionCardLayout.Vertical -> Column(
-                modifier = Modifier.padding(SelectionCardDefaults.ContentPadding),
-                verticalArrangement = Arrangement.spacedBy(SelectionCardDefaults.ToggleSpacing),
+                modifier = Modifier.padding(style.contentPadding),
+                verticalArrangement = Arrangement.spacedBy(style.verticalTopSpacing),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 toggle()
@@ -253,6 +263,7 @@ private fun SelectionCardPreviewContent(layout: SelectionCardLayout) {
     SparkSelectionCard(
         state = ToggleableState.On,
         onClick = {},
+        style = CheckboxTokens.Card.style,
         modifier = Modifier.fillMaxWidth(),
         layout = layout,
         toggle = { SparkCheckbox(state = ToggleableState.On, onClick = null) },
@@ -262,6 +273,7 @@ private fun SelectionCardPreviewContent(layout: SelectionCardLayout) {
     SparkSelectionCard(
         state = ToggleableState.Off,
         onClick = {},
+        style = CheckboxTokens.Card.style,
         modifier = Modifier.fillMaxWidth(),
         error = true,
         layout = layout,
@@ -272,6 +284,7 @@ private fun SelectionCardPreviewContent(layout: SelectionCardLayout) {
     SparkSelectionCard(
         selected = true,
         onClick = {},
+        style = RadioButtonTokens.Card.style,
         modifier = Modifier.fillMaxWidth(),
         layout = layout,
         toggle = { SparkRadioButton(selected = true, onClick = null) },
@@ -281,6 +294,7 @@ private fun SelectionCardPreviewContent(layout: SelectionCardLayout) {
     SparkSelectionCard(
         checked = false,
         onCheckedChange = {},
+        style = SwitchTokens.Card.style,
         modifier = Modifier.fillMaxWidth(),
         enabled = false,
         layout = layout,

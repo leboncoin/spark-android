@@ -155,6 +155,7 @@ public object RadioButton {
         SparkSelectionCard(
             selected = selected,
             onClick = onClick,
+            style = RadioButtonTokens.Card.style,
             modifier = modifier,
             enabled = enabled,
             error = error,

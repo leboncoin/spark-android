@@ -21,6 +21,9 @@
  */
 package com.adevinta.spark.components.toggles
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.InputMode
 import androidx.compose.ui.input.InputModeManager
@@ -37,6 +40,7 @@ import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsFocused
 import androidx.compose.ui.test.assertIsNotEnabled
+import androidx.compose.ui.test.assertIsNotSelected
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasText
@@ -97,6 +101,7 @@ class SparkSelectionCardTest {
                 SparkSelectionCard(
                     state = state,
                     onClick = onClick,
+                    style = CheckboxTokens.Card.style,
                     modifier = Modifier.testTag(CardTag),
                     enabled = enabled,
                     toggle = { SparkCheckbox(state = state, onClick = null) },
@@ -118,6 +123,7 @@ class SparkSelectionCardTest {
                 SparkSelectionCard(
                     checked = checked,
                     onCheckedChange = onCheckedChange,
+                    style = SwitchTokens.Card.style,
                     modifier = Modifier.testTag(CardTag),
                     enabled = enabled,
                     toggle = { SparkSwitch(checked = checked, onCheckedChange = null) },
@@ -139,6 +145,7 @@ class SparkSelectionCardTest {
                 SparkSelectionCard(
                     selected = selected,
                     onClick = onClick,
+                    style = RadioButtonTokens.Card.style,
                     modifier = Modifier.testTag(CardTag),
                     enabled = enabled,
                     toggle = { SparkRadioButton(selected = selected, onClick = null) },
@@ -297,6 +304,40 @@ class SparkSelectionCardTest {
         pressOnCard(Key.Spacebar)
 
         assertEquals(2, clicks)
+    }
+
+    // The border animates, but the semantics follow the new state at once and keep it once the animation ends.
+    @Test
+    fun selectableCard_toggleKeepsTheFinalSemanticsAfterTheBorderAnimation() {
+        var selected by mutableStateOf(false)
+        composeTestRule.setContent {
+            PreviewTheme {
+                SparkSelectionCard(
+                    selected = selected,
+                    onClick = { selected = !selected },
+                    style = RadioButtonTokens.Card.style,
+                    modifier = Modifier.testTag(CardTag),
+                    error = !selected,
+                    toggle = { SparkRadioButton(selected = selected, onClick = null) },
+                ) {
+                    Text(Title)
+                }
+            }
+        }
+        val card = composeTestRule.onNodeWithTag(CardTag)
+
+        composeTestRule.mainClock.autoAdvance = false
+        card.performClick()
+        composeTestRule.mainClock.advanceTimeByFrame()
+        card.assertIsSelected()
+
+        composeTestRule.mainClock.autoAdvance = true
+        composeTestRule.waitForIdle()
+        card.assertIsSelected().assert(withRole(Role.RadioButton)).assert(hasNoToggleableState)
+
+        card.performClick()
+        composeTestRule.waitForIdle()
+        card.assertIsNotSelected()
     }
 
     @Test
