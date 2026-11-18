@@ -105,4 +105,21 @@ fun Option(
 }
 ```
 
+## Selection cards
+
+To present each option as a bordered card, use `Checkbox.Card`. The usage and design rules for cards are in the "Selection cards" section of this package.
+
+```kotlin
+var state by remember { mutableStateOf(ToggleableState.Off) }
+Checkbox.Card(
+    state = state,
+    onClick = {
+        state = if (state == ToggleableState.On) ToggleableState.Off else ToggleableState.On
+    },
+) {
+    Text("Delivery")
+    Text("Receive the item at home")
+}
+```
+
 ## Form states 🚀 TODO

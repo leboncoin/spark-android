@@ -25,8 +25,10 @@ package com.adevinta.spark.components.toggles
 
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -105,6 +107,80 @@ public fun RadioButton(
         enabled = enabled,
         modifier = modifier,
     )
+}
+
+/**
+ * Spark radio button variants.
+ *
+ * Call [RadioButton] directly for the bare control.
+ */
+public object RadioButton {
+
+    /**
+     * A card that the user selects as one option from a set. The whole card is one target with the radio button
+     * role, and it exposes the selected state. Put the cards of one group in a parent with
+     * `Modifier.selectableGroup()`. If you pass an empty [toggle], add helper text that says whether the user can
+     * pick one choice or several.
+     *
+     * ![RadioButton.Card](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.toggles_SelectionCardDocumentationScreenshots_radio_group.png)
+     *
+     * @param selected whether the card is selected.
+     * @param onClick called when the user clicks the card.
+     * @param modifier the [Modifier] applied to the card.
+     * @param enabled whether the card reacts to clicks. A disabled card is dimmed once, as a whole.
+     * @param error whether the card draws the error border.
+     * @param layout the position of the [toggle] relative to the [content].
+     * @param interactionSource an optional hoisted [MutableInteractionSource] for the card interactions.
+     * @param toggle the passive control. It defaults to a radio button that does not handle clicks.
+     * @param content the content of the card.
+     */
+    @Composable
+    public fun Card(
+        selected: Boolean,
+        onClick: () -> Unit,
+        modifier: Modifier = Modifier,
+        enabled: Boolean = true,
+        error: Boolean = false,
+        layout: SelectionCardLayout = SelectionCardLayout.Horizontal,
+        interactionSource: MutableInteractionSource? = null,
+        toggle: @Composable () -> Unit = {
+            SparkRadioButton(
+                selected = selected,
+                onClick = null,
+                intent = if (error) IntentColors.Danger else IntentColors.Support,
+            )
+        },
+        content: @Composable ColumnScope.() -> Unit,
+    ) {
+        SparkSelectionCard(
+            selected = selected,
+            onClick = onClick,
+            modifier = modifier,
+            enabled = enabled,
+            error = error,
+            layout = layout,
+            interactionSource = interactionSource,
+            toggle = toggle,
+            content = content,
+        )
+    }
+}
+
+@Preview(group = "Toggles", name = "RadioButton Card")
+@Composable
+private fun RadioButtonCardPreview() {
+    PreviewTheme {
+        SelectionCardLayout.entries.forEach { layout ->
+            Column(modifier = Modifier.selectableGroup()) {
+                RadioButton.Card(selected = true, onClick = {}, layout = layout) { Text("Selected") }
+                RadioButton.Card(selected = false, onClick = {}, layout = layout) { Text("Unselected") }
+                RadioButton.Card(selected = true, onClick = {}, error = true, layout = layout) { Text("Error") }
+                RadioButton.Card(selected = false, onClick = {}, enabled = false, layout = layout) {
+                    Text("Disabled")
+                }
+            }
+        }
+    }
 }
 
 /**

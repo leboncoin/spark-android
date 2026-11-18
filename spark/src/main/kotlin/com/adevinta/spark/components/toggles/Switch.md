@@ -57,3 +57,17 @@ The `Switch` and `SwitchLabelled` now only have one style: **"Support"**.
 
 > 🚀 TODO
 > We plan to provide a layout composable to make it easier to follow the design specs.
+
+## Selection cards
+
+To present a setting as a bordered card, use `Switch.Card`. The usage and design rules for cards are in the "Selection cards" section of this package.
+
+```kotlin
+var checked by remember { mutableStateOf(false) }
+Switch.Card(
+    checked = checked,
+    onCheckedChange = { checked = it },
+) {
+    Text("Notifications")
+}
+```

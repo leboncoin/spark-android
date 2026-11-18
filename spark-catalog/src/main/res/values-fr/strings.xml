@@ -133,6 +133,37 @@
     <string name="spark_catalog_component_segmentedcontrol_description">Le Segmented Control permet à l’utilisateur de sélectionner une seule option parmi un petit ensemble de choix, tout en gardant une vue d’ensemble immédiate des alternatives disponibles.</string>
     <string name="spark_catalog_component_meter_description">Le Compteur affiche une valeur quantifiée sous forme d’anneau de progression circulaire, utilisé pour les états d’achèvement, les scores ou les quantités mesurées.</string>
 
+    <!--region Selection card-->
+    <string name="spark_catalog_component_selection_card_description">Les cartes de sélection présentent des options sous forme de cartes. Chaque carte contient une case à cocher, un bouton radio ou un interrupteur, à côté d’un contenu comme un titre, un texte d’aide ou une image. Toute la carte est cliquable.</string>
+    <string name="spark_catalog_component_selection_card_example_delivery_hand_title">Remise en main propre</string>
+    <string name="spark_catalog_component_selection_card_example_delivery_hand_helper">Rencontrez le vendeur et payez sur place.</string>
+    <string name="spark_catalog_component_selection_card_example_delivery_parcel_title">Envoi par colis</string>
+    <string name="spark_catalog_component_selection_card_example_delivery_parcel_helper">Recevez l’article chez vous sous 3 à 5 jours.</string>
+    <string name="spark_catalog_component_selection_card_example_delivery_pickup_title">Point relais</string>
+    <string name="spark_catalog_component_selection_card_example_delivery_pickup_helper">Récupérez l’article dans un commerce près de chez vous.</string>
+    <string name="spark_catalog_component_selection_card_example_property_house">Maison</string>
+    <string name="spark_catalog_component_selection_card_example_property_flat">Appartement</string>
+    <string name="spark_catalog_component_selection_card_example_property_land">Terrain</string>
+    <string name="spark_catalog_component_selection_card_example_notification_push_title">Notifications push</string>
+    <string name="spark_catalog_component_selection_card_example_notification_push_helper">Recevez une alerte quand quelqu’un vous envoie un message.</string>
+    <string name="spark_catalog_component_selection_card_example_notification_email_title">E-mails</string>
+    <string name="spark_catalog_component_selection_card_example_notification_email_helper">Recevez chaque semaine un résumé des nouvelles annonces.</string>
+    <string name="spark_catalog_component_selection_card_example_notification_sms_title">SMS</string>
+    <string name="spark_catalog_component_selection_card_example_notification_sms_helper">Recevez un SMS quand le prix d’un article suivi baisse.</string>
+    <string name="spark_catalog_component_selection_card_example_boost_title">Boostez votre annonce</string>
+    <string name="spark_catalog_component_selection_card_example_boost_helper">Affichez votre annonce en tête de liste pendant 7 jours.</string>
+    <string name="spark_catalog_component_selection_card_example_plan_standard_title">Standard</string>
+    <string name="spark_catalog_component_selection_card_example_plan_standard_helper">Votre annonce reste en ligne pendant 60 jours.</string>
+    <string name="spark_catalog_component_selection_card_example_plan_urgent_title">Urgent</string>
+    <string name="spark_catalog_component_selection_card_example_plan_urgent_helper">Votre annonce affiche un badge Urgent pendant 7 jours.</string>
+    <string name="spark_catalog_configurator_component_selection_card_variant_label">Variante</string>
+    <string name="spark_catalog_configurator_component_selection_card_layout_label">Disposition</string>
+    <string name="spark_catalog_configurator_component_selection_card_error_label">Erreur</string>
+    <string name="spark_catalog_configurator_component_selection_card_toggle_label">Afficher le contrôle</string>
+    <string name="spark_catalog_configurator_component_selection_card_title">Titre de la carte</string>
+    <string name="spark_catalog_configurator_component_selection_card_helper">Texte d’aide qui explique l’option.</string>
+    <!--endregion-->
+
     <string name="spark_catalog_configurator_component_screen_title">Configurations des composants</string>
     <string name="spark_catalog_configurator_component_screen_description">Le configurateur permet de visualiser un composant dans tous les états possibles disponibles en personnalisant chaque propriété pour chaque composant.</string>
     <string name="spark_catalog_configurator_component_screen_enabled_label">Activé</string>

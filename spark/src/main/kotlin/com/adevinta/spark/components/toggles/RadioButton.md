@@ -89,4 +89,26 @@ fun RadioGroupSample() {
 }
 ```
 
+## Selection cards
+
+To present each option as a bordered card, use `RadioButton.Card`. The usage and design rules for cards are in the "Selection cards" section of this package.
+
+```kotlin
+val options = listOf("Pick-up", "Delivery")
+var selectedOption by remember { mutableStateOf(options.first()) }
+Column(
+    modifier = Modifier.selectableGroup(),
+    verticalArrangement = Arrangement.spacedBy(8.dp),
+) {
+    options.forEach { option ->
+        RadioButton.Card(
+            selected = option == selectedOption,
+            onClick = { selectedOption = option },
+        ) {
+            Text(option)
+        }
+    }
+}
+```
+
 ## Form states 🚀 TODO

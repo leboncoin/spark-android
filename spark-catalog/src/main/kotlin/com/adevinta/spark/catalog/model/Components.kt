@@ -63,6 +63,7 @@ import com.adevinta.spark.catalog.configurator.samples.textfields.SingleChoiceDr
 import com.adevinta.spark.catalog.configurator.samples.textfields.TextFieldsConfigurator
 import com.adevinta.spark.catalog.configurator.samples.toggles.CheckboxConfigurator
 import com.adevinta.spark.catalog.configurator.samples.toggles.RadioButtonConfigurator
+import com.adevinta.spark.catalog.configurator.samples.toggles.SelectionCardConfigurator
 import com.adevinta.spark.catalog.configurator.samples.toggles.SwitchConfigurator
 import com.adevinta.spark.catalog.configurator.samples.typography.TypographyConfigurator
 import com.adevinta.spark.catalog.examples.samples.animation.AnimationExamples
@@ -99,6 +100,7 @@ import com.adevinta.spark.catalog.examples.samples.textfields.TextFieldsExamples
 import com.adevinta.spark.catalog.examples.samples.toggles.CheckboxExamples
 import com.adevinta.spark.catalog.examples.samples.toggles.IconToggleButtonsExamples
 import com.adevinta.spark.catalog.examples.samples.toggles.RadioButtonExamples
+import com.adevinta.spark.catalog.examples.samples.toggles.SelectionCardExamples
 import com.adevinta.spark.catalog.examples.samples.toggles.SwitchExamples
 import com.adevinta.spark.catalog.examples.samples.tokens.TokensExamples
 import com.adevinta.spark.catalog.util.ComponentGuidelinesUrl
@@ -475,6 +477,19 @@ private val SegmentedControl = Component(
     configurators = listOf(SegmentedControlConfigurator),
 )
 
+private val SelectionCards = Component(
+    id = "selection-cards",
+    name = "Selection cards",
+    illustration = R.drawable.spark_catalog_card,
+    illustrationLarge = R.drawable.spark_catalog_card_large,
+    description = R.string.spark_catalog_component_selection_card_description,
+    guidelinesUrl = "$ComponentGuidelinesUrl/p/selection-card",
+    docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.toggles/index.html",
+    sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/toggles/SparkSelectionCard.kt",
+    examples = SelectionCardExamples,
+    configurators = listOf(SelectionCardConfigurator),
+)
+
 private val Skeletons = Component(
     id = "skeleton",
     name = "Skeletons",
@@ -640,6 +655,7 @@ public val Components: ImmutableList<Component> by lazy(mode = LazyThreadSafetyM
         Rating,
         SegmentedControl,
         SegmentedGauge,
+        SelectionCards,
         Skeletons,
         Sliders,
         Snackbars,

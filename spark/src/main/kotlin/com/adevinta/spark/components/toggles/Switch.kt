@@ -25,7 +25,9 @@ package com.adevinta.spark.components.toggles
 
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.runtime.Composable
@@ -120,6 +122,52 @@ public fun Switch(
         icons = icons,
         interactionSource = interactionSource,
     )
+}
+
+/**
+ * Spark switch variants.
+ *
+ * Call [Switch] directly for the bare control.
+ */
+public object Switch {
+
+    /**
+     * A card with a switch for a setting that turns on or off on its own.
+     * The whole card is one toggleable target with [Role.Switch].
+     *
+     * ![Switch.Card](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.toggles_SelectionCardDocumentationScreenshots_switch_list.png)
+     *
+     * @param checked whether the card is on.
+     * @param onCheckedChange called with the new value when the user clicks the card.
+     * @param modifier the [Modifier] applied to the card.
+     * @param enabled whether the card reacts to clicks. A disabled card is dimmed once, as a whole.
+     * @param layout the position of the [toggle] relative to the [content].
+     * @param interactionSource an optional hoisted [MutableInteractionSource] for the card interactions.
+     * @param toggle the passive control. It defaults to a bare switch with no click handler of its own.
+     * @param content the content of the card.
+     */
+    @Composable
+    public fun Card(
+        checked: Boolean,
+        onCheckedChange: (Boolean) -> Unit,
+        modifier: Modifier = Modifier,
+        enabled: Boolean = true,
+        layout: SelectionCardLayout = SelectionCardLayout.Horizontal,
+        interactionSource: MutableInteractionSource? = null,
+        toggle: @Composable () -> Unit = { SparkSwitch(checked = checked, onCheckedChange = null) },
+        content: @Composable ColumnScope.() -> Unit,
+    ) {
+        SparkSelectionCard(
+            checked = checked,
+            onCheckedChange = onCheckedChange,
+            modifier = modifier,
+            enabled = enabled,
+            layout = layout,
+            interactionSource = interactionSource,
+            toggle = toggle,
+            content = content,
+        )
+    }
 }
 
 /**
@@ -234,5 +282,44 @@ private fun AllStatesSwitchLabelledPreview() {
             onCheckedChange = {},
             icons = icons,
         ) { Text(text) }
+    }
+}
+
+@Composable
+private fun SwitchCardPreviewContent(layout: SelectionCardLayout) {
+    Switch.Card(
+        checked = true,
+        onCheckedChange = {},
+        modifier = Modifier.fillMaxWidth(),
+        layout = layout,
+    ) { Text("On") }
+    Switch.Card(
+        checked = false,
+        onCheckedChange = {},
+        modifier = Modifier.fillMaxWidth(),
+        layout = layout,
+    ) { Text("Off") }
+    Switch.Card(
+        checked = true,
+        onCheckedChange = {},
+        modifier = Modifier.fillMaxWidth(),
+        enabled = false,
+        layout = layout,
+    ) { Text("Disabled") }
+}
+
+@Preview(group = "Toggles", name = "Switch.Card Horizontal")
+@Composable
+private fun SwitchCardHorizontalPreview() {
+    PreviewTheme {
+        SwitchCardPreviewContent(layout = SelectionCardLayout.Horizontal)
+    }
+}
+
+@Preview(group = "Toggles", name = "Switch.Card Vertical")
+@Composable
+private fun SwitchCardVerticalPreview() {
+    PreviewTheme {
+        SwitchCardPreviewContent(layout = SelectionCardLayout.Vertical)
     }
 }

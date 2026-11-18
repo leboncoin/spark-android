@@ -27,6 +27,7 @@ import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.TriStateCheckbox
@@ -111,6 +112,63 @@ public fun Checkbox(
 }
 
 /**
+ * Spark checkbox variants.
+ *
+ * Call [Checkbox] directly for the bare control.
+ */
+public object Checkbox {
+
+    /**
+     * A card that the user clicks as a whole to check or uncheck an option.
+     * The card shows a passive checkbox next to its [content] and exposes [Role.Checkbox] with its [state].
+     *
+     * If [toggle] is empty, add helper text that says whether the user can pick one or several options.
+     *
+     * ![Checkbox.Card](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.toggles_SelectionCardDocumentationScreenshots_checkbox_group.png)
+     *
+     * @param state whether the card is checked, unchecked or indeterminate.
+     * @param onClick called when the user clicks the card.
+     * @param modifier the [Modifier] applied to the card.
+     * @param enabled whether the card reacts to clicks. A disabled card is dimmed as a whole.
+     * @param error whether the card is in an error state.
+     * @param layout the position of the [toggle] relative to the [content].
+     * @param interactionSource an optional hoisted [MutableInteractionSource] for the card interactions.
+     * @param toggle the passive control. Defaults to a Spark checkbox that follows [state] and [error].
+     * @param content the content of the card.
+     */
+    @Composable
+    public fun Card(
+        state: ToggleableState,
+        onClick: () -> Unit,
+        modifier: Modifier = Modifier,
+        enabled: Boolean = true,
+        error: Boolean = false,
+        layout: SelectionCardLayout = SelectionCardLayout.Horizontal,
+        interactionSource: MutableInteractionSource? = null,
+        toggle: @Composable () -> Unit = {
+            SparkCheckbox(
+                state = state,
+                onClick = null,
+                intent = if (error) IntentColors.Danger else IntentColors.Support,
+            )
+        },
+        content: @Composable ColumnScope.() -> Unit,
+    ) {
+        SparkSelectionCard(
+            state = state,
+            onClick = onClick,
+            modifier = modifier,
+            enabled = enabled,
+            error = error,
+            layout = layout,
+            interactionSource = interactionSource,
+            toggle = toggle,
+            content = content,
+        )
+    }
+}
+
+/**
  *
  * Checkboxes allows users to select one or more items from a set. Checkboxes can turn an option on or off.
  *
@@ -180,6 +238,41 @@ private fun AllStatesCheckBoxLabelledPreview() {
         Row {
             CheckboxStates(isError = false)
             CheckboxStates(isError = true)
+        }
+    }
+}
+
+@Preview(
+    group = "Toggles",
+    name = "Checkbox.Card",
+    device = Devices.FOLDABLE,
+)
+@Composable
+private fun CheckboxCardPreview() {
+    PreviewTheme {
+        Row(horizontalArrangement = spacedBy(16.dp)) {
+            CheckboxCardStates(layout = SelectionCardLayout.Horizontal, modifier = Modifier.weight(1f))
+            CheckboxCardStates(layout = SelectionCardLayout.Vertical, modifier = Modifier.weight(1f))
+        }
+    }
+}
+
+@Composable
+private fun CheckboxCardStates(layout: SelectionCardLayout, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = spacedBy(16.dp),
+    ) {
+        Checkbox.Card(state = ToggleableState.On, onClick = {}, layout = layout) { Text("Card On") }
+        Checkbox.Card(state = ToggleableState.Off, onClick = {}, layout = layout) { Text("Card Off") }
+        Checkbox.Card(state = ToggleableState.Indeterminate, onClick = {}, layout = layout) {
+            Text("Card Indeterminate")
+        }
+        Checkbox.Card(state = ToggleableState.Off, onClick = {}, error = true, layout = layout) {
+            Text("Card error")
+        }
+        Checkbox.Card(state = ToggleableState.On, onClick = {}, enabled = false, layout = layout) {
+            Text("Card disabled")
         }
     }
 }

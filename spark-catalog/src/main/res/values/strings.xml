@@ -134,6 +134,37 @@
 
     <string name="spark_catalog_component_meter_description">The Meter displays a quantified value as a circular progress ring, used for completion states, scores, or measured quantities.</string>
 
+    <!--region Selection card-->
+    <string name="spark_catalog_component_selection_card_description">Selection cards show options as cards. Each card holds a checkbox, a radio button or a switch, next to content such as a title, helper text or an image. The whole card is the touch target.</string>
+    <string name="spark_catalog_component_selection_card_example_delivery_hand_title">Hand delivery</string>
+    <string name="spark_catalog_component_selection_card_example_delivery_hand_helper">Meet the seller and pay on the spot.</string>
+    <string name="spark_catalog_component_selection_card_example_delivery_parcel_title">Parcel delivery</string>
+    <string name="spark_catalog_component_selection_card_example_delivery_parcel_helper">Get the item at home in 3 to 5 days.</string>
+    <string name="spark_catalog_component_selection_card_example_delivery_pickup_title">Pickup point</string>
+    <string name="spark_catalog_component_selection_card_example_delivery_pickup_helper">Collect the item from a shop near you.</string>
+    <string name="spark_catalog_component_selection_card_example_property_house">House</string>
+    <string name="spark_catalog_component_selection_card_example_property_flat">Flat</string>
+    <string name="spark_catalog_component_selection_card_example_property_land">Land</string>
+    <string name="spark_catalog_component_selection_card_example_notification_push_title">Push notifications</string>
+    <string name="spark_catalog_component_selection_card_example_notification_push_helper">Get an alert when someone sends you a message.</string>
+    <string name="spark_catalog_component_selection_card_example_notification_email_title">Emails</string>
+    <string name="spark_catalog_component_selection_card_example_notification_email_helper">Get a weekly summary of new ads.</string>
+    <string name="spark_catalog_component_selection_card_example_notification_sms_title">Text messages</string>
+    <string name="spark_catalog_component_selection_card_example_notification_sms_helper">Get a text when an item you follow drops in price.</string>
+    <string name="spark_catalog_component_selection_card_example_boost_title">Boost your ad</string>
+    <string name="spark_catalog_component_selection_card_example_boost_helper">Show your ad at the top of the list for 7 days.</string>
+    <string name="spark_catalog_component_selection_card_example_plan_standard_title">Standard</string>
+    <string name="spark_catalog_component_selection_card_example_plan_standard_helper">Your ad stays online for 60 days.</string>
+    <string name="spark_catalog_component_selection_card_example_plan_urgent_title">Urgent</string>
+    <string name="spark_catalog_component_selection_card_example_plan_urgent_helper">Your ad shows an Urgent badge for 7 days.</string>
+    <string name="spark_catalog_configurator_component_selection_card_variant_label">Variant</string>
+    <string name="spark_catalog_configurator_component_selection_card_layout_label">Layout</string>
+    <string name="spark_catalog_configurator_component_selection_card_error_label">Error</string>
+    <string name="spark_catalog_configurator_component_selection_card_toggle_label">Show toggle</string>
+    <string name="spark_catalog_configurator_component_selection_card_title">Card title</string>
+    <string name="spark_catalog_configurator_component_selection_card_helper">Helper text that explains the option.</string>
+    <!--endregion-->
+
     <string name="spark_catalog_configurator_component_screen_title">Components configurations</string>
     <string name="spark_catalog_configurator_component_screen_description">The Configurator allows to visualise a component in every possible state available by customising every property for each component.</string>
     <string name="spark_catalog_configurator_component_screen_enabled_label">Enabled</string>
