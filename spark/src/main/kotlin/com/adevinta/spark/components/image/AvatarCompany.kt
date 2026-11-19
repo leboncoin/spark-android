@@ -56,7 +56,7 @@ internal fun SparkAvatarCompany(
     contentScale: ContentScale = ContentScale.Fit,
     fillParentSize: Boolean = false,
     model: Any? = null,
-    addon: @Composable AvatarAddonScope.(AvatarAddonItem) -> Unit = {},
+    addon: @Composable AvatarAddonScope.() -> AvatarAddonItem? = { null },
 ) {
     val shape = if (
         size == AvatarSize.SM ||
@@ -112,7 +112,7 @@ public fun Avatar.Company(
     contentScale: ContentScale = ContentScale.Fit,
     fillParentSize: Boolean = false,
     model: Any? = null,
-    addon: @Composable AvatarAddonScope.(AvatarAddonItem) -> Unit = {},
+    addon: @Composable AvatarAddonScope.() -> AvatarAddonItem? = { null },
 ) {
     SparkAvatarCompany(
         modifier = modifier,
@@ -168,7 +168,7 @@ private fun CompanyAvatarPreview() {
                         size = size,
                         model = "",
                         transform = { AsyncImagePainter.State.Empty },
-                        addon = { if (withAddon) onlineIndicator() },
+                        addon = { if (withAddon) onlineIndicator() else null },
                     )
                 }
             }

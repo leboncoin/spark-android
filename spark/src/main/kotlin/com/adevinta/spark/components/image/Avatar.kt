@@ -98,7 +98,7 @@ internal fun SparkAvatar(
     contentScale: ContentScale = ContentScale.Fit,
     fillParentSize: Boolean = false,
     model: Any? = null,
-    addon: @Composable AvatarAddonScope.(AvatarAddonItem) -> Unit = {},
+    addon: @Composable AvatarAddonScope.() -> AvatarAddonItem? = { null },
 ) {
     Layout(
         modifier = modifier.sparkUsageOverlay(),
@@ -115,7 +115,7 @@ internal fun SparkAvatar(
                 emptyIcon = placeholder,
                 errorIcon = placeholder,
             )
-            AvatarAddonScopeImpl(size).addon(AvatarAddonItemImpl)
+            AvatarAddonScopeImpl(size).addon()
         },
     ) { measurables, constraints ->
         val avatarPlaceable = measurables[0].measure(constraints)

@@ -112,10 +112,8 @@ private fun ColumnScope.AvatarSample() {
         }
     }
 
-    val addon: @Composable AvatarAddonScope.(AvatarAddonItem) -> Unit = if (showOnlineIndicator) {
-        { onlineIndicator() }
-    } else {
-        {}
+    val addon: @Composable AvatarAddonScope.() -> AvatarAddonItem? = {
+        if (showOnlineIndicator) onlineIndicator() else null
     }
 
     CompositionLocalProvider(

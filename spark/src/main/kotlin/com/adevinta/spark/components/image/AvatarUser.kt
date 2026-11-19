@@ -54,7 +54,7 @@ internal fun SparkAvatarUser(
     contentScale: ContentScale = ContentScale.Fit,
     fillParentSize: Boolean = false,
     model: Any? = null,
-    addon: @Composable AvatarAddonScope.(AvatarAddonItem) -> Unit = {},
+    addon: @Composable AvatarAddonScope.() -> AvatarAddonItem? = { null },
 ) {
     val letter = usernameInitial(username)
     SparkAvatar(
@@ -114,7 +114,7 @@ public fun Avatar.User(
     contentScale: ContentScale = ContentScale.Fit,
     fillParentSize: Boolean = false,
     model: Any? = null,
-    addon: @Composable AvatarAddonScope.(AvatarAddonItem) -> Unit = {},
+    addon: @Composable AvatarAddonScope.() -> AvatarAddonItem? = { null },
 ) {
     SparkAvatarUser(
         username = username,
