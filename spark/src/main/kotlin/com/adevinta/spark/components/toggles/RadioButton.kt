@@ -43,7 +43,7 @@ import com.adevinta.spark.components.IntentColors
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
-@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // This composable wraps the material component
 @Composable
 @InternalSparkApi
 internal fun SparkRadioButton(

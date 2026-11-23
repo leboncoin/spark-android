@@ -52,7 +52,7 @@ import com.adevinta.spark.tools.modifiers.minimumTouchTargetSize
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 import androidx.compose.material3.Switch as MaterialSwitch
 
-@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // This composable wraps the material component
 @Composable
 @InternalSparkApi
 internal fun SparkSwitch(
@@ -64,7 +64,7 @@ internal fun SparkSwitch(
     icons: SwitchIcons? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
-    // Icon isn't focusable, no need for content description
+    // The icon is not focusable, so it needs no content description
     val icon: (@Composable () -> Unit)? = icons?.let {
         {
             Icon(
@@ -212,7 +212,7 @@ public object Switch {
 
 /**
  *
- * Switches are the preferred way to adjust settings. They're used to control binary options – think On/Off or True/False.
+ * Switches are the preferred way to adjust settings. They control binary options such as On/Off or True/False.
  *
  *  - Toggle a single item on or off.
  *  - Immediately activate or deactivate something.

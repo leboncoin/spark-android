@@ -47,7 +47,7 @@ import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
 @Composable
-@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // This composable wraps the material component
 @InternalSparkApi
 internal fun SparkCheckbox(
     state: ToggleableState,
