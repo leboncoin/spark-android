@@ -158,7 +158,7 @@ internal class SelectionCardDocumentationScreenshots {
             Checkbox.Card(state = ToggleableState.On, onClick = {}, enabled = false) {
                 CardText(title = "Disabled", description = "The user cannot change it")
             }
-            Checkbox.Card(state = ToggleableState.Off, onClick = {}, error = true) {
+            Checkbox.Card(state = ToggleableState.Off, onClick = {}, error = "Select an option") {
                 CardText(title = "Error", description = "The choice is not valid")
             }
         }
@@ -176,10 +176,10 @@ internal class SelectionCardDocumentationScreenshots {
                 style = SparkTheme.typography.body2,
                 color = SparkTheme.colors.onSurface.dim1,
             )
-            Checkbox.Card(state = ToggleableState.On, onClick = {}, toggle = {}) {
+            Checkbox.Card(state = ToggleableState.On, onClick = {}, toggle = { null }) {
                 CardText(title = "Home delivery", description = "Delivered to your door")
             }
-            Checkbox.Card(state = ToggleableState.Off, onClick = {}, toggle = {}) {
+            Checkbox.Card(state = ToggleableState.Off, onClick = {}, toggle = { null }) {
                 CardText(title = "Pickup point", description = "Collect it near you")
             }
         }

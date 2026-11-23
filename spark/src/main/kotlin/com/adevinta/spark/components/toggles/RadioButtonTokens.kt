@@ -28,8 +28,8 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 
 /**
- * Component tokens for radio button components. Centralises token resolution so that radio button
- * composables read from a single source of truth instead of inlining the lookup at every call site.
+ * Component tokens for the radio button components. Each value has one definition here, so the
+ * composables do not repeat the lookup.
  */
 public object RadioButtonTokens {
 

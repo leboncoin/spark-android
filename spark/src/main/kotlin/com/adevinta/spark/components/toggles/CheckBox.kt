@@ -76,10 +76,6 @@ internal fun SparkCheckbox(
  *
  * ![Checkbox States](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.toggles_CheckboxDocumentationScreenshots_checkboxStates.png)
  *
- * @see [SparkCheckbox] if you require support for an indeterminate state, or more advanced
- * color customization between states. Be aware that this is still an internal composable so if you need such
- * state contact the Spark team.
- *
  * @param state whether TriStateCheckbox is checked, unchecked or in indeterminate state
  * @param onClick callback to be invoked when checkbox is being clicked,
  * therefore the change of checked state in requested.  If null, then this is passive
@@ -119,10 +115,47 @@ public fun Checkbox(
 public object Checkbox {
 
     /**
-     * A card that the user clicks as a whole to check or uncheck an option.
-     * The card shows a passive checkbox next to its [content] and exposes [Role.Checkbox] with its [state].
+     * Checkboxes allow users to select one or more items from a set. A checkbox turns an option on or off.
      *
-     * If [toggle] is empty, add helper text that says whether the user can pick one or several options.
+     *  - Toggle a single item on or off.
+     *  - Require another action to activate or deactivate something.
+     *
+     * ![Checkbox States](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.toggles_CheckboxDocumentationScreenshots_checkboxStates.png)
+     *
+     * @param state whether the checkbox is checked, unchecked or indeterminate.
+     * @param onClick called when the user clicks the checkbox to request a change of state.
+     * When null, the checkbox is passive and a parent component owns the click and the state.
+     * @param modifier the [Modifier] applied to the checkbox.
+     * @param enabled whether the checkbox reacts to clicks. A disabled checkbox is dimmed.
+     * @param error whether the checkbox shows the error colours.
+     * @param interactionSource the [MutableInteractionSource] that emits the [Interaction]s of this checkbox.
+     * Pass your own remembered instance to observe them or to change the appearance for an [Interaction].
+     */
+    @Composable
+    public fun Standalone(
+        state: ToggleableState,
+        onClick: (() -> Unit)?,
+        modifier: Modifier = Modifier,
+        enabled: Boolean = true,
+        error: Boolean = false,
+        interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    ) {
+        SparkCheckbox(
+            state = state,
+            onClick = onClick,
+            modifier = modifier,
+            enabled = enabled,
+            intent = if (error) IntentColors.Danger else IntentColors.Support,
+            interactionSource = interactionSource,
+        )
+    }
+
+    /**
+     * A card that the user clicks as a whole to check or uncheck an option.
+     * The card shows a passive checkbox with its [content] and exposes [Role.Checkbox] with its [state].
+     *
+     * Pass `toggle = { null }` to hide the control. Then add helper text that says whether the user can pick one
+     * or several options.
      *
      * ![Checkbox.Card](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.toggles_SelectionCardDocumentationScreenshots_checkbox_group.png)
      *
@@ -130,10 +163,13 @@ public object Checkbox {
      * @param onClick called when the user clicks the card.
      * @param modifier the [Modifier] applied to the card.
      * @param enabled whether the card reacts to clicks. A disabled card is dimmed as a whole.
-     * @param error whether the card is in an error state.
+     * @param error the error message that screen readers read aloud, or null when the card has no error.
+     * Use a short, specific and non-blank message, and hide any visible copy of it from accessibility services.
      * @param layout the position of the [toggle] relative to the [content].
      * @param interactionSource an optional hoisted [MutableInteractionSource] for the card interactions.
-     * @param toggle the passive control. Defaults to a Spark checkbox that follows [state] and [error].
+     * @param toggle the passive control. It must end with a call on [CheckboxCardScope], such as
+     * [CheckboxCardScope.checkbox] or [CheckboxCardScope.custom], or with `null`. It defaults to a checkbox that
+     * follows [state] and [error].
      * @param content the content of the card.
      */
     @Composable
@@ -142,18 +178,15 @@ public object Checkbox {
         onClick: () -> Unit,
         modifier: Modifier = Modifier,
         enabled: Boolean = true,
-        error: Boolean = false,
+        error: String? = null,
         layout: SelectionCardLayout = SelectionCardLayout.Horizontal,
         interactionSource: MutableInteractionSource? = null,
-        toggle: @Composable () -> Unit = {
-            SparkCheckbox(
-                state = state,
-                onClick = null,
-                intent = if (error) IntentColors.Danger else IntentColors.Support,
-            )
-        },
+        toggle: @Composable CheckboxCardScope.() -> SelectionCardItem? = { checkbox() },
         content: @Composable ColumnScope.() -> Unit,
     ) {
+        require(error == null || error.isNotBlank()) {
+            "error must not be blank. Pass null when the card has no error."
+        }
         SparkSelectionCard(
             state = state,
             onClick = onClick,
@@ -269,7 +302,12 @@ private fun CheckboxCardStates(layout: SelectionCardLayout, modifier: Modifier =
         Checkbox.Card(state = ToggleableState.Indeterminate, onClick = {}, layout = layout) {
             Text("Card Indeterminate")
         }
-        Checkbox.Card(state = ToggleableState.Off, onClick = {}, error = true, layout = layout) {
+        Checkbox.Card(
+            state = ToggleableState.Off,
+            onClick = {},
+            error = "Select at least one option",
+            layout = layout,
+        ) {
             Text("Card error")
         }
         Checkbox.Card(state = ToggleableState.On, onClick = {}, enabled = false, layout = layout) {

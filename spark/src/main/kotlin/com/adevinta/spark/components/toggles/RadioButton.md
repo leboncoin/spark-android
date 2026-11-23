@@ -24,9 +24,19 @@ RadioButton(
 )
 ```
 
+`RadioButton.Standalone` takes the same parameters as `RadioButton`. Pass `onClick = null` for a
+passive radio button, for example when a parent owns the click and the state.
+
+```kotlin
+RadioButton.Standalone(
+    selected = true,
+    onClick = null,
+)
+```
+
 ---
 
-### CheckBoxLabelled
+### RadioButtonLabelled
 
 The main radio button allow users to select one option from a set.
 
@@ -63,7 +73,7 @@ RadioButtonLabelled(
 ### Styles
 
 The `RadioButton` and `RadioButtonLabelled` can have an error style by passing `error = true` to its
-parameters.
+parameters. `RadioButton.Card` takes an error message instead. See "Selection cards" below.
 
 ## Layout
 
@@ -82,7 +92,7 @@ fun RadioGroupSample() {
         radioOptions.forEach { text ->
             RadioButtonLabelled(
                 selected = text == selectedOption,
-                onClick = { selectedOption(text) },
+                onClick = { onOptionSelected(text) },
             ) { Text(text) }
         }
     }

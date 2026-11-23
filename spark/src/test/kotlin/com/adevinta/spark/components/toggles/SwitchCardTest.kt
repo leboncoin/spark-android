@@ -49,6 +49,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
+/** Covers the semantics, clicks and screen reader output of [Switch.Card]. */
 @RunWith(RobolectricTestRunner::class)
 class SwitchCardTest {
 
@@ -77,7 +78,7 @@ class SwitchCardTest {
         checked: Boolean,
         enabled: Boolean = true,
         onCheckedChange: (Boolean) -> Unit = {},
-        toggle: (@Composable () -> Unit)? = null,
+        toggle: (@Composable SwitchCardScope.() -> SelectionCardItem?)? = null,
     ) {
         composeTestRule.setContent {
             view = LocalView.current
@@ -148,7 +149,7 @@ class SwitchCardTest {
 
     @Test
     fun emptyToggle_keepsRoleAndState() {
-        setCard(checked = true, toggle = {})
+        setCard(checked = true, toggle = { null })
 
         composeTestRule.onAllNodes(hasClickAction()).assertCountEquals(1)
         composeTestRule.onNodeWithTag(CardTag)

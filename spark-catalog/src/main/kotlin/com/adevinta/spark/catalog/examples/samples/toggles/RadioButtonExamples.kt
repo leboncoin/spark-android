@@ -21,32 +21,40 @@
  */
 package com.adevinta.spark.catalog.examples.samples.toggles
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.model.Example
+import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.spacer.VerticalSpacer
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.toggles.RadioButton
 import com.adevinta.spark.components.toggles.RadioButtonLabelled
+import com.adevinta.spark.tokens.dim1
+import com.adevinta.spark.tokens.highlight
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
 private const val RadioButtonExampleDescription = "RadioButton examples"
 private const val RadioButtonExampleSourceUrl = "$SampleSourceUrl/RadioButtonSamples.kt"
+private const val RadioButtonCardExampleSourceUrl = "$SampleSourceUrl/toggles/RadioButtonExamples.kt"
 internal val RadioButtonExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "standalone",
@@ -85,7 +93,115 @@ internal val RadioButtonExamples: ImmutableList<Example> = persistentListOf(
     ) {
         LabeledRadioButtonGroupExample()
     },
+    Example(
+        id = "horizontal-radio-button-card-group",
+        name = "Horizontal radio button card group",
+        description = RadioButtonExampleDescription,
+        sourceUrl = RadioButtonCardExampleSourceUrl,
+    ) {
+        HorizontalRadioButtonCardGroupExample()
+    },
+    Example(
+        id = "radio-button-card-without-toggle",
+        name = "Radio button card without a toggle",
+        description = RadioButtonExampleDescription,
+        sourceUrl = RadioButtonCardExampleSourceUrl,
+    ) {
+        RadioButtonCardWithoutToggleExample()
+    },
 )
+
+private data class RadioButtonCardOption(@StringRes val title: Int, @StringRes val helper: Int)
+
+/** A single choice between delivery options, with radio button cards in the horizontal layout. */
+@Composable
+private fun HorizontalRadioButtonCardGroupExample() {
+    val options = remember {
+        persistentListOf(
+            RadioButtonCardOption(
+                title = R.string.spark_catalog_component_selection_card_example_delivery_hand_title,
+                helper = R.string.spark_catalog_component_selection_card_example_delivery_hand_helper,
+            ),
+            RadioButtonCardOption(
+                title = R.string.spark_catalog_component_selection_card_example_delivery_parcel_title,
+                helper = R.string.spark_catalog_component_selection_card_example_delivery_parcel_helper,
+            ),
+            RadioButtonCardOption(
+                title = R.string.spark_catalog_component_selection_card_example_delivery_pickup_title,
+                helper = R.string.spark_catalog_component_selection_card_example_delivery_pickup_helper,
+            ),
+        )
+    }
+    var selectedIndex by remember { mutableIntStateOf(0) }
+    // selectableGroup() lets TalkBack announce the cards as one group of choices.
+    Column(
+        modifier = Modifier.selectableGroup(),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        options.forEachIndexed { index, option ->
+            RadioButton.Card(
+                selected = selectedIndex == index,
+                onClick = { selectedIndex = index },
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                CardTexts(title = stringResource(option.title), helper = stringResource(option.helper))
+            }
+        }
+    }
+}
+
+/** A single choice between plans, with radio button cards that pass `toggle = { null }` to hide the toggle. */
+@Composable
+private fun RadioButtonCardWithoutToggleExample() {
+    val options = remember {
+        persistentListOf(
+            RadioButtonCardOption(
+                title = R.string.spark_catalog_component_selection_card_example_plan_standard_title,
+                helper = R.string.spark_catalog_component_selection_card_example_plan_standard_helper,
+            ),
+            RadioButtonCardOption(
+                title = R.string.spark_catalog_component_selection_card_example_plan_urgent_title,
+                helper = R.string.spark_catalog_component_selection_card_example_plan_urgent_helper,
+            ),
+        )
+    }
+    var selectedIndex by remember { mutableIntStateOf(0) }
+    Column(
+        modifier = Modifier.selectableGroup(),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        options.forEachIndexed { index, option ->
+            // Without a toggle, the border alone shows the selection, so the helper text must explain the option.
+            RadioButton.Card(
+                selected = selectedIndex == index,
+                onClick = { selectedIndex = index },
+                modifier = Modifier.fillMaxWidth(),
+                toggle = { null },
+            ) {
+                CardTexts(title = stringResource(option.title), helper = stringResource(option.helper))
+            }
+        }
+    }
+}
+
+@Composable
+private fun CardTexts(title: String, helper: String) {
+    Text(text = title, style = SparkTheme.typography.body1.highlight)
+    Text(
+        text = helper,
+        style = SparkTheme.typography.body2,
+        color = SparkTheme.colors.onSurface.dim1,
+    )
+}
+
+@Preview
+@Composable
+private fun RadioButtonCardExamplesPreview() {
+    PreviewTheme {
+        HorizontalRadioButtonCardGroupExample()
+        RadioButtonCardWithoutToggleExample()
+    }
+}
 
 @Composable
 private fun RadioButtonContentSideExample() {

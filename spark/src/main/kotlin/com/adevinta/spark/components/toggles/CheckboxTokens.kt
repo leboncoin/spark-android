@@ -28,8 +28,8 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 
 /**
- * Component tokens for checkbox components. Centralises token resolution so that checkbox composables
- * read from a single source of truth instead of inlining the lookup at every call site.
+ * Component tokens for the checkbox components. Each value has one definition here, so the composables
+ * do not repeat the lookup.
  */
 public object CheckboxTokens {
 
@@ -62,12 +62,12 @@ public object CheckboxTokens {
         public val verticalTopSpacing: Dp = SelectionCardTokens.verticalTopSpacing
 
         /**
-         * The border width of a card that is not selected.
+         * The border width of an unchecked card.
          */
         public val borderWidth: Dp = SelectionCardTokens.borderWidth
 
         /**
-         * The border width of a selected card.
+         * The border width of a checked or indeterminate card.
          */
         public val selectedBorderWidth: Dp = SelectionCardTokens.selectedBorderWidth
 

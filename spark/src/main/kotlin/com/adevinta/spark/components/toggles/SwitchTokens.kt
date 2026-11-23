@@ -29,8 +29,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 /**
- * Component tokens for switch components. Centralises token resolution so that switch composables
- * read from a single source of truth instead of inlining the lookup at every call site.
+ * Component tokens for the switch components. Each value has one definition here, so the composables
+ * do not repeat the lookup.
  */
 public object SwitchTokens {
 
@@ -68,12 +68,12 @@ public object SwitchTokens {
         public val verticalTopSpacing: Dp = SelectionCardTokens.verticalTopSpacing
 
         /**
-         * The border width of a card that is not selected.
+         * The border width of an unchecked card.
          */
         public val borderWidth: Dp = SelectionCardTokens.borderWidth
 
         /**
-         * The border width of a selected card.
+         * The border width of a checked card.
          */
         public val selectedBorderWidth: Dp = SelectionCardTokens.selectedBorderWidth
 

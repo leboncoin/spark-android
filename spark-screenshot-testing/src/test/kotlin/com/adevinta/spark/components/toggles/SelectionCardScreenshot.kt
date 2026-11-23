@@ -40,6 +40,10 @@ import com.adevinta.spark.tokens.highlight
 import org.junit.Rule
 import org.junit.Test
 
+/**
+ * Regression screenshots of every state of the Checkbox, RadioButton and Switch cards, in both layouts.
+ * Each test puts all the states of one card and layout in a single image, so a reviewer compares them side by side.
+ */
 internal class SelectionCardScreenshot {
 
     @get:Rule
@@ -83,13 +87,13 @@ private data class CardState(
     val label: String,
     val selected: Boolean,
     val enabled: Boolean = true,
-    val error: Boolean = false,
+    val error: String? = null,
     val indeterminate: Boolean = false,
 )
 
-// Hovered and pressed are not covered here. The card draws both with the default ripple.
-// Paparazzi renders a hovered card the same as a resting one.
-// A pressed card aborts the test JVM in the layoutlib ripple animator.
+// The grids leave out the hovered and pressed states, which the card draws with the ripple.
+// Paparazzi cannot draw the ripple state layer, so a hovered card looks the same as a resting card.
+// A pressed card crashes the test process in the layoutlib ripple animator.
 private val commonStates = listOf(
     CardState(label = "Unselected", selected = false),
     CardState(label = "Selected", selected = true),
@@ -98,8 +102,8 @@ private val commonStates = listOf(
 )
 
 private val errorStates = listOf(
-    CardState(label = "Error", selected = false, error = true),
-    CardState(label = "Error selected", selected = true, error = true),
+    CardState(label = "Error", selected = false, error = "Select an option"),
+    CardState(label = "Error selected", selected = true, error = "Select an option"),
 )
 
 private val checkboxStates = commonStates +

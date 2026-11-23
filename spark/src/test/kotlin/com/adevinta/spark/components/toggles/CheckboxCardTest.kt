@@ -48,9 +48,12 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
+/** Covers the semantics, clicks, error and screen reader output of [Checkbox.Card]. */
 @RunWith(RobolectricTestRunner::class)
 class CheckboxCardTest {
 
@@ -64,6 +67,7 @@ class CheckboxCardTest {
 
     private val hasSelected = SemanticsMatcher.keyIsDefined(SemanticsProperties.Selected)
     private val hasNoSelected = SemanticsMatcher.keyNotDefined(SemanticsProperties.Selected)
+    private val hasNoError = SemanticsMatcher.keyNotDefined(SemanticsProperties.Error)
 
     private lateinit var view: View
 
@@ -75,8 +79,9 @@ class CheckboxCardTest {
     private fun setCard(
         state: ToggleableState,
         enabled: Boolean = true,
+        error: String? = null,
         onClick: () -> Unit = {},
-        toggle: (@Composable () -> Unit)? = null,
+        toggle: (@Composable CheckboxCardScope.() -> SelectionCardItem?)? = null,
     ) {
         composeTestRule.setContent {
             view = LocalView.current
@@ -87,6 +92,7 @@ class CheckboxCardTest {
                         onClick = onClick,
                         modifier = Modifier.testTag(CardTag),
                         enabled = enabled,
+                        error = error,
                     ) { Text(Title) }
                 } else {
                     Checkbox.Card(
@@ -94,6 +100,7 @@ class CheckboxCardTest {
                         onClick = onClick,
                         modifier = Modifier.testTag(CardTag),
                         enabled = enabled,
+                        error = error,
                         toggle = toggle,
                     ) { Text(Title) }
                 }
@@ -160,7 +167,7 @@ class CheckboxCardTest {
 
     @Test
     fun card_emptyToggleKeepsRole() {
-        setCard(state = ToggleableState.On, toggle = {})
+        setCard(state = ToggleableState.On, toggle = { null })
 
         composeTestRule.onAllNodes(hasClickAction()).assertCountEquals(1)
         assertCardState(ToggleableState.On)
@@ -192,8 +199,54 @@ class CheckboxCardTest {
         assertTrue(card.isCheckable)
     }
 
+    @Test
+    fun errorCard_exposesErrorAndKeepsRoleAndState() {
+        setCard(state = ToggleableState.On, error = ErrorText)
+
+        composeTestRule.onAllNodes(hasClickAction()).assertCountEquals(1)
+        composeTestRule.onNodeWithTag(CardTag)
+            .assert(SemanticsMatcher.expectValue(SemanticsProperties.Error, ErrorText))
+        assertCardState(ToggleableState.On)
+    }
+
+    @Test
+    fun card_withoutErrorExposesNoError() {
+        setCard(state = ToggleableState.On)
+
+        composeTestRule.onNodeWithTag(CardTag).assert(hasNoError)
+    }
+
+    @Test
+    fun errorCard_isReportedAsInvalidToTheScreenReader() {
+        setCard(state = ToggleableState.On, error = ErrorText)
+
+        val card = accessibilityNodeInfo(composeTestRule.onNodeWithTag(CardTag).fetchSemanticsNode().id)
+        assertTrue(card.isContentInvalid)
+        assertEquals(ErrorText, card.error?.toString())
+        assertTrue(card.isCheckable)
+    }
+
+    @Test
+    fun card_withBlankErrorFails() {
+        // The blank message fails during composition, so the wait for idle stays inside the block.
+        assertFailsWith<IllegalArgumentException> {
+            setCard(state = ToggleableState.On, error = " ")
+            composeTestRule.waitForIdle()
+        }
+    }
+
+    @Test
+    fun card_withoutErrorIsNotReportedAsInvalid() {
+        setCard(state = ToggleableState.On)
+
+        val card = accessibilityNodeInfo(composeTestRule.onNodeWithTag(CardTag).fetchSemanticsNode().id)
+        assertFalse(card.isContentInvalid)
+        assertNull(card.error)
+    }
+
     private companion object {
         const val CardTag = "checkbox-card"
         const val Title = "Card title"
+        const val ErrorText = "Select at least one option"
     }
 }

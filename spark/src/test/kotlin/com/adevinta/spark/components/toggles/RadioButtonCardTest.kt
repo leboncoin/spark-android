@@ -53,9 +53,13 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
+/** Covers the semantics, clicks, error, group behaviour and screen reader output of [RadioButton.Card]. */
 @RunWith(RobolectricTestRunner::class)
 class RadioButtonCardTest {
 
@@ -65,6 +69,7 @@ class RadioButtonCardTest {
     private fun withRole(role: Role) = SemanticsMatcher.expectValue(SemanticsProperties.Role, role)
 
     private val hasNoToggleableState = SemanticsMatcher.keyNotDefined(SemanticsProperties.ToggleableState)
+    private val hasNoError = SemanticsMatcher.keyNotDefined(SemanticsProperties.Error)
 
     private lateinit var view: View
 
@@ -79,8 +84,9 @@ class RadioButtonCardTest {
     private fun setCard(
         selected: Boolean,
         enabled: Boolean = true,
+        error: String? = null,
         onClick: () -> Unit = {},
-        toggle: (@Composable () -> Unit)? = null,
+        toggle: (@Composable RadioButtonCardScope.() -> SelectionCardItem?)? = null,
     ) {
         composeTestRule.setContent {
             view = LocalView.current
@@ -91,6 +97,7 @@ class RadioButtonCardTest {
                         onClick = onClick,
                         modifier = Modifier.testTag(CardTag),
                         enabled = enabled,
+                        error = error,
                     ) { Text(Title) }
                 } else {
                     RadioButton.Card(
@@ -98,6 +105,7 @@ class RadioButtonCardTest {
                         onClick = onClick,
                         modifier = Modifier.testTag(CardTag),
                         enabled = enabled,
+                        error = error,
                         toggle = toggle,
                     ) { Text(Title) }
                 }
@@ -113,6 +121,53 @@ class RadioButtonCardTest {
             .assert(withRole(Role.RadioButton))
             .assertIsSelected()
             .assert(hasNoToggleableState)
+    }
+
+    @Test
+    fun errorCard_exposesErrorAndKeepsRoleAndSelected() {
+        setCard(selected = true, error = ErrorText)
+
+        composeTestRule.onAllNodes(hasClickAction()).assertCountEquals(1)
+        composeTestRule.onNodeWithTag(CardTag)
+            .assert(SemanticsMatcher.expectValue(SemanticsProperties.Error, ErrorText))
+            .assert(withRole(Role.RadioButton))
+            .assertIsSelected()
+            .assert(hasNoToggleableState)
+    }
+
+    @Test
+    fun card_withoutErrorExposesNoError() {
+        setCard(selected = true)
+
+        composeTestRule.onNodeWithTag(CardTag).assert(hasNoError)
+    }
+
+    @Test
+    fun errorCard_isReportedAsInvalidToTheScreenReader() {
+        setCard(selected = true, error = ErrorText)
+
+        val card = accessibilityNodeInfo(CardTag)
+        assertTrue(card.isContentInvalid)
+        assertEquals(ErrorText, card.error?.toString())
+        assertTrue(card.isCheckable)
+    }
+
+    @Test
+    fun card_withBlankErrorFails() {
+        // The blank message fails during composition, so the wait for idle stays inside the block.
+        assertFailsWith<IllegalArgumentException> {
+            setCard(selected = true, error = " ")
+            composeTestRule.waitForIdle()
+        }
+    }
+
+    @Test
+    fun card_withoutErrorIsNotReportedAsInvalid() {
+        setCard(selected = true)
+
+        val card = accessibilityNodeInfo(CardTag)
+        assertFalse(card.isContentInvalid)
+        assertNull(card.error)
     }
 
     @Test
@@ -212,7 +267,7 @@ class RadioButtonCardTest {
 
     @Test
     fun card_emptyToggleKeepsRoleAndState() {
-        setCard(selected = true, toggle = {})
+        setCard(selected = true, toggle = { null })
 
         composeTestRule.onAllNodes(hasClickAction()).assertCountEquals(1)
         composeTestRule.onNodeWithTag(CardTag)
@@ -236,5 +291,6 @@ class RadioButtonCardTest {
         const val GroupTag = "radio-group"
         const val CardTag = "radio-card"
         const val Title = "Card title"
+        const val ErrorText = "Select another option"
     }
 }

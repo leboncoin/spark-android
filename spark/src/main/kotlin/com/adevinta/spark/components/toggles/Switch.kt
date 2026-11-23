@@ -131,6 +131,44 @@ public fun Switch(
 public object Switch {
 
     /**
+     * A switch lets the user turn an element or a setting on or off.
+     * Use it to add services, activate features, adjust settings or control binary options such as On and Off.
+     *
+     * ![Switch States](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.toggles_SwitchDocumentationScreenshots_switchStates.png)
+     *
+     * The switch adds a minimum touch target only when [onCheckedChange] is set.
+     * A passive switch takes the size of its track, so the parent component owns the touch target.
+     *
+     * @param checked whether the switch is on.
+     * @param onCheckedChange called with the new value when the user clicks the switch. When null, the switch is
+     * passive and a parent component owns the click and the state.
+     * @param modifier the [Modifier] applied to the switch.
+     * @param enabled whether the switch reacts to clicks. A disabled switch is dimmed.
+     * @param icons the icons that the thumb shows for the checked and unchecked states, or null for no icons.
+     * [SwitchDefaults.icons] holds the default pair.
+     * @param interactionSource the [MutableInteractionSource] that emits the [Interaction]s of this switch.
+     * Pass your own remembered instance to observe them or to change the appearance for an [Interaction].
+     */
+    @Composable
+    public fun Standalone(
+        checked: Boolean,
+        onCheckedChange: ((Boolean) -> Unit)?,
+        modifier: Modifier = Modifier,
+        enabled: Boolean = true,
+        icons: SwitchIcons? = null,
+        interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    ) {
+        SparkSwitch(
+            checked = checked,
+            onCheckedChange = onCheckedChange,
+            modifier = if (onCheckedChange != null) modifier.minimumTouchTargetSize() else modifier,
+            enabled = enabled,
+            icons = icons,
+            interactionSource = interactionSource,
+        )
+    }
+
+    /**
      * A card with a switch for a setting that turns on or off on its own.
      * The whole card is one toggleable target with [Role.Switch].
      *
@@ -142,7 +180,9 @@ public object Switch {
      * @param enabled whether the card reacts to clicks. A disabled card is dimmed once, as a whole.
      * @param layout the position of the [toggle] relative to the [content].
      * @param interactionSource an optional hoisted [MutableInteractionSource] for the card interactions.
-     * @param toggle the passive control. It defaults to a bare switch with no click handler of its own.
+     * @param toggle the passive control. It must end with a call on [SwitchCardScope], such as
+     * [SwitchCardScope.switch] or [SwitchCardScope.custom], or with `null`. It defaults to a switch that follows
+     * [checked]. Pass `toggle = { null }` to hide the control.
      * @param content the content of the card.
      */
     @Composable
@@ -153,7 +193,7 @@ public object Switch {
         enabled: Boolean = true,
         layout: SelectionCardLayout = SelectionCardLayout.Horizontal,
         interactionSource: MutableInteractionSource? = null,
-        toggle: @Composable () -> Unit = { SparkSwitch(checked = checked, onCheckedChange = null) },
+        toggle: @Composable SwitchCardScope.() -> SelectionCardItem? = { switch() },
         content: @Composable ColumnScope.() -> Unit,
     ) {
         SparkSelectionCard(

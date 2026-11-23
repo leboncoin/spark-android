@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import org.junit.Test
 import kotlin.test.assertEquals
 
+/** Covers the layout tokens of the checkbox card. */
 class CheckboxTokensTest {
 
     // These values follow the selection card design. Change them only on purpose.

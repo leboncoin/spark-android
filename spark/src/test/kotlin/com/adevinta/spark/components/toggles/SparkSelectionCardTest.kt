@@ -59,6 +59,7 @@ import org.robolectric.RobolectricTestRunner
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 
+/** Covers the shared tri-state, toggleable and selectable cards, their toggles, keyboard focus and state changes. */
 @RunWith(RobolectricTestRunner::class)
 class SparkSelectionCardTest {
 
@@ -104,7 +105,7 @@ class SparkSelectionCardTest {
                     style = CheckboxTokens.Card.style,
                     modifier = Modifier.testTag(CardTag),
                     enabled = enabled,
-                    toggle = { SparkCheckbox(state = state, onClick = null) },
+                    toggle = { checkbox() },
                 ) {
                     Text(Title)
                 }
@@ -126,7 +127,7 @@ class SparkSelectionCardTest {
                     style = SwitchTokens.Card.style,
                     modifier = Modifier.testTag(CardTag),
                     enabled = enabled,
-                    toggle = { SparkSwitch(checked = checked, onCheckedChange = null) },
+                    toggle = { switch() },
                 ) {
                     Text(Title)
                 }
@@ -148,7 +149,7 @@ class SparkSelectionCardTest {
                     style = RadioButtonTokens.Card.style,
                     modifier = Modifier.testTag(CardTag),
                     enabled = enabled,
-                    toggle = { SparkRadioButton(selected = selected, onClick = null) },
+                    toggle = { radioButton() },
                 ) {
                     Text(Title)
                 }
@@ -317,8 +318,8 @@ class SparkSelectionCardTest {
                     onClick = { selected = !selected },
                     style = RadioButtonTokens.Card.style,
                     modifier = Modifier.testTag(CardTag),
-                    error = !selected,
-                    toggle = { SparkRadioButton(selected = selected, onClick = null) },
+                    error = if (selected) null else "Select an option",
+                    toggle = { radioButton() },
                 ) {
                     Text(Title)
                 }
@@ -326,6 +327,7 @@ class SparkSelectionCardTest {
         }
         val card = composeTestRule.onNodeWithTag(CardTag)
 
+        // Step one frame by hand, so the check runs while the border animation is still in progress.
         composeTestRule.mainClock.autoAdvance = false
         card.performClick()
         composeTestRule.mainClock.advanceTimeByFrame()
@@ -349,8 +351,201 @@ class SparkSelectionCardTest {
         composeTestRule.onAllNodes(isFocusable, useUnmergedTree = true).assertCountEquals(0)
     }
 
+    @Test
+    fun triStateCard_customToggleRendersItsContent() {
+        composeTestRule.setContent {
+            PreviewTheme {
+                SparkSelectionCard(
+                    state = ToggleableState.On,
+                    onClick = {},
+                    style = CheckboxTokens.Card.style,
+                    modifier = Modifier.testTag(CardTag),
+                    toggle = { custom(Modifier.testTag(ToggleTag)) { Text(ToggleLabel) } },
+                ) {
+                    Text(Title)
+                }
+            }
+        }
+
+        assertCustomToggle()
+        composeTestRule.onNodeWithTag(CardTag).assert(withToggleableState(ToggleableState.On))
+    }
+
+    @Test
+    fun toggleableCard_customToggleRendersItsContent() {
+        composeTestRule.setContent {
+            PreviewTheme {
+                SparkSelectionCard(
+                    checked = true,
+                    onCheckedChange = {},
+                    style = SwitchTokens.Card.style,
+                    modifier = Modifier.testTag(CardTag),
+                    toggle = { custom(Modifier.testTag(ToggleTag)) { Text(ToggleLabel) } },
+                ) {
+                    Text(Title)
+                }
+            }
+        }
+
+        assertCustomToggle()
+        composeTestRule.onNodeWithTag(CardTag).assert(withToggleableState(ToggleableState.On))
+    }
+
+    @Test
+    fun selectableCard_customToggleRendersItsContent() {
+        composeTestRule.setContent {
+            PreviewTheme {
+                SparkSelectionCard(
+                    selected = true,
+                    onClick = {},
+                    style = RadioButtonTokens.Card.style,
+                    modifier = Modifier.testTag(CardTag),
+                    toggle = { custom(Modifier.testTag(ToggleTag)) { Text(ToggleLabel) } },
+                ) {
+                    Text(Title)
+                }
+            }
+        }
+
+        assertCustomToggle()
+        composeTestRule.onNodeWithTag(CardTag).assertIsSelected()
+    }
+
+    @Test
+    fun triStateCard_nullToggleKeepsRoleAndState() {
+        composeTestRule.setContent {
+            PreviewTheme {
+                SparkSelectionCard(
+                    state = ToggleableState.Indeterminate,
+                    onClick = {},
+                    style = CheckboxTokens.Card.style,
+                    modifier = Modifier.testTag(CardTag),
+                    toggle = { null },
+                ) {
+                    Text(Title)
+                }
+            }
+        }
+
+        assertSingleMergedNode()
+        composeTestRule.onNodeWithTag(CardTag)
+            .assert(withRole(Role.Checkbox))
+            .assert(withToggleableState(ToggleableState.Indeterminate))
+            .assert(hasNoSelected)
+    }
+
+    @Test
+    fun toggleableCard_nullToggleKeepsRoleAndState() {
+        composeTestRule.setContent {
+            PreviewTheme {
+                SparkSelectionCard(
+                    checked = true,
+                    onCheckedChange = {},
+                    style = SwitchTokens.Card.style,
+                    modifier = Modifier.testTag(CardTag),
+                    toggle = { null },
+                ) {
+                    Text(Title)
+                }
+            }
+        }
+
+        assertSingleMergedNode()
+        composeTestRule.onNodeWithTag(CardTag)
+            .assert(withRole(Role.Switch))
+            .assert(withToggleableState(ToggleableState.On))
+            .assert(hasNoSelected)
+    }
+
+    @Test
+    fun selectableCard_nullToggleKeepsRoleAndState() {
+        composeTestRule.setContent {
+            PreviewTheme {
+                SparkSelectionCard(
+                    selected = true,
+                    onClick = {},
+                    style = RadioButtonTokens.Card.style,
+                    modifier = Modifier.testTag(CardTag),
+                    toggle = { null },
+                ) {
+                    Text(Title)
+                }
+            }
+        }
+
+        assertSingleMergedNode()
+        composeTestRule.onNodeWithTag(CardTag)
+            .assert(withRole(Role.RadioButton))
+            .assertIsSelected()
+            .assert(hasNoToggleableState)
+    }
+
+    // The scope is keyed on the state, so the toggle follows each new state of the card.
+    @Test
+    fun triStateCard_scopeFollowsTheStateChange() {
+        var state by mutableStateOf(ToggleableState.Off)
+        composeTestRule.setContent {
+            PreviewTheme {
+                SparkSelectionCard(
+                    state = state,
+                    onClick = {},
+                    style = CheckboxTokens.Card.style,
+                    modifier = Modifier.testTag(CardTag),
+                    toggle = { checkbox() },
+                ) {
+                    Text(Title)
+                }
+            }
+        }
+        val card = composeTestRule.onNodeWithTag(CardTag)
+        card.assert(withToggleableState(ToggleableState.Off))
+
+        state = ToggleableState.Indeterminate
+        composeTestRule.waitForIdle()
+        card.assert(withToggleableState(ToggleableState.Indeterminate))
+        composeTestRule.onAllNodes(hasToggleableState, useUnmergedTree = true).assertCountEquals(1)
+
+        state = ToggleableState.On
+        composeTestRule.waitForIdle()
+        card.assert(withToggleableState(ToggleableState.On))
+    }
+
+    @Test
+    fun toggleableCard_scopeFollowsTheStateChange() {
+        var checked by mutableStateOf(false)
+        composeTestRule.setContent {
+            PreviewTheme {
+                SparkSelectionCard(
+                    checked = checked,
+                    onCheckedChange = {},
+                    style = SwitchTokens.Card.style,
+                    modifier = Modifier.testTag(CardTag),
+                    toggle = { switch() },
+                ) {
+                    Text(Title)
+                }
+            }
+        }
+        val card = composeTestRule.onNodeWithTag(CardTag)
+        card.assert(withToggleableState(ToggleableState.Off))
+
+        checked = true
+        composeTestRule.waitForIdle()
+        card.assert(withToggleableState(ToggleableState.On))
+        composeTestRule.onAllNodes(hasToggleableState, useUnmergedTree = true).assertCountEquals(1)
+    }
+
+    // The custom content and its modifier are drawn, and the content merges into the single card node.
+    private fun assertCustomToggle() {
+        composeTestRule.onNodeWithTag(ToggleTag, useUnmergedTree = true).assertExists()
+        assertSingleMergedNode()
+        composeTestRule.onNodeWithTag(CardTag).assert(hasText(ToggleLabel))
+    }
+
     private companion object {
         const val CardTag = "selection-card"
+        const val ToggleTag = "selection-card-toggle"
         const val Title = "Card title"
+        const val ToggleLabel = "Toggle label"
     }
 }

@@ -134,7 +134,6 @@
     <string name="spark_catalog_component_meter_description">Le Compteur affiche une valeur quantifiée sous forme d’anneau de progression circulaire, utilisé pour les états d’achèvement, les scores ou les quantités mesurées.</string>
 
     <!--region Selection card-->
-    <string name="spark_catalog_component_selection_card_description">Les cartes de sélection présentent des options sous forme de cartes. Chaque carte contient une case à cocher, un bouton radio ou un interrupteur, à côté d’un contenu comme un titre, un texte d’aide ou une image. Toute la carte est cliquable.</string>
     <string name="spark_catalog_component_selection_card_example_delivery_hand_title">Remise en main propre</string>
     <string name="spark_catalog_component_selection_card_example_delivery_hand_helper">Rencontrez le vendeur et payez sur place.</string>
     <string name="spark_catalog_component_selection_card_example_delivery_parcel_title">Envoi par colis</string>
@@ -156,9 +155,9 @@
     <string name="spark_catalog_component_selection_card_example_plan_standard_helper">Votre annonce reste en ligne pendant 60 jours.</string>
     <string name="spark_catalog_component_selection_card_example_plan_urgent_title">Urgent</string>
     <string name="spark_catalog_component_selection_card_example_plan_urgent_helper">Votre annonce affiche un badge Urgent pendant 7 jours.</string>
-    <string name="spark_catalog_configurator_component_selection_card_variant_label">Variante</string>
     <string name="spark_catalog_configurator_component_selection_card_layout_label">Disposition</string>
     <string name="spark_catalog_configurator_component_selection_card_error_label">Erreur</string>
+    <string name="spark_catalog_configurator_component_selection_card_error_message">Sélectionnez une option.</string>
     <string name="spark_catalog_configurator_component_selection_card_toggle_label">Afficher le contrôle</string>
     <string name="spark_catalog_configurator_component_selection_card_title">Titre de la carte</string>
     <string name="spark_catalog_configurator_component_selection_card_helper">Texte d’aide qui explique l’option.</string>
