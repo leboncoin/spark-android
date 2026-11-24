@@ -170,11 +170,11 @@ internal fun SparkTextField(
                     value = value.text,
                     innerTextField = innerTextField,
                     visualTransformation = visualTransformation,
-                    label = { Label(text = label, required = required) },
+                    label = label?.let { { Label(text = it, required = required) } },
                     interactionSource = interactionSource,
                     colors = colors,
                     readOnly = readOnly,
-                    placeholder = { PlaceHolder(text = placeholder) },
+                    placeholder = placeholder?.let { { PlaceHolder(text = it) } },
                     supportingText = supportingTextComposable,
                     leadingIcon = leadingContent,
                     trailingIcon = trailingContent,
@@ -275,11 +275,11 @@ internal fun SparkTextField(
                     value = value,
                     innerTextField = innerTextField,
                     visualTransformation = visualTransformation,
-                    label = { Label(text = label, required = required) },
+                    label = label?.let { { Label(text = it, required = required) } },
                     interactionSource = interactionSource,
                     colors = colors,
                     readOnly = readOnly,
-                    placeholder = { PlaceHolder(text = placeholder) },
+                    placeholder = placeholder?.let { { PlaceHolder(text = it) } },
                     supportingText = supportingTextComposable,
                     leadingIcon = leadingIcon,
                     trailingIcon = trailingIcon,
@@ -380,11 +380,11 @@ internal fun SparkTextField(
                     state = state,
                     innerTextField = innerTextField,
                     inputTransformation = inputTransformation,
-                    label = { Label(text = label, required = required) },
+                    label = label?.let { { Label(text = it, required = required) } },
                     interactionSource = interactionSourceState,
                     colors = colors,
                     readOnly = readOnly,
-                    placeholder = { PlaceHolder(text = placeholder) },
+                    placeholder = placeholder?.let { { PlaceHolder(text = it) } },
                     supportingText = supportingTextComposable,
                     leadingIcon = leadingContent,
                     trailingIcon = trailingContent,
@@ -489,31 +489,27 @@ internal fun animateBorderStrokeAsState(
 public data class TextFieldCharacterCounter(val count: Int, val maxCharacter: Int)
 
 @Composable
-private fun Label(text: String?, required: Boolean) {
-    if (text != null) {
-        Row(modifier = Modifier.clearAndSetSemantics {}) {
-            Text(
-                text = text,
-                modifier = Modifier.weight(weight = 1f, fill = false),
-            )
-            if (required) {
-                EmphasizeDim3 {
-                    Text(
-                        text = "*",
-                        modifier = Modifier.padding(start = 4.dp),
-                    )
-                }
+private fun Label(text: String, required: Boolean) {
+    Row(modifier = Modifier.clearAndSetSemantics {}) {
+        Text(
+            text = text,
+            modifier = Modifier.weight(weight = 1f, fill = false),
+        )
+        if (required) {
+            EmphasizeDim3 {
+                Text(
+                    text = "*",
+                    modifier = Modifier.padding(start = 4.dp),
+                )
             }
         }
     }
 }
 
 @Composable
-private fun PlaceHolder(text: String?) {
-    if (text != null) {
-        Box {
-            Text(text = text)
-        }
+private fun PlaceHolder(text: String) {
+    Box {
+        Text(text = text)
     }
 }
 
