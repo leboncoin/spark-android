@@ -55,10 +55,11 @@ public interface AvatarAddonItem
 /**
  * DSL scope for declaring an addon inside an avatar.
  *
- * Methods on this scope are composable: they emit UI directly when called and return an
- * [AvatarAddonItem] marker that callers discard. This mirrors [SegmentedControlScope], with one
- * deviation: the avatar supports a single addon rather than a list, so only the last emitted node
- * is laid out. [Avatar.User] centres the addon on the circle rim at the bottom right, so the addon
+ * Methods on this scope are composable. They emit UI directly when called and return an
+ * [AvatarAddonItem] marker. The addon lambda returns this marker, so it must end with one of these calls
+ * or with `null`. This mirrors [SegmentedControlScope], with
+ * one difference. The avatar supports a single addon rather than a list. It measures and places only the
+ * first node that the addon emits, and it does not place any later node. [Avatar.User] centres the addon on the circle rim at the bottom right, so the addon
  * can go outside the avatar bounds. [Avatar.Company] puts the addon at the bottom-end corner, with
  * 25% of the addon outside the avatar bounds.
  */
@@ -95,14 +96,16 @@ public interface AvatarAddonScope {
     /**
      * Emits arbitrary composable content as the avatar addon.
      *
+     * The [content] must emit one node. The avatar does not wrap the content, so set a test tag or a
+     * modifier on that node inside the [content]. To show several nodes, wrap them in your own layout.
+     *
      * @param content Composable content to place in the addon slot.
      */
     @Composable
     public fun custom(content: @Composable () -> Unit): AvatarAddonItem
 }
 
-// Internal so SparkAvatar (same module, different file) can pass it as the phantom parameter.
-internal object AvatarAddonItemImpl : AvatarAddonItem
+private object AvatarAddonItemImpl : AvatarAddonItem
 
 // Suppress ComposeContentEmitterReturningValues to mirror SegmentedControlScopeImpl: scope
 // methods emit UI and return the marker so the slot type enforces only recognised builders.

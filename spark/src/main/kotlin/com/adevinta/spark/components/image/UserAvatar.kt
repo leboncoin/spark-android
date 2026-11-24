@@ -52,7 +52,7 @@ internal fun SparkUserAvatar(
     color: Color = Color.Unspecified,
     isPro: Boolean = false,
     letter: Char? = null,
-    addon: @Composable AvatarAddonScope.(AvatarAddonItem) -> Unit = {},
+    addon: @Composable AvatarAddonScope.() -> AvatarAddonItem? = { null },
 ) {
     val emptyIcon = @Composable {
         if (letter != null) {
@@ -139,7 +139,7 @@ public fun UserAvatar(
         letter = letter,
         color = color,
         addon = {
-            if (isOnline) onlineIndicator()
+            if (isOnline) onlineIndicator() else null
         },
     )
 }

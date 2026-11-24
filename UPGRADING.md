@@ -181,7 +181,7 @@ Avatar.User(
     username = user.name,
     model = user.avatarUrl,
     size = AvatarSize.MD,
-    addon = { if (user.isOnline) onlineIndicator() },
+    addon = { if (user.isOnline) onlineIndicator() else null },
 )
 ```
 

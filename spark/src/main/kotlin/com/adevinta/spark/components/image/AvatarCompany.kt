@@ -100,9 +100,10 @@ internal fun SparkAvatarCompany(
  * @param fillParentSize when true, the avatar ignores [size] and fills the parent; use it when a
  * fixed-size slot already sets the avatar size
  * @param model image to load, for example the company logo URL; null shows the building icon
- * @param addon optional badge slot; call [AvatarAddonScope.onlineIndicator] for the standard
- * presence dot, [AvatarAddonScope.iconButton] for an action button, or [AvatarAddonScope.custom]
- * for other content; the default is empty
+ * @param addon optional slot at the bottom-end corner. The lambda must end with a call on [AvatarAddonScope],
+ * such as [AvatarAddonScope.onlineIndicator] for the standard presence dot, [AvatarAddonScope.iconButton] for an
+ * action button, or [AvatarAddonScope.custom] for other content, or with `null` for no addon. It defaults to
+ * no addon.
  */
 @Suppress("UnusedReceiverParameter")
 @Composable

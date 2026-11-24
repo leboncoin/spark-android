@@ -82,7 +82,7 @@ import com.adevinta.spark.components.text.Text
  *
  */
 @Composable
-fun <T> AnimatedNullableVisibility(
+public fun <T> AnimatedNullableVisibility(
     value: T?,
     modifier: Modifier = Modifier,
     enter: EnterTransition = fadeIn() + expandIn(),

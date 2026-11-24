@@ -24,6 +24,9 @@ package com.adevinta.spark.components.image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.testTag
@@ -35,6 +38,7 @@ import androidx.compose.ui.test.getBoundsInRoot
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.performClick
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpRect
 import androidx.compose.ui.unit.LayoutDirection
@@ -107,6 +111,49 @@ class AvatarCompanyTest {
         assertDpEquals(avatar.bottom + overflow(addon.height), addon.bottom, PIXEL_ROUNDING)
     }
 
+    @Test
+    fun null_addon_composes_no_addon() {
+        var showAddon by mutableStateOf(false)
+        composeTestRule.setContent {
+            PreviewTheme {
+                Avatar.Company(
+                    addon = { if (showAddon) custom { Box(Modifier.testTag(ADDON_TAG)) } else null },
+                )
+            }
+        }
+
+        composeTestRule.onNodeWithTag(ADDON_TAG).assertDoesNotExist()
+        showAddon = true
+        composeTestRule.onNodeWithTag(ADDON_TAG).assertExists()
+    }
+
+    @Test
+    fun custom_addon_renders_its_content() {
+        composeTestRule.setContent {
+            PreviewTheme {
+                Avatar.Company(addon = { custom { Box(Modifier.testTag(ADDON_TAG).size(16.dp)) } })
+            }
+        }
+
+        composeTestRule.onNodeWithTag(ADDON_TAG).assertExists()
+    }
+
+    @Test
+    fun icon_button_addon_calls_on_click_once() {
+        var clicks = 0
+        composeTestRule.setContent {
+            PreviewTheme {
+                Avatar.Company(
+                    size = AvatarSize.XL,
+                    addon = { iconButton(onClick = { clicks++ }, modifier = Modifier.testTag(ADDON_TAG)) },
+                )
+            }
+        }
+
+        composeTestRule.onNodeWithTag(ADDON_TAG).performClick()
+        assertEquals(1, clicks)
+    }
+
     private fun setAvatars(layoutDirection: LayoutDirection, sizes: List<AvatarSize>) {
         composeTestRule.setContent {
             PreviewTheme {
@@ -148,6 +195,8 @@ class AvatarCompanyTest {
         assertEquals(message, expected.value, actual.value, delta.value)
 
     private companion object {
+        const val ADDON_TAG = "addon"
+
         // The placement rounds 75% of the addon size to whole pixels.
         val PIXEL_ROUNDING = 0.5.dp
     }
