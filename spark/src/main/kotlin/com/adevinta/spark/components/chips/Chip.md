@@ -86,6 +86,24 @@ ChipSelectable(
 
 The close icon is fixed (`ChipTokens.clearIcon`). You cannot change it for a single chip.
 
+### Size animation
+
+A chip animates its size when its content or its constraints change. The default is
+`ChipDefaults.SizeAnimationSpec`. Pass another `FiniteAnimationSpec<IntSize>` as `sizeAnimationSpec` to
+change the motion.
+
+Pass `null` to remove the size animation and its clip. The chip then follows its constraints on the same
+frame, for example when a scroll drives its width. With `null`, the chip width jumps when `onClose` toggles.
+
+```kotlin
+ChipSelectable(
+    selected = false,
+    onClick = {},
+    sizeAnimationSpec = null,
+    text = "Animals",
+)
+```
+
 ### Handling selection
 Chips support selection with the ChipSelectable Variant.
 

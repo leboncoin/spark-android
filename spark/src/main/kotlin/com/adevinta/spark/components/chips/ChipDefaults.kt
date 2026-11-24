@@ -21,10 +21,24 @@
  */
 package com.adevinta.spark.components.chips
 
+import androidx.compose.animation.core.FiniteAnimationSpec
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.VisibilityThreshold
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 
 public object ChipDefaults {
+
+    /**
+     * The default animation of the chip size. It matches the default of
+     * [androidx.compose.animation.animateContentSize].
+     */
+    public val SizeAnimationSpec: FiniteAnimationSpec<IntSize> = spring(
+        stiffness = Spring.StiffnessMediumLow,
+        visibilityThreshold = IntSize.VisibilityThreshold,
+    )
 
     /**
      * The size of the leading icon in the chip.

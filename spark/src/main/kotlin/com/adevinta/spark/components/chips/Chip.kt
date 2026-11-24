@@ -24,6 +24,7 @@ package com.adevinta.spark.components.chips
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -59,6 +60,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.offset
 import androidx.compose.ui.util.fastFirstOrNull
@@ -76,6 +78,7 @@ import com.adevinta.spark.icons.SparkIcon
 import com.adevinta.spark.icons.TagOutline
 import com.adevinta.spark.tokens.ripple
 import com.adevinta.spark.tools.modifiers.dashedBorder
+import com.adevinta.spark.tools.modifiers.ifNotNull
 import com.adevinta.spark.tools.modifiers.ifTrue
 import com.adevinta.spark.tools.modifiers.minimumTouchTargetSize
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
@@ -198,6 +201,9 @@ private fun SparkChipSelectable(
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this chip. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this chip in different states.
+ * @param sizeAnimationSpec the [FiniteAnimationSpec] that animates the size of this chip when its content or its
+ * constraints change. Pass `null` to remove the size animation and its clip, so that the chip follows its constraints
+ * on the same frame. With `null`, the chip width jumps when [onClose] toggles.
  * @param content a Composable to set as the chip's custom content.
  * @sample com.adevinta.spark.samples.components.chips.ChipsKind
  */
@@ -211,6 +217,7 @@ public fun Chip(
     style: ChipStyles = ChipStyles.Outlined,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    sizeAnimationSpec: FiniteAnimationSpec<IntSize>? = ChipDefaults.SizeAnimationSpec,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
     content: @Composable (RowScope.() -> Unit)?,
@@ -243,6 +250,7 @@ public fun Chip(
 
                 else -> null
             },
+            sizeAnimationSpec = sizeAnimationSpec,
             style = style,
         )
     }
@@ -267,6 +275,9 @@ public fun Chip(
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this chip. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this chip in different states.
+ * @param sizeAnimationSpec the [FiniteAnimationSpec] that animates the size of this chip when its content or its
+ * constraints change. Pass `null` to remove the size animation and its clip, so that the chip follows its constraints
+ * on the same frame. With `null`, the chip width jumps when [onClose] toggles.
  * @param content a Composable to set as the chip's custom content.
  * @sample com.adevinta.spark.samples.components.chips.ChipSingleSelectionSample
  * @sample com.adevinta.spark.samples.components.chips.ChipMultipleSelectionSample
@@ -282,6 +293,7 @@ public fun ChipSelectable(
     style: ChipStyles = ChipStyles.Outlined,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    sizeAnimationSpec: FiniteAnimationSpec<IntSize>? = ChipDefaults.SizeAnimationSpec,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
     content: @Composable (RowScope.() -> Unit)?,
@@ -315,6 +327,7 @@ public fun ChipSelectable(
 
                 else -> null
             },
+            sizeAnimationSpec = sizeAnimationSpec,
             style = style,
         )
     }
@@ -373,6 +386,9 @@ private fun CloseIconButton(
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this chip. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this chip in different states.
+ * @param sizeAnimationSpec the [FiniteAnimationSpec] that animates the size of this chip when its content or its
+ * constraints change. Pass `null` to remove the size animation and its clip, so that the chip follows its constraints
+ * on the same frame. With `null`, the chip width jumps when [onClose] toggles.
  * @sample com.adevinta.spark.samples.components.chips.ChipsKind
  * @sample com.adevinta.spark.samples.components.chips.ChipInputSample
  */
@@ -389,6 +405,7 @@ public fun Chip(
     leadingIcon: SparkIcon? = null,
     contentDescription: String? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    sizeAnimationSpec: FiniteAnimationSpec<IntSize>? = ChipDefaults.SizeAnimationSpec,
 ) {
     require(onClose == null || onCloseLabel != null) {
         "onCloseLabel must be provided when onClose is not null to unsure that the action is correctly " +
@@ -413,6 +430,7 @@ public fun Chip(
             }
         },
         interactionSource = interactionSource,
+        sizeAnimationSpec = sizeAnimationSpec,
         content = text?.let { { Text(text = text) } },
     )
 }
@@ -436,6 +454,9 @@ public fun Chip(
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this chip. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this chip in different states.
+ * @param sizeAnimationSpec the [FiniteAnimationSpec] that animates the size of this chip when its content or its
+ * constraints change. Pass `null` to remove the size animation and its clip, so that the chip follows its constraints
+ * on the same frame. With `null`, the chip width jumps when [onClose] toggles.
  * @sample com.adevinta.spark.samples.components.chips.ChipSingleSelectionSample
  * @sample com.adevinta.spark.samples.components.chips.ChipMultipleSelectionSample
  */
@@ -453,6 +474,7 @@ public fun ChipSelectable(
     leadingIcon: SparkIcon? = null,
     contentDescription: String? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    sizeAnimationSpec: FiniteAnimationSpec<IntSize>? = ChipDefaults.SizeAnimationSpec,
 ) {
     ChipSelectable(
         selected = selected,
@@ -474,6 +496,7 @@ public fun ChipSelectable(
             }
         },
         interactionSource = interactionSource,
+        sizeAnimationSpec = sizeAnimationSpec,
         content = text?.let {
             {
                 Text(text = text)
@@ -488,6 +511,7 @@ private fun ChipContent(
     contentColor: Color,
     leadingIcon: @Composable (() -> Unit)?,
     trailingIcon: @Composable (() -> Unit)?,
+    sizeAnimationSpec: FiniteAnimationSpec<IntSize>?,
     style: ChipStyles = ChipStyles.Outlined,
 ) {
     CompositionLocalProvider(
@@ -505,7 +529,7 @@ private fun ChipContent(
                     )
                 }
                 .defaultMinSize(minHeight = ChipDefaults.MinHeight)
-                .animateContentSize()
+                .ifNotNull(sizeAnimationSpec) { animateContentSize(it) }
                 .padding(ChipDefaults.ChipPadding),
             content = {
                 if (leadingIcon != null) {

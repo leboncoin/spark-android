@@ -571,14 +571,15 @@ public final class com/adevinta/spark/components/card/ComposableSingletons$CardK
 }
 
 public final class com/adevinta/spark/components/chips/ChipDashedKt {
-	public static final fun ChipDashed (Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/chips/ChipIntent;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
-	public static final fun ChipDashed (Lcom/adevinta/spark/icons/SparkIcon;Ljava/lang/String;Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/chips/ChipIntent;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)V
-	public static final fun ChipDashed (Ljava/lang/String;Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/chips/ChipIntent;ZLcom/adevinta/spark/icons/SparkIcon;Landroidx/compose/foundation/interaction/MutableInteractionSource;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)V
+	public static final fun ChipDashed (Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/chips/ChipIntent;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/animation/core/FiniteAnimationSpec;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
+	public static final fun ChipDashed (Lcom/adevinta/spark/icons/SparkIcon;Ljava/lang/String;Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/chips/ChipIntent;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/animation/core/FiniteAnimationSpec;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)V
+	public static final fun ChipDashed (Ljava/lang/String;Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/chips/ChipIntent;ZLcom/adevinta/spark/icons/SparkIcon;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/animation/core/FiniteAnimationSpec;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/adevinta/spark/components/chips/ChipDefaults {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/adevinta/spark/components/chips/ChipDefaults;
+	public final fun getSizeAnimationSpec ()Landroidx/compose/animation/core/FiniteAnimationSpec;
 }
 
 public abstract class com/adevinta/spark/components/chips/ChipIntent : java/lang/Enum {
@@ -598,16 +599,16 @@ public abstract class com/adevinta/spark/components/chips/ChipIntent : java/lang
 }
 
 public final class com/adevinta/spark/components/chips/ChipKt {
-	public static final fun Chip (Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function0;Ljava/lang/String;Lcom/adevinta/spark/components/chips/ChipIntent;Lcom/adevinta/spark/components/chips/ChipStyles;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;III)V
-	public static final fun Chip (Lkotlin/jvm/functions/Function0;Ljava/lang/String;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function0;Ljava/lang/String;Lcom/adevinta/spark/components/chips/ChipIntent;Lcom/adevinta/spark/components/chips/ChipStyles;ZLcom/adevinta/spark/icons/SparkIcon;Ljava/lang/String;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;III)V
-	public static final fun ChipSelectable (ZLkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function0;Ljava/lang/String;Lcom/adevinta/spark/components/chips/ChipIntent;Lcom/adevinta/spark/components/chips/ChipStyles;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;III)V
-	public static final fun ChipSelectable (ZLkotlin/jvm/functions/Function0;Ljava/lang/String;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function0;Ljava/lang/String;Lcom/adevinta/spark/components/chips/ChipIntent;Lcom/adevinta/spark/components/chips/ChipStyles;ZLcom/adevinta/spark/icons/SparkIcon;Ljava/lang/String;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/runtime/Composer;III)V
+	public static final fun Chip (Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function0;Ljava/lang/String;Lcom/adevinta/spark/components/chips/ChipIntent;Lcom/adevinta/spark/components/chips/ChipStyles;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/animation/core/FiniteAnimationSpec;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;III)V
+	public static final fun Chip (Lkotlin/jvm/functions/Function0;Ljava/lang/String;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function0;Ljava/lang/String;Lcom/adevinta/spark/components/chips/ChipIntent;Lcom/adevinta/spark/components/chips/ChipStyles;ZLcom/adevinta/spark/icons/SparkIcon;Ljava/lang/String;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/animation/core/FiniteAnimationSpec;Landroidx/compose/runtime/Composer;III)V
+	public static final fun ChipSelectable (ZLkotlin/jvm/functions/Function0;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function0;Ljava/lang/String;Lcom/adevinta/spark/components/chips/ChipIntent;Lcom/adevinta/spark/components/chips/ChipStyles;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/animation/core/FiniteAnimationSpec;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;III)V
+	public static final fun ChipSelectable (ZLkotlin/jvm/functions/Function0;Ljava/lang/String;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function0;Ljava/lang/String;Lcom/adevinta/spark/components/chips/ChipIntent;Lcom/adevinta/spark/components/chips/ChipStyles;ZLcom/adevinta/spark/icons/SparkIcon;Ljava/lang/String;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/animation/core/FiniteAnimationSpec;Landroidx/compose/runtime/Composer;III)V
 }
 
 public final class com/adevinta/spark/components/chips/ChipOutlinedKt {
-	public static final fun ChipOutlined (Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/chips/ChipIntent;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
-	public static final fun ChipOutlined (Lcom/adevinta/spark/icons/SparkIcon;Ljava/lang/String;Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/chips/ChipIntent;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)V
-	public static final fun ChipOutlined (Ljava/lang/String;Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/chips/ChipIntent;ZLcom/adevinta/spark/icons/SparkIcon;Landroidx/compose/foundation/interaction/MutableInteractionSource;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)V
+	public static final fun ChipOutlined (Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/chips/ChipIntent;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/animation/core/FiniteAnimationSpec;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
+	public static final fun ChipOutlined (Lcom/adevinta/spark/icons/SparkIcon;Ljava/lang/String;Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/chips/ChipIntent;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/animation/core/FiniteAnimationSpec;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)V
+	public static final fun ChipOutlined (Ljava/lang/String;Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/chips/ChipIntent;ZLcom/adevinta/spark/icons/SparkIcon;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/animation/core/FiniteAnimationSpec;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)V
 }
 
 public abstract class com/adevinta/spark/components/chips/ChipStyles : java/lang/Enum {
@@ -625,9 +626,9 @@ public final class com/adevinta/spark/components/chips/ChipStylesKt {
 }
 
 public final class com/adevinta/spark/components/chips/ChipTintedKt {
-	public static final fun ChipTinted (Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/chips/ChipIntent;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
-	public static final fun ChipTinted (Lcom/adevinta/spark/icons/SparkIcon;Ljava/lang/String;Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/chips/ChipIntent;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)V
-	public static final fun ChipTinted (Ljava/lang/String;Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/chips/ChipIntent;ZLcom/adevinta/spark/icons/SparkIcon;Landroidx/compose/foundation/interaction/MutableInteractionSource;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)V
+	public static final fun ChipTinted (Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/chips/ChipIntent;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/animation/core/FiniteAnimationSpec;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
+	public static final fun ChipTinted (Lcom/adevinta/spark/icons/SparkIcon;Ljava/lang/String;Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/chips/ChipIntent;ZLandroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/animation/core/FiniteAnimationSpec;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)V
+	public static final fun ChipTinted (Ljava/lang/String;Landroidx/compose/ui/Modifier;Lcom/adevinta/spark/components/chips/ChipIntent;ZLcom/adevinta/spark/icons/SparkIcon;Landroidx/compose/foundation/interaction/MutableInteractionSource;Landroidx/compose/animation/core/FiniteAnimationSpec;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class com/adevinta/spark/components/chips/ComposableSingletons$ChipDashedKt {

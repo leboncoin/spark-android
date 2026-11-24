@@ -21,6 +21,7 @@
  */
 package com.adevinta.spark.components.chips
 
+import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -32,6 +33,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
@@ -57,6 +59,9 @@ import com.adevinta.spark.tools.modifiers.ifTrue
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this chip. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this chip in different states.
+ * @param sizeAnimationSpec the [FiniteAnimationSpec] that animates the size of this chip when its content or its
+ * constraints change. Pass `null` to remove the size animation and its clip, so that the chip follows its constraints
+ * on the same frame. With `null`, the chip width jumps when its content changes.
  * @param onClick called when this chip is clicked
  * @param content a Composable to set as the chip's custom content.
  */
@@ -66,6 +71,7 @@ public fun ChipDashed(
     intent: ChipIntent = ChipIntent.Support,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    sizeAnimationSpec: FiniteAnimationSpec<IntSize>? = ChipDefaults.SizeAnimationSpec,
     onClick: () -> Unit = {},
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
@@ -78,6 +84,7 @@ public fun ChipDashed(
         modifier = modifier,
         enabled = enabled,
         interactionSource = interactionSource,
+        sizeAnimationSpec = sizeAnimationSpec,
         leadingIcon = leadingIcon,
         trailingIcon = trailingIcon,
         content = content,
@@ -97,6 +104,9 @@ public fun ChipDashed(
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this chip. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this chip in different states.
+ * @param sizeAnimationSpec the [FiniteAnimationSpec] that animates the size of this chip when its content or its
+ * constraints change. Pass `null` to remove the size animation and its clip, so that the chip follows its constraints
+ * on the same frame. With `null`, the chip width jumps when its content changes.
  * @param onClick called when this chip is clicked
  */
 @Composable
@@ -107,6 +117,7 @@ public fun ChipDashed(
     enabled: Boolean = true,
     leadingIcon: SparkIcon? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    sizeAnimationSpec: FiniteAnimationSpec<IntSize>? = ChipDefaults.SizeAnimationSpec,
     onClick: () -> Unit = {},
 ) {
     Chip(
@@ -118,6 +129,7 @@ public fun ChipDashed(
         enabled = enabled,
         leadingIcon = leadingIcon,
         interactionSource = interactionSource,
+        sizeAnimationSpec = sizeAnimationSpec,
     )
 }
 
@@ -137,6 +149,9 @@ public fun ChipDashed(
  * @param interactionSource the [MutableInteractionSource] representing the stream of [Interaction]s
  * for this chip. You can create and pass in your own `remember`ed instance to observe
  * [Interaction]s and customize the appearance / behavior of this chip in different states.
+ * @param sizeAnimationSpec the [FiniteAnimationSpec] that animates the size of this chip when its content or its
+ * constraints change. Pass `null` to remove the size animation and its clip, so that the chip follows its constraints
+ * on the same frame. With `null`, the chip width jumps when its content changes.
  * @param onClick called when this chip is clicked
  */
 @Composable
@@ -147,6 +162,7 @@ public fun ChipDashed(
     intent: ChipIntent = ChipIntent.Support,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    sizeAnimationSpec: FiniteAnimationSpec<IntSize>? = ChipDefaults.SizeAnimationSpec,
     onClick: () -> Unit = {},
 ) {
     Chip(
@@ -159,6 +175,7 @@ public fun ChipDashed(
         leadingIcon = icon,
         contentDescription = contentDescription,
         interactionSource = interactionSource,
+        sizeAnimationSpec = sizeAnimationSpec,
     )
 }
 
