@@ -27,24 +27,35 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.offset
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
-import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.TransformOrigin
+import androidx.compose.ui.layout.Measurable
+import androidx.compose.ui.layout.MeasureResult
+import androidx.compose.ui.layout.MeasureScope
+import androidx.compose.ui.node.LayoutModifierNode
+import androidx.compose.ui.node.ModifierNodeElement
+import androidx.compose.ui.node.invalidatePlacement
+import androidx.compose.ui.platform.InspectorInfo
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.Constraints
+import androidx.compose.ui.unit.LayoutDirection
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.buttons.Button
 import com.adevinta.spark.components.buttons.Danger
 import com.adevinta.spark.components.buttons.Success
 import com.adevinta.spark.components.buttons.Tertiary
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
 /**
@@ -119,35 +130,107 @@ public data class ShakeConfig(
  * @see ShakeConfig
  * @see rememberShakeController
  */
-@Suppress("ComposeModifierComposed")
-public fun Modifier.shake(shakeController: ShakeController): Modifier = composed {
-    shakeController.shakeConfig?.let { shakeConfig ->
-        val shake = remember { Animatable(0f) }
-        LaunchedEffect(shakeController.shakeConfig) {
-            for (i in 0..shakeConfig.iterations) {
-                when (i % 2) {
-                    0 -> shake.animateTo(1f, spring(stiffness = shakeConfig.intensity))
-                    else -> shake.animateTo(-1f, spring(stiffness = shakeConfig.intensity))
-                }
-            }
-            shake.animateTo(0f)
-        }
+public fun Modifier.shake(shakeController: ShakeController): Modifier = this then ShakeElement(shakeController)
 
-        this
-            .graphicsLayer {
-                rotationX = shake.value * shakeConfig.rotateX
-                rotationY = shake.value * shakeConfig.rotateY
-                scaleX = 1f + (shake.value * shakeConfig.scaleX)
-                scaleY = 1f + (shake.value * shakeConfig.scaleY)
-                rotationZ = shake.value * shakeConfig.rotate
+private data class ShakeElement(val shakeController: ShakeController) : ModifierNodeElement<ShakeNode>() {
+    override fun create(): ShakeNode = ShakeNode(shakeController)
+
+    override fun update(node: ShakeNode) {
+        node.update(shakeController)
+    }
+
+    override fun InspectorInfo.inspectableProperties() {
+        name = "shake"
+        properties["shakeController"] = shakeController
+    }
+}
+
+/**
+ * One layout node does the work of the former `graphicsLayer { }.offset { }` chain. It places the content
+ * with a layer at the shake offset, and moves the layer pivot back by that offset. The rotation and the
+ * scale then use the centre of the unmoved content as their pivot, as the outer `graphicsLayer` did.
+ */
+private class ShakeNode(private var shakeController: ShakeController) :
+    Modifier.Node(),
+    LayoutModifierNode {
+
+    private var shake = Animatable(0f)
+    private var shakeJob: Job? = null
+
+    // The config of the last started animation. A new controller with an equal config does not restart it,
+    // as the former LaunchedEffect key did not change.
+    private var lastConfig: ShakeConfig? = null
+
+    override val shouldAutoInvalidate: Boolean = false
+
+    fun update(shakeController: ShakeController) {
+        if (this.shakeController === shakeController) return
+        this.shakeController = shakeController
+        if (isAttached) launchShake()
+        invalidatePlacement()
+    }
+
+    override fun onAttach() {
+        launchShake()
+    }
+
+    override fun onDetach() {
+        shakeJob = null
+        lastConfig = null
+    }
+
+    override fun onReset() {
+        shake = Animatable(0f)
+    }
+
+    private fun launchShake() {
+        shakeJob?.cancel()
+        val controller = shakeController
+        shakeJob = coroutineScope.launch {
+            snapshotFlow { controller.shakeConfig }
+                .filterNotNull()
+                .filter { it != lastConfig }
+                .collectLatest { shakeConfig ->
+                    lastConfig = shakeConfig
+                    for (i in 0..shakeConfig.iterations) {
+                        when (i % 2) {
+                            0 -> shake.animateTo(1f, spring(stiffness = shakeConfig.intensity))
+                            else -> shake.animateTo(-1f, spring(stiffness = shakeConfig.intensity))
+                        }
+                    }
+                    shake.animateTo(0f)
+                }
+        }
+    }
+
+    override fun MeasureScope.measure(measurable: Measurable, constraints: Constraints): MeasureResult {
+        val placeable = measurable.measure(constraints)
+        return layout(placeable.width, placeable.height) {
+            val shakeConfig = shakeController.shakeConfig
+            if (shakeConfig == null) {
+                placeable.place(0, 0)
+                return@layout
             }
-            .offset {
-                IntOffset(
-                    (shake.value * shakeConfig.translateX).roundToInt(),
-                    (shake.value * shakeConfig.translateY).roundToInt(),
+            val value = shake.value
+            val translationX = (value * shakeConfig.translateX).roundToInt()
+            val translationY = (value * shakeConfig.translateY).roundToInt()
+            // The former offset { } placed the content relative to the layout direction.
+            val x = if (layoutDirection == LayoutDirection.Rtl) -translationX else translationX
+            val width = placeable.width
+            val height = placeable.height
+            placeable.placeWithLayer(x, translationY) {
+                rotationX = value * shakeConfig.rotateX
+                rotationY = value * shakeConfig.rotateY
+                scaleX = 1f + (value * shakeConfig.scaleX)
+                scaleY = 1f + (value * shakeConfig.scaleY)
+                rotationZ = value * shakeConfig.rotate
+                transformOrigin = TransformOrigin(
+                    pivotFractionX = if (width > 0) 0.5f - x.toFloat() / width else 0.5f,
+                    pivotFractionY = if (height > 0) 0.5f - translationY.toFloat() / height else 0.5f,
                 )
             }
-    } ?: this
+        }
+    }
 }
 
 @Composable
