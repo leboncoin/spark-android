@@ -4,7 +4,6 @@ compose-multiplatform = "1.12.2"
 androidx-activity = "1.13.0"
 androidx-appCompat = "1.8.0"
 androidx-benchmark = "1.5.0"
-androidx-tracing = "2.0.0-alpha08"
 androidx-tracing-perfetto = "1.0.1"
 compileSdk = "37"
 dokka = "2.3.0"
@@ -23,7 +22,7 @@ accompanist-drawablepainter = "com.google.accompanist:accompanist-drawablepainte
 
 android-gradle = { module = "com.android.tools.build:gradle-api", version.ref = "agp" }
 
-androidx-activity = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
+androidx-activity = { module = "androidx.activity:activity", version.ref = "androidx-activity" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
 
 androidx-appCompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appCompat" }
@@ -45,7 +44,7 @@ androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 androidx-compose-ui-util = { module = "androidx.compose.ui:ui-util" }
 
-androidx-core = "androidx.core:core-ktx:1.19.1"
+androidx-core = "androidx.core:core:1.19.1"
 
 androidx-graphics-shapes = "androidx.graphics:graphics-shapes:1.1.0"
 
@@ -55,7 +54,7 @@ androidx-metrics =  "androidx.metrics:metrics-performance:1.0.0"
 
 androidx-navigation-compose = "androidx.navigation:navigation-compose:2.10.2"
 
-androidx-savedstate = "androidx.savedstate:savedstate-ktx:1.5.0"
+androidx-savedstate = "androidx.savedstate:savedstate:1.5.0"
 androidx-tracing-perfetto = { module = "androidx.tracing:tracing-perfetto", version.ref = "androidx-tracing-perfetto" }
 androidx-tracing-perfetto-binary = { module = "androidx.tracing:tracing-perfetto-binary", version.ref = "androidx-tracing-perfetto" }
 
@@ -64,7 +63,7 @@ androidx-benchmark-macro-junit4 = { module = "androidx.benchmark:benchmark-macro
 androidx-test-junit = "androidx.test.ext:junit:1.3.0"
 androidx-test-truth = "androidx.test.ext:truth:1.7.0"
 
-androidx-window = "androidx.window:window:1.5.1"
+androidx-window-core = "androidx.window:window-core:1.5.1"
 
 compose-runtime = { module ="org.jetbrains.compose.runtime:runtime", version.ref = "compose-multiplatform" }
 compose-ui = { module ="org.jetbrains.compose.ui:ui", version.ref = "compose-multiplatform" }

@@ -52,7 +52,7 @@ kotlin {
             implementation(libs.androidx.core)
             implementation(libs.accompanist.drawablepainter)
             implementation(libs.androidx.compose.animation.graphics)
-            implementation(libs.androidx.appCompat)
+            implementation(libs.androidx.appCompat.resources)
         }
     }
 }
