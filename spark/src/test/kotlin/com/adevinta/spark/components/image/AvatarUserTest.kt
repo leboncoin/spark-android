@@ -21,6 +21,13 @@
  */
 package com.adevinta.spark.components.image
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher
@@ -29,8 +36,12 @@ import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
+import androidx.compose.ui.unit.dp
 import com.adevinta.spark.PreviewTheme
+import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -74,5 +85,57 @@ class AvatarUserTest {
 
         composeTestRule.onAllNodes(hasAnyText, useUnmergedTree = true).assertCountEquals(1)
         composeTestRule.onNodeWithText("É", useUnmergedTree = true).assertExists()
+    }
+
+    @Test
+    fun null_addon_composes_no_addon() {
+        var showAddon by mutableStateOf(false)
+        composeTestRule.setContent {
+            PreviewTheme {
+                Avatar.User(
+                    username = "spark",
+                    addon = { if (showAddon) custom { Box(Modifier.testTag(ADDON_TAG)) } else null },
+                )
+            }
+        }
+
+        composeTestRule.onNodeWithTag(ADDON_TAG).assertDoesNotExist()
+        showAddon = true
+        composeTestRule.onNodeWithTag(ADDON_TAG).assertExists()
+    }
+
+    @Test
+    fun custom_addon_renders_its_content() {
+        composeTestRule.setContent {
+            PreviewTheme {
+                Avatar.User(
+                    username = "spark",
+                    addon = { custom { Box(Modifier.testTag(ADDON_TAG).size(16.dp)) } },
+                )
+            }
+        }
+
+        composeTestRule.onNodeWithTag(ADDON_TAG).assertExists()
+    }
+
+    @Test
+    fun icon_button_addon_calls_on_click_once() {
+        var clicks = 0
+        composeTestRule.setContent {
+            PreviewTheme {
+                Avatar.User(
+                    username = "spark",
+                    size = AvatarSize.XL,
+                    addon = { iconButton(onClick = { clicks++ }, modifier = Modifier.testTag(ADDON_TAG)) },
+                )
+            }
+        }
+
+        composeTestRule.onNodeWithTag(ADDON_TAG).performClick()
+        assertEquals(1, clicks)
+    }
+
+    private companion object {
+        const val ADDON_TAG = "addon"
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Adevinta
+ * Copyright (c) 2025-2026 Adevinta
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.adevinta.spark.catalog.ui.animations
+package com.adevinta.spark.animation
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.AnimatedVisibilityScope
@@ -53,10 +53,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.SparkTheme
-import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.components.buttons.Button
-import com.adevinta.spark.components.buttons.ButtonFilled
 import com.adevinta.spark.components.buttons.Primary
 import com.adevinta.spark.components.card.Card
 import com.adevinta.spark.components.text.Text
@@ -83,7 +82,7 @@ import com.adevinta.spark.components.text.Text
  *
  */
 @Composable
-internal fun <T> AnimatedNullableVisibility(
+public fun <T> AnimatedNullableVisibility(
     value: T?,
     modifier: Modifier = Modifier,
     enter: EnterTransition = fadeIn() + expandIn(),

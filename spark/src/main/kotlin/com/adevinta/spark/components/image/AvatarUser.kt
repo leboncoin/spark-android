@@ -54,7 +54,7 @@ internal fun SparkAvatarUser(
     contentScale: ContentScale = ContentScale.Fit,
     fillParentSize: Boolean = false,
     model: Any? = null,
-    addon: @Composable AvatarAddonScope.(AvatarAddonItem) -> Unit = {},
+    addon: @Composable AvatarAddonScope.() -> AvatarAddonItem? = { null },
 ) {
     val letter = usernameInitial(username)
     SparkAvatar(
@@ -101,9 +101,10 @@ internal fun SparkAvatarUser(
  * fixed-size slot already sets the avatar size.
  * @param model image to load, for example the URL of the user photo. Null shows the letter placeholder.
  * @param addon optional slot on the circle rim at the bottom right. The addon stays at the bottom right
- * in a right-to-left layout. Call [AvatarAddonScope.onlineIndicator] for the standard presence dot,
- * [AvatarAddonScope.iconButton] for an action button, or [AvatarAddonScope.custom] for other content.
- * The default is empty.
+ * in a right-to-left layout. The lambda must end with a call on [AvatarAddonScope], such as
+ * [AvatarAddonScope.onlineIndicator] for the standard presence dot, [AvatarAddonScope.iconButton] for an
+ * action button, or [AvatarAddonScope.custom] for other content, or with `null` for no addon. It
+ * defaults to no addon.
  */
 @Suppress("UnusedReceiverParameter")
 @Composable
@@ -114,7 +115,7 @@ public fun Avatar.User(
     contentScale: ContentScale = ContentScale.Fit,
     fillParentSize: Boolean = false,
     model: Any? = null,
-    addon: @Composable AvatarAddonScope.(AvatarAddonItem) -> Unit = {},
+    addon: @Composable AvatarAddonScope.() -> AvatarAddonItem? = { null },
 ) {
     SparkAvatarUser(
         username = username,

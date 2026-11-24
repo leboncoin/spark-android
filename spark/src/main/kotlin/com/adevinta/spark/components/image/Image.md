@@ -199,6 +199,10 @@ standard presence dot (it draws nothing at `AvatarSize.XS`), `AvatarAddonScope.i
 `AvatarAddonScope.custom { ... }` for other content. The default icon of `iconButton` is
 `LeboncoinIcons.Plus`, so the call below shows an add button.
 
+The `addon` lambda must end with a call on `AvatarAddonScope`, such as `onlineIndicator()`,
+`iconButton(...)`, or `custom { ... }`, or with `null` for no addon. A conditional addon needs an
+`else` branch, for example `addon = { if (isOnline) onlineIndicator() else null }`.
+
 ```kotlin
 Avatar.User(
     username = user.name,

@@ -58,7 +58,7 @@ internal class AvatarScreenshot {
 
     @Test
     fun avatarAddonPlacement() {
-        val overflowingAddon: @Composable AvatarAddonScope.(AvatarAddonItem) -> Unit = {
+        val overflowingAddon: @Composable AvatarAddonScope.() -> AvatarAddonItem? = {
             iconButton(onClick = {})
         }
         paparazzi.sparkSnapshot {
@@ -117,13 +117,13 @@ internal class AvatarScreenshot {
                                 if (isCompany) {
                                     Avatar.Company(
                                         size = size,
-                                        addon = { if (isOnline) onlineIndicator() },
+                                        addon = { if (isOnline) onlineIndicator() else null },
                                     )
                                 } else {
                                     Avatar.User(
                                         username = "Spark",
                                         size = size,
-                                        addon = { if (isOnline) onlineIndicator() },
+                                        addon = { if (isOnline) onlineIndicator() else null },
                                     )
                                 }
                                 Text(
