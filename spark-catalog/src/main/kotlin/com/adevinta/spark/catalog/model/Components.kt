@@ -61,8 +61,11 @@ import com.adevinta.spark.catalog.configurator.samples.textfields.MultiChoiceDro
 import com.adevinta.spark.catalog.configurator.samples.textfields.MultiChoiceDropdownWithSelectedConfigurator
 import com.adevinta.spark.catalog.configurator.samples.textfields.SingleChoiceDropdownConfigurator
 import com.adevinta.spark.catalog.configurator.samples.textfields.TextFieldsConfigurator
+import com.adevinta.spark.catalog.configurator.samples.toggles.CheckboxCardConfigurator
 import com.adevinta.spark.catalog.configurator.samples.toggles.CheckboxConfigurator
+import com.adevinta.spark.catalog.configurator.samples.toggles.RadioButtonCardConfigurator
 import com.adevinta.spark.catalog.configurator.samples.toggles.RadioButtonConfigurator
+import com.adevinta.spark.catalog.configurator.samples.toggles.SwitchCardConfigurator
 import com.adevinta.spark.catalog.configurator.samples.toggles.SwitchConfigurator
 import com.adevinta.spark.catalog.configurator.samples.typography.TypographyConfigurator
 import com.adevinta.spark.catalog.examples.samples.animation.AnimationExamples
@@ -200,7 +203,7 @@ private val Checkboxes = Component(
     docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.toggles/index.html",
     sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/toggles/CheckBox.kt",
     examples = CheckboxExamples,
-    configurators = listOf(CheckboxConfigurator),
+    configurators = listOf(CheckboxConfigurator, CheckboxCardConfigurator),
 )
 
 private val Chips = Component(
@@ -432,7 +435,7 @@ private val RadioButtons = Component(
     docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.toggles/index.html",
     sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/toggles/RadioButton.kt",
     examples = RadioButtonExamples,
-    configurators = listOf(RadioButtonConfigurator),
+    configurators = listOf(RadioButtonConfigurator, RadioButtonCardConfigurator),
 )
 
 private val Rating = Component(
@@ -538,7 +541,7 @@ private val Switches = Component(
     docsUrl = "$PackageSummaryUrl/com.adevinta.spark.components.toggles/index.html",
     sourceUrl = "$SparkSourceUrl/kotlin/com/adevinta/spark/components/toggles/Switch.kt",
     examples = SwitchExamples,
-    configurators = listOf(SwitchConfigurator),
+    configurators = listOf(SwitchConfigurator, SwitchCardConfigurator),
 )
 
 private val Tabs = Component(

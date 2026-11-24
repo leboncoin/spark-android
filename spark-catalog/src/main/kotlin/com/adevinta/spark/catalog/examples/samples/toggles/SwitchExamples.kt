@@ -21,6 +21,8 @@
  */
 package com.adevinta.spark.catalog.examples.samples.toggles
 
+import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
@@ -31,8 +33,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.adevinta.spark.SparkTheme
 import com.adevinta.spark.catalog.R
 import com.adevinta.spark.catalog.model.Example
+import com.adevinta.spark.catalog.util.PreviewTheme
 import com.adevinta.spark.catalog.util.SampleSourceUrl
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.components.toggles.Switch
@@ -42,11 +48,14 @@ import com.adevinta.spark.components.toggles.SwitchLabelled
 import com.adevinta.spark.icons.BellOffFill
 import com.adevinta.spark.icons.BellOnFill
 import com.adevinta.spark.icons.LeboncoinIcons
+import com.adevinta.spark.tokens.dim1
+import com.adevinta.spark.tokens.highlight
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
 private const val SwitchExampleDescription = "Switch examples"
 private const val SwitchExampleSourceUrl = "$SampleSourceUrl/SwitchSamples.kt"
+private const val SwitchCardExampleSourceUrl = "$SampleSourceUrl/toggles/SwitchExamples.kt"
 internal val SwitchExamples: ImmutableList<Example> = persistentListOf(
     Example(
         id = "standalone",
@@ -92,7 +101,68 @@ internal val SwitchExamples: ImmutableList<Example> = persistentListOf(
     ) {
         VerticalAlignmentExample()
     },
+    Example(
+        id = "switch-card-list",
+        name = "Switch card list",
+        description = SwitchExampleDescription,
+        sourceUrl = SwitchCardExampleSourceUrl,
+    ) {
+        SwitchCardListExample()
+    },
 )
+
+private data class SwitchCardOption(@StringRes val title: Int, @StringRes val helper: Int)
+
+/** Independent notification settings, with one switch card for each channel. */
+@Composable
+private fun SwitchCardListExample() {
+    val options = remember {
+        persistentListOf(
+            SwitchCardOption(
+                title = R.string.spark_catalog_component_selection_card_example_notification_push_title,
+                helper = R.string.spark_catalog_component_selection_card_example_notification_push_helper,
+            ),
+            SwitchCardOption(
+                title = R.string.spark_catalog_component_selection_card_example_notification_email_title,
+                helper = R.string.spark_catalog_component_selection_card_example_notification_email_helper,
+            ),
+            SwitchCardOption(
+                title = R.string.spark_catalog_component_selection_card_example_notification_sms_title,
+                helper = R.string.spark_catalog_component_selection_card_example_notification_sms_helper,
+            ),
+        )
+    }
+    var checkedStates by remember { mutableStateOf(List(options.size) { it == 0 }) }
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        options.forEachIndexed { index, option ->
+            Switch.Card(
+                checked = checkedStates[index],
+                onCheckedChange = { checked ->
+                    checkedStates = checkedStates.mapIndexed { i, state -> if (i == index) checked else state }
+                },
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                CardTexts(title = stringResource(option.title), helper = stringResource(option.helper))
+            }
+        }
+    }
+}
+
+@Composable
+private fun CardTexts(title: String, helper: String) {
+    Text(text = title, style = SparkTheme.typography.body1.highlight)
+    Text(
+        text = helper,
+        style = SparkTheme.typography.body2,
+        color = SparkTheme.colors.onSurface.dim1,
+    )
+}
+
+@Preview
+@Composable
+private fun SwitchCardExamplesPreview() {
+    PreviewTheme { SwitchCardListExample() }
+}
 
 @Composable
 private fun LabeledSwitchGroupExample() {

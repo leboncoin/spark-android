@@ -40,7 +40,8 @@ internal const val DocsUrl: String = "https://adevinta.github.io/spark-android"
 internal const val SourceUrl: String = "https://github.com/leboncoin/spark-android"
 internal const val SparkSourceUrl: String = "https://github.com/leboncoin/spark-android/tree/main/spark/src/main"
 
-internal const val SampleSourceUrl: String = "https://github.com/leboncoin/spark-android/blob/main/catalog/src/main/kotlin/com/adevinta/spark/catalog/examples/samples"
+internal const val SampleSourceUrl: String = "https://github.com/leboncoin/spark-android/blob/main/spark-catalog/src/main/kotlin/com/adevinta/spark/catalog/examples/samples"
+internal const val ConfiguratorSourceUrl: String = "https://github.com/leboncoin/spark-android/blob/main/spark-catalog/src/main/kotlin/com/adevinta/spark/catalog/configurator/samples"
 
 internal const val PackageSummaryUrl: String = "https://adevinta.github.io/spark-android/spark"
 

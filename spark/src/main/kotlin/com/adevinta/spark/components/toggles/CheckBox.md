@@ -23,6 +23,16 @@ Checkbox(
 )
 ```
 
+`Checkbox.Standalone` takes the same parameters as `Checkbox`. Pass `onClick = null` for a passive
+checkbox, for example when a parent owns the click and the state.
+
+```kotlin
+Checkbox.Standalone(
+    state = ToggleableState.On,
+    onClick = null,
+)
+```
+
 ---
 
 ### CheckBoxLabelled
@@ -54,7 +64,8 @@ CheckboxLabelled(
 
 ### Styles
 
-The `CheckBox` and `CheckboxLabelled` can have an error style by passing `error = true` to its parameters.
+The `Checkbox` and `CheckboxLabelled` can have an error style by passing `error = true` to its parameters.
+`Checkbox.Card` takes an error message instead. See "Selection cards" below.
 
 ## Layout
 
@@ -68,27 +79,26 @@ The `CheckBox` and `CheckboxLabelled` can have an error style by passing `error 
 fun CheckboxSample() {
     Column {
         // define dependent checkboxes states
-        val (state, onStateChange) = remember { mutableStateOf(ToggleableState.On) }
-        val (state2, onStateChange2) = remember { mutableStateOf(ToggleableState.On) }
-        // TriStateCheckbox state reflects state of dependent checkboxes
-        val parentState = remember(state, state2) {
-            if (state && state2) ToggleableState.On
-            else if (!state && !state2) ToggleableState.Off
-            else ToggleableState.Indeterminate
+        var checked by remember { mutableStateOf(true) }
+        var checked2 by remember { mutableStateOf(true) }
+        // The parent state reflects the state of the dependent checkboxes
+        val parentState = when {
+            checked && checked2 -> ToggleableState.On
+            !checked && !checked2 -> ToggleableState.Off
+            else -> ToggleableState.Indeterminate
         }
-        // click on TriStateCheckbox can set state for dependent checkboxes
-        val onParentClick = {
-            val s = parentState != ToggleableState.On
-            onStateChange(s)
-            onStateChange2(s)
-        }
-        Option(
+        // A click on the parent sets the state of the dependent checkboxes
+        CheckboxLabelled(
             state = parentState,
-            onClick = onParentClick,
-        )
+            onClick = {
+                val newValue = parentState != ToggleableState.On
+                checked = newValue
+                checked2 = newValue
+            },
+        ) { Text("All") }
         Column(modifier = Modifier.selectableGroup()) {
-            Option(state, onStateChange)
-            Option(state2, onStateChange2)
+            Option(option = "First", checked = checked, onCheckedChange = { checked = it })
+            Option(option = "Second", checked = checked2, onCheckedChange = { checked2 = it })
         }
     }
 }
@@ -96,12 +106,30 @@ fun CheckboxSample() {
 @Composable
 fun Option(
     option: String,
-    onClick: (() -> Unit)
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
 ) {
     CheckboxLabelled(
-        state = checkedState,
-        onClick = onClick,
+        state = ToggleableState(checked),
+        onClick = { onCheckedChange(!checked) },
     ) { Text(option) }
+}
+```
+
+## Selection cards
+
+To present each option as a bordered card, use `Checkbox.Card`. The usage and design rules for cards are in the "Selection cards" section of this package.
+
+```kotlin
+var state by remember { mutableStateOf(ToggleableState.Off) }
+Checkbox.Card(
+    state = state,
+    onClick = {
+        state = if (state == ToggleableState.On) ToggleableState.Off else ToggleableState.On
+    },
+) {
+    Text("Delivery")
+    Text("Receive the item at home")
 }
 ```
 

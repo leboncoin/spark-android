@@ -25,8 +25,10 @@ package com.adevinta.spark.components.toggles
 
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -41,7 +43,7 @@ import com.adevinta.spark.components.IntentColors
 import com.adevinta.spark.components.text.Text
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 
-@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // This composable wraps the material component
 @Composable
 @InternalSparkApi
 internal fun SparkRadioButton(
@@ -105,6 +107,126 @@ public fun RadioButton(
         enabled = enabled,
         modifier = modifier,
     )
+}
+
+/**
+ * Spark radio button variants.
+ *
+ * Call [RadioButton] directly for the bare control.
+ */
+public object RadioButton {
+
+    /**
+     * Radio buttons allow users to select one option from a set.
+     *
+     *  - Use radio buttons to select a single option from a list.
+     *  - Make the selected option visible at a glance and more prominent than the unselected options.
+     *  - Show all the available options. When the options can be collapsed, a dropdown menu uses less space.
+     *
+     * ![Radio Button States](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.toggles_RadioButtonDocumentationScreenshots_radioButtonStates.png)
+     *
+     * @param selected whether the radio button is selected.
+     * @param onClick called when the user clicks the radio button. When null, the radio button does not handle
+     * input events and only shows the selected state.
+     * @param modifier the [Modifier] applied to the radio button.
+     * @param enabled whether the radio button reacts to clicks. A disabled radio button is dimmed.
+     * @param error whether the radio button shows the error colours.
+     * @param interactionSource the [MutableInteractionSource] that emits the [Interaction]s of this radio button.
+     * Pass your own remembered instance to observe them or to change the appearance for an [Interaction].
+     */
+    @Composable
+    public fun Standalone(
+        selected: Boolean,
+        onClick: (() -> Unit)?,
+        modifier: Modifier = Modifier,
+        enabled: Boolean = true,
+        error: Boolean = false,
+        interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    ) {
+        SparkRadioButton(
+            selected = selected,
+            onClick = onClick,
+            modifier = modifier,
+            intent = if (error) IntentColors.Danger else IntentColors.Support,
+            enabled = enabled,
+            interactionSource = interactionSource,
+        )
+    }
+
+    /**
+     * A card that the user selects as one option from a set.
+     * The whole card is one target with [Role.RadioButton], and it exposes the selected state.
+     * Put the cards of one group in a parent with `Modifier.selectableGroup()`, so that screen readers announce
+     * them as one group.
+     *
+     * Pass `toggle = { null }` to hide the control. Then add helper text that says whether the user can pick one
+     * option or several.
+     *
+     * ![RadioButton.Card](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.toggles_SelectionCardDocumentationScreenshots_radio_group.png)
+     *
+     * @param selected whether the card is selected.
+     * @param onClick called when the user clicks the card.
+     * @param modifier the [Modifier] applied to the card.
+     * @param enabled whether the card reacts to clicks. A disabled card is dimmed once, as a whole.
+     * @param error the error message that screen readers read aloud, or null when the card has no error.
+     * Use a short, specific and non-blank message, and hide any visible copy of it from accessibility services.
+     * @param layout the position of the [toggle] relative to the [content].
+     * @param interactionSource an optional hoisted [MutableInteractionSource] for the card interactions.
+     * @param toggle the passive control. It must end with a call on [RadioButtonCardScope], such as
+     * [RadioButtonCardScope.radioButton] or [RadioButtonCardScope.custom], or with `null`. It defaults to a radio
+     * button that follows [selected] and [error].
+     * @param content the content of the card.
+     */
+    @Composable
+    public fun Card(
+        selected: Boolean,
+        onClick: () -> Unit,
+        modifier: Modifier = Modifier,
+        enabled: Boolean = true,
+        error: String? = null,
+        layout: SelectionCardLayout = SelectionCardLayout.Horizontal,
+        interactionSource: MutableInteractionSource? = null,
+        toggle: @Composable RadioButtonCardScope.() -> SelectionCardItem? = { radioButton() },
+        content: @Composable ColumnScope.() -> Unit,
+    ) {
+        require(error == null || error.isNotBlank()) {
+            "error must not be blank. Pass null when the card has no error."
+        }
+        SparkSelectionCard(
+            selected = selected,
+            onClick = onClick,
+            style = RadioButtonTokens.Card.style,
+            modifier = modifier,
+            enabled = enabled,
+            error = error,
+            layout = layout,
+            interactionSource = interactionSource,
+            toggle = toggle,
+            content = content,
+        )
+    }
+}
+
+@Preview(group = "Toggles", name = "RadioButton Card")
+@Composable
+private fun RadioButtonCardPreview() {
+    PreviewTheme {
+        SelectionCardLayout.entries.forEach { layout ->
+            Column(modifier = Modifier.selectableGroup()) {
+                RadioButton.Card(selected = true, onClick = {}, layout = layout) { Text("Selected") }
+                RadioButton.Card(selected = false, onClick = {}, layout = layout) { Text("Unselected") }
+                RadioButton.Card(
+                    selected = true,
+                    onClick = {},
+                    error = "Select another option",
+                    layout = layout,
+                ) { Text("Error") }
+                RadioButton.Card(selected = false, onClick = {}, enabled = false, layout = layout) {
+                    Text("Disabled")
+                }
+            }
+        }
+    }
 }
 
 /**

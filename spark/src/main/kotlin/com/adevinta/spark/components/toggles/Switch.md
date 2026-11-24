@@ -14,9 +14,19 @@ Switch component allows the user to activate or deactivate the state of an eleme
 It is usually used as an element to add services, activate functionalities or adjust settings.
 It is also used to control binary options (On/Off or True/False).
 
+`Switch.Standalone` takes the same parameters as `Switch`. Pass `onCheckedChange = null` for a
+passive switch, for example when a parent owns the click and the state.
+
+```kotlin
+Switch.Standalone(
+    checked = true,
+    onCheckedChange = null,
+)
+```
+
 ### SwitchLabelled
 
-The minimal usage of the component is a standalone checkbox but you can add a label
+The minimal usage of the component is a standalone switch but you can add a label
 using `SwitchLabelled`.
 Please refer to design specs to find what content is accepted.
 
@@ -48,12 +58,30 @@ SwitchLabelled(
 
 The `Switch` and `SwitchLabelled` now only have one style: **"Support"**.
 
+Pass `icons = SwitchDefaults.icons` to show an icon in the thumb. `SwitchTokens.thumbIconSize`
+sets the icon size to 12 dp.
+
 ## Layout
 
-- The Switch respects the minimum touch size.
+- The Switch respects the minimum touch size. `Switch.Standalone` adds it only when it has an
+  `onCheckedChange` callback, so a passive switch takes the size of its track.
 - Switch labels are now always positioned at the right/end for improved accessibility.
 
 ### SwitchGroup
 
 > 🚀 TODO
 > We plan to provide a layout composable to make it easier to follow the design specs.
+
+## Selection cards
+
+To present a setting as a bordered card, use `Switch.Card`. The usage and design rules for cards are in the "Selection cards" section of this package.
+
+```kotlin
+var checked by remember { mutableStateOf(false) }
+Switch.Card(
+    checked = checked,
+    onCheckedChange = { checked = it },
+) {
+    Text("Notifications")
+}
+```

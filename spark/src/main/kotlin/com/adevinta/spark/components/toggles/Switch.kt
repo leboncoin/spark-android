@@ -25,7 +25,9 @@ package com.adevinta.spark.components.toggles
 
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.runtime.Composable
@@ -35,7 +37,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.adevinta.spark.InternalSparkApi
 import com.adevinta.spark.PreviewTheme
 import com.adevinta.spark.components.IntentColors
@@ -51,7 +52,7 @@ import com.adevinta.spark.tools.modifiers.minimumTouchTargetSize
 import com.adevinta.spark.tools.modifiers.sparkUsageOverlay
 import androidx.compose.material3.Switch as MaterialSwitch
 
-@Suppress("MaterialComposableHasSparkReplacement") // We're wrapping the material component
+@Suppress("MaterialComposableHasSparkReplacement") // This composable wraps the material component
 @Composable
 @InternalSparkApi
 internal fun SparkSwitch(
@@ -63,13 +64,13 @@ internal fun SparkSwitch(
     icons: SwitchIcons? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
-    // Icon isn't focusable, no need for content description
+    // The icon is not focusable, so it needs no content description
     val icon: (@Composable () -> Unit)? = icons?.let {
         {
             Icon(
                 sparkIcon = if (checked) it.checked else it.unchecked,
                 contentDescription = null,
-                modifier = Modifier.size(12.dp),
+                modifier = Modifier.size(SwitchTokens.thumbIconSize),
             )
         }
     }
@@ -123,8 +124,95 @@ public fun Switch(
 }
 
 /**
+ * Spark switch variants.
  *
- * Switches are the preferred way to adjust settings. They're used to control binary options – think On/Off or True/False.
+ * Call [Switch] directly for the bare control.
+ */
+public object Switch {
+
+    /**
+     * A switch lets the user turn an element or a setting on or off.
+     * Use it to add services, activate features, adjust settings or control binary options such as On and Off.
+     *
+     * ![Switch States](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.toggles_SwitchDocumentationScreenshots_switchStates.png)
+     *
+     * The switch adds a minimum touch target only when [onCheckedChange] is set.
+     * A passive switch takes the size of its track, so the parent component owns the touch target.
+     *
+     * @param checked whether the switch is on.
+     * @param onCheckedChange called with the new value when the user clicks the switch. When null, the switch is
+     * passive and a parent component owns the click and the state.
+     * @param modifier the [Modifier] applied to the switch.
+     * @param enabled whether the switch reacts to clicks. A disabled switch is dimmed.
+     * @param icons the icons that the thumb shows for the checked and unchecked states, or null for no icons.
+     * [SwitchDefaults.icons] holds the default pair.
+     * @param interactionSource the [MutableInteractionSource] that emits the [Interaction]s of this switch.
+     * Pass your own remembered instance to observe them or to change the appearance for an [Interaction].
+     */
+    @Composable
+    public fun Standalone(
+        checked: Boolean,
+        onCheckedChange: ((Boolean) -> Unit)?,
+        modifier: Modifier = Modifier,
+        enabled: Boolean = true,
+        icons: SwitchIcons? = null,
+        interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    ) {
+        SparkSwitch(
+            checked = checked,
+            onCheckedChange = onCheckedChange,
+            modifier = if (onCheckedChange != null) modifier.minimumTouchTargetSize() else modifier,
+            enabled = enabled,
+            icons = icons,
+            interactionSource = interactionSource,
+        )
+    }
+
+    /**
+     * A card with a switch for a setting that turns on or off on its own.
+     * The whole card is one toggleable target with [Role.Switch].
+     *
+     * ![Switch.Card](https://leboncoin.github.io/spark-android/images/com.adevinta.spark.components.toggles_SelectionCardDocumentationScreenshots_switch_list.png)
+     *
+     * @param checked whether the card is on.
+     * @param onCheckedChange called with the new value when the user clicks the card.
+     * @param modifier the [Modifier] applied to the card.
+     * @param enabled whether the card reacts to clicks. A disabled card is dimmed once, as a whole.
+     * @param layout the position of the [toggle] relative to the [content].
+     * @param interactionSource an optional hoisted [MutableInteractionSource] for the card interactions.
+     * @param toggle the passive control. It must end with a call on [SwitchCardScope], such as
+     * [SwitchCardScope.switch] or [SwitchCardScope.custom], or with `null`. It defaults to a switch that follows
+     * [checked]. Pass `toggle = { null }` to hide the control.
+     * @param content the content of the card.
+     */
+    @Composable
+    public fun Card(
+        checked: Boolean,
+        onCheckedChange: (Boolean) -> Unit,
+        modifier: Modifier = Modifier,
+        enabled: Boolean = true,
+        layout: SelectionCardLayout = SelectionCardLayout.Horizontal,
+        interactionSource: MutableInteractionSource? = null,
+        toggle: @Composable SwitchCardScope.() -> SelectionCardItem? = { switch() },
+        content: @Composable ColumnScope.() -> Unit,
+    ) {
+        SparkSelectionCard(
+            checked = checked,
+            onCheckedChange = onCheckedChange,
+            style = SwitchTokens.Card.style,
+            modifier = modifier,
+            enabled = enabled,
+            layout = layout,
+            interactionSource = interactionSource,
+            toggle = toggle,
+            content = content,
+        )
+    }
+}
+
+/**
+ *
+ * Switches are the preferred way to adjust settings. They control binary options such as On/Off or True/False.
  *
  *  - Toggle a single item on or off.
  *  - Immediately activate or deactivate something.
@@ -234,5 +322,44 @@ private fun AllStatesSwitchLabelledPreview() {
             onCheckedChange = {},
             icons = icons,
         ) { Text(text) }
+    }
+}
+
+@Composable
+private fun SwitchCardPreviewContent(layout: SelectionCardLayout) {
+    Switch.Card(
+        checked = true,
+        onCheckedChange = {},
+        modifier = Modifier.fillMaxWidth(),
+        layout = layout,
+    ) { Text("On") }
+    Switch.Card(
+        checked = false,
+        onCheckedChange = {},
+        modifier = Modifier.fillMaxWidth(),
+        layout = layout,
+    ) { Text("Off") }
+    Switch.Card(
+        checked = true,
+        onCheckedChange = {},
+        modifier = Modifier.fillMaxWidth(),
+        enabled = false,
+        layout = layout,
+    ) { Text("Disabled") }
+}
+
+@Preview(group = "Toggles", name = "Switch.Card Horizontal")
+@Composable
+private fun SwitchCardHorizontalPreview() {
+    PreviewTheme {
+        SwitchCardPreviewContent(layout = SelectionCardLayout.Horizontal)
+    }
+}
+
+@Preview(group = "Toggles", name = "Switch.Card Vertical")
+@Composable
+private fun SwitchCardVerticalPreview() {
+    PreviewTheme {
+        SwitchCardPreviewContent(layout = SelectionCardLayout.Vertical)
     }
 }
