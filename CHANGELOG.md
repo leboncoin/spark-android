@@ -2,6 +2,43 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [5.1.0](https://github.com/leboncoin/spark-android/compare/5.0.1...5.1.0) (2026-11-24)
+
+
+### Features
+
+* **chips:** add sizeAnimationSpec to opt out of the size animation ([#2419](https://github.com/leboncoin/spark-android/issues/2419)) ([e086276](https://github.com/leboncoin/spark-android/commit/e086276764a80c540910ea1d2f0079df2bd1d53f))
+* **icons:** update icons ([#2400](https://github.com/leboncoin/spark-android/issues/2400)) ([db1f831](https://github.com/leboncoin/spark-android/commit/db1f8310939c4325e3a0e9e6f981288328788e25))
+* **toggles:** add SelectionCard variant for checkbox, radio and switch ([#2418](https://github.com/leboncoin/spark-android/issues/2418)) ([ae12512](https://github.com/leboncoin/spark-android/commit/ae12512f4acfa4a60d702b5771034199b5dc8fbe))
+
+
+### Bug Fixes
+
+* **build:** resolve ciUnitTest task dependencies lazily ([#2407](https://github.com/leboncoin/spark-android/issues/2407)) ([3d9cd57](https://github.com/leboncoin/spark-android/commit/3d9cd57e29f3a7d495fd0b73fb9adabdb3f08dd5))
+* invalid link in `release-please-config.js` ([#2414](https://github.com/leboncoin/spark-android/issues/2414)) ([d011391](https://github.com/leboncoin/spark-android/commit/d011391bcb4bdb38daf69fbb9a273874a90fa0f1))
+
+
+### Miscellaneous
+
+* **baseline:** regenerate baseline profiles ([#2408](https://github.com/leboncoin/spark-android/issues/2408)) ([9815b4c](https://github.com/leboncoin/spark-android/commit/9815b4c26d2330f57784c77013179de1cb1b45e6))
+* **deps:** bump actions/setup-node from 6 to 7 in /.github/workflows ([#2073](https://github.com/leboncoin/spark-android/issues/2073)) ([fe1e469](https://github.com/leboncoin/spark-android/commit/fe1e469d8c77185ca9dffa4f9edad959f0d4f407))
+* **deps:** bump agp from 9.4.1 to 9.5.2 ([#2410](https://github.com/leboncoin/spark-android/issues/2410)) ([b589bb7](https://github.com/leboncoin/spark-android/commit/b589bb743819b266096278c928a0fd3b3b09ae51))
+* **deps:** bump com.diffplug.spotless from 8.11.0 to 8.12.0 ([#2417](https://github.com/leboncoin/spark-android/issues/2417)) ([4439e5c](https://github.com/leboncoin/spark-android/commit/4439e5c57c06897ca76897b862452b0d41a49a42))
+* **deps:** bump filekit from 0.17.0 to 0.17.1 ([#2409](https://github.com/leboncoin/spark-android/issues/2409)) ([cee4dcd](https://github.com/leboncoin/spark-android/commit/cee4dcd61e94529ae409e67c8a8b245ebd631b55))
+* **deps:** bump github/codeql-action from 4.39.3 to 4.39.4 in /.github/workflows ([#2416](https://github.com/leboncoin/spark-android/issues/2416)) ([0d427d3](https://github.com/leboncoin/spark-android/commit/0d427d3c1777d5297474c7ce85e09a46167c8770))
+* **deps:** bump gradle-wrapper from 9.9.0 to 9.9.1 ([#2395](https://github.com/leboncoin/spark-android/issues/2395)) ([b8f7277](https://github.com/leboncoin/spark-android/commit/b8f7277b589739adca84d6f7446b95ff598bc683))
+* **deps:** bump gradle-wrapper from 9.9.1 to 9.9.2 ([#2412](https://github.com/leboncoin/spark-android/issues/2412)) ([916c3d5](https://github.com/leboncoin/spark-android/commit/916c3d53c5154cb2929329b4476be74b29e0548d))
+* **deps:** bump org.jetbrains.kotlinx:kotlinx-serialization-json from 1.12.0 to 1.13.0 ([#2396](https://github.com/leboncoin/spark-android/issues/2396)) ([226837f](https://github.com/leboncoin/spark-android/commit/226837fb7ba737851458db7fed148ce0b9896e36))
+* **deps:** bump org.robolectric:robolectric from 4.17 to 4.18 ([#2402](https://github.com/leboncoin/spark-android/issues/2402)) ([e3acd07](https://github.com/leboncoin/spark-android/commit/e3acd077bf095410e8c4e8c23cc866363cbc823c))
+* **deps:** bump org.robolectric:robolectric from 4.18 to 4.18.1 ([#2413](https://github.com/leboncoin/spark-android/issues/2413)) ([30ee45e](https://github.com/leboncoin/spark-android/commit/30ee45e638dcdba33da566ffb84b2faad354f73c))
+* **divider:** remove ConstraintLayout dependency ([#2166](https://github.com/leboncoin/spark-android/issues/2166)) ([9f89392](https://github.com/leboncoin/spark-android/commit/9f893928148ec608c3d19ec047c411d44394bb62))
+
+
+### Refactoring
+
+* **catalog:** move R8 keep rules to spark-catalog consumer rules ([#2406](https://github.com/leboncoin/spark-android/issues/2406)) ([007d005](https://github.com/leboncoin/spark-android/commit/007d005829f19dfd1d885c7cb3090a5b52ce19c8))
+* **lint:** replace `@SuppressLint` usages by `@Suppress` ([#2405](https://github.com/leboncoin/spark-android/issues/2405)) ([1a86896](https://github.com/leboncoin/spark-android/commit/1a86896cfdc6d843ec6c19944676fc89378e6316))
+
 ## [5.0.1](https://github.com/leboncoin/spark-android/compare/5.0.0...5.0.1) (2026-11-16)
 
 
