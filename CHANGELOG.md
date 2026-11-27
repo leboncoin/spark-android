@@ -2,6 +2,14 @@
 
 > For step-by-step migration code covering each breaking change, see [UPGRADING.md](UPGRADING.md).
 
+## [5.1.1](https://github.com/leboncoin/spark-android/compare/5.1.0...5.1.1) (2026-11-27)
+
+
+### Miscellaneous
+
+* **deps:** bump the android-build-tools group with 5 updates ([#2429](https://github.com/leboncoin/spark-android/issues/2429)) ([89f0a07](https://github.com/leboncoin/spark-android/commit/89f0a07040775184ccbd38d0c4321d7a921cfd57))
+* **deps:** bump zizmorcore/zizmor-action from 0.8.1 to 0.9.2 in /.github/workflows ([#2426](https://github.com/leboncoin/spark-android/issues/2426)) ([bae3bfd](https://github.com/leboncoin/spark-android/commit/bae3bfd6a0b00b3f92147a54711b64efbda218f6))
+
 ## [5.1.0](https://github.com/leboncoin/spark-android/compare/5.0.1...5.1.0) (2026-11-24)
 
 
