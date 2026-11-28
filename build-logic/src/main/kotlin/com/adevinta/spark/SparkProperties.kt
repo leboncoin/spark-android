@@ -21,6 +21,8 @@
  */
 package com.adevinta.spark
 
+import com.android.build.api.dsl.CompileSdkSpec
+import com.android.build.api.dsl.CompileSdkVersion
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.kotlin.dsl.provideDelegate
@@ -46,6 +48,14 @@ internal class SparkVersions(catalog: VersionCatalog) {
     val `minCompileSdk` by catalog
     val `compileSdk` by catalog
     val `kotlin` by catalog
+
+    /** The [compileSdk] resolved against a [CompileSdkSpec], supporting optional minor API levels, e.g. "37.2". */
+    fun compileSdkVersion(spec: CompileSdkSpec): CompileSdkVersion {
+        val parts = compileSdk.requiredVersion.split('.').map(String::toInt)
+        return spec.release(parts.first()) {
+            minorApiLevel = parts.getOrNull(1)
+        }
+    }
 
     private operator fun VersionCatalog.getValue(
         thisRef: Any?,

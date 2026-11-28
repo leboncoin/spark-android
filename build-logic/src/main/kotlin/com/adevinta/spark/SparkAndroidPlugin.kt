@@ -39,7 +39,9 @@ public class SparkAndroidPlugin : Plugin<Project> {
             configureKotlin<KotlinAndroidProjectExtension>()
 
             configureAndroid {
-                compileSdk = spark().versions.compileSdk.toString().toInt()
+                compileSdk {
+                    version = spark().versions.compileSdkVersion(this)
+                }
                 defaultConfig.minSdk = spark().versions.minCompileSdk.toString().toInt()
                 packaging.apply {
                     resources {
